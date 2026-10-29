@@ -1,0 +1,117 @@
+{
+  "provider": {
+    "key": "blue-ridge-jam",
+    "name": "Blue Ridge JAM",
+    "urls": ["https://jamkids.org/blueridge"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:15:50.865Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8b13b01443e0afd01dd81b207feae64c215e986a1a9472bd9fddb9ef98f6c9a1",
+  "response": {
+    "searches": [
+      "\"Blue Ridge JAM\" \"camp\" 2026",
+      "open https://www.cashiershistory.org/jam-camp-2026",
+      "site:cashiershistory.org \"JAM\" \"2026\" \"$75\""
+    ],
+    "usage": {
+      "inputTokens": 24177,
+      "cachedInputTokens": 8845,
+      "outputTokens": 887,
+      "reasoningTokens": 250
+    },
+    "status": "completed",
+    "ms": 25234,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://jamkids.org/blueridge",
+      "chars": 4720,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jamkids.org/",
+      "chars": 2529,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge JAM",
+    "website_url": "https://jamkids.org/blueridge",
+    "notes": "No 2027 JAM Camp information found. The official partner's 2026 camp page lists downloadable welcome, registration and waiver documents, but their links were not exposed in the readable page. The 2026 page still says registration is open despite the camp dates being past; availability is therefore left null.",
+    "excluded": [
+      {
+        "name": "Blue Ridge JAM afternoon lessons and String Band fun jams",
+        "reason": "Semester-based music lessons and recurring afternoon meetings, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "JAM Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Campers receive beginner, intermediate or advanced instruction on stringed instruments and participate in crafts, games and activities rooted in local history and culture. On the final day, campers present a short concert at The Village Green.",
+        "camp_page_url": "https://www.cashiershistory.org/jam-camp-2026",
+        "registration_url": "https://www.cashiershistory.org/jam-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Cashiers Historical Society Campus",
+            "address": "1940 Highway 107 South",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "17:00",
+          "text": "10:00am -5:00pm daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch: Included"
+        },
+        "transportation": null,
+        "sources": [
+          "https://jamkids.org/blueridge",
+          "https://www.cashiershistory.org/jam-camp-2026",
+          "https://www.cashiershistory.org/events/jam-camp"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

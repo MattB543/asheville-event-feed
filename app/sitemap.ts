@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { gte, asc, and } from 'drizzle-orm';
 import { queryGroupSitemapEntries } from '@/lib/db/queries/groups';
+import { listLiveCamps } from '@/lib/db/queries/camps';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { liveEvent } from '@/lib/db/liveEvent';
@@ -41,6 +42,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/groups`,
       changeFrequency: 'daily',
       priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/camps`,
+      changeFrequency: 'daily',
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/playlist`,
@@ -89,6 +95,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
   } catch (error) {
     console.error('[Sitemap] Failed to fetch groups:', error);
+  }
+
+  // Camp pages, likewise on their own
+  try {
+    const camps = await listLiveCamps();
+    staticPages.push(
+      ...camps.map((camp) => ({
+        url: `${SITE_URL}/camps/${camp.slug}`,
+        lastModified: camp.updatedAt,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      }))
+    );
+  } catch (error) {
+    console.error('[Sitemap] Failed to fetch camps:', error);
   }
 
   try {

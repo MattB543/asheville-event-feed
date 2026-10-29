@@ -1,0 +1,65 @@
+{
+  "provider": {
+    "key": "trinity-united-methodist-church-of-asheville",
+    "name": "Trinity United Methodist Church of Asheville",
+    "urls": ["https://trinitywavl.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://trinitywavl.org/"
+  },
+  "extractedAt": "2026-10-29T17:03:39.992Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:trinitywavl.org vacation bible summer 2026 2027",
+      "site:trinitywavl.org \"Camp Connect\""
+    ],
+    "usage": {
+      "inputTokens": 18990,
+      "cachedInputTokens": 8845,
+      "outputTokens": 596,
+      "reasoningTokens": 248
+    },
+    "status": "completed",
+    "ms": 30030,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trinitywavl.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://trinitywavl.org/\nCall log:\n\u001b[2m  - navigating to \"https://trinitywavl.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity United Methodist Church of Asheville",
+    "website_url": "https://trinitywavl.org/",
+    "notes": "No 2027 or 2026 summer camp offerings could be verified. The official website blocked direct access through robots.txt; official search snippets showed historical Vacation Bible School and Camp Connect pages, but no current summer announcement. The Camp Connect page is indexed as published about ten years ago. Its June 20 week and the matching VBS dates must not be treated as 2026 or 2027 dates. Historical pages: https://trinitywavl.org/event/vacation-bible-school-0/ and https://trinitywavl.org/event/camp-connect-0/.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School",
+        "reason": "Only a historical announcement was found; no 2026 or 2027 offering could be verified."
+      },
+      {
+        "name": "Camp Connect",
+        "reason": "Only a historical announcement indexed as approximately ten years old was found; no 2026 or 2027 offering could be verified."
+      },
+      {
+        "name": "Hinton Rural Life Summer Mission Trip",
+        "reason": "Mission trips are excluded."
+      },
+      {
+        "name": "Children’s Aquarium Overnight",
+        "reason": "Children’s outing or trip, rather than a summer camp."
+      },
+      {
+        "name": "Church Picnic @ Camp Tekoa",
+        "reason": "Church-wide social event, rather than a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

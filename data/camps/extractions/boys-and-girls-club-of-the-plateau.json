@@ -1,0 +1,226 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-the-plateau",
+    "name": "Boys & Girls Club of the Plateau",
+    "urls": [
+      "https://www.bgcplateau.org/post/summer-camp-registration-now-open",
+      "https://www.bgcplateau.org/post/a-summer-to-remember-bgcp-opens-free-summer-camp-registration",
+      "https://www.bgcplateau.org/",
+      "https://www.bgcplateau.org/news-and-events"
+    ],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:58.512Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6ba8938636b3ce30a5496c67546c9d52d19be7f1de61aa0f513b10398dd28499",
+  "response": {
+    "searches": ["site:bgcplateau.org \"2027\" \"summer\""],
+    "usage": {
+      "inputTokens": 20577,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1424,
+      "reasoningTokens": 112
+    },
+    "status": "completed",
+    "ms": 31877,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bgcplateau.org/post/summer-camp-registration-now-open",
+      "chars": 3119,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/post/a-summer-to-remember-bgcp-opens-free-summer-camp-registration",
+      "chars": 3283,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/",
+      "chars": 3491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/news-and-events",
+      "chars": 2719,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/parentportal/after-school-registration",
+      "chars": 1626,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/capital/capital-campaign",
+      "chars": 4670,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/parentportal/summercamp",
+      "chars": 2925,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgcplateau.org/_files/ugd/2c447e_bbbb7cbac85c43e099d4967c68b7a447.pdf",
+      "chars": 12343,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of the Plateau",
+    "website_url": "https://www.bgcplateau.org/",
+    "notes": "No summer 2027 information was found. The card uses the explicitly dated 2026 summer camp page and orientation guide. The registration-open language remaining on the website refers to 2026, not 2027.",
+    "excluded": [
+      {
+        "name": "(ASP) After-School Program",
+        "reason": "School-year after-school childcare, not a summer camp."
+      },
+      {
+        "name": "Summer Program group leaders",
+        "reason": "Summer employment positions, not a youth camp offering."
+      },
+      {
+        "name": "Mission to the Moon Lands in Cashiers",
+        "reason": "Single-evening community telescope viewing event outside summer."
+      },
+      {
+        "name": "Annual career conference",
+        "reason": "Conference held in April, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "arts", "stem", "nature_outdoor"],
+        "description": "Campers participate in outdoor activities, swimming, art, STEM projects, reading, group games and local field trips. Teens also participate in career exploration, cooking and technology workshops.",
+        "camp_page_url": "https://www.bgcplateau.org/parentportal/summercamp",
+        "registration_url": "https://www.bgcplateau.org/parentportal/summercamp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Cashiers Club",
+            "address": "558 Frank Allen Road",
+            "town": "Cashiers",
+            "state": "NC"
+          },
+          {
+            "name": "Highlands Club",
+            "address": "171 Hospital Drive",
+            "town": "Highlands",
+            "state": "NC"
+          },
+          {
+            "name": "Abell Teen Club",
+            "address": "558 Frank Allen Road",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "18:00",
+          "text": "Monday - Friday, 7:30 am - 6:00 pm. Closed June 22nd and July 2nd and 3rd. Drop-off between 7:30 am and 9:00 am; pick-up between 4:00 pm and 6:00 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free Summer Camp membership",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Cashiers Location",
+            "start": "2026-06-08",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Cashiers Club",
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Highlands Location",
+            "start": "2026-06-08",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Highlands Club",
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Abell Teen Club Location",
+            "start": "2026-06-08",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Abell Teen Club",
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-31",
+          "time": "12:00",
+          "text": "Registration will open to the public on March 31st at noon.",
+          "url": "https://www.bgcplateau.org/parentportal/summercamp"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "BGCP provides two snacks per day - one in the morning and one in the afternoon. You are responsible for packing your child's lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.bgcplateau.org/parentportal/summercamp",
+          "https://www.bgcplateau.org/_files/ugd/2c447e_bbbb7cbac85c43e099d4967c68b7a447.pdf",
+          "https://www.bgcplateau.org/post/a-summer-to-remember-bgcp-opens-free-summer-camp-registration",
+          "https://www.bgcplateau.org/parentportal/after-school-registration"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

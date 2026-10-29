@@ -1,0 +1,141 @@
+{
+  "provider": {
+    "key": "headwaters-outfitters",
+    "name": "Headwaters Outfitters",
+    "urls": ["https://headwatersoutfitters.com/event/forks-foundation-class/"],
+    "area": "Rosman, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:34.409Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "579d11d3e59f12d8bffde33baac59cc5071e61ea79866031b3943ea413d967c5",
+  "response": {
+    "searches": [
+      "site:headwatersoutfitters.com \"Forks Foundation\" \"2026\"",
+      "open https://headwatersoutfitters.com/event/forks-foundation-class/?ical=1"
+    ],
+    "usage": {
+      "inputTokens": 29545,
+      "cachedInputTokens": 8845,
+      "outputTokens": 964,
+      "reasoningTokens": 180
+    },
+    "status": "completed",
+    "ms": 25622,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://headwatersoutfitters.com/event/forks-foundation-class/",
+      "chars": 8084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://headwatersoutfitters.com/canoe-camping/",
+      "chars": 13079,
+      "method": "fetch"
+    },
+    {
+      "url": "https://headwatersoutfitters.com/faq",
+      "chars": 24804,
+      "method": "fetch"
+    },
+    {
+      "url": "https://headwatersoutfitters.com/event/tuesday-night-fly-tying-summer-series/2026-06-23/",
+      "chars": 7536,
+      "method": "fetch"
+    },
+    {
+      "url": "https://headwatersoutfitters.com/",
+      "chars": 12889,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Headwaters Outfitters",
+    "website_url": "https://headwatersoutfitters.com/",
+    "notes": "No 2027 summer program information or registration dates were found. The FareHarbor booking page and event calendar export returned no readable content.",
+    "excluded": [
+      {
+        "name": "Paddle and Overnight Camping Trip",
+        "reason": "Family camping and self-guided paddling trips, not a supervised youth camp."
+      },
+      {
+        "name": "Tuesday Night Fly Tying: Summer Series",
+        "reason": "Weekly drop-in fly tying social and learning nights for general audiences, not a finite supervised youth program."
+      },
+      {
+        "name": "East Fork Slump Busters After School Fly Tying Series",
+        "reason": "School-year after-school classes, outside summer."
+      },
+      {
+        "name": "Hellbender 20-Miler Canoe Race",
+        "reason": "A canoe race and associated social event, not a youth camp or skill clinic."
+      },
+      {
+        "name": "Fall 2026 Fly Fishing Retreat with Earthshine Mountain Lodge",
+        "reason": "November retreat, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Forks Foundation Class",
+        "type": "clinic",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Students practice fly fishing through casting games, finding and identifying aquatic insects in the river, and learning ethical fish handling. Equipment and educational take-home materials are provided.",
+        "camp_page_url": "https://headwatersoutfitters.com/event/forks-foundation-class/",
+        "registration_url": "https://fareharbor.com/embeds/book/headwatersoutfitters/items/472813/?full-items=yes&flow=1612107",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-21",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Headwaters Outfitters Outdoor Adventures",
+            "address": "25 Parkway Rd",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "15:00",
+          "text": "1:00 pm - 3:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 15,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://headwatersoutfitters.com/event/forks-foundation-class/",
+          "https://headwatersoutfitters.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event page prints June 21 without a year. Its current site context and adjacent June 23 recurring event indicate 2026, but the event's own year could not be verified through the calendar export or booking platform. Check the year and whether additional summer class dates were offered; only the listed June 21 event is represented."
+      }
+    ]
+  }
+}

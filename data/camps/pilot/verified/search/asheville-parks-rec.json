@@ -1,0 +1,588 @@
+{
+  "provider": {
+    "key": "asheville-parks-rec",
+    "name": "Asheville Parks & Recreation (City of Asheville summer camps)",
+    "urls": ["https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/"],
+    "area": "Asheville, NC (city community centers)",
+    "hint": "Registration runs through the city's WebTrac site (ncashevilleweb.myvscloud.com); a separate deterministic parser reads that catalog.",
+    "webtrac": true,
+    "covers": ["webtrac_catalog", "municipal", "multi_card", "grade_only"]
+  },
+  "verifiedAt": "2026-10-28T23:07:40.793Z",
+  "verifyMs": 15,
+  "extraction": {
+    "provider_name": "Asheville Parks & Recreation",
+    "website_url": "https://www.ashevillenc.gov/department/parks-recreation/",
+    "notes": "Partial extraction: official city and WebTrac pages returned no readable page body; indexed official text supplied the evidence below. The city says 2027 schedules and registration information will be published February 1, 2027; this is not a registration opening date. Outdoor, sports, and specialty offerings could not be fully enumerated. WebTrac's indexed youth search mentions March 3, conflicting with the city's March 2, 2026 text; neither was used as a registration milestone because the pages could not be read directly. The separate catalog parser should complete offerings, sessions, addresses, and registration details.",
+    "excluded": [
+      {
+        "name": "APR Afterschool",
+        "reason": "School-year childcare rather than a summer-only program."
+      },
+      {
+        "name": "Fun Day Out, spring break and winter break camps",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Summer team member employment",
+        "reason": "Job program, not a youth camp."
+      },
+      {
+        "name": "City of Asheville Youth Leadership Academy (CAYLA)",
+        "reason": "Summer employment and year-round support program."
+      },
+      {
+        "name": "Youth Fall Baseball",
+        "reason": "Sports league outside the summer camp rule."
+      },
+      {
+        "name": "Family River Snorkeling",
+        "reason": "Family-only activity."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Day Camp",
+        "variant": "Montford",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Campers participate in themed weeks, games, crafts, cultural arts, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Youth Day Camp (Rising 1st-5th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Montford",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Locations: Montford, Shiloh, Southside, and Stephens-Lee centers.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Shiloh",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Campers participate in themed weeks, games, crafts, cultural arts, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Youth Day Camp (Rising 1st-5th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Shiloh",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Locations: Montford, Shiloh, Southside, and Stephens-Lee centers.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Southside",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Campers participate in themed weeks, games, crafts, cultural arts, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Youth Day Camp (Rising 1st-5th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Southside",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Locations: Montford, Shiloh, Southside, and Stephens-Lee centers.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Stephens-Lee",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Campers participate in themed weeks, games, crafts, cultural arts, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Youth Day Camp (Rising 1st-5th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Stephens-Lee",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Locations: Montford, Shiloh, Southside, and Stephens-Lee centers.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Montford",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Teens participate in creative projects, community service, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Teen Day Camp (Rising 6th-9th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Montford",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Enriching alternative for middle schoolers including creative projects, community service, and diverse field trips at all Traditional locations.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Shiloh",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Teens participate in creative projects, community service, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Teen Day Camp (Rising 6th-9th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Shiloh",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Enriching alternative for middle schoolers including creative projects, community service, and diverse field trips at all Traditional locations.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Southside",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Teens participate in creative projects, community service, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Teen Day Camp (Rising 6th-9th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Southside",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Enriching alternative for middle schoolers including creative projects, community service, and diverse field trips at all Traditional locations.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Stephens-Lee",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "description": "Teens participate in creative projects, community service, and field trips.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+          "quote": "Teen Day Camp (Rising 6th-9th)",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.778Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Stephens-Lee",
+            "address": null,
+            "town": null,
+            "state": null,
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+            "quote": "Enriching alternative for middle schoolers including creative projects, community service, and diverse field trips at all Traditional locations.",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.778Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["ashevillenc.gov"],
+    "platformTenants": ["ncashevilleweb.myvscloud.com"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 8,
+        "verified": 8,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 8,
+        "verified": 8,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 18,
+      "verified": 18,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/splash.html?ccode=Summer",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      }
+    ]
+  }
+}

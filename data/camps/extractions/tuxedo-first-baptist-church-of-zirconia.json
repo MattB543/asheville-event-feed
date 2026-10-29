@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "key": "tuxedo-first-baptist-church-of-zirconia",
+    "name": "Tuxedo First Baptist Church of Zirconia",
+    "urls": ["https://tuxedofirstbaptist.org/"],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:04.016Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9b85c2f8088aa2552f650c3995a22f53aafd95bd513e24742e0737051769f703",
+  "response": {
+    "searches": [
+      "site:tuxedofirstbaptist.org \"Vacation\"",
+      "open https://tuxedofirstbaptist.org/vacation-bible-school",
+      "\"site:tuxedofirstbaptist.org/vacation-bible-school\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 17120,
+      "cachedInputTokens": 8845,
+      "outputTokens": 591,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 21183,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tuxedofirstbaptist.org/",
+      "chars": 2729,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tuxedo First Baptist Church of Zirconia",
+    "website_url": "https://tuxedofirstbaptist.org/",
+    "notes": "No 2027 dates or registration announcements were found. The Vacation Bible School, contact and calendar pages returned no readable body text when opened; official search snippets confirmed the VBS page and church address. No dated 2026 VBS details were found.",
+    "excluded": [
+      {
+        "name": "Youth Bible Study and Sunday School",
+        "reason": "Recurring church education, not a finite summer camp."
+      },
+      {
+        "name": "Trunk-or-Treat and Community Festivals",
+        "reason": "Seasonal events and festivals, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children at Tuxedo First Baptist Church.",
+        "camp_page_url": "https://tuxedofirstbaptist.org/vacation-bible-school",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tuxedofirstbaptist.org/",
+          "https://tuxedofirstbaptist.org/vacation-bible-school",
+          "https://tuxedofirstbaptist.org/contact-us"
+        ],
+        "confidence": "low",
+        "review_notes": "The dedicated VBS page could not be read beyond its search snippet. Check it for dates, eligibility, meeting location and registration details. The official contact-page search snippet publishes 30 Branch Lane, Zirconia, NC, but no readable camp source explicitly confirmed the drop-off venue, so sites remains empty."
+      }
+    ]
+  }
+}

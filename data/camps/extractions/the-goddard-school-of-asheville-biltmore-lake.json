@@ -1,0 +1,280 @@
+{
+  "provider": {
+    "key": "the-goddard-school-of-asheville-biltmore-lake",
+    "name": "The Goddard School of Asheville – Biltmore Lake",
+    "urls": [
+      "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:53.724Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6e84d0475d289aea80b3eb8e870f968f0012619011794b46b0118ccc585ea299",
+  "response": {
+    "searches": [
+      "site:goddardschool.com/schools/nc/asheville/asheville-biltmore-lake \"summer\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 17040,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1989,
+      "reasoningTokens": 110
+    },
+    "status": "completed",
+    "ms": 43063,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp",
+      "chars": 2605,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goddardschool.com/content/dam/gsi/schools/nc/asheville/asheville-biltmore-lake/summer-camps/summer%20calendar-1774006930761.pdf",
+      "chars": 2379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goddardschool.com/tuition-benefits",
+      "chars": 3921,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget",
+      "chars": 2466,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goddardschool.com/frequently-asked-questions",
+      "chars": 19724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goddardschool.com/",
+      "chars": 6234,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Goddard School of Asheville – Biltmore Lake",
+    "website_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake",
+    "notes": "No 2027 summer information was found. The summer page identifies Summer 2026; its calendar does not print a year. Tuition is available by contacting the school. The published 7:00 am–6:00 pm hours are school operating hours, not explicitly summer camp hours.",
+    "excluded": [
+      {
+        "name": "Preschool and daycare",
+        "reason": "Year-round early education and childcare, rather than a finite summer camp."
+      },
+      {
+        "name": "Before & After School Programs",
+        "reason": "School-year childcare, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Programs",
+        "type": "day",
+        "categories": ["general", "arts", "stem", "nature_outdoor"],
+        "description": "Children take part in outdoor play, music, art and hands-on investigations. Weekly activities explore tools, weather, kindness and outer space.",
+        "camp_page_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp",
+        "registration_url": "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-08-28",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Goddard School of Asheville - Biltmore Lake",
+            "address": "12 Lake Drive",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "What can I use to investigate?",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How do I use my senses to explore?",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How do we solve a problem?",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "What can I invent?",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "A Week Of Weather",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How do I take care of myself?",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "What is kindness?",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How does it feel to be part of something?",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How can we make the world a better place?",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "What is in outer space?",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "What can the sun do?",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Are all planets the same?",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "How big is big?",
+            "start": "2026-08-24",
+            "end": "2026-08-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/special-programs/summer-camp",
+          "https://www.goddardschool.com/content/dam/gsi/schools/nc/asheville/asheville-biltmore-lake/summer-camps/summer%20calendar-1774006930761.pdf",
+          "https://www.goddardschool.com/schools/nc/asheville/asheville-biltmore-lake/our-school/goddard-form?source=widget",
+          "https://www.goddardschool.com/tuition-benefits"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar PDF prints month/day ranges without a year; 2026 is taken from the summer page's Summer 2026 heading. Confirm the calendar's year with the school. Summer-specific ages, hours and pricing are not published in the supplied pages; general classroom ages and school operating hours were not assigned to camp. The calendar lists pizza days but does not establish a general lunch policy."
+      }
+    ]
+  }
+}

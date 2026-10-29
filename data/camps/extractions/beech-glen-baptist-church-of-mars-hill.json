@@ -1,0 +1,88 @@
+{
+  "provider": {
+    "key": "beech-glen-baptist-church-of-mars-hill",
+    "name": "Beech Glen Baptist Church of Mars Hill",
+    "urls": ["https://www.facebook.com/BeechGlenBaptistChurch/"],
+    "area": "Mars Hill, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:22:37.645Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Beech Glen Baptist Church Mars Hill VBS 2026",
+      "site:facebook.com/BeechGlenBaptistChurch \"2026\" \"VBS\"",
+      "\"Beech Glen\" \"2026\" \"Bible\" \"6:30\""
+    ],
+    "usage": {
+      "inputTokens": 24397,
+      "cachedInputTokens": 8845,
+      "outputTokens": 842,
+      "reasoningTokens": 241
+    },
+    "status": "completed",
+    "ms": 28168,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/BeechGlenBaptistChurch/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Beech Glen Baptist Church of Mars Hill",
+    "website_url": null,
+    "notes": "No standalone church website or 2027 camp information was found. The church's Facebook page could not be read directly. Third-party event listings report VBS July 6–10, 2026, but those dates could not be verified on an accessible official page. No registration opening date was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/BeechGlenBaptistChurch/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Beech Glen Baptist Church",
+            "address": "2928 Beech Glen Rd",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/BeechGlenBaptistChurch/posts/vacation-bible-school-is-here-again-monday-june-16-20th-7-9-at-beech-glen-baptis/518715688255548/"
+        ],
+        "confidence": "low",
+        "review_notes": "The official Facebook search result establishes a historical VBS program, but the current Facebook page could not be read. The 2026 dates and venue come from third-party search results at https://happeningnext.com/event/vacation-bible-school-vbs-eid3a0dr72pe1 and https://allevents.in/mars-hill/vacation-bible-school-vbs/200030236024545; verify them against the church's 2026 announcement. The physical address is corroborated by the NC Baptist church directory at https://churchpop.bscnc.org/?orgid=190022512. Event snippets show a 6:30 p.m. start but do not establish reliable daily hours, so hours are left null."
+      }
+    ]
+  }
+}

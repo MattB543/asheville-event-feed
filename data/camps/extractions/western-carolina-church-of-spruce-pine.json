@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "western-carolina-church-of-spruce-pine",
+    "name": "Western Carolina Church of Spruce Pine",
+    "urls": [
+      "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
+      "https://westerncarolinachurch.com/home"
+    ],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:50.122Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4fe6eee9699855075bf50f340bc6ca529e30d8fd6036a519bf6bbf9ceb9cf4fc",
+  "response": {
+    "searches": [
+      "site:westerncarolinachurch.com \"2027\"",
+      "open https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439"
+    ],
+    "usage": {
+      "inputTokens": 14329,
+      "cachedInputTokens": 8845,
+      "outputTokens": 665,
+      "reasoningTokens": 138
+    },
+    "status": "completed",
+    "ms": 18816,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
+      "chars": 1327,
+      "method": "fetch"
+    },
+    {
+      "url": "https://westerncarolinachurch.com/home",
+      "chars": 829,
+      "method": "fetch"
+    },
+    {
+      "url": "https://westerncarolinachurch.com/",
+      "chars": 1338,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Western Carolina Church of Spruce Pine",
+    "website_url": "https://westerncarolinachurch.com/",
+    "notes": "No 2027 camp information or registration dates were found. The supplied official VBS page provides 2026 details; reopening that page returned no readable text. The external sign-up destination could not be identified.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Kingdom Quest",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible stories, games and crafts in a Vacation Bible School exploring what Jesus has done and will do for them.",
+        "camp_page_url": "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
+        "registration_url": "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Western Carolina Church",
+            "address": "31 Cross Street",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "6:00 PM - 8:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://westerncarolinachurch.com/https/wwwmyvbsorg/vacation-bible-school-1439",
+          "https://westerncarolinachurch.com/home"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

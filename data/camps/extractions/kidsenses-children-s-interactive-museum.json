@@ -1,0 +1,66 @@
+{
+  "provider": {
+    "key": "kidsenses-children-s-interactive-museum",
+    "name": "KidSenses Children's Interactive Museum",
+    "urls": ["https://www.kidsenses.org/summer-camp-guidelines"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:23:12.744Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e18b35f82a7736a6accebc89137e9f47b9ecf8c83e69010cadf6ae40de99db1d",
+  "response": {
+    "searches": [
+      "site:kidsenses.org summer camp 2026",
+      "KidSenses summer camps 2026 Rutherfordton",
+      "site:kidsenses.org \"camp\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 22433,
+      "cachedInputTokens": 8845,
+      "outputTokens": 603,
+      "reasoningTokens": 249
+    },
+    "status": "completed",
+    "ms": 23864,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.kidsenses.org/summer-camp-guidelines",
+      "chars": 870,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidsenses.org/",
+      "chars": 1182,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "KidSenses Children's Interactive Museum",
+    "website_url": "https://www.kidsenses.org/",
+    "notes": "No identifiable 2027 or 2026 summer camp program list, dates, or registration announcement was found on official pages. The supplied summer-camp-guidelines page contains only a general heading and introduction. Attempts to open /camps and /summer-camps returned no readable content. Search found third-party listings for 2025 summer camps, but these do not establish 2026 or 2027 offerings and were not used to create cards. The official Events & Workshops and Science of Firefighting pages were available through search text but returned no readable content when opened directly. No cards are returned because the accessible official information is insufficient to identify current summer camp programs; this does not establish that the provider has stopped offering camps.",
+    "excluded": [
+      {
+        "name": "The Science of Firefighting",
+        "reason": "Family workshop series, not a supervised drop-off youth camp: the official page requires a parent or guardian to remain with each child throughout the activities."
+      },
+      {
+        "name": "STEM in the Forge: Pack Knife Workshop",
+        "reason": "The official Events & Workshops search result lists November 14, outside summer."
+      },
+      {
+        "name": "STEM & Steel Community Forge Day",
+        "reason": "Family community event rather than a supervised youth camp."
+      },
+      {
+        "name": "FORE! The Kids! Golf Classic",
+        "reason": "Fundraising golf event, not a youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

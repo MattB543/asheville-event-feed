@@ -1,0 +1,386 @@
+{
+  "provider": {
+    "key": "camp-pinnacle",
+    "name": "Camp Pinnacle",
+    "urls": ["https://camppinnacle.com/sessions/", "https://www.camppinnacle.com/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:08.436Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8f83aae4ea3e70072705a0e660509e49c48dadc9d4c25f44bbd0b32756be130f",
+  "response": {
+    "searches": [
+      "site.camppinnacle.com 2027 sessions",
+      "site:camppinnacle.com \"2027\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 37141,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2804,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 53385,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://camppinnacle.com/sessions/",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinnacle.com/",
+      "chars": 7370,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/way/",
+      "chars": 4453,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/team/",
+      "chars": 12587,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/faq/",
+      "chars": 8641,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf",
+      "chars": 5103,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/wp-content/uploads/2026/01/The-Junior-Camp-Packing-List.pdf",
+      "chars": 3829,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/life/",
+      "chars": 7552,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Pinnacle",
+    "website_url": "https://camppinnacle.com/",
+    "notes": "The current sessions page does not print a season year. Its dates appear to describe 2027, but this requires confirmation: the provider's dated 2026 blog identifies Session 1 opening day as June 14, 2026, whereas the current schedule starts June 13. No explicit 2027 registration opening announcement was found. Mini Camp is included as session-length rows of Camp Pinnacle, not a separate program.",
+    "excluded": [
+      {
+        "name": "Join the Camp Pinnacle Team",
+        "reason": "Summer employment and staff training, not a camper program."
+      },
+      {
+        "name": "Camp Pinnacle Christian Summer Camp in Carlisle, PA",
+        "reason": "Different provider in Pennsylvania, outside the directory area."
+      },
+      {
+        "name": "Camp Pinnacle Christian Summer Camp in New York",
+        "reason": "Different provider near Albany, New York, outside the directory area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Pinnacle",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "sports", "arts"],
+        "description": "Campers participate in kayaking, mountain biking, archery, swimming, creative activities, and cabin-group games. Sessions include hiking, outdoor overnight trips, and whitewater rafting.",
+        "camp_page_url": "https://camppinnacle.com/sessions/",
+        "registration_url": "https://camppinnacle.com/enroll/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Pinnacle",
+            "address": "1 Wolfe Lake Dr",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-11",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 8,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Camp A",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2650,
+              "unit": "session",
+              "label": "For First Time Campers Only",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Camp B",
+            "start": "2027-07-24",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2650,
+              "unit": "session",
+              "label": "For First Time Campers Only",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-08-01",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited financial assistance through our Campership Endowment Fund for qualifying families."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Your tuition covers everything your camper needs: lodging, meals, daily activities, adventure gear, and off-camp trips."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Families can either drive to camp or use our airport pickup service from Asheville (AVL) or Greenville–Spartanburg (GSP)."
+        },
+        "sources": [
+          "https://camppinnacle.com/sessions/",
+          "https://camppinnacle.com/faq/",
+          "https://camppinnacle.com/life/",
+          "https://camppinnacle.com/contact/",
+          "https://camppinnacle.com/enroll/",
+          "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf",
+          "https://camppinnacle.com/session-1-opening-day-june-14th-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the season year and tuition year directly with the provider: the sessions page prints no year, and 2027 is inferred from the revised schedule rather than an explicit heading. The FAQ separates completed grades 1–8 campers from Wolfe Pack grades 9–11, while the sessions page combines them as grades 1–11 (2–11 for Session 3). Session 3's camper upper grade is therefore derived from the FAQ. Limited Availability appears for Sessions 1–3, but does not specify an available/waitlist/full breakdown, so statuses are null."
+      },
+      {
+        "name": "Wolfe Pack",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Participants develop leadership skills through daily workshops, mentoring younger campers, and community service. They also participate in camp activities and plan their own backpacking trip.",
+        "camp_page_url": "https://camppinnacle.com/life/",
+        "registration_url": "https://camppinnacle.com/enroll/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Pinnacle",
+            "address": "1 Wolfe Lake Dr",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-11",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 7200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-08-01",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camppinnacle.com/faq/",
+          "https://camppinnacle.com/life/",
+          "https://camppinnacle.com/sessions/",
+          "https://camppinnacle.com/contact/",
+          "https://camppinnacle.com/enroll/",
+          "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the inferred 2027 year and whether every listed full-length session and its published tuition applies to Wolfe Pack. The sessions page includes grades through 11 but does not separately label Wolfe Pack rows or prices; the FAQ identifies those grades as the leadership program. The packing list states grades mean the grade just completed. Separate dates or restrictions for the three leadership years were not found."
+      }
+    ]
+  }
+}

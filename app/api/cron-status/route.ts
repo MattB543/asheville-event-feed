@@ -46,6 +46,10 @@ const JOB_METADATA: Record<CronJobName, { displayName: string; description: stri
     displayName: 'Spotify Playlist',
     description: "Rebuilds the weekly Spotify playlist from the week's top music shows.",
   },
+  'camps-refresh': {
+    displayName: 'Camps Refresh',
+    description: "Re-reads summer camp providers' pages and re-extracts the ones that changed.",
+  },
 };
 
 // Valid cron job names from vercel.json
@@ -60,6 +64,7 @@ const VALID_JOB_NAMES = [
   'news-scrape',
   'news-ai',
   'playlist',
+  'camps-refresh',
 ] as const;
 
 // Type guard to check if a string is a valid CronJobName

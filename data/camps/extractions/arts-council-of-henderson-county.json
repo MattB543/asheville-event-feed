@@ -1,0 +1,95 @@
+{
+  "provider": {
+    "key": "arts-council-of-henderson-county",
+    "name": "Arts Council of Henderson County",
+    "urls": ["https://www.acofhc.org/education.html"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:27.809Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bcb62d612d0fa6ec8dc21eb93afac14a9af02ba8f39a76c8a0610afe384adcc4",
+  "response": {
+    "searches": ["site:acofhc.org \"camp\" \"2026\""],
+    "usage": {
+      "inputTokens": 14142,
+      "cachedInputTokens": 8845,
+      "outputTokens": 601,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 17038,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.acofhc.org/education.html",
+      "chars": 2934,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.acofhc.org/",
+      "chars": 1798,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Arts Council of Henderson County",
+    "website_url": "https://www.acofhc.org/",
+    "notes": "The official education page describes Summer Arts Camps but supplies no dated schedule, ages, prices, registration details or camp venue. Searches found no additional official 2026 camp schedule or 2027 announcement. The published PO Box is a mailing address, not a camp drop-off site.",
+    "excluded": [
+      {
+        "name": "Artists in Schools",
+        "reason": "Classroom arts programming during the school day, not a finite summer camp."
+      },
+      {
+        "name": "Mentors & Students Art Show",
+        "reason": "Spring art exhibition, not a supervised summer camp."
+      },
+      {
+        "name": "Art on Main",
+        "reason": "Art and craft show, not a summer camp."
+      },
+      {
+        "name": "Music on Main and Saturday Night Street Dances",
+        "reason": "Concerts and social events, not supervised youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Arts Camps",
+        "type": "day",
+        "categories": ["arts", "music", "dance"],
+        "description": "Children explore visual arts, music, dance, creative movement and expression, and collaborative art projects through hands-on activities.",
+        "camp_page_url": "https://www.acofhc.org/education.html",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.acofhc.org/education.html"],
+        "confidence": "medium",
+        "review_notes": "The official page confirms the program and activities but does not specify its format; day camp classification is provisional. No year-specific camp details or drop-off venue are published."
+      }
+    ]
+  }
+}

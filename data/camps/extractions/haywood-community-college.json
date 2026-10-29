@@ -1,0 +1,151 @@
+{
+  "provider": {
+    "key": "haywood-community-college",
+    "name": "Haywood Community College",
+    "urls": [
+      "https://www.haywood.edu/events/bobcat-college.php",
+      "https://hcc-register.fundfive.com/camp/527/summer/bobcat-college-2026"
+    ],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:08:38.980Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ee14958cbfd85712b536a547f0a5918ca572c13bf7ec57b3cf7c151c5e52d2c3",
+  "response": {
+    "searches": ["site.haywood.edu \"Bobcat\" \"2027\""],
+    "usage": {
+      "inputTokens": 18556,
+      "cachedInputTokens": 8845,
+      "outputTokens": 671,
+      "reasoningTokens": 52
+    },
+    "status": "completed",
+    "ms": 14500,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.haywood.edu/events/bobcat-college.php",
+      "chars": 2665,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/camp/527/summer/bobcat-college-2026",
+      "chars": 1978,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/file/filedetails?filename=5PsU4twGPrOWYkR9JYzuuQjCMRytfA22Qw2lEAPC.pdf",
+      "chars": 853,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.haywood.edu/enrollment-management/tuition-and-fees.php",
+      "chars": 13826,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/camp",
+      "chars": 450,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/camp/search",
+      "chars": 1618,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/camp/policy",
+      "chars": 633,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcc-register.fundfive.com/public",
+      "chars": 1537,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Haywood Community College",
+    "website_url": "https://www.haywood.edu/",
+    "notes": "No summer 2027 camp information found. The official camp listing contains Bobcat College 2026 only.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Bobcat College",
+        "type": "day",
+        "categories": ["stem", "arts", "nature_outdoor"],
+        "description": "Campers participate in hands-on sessions with HCC instructors in STEM, biology, nursing and healthcare, creative arts, survival skills, and forensics.",
+        "camp_page_url": "https://www.haywood.edu/events/bobcat-college.php",
+        "registration_url": "https://hcc-register.fundfive.com/camp/527/summer/bobcat-college-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 14
+        },
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Sunrise Café, Haywood Community College",
+            "address": "185 Freedlander Drive",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:00",
+          "text": "M-F from 8am-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 215,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration for this camp closed on Jun 15, 2026."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited Scholarships are available. Scholarships are provided by the HCC Foundation."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students will need to provide their own lunch and water bottle."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.haywood.edu/events/bobcat-college.php",
+          "https://hcc-register.fundfive.com/camp/527/summer/bobcat-college-2026",
+          "https://hcc-register.fundfive.com/camp/search",
+          "https://hcc-register.fundfive.com/file/filedetails?filename=5PsU4twGPrOWYkR9JYzuuQjCMRytfA22Qw2lEAPC.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page and flyer give a May 16, 2026 registration deadline, while the registration platform says registration closed June 15, 2026 and also displays Sold Out and instructions to call to register. Availability is recorded as closed. The registration platform footer misspells the street as Freelander Drive; the college's own published address is 185 Freedlander Drive. Ages 10–14 are stated in the official camp search listing; rising grades 6–8 are stated on the program page."
+      }
+    ]
+  }
+}

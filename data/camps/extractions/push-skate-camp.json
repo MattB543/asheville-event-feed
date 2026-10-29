@@ -1,0 +1,180 @@
+{
+  "provider": {
+    "key": "push-skate-camp",
+    "name": "PUSH Skate Camp",
+    "urls": ["https://www.pushskatecamp.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:09:57.120Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "edc96131213ab6e88a5f83bbcfce411be7376ab7bf412598864ba27425d1fe37",
+  "response": {
+    "searches": [
+      "site:pushskatecamp.com \"2026\" \"Summer\"",
+      "open https://www.pushskatecamp.com/store/p/pushskatecampjune15-18",
+      "site:pushskatecamp.com/store/p/ \"2026\"",
+      "site:pushskatecamp.com/store/p/pushskatecampjune15-18 \"9\"",
+      "open https://www.pushskatecamp.com/store/p/exploringartinskate13-16?format=json"
+    ],
+    "usage": {
+      "inputTokens": 20671,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1689,
+      "reasoningTokens": 430
+    },
+    "status": "completed",
+    "ms": 53846,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pushskatecamp.com/",
+      "chars": 2369,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pushskatecamp.com/counselor-bios",
+      "chars": 3346,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pushskatecamp.com/enrollment",
+      "chars": 602,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pushskatecamp.com/exploring-the-arts-within-skateboarding",
+      "chars": 1208,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pushskatecamp.com/2024sessions",
+      "chars": 1145,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pushskatecamp.com/opendoors",
+      "chars": 1180,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "PUSH Skate Camp",
+    "website_url": "https://www.pushskatecamp.com/",
+    "notes": "No 2027 summer information or registration milestones were found. The homepage currently lists only fall 2026 sessions. Official summer product pages were found in search results, but returned no readable content when opened. Their dates do not show a year in the readable snippets, so they have not been assigned to 2026 or entered as sessions. Summer ages, hours and prices remain unknown; fall details were not applied to summer programs.",
+    "excluded": [
+      {
+        "name": "September Saturday Session",
+        "reason": "September 12, 2026 fall program, outside summer."
+      },
+      {
+        "name": "October Saturday Session",
+        "reason": "October 24, 2026 fall program, outside summer."
+      },
+      {
+        "name": "Exploring The Arts Within Skateboarding Saturday Session",
+        "reason": "November 14, 2026 fall program, outside summer."
+      },
+      {
+        "name": "Push Skate Camp May 9",
+        "reason": "Official product page describes a spring Saturday session, outside summer."
+      },
+      {
+        "name": "Exploring the Arts within Skateboarding March 14th",
+        "reason": "Official product page describes a spring session, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "PUSH Skate Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice skateboarding and roller skating, build skills, and learn park etiquette at Asheville Skatepark.",
+        "camp_page_url": "https://www.pushskatecamp.com/",
+        "registration_url": "https://www.pushskatecamp.com/enrollment",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Skatepark",
+            "address": "50 Cherry St N",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Discover our partnership with OpenDoors Asheville and PUSH Skate Camp! Watch a powerful video of a student whose camp experience was made possible through sponsorship."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.pushskatecamp.com/",
+          "https://www.pushskatecamp.com/counselor-bios",
+          "https://www.pushskatecamp.com/enrollment",
+          "https://www.pushskatecamp.com/opendoors",
+          "https://www.pushskatecamp.com/store/p/pushskatecampjune15-18",
+          "https://www.pushskatecamp.com/store/p/pushskatecampaug17-20",
+          "https://www.ashevillenc.gov/projects/asheville-skate-park/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search snippets list June 15–18 and August 17–20 summer sessions without an explicit year; the product pages opened blank. Check those pages for the year, complete summer session list, hours, ages and prices. Day format is provisional because the current summer hours could not be read. OpenDoors sponsorship is documented, but eligibility and application details are not given."
+      },
+      {
+        "name": "Exploring the Arts within Skateboarding",
+        "type": "day",
+        "categories": ["arts", "sports"],
+        "description": "Campers explore creative arts associated with skateboarding and its culture. Past summer sessions included custom-designing skateboards in the PUSH Skateshop Gallery.",
+        "camp_page_url": "https://www.pushskatecamp.com/exploring-the-arts-within-skateboarding",
+        "registration_url": "https://www.pushskatecamp.com/enrollment",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.pushskatecamp.com/",
+          "https://www.pushskatecamp.com/exploring-the-arts-within-skateboarding",
+          "https://www.pushskatecamp.com/enrollment",
+          "https://www.pushskatecamp.com/store/p/exploringartinskate13-16"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search results list a July 13–16 summer product, but its year and details could not be read; the product page opened blank. The gallery page documents activities from 2025, while the 2026 homepage confirms that summer programs preceded the fall continuation. Check the summer product page for dates, hours, ages, price and drop-off venue. The gallery is an activity location, not a confirmed summer drop-off site. Day format is provisional."
+      }
+    ]
+  }
+}

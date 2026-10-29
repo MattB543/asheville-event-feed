@@ -1,0 +1,154 @@
+{
+  "provider": {
+    "key": "greeneville-cumberland-presbyterian-church",
+    "name": "Greeneville Cumberland Presbyterian Church",
+    "urls": ["https://www.gcpchurch.org/vbs"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:21.565Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f6db1fc2acdb294165ad3dfd18e45a094ea019e4d1e3bdb6a6afefafabe5e3c2",
+  "response": {
+    "searches": [
+      "site:gcpchurch.org VBS \"2026\"",
+      "\"Greeneville Cumberland\" \"June 20\" \"2026\" VBS"
+    ],
+    "usage": {
+      "inputTokens": 21564,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1203,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 27339,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gcpchurch.org/vbs",
+      "chars": 1573,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gcpchurch.org/",
+      "chars": 1081,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greeneville Cumberland Presbyterian Church",
+    "website_url": "https://www.gcpchurch.org/",
+    "notes": "No 2027 camp information was found. The official VBS page does not give the camp date or hours. A third-party mirror of the church's June 3, 2026 social post lists June 20, 2026, 9am-noon; these fallback details are included with medium confidence. No registration milestones were taken from that mirror.",
+    "excluded": [
+      {
+        "name": "Children's Choir",
+        "reason": "Recurring year-round choir rehearsals, not a finite summer camp."
+      },
+      {
+        "name": "Lower Elementary Sunday School",
+        "reason": "Recurring Sunday school, not a finite summer camp."
+      },
+      {
+        "name": "Upper Elementary Sunday School",
+        "reason": "Recurring Sunday school, not a finite summer camp."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Regular Sunday childcare, not a summer camp; nursery activities within VBS are included in the VBS card."
+      }
+    ],
+    "cards": [
+      {
+        "name": "God's Neighborhood VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in crafts, music, teamwork games and Bible Story Time, with a light breakfast and lunch. Children birth through age 3 have nursery activities and play time.",
+        "camp_page_url": "https://www.gcpchurch.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-20",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": {
+          "min": 0,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Greeneville Cumberland Presbyterian Church",
+            "address": "201 N. Main Street",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am-noon"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Nursery",
+            "start": "2026-06-20",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 0,
+              "max": 3
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Children 4 years through those who have completed the 5th grade",
+            "start": "2026-06-20",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": null
+            },
+            "grades": {
+              "min": null,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "a light breakfast and lunch"
+        },
+        "transportation": null,
+        "sources": ["https://www.gcpchurch.org/vbs", "https://www.gcpchurch.org/"],
+        "confidence": "medium",
+        "review_notes": "Confirm June 20, 2026 and 9am-noon directly with the church: these details were found only in a third-party mirror at https://www.findglocal.com/US/Greeneville/343190012470560/Greeneville-Cumberland-Presbyterian-Church, attributed to its June 3, 2026 post. The official VBS page gives only a Sunday, June 21 song presentation, which is excluded from camp dates as a worship service. Middle- and high-school service opportunities are mentioned but not described sufficiently to establish a separate supervised camp. The online registration destination could not be recovered. Format check: ages 0 outside 2-19; row 1 (Nursery) ages 0 outside 2-19."
+      }
+    ]
+  }
+}

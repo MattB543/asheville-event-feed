@@ -1,0 +1,592 @@
+{
+  "provider": {
+    "key": "children-s-bible-ministries-of-east-tennessee",
+    "name": "Children's Bible Ministries of East Tennessee",
+    "urls": ["https://www.cbmcamp.com/summer-camp"],
+    "area": "Watauga, TN",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "review",
+    "status_reason": "page doesn't name the provider (looked for: childrens, bible, ministries, tennessee)"
+  },
+  "extractedAt": "2026-10-29T17:21:26.339Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9ff69f4d9606131cc6195be089cb7e9424a662925d8163a24bc953ccd2de25dd",
+  "response": {
+    "searches": [
+      "site:cbmcamp.com \"2027\"",
+      "open https://www.cbmcamp.com/day-camps-new",
+      "site:cbmcamp.com \"Junior\" \"2026\" \"June 15\""
+    ],
+    "usage": {
+      "inputTokens": 26302,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4133,
+      "reasoningTokens": 287
+    },
+    "status": "completed",
+    "ms": 76397,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cbmcamp.com/summer-camp",
+      "chars": 1224,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/_files/ugd/f11f7e_cf98c148f4fa42d695c6e9b562acae67.pdf",
+      "chars": 1672,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/_files/ugd/f11f7e_7c38aed0ef2640e1930ee44c2bfc7659.pdf",
+      "chars": 6599,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/_files/ugd/f11f7e_5ede388d4e1f4c0eb2a306442c1e2066.pdf",
+      "chars": 4008,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/",
+      "chars": 1562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/spiritual-help",
+      "chars": 1057,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/our-purpose",
+      "chars": 3016,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbmcamp.com/our-history",
+      "chars": 2472,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Children's Bible Ministries of East Tennessee",
+    "website_url": "https://www.cbmcamp.com/",
+    "notes": "No 2027 summer camp announcement found. Several 2026 program pages conflict with registration pages; dates below follow the program pages and are not projected into 2027. New pages could be read through official search results, but direct opens returned no readable content. The 2018 packing PDF was not used for current hours or lunch. CRA registration pages refer to Camp Red Arrow, not this provider.",
+    "excluded": [
+      {
+        "name": "Camp Red Arrow programs",
+        "reason": "Different provider; CRA pages on this domain identify Camp Red Arrow and a different contact email."
+      },
+      {
+        "name": "Bible Released Time",
+        "reason": "School-year Bible instruction, not a finite summer camp."
+      },
+      {
+        "name": "Mailbox Club",
+        "reason": "Correspondence lessons, not a supervised camp."
+      },
+      {
+        "name": "Mother/Daughter Retreat",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Spring Teen Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Fall Teen Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Open House & Summer Camp Preview Day",
+        "reason": "Family social event, not a supervised youth camp."
+      },
+      {
+        "name": "Junior Staff & Junior Counselor",
+        "reason": "Staff service application, not a camper program."
+      },
+      {
+        "name": "Skoolzout",
+        "reason": "School-year days outside summer."
+      },
+      {
+        "name": "Fundraiser Yard Sale",
+        "reason": "Fundraising event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in swimming, crafts, Bible lessons, games and music.",
+        "camp_page_url": "https://www.cbmcamp.com/day-camps-new",
+        "registration_url": "https://www.cbmcamp.com/registration-summer-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-07-02",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ta-Pa-Win-Go",
+            "address": "111 CBM Camp Rd",
+            "town": "Watauga",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "9 a.m. - 4 p.m. (daily)"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Day Camp 1",
+            "start": "2026-05-31",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Day Camp 2",
+            "start": "2026-06-28",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Day campers can also earn a discount by completing just 7 lessons."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cbmcamp.com/day-camps-new",
+          "https://www.cbmcamp.com/summer-camp",
+          "https://www.cbmcamp.com/our-purpose",
+          "https://www.cbmcamp.com/day-camp-1-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the DAY CAMP - 2026 heading. The program page lists May 31-June 4 and June 28-July 2, whereas day-camp-1-registration lists June 29-July 3, 2026 for ages 5-8. The summer overview lists only ages 5-8, but the detailed page also lists ages 8-12. Confirm the schedule and age bands; detailed page facts were available only through search results."
+      },
+      {
+        "name": "Junior Camps",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in sports, Bible lessons, zip-line, climbing wall, swimming, games and crafts.",
+        "camp_page_url": "https://www.cbmcamp.com/junior-camps-new",
+        "registration_url": "https://www.cbmcamp.com/registration-summer-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ta-Pa-Win-Go",
+            "address": "111 CBM Camp Rd",
+            "town": "Watauga",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior 1",
+            "start": "2026-06-14",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior 2",
+            "start": "2026-07-12",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Students who have never attended overnight camp at Camp Ta-Pa-Win-Go can earn a FREE WEEK just by completing 10 lessons while returning campers can earn up to 1/2 price!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus Schedule for Overnight Summer Camp"
+        },
+        "sources": [
+          "https://www.cbmcamp.com/junior-camps-new",
+          "https://www.cbmcamp.com/our-purpose",
+          "https://www.cbmcamp.com/summer-camp-bus-ride",
+          "https://www.cbmcamp.com/junior-camp-1-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Year comes from JUNIOR CAMPS - 2026 heading. Detailed page lists Junior 1 June 14-18 and Junior 2 July 12-16; junior-camp-1-registration instead lists Junior Week 1 June 1-5, 2026. Confirm dates and number of weeks. Detailed page was readable only through search results. Bus page is undated and lists distant pickup locations, which are not included as local sites."
+      },
+      {
+        "name": "Junior Camps Day Camp Option",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Day campers join a cabin group for sports, Bible lessons, swimming, games and crafts, then sleep at home.",
+        "camp_page_url": "https://www.cbmcamp.com/junior-camps-new",
+        "registration_url": "https://www.cbmcamp.com/registration-summer-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ta-Pa-Win-Go",
+            "address": "111 CBM Camp Rd",
+            "town": "Watauga",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": null,
+          "text": "In general, 8 am arrival for breakfast and departure between 9-10 pm after our evening sessions (approximate times)."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Day Camp option",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior 1",
+            "start": "2026-06-14",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior 2",
+            "start": "2026-07-12",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "Transportation to and from camp each day is provided by the family."
+        },
+        "sources": [
+          "https://www.cbmcamp.com/junior-camps-new",
+          "https://www.cbmcamp.com/junior-camp-1-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Year comes from JUNIOR CAMPS - 2026 heading. Program dates conflict with junior-camp-1-registration, which lists June 1-5, 2026. Confirm dates and number of weeks. Detailed page was readable only through search results. Daily times are approximate and finalized at check-in."
+      },
+      {
+        "name": "Junior High & Teen Camps",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in sports, Bible lessons, zip-line, climbing wall, swimming, games and crafts.",
+        "camp_page_url": "https://www.cbmcamp.com/teen-camps-new",
+        "registration_url": "https://www.cbmcamp.com/registration-summer-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ta-Pa-Win-Go",
+            "address": "111 CBM Camp Rd",
+            "town": "Watauga",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Teen Week",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Jr High 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "Jr High 2",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Students who have never attended overnight camp at Camp Ta-Pa-Win-Go can earn a FREE WEEK just by completing 10 lessons while returning campers can earn up to 1/2 price!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus Schedule for Overnight Summer Camp"
+        },
+        "sources": [
+          "https://www.cbmcamp.com/teen-camps-new",
+          "https://www.cbmcamp.com/teen-camp-registration2",
+          "https://www.cbmcamp.com/jr-high-camp-1-registration",
+          "https://www.cbmcamp.com/our-purpose",
+          "https://www.cbmcamp.com/summer-camp-bus-ride"
+        ],
+        "confidence": "medium",
+        "review_notes": "Detailed program and registration facts were read through official search results. Dates use the 2026 heading. Waitlists remain displayed for this past season: Teen Week both boys and girls, Jr High 1 girls, and Jr High 2 girls. Mixed row status indicates a partial waitlist, not confirmed availability for boys. Bus page is undated; distant pickups are not included as local sites."
+      },
+      {
+        "name": "Junior High & Teen Camps Day Camp Option",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Day campers join a cabin group for sports, Bible lessons, swimming, games and crafts, then sleep at home.",
+        "camp_page_url": "https://www.cbmcamp.com/teen-camps-new",
+        "registration_url": "https://www.cbmcamp.com/registration-summer-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ta-Pa-Win-Go",
+            "address": "111 CBM Camp Rd",
+            "town": "Watauga",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": null,
+          "text": "In general, 8 am arrival for breakfast and departure between 9-10 pm after our evening sessions (approximate times)."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Day Camp option",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Teen Week",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr High 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr High 2",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "Transportation to and from camp each day is provided by the family."
+        },
+        "sources": ["https://www.cbmcamp.com/teen-camps-new"],
+        "confidence": "medium",
+        "review_notes": "Detailed page was readable only through official search results; dates take their year from the 2026 heading. Daily times are approximate and finalized at check-in. Waitlist statements do not distinguish day campers from overnight campers, so day-option availability is left null."
+      }
+    ]
+  }
+}

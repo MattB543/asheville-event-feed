@@ -1,0 +1,217 @@
+{
+  "provider": {
+    "key": "miss-jill-s-summer-camp",
+    "name": "Miss Jill's Summer Camp",
+    "urls": ["https://motherhoodmoxie.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["macaroni_kid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:53.908Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "da848545f334c4b161a5c8b0a9b2806584ec2f09f0014eeb4bccc87ec724bd59",
+  "response": {
+    "searches": [
+      "site:motherhoodmoxie.com \"camp\" \"2027\"",
+      "open https://motherhoodmoxie.com/",
+      "open https://motherhoodmoxie.com/missjillssummercamp"
+    ],
+    "usage": {
+      "inputTokens": 10947,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1557,
+      "reasoningTokens": 152
+    },
+    "status": "completed",
+    "ms": 86934,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://motherhoodmoxie.com/",
+      "chars": 6872,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Miss Jill's Summer Camp",
+    "website_url": "https://motherhoodmoxie.com/",
+    "notes": "No official 2027 information was found. The supplied 2026 camp page is the source for program details; direct browser opens returned no readable content. No published street address or registration destination was found. The possible August 10–14 week is conditional and is not included in sessions.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Miss Jill’s Summer Camp",
+        "type": "day",
+        "categories": ["stem", "arts", "nature_outdoor", "cooking"],
+        "description": "Campers participate in themed hands-on STEAM activities, arts and crafts, daily water play, and outdoor free play. The home-based camp in West Asheville serves groups of up to six children.",
+        "camp_page_url": "https://motherhoodmoxie.com/missjillssummercamp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 9
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Miss Jill's home",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Full Day Camper 9:00-3:00; Half Day Camper 10:00-2:00"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "$15 per hour for additional hours needed (upon approval)"
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": "Half Day Camper",
+            "year": 2026
+          },
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Full Day Camper",
+            "year": 2026
+          },
+          {
+            "amount": 15,
+            "unit": "other",
+            "label": "Hourly (Case by Case)",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Miniature Marvels",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Color Lab",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Story World",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Creatures and Critters",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Kitchen Creations",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Builders and Makers",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wild and Weird!",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Water Wonders",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Sliding scale available for single-earner families or those who qualify (please email to inquire)"
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "We're thoughtful about sensory needs throughout the day."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://motherhoodmoxie.com/missjillssummercamp"],
+        "confidence": "medium",
+        "review_notes": "The 2026 year comes from the camp page heading. Obtain the home site's published street address and the Reserve Your Spot link destination. The page describes attention to sensory needs but does not specify accommodations or eligibility; confirm special-needs support. The possible August 10–14 Mysteries and Matter week is conditional on interest and was omitted."
+      }
+    ]
+  }
+}

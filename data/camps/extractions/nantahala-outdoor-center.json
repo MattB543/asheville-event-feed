@@ -1,0 +1,239 @@
+{
+  "provider": {
+    "key": "nantahala-outdoor-center",
+    "name": "Nantahala Outdoor Center",
+    "urls": [
+      "https://noc.com/youth-paddling-programs/",
+      "https://noc.com/youth-kayak-summer-camps/"
+    ],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:16:56.236Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "db37e338a3296732b808cd69f0b0aea189c67e10372ac90718ff2b942395d749",
+  "response": {
+    "searches": [
+      "site:noc.com \"Advanced Teen\" \"2026\"",
+      "open https://noc.com/courses/advanced-teen-kayak-camps/",
+      "?",
+      "open https://noc.com/wp-content/uploads/2025/12/Customer-Facing-2026-Paddling-School-Calendar.pdf",
+      "site:noc.com \"2026\" \"Kid Week\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 37592,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1822,
+      "reasoningTokens": 278
+    },
+    "status": "completed",
+    "ms": 45690,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://noc.com/youth-paddling-programs/",
+      "chars": 6162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/youth-kayak-summer-camps/",
+      "chars": 6369,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/wp-content/uploads/2023/01/Summer-Camps_Parent-Handbook.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://noc.com/wp-content/uploads/2020/11/Summer_Camps_Parent_Handbook_2021_final.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://noc.com/youth-summer-camps/",
+      "chars": 5966,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/summer/",
+      "chars": 9630,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/accommodations/camping/",
+      "chars": 6520,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/faqs/",
+      "chars": 10195,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/courses/summer-day-camps/",
+      "chars": 9843,
+      "method": "fetch"
+    },
+    {
+      "url": "https://noc.com/wp-content/uploads/2025/01/PS_Summercamp_ParentHandbook_2025.pdf",
+      "chars": 14218,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Nantahala Outdoor Center",
+    "website_url": "https://noc.com/",
+    "notes": "No 2027 camp dates or registration announcements were found. Two official 2026 paddling-school calendar PDFs were found, but their readable text stopped before the summer months and screenshot attempts failed, so session dates are omitted. The 2025 parent handbook was not used to supply 2026 hours. Current detailed camp pages describe day camps only; overview pages still mention advanced teen travel camps, without current overnight details.",
+    "excluded": [
+      {
+        "name": "Atlanta Summer Camps",
+        "reason": "Chattahoochee River camp sites in North Atlanta are outside the Asheville-area drive range."
+      },
+      {
+        "name": "Camp Wesser",
+        "reason": "Adult-only summer camp."
+      },
+      {
+        "name": "Nantahala National Forest Camping",
+        "reason": "Lodging and campsite rentals, not a supervised youth camp."
+      },
+      {
+        "name": "Private Canoe and Kayak Instruction",
+        "reason": "Private lessons, not a camp."
+      },
+      {
+        "name": "Campalooza at NOC Roswell",
+        "reason": "Family festival rather than a supervised youth camp; also outside the Asheville-area drive range."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kayaking Summer Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers learn paddling techniques and river-running skills on Western North Carolina lakes and rivers. They are grouped by kayaking experience, with instruction for beginner through advanced paddlers.",
+        "camp_page_url": "https://noc.com/courses/summer-day-camps/",
+        "registration_url": "https://noc.com/courses/summer-day-camps/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "NOC Paddling School",
+            "address": "51 NOC Way",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 995,
+            "unit": "session",
+            "label": "from",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Daily Lunch included for camper, plus two additional lunches for family members on Family Fun Friday."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "In-Course Transportation"
+        },
+        "sources": [
+          "https://noc.com/courses/summer-day-camps/",
+          "https://noc.com/youth-kayak-summer-camps/",
+          "https://noc.com/wp-content/uploads/2026/01/PaddlingSchool_OnlineCalendar_2026-1-1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current camp page lists five-day camps in June and July and a starting price of $995 without an explicit season year; the price is retained as a 2026 fallback. The page also contains an unrelated 18+ eligibility sentence that conflicts with its repeated 9–17 camp requirement. The program page publishes 51 NOC Way; the older handbook and general campus lodging page use 13077 Hwy 19 W/US-19 W. Check the summer pages of the 2026 calendar PDF for session dates."
+      },
+      {
+        "name": "Advanced Teen Kayak Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Teen kayakers practice advanced river-running techniques, teamwork, river etiquette, and risk assessment. The day camp uses the Nantahala River to prepare campers for paddling the Ocoee River.",
+        "camp_page_url": "https://noc.com/courses/advanced-teen-kayak-camps/",
+        "registration_url": "https://noc.com/courses/advanced-teen-kayak-camps/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "NOC Paddling School",
+            "address": "51 NOC Way",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:30",
+          "text": "Tuesday through Saturday; camper pick-up around 4:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1195,
+            "unit": "session",
+            "label": "from",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch, gear, and area transportation is included along with a Paddling School t-shirt and discounts at our Outfitter’s Store, restaurants, and lodging."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Lunch, gear, and area transportation is included."
+        },
+        "sources": [
+          "https://noc.com/courses/advanced-teen-kayak-camps/",
+          "https://noc.com/youth-paddling-programs/",
+          "https://noc.com/youth-kayak-summer-camps/",
+          "https://noc.com/wp-content/uploads/2026/01/PaddlingSchool_OnlineCalendar_2026-1-1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The detailed page describes a Tuesday–Saturday day camp but its summary says 5–6 days, and overview pages still mention travel camps. No separate current overnight offering could be established. The starting price of $1195 and hours have no explicit year on the detailed page and are retained as 2026 fallback information. The 2026 calendar legend explicitly identifies a five-day Advanced Teen Kayak Day Camp for ages 13–17. Check the unreadable summer calendar pages for dates. The program page publishes 51 NOC Way, while the older handbook uses the general campus address 13077 Hwy 19 W."
+      }
+    ]
+  }
+}

@@ -1,0 +1,673 @@
+{
+  "provider": {
+    "key": "mountain-roots",
+    "name": "Mountain Roots",
+    "urls": [
+      "https://mountainroots.org/camp-dates-location/",
+      "https://mountainroots.org/camps/",
+      "https://mountainroots.org/preschool-camp/",
+      "https://mountainroots.org/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:28.846Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "47ffaf62f34867bfb98070a16b03d7b344f9124a97d2015652741132415ca67e",
+  "response": {
+    "searches": [
+      "site:mountainroots.org roots crew 2027",
+      "open https://mountainroots.org/roots-crew/",
+      "site:mountainroots.org/scholarships"
+    ],
+    "usage": {
+      "inputTokens": 25729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5000,
+      "reasoningTokens": 358
+    },
+    "status": "completed",
+    "ms": 96756,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mountainroots.org/camp-dates-location/",
+      "chars": 3328,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/camps/",
+      "chars": 3680,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/preschool-camp/",
+      "chars": 3201,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/",
+      "chars": 3744,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/register/",
+      "chars": 3338,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/full-day-camp/",
+      "chars": 4088,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/ramblers_camp/",
+      "chars": 3419,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountainroots.org/forest_camp/",
+      "chars": 3224,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain Roots",
+    "website_url": "https://mountainroots.org/",
+    "notes": "2027 camp dates are posted and the homepage says registration is now open, but no opening date is stated. The registration page still gives a January 31, 2026 early-bird cutoff. Preschool and Full Day Camp prices have no explicit season year and are retained as 2026 facts pending confirmation. Roots Crew remains promoted on the current homepage, but its detailed page and application describe 2026. Several pages returned empty content when opened through the browser; supplied page text and official search results were used. Exact Pisgah Forest camp meeting locations are disclosed only to registered families.",
+    "excluded": [
+      {
+        "name": "Outdoor Education Programs",
+        "reason": "School-based and recurring educational programming, not a separately identified finite summer camp."
+      },
+      {
+        "name": "Round for Roots Golf Fundraiser",
+        "reason": "A September fundraising event, not a supervised youth summer camp."
+      },
+      {
+        "name": "Summer Camp Counselors",
+        "reason": "Employment positions, not camper programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Preschool Camp",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "arts", "music"],
+        "description": "Campers participate in songs, storytelling, games, hands-on activities, and exploratory play. Activities include nature exploration, gardening, music, and art.",
+        "camp_page_url": "https://mountainroots.org/preschool-camp/",
+        "registration_url": "https://mountainroots.org/register/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "FernLeaf Community Charter School Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 179,
+            "unit": "session",
+            "label": "regular",
+            "year": 2026
+          },
+          {
+            "amount": 159,
+            "unit": "session",
+            "label": "early bird",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 2",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4: 4-day week",
+            "start": "2027-07-05",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7: 4-day week",
+            "start": "2027-07-26",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Mountain Roots Day Camp Registration 2027- Is Now Open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "We partner with local schools, community organizations, and generous donors to provide need-based scholarships for families."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mountainroots.org/preschool-camp/",
+          "https://mountainroots.org/camp-dates-location/",
+          "https://mountainroots.org/camps/",
+          "https://mountainroots.org/register/",
+          "https://mountainroots.org/",
+          "https://mountainroots.org/scholarships/",
+          "https://www.fernleafccs.org/contact-us",
+          "https://brevard.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The preschool page does not print a year with its prices or January 31 early-bird cutoff; prices are provisionally labeled 2026 because the registration policy explicitly references 2026. Confirm 2027 prices and any four-day rate. Session 7 is described as an all-camp forest day on Thursday, but the alternate drop-off location and preschool arrangements are not stated."
+      },
+      {
+        "name": "Full Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "general"],
+        "description": "Campers combine outdoor play, nature exploration, community service, and arts activities. Activities include hiking, gardening, candle dipping, tie-dyeing, and bottle rockets.",
+        "camp_page_url": "https://mountainroots.org/full-day-camp/",
+        "registration_url": "https://mountainroots.org/register/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "FernLeaf Community Charter School Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 319,
+            "unit": "session",
+            "label": "regular",
+            "year": 2026
+          },
+          {
+            "amount": 289,
+            "unit": "session",
+            "label": "early bird",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 2",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4: 4-day week",
+            "start": "2027-07-05",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": "Brevard College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7: 4-day week",
+            "start": "2027-07-26",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": "FernLeaf Community Charter School Wilderness Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Mountain Roots Day Camp Registration 2027- Is Now Open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "We partner with local schools, community organizations, and generous donors to provide need-based scholarships for families."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Every day, your child will need a water bottle, snack, lunch, and sturdy camp shoes."
+        },
+        "transportation": null,
+        "sources": [
+          "https://mountainroots.org/full-day-camp/",
+          "https://mountainroots.org/camps/",
+          "https://mountainroots.org/camp-dates-location/",
+          "https://mountainroots.org/register/",
+          "https://mountainroots.org/",
+          "https://mountainroots.org/scholarships/",
+          "https://www.fernleafccs.org/contact-us",
+          "https://brevard.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices have no explicit year and are provisionally labeled 2026 based on the registration page's dated policy; confirm 2027 prices and four-day rates. The main heading specifies rising grades 1–4; rising fifth graders may attend only after contacting the provider about fit, despite the page metadata saying grades 1–5. Session 1 is represented separately as Forest Camp. Session 7 Thursday is an all-camp forest day; its drop-off arrangements are not published."
+      },
+      {
+        "name": "Forest Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers practice wilderness skills and participate in nature activities, small-group activities, and outdoor free play. Age groups also have a stay-late cookout, family campout, or camper-only overnight campout.",
+        "camp_page_url": "https://mountainroots.org/forest_camp/",
+        "registration_url": "https://mountainroots.org/forest_camp/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-17",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Forest Camp Base Camp, Pisgah National Forest",
+            "address": null,
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 309,
+            "unit": "session",
+            "label": "regular",
+            "year": 2027
+          },
+          {
+            "amount": 289,
+            "unit": "session",
+            "label": "early bird",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Poplars: family cookout and stay-late evening",
+            "start": "2027-06-14",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cedars: overnight family campout",
+            "start": "2027-06-14",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Oaks: overnight campout without families",
+            "start": "2027-06-14",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-01-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early bird is $289 until 1/31/27.",
+            "url": "https://mountainroots.org/forest_camp/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We partner with local schools, community organizations, and generous donors to provide need-based scholarships for families."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mountainroots.org/forest_camp/",
+          "https://mountainroots.org/camp-dates-location/",
+          "https://mountainroots.org/camps/",
+          "https://mountainroots.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The dates/location page initially lists Session 1 as June 14–18, but its specific Forest Camp section and the camps overview say June 14–17; the latter dates are used. Age-group ages are explicitly approximate. The group campsite's exact location is private to registered families, so no street address can be supplied. Overnight activities are components of this day-camp offering, not separately registered programs."
+      },
+      {
+        "name": "Ramblers Backpacking Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers travel through Pisgah National Forest on a backpacking trip and sleep outdoors. They learn packing, campsite setup, outdoor cooking, knots, sanitation, Leave No Trace, navigation, and group communication.",
+        "camp_page_url": "https://mountainroots.org/ramblers_camp/",
+        "registration_url": "https://mountainroots.org/ramblers_camp/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Forest Camp Base Camp, Pisgah National Forest",
+            "address": null,
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 399,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We partner with local schools, community organizations, and generous donors to provide need-based scholarships for families."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mountainroots.org/ramblers_camp/",
+          "https://mountainroots.org/forest_camp/",
+          "https://mountainroots.org/camp-dates-location/",
+          "https://mountainroots.org/camps/",
+          "https://mountainroots.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page explicitly gives June 14–17, 2027 and describes a two-night Tuesday–Thursday trip, but also says Friday pickup at 3pm; the dates/location page lists June 14–18 while the camps overview says June 14–17. Confirm the final pickup date. Monday prep hours are 9am–4pm and trip drop-off is 9am. The Forest Camp page describes Ramblers as ages 12–14, conflicting with the dedicated program's rising grades 8–12; only the dedicated page's grades are used. Exact base-camp location is disclosed after registration."
+      },
+      {
+        "name": "Roots Crew",
+        "type": "day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Teen participants assist camp counselors with outdoor activities and games for younger campers while participating in camp activities. They help set up and break down activities and meet with the camp coordinator for reflection.",
+        "camp_page_url": "https://mountainroots.org/roots-crew/",
+        "registration_url": "https://mountainroots.org/roots-crew/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "Forest Camp Base Camp, Pisgah National Forest",
+            "address": null,
+            "town": "Pisgah Forest",
+            "state": "NC"
+          },
+          {
+            "name": "FernLeaf Community Charter School",
+            "address": null,
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:20",
+          "end": "16:00",
+          "text": "Arrive between 8:20-8:30am (unless otherwise indicated). Roots Crew pickup time is 4 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Roots Crew members bring their own sack lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://mountainroots.org/",
+          "https://mountainroots.org/roots-crew/",
+          "https://mountainroots.org/wp-content/uploads/2025/12/Roots-Crew-Overview-2026.pdf",
+          "https://brevard.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current homepage still promotes Roots Crew, so it is retained despite its detailed materials remaining dated 2026. The official search result provides dates, hours, grades, and fee; direct page opening returned empty content. The 2026 page describes three weeks at Brevard College, one Forest Camp week, and three weeks at FernLeaf without exact site-specific dates; no session rows were fabricated. It does not identify which FernLeaf campus hosted Roots Crew in 2026, so the 2027 Wilderness Campus address is not assigned to that site. Confirm 2027 schedule, locations, and application details."
+      }
+    ]
+  }
+}

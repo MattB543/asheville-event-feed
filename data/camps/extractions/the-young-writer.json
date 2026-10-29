@@ -1,0 +1,51 @@
+{
+  "provider": {
+    "key": "the-young-writer",
+    "name": "The Young Writer",
+    "urls": ["https://youngwriterretreat.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:30:32.346Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ce394114e01d8cc027143ccb195b1fb308ff73d60418e4fed08b9eda6e891acc",
+  "response": {
+    "searches": [
+      "site:youngwriterretreat.com 2027 retreat ages location registration",
+      "open https://youngwriterretreat.com/home-post-registration/",
+      "site:youngwriterretreat.com \"conference\"",
+      "site:youngwriterretreat.com/home-post-registration \"supervision\""
+    ],
+    "usage": {
+      "inputTokens": 16976,
+      "cachedInputTokens": 8845,
+      "outputTokens": 510,
+      "reasoningTokens": 289
+    },
+    "status": "completed",
+    "ms": 20854,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://youngwriterretreat.com/",
+      "chars": 520,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Young Writer",
+    "website_url": "https://youngwriterretreat.com/",
+    "notes": "The homepage announces August 9–13, 2027 in Asheville. Excluded the previously listed retreat under the conference rule: the official post-registration FAQ refers to \"conference charges,\" and the saving guide describes separately arranged lodging and roommates rather than supervised residential camp care. Sources: https://youngwriterretreat.com/home-post-registration/ and https://youngwriterretreat.com/saving-guide/. Those pages and the registration and accessibility pages returned no readable body when opened; supporting details were available in official-site search results. No additional qualifying local summer camp was found.",
+    "excluded": [
+      {
+        "name": "Young Writer Retreat",
+        "reason": "Writing conference/retreat rather than a confirmed supervised youth camp; conferences and conventions are excluded. The official FAQ calls its fees \"conference charges,\" and attendees arrange their own lodging and roommates."
+      }
+    ],
+    "cards": []
+  }
+}

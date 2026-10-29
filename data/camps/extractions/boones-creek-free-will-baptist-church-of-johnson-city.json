@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "boones-creek-free-will-baptist-church-of-johnson-city",
+    "name": "Boones Creek Free Will Baptist Church of Johnson City",
+    "urls": ["https://boonescreekfwb.org/", "https://www.facebook.com/bcfwb/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND boonescreekfwb.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND boonescreekfwb.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at https://boonescreekfwb.org/"
+  },
+  "extractedAt": "2026-10-29T17:26:05.149Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:boonescreekfwb.org VBS 2026",
+      "\"Boones Creek Free Will\" \"Vacation Bible\"",
+      "site:facebook.com \"Boones Creek\" \"July 13\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 19302,
+      "cachedInputTokens": 8845,
+      "outputTokens": 945,
+      "reasoningTokens": 279
+    },
+    "status": "completed",
+    "ms": 28476,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://boonescreekfwb.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (getaddrinfo ENOTFOUND boonescreekfwb.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND boonescreekfwb.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at https://boonescreekfwb.org/\nCall log:\n\u001b[2m  - navigating to \"https://boonescreekfwb.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/bcfwb/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boones Creek Free Will Baptist Church of Johnson City",
+    "website_url": "https://boonescreekfwb.org/",
+    "notes": "No 2027 information was found. The provider website was blocked by robots.txt, and its Facebook page returned no readable text. An indexed official Facebook video confirms Vacation Bible School, but 2026 dates and location were found only in third-party event listings.",
+    "excluded": [
+      {
+        "name": "Boones Creek Bible Church Vacation Bible School",
+        "reason": "A different church, at 1528 Old Gray Station Road, not this provider."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://www.facebook.com/bcfwb/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Boones Creek Free Will Baptist Church",
+            "address": "6010 Kingsport Hwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/bcfwb/videos/come-join-us-for-vacation-bible-school-the-fun-begins-tomorrow-night-at-630pm-ho/1269040443137080/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2026 dates, nightly hours, and venue with the church. Search snippets for https://stayhappening.com/e/boones-creek-fwb-church-2026-vacation-bible-school-E2ISYKOXRKT and https://happeningnext.com/event/boones-creek-fwb-church-2026-vacation-bible-school-eid3a0doowtjv list July 13–17, 2026, 6:30–8:30 PM at 6010 Kingsport Hwy, Johnson City. These details could not be verified on readable official pages. Other address directories use Gray as the town; the event listings use Johnson City. The indexed official Facebook video is undated and was not used to establish 2026 dates or hours."
+      }
+    ]
+  }
+}

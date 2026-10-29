@@ -1,0 +1,147 @@
+{
+  "method": "resolve",
+  "id": "batch-304920de41",
+  "input": "1. Skyland First Baptist Church of Arden | town: Arden, NC | the page we have (https://skylandbaptist.org/?page_id=197) failed: page doesn't mention a kids' camp, summer program or VBS\n2. Spring Mountain Baptist Church of Fairview | town: Fairview, NC | has a Facebook page: https://www.facebook.com/springmountainbaptistchurch\n3. Pole Creek Baptist Church of Candler | town: Candler, NC | the page we have (https://polecreek.churchcenter.com/registrations/events/3508992) failed: page didn't load: fetch: HTTP 404; browser: soft 404 (\"404 - Pole Creek Baptist \n4. Georgetown Baptist Church of Leicester | town: Leicester, NC | the page we have (https://www.gbcasheville.org/) failed: page doesn't mention a kids' camp, summer program or VBS\n5. Living Waters Tabernacle of Old Fort | town: Old Fort, NC | the page we have (https://lwt.connectioncard.net/process/page/site_link/?current_pgid=655&id=99&item=2444&pgid=694&sgid=110001380) failed: page doesn't mention a kids' camp, summer program or VBS\n6. Central Baptist Church of Johnson City | town: Johnson City, TN | the page we have (https://www.cbcjc.org/) failed: page doesn't mention a kids' camp, summer program or VBS\n7. First Baptist Church of Jonesborough | town: Jonesborough, TN | the page we have (https://fbjonesborough.org/) failed: page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND fbjonesborough.org)\n8. Cherry Grove Baptist Church of Jonesborough | town: Jonesborough, TN | the page we have (https://cherrygrovetn.org/) failed: page doesn't mention a kids' camp, summer program or VBS",
+  "at": "2026-10-29T04:18:20.632Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 51551,
+    "cachedInputTokens": 4577,
+    "outputTokens": 1249,
+    "reasoningTokens": 600
+  },
+  "searches": [
+    "site:skylandbaptist.org VBS 2025 2026",
+    "\"Living Waters Tabernacle\" \"Old Fort\" VBS",
+    "\"Pole Creek Baptist\" \"2025\" \"VBS\"",
+    "\"Pole Creek Baptist\" \"vacation bible school\"",
+    "\"Living Waters Tabernacle\" \"2025\" \"VBS\"",
+    "\"First Baptist Church Jonesborough\" \"facebook.com\""
+  ],
+  "ms": 61848,
+  "candidates": [
+    {
+      "name": "Skyland First Baptist Church of Arden",
+      "url": "https://skylandbaptist.org/?page_id=250",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official children/youth page describes summer VBS for ages 3–18, but no 2025–2027 date was found."
+    },
+    {
+      "name": "Spring Mountain Baptist Church of Fairview",
+      "url": "https://www.facebook.com/springmountainbaptistchurch",
+      "town": "Fairview",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Found a June 22–26, 2026 evening VBS announcement; church’s official channel confirms this Facebook account."
+    },
+    {
+      "name": "Pole Creek Baptist Church of Candler",
+      "url": "https://polecreek.org/children",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Search index retains its official VBS 2025 registration listing; returning the working children’s ministry page instead."
+    },
+    {
+      "name": "Georgetown Baptist Church of Leicester",
+      "url": "https://www.gbcasheville.org/",
+      "town": "Leicester",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Found Whiter than Snow VBS announced for June 16–20, 2025 at its verified Leicester address."
+    },
+    {
+      "name": "Living Waters Tabernacle of Old Fort",
+      "url": "https://lwt.connectioncard.net/site/home",
+      "town": "Old Fort",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Found its official Connection Card home page, but no dated 2025–2027 kids’ summer program."
+    },
+    {
+      "name": "Central Baptist Church of Johnson City",
+      "url": "https://www.cbcjc.org/kids",
+      "town": "Johnson City",
+      "state": "TN",
+      "kinds": [],
+      "categories": [],
+      "note": "Found VBS–Emerald Crossing listed for May 31, 2026; official site also describes VBS volunteer roles."
+    },
+    {
+      "name": "First Baptist Church of Jonesborough",
+      "url": null,
+      "town": "Jonesborough",
+      "state": "TN",
+      "kinds": [],
+      "categories": [],
+      "note": "Found a Jonesborough VBS 2025 recap video, but could not verify a usable organization-owned website or account."
+    },
+    {
+      "name": "Cherry Grove Baptist Church of Jonesborough",
+      "url": "https://cherrygrovetn.org/",
+      "town": "Jonesborough",
+      "state": "TN",
+      "kinds": [],
+      "categories": [],
+      "note": "Official site confirms Jonesborough location; only older VBS evidence found, not 2025–2027."
+    }
+  ],
+  "asked": [
+    {
+      "name": "Skyland First Baptist Church of Arden",
+      "town": "Arden",
+      "state": "NC",
+      "note": "the page we have (https://skylandbaptist.org/?page_id=197) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Spring Mountain Baptist Church of Fairview",
+      "town": "Fairview",
+      "state": "NC",
+      "note": "has a Facebook page: https://www.facebook.com/springmountainbaptistchurch"
+    },
+    {
+      "name": "Pole Creek Baptist Church of Candler",
+      "town": "Candler",
+      "state": "NC",
+      "note": "the page we have (https://polecreek.churchcenter.com/registrations/events/3508992) failed: page didn't load: fetch: HTTP 404; browser: soft 404 (\"404 - Pole Creek Baptist "
+    },
+    {
+      "name": "Georgetown Baptist Church of Leicester",
+      "town": "Leicester",
+      "state": "NC",
+      "note": "the page we have (https://www.gbcasheville.org/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Living Waters Tabernacle of Old Fort",
+      "town": "Old Fort",
+      "state": "NC",
+      "note": "the page we have (https://lwt.connectioncard.net/process/page/site_link/?current_pgid=655&id=99&item=2444&pgid=694&sgid=110001380) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Central Baptist Church of Johnson City",
+      "town": "Johnson City",
+      "state": "TN",
+      "note": "the page we have (https://www.cbcjc.org/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "First Baptist Church of Jonesborough",
+      "town": "Jonesborough",
+      "state": "TN",
+      "note": "the page we have (https://fbjonesborough.org/) failed: page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND fbjonesborough.org)"
+    },
+    {
+      "name": "Cherry Grove Baptist Church of Jonesborough",
+      "town": "Jonesborough",
+      "state": "TN",
+      "note": "the page we have (https://cherrygrovetn.org/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    }
+  ]
+}

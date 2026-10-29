@@ -1,0 +1,282 @@
+{
+  "provider": {
+    "key": "rockbrook-camp",
+    "name": "Rockbrook Camp",
+    "urls": [
+      "https://www.rockbrookcamp.com/camps/",
+      "https://www.rockbrookcamp.com/horse-camp/",
+      "https://www.rockbrookcamp.com/registration/",
+      "https://www.rockbrookcamp.com/",
+      "https://www.rockbrookcamp.com/outdoor/whitewater/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:02.194Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "501fc7e6a5a08863be314c5e891336837f8e51c7e0ddfb35ba341553d77df203",
+  "response": {
+    "searches": [
+      "site:rockbrookcamp.com address 3460 scholarship 2027",
+      "open https://www.rockbrookcamp.com/parents/driving-directions/",
+      "site:rockbrookcamp.com \"2027\" \"registration\" \"opens\""
+    ],
+    "usage": {
+      "inputTokens": 27933,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1862,
+      "reasoningTokens": 234
+    },
+    "status": "completed",
+    "ms": 42384,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.rockbrookcamp.com/camps/",
+      "chars": 5085,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/horse-camp/",
+      "chars": 9235,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/registration/",
+      "chars": 4819,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/",
+      "chars": 6358,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/registration/enrollment-information/",
+      "chars": 5927,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/shop/",
+      "chars": 5075,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/search-our-site/",
+      "chars": 2596,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.rockbrookcamp.com/describe/",
+      "chars": 5539,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rockbrook Camp",
+    "website_url": "https://www.rockbrookcamp.com/",
+    "notes": "The 2027 Dates & Rates page lists only main camp sessions. Specialty Horse Camp and Kayak Trip Camp remain on separate pages but have no sessions in the posted 2027 list; they are omitted pending confirmation that they will run in 2027. Additional pages opened through the browser returned no readable body text; the driving address was obtained from the official search result. The enrollment policy mentions September 1 without a calendar year, so no dated registration milestone was inferred.",
+    "excluded": [
+      {
+        "name": "Specialty Horse Camp",
+        "reason": "Not included in the provider's posted 2027 program/session list; the separate specialty page supplies no 2027 dates."
+      },
+      {
+        "name": "Kayak Trip Camp",
+        "reason": "Not included in the provider's posted 2027 program/session list; the separate program page supplies no 2027 dates."
+      },
+      {
+        "name": "Internship in Social Emotional Learning",
+        "reason": "Staff internship/employment program, not a youth camp."
+      },
+      {
+        "name": "105 Year Reunion",
+        "reason": "Alumnae reunion, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rockbrook Camp for Girls",
+        "type": "overnight",
+        "categories": ["general", "arts", "nature_outdoor", "sports", "horses", "theater"],
+        "description": "Girls participate in horseback riding, whitewater rafting, rock climbing, swimming, arts and crafts, sports, and drama. All sessions offer the full range of activities.",
+        "camp_page_url": "https://www.rockbrookcamp.com/camps/",
+        "registration_url": "https://www.rockbrookcamp.com/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-08",
+          "text": "2027 Overnight Camps"
+        },
+        "ages": {
+          "min": 6,
+          "max": 16
+        },
+        "grades": {
+          "min": 1,
+          "max": 10,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Rockbrook Camp",
+            "address": "3460 Greenville Highway",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "First Session",
+            "start": "2027-06-06",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 10,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7300,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "June Mini Session",
+            "start": "2027-06-13",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Second Session",
+            "start": "2027-06-27",
+            "end": "2027-07-22",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 10,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 8900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Mini Session 1",
+            "start": "2027-06-27",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Mini Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-22",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Third Session",
+            "start": "2027-07-25",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 10,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6250,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.rockbrookcamp.com/camps/",
+          "https://www.rockbrookcamp.com/registration/",
+          "https://www.rockbrookcamp.com/registration/enrollment-information/",
+          "https://www.rockbrookcamp.com/describe/",
+          "https://www.rockbrookcamp.com/parents/driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official driving-directions search result identifies the entrance as 3460 Greenville Highway; the contact search result lists 368 Castle Rock Road for non-USPS shipping, which was not used as the drop-off address. Session grade ranges are printed without a basis on Dates & Rates; completed-grade basis follows the Life at Summer Camp page's explicit statement that campers have finished first through tenth grade."
+      }
+    ]
+  }
+}

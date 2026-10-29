@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "molly-angel-art-studio",
+    "name": "Molly Angel Art Studio",
+    "urls": ["https://www.mollyangel.com/", "https://www.mollyangel.com/art-classes.php"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:36.428Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f371db99b1e421d2cd2775fb6c230c1d068662390595bb3d35270d2b509cd5ad",
+  "response": {
+    "searches": [
+      "site:mollyangel.com contact address art",
+      "open https://www.mollyangel.com/contact-us.php",
+      "site:mollyangel.com/pottery-class.php \"classes\""
+    ],
+    "usage": {
+      "inputTokens": 13293,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1358,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 33566,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mollyangel.com/",
+      "chars": 235,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.mollyangel.com/art-classes.php",
+      "chars": 990,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mollyangel.com/kinder-camp.php",
+      "chars": 680,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Molly Angel Art Studio",
+    "website_url": "https://www.mollyangel.com/",
+    "notes": "No summer 2027 information found. The contact-page search result locates the studio off Fanning Bridge Road near the Ag Center and airport but does not publish a street address. Third-party business listings give 15 Hickory Dr, Fletcher, NC; this was not confirmed by the provider, so site addresses are left null. The contact, pottery and advanced-class pages returned no readable text when opened; search snippets provided limited information.",
+    "excluded": [
+      {
+        "name": "After school art classes",
+        "reason": "School-year weekly art classes, not a summer camp."
+      },
+      {
+        "name": "Pottery class",
+        "reason": "Presented as pottery lessons/classes; no finite summer camp offering was found."
+      },
+      {
+        "name": "Advanced class",
+        "reason": "Presented as seasonal advanced art classes, not a summer camp."
+      },
+      {
+        "name": "Mommy and Me Art Classes",
+        "reason": "Parent-and-child workshops, a family-only offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Classes",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers explore drawing, painting, clay and collage during a week of two-hour daily art classes.",
+        "camp_page_url": "https://www.mollyangel.com/art-classes.php",
+        "registration_url": "https://www.mollyangel.com/art-classes.php",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 7,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Angel Art Studio",
+            "address": null,
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "12:00",
+          "text": "Monday - Friday for 2 hours each day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "session",
+            "label": "Includes all materials and supplies",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mollyangel.com/art-classes.php",
+          "https://www.mollyangel.com/contact-us.php",
+          "https://www.mollyangel.com/year-long-art-classes.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the summer camp's drop-off location and street address. Angel Art Studio is named on the after-school page, and the provider contact snippet gives only a general Fletcher-area location. Registration is by email to check availability, followed by a $50 deposit."
+      },
+      {
+        "name": "kinders and pre-k",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Children explore painting, drawing and collage in a three-day summer art camp, with games and movement breaks.",
+        "camp_page_url": "https://www.mollyangel.com/kinder-camp.php",
+        "registration_url": "https://www.mollyangel.com/kinder-camp.php",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Angel Art Studio",
+            "address": null,
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mollyangel.com/kinder-camp.php",
+          "https://www.mollyangel.com/contact-us.php",
+          "https://www.mollyangel.com/year-long-art-classes.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "The kinder-camp page is undated and lists no dates, hours or total tuition; its applicability to summer 2026 needs confirmation. Confirm the drop-off location and street address. Angel Art Studio is named on the after-school page, not explicitly on this camp page. The page specifies a $50 deposit at sign-up and requires a 30-minute attention span."
+      }
+    ]
+  }
+}

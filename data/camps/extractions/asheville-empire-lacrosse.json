@@ -1,0 +1,115 @@
+{
+  "provider": {
+    "key": "asheville-empire-lacrosse",
+    "name": "Asheville Empire Lacrosse",
+    "urls": ["https://ashevilleempire.com/programs/lacrosse-summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:57.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "62ed022299f61bef28bd4a5acc098688bef34ccbcc023863a173b97e9efc0fd9",
+  "response": {
+    "searches": [
+      "site.buncombenc.gov Buncombe County Sports Park 58 Apac",
+      "open https://www.buncombenc.gov/Facilities/Facility/Details/Buncombe-Sports-Park-1",
+      "site.buncombenc.gov \"Sports Park\" \"58\""
+    ],
+    "usage": {
+      "inputTokens": 18954,
+      "cachedInputTokens": 8845,
+      "outputTokens": 913,
+      "reasoningTokens": 211
+    },
+    "status": "completed",
+    "ms": 32927,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+      "chars": 1651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleempire.com/",
+      "chars": 3337,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Empire Lacrosse",
+    "website_url": "https://ashevilleempire.com/",
+    "notes": "The supplied camp page explicitly posts 2027 dates. Additional live page opens returned no readable text, so the registration link destination and prices could not be checked.",
+    "excluded": [
+      {
+        "name": "Fall Ball Sundays",
+        "reason": "Fall program outside summer."
+      },
+      {
+        "name": "Winter Lacrosse",
+        "reason": "Winter program outside summer."
+      },
+      {
+        "name": "Tournament Teams",
+        "reason": "Competitive team seasons rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Lacrosse Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers receive lacrosse instruction, practice drills and position-specific skills, and play scrimmages and other games. The camp is for boys and girls with or without lacrosse experience.",
+        "camp_page_url": "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-26",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Buncombe County Sports Park",
+            "address": "58 Apac Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "12:00pm – Lunch — HALF DAY CAMPER PICKUP; 3:00-3:30pm – Clean up/Pick up"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "All Players Must Bring the Following Items: Bagged Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+          "https://www.buncombenc.gov/Facilities/Facility/Details/Buncombe-Sports-Park-1"
+        ],
+        "confidence": "medium",
+        "review_notes": "The venue's official facility page did not expose its address in readable results. 58 Apac Drive, Asheville is supported by MapQuest and a third-party mirror of the park's social page; ABYSA instead lists 58 Apac Circle, Candler. Confirm the address against the venue's own published location. Camp dates, ages and schedule are explicitly stated in the supplied official 2027 page. The half-day option is included within this card."
+      }
+    ]
+  }
+}

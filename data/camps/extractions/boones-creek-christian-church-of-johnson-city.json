@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "boones-creek-christian-church-of-johnson-city",
+    "name": "Boones Creek Christian Church of Johnson City",
+    "urls": ["https://www.boonescreekcc.org/media/series/f934sps/vbs-2025"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:55.279Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c00b9c56bbf410fee7cf5a9ff9f9367d5b8dc55c0fe70e0ca78de55e88205759",
+  "response": {
+    "searches": [
+      "site:boonescreekcc.org VBS 2026",
+      "\"site:boonescreekcc.org\" \"camp\"",
+      "site:boonescreekcc.org \"VBS\" \"6:00\""
+    ],
+    "usage": {
+      "inputTokens": 31969,
+      "cachedInputTokens": 8845,
+      "outputTokens": 990,
+      "reasoningTokens": 300
+    },
+    "status": "completed",
+    "ms": 30439,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.boonescreekcc.org/media/series/f934sps/vbs-2025",
+      "chars": 1176,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.boonescreekcc.org/move-campaign",
+      "chars": 13377,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.boonescreekcc.org/union-campus",
+      "chars": 1735,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.boonescreekcc.org/",
+      "chars": 1602,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boones Creek Christian Church of Johnson City",
+    "website_url": "https://www.boonescreekcc.org/",
+    "notes": "No 2027 camp information or registration milestones were found. The VBS Theme Nights page lists June 8–11 without a year; its Monday–Thursday weekdays match 2026, but the year needs confirmation. The supplied 2025 media archive was not used as 2026 dates. Direct opens of the VBS and Elementary Kids pages returned no readable text. An official YouTube search result mentions a Camp ACC 2026 recap, but no church-specific camp offering details were found.",
+    "excluded": [
+      {
+        "name": "Boones Creek Bible Church Vacation Bible School",
+        "reason": "A different church, not this provider."
+      },
+      {
+        "name": "Boones Creek FWB Church Vacation Bible School",
+        "reason": "A different church, not this provider."
+      },
+      {
+        "name": "Preschool Kids and Elementary Kids",
+        "reason": "Year-round church classes rather than finite summer camps."
+      },
+      {
+        "name": "Wednesday Night Youth",
+        "reason": "Recurring year-round youth ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Kids Christmas Performance",
+        "reason": "Practices and performances occur outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children, with themed dress-up nights.",
+        "camp_page_url": "https://boonescreekcc.org/vbs-theme-nights",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://boonescreekcc.org/vbs-theme-nights",
+          "https://www.boonescreekcc.org/media/series/f934sps/vbs-2025"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBS Theme Nights page was readable only through an official search result. It gives Monday June 8 through Thursday June 11 without an explicit year; 2026 is inferred from the weekdays. Confirm the year and camp venue. The church publishes Main Campus at 2684 Boones Creek Road, Johnson City, TN, and Union Campus at 3639 Cherokee Road, Jonesborough, TN, but the accessible VBS material does not identify which hosts this offering, so neither was assigned."
+      }
+    ]
+  }
+}

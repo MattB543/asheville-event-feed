@@ -1,0 +1,117 @@
+{
+  "provider": {
+    "key": "bricks-4-kidz",
+    "name": "Bricks 4 Kidz",
+    "urls": [
+      "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+      "https://www.bricks4kidz.com/northcarolina-asheville-arden/program-events/camps/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["macaroni_kid", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:41.453Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e56b68bce3e1fd88640535effcd75f2a4ac1e0b682e60044464a32286b8f70e1",
+  "response": {
+    "searches": [
+      "Bricks 4 Kidz Asheville Arden summer camps 2026 2027",
+      "site:my.bricks4kidz.com Asheville 2026 camps"
+    ],
+    "usage": {
+      "inputTokens": 20036,
+      "cachedInputTokens": 8845,
+      "outputTokens": 762,
+      "reasoningTokens": 131
+    },
+    "status": "completed",
+    "ms": 24644,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+      "chars": 2832,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bricks4kidz.com/northcarolina-asheville-arden/program-events/camps/",
+      "chars": 2832,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bricks4kidz.us/",
+      "chars": 4640,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bricks4kidz.com/",
+      "chars": 4207,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bricks 4 Kidz",
+    "website_url": "https://bricks4kidz.us/northcarolina-asheville-arden/",
+    "notes": "No 2027 summer dates, prices, registration milestones or camp locations were found. The supplied camps page reports that classes could not be fetched; the current search result reports no classes to join. No readable 2026 summer schedule was found. The legacy registration domain my.bricks4kidz.com is blocked by robots.txt.",
+    "excluded": [
+      {
+        "name": "After-School Programs",
+        "reason": "School-year after-school programs, not summer camps."
+      },
+      {
+        "name": "November 3rd Election Day SCHOOL'S OUT Camp",
+        "reason": "November 3, 2026 program is outside summer."
+      },
+      {
+        "name": "Bricks-4-Kidz BRICK LAB",
+        "reason": "Listed sessions run in fall 2026, outside summer."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Social events, not finite summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camps",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Children build LEGO models, play games and explore engineering, architecture, robotics, coding, video game design and animated movie-making.",
+        "camp_page_url": "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+          "https://bricks4kidz.us/northcarolina-asheville-arden/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The local camps page gives a general ages 5–13 description but no dated summer offering or format. Day format is inferred; third-party local listings describe half-day camps, but no current official schedule establishes the format. Check the provider's enrollment listings for summer-specific dates, format and drop-off sites."
+      }
+    ]
+  }
+}

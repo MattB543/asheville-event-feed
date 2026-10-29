@@ -1,0 +1,428 @@
+{
+  "provider": {
+    "key": "henderson-county-public-library",
+    "name": "Henderson County Public Library",
+    "urls": [
+      "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+      "https://www.hendersoncountync.gov/library",
+      "https://www.hendersoncountync.gov/recreation",
+      "https://henderson.recdesk.com/Community/Program"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:10.680Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "345eb26c3e4d32ab441274042e85acbd5a83b67c09bc23020ec0e9572014e3ba",
+  "response": {
+    "searches": [
+      "site.hendersoncountync.gov/library \"2027\" summer",
+      "?",
+      "site.hendersoncountync.gov/library \"Modern Pop Art\"",
+      "site.hendersonpl.libcal.com \"Dynamic Dino\""
+    ],
+    "usage": {
+      "inputTokens": 49868,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3296,
+      "reasoningTokens": 403
+    },
+    "status": "completed",
+    "ms": 67904,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/library",
+      "chars": 3260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/recreation",
+      "chars": 24730,
+      "method": "fetch"
+    },
+    {
+      "url": "https://henderson.recdesk.com/Community/Program",
+      "chars": 1790,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/rd",
+      "chars": 6267,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/register_of_deeds/page/5101/book_to_slide.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/register_of_deeds/page/5101/registerofdeeds_fees.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/budget/page/3951/fy_26_approved_fee_schedule_revised_3.2.26.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/parks_amp_recreation/page/6401/fy_27_approved_fee_schedule.pdf",
+      "chars": 13953,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Henderson County Public Library",
+    "website_url": "https://www.hendersoncountync.gov/library",
+    "notes": "No official 2027 summer program information was found. Cards use the supplied Summer 2026 newsletter. The newsletter fetch ends partway through page 14; attempts to open the complete PDF and screenshot its remaining pages failed, so additional workshops on pages 14–18 may be missing. Official LibCal event pages could only be read through search snippets. Parks & Recreation and RecDesk are separate county departmental offerings and were not attributed to the library.",
+    "excluded": [
+      {
+        "name": "Summer Reading Program: Unearth a Story",
+        "reason": "Self-directed reading and prize challenge, not a finite supervised camp or skill clinic."
+      },
+      {
+        "name": "Bright Star Theatre: Dino Academy; The Big Dino Show; Tales & Tunes with Sharon Clarke; Big Bang Boom!; Presto Prehistoric with Dana Hill; Critter Keeper; Andrew Best",
+        "reason": "Standalone performances or entertainment events rather than supervised camps or skill clinics."
+      },
+      {
+        "name": "Summer Reading Kick-Off Party; Summer Reading Wrap-Up Party; Movie Matinees",
+        "reason": "Single social events or movie screenings."
+      },
+      {
+        "name": "Preschool Storytime; Toddler Time; Music & Movement; Bouncing Babies; PAWS for Reading",
+        "reason": "Recurring library storytime or reading services, not finite summer camps or skill clinics."
+      },
+      {
+        "name": "Sensory STEM",
+        "reason": "Family program rather than a youth-only supervised camp."
+      },
+      {
+        "name": "Introduction to Canning; Introduction to Fermentation; Adult Programs; Digital Literacy Classes; Genealogy Classes",
+        "reason": "Adult programs, not youth summer camps."
+      },
+      {
+        "name": "Teen Advisory Board",
+        "reason": "Ongoing volunteer advisory service, not a summer camp."
+      },
+      {
+        "name": "Zoom Pass",
+        "reason": "Family attraction admission service, not a supervised youth program."
+      },
+      {
+        "name": "Scales and Tales",
+        "reason": "Standalone reptile and folklore presentation; the supplied description does not establish a skill clinic or camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Teen Improv Series",
+        "type": "clinic",
+        "categories": ["theater"],
+        "description": "Teens learn story, collaboration, social skills, and improv fundamentals in a series of eight classes.",
+        "camp_page_url": "https://hendersonpl.libcal.com/event/16704075",
+        "registration_url": "https://hendersonpl.libcal.com/event/16704075",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fletcher Library",
+            "address": "120 Library Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:30",
+          "end": null,
+          "text": "Wednesdays, 2:30pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "This series is for teens of all experience levels and abilities."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+          "https://www.hendersoncountync.gov/library",
+          "https://hendersonpl.libcal.com/event/16704075"
+        ],
+        "confidence": "medium",
+        "review_notes": "The LibCal description was available only in an official search snippet. It welcomes all abilities but does not specify accommodations. The newsletter lists a Wednesday date range rather than individual class dates; sessions are therefore left empty."
+      },
+      {
+        "name": "Zaniac: Dynamic Dino Discovery",
+        "type": "clinic",
+        "categories": ["stem"],
+        "description": "Children in grades K–8 explore paleontology and Earth's ancient past.",
+        "camp_page_url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-22",
+          "end": "2026-08-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Green River Library",
+            "address": "50 Green River Rd",
+            "town": "Zirconia",
+            "state": "NC"
+          },
+          {
+            "name": "Mills River Library",
+            "address": "124 Town Center Dr., Suite 1",
+            "town": "Mills River",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-22",
+            "end": "2026-07-22",
+            "year": 2026,
+            "site": "Green River Library",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": null
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-10",
+            "end": "2026-08-10",
+            "year": 2026,
+            "site": "Mills River Library",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "15:00",
+              "end": null
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+          "https://www.hendersoncountync.gov/library"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Modern Pop Art Experience",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Children and teens participate in a hands-on collage workshop with artist Michael Albert.",
+        "camp_page_url": "https://hendersonpl.libcal.com/event/16441600",
+        "registration_url": "https://hendersonpl.libcal.com/event/16441600",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Main Library",
+            "address": "301 N Washington St.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Children",
+            "start": "2026-07-27",
+            "end": "2026-07-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": null
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Teens & Adults",
+            "start": "2026-07-27",
+            "end": "2026-07-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "15:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+          "https://www.hendersoncountync.gov/library",
+          "https://hendersonpl.libcal.com/event/16441600"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wiggly Worms and Healthy Soil",
+        "type": "clinic",
+        "categories": ["stem", "nature_outdoor"],
+        "description": "Children learn how worms help create healthy soil and investigate worms in compost.",
+        "camp_page_url": "https://hendersonpl.libcal.com/event/16748730",
+        "registration_url": "https://hendersonpl.libcal.com/event/16748730",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Etowah Library",
+            "address": "101 Brickyard Rd",
+            "town": "Etowah",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:00",
+          "end": null,
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+          "https://www.hendersoncountync.gov/library",
+          "https://hendersonpl.libcal.com/event/16748730"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Rock Detective",
+        "type": "clinic",
+        "categories": ["stem"],
+        "description": "Children investigate the three main types of rocks using real rock samples, magnifying glasses, and simple detective tools.",
+        "camp_page_url": "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-24",
+          "end": "2026-08-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Edneyville Library",
+            "address": "2 Firehouse Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "15:30",
+          "end": null,
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountync.gov/sites/default/files/fileattachments/library/page/116262/illuminations_summer2026.pdf",
+          "https://www.hendersoncountync.gov/library"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

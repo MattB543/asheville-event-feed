@@ -1,0 +1,73 @@
+{
+  "provider": {
+    "key": "fletcher-elementary-school",
+    "name": "Fletcher Elementary School",
+    "urls": ["https://www.hendersoncountypublicschoolsnc.org/fle/"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:40.275Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5cc03d1da09667a863471aab0561b0b2ed5fcb6f6c2f0720c98815490a615d8b",
+  "response": {
+    "searches": [
+      "site:hendersoncountypublicschoolsnc.org \"2026\" \"summer\" \"child care\"",
+      "site:hendersoncountypublicschoolsnc.org/child-care \"summer\"",
+      "open https://www.hendersoncountypublicschoolsnc.org/child-care/overview-of-childcare-program/",
+      "site:hendersoncountypublicschoolsnc.org \"Summer PLUS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25130,
+      "cachedInputTokens": 8845,
+      "outputTokens": 514,
+      "reasoningTokens": 251
+    },
+    "status": "completed",
+    "ms": 21820,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/",
+      "chars": 3820,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/updates-and-links/",
+      "chars": 3011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/about/enrollment/",
+      "chars": 3873,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/",
+      "chars": 7057,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fletcher Elementary School",
+    "website_url": "https://www.hendersoncountypublicschoolsnc.org/fle/",
+    "notes": "No school-specific summer 2026 or 2027 camp listing was found. HCPS describes Summer PLUS as a district child-care program, with schedules and sites announced in spring, but the current materials found do not identify Fletcher Elementary as a 2026 or 2027 summer site. Older official announcements identify Fletcher as a Summer PLUS site in 2020 and 2021; those were not used to establish a current offering. Summer PLUS is summer childcare and is not excluded merely because enrollment is restricted to HCPS students. Its current site assignment should be checked with HCPS Child Care before adding a Fletcher card. The program overview page returned no readable body when opened; its official search results were readable.",
+    "excluded": [
+      {
+        "name": "PSAM",
+        "reason": "School-year before-school childcare, not a finite summer camp."
+      },
+      {
+        "name": "PSPM",
+        "reason": "School-year after-school childcare, not a finite summer camp."
+      },
+      {
+        "name": "PLUS (Non-Student Days)",
+        "reason": "Care on teacher workdays, winter weather days and other non-student days outside summer; distinct from Summer PLUS."
+      }
+    ],
+    "cards": []
+  }
+}

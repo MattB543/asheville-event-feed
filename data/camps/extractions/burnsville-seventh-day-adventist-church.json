@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "burnsville-seventh-day-adventist-church",
+    "name": "Burnsville Seventh-day Adventist Church",
+    "urls": [
+      "https://burnsvillenc.adventistchurch.org/",
+      "https://burnsvillenc.adventistchurch.org/church-events/"
+    ],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:40.017Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "438edadcb8b2718435e3fa204302ef56784e0559726187f2fb0411cbf9ea0adc",
+  "response": {
+    "searches": ["site:burnsvillenc.adventistchurch.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 15100,
+      "cachedInputTokens": 8845,
+      "outputTokens": 614,
+      "reasoningTokens": 103
+    },
+    "status": "completed",
+    "ms": 22230,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://burnsvillenc.adventistchurch.org/",
+      "chars": 4748,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burnsvillenc.adventistchurch.org/church-events/",
+      "chars": 3587,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Burnsville Seventh-day Adventist Church",
+    "website_url": "https://burnsvillenc.adventistchurch.org/",
+    "notes": "Official pages document VBS 2025 with a photo gallery, but no 2026 or 2027 VBS details were found. The church publishes its address as 283 Crest View Rd, Burnsville, NC, but the VBS material does not explicitly identify a drop-off location.",
+    "excluded": [
+      {
+        "name": "Christmas Caroling",
+        "reason": "Seasonal event outside summer, not a summer youth camp."
+      },
+      {
+        "name": "Vibrant Family Life",
+        "reason": "Family seminar, not a supervised youth summer camp."
+      },
+      {
+        "name": "Sabbath School",
+        "reason": "Recurring year-round religious instruction, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://burnsvillenc.adventistchurch.org/church-events/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://burnsvillenc.adventistchurch.org/",
+          "https://burnsvillenc.adventistchurch.org/church-events/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The only official evidence is the VBS 2025 heading and photo gallery. Confirm whether VBS will run in 2027 and obtain dates, eligibility, hours, registration details and the drop-off location."
+      }
+    ]
+  }
+}

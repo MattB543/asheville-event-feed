@@ -1,0 +1,312 @@
+{
+  "provider": {
+    "key": "bethel-elementary-school",
+    "name": "Bethel Elementary School",
+    "urls": [
+      "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+      "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:31.372Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "36c8f28c70beb8d6da4037e2c709b5e33ce978dfccef023b214d85792bfb33c8",
+  "response": {
+    "searches": [
+      "site:bes.haywood.k12.nc.us \"2027\" \"camp\"",
+      "site:bes.haywood.k12.nc.us \"Summer Library\" \"students\""
+    ],
+    "usage": {
+      "inputTokens": 67451,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2091,
+      "reasoningTokens": 229
+    },
+    "status": "completed",
+    "ms": 48614,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+      "chars": 3248,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+      "chars": 2875,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/faqs/",
+      "chars": 5191,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/document/d/1qHz-AOnR2rgb_A-MLvDihPqFFA8cwWJyznzCMQIkH0Q/edit?usp=sharing",
+      "chars": 0,
+      "error": "fetch: HTTP 410; browser: HTTP 410"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/wp-content/uploads/sites/2/2026/05/summer-camp.jpg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/wp-content/uploads/sites/2/2026/05/Summer-camp-Flyer.jpeg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/",
+      "chars": 2329,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bethel Elementary School",
+    "website_url": "https://bes.haywood.k12.nc.us/",
+    "notes": "No summer 2027 information was found. The official site blocks direct browsing with robots.txt; supplied page text and official search results were used. The linked summer-camp packet and image flyers could not be read independently. Summer Library Program eligibility and whether children may attend without a parent should be checked.",
+    "excluded": [
+      {
+        "name": "Kinder Kickstart Camp",
+        "reason": "Kindergarten screening and school-readiness program for the school's incoming enrolled kindergarten students; excluded under the rule for district-only learning programs."
+      },
+      {
+        "name": "Afterschool Program",
+        "reason": "School-year after-school childcare, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Bethel Elementary Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer day camp providing child care, breakfast, lunch, and a snack each day.",
+        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+        "registration_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bethel Elementary School",
+            "address": "4700 Old River Rd.",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:00",
+          "text": "Monday through Friday, 7:30 a.m. until 5:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 160,
+            "unit": "week",
+            "label": "one child",
+            "year": 2026
+          },
+          {
+            "amount": 140,
+            "unit": "week",
+            "label": "each additional child in the immediate family",
+            "year": 2026
+          },
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "application fee per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Payment includes child care, breakfast, lunch, and a snack each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+          "https://bes.haywood.k12.nc.us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Library Program",
+        "type": "half_day",
+        "categories": ["stem", "academic", "arts"],
+        "description": "Children build, read, solve problems, craft, play, and create through Storybook STEM activities. They can check out books each week and track their summer reading.",
+        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-08-04",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bethel Elementary Library",
+            "address": "4700 Old River Rd.",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "14:00",
+          "text": "Tuesdays – 10:00 am – 2:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free for ages 5-11",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-16",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-30",
+            "end": "2026-06-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-07",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-21",
+            "end": "2026-07-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-04",
+            "end": "2026-08-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-06-16",
+          "time": null,
+          "text": "Register your child @ Bethel Elementary Library beginning June 16.",
+          "url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+          "https://bes.haywood.k12.nc.us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 page says 'your school library' but does not explicitly restrict eligibility to enrolled students or state whether this is supervised drop-off programming. Check those points before publication. Session dates expand the stated Tuesday recurrence from June 16 through August 4."
+      }
+    ]
+  }
+}

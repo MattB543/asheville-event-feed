@@ -1,0 +1,645 @@
+{
+  "provider": {
+    "key": "eagle-s-nest-foundation",
+    "name": "Eagle’s Nest Foundation",
+    "urls": [
+      "https://www.enf.org/camp/",
+      "https://www.enf.org/camp/dates-and-rates/",
+      "https://www.enf.org/camp/register/",
+      "https://www.enf.org/"
+    ],
+    "area": "Pisgah Forest, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:02:03.817Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4565607eb1d5127b3d9ef515879794e48e1310c3d12b8bf88fd8878bf5656416",
+  "response": {
+    "searches": [
+      "site:enf.org Junior Counselor 2027",
+      "open https://www.enf.org/camp/junior-counselor/",
+      "site:enf.org/hante-adventures/hante-adventures-alaska 2027",
+      "open https://www.enf.org/craft-nest/"
+    ],
+    "usage": {
+      "inputTokens": 42473,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4013,
+      "reasoningTokens": 238
+    },
+    "status": "completed",
+    "ms": 80006,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.enf.org/camp/",
+      "chars": 8801,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/camp/dates-and-rates/",
+      "chars": 11014,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/camp/register/",
+      "chars": 9386,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/",
+      "chars": 7153,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/camp-register/",
+      "chars": 9386,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/camp/financial-information/",
+      "chars": 12758,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/hante-adventures/hante-adventures-dates-and-rates/",
+      "chars": 7648,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.enf.org/camp-registration/",
+      "chars": 9386,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Eagle’s Nest Foundation",
+    "website_url": "https://www.enf.org/",
+    "notes": "2027 programs are posted. Hante expeditions are retained because participants start and end at Eagle’s Nest Camp; distant expedition destinations are not drop-off sites. Older Hante offerings are omitted because the 2027 list is posted. No official registration opening date was found. The undated early-bird September 30 wording was not assigned a calendar year.",
+    "excluded": [
+      {
+        "name": "The Outdoor Academy",
+        "reason": "Academic semester boarding school, not a summer camp."
+      },
+      {
+        "name": "Craft Nest",
+        "reason": "October 9–12, 2026 workshop, outside summer."
+      },
+      {
+        "name": "Fall Fest at the Nest",
+        "reason": "Family retreat in October, outside summer."
+      },
+      {
+        "name": "Camp Parties and Virtual Q&A Events",
+        "reason": "Social and informational events, not supervised summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Eagle’s Nest Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "arts", "horses", "sports", "music"],
+        "description": "Campers participate in activities including horseback riding, rock climbing, songwriting and blacksmithing. Shorter B sessions and introductory Nestling sessions are offered within the overnight camp.",
+        "camp_page_url": "https://www.enf.org/camp/",
+        "registration_url": "https://www.enf.org/camp/register/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-05",
+          "end": "2027-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 9,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Eagle’s Nest Camp",
+            "address": "43 Hart Road",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-05",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4384,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1B",
+            "start": "2027-06-05",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2756,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 1 Nestling Camp",
+            "start": "2027-06-14",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1060,
+              "unit": "session",
+              "label": "first time campers only",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-19",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6201,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 2B",
+            "start": "2027-06-19",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4781,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 2 Nestling Camp",
+            "start": "2027-07-05",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1060,
+              "unit": "session",
+              "label": "first time campers only",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-11",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6201,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 3B",
+            "start": "2027-07-11",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4781,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Session 3 Nestling Camp",
+            "start": "2027-07-27",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1060,
+              "unit": "session",
+              "label": "first time campers only",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-08-01",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2756,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Campership applications must be received by January 1st; awards will be confirmed in mid January.",
+            "url": "https://www.enf.org/camp/financial-information/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": null,
+          "text": "Limited Availability; Full/Waitlist"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "A portion of our participants are awarded Camp/Hante Scholarships called Camperships."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fees include all meals and activities"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "airport transportation to and from Asheville, NC"
+        },
+        "sources": [
+          "https://www.enf.org/camp/",
+          "https://www.enf.org/camp/dates-and-rates/",
+          "https://www.enf.org/camp/register/",
+          "https://www.enf.org/camp/financial-information/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Junior Counselor",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "Junior counselors help staff counselors supervise campers and participate in leadership classes. They remain campers while taking on additional responsibilities.",
+        "camp_page_url": "https://www.enf.org/camp/junior-counselor/",
+        "registration_url": "https://www.enf.org/camp/register/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-04",
+          "end": "2027-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Eagle’s Nest Camp",
+            "address": "43 Hart Road",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1 JC",
+            "start": "2027-06-04",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 11,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2775,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2 JC",
+            "start": "2027-06-18",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 11,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4007,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3 JC",
+            "start": "2027-07-10",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 11,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4007,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 4 JC",
+            "start": "2027-07-31",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 11,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1850,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2026-12-30",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Junior Counselor registration and application materials are due by December 30th.",
+            "url": "https://www.enf.org/camp/junior-counselor/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.enf.org/camp/junior-counselor/",
+          "https://www.enf.org/camp/registration-faq/",
+          "https://www.enf.org/camp/register/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 Junior Counselor table lists grades 9–11 for Session 1 and 10–11 for other sessions, while introductory text says rising juniors and seniors. Table grade basis is unspecified. The program page says December 30 application deadline; registration FAQs say December 31 before the camp year. Used the program-specific December 30 deadline."
+      },
+      {
+        "name": "Hante Adventures",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Teen participants travel on three-week wilderness expeditions. Alaska includes backpacking and paddling; Rivers & Reeds combines canoe travel on the Edisto River with natural-fiber weaving.",
+        "camp_page_url": "https://www.enf.org/hante-adventures/hante-adventures-2027/",
+        "registration_url": "https://www.enf.org/hante-adventures/register/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-19",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Eagle’s Nest Camp",
+            "address": "43 Hart Road",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 2 - Alaska",
+            "start": "2027-06-19",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 8,
+              "max": 12,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6575,
+              "unit": "session",
+              "label": "plus Airfare",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3 - Rivers & Reeds",
+            "start": "2027-07-11",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 11,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6201,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2026-12-30",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Hantes have an application deadline of December 30th.",
+            "url": "https://www.enf.org/hante-adventures/hante-adventures-dates-and-rates/",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Campership applications must be received by January 1st; awards will be confirmed in mid January.",
+            "url": "https://www.enf.org/camp/financial-information/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "A portion of our participants are awarded Camp/Hante Scholarships called Camperships."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fees include all meals and activities"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "airport transportation to and from Asheville, NC"
+        },
+        "sources": [
+          "https://www.enf.org/hante-adventures/hante-adventures-2027/",
+          "https://www.enf.org/hante-adventures/hante-adventures-alaska/",
+          "https://www.enf.org/hante-adventures/hante-adventures-rivers-reeds/",
+          "https://www.enf.org/hante-adventures/hante-adventures-dates-and-rates/",
+          "https://www.enf.org/hante-adventures/register/",
+          "https://www.enf.org/camp/financial-information/",
+          "https://www.enf.org/camp/registration-faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Used detailed expedition pages: Alaska is completed grades 8–12, while dates/register tables say 9–12. Rivers & Reeds detailed page and 2027 overview say July 11–30; dates/register tables incorrectly print June 11 and mismatched weekdays. December 30 deadline on program pages conflicts with December 31 in registration FAQs and November 15 for select Hantes in financial FAQs. Both expeditions explicitly start/end at Eagle’s Nest Camp."
+      }
+    ]
+  }
+}

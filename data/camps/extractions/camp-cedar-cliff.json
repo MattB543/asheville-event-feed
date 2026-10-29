@@ -1,0 +1,1026 @@
+{
+  "provider": {
+    "key": "camp-cedar-cliff",
+    "name": "Camp Cedar Cliff",
+    "urls": [
+      "https://campcedarcliff.org/which-camp-is-right-for-me",
+      "https://campcedarcliff.org/daycamp/",
+      "https://campcedarcliff.org/day-camp/",
+      "https://campcedarcliff.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:57.204Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "207671f720cea2b654841c40c4ad18e5ac3d2adbce99bf7bbb569128114636a8",
+  "response": {
+    "searches": [
+      "site campcedarcliff.org 2027 registration opens",
+      "site:campcedarcliff.org/explorers \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 36278,
+      "cachedInputTokens": 8845,
+      "outputTokens": 6862,
+      "reasoningTokens": 317
+    },
+    "status": "completed",
+    "ms": 115070,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campcedarcliff.org/which-camp-is-right-for-me",
+      "chars": 4414,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.org/daycamp/",
+      "chars": 3980,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.org/day-camp/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found – Camp Cedar Cliff\")"
+    },
+    {
+      "url": "https://campcedarcliff.org/",
+      "chars": 2476,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://campcedarcliff.org/wp-content/uploads/2026/05/2026-Day-Camp-Parent-Guide.pdf",
+      "chars": 12604,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.org/donate/",
+      "chars": 5478,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.org/trailblazers/",
+      "chars": 6306,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campcedarcliff.org/wp-content/uploads/2026/05/2026-Trail-Blazer-Parent-Guide.pdf",
+      "chars": 14200,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Cedar Cliff",
+    "website_url": "https://campcedarcliff.org/",
+    "notes": "2027 dates and rates are posted. No official 2027 registration opening date was found. Several program pages returned empty text when opened; their official search-indexed text supplied the details noted on those cards. The existing list repeats Week of Joy; the day version is named Week of Joy (day) to distinguish formats. The Ways to Save page still describes Summer 2026 discounts; these were not applied to 2027 prices.",
+    "excluded": [
+      {
+        "name": "Summer Staff / ACIT",
+        "reason": "Paid summer employment and staff training, not a camper leadership program."
+      },
+      {
+        "name": "Mother Daughter Retreat",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Father Son Man Camp",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Festival outside summer."
+      },
+      {
+        "name": "20th Year Celebration",
+        "reason": "Social celebration, not a finite supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in archery, BB ranges, swimming, climbing, group games and Scripture Adventure.",
+        "camp_page_url": "https://campcedarcliff.org/daycamp/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff — Welcome Pavilion",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "17:00",
+          "text": "Monday through Friday, 8-5 p.m. Drop off: 7:30-8:30 a.m. Pick up: 4:30-5:30 p.m. Parent Program is Friday at 4:00pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 480,
+            "unit": "week",
+            "label": "per child",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 9",
+            "start": "2027-08-09",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships for both day and overnight camp sessions through our Camp Cedar Cliff Scholarship Program."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and snack are included"
+        },
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/daycamp/",
+          "https://campcedarcliff.org/wp-content/uploads/2026/05/2026-Day-Camp-Parent-Guide.pdf",
+          "https://campcedarcliff.org/scholarship/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Trail Blazers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in Adventure Ball, outdoor activities, s’mores and large- and small-group spiritual activities. A Thursday–Friday day camp extension and a full-week overnight session are offered.",
+        "camp_page_url": "https://campcedarcliff.org/trailblazers/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff — Welcome Pavilion",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop off: 2:00-3:30pm, Sunday. Pick up: 3:30pm, Wednesday. Day Camp Thursday-Friday: 8-5 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 800,
+            "unit": "session",
+            "label": "General session Sun-Wed",
+            "year": 2027
+          },
+          {
+            "amount": 1000,
+            "unit": "session",
+            "label": "Trail Blazers w/ Day Camp Thurs-Fri",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-06-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-21",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Trail Blazer Full Week — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1525,
+              "unit": "session",
+              "label": "Trail Blazers Full Week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-28",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships for both day and overnight camp sessions through our Camp Cedar Cliff Scholarship Program."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:30 PM – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/trailblazers/",
+          "https://campcedarcliff.org/wp-content/uploads/2026/05/2026-Trail-Blazer-Parent-Guide.pdf",
+          "https://campcedarcliff.org/scholarship/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program description says the two-day extension costs an additional $170, but the pricing section lists $800 overnight and $1,000 with day camp, a $200 difference. Used the pricing section. Season end includes the optional August 5–6 day camp extension; standard overnight rows end Wednesday."
+      },
+      {
+        "name": "Pioneers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in archery, BBs, climbing, swimming and overnight camping. The program includes quiet times, group devotions, Bible studies and worship.",
+        "camp_page_url": "https://campcedarcliff.org/pioneers/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff — Welcome Pavilion",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday through Friday, 6 day session. Drop off: 2:00-3:30pm, Sunday. Pick up: 4:30pm, Friday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1525,
+            "unit": "session",
+            "label": "6 Day Session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships for both day and overnight camp sessions through our Camp Cedar Cliff Scholarship Program."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "We will gladly pick up your child at the Asheville Regional Airport if you will let us know their arrival time."
+        },
+        "sources": [
+          "https://campcedarcliff.org/pioneers/",
+          "https://campcedarcliff.org/wp-content/uploads/2026/05/2026-Pioneer-Parent-Guide.pdf",
+          "https://campcedarcliff.org/scholarship/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 program details were read from official search-indexed text because opening the page returned empty content. Welcome Pavilion drop-off and airport transportation come from the 2026 parent guide; confirm transportation for 2027."
+      },
+      {
+        "name": "Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in whitewater rafting, pool Olympics, high ropes and other outdoor activities. The program includes individual Bible time, group devotions and Bible studies.",
+        "camp_page_url": "https://campcedarcliff.org/explorers/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday through Friday, 6 day session. Drop off: 2:00-3:30pm, Sunday. Pick up: 4:30pm, Friday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1545,
+            "unit": "session",
+            "label": "6 Day Session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships for both day and overnight camp sessions through our Camp Cedar Cliff Scholarship Program."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/explorers/",
+          "https://campcedarcliff.org/donate/",
+          "https://campcedarcliff.org/scholarship/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 program details were read from official search-indexed text because opening the page returned empty content."
+      },
+      {
+        "name": "Mountaineers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers spend two weeks participating in outdoor activities, three nights of camping out, wilderness skills, rappelling and paddleboarding. Counselors lead activities, devotions and Bible studies.",
+        "camp_page_url": "https://campcedarcliff.org/mountaineers/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday through Friday, 13 day session. Drop off: 2:00-3:30pm, Sunday. Pick up: 4:30pm, Friday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3090,
+            "unit": "session",
+            "label": "13 Day Session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships for both day and overnight camp sessions through our Camp Cedar Cliff Scholarship Program."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:30 PM – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/mountaineers/",
+          "https://campcedarcliff.org/donate/",
+          "https://campcedarcliff.org/scholarship/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 program details were read from official search-indexed text because opening the page returned empty content."
+      },
+      {
+        "name": "Week of Joy",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "An overnight camp for children whose lives have been touched by cancer. Eligibility includes children or siblings of children who completed cancer treatment at least six months before camp, children whose parent died of cancer, and children whose parent is being treated for metastatic cancer.",
+        "camp_page_url": "https://campcedarcliff.org/week-of-joy/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-01",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop off: Sunday between 2:00-3:30PM. Pick up: Friday at 4:30pm (Parent Program, closing ceremony)."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "FREE",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have incredible sponsors who have funded for campers to attend Week of Joy on scholarship!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/week-of-joy/",
+          "https://campcedarcliff.org/donate/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 details were read from official search-indexed text because opening the page returned empty content."
+      },
+      {
+        "name": "Week of Joy (day)",
+        "type": "day",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "A day camp for children whose lives have been touched by cancer. Eligibility includes children or siblings of children who completed cancer treatment at least six months before camp, children whose parent died of cancer, and children whose parent is being treated for metastatic cancer.",
+        "camp_page_url": "https://campcedarcliff.org/week-of-joy/",
+        "registration_url": "https://campcedarcliff.org/register-or-login/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-02",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Cedar Cliff",
+            "address": "5 Porters Cove Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop off: Daily M-F between 7:30-8:30AM. Pick up: Daily M-F between 4:30-5:30PM (Parent Program Friday at 4:15)."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "FREE",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have incredible sponsors who have funded for campers to attend Week of Joy on scholarship!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campcedarcliff.org/week-of-joy/",
+          "https://campcedarcliff.org/donate/",
+          "https://campcedarcliff.org/register-or-login/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 details were read from official search-indexed text because opening the page returned empty content. The existing programs list duplicates Week of Joy; added the day suffix to satisfy unique names across formats."
+      }
+    ]
+  }
+}

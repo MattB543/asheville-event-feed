@@ -1,0 +1,202 @@
+{
+  "provider": {
+    "key": "the-new-classical-academy",
+    "name": "The New Classical Academy",
+    "urls": ["https://thenewclassicalacademy.org/summerprograms"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:23:15.562Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8a1f47966d4f48c0697c5a9e348c52bf01d02ab6116ade34ac3355db651c306f",
+  "response": {
+    "searches": ["site:thenewclassicalacademy.org \"2027\" \"summer\""],
+    "usage": {
+      "inputTokens": 19779,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1378,
+      "reasoningTokens": 55
+    },
+    "status": "completed",
+    "ms": 28094,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://thenewclassicalacademy.org/summerprograms",
+      "chars": 4061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thenewclassicalacademy.org/tuition",
+      "chars": 3179,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/F4CRA3zUcxqhU8wM9",
+      "chars": 2893,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/wM9z7qoU3mkEmVwt9",
+      "chars": 2831,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfpfs_-qT2uMEBeh47d1KZ5x7BHioN3MMxLqdMbpDUP0X4KqQ/viewform?usp=publish-editor",
+      "chars": 2869,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/SHrVbJWJCFVMMhiV9",
+      "chars": 3065,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thenewclassicalacademy.org/faq",
+      "chars": 5564,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thenewclassicalacademy.org/",
+      "chars": 3638,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The New Classical Academy",
+    "website_url": "https://thenewclassicalacademy.org/",
+    "notes": "No summer 2027 program information or registration dates were found on official pages. The card retains the published 2026 schedule. School tuition aid and school-year care policies were not applied to summer camp.",
+    "excluded": [
+      {
+        "name": "Before & After-School Care",
+        "reason": "School-year childcare, not a finite summer camp."
+      },
+      {
+        "name": "Lower School and Middle School",
+        "reason": "Regular school-year educational programs."
+      },
+      {
+        "name": "Adventure Trips",
+        "reason": "School enrichment trips, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "TNCA Summer Camp",
+        "type": "day",
+        "categories": ["general", "cooking", "nature_outdoor"],
+        "description": "Campers participate in weekly themes covering mythology, cooking and outdoor adventures, with free play and outside time.",
+        "camp_page_url": "https://thenewclassicalacademy.org/summerprograms",
+        "registration_url": "https://thenewclassicalacademy.org/summerprograms",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The New Classical Academy",
+            "address": "671 Sand Hill Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "M-F from 9 am to 3 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1: Mythology Adventure",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2: Cooking 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3: Outdoor Adventures",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4: Cooking 2",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://thenewclassicalacademy.org/summerprograms",
+          "https://thenewclassicalacademy.org/",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfi94hU0zPsE0aEMeEOXPMy0DXCwqyQQsUxRYbElArjeyrbOw/viewform?usp=send_form",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfdLTt8hDKcM1_W4LPIauJBT-E71-sLKR1L6TNrebHbvW1NnA/viewform?usp=send_form",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfpfs_-qT2uMEBeh47d1KZ5x7BHioN3MMxLqdMbpDUP0X4KqQ/viewform?usp=publish-editor",
+          "https://docs.google.com/forms/d/e/1FAIpQLSdyuxFsPn2aoQW9O5G7gitXo5N1l-I_gfrG19A_iraWBGlxog/viewform?usp=send_form"
+        ],
+        "confidence": "medium",
+        "review_notes": "K4 is represented as pre-K grade -1; the camp states rising K4/Kindergarten–5th grade. The registration forms retain a May 1, 2025 payment-agreement deadline despite their explicit 2026 session dates; the camp page says May 1, 2026. PayPal fees also differ: the camp page says $7 per transaction, while forms describe $5 fees for installments and $7 per week for full payment. Only the consistent $300 base price is included. The published location uses Sandhill Rd in session text and Sand Hill Road in the provider footer; the footer spelling is used."
+      }
+    ]
+  }
+}

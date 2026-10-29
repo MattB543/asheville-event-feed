@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "hilltop-church-of-travelers-rest",
+    "name": "Hilltop Church of Travelers Rest",
+    "urls": ["https://www.hilltopchurch.org/vbs"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:23.314Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "37ec96a59196284362056b6b21a0295a82647b453b3cf25e94b7cc144ee0769c",
+  "response": {
+    "searches": [
+      "\"Hilltop Church\" \"Travelers Rest\"",
+      "site:facebook.com \"Hilltop Church\" \"Rainforest\" \"2026\"",
+      "site:facebook.com/HilltopFreewillBaptistChurchSC \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21991,
+      "cachedInputTokens": 8845,
+      "outputTokens": 871,
+      "reasoningTokens": 221
+    },
+    "status": "completed",
+    "ms": 23804,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hilltopchurch.org/vbs",
+      "chars": 4840,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/enrollment-forms",
+      "chars": 3655,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/summer-registration",
+      "chars": 3273,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/s/VBS-Registration-form-2026.pdf",
+      "chars": 1952,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/summer-volunteers",
+      "chars": 3236,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/",
+      "chars": 3026,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hilltop Church of Travelers Rest",
+    "website_url": null,
+    "notes": "The supplied hilltopchurch.org pages belong to Hilltop Church in Mendham, NJ, not this provider. A local 2026 VBS was found in third-party event listings, but the Travelers Rest church's Facebook page could not be read. No local 2027 information was found. The local card's dates and address require official confirmation; no registration milestones were extracted.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School — Hilltop Church, Mendham",
+        "reason": "The supplied website and 2026 registration PDF identify the venue as 14 Hilltop Rd., Mendham, NJ. This is a different organization outside the directory area."
+      },
+      {
+        "name": "Hilltop Christian Nursery School",
+        "reason": "School-year nursery school, not a summer camp; also belongs to the unrelated Mendham, NJ church."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rainforest Falls: VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hilltop Church",
+            "address": "1401 Geer Hwy",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "medium",
+        "review_notes": "The local offering was found at https://allevents.in/travelers-rest/rainforest-falls-vbs-2026/200030146611916 and https://happeningnext.com/event/rainforest-falls-vbs-2026-eid3a0dp85sss, which list June 8–12, 2026 at 1401 Geer Hwy. The event listing gives a 6 p.m. start but no reliable daily schedule, so hours are left null. The church's Facebook page, https://www.facebook.com/HilltopFreewillBaptistChurchSC, could not be read. Confirm the program name, dates, address, age eligibility and schedule directly with the church. None of the supplied Mendham church facts were applied to this card."
+      }
+    ]
+  }
+}

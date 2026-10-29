@@ -1,0 +1,193 @@
+{
+  "provider": {
+    "key": "julia-street-montessori-school",
+    "name": "Julia Street Montessori School",
+    "urls": ["https://juliastmontessori.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:34.909Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "525a1022aced40b0ed454ab1ad7fbdb536cf1ed0ba32cf8e0205290ae0570f87",
+  "response": {
+    "searches": ["site:juliastmontessori.com \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 15885,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1108,
+      "reasoningTokens": 51
+    },
+    "status": "completed",
+    "ms": 22986,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://juliastmontessori.com/",
+      "chars": 3586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://juliastmontessori.com/tuition/",
+      "chars": 623,
+      "method": "fetch"
+    },
+    {
+      "url": "https://juliastmontessori.com/wp-content/uploads/Tuition-Agreement-26_27.pdf",
+      "chars": 3095,
+      "method": "fetch"
+    },
+    {
+      "url": "https://juliastmontessori.com/wp-content/uploads/Tuition-Schedule-for-2026-2027-1-1.pdf",
+      "chars": 1915,
+      "method": "fetch"
+    },
+    {
+      "url": "https://juliastmontessori.com/summer-camp/",
+      "chars": 4413,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Julia Street Montessori School",
+    "website_url": "https://juliastmontessori.com/",
+    "notes": "No summer 2027 program dates or registration announcements were found. The camp page still lists summer 2026 and says all classes are full; that availability applies to the past 2026 season.",
+    "excluded": [
+      {
+        "name": "Primary Class",
+        "reason": "School-year Montessori preschool program, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Exploration Days",
+        "type": "half_day",
+        "categories": ["general", "arts", "dance", "nature_outdoor"],
+        "description": "Children explore art, yoga and dance, treasure hunts, ocean life, and gardening through hands-on activities in a Montessori environment.",
+        "camp_page_url": "https://juliastmontessori.com/summer-camp/",
+        "registration_url": "https://juliastmontessori.com/summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Julia Street Montessori School",
+            "address": "15 Julia Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "13:30",
+          "text": "Monday-Friday, 8:30am-1:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 280,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Art Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Yoga & Dance Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Treasure Hunt Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Ocean Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Gardening Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 sessions",
+          "text": "All classes are full."
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has special needs, please contact the director prior to registration to discuss weeks that might be more suited to your child."
+        },
+        "lunch": {
+          "value": "no",
+          "text": "A lunch box labeled and dated daily with a nutritious lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://juliastmontessori.com/summer-camp/",
+          "https://juliastmontessori.com/contact-directions/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

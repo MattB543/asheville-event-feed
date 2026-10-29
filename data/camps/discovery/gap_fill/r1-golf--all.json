@@ -1,0 +1,65 @@
+{
+  "method": "gap_fill",
+  "id": "r1-golf--all",
+  "input": "Find junior golf camps and clinics for kids and teens in the Asheville area of Western North Carolina (within about an hour of Asheville). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:31:36.209Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 89209,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1393,
+    "reasoningTokens": 1038
+  },
+  "searches": [
+    "Asheville junior golf summer camp 2026 2025",
+    "\"Asheville\" \"golf\" \"camp\" \"2025\"",
+    "\"golf\" \"summer camps\" \"Asheville\" -site:bestgolfsummercamps.com",
+    "\"golf camp\" \"Asheville\" -Thailand -Windy",
+    "\"junior golf\" \"summer camp\" \"Morganton\"",
+    "\"golf\" \"camp\" site:firstteetriad.org/wnc",
+    "\"First Tee\" \"WNC\" \"2025\" \"summer\"",
+    "\"golf camp\" site:ashevillenc.gov \"2025\"",
+    "\"golf\" \"summer camp\" \"Burnsville\"",
+    "\"golf\" \"summer\" \"junior\" \"Biltmore Forest\""
+  ],
+  "ms": 135766,
+  "candidates": [
+    {
+      "name": "First Tee – Western North Carolina",
+      "url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["sports"],
+      "note": "Youth golf summer camps listed for 2026; regional programs also serve Waynesville."
+    },
+    {
+      "name": "Springdale Golf",
+      "url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+      "town": "Canton",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["sports"],
+      "note": "Junior golf camps cover golf skills, etiquette and sportsmanship; 2027 dates are forthcoming."
+    },
+    {
+      "name": "Country Club of Asheville",
+      "url": "https://www.ccofasheville.com/golf",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["clinic"],
+      "categories": ["sports"],
+      "note": "Summer junior instruction follows a supervised practice-and-play schedule."
+    },
+    {
+      "name": "Asheville Parks & Recreation",
+      "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Golf camp teaches swings and scoring through visits to WNC courses; loaner clubs provided."
+    }
+  ]
+}

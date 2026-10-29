@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "shine-camp-and-conferences",
+    "name": "SHINE Camp & Conferences",
+    "urls": ["https://debbiepresnell.com/shine-camp/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["our_db"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:02:45.452Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a9cf1a85bc3d2111a9aad34ebcdf0e871de46e924ee82d9174caa2a7d811f44b",
+  "response": {
+    "searches": ["site.christmount.org address 222 Fern"],
+    "usage": {
+      "inputTokens": 39756,
+      "cachedInputTokens": 8845,
+      "outputTokens": 741,
+      "reasoningTokens": 87
+    },
+    "status": "completed",
+    "ms": 19558,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://debbiepresnell.com/shine-camp/",
+      "chars": 4737,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eventbrite.com/e/shine-camp-for-teen-girls-june-15-18-9am-4pm-daily-tickets-1984244487677?aff=oddtdtcreator",
+      "chars": 3106,
+      "method": "fetch"
+    },
+    {
+      "url": "https://debbiepresnell.com/wp-content/uploads/2023/03/Shine-Camp.png",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://debbiepresnell.com/",
+      "chars": 3095,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "SHINE Camp & Conferences",
+    "website_url": "https://debbiepresnell.com/",
+    "notes": "No 2027 camp information or registration milestones were found. The official camp page still advertises June 2026. Its conference section combines a 2026 heading with June 20–21, 2025 dates; the conference is excluded regardless. The uploaded Shine-Camp.png was not readable in the supplied crawl and was not used for camp facts.",
+    "excluded": [
+      {
+        "name": "Arise, Shine Conference",
+        "reason": "Multi-generational conference for grandmothers, mothers, daughters, mentors, and college-aged young women; conferences are excluded under the camp rule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Shine Camp for Teen Girls",
+        "type": "day",
+        "categories": ["faith_based"],
+        "description": "Girls participate in Bible study and discussions about identity in Christ, social media, relationships, talents and purpose, beauty, gossip, and managing stress.",
+        "camp_page_url": "https://debbiepresnell.com/shine-camp/",
+        "registration_url": "https://www.eventbrite.com/e/shine-camp-for-teen-girls-june-15-18-9am-4pm-daily-tickets-1984244487677?aff=oddtdtcreator",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christmount Christian Assembly",
+            "address": "222 Fern Way",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "9am-4pm Daily"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Sales ended"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://debbiepresnell.com/shine-camp/",
+          "https://www.eventbrite.com/e/shine-camp-for-teen-girls-june-15-18-9am-4pm-daily-tickets-1984244487677?aff=oddtdtcreator",
+          "https://www.christmount.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

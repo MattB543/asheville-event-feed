@@ -1,0 +1,375 @@
+{
+  "provider": {
+    "key": "wnc-dance-academy",
+    "name": "WNC Dance Academy",
+    "urls": ["https://www.wncdanceacademy.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:59.672Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "03d5af67fb39ce4a5b55e7a49b706e9cd963b87fcbd763633196de1b00901b0d",
+  "response": {
+    "searches": ["site:wncdanceacademy.com summer 2027"],
+    "usage": {
+      "inputTokens": 19712,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2370,
+      "reasoningTokens": 71
+    },
+    "status": "completed",
+    "ms": 39840,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.wncdanceacademy.com/",
+      "chars": 12741,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.wncdanceacademy.com/wp-content/uploads/2021/08/Registration-Form.pdf",
+      "chars": 0,
+      "error": "fetch: fetch failed (unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); chrome-tls: fetch failed (unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); browser: apiRequestContext.get: unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca\nCall log:\n\u001b[2m  - → GET https://www.wncdanceacademy.com/wp-content/uploads/2021/08/Registration-Form.pdf\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n"
+    },
+    {
+      "url": "https://www.wncdanceacademy.com/classes",
+      "chars": 11104,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "WNC Dance Academy",
+    "website_url": "https://www.wncdanceacademy.com/",
+    "notes": "No summer 2027 information or registration milestones were found. Cards use the explicitly labeled summer 2026 schedules supplied in the fetched homepage text. Web access reported a robots.txt restriction, but official search results were readable. The separate summer-intensive page contains 2020 information and was not used for current facts. No camp-specific registration destination was confirmed.",
+    "excluded": [
+      {
+        "name": "Summer Classes",
+        "reason": "Five-week series of separately scheduled dance lessons, not a camp."
+      },
+      {
+        "name": "Fall 2026 / Spring 2027 Classes",
+        "reason": "School-year dance classes, not summer camps."
+      },
+      {
+        "name": "WNC Dance Repertory Company",
+        "reason": "Ongoing school-year performance and training program, not a finite summer camp."
+      },
+      {
+        "name": "WNC Dance RepCo Auditions",
+        "reason": "May auditions for the ongoing repertory company, outside summer and not a camp."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult-only dance lessons."
+      },
+      {
+        "name": "Winter Benefit Showcase",
+        "reason": "Single performance event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Dancers take a variety of classes and learn choreography from several instructors. The week ends with a showcase at the studio.",
+        "camp_page_url": "https://www.wncdanceacademy.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "WNC Dance Academy",
+            "address": "829 Riverside Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "RepCo1: 9am to 12pm; RepCo2, RepCo3, RepCo4: 10am to 3pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "RepCo1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 8
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "session",
+              "label": "RepCo1",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "RepCo2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 375,
+              "unit": "session",
+              "label": "RepCo2",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "RepCo3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 375,
+              "unit": "session",
+              "label": "RepCo3",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "RepCo4",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 375,
+              "unit": "session",
+              "label": "RepCo4",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.wncdanceacademy.com/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Theme Camps",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Themed summer dance camps for children ages 4–9.",
+        "camp_page_url": "https://www.wncdanceacademy.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 9
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "WNC Dance Academy",
+            "address": "829 Riverside Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:30",
+          "text": "9:30am-12:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 195,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "WAYFINDER (Moana) Week",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "FROZEN Week",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "DEFYING GRAVITY Week",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "POP STAR Week",
+            "start": "2026-08-03",
+            "end": "2026-08-08",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.wncdanceacademy.com/"],
+        "confidence": "medium",
+        "review_notes": "The homepage prints 'Jun2 29th' for Frozen Week; interpreted as June 29 under the Summer Camps 2026 heading. POP STAR Week explicitly ends August 8, a Saturday; retained as printed rather than changing it to August 7. Check these dates with the provider."
+      },
+      {
+        "name": "Junior Dance Camp Weekend",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "A summer dance camp weekend for children ages 9–14.",
+        "camp_page_url": "https://www.wncdanceacademy.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-14",
+          "end": "2026-08-16",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "WNC Dance Academy",
+            "address": "829 Riverside Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "9am-2pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.wncdanceacademy.com/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

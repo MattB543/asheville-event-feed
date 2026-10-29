@@ -1,0 +1,376 @@
+{
+  "provider": {
+    "key": "camp-carolina",
+    "name": "Camp Carolina",
+    "urls": [
+      "https://www.campcarolina.com/in-camp-activities",
+      "https://www.campcarolina.com/dates-rates-2027",
+      "https://www.campcarolina.com/DatesRates",
+      "https://www.campcarolina.com/dates-rates-2026",
+      "https://www.campcarolina.com/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:00:28.865Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "60d45ab2e839aa19725d2db2a5c53c4ebff35215b8c87df5593d05719ae65cc0",
+  "response": {
+    "searches": [
+      "site:campcarolina.com counselor assistants 2027",
+      "open https://www.campcarolina.com/CA",
+      "site:campcarolina.com/CA \"session\" \"fee\""
+    ],
+    "usage": {
+      "inputTokens": 36643,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2218,
+      "reasoningTokens": 196
+    },
+    "status": "completed",
+    "ms": 45656,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campcarolina.com/in-camp-activities",
+      "chars": 18474,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/dates-rates-2027",
+      "chars": 4326,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/DatesRates",
+      "chars": 4332,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/dates-rates-2026",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error - Page Does Not Exist!\")"
+    },
+    {
+      "url": "https://campcarolina.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.campcarolina.com/",
+      "chars": 2258,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/future-campers",
+      "chars": 7089,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/current-families",
+      "chars": 28146,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcarolina.com/daily-schedule",
+      "chars": 2110,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Carolina",
+    "website_url": "https://www.campcarolina.com/",
+    "notes": "2027 dates and rates are posted and the homepage says registration is open, but no dated registration opening announcement was found. Counselor Assistant pages remain linked from the current site, but no program-specific 2027 dates or prices were found. CA pages could not be opened as readable text; official search results supplied their content. The 2026 DatesRates page has outdated payment dates; these were not used.",
+    "excluded": [
+      {
+        "name": "Father & Son Adventure Weekends",
+        "reason": "Family-only weekends, rather than supervised youth camps without parents."
+      },
+      {
+        "name": "Backcountry Training Institute",
+        "reason": "Spring staff training and certification courses, outside summer."
+      },
+      {
+        "name": "Camp Shows",
+        "reason": "Informational social events, not summer camps."
+      },
+      {
+        "name": "Staff Positions",
+        "reason": "Employment programs, not youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Carolina",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "arts", "music", "general"],
+        "description": "Boys choose in-camp activities including sports, arts and crafts, music, climbing and waterfront activities. They can also sign up for supervised outdoor trips.",
+        "camp_page_url": "https://www.campcarolina.com/future-campers",
+        "registration_url": "https://www.campcarolina.com/current-families",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Carolina",
+            "address": "1 Lambs Creek Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "First Session (20 Days)",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 7600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Session (27 Days)",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Third Session (15 Days)",
+            "start": "2027-07-25",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session 1 (13 Days)",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5650,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session 2 (13 Days)",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5650,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session 3 (13 Days)",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5650,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Pre-Mini Session 1 (6 Days)",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Pre-Mini Session 2 (6 Days)",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "2027 Registration is Open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Boys are hand-selected by a board and chosen by their “True Gentlemen” character."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and dinner are served family style with help from our Counselor Assistants."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We will be offering airport pick-ups and drop-offs from Asheville Regional Airport (AVL) in Arden, NC and Greenville-Spartanburg Airport (GSP) in Greenville, SC."
+        },
+        "sources": [
+          "https://www.campcarolina.com/",
+          "https://www.campcarolina.com/future-campers",
+          "https://www.campcarolina.com/dates-rates-2027",
+          "https://www.campcarolina.com/in-camp-activities",
+          "https://www.campcarolina.com/current-families",
+          "https://www.campcarolina.com/nath-thompson-scholarship"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Counselor Assistant Program",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Boys practice leadership by assisting activity counselors, helping supervise cabins and serving meals. The program also includes CA-only activities and overnight trips.",
+        "camp_page_url": "https://www.campcarolina.com/CA",
+        "registration_url": "https://www.campcarolina.com/current-families",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Carolina",
+            "address": "1 Lambs Creek Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campcarolina.com/CA",
+          "https://www.campcarolina.com/CA-Additional-Info",
+          "https://www.campcarolina.com/CampCabins",
+          "https://www.campcarolina.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The CA introduction says completed grades 9-11, but its eligibility FAQ and CA-Additional-Info say completed grades 9-12; the cabin page also identifies CAs as grades 9-12. Verify eligibility. CA content was available through official search results only. No year-specific CA dates or fees were stated, so regular camp sessions and prices were not assigned to this program."
+      }
+    ]
+  }
+}

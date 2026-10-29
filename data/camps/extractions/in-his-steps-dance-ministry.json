@@ -1,0 +1,65 @@
+{
+  "provider": {
+    "key": "in-his-steps-dance-ministry",
+    "name": "In His Steps Dance Ministry",
+    "urls": [
+      "https://www.inhisstepsdanceministry.org/",
+      "https://www.inhisstepsdanceministry.org/dance-classes"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:09.352Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "42c7c0a92166af7241ab78f113794d76d556daaa4d9beefc176507bff8efc183",
+  "response": {
+    "searches": [
+      "site:inhisstepsdanceministry.org summer camp workshop 2026 2027",
+      "\"In His Steps Dance Ministry\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 13619,
+      "cachedInputTokens": 8845,
+      "outputTokens": 353,
+      "reasoningTokens": 130
+    },
+    "status": "completed",
+    "ms": 14303,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.inhisstepsdanceministry.org/",
+      "chars": 4758,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.inhisstepsdanceministry.org/dance-classes",
+      "chars": 5715,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/P4P4SebJfP4Ap5Ce9",
+      "chars": 1729,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "In His Steps Dance Ministry",
+    "website_url": "https://www.inhisstepsdanceministry.org/",
+    "notes": "No qualifying summer camp could be established from the supplied official pages or additional web searches. The homepage references 2025 Summer Workshops but directs visitors to the Dance Classes page, which now lists school-year 2026-2027 classes only. No 2026 or 2027 summer workshop schedule, camp details, or summer registration dates were found. The official calendar page returned no readable text when opened; search results showed school-year calendar information.",
+    "excluded": [
+      {
+        "name": "2026-2027 Class Schedule",
+        "reason": "School-year dance classes and lesson series, not a finite summer camp."
+      },
+      {
+        "name": "Summer Workshops",
+        "reason": "The homepage references summer classes for 2025 only; no current qualifying camp or finite youth workshop details were found."
+      }
+    ],
+    "cards": []
+  }
+}

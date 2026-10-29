@@ -1,0 +1,191 @@
+{
+  "provider": {
+    "key": "madison-county-community-learning-centers",
+    "name": "Madison County Community Learning Centers",
+    "urls": ["https://www.madisoncclc.org/k-8-camps"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:18.612Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f39942a56518db898317b4400d89b6adee6e0a7ff080c177590ed23caaffb757",
+  "response": {
+    "searches": [
+      "site.madisoncclc.org camp 2027 2026",
+      "\"Woodson Branch Nature School\" \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 26416,
+      "cachedInputTokens": 8631,
+      "outputTokens": 1319,
+      "reasoningTokens": 197
+    },
+    "status": "completed",
+    "ms": 34212,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.madisoncclc.org/k-8-camps",
+      "chars": 5678,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/woodson-branch-nature-school/schedules?schedule_id=camps&slug=woodson-branch-nature-school",
+      "chars": 375,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.madisoncclc.org/about-mcclc",
+      "chars": 9647,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncclc.org/",
+      "chars": 7342,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Madison County Community Learning Centers",
+    "website_url": "https://www.madisoncclc.org/",
+    "notes": "No summer 2027 camp information or registration milestones were found. The official camp page still lists summer 2026. Sawyer returned no readable program details, so prices, hours and ages remain unknown. Van pickup is advertised from Marshall and Weaverville, but pickup locations are not specified.",
+    "excluded": [
+      {
+        "name": "Winter Camps",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Woodson Branch Nature School K-8",
+        "reason": "School-year education rather than a finite summer camp."
+      },
+      {
+        "name": "K-8 After School Enrichment Clubs",
+        "reason": "School-year enrichment classes."
+      },
+      {
+        "name": "K-8 After School Program",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "Mermaid Ball",
+        "reason": "Single family-friendly fundraising event, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "K-8 Camps",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "arts", "theater", "cooking"],
+        "description": "Campers explore nature through hiking, shelter building, science experiments, art and outdoor theater. Activities vary by week and include gardening, harvesting food and cooking.",
+        "camp_page_url": "https://www.madisoncclc.org/k-8-camps",
+        "registration_url": "https://www.hisawyer.com/woodson-branch-nature-school/schedules?schedule_id=camps&slug=woodson-branch-nature-school",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Woodson Branch Nature School",
+            "address": "14555 US Hwy 25/70",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Earth, Water, Wind & Fire Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "STEAM Meets Nature Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outdoor Theatre Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Survival Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Farm to Table Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Van pickup available from both Marshall and Weaverville!"
+        },
+        "sources": [
+          "https://www.madisoncclc.org/k-8-camps",
+          "https://www.madisoncclc.org/about-mcclc",
+          "https://www.madisoncclc.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

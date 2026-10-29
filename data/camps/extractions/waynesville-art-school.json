@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "waynesville-art-school",
+    "name": "Waynesville Art School",
+    "urls": [
+      "https://www.waynesvilleartschool.com/art-camps",
+      "https://www.waynesvilleartschool.com/2027-summer-art-camps",
+      "https://www.waynesvilleartschool.com/copy-of-2025-art-camp-themes"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["news828", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:54.612Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "99c895b67405ae340bcade88e4ea257fb3f84a45f00bd0b134d1e2ca0a48cfd7",
+  "response": {
+    "searches": ["site:waynesvilleartschool.com \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 14474,
+      "cachedInputTokens": 8845,
+      "outputTokens": 836,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 20508,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.waynesvilleartschool.com/art-camps",
+      "chars": 894,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvilleartschool.com/2027-summer-art-camps",
+      "chars": 606,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvilleartschool.com/copy-of-2025-art-camp-themes",
+      "chars": 958,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.waynesvilleartschool.com/2027-pre-registration-form",
+      "chars": 611,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvilleartschool.com/",
+      "chars": 1386,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Waynesville Art School",
+    "website_url": "https://www.waynesvilleartschool.com/",
+    "notes": "The provider has a 2027 Summer Art Camps page and a pre-registration form, but no readable session dates, hours, age ranges or prices were found. The website identifies its location as Tate & Academy Street near Waynesville Library, while the Going Mobile page says the former 303 N. Haywood Street location closed at the end of August; that notice does not specify a year. No confirmed camp drop-off venue was found.",
+    "excluded": [
+      {
+        "name": "Winter Art Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Spring Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Art Classes",
+        "reason": "Regular art classes, not finite summer camps."
+      },
+      {
+        "name": "Private & Semi-Private Classes",
+        "reason": "Lessons booked individually or in small groups, not camps."
+      },
+      {
+        "name": "Paint & Sip",
+        "reason": "Single painting events rather than supervised multi-day youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Camps",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Children and teens explore painting, crafts and hands-on creative projects.",
+        "camp_page_url": "https://www.waynesvilleartschool.com/2027-summer-art-camps",
+        "registration_url": "https://www.waynesvilleartschool.com/2027-pre-registration-form",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Pre-register now to hold your spot—no payment required."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.waynesvilleartschool.com/art-camps",
+          "https://www.waynesvilleartschool.com/2027-summer-art-camps",
+          "https://www.waynesvilleartschool.com/2027-pre-registration-form",
+          "https://www.waynesvilleartschool.com/copy-of-2025-art-camp-themes",
+          "https://www.waynesvilleartschool.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 program is announced and pre-registration is offered, but dates are not posted, so season.status is not_posted. Day-camp format is inferred from the art-school offering; hours are not published. Confirm the summer camp drop-off location: the website header gives Tate & Academy Street, while the undated Going Mobile notice describes leaving 303 N. Haywood Street. Neither establishes a 2027 camp venue."
+      }
+    ]
+  }
+}

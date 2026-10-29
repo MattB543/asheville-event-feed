@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "west-asheville-baptist-church",
+    "name": "West Asheville Baptist Church",
+    "urls": ["https://www.westashevillebaptist.org/vbs/", "https://www.westashevillebaptist.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:10:50.294Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "381972acc6926194b4cef9dd96eaa4f3bc11354f33236e7435cdf68d6adad25f",
+  "response": {
+    "searches": ["site:westashevillebaptist.org \"2027\""],
+    "usage": {
+      "inputTokens": 14477,
+      "cachedInputTokens": 8845,
+      "outputTokens": 782,
+      "reasoningTokens": 53
+    },
+    "status": "completed",
+    "ms": 23330,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.westashevillebaptist.org/vbs/",
+      "chars": 2396,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.westashevillebaptist.org/",
+      "chars": 2132,
+      "method": "fetch"
+    },
+    {
+      "url": "https://form.jotform.com/261166615192154",
+      "chars": 138,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West Asheville Baptist Church",
+    "website_url": "https://www.westashevillebaptist.org/",
+    "notes": "No 2027 camp information was found. The supplied Jotform registration form is unavailable. Direct website access was blocked by robots.txt; official search results supplemented the supplied page text.",
+    "excluded": [
+      {
+        "name": "Early Learning Center",
+        "reason": "Year-round childcare and early learning, not a finite summer camp."
+      },
+      {
+        "name": "Kids’ Morning Out",
+        "reason": "School-year preschool program, not a summer camp."
+      },
+      {
+        "name": "Night To Shine",
+        "reason": "Single-evening prom event held in February, outside summer."
+      },
+      {
+        "name": "WABC KIDS",
+        "reason": "Regular church children's ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Illumination Station Kids Week",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible teaching about Jesus as the light of the world through crafts, activities, games and music.",
+        "camp_page_url": "https://www.westashevillebaptist.org/vbs/",
+        "registration_url": "https://form.jotform.com/261166615192154",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "West Asheville Baptist Church",
+            "address": "926 Haywood Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:15",
+          "end": "20:30",
+          "text": "Monday - Thursday"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "Online registration",
+          "text": "Online Registration has ended but you can sign up onsite"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.westashevillebaptist.org/vbs/",
+          "https://www.westashevillebaptist.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The June 22–25 dates do not print a year beside them; 2026 is established by the page's explicit eligibility cutoff of 06/15/26. Children must be four by June 15, 2026. The page retains onsite signup wording for the past season, while the linked Jotform is unavailable; the closed status applies only to online registration."
+      }
+    ]
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "provider": {
+    "key": "brevard-college",
+    "name": "Brevard College",
+    "urls": [
+      "https://brevard.edu/campusadventures/",
+      "https://brevard.edu/bci/",
+      "https://bctornados.com/sports/2023/6/22/camps-Brevard-College-Camps.aspx",
+      "https://bctornados.com/news/2026/3/2/mens-basketball-bc-basketball-sets-2026-summer-basketball-camps.aspx",
+      "https://bctornados.com/",
+      "https://www.bctornadossoccer.com/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:24.756Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0509d07be50371bc74aea6c8d760cc4d7efeac31e8043750f0c1b48ee56eea45",
+  "response": {
+    "searches": [
+      "site.brevard.edu \"2027\" \"camp\"",
+      "site.bctornados.com \"2026\" \"camp\" \"June\"",
+      "\"Brevard\" \"Campus Adventures\" \"2026\" \"9\"",
+      "\"site:playnsports.com\" \"Brevard\""
+    ],
+    "usage": {
+      "inputTokens": 52045,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2894,
+      "reasoningTokens": 524
+    },
+    "status": "completed",
+    "ms": 76766,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://brevard.edu/campusadventures/",
+      "chars": 4936,
+      "method": "fetch"
+    },
+    {
+      "url": "https://brevard.edu/bci/",
+      "chars": 3561,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bctornados.com/sports/2023/6/22/camps-Brevard-College-Camps.aspx",
+      "chars": 3511,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bctornados.com/news/2026/3/2/mens-basketball-bc-basketball-sets-2026-summer-basketball-camps.aspx",
+      "chars": 5769,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bctornados.com/documents/2026/3/2/Brevard_Basketball_Camp_2026.pdf",
+      "chars": 3651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://brevard.edu/scholarship-competitions/",
+      "chars": 5748,
+      "method": "fetch"
+    },
+    {
+      "url": "https://brevard.edu/student-orientation-advising-registration/",
+      "chars": 6614,
+      "method": "fetch"
+    },
+    {
+      "url": "https://brevard.edu/tuition-and-fees/",
+      "chars": 5372,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard College",
+    "website_url": "https://brevard.edu/",
+    "notes": "No official 2027 summer dates or registration milestones were found. The Brevard Choral Institute page still lists July 7-12, 2025; no 2026 or 2027 offering or residential format was verified, so it is not included as a current card. The soccer camp website returned no readable page body and its search snippet did not establish summer dates or youth eligibility. White Squirrel Baseball Academy's registration page was located, but current summer session details could not be read; a third-party listing mentions 2026 youth summer camps. The basketball PDF wrapper and attempted direct download returned no readable PDF contents. Campus Adventures' linked information or registration destination could not be resolved.",
+    "excluded": [
+      {
+        "name": "Scholarship Competitions",
+        "reason": "College admissions scholarship competition, not a supervised summer youth camp."
+      },
+      {
+        "name": "Student Orientation, Advising, and Registration (S.O.A.R.)",
+        "reason": "Required orientation and class registration for incoming college students, not a summer youth camp."
+      },
+      {
+        "name": "Brevard Music Center Student Programs",
+        "reason": "Separate provider, not Brevard College's camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Campus Adventures",
+        "type": "day",
+        "categories": ["general", "academic", "nature_outdoor"],
+        "description": "Campers select morning classes, rotate through afternoon activity stations, and participate in daily creek play.",
+        "camp_page_url": "https://brevard.edu/campusadventures/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-05-01",
+          "time": "08:00",
+          "text": "Registration opens at 8:00 a.m. on May 1, and classes fill quickly.",
+          "url": "https://brevard.edu/campusadventures/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://brevard.edu/campusadventures/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Leadership Development Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Teaching Assistants assist instructors with small-group lessons and help the camp director with logistics while developing leadership skills and supporting younger campers.",
+        "camp_page_url": "https://brevard.edu/campusadventures/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": "Teaching Assistants",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-05-01",
+          "time": "08:00",
+          "text": "Registration opens at 8:00 a.m. on May 1, and classes fill quickly.",
+          "url": "https://brevard.edu/campusadventures/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://brevard.edu/campusadventures/"],
+        "confidence": "medium",
+        "review_notes": "The dates and registration opening are stated for Campus Adventures overall, rather than separately for the Leadership Development Program."
+      },
+      {
+        "name": "Brevard Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers participate in fundamental instruction stations, 3-on-3 and 5-on-5 games, and individual competitions.",
+        "camp_page_url": "https://bctornados.com/news/2026/3/2/mens-basketball-bc-basketball-sets-2026-summer-basketball-camps.aspx",
+        "registration_url": "https://bctornados.com/documents/2026/3/2/Brevard_Basketball_Camp_2026.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Ages 6-8",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 100,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 9-14",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 9-14",
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Lunch will not be provided for the first camp. The second and third camps of the summer will feature a pizza lunch provided on the final day of each camp. Packed lunch will be required for the first three days of the camp, Monday through Wednesday."
+        },
+        "transportation": null,
+        "sources": [
+          "https://bctornados.com/news/2026/3/2/mens-basketball-bc-basketball-sets-2026-summer-basketball-camps.aspx"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Prospect Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants develop volleyball skills, take part in competitive play, attend a question-and-answer session with athletes, and tour campus.",
+        "camp_page_url": "https://www.playnsports.com/event/prospect-camp-june-13th-2026/",
+        "registration_url": "https://www.playnsports.com/event/prospect-camp-june-13th-2026/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Brevard College",
+            "address": "One Brevard College Dr.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:30",
+          "text": "9:30 am - 12:30 pm | Check in 9:00 am"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.playnsports.com/event/prospect-camp-june-13th-2026/",
+          "https://brevard.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp facts were visible only in the registration platform's search result; opening the page returned no readable content. The snippet establishes Brevard College as host but does not identify a specific campus building."
+      }
+    ]
+  }
+}

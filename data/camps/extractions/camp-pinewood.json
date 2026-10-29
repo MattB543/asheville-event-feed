@@ -1,0 +1,275 @@
+{
+  "provider": {
+    "key": "camp-pinewood",
+    "name": "Camp Pinewood",
+    "urls": [
+      "https://www.camppinewood.net/datesandrates",
+      "https://www.camppinewood.net/important-dates"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:59.292Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fe21155cfbf89794bbc153a98b617ae0e70459cdc18a108777660ef25f52cc16",
+  "response": {
+    "searches": [
+      "site:camppinewood.net FAQ ages activities enroll 2027",
+      "\"Camp Pinewood\" \"camppinewood.net\" \"ages\"",
+      "site:camppinewood.net/faq \"age\""
+    ],
+    "usage": {
+      "inputTokens": 21846,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1929,
+      "reasoningTokens": 241
+    },
+    "status": "completed",
+    "ms": 41768,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.camppinewood.net/datesandrates",
+      "chars": 2512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinewood.net/important-dates",
+      "chars": 1519,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinewood.net/about",
+      "chars": 2313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinewood.net/",
+      "chars": 1940,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinewood.net/video",
+      "chars": 1087,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinewood.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.camppinewood.net/about-us",
+      "chars": 4799,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinewood.net/camper-experience",
+      "chars": 2905,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Pinewood",
+    "website_url": "https://www.camppinewood.net/",
+    "notes": "The 2027 dates are posted, but tuition is explicitly labeled 2026. The early-bird enrollment range has no calendar year; no registration milestone was inferred. FAQ, activities and enrollment pages returned no readable body text during supplementary browsing. No additional official PDF was found.",
+    "excluded": [
+      {
+        "name": "Visitor's Day",
+        "reason": "A visiting-day social event, not a camp program."
+      },
+      {
+        "name": "Summer staff positions",
+        "reason": "Employment programs, not youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Pinewood",
+        "type": "overnight",
+        "categories": ["general", "sports", "horses"],
+        "description": "Campers stay in cabins and participate in in-camp activities including horseback riding and waterskiing.",
+        "camp_page_url": "https://www.camppinewood.net/datesandrates",
+        "registration_url": "https://www.camppinewood.net/login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Pinewood",
+            "address": "300 Orrs Camp Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 10200,
+            "unit": "session",
+            "label": "Full Session",
+            "year": 2026
+          },
+          {
+            "amount": 6850,
+            "unit": "session",
+            "label": "1st Session or 2nd Session",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Full Session",
+            "start": "2027-06-13",
+            "end": "2027-08-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "1st Session",
+            "start": "2027-06-13",
+            "end": "2027-07-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "2nd Session",
+            "start": "2027-07-11",
+            "end": "2027-08-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Intro Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Intro Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We are pleased to offer scholarship funding to a number of families that are in need of assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers enjoy delicious food, prepared by our chefs and their well-trained staff."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Tuition Includes: Asheville Airport Transport"
+        },
+        "sources": [
+          "https://www.camppinewood.net/datesandrates",
+          "https://www.camppinewood.net/important-dates",
+          "https://www.camppinewood.net/facilities",
+          "https://www.camppinewood.net/login",
+          "https://www.camppinewood.net/travel-visiting-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 Dates & Rates page explicitly labels all listed tuition as 2026; retained those amounts only as 2026 prices. First-Timer dates take their year from the 2027 heading and are confirmed by Important Dates Summer 2027. Overall camper eligibility is unknown; grades 2–4 apply only to introductory sessions. The official travel page says the main entrance is on West Prince Road and warns that GPS does not reach it; the mapped address is the provider's published location. Early Bird Enrollment - July 1 to October 1 lacks a calendar year."
+      },
+      {
+        "name": "Counselor-In-Training Program",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "A counselor-in-training program for previous campers who are rising 11th and 12th graders.",
+        "camp_page_url": "https://www.camppinewood.net/datesandrates",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Pinewood",
+            "address": "300 Orrs Camp Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camppinewood.net/datesandrates",
+          "https://www.camppinewood.net/facilities",
+          "https://www.camppinewood.net/travel-visiting-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program is listed on the 2027 Dates & Rates page, but no CIT-specific dates, tuition or daily format are stated. Overnight format and camp location are inferred from the residential provider context; confirm with the camp. The travel page identifies the main entrance as West Prince Road rather than the published Orrs Camp Road address."
+      }
+    ]
+  }
+}

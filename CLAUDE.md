@@ -331,6 +331,22 @@ up on every edit and review; a review is applied only at the revision the admin 
 (409 otherwise), so an old Approve never publishes a newer, unreviewed name. The sign form
 and review panel carry `ph-no-capture` so PostHog never records names.
 
+### Camps tables (`camp_providers`, `camps`, `camp_sites`, `camp_views`, `camp_calendars`)
+
+The `/camps` summer-camp directory (migrations `drizzle/0025_camps.sql`, `0026_camps_refresh.sql` and `0027_camps_last_extracted.sql`,
+applied by hand; plan and decisions in `docs/camps/04-v2-plan.md`, build log in `05-v2-report.md`).
+`camp_providers` is one row per provider from discovery (`data/camps/providers.json`; keys never
+change). `camps` is one card per program: `card` is the `CampCard` Sol extracted
+(`lib/camps/contract.ts`), `override` holds Matt's fixes (top-level card keys that replace the
+extracted ones), and the effective card is `{...card, ...override}`. Nothing checks the AI's facts
+in code: Sol rates `confidence` per card and per registration date, and anything short of `high`
+goes to Matt's queue at `/admin/camps`. `reviewed_hash` is `cardHash` of the card he confirmed
+(confidence, notes and sources excluded), so only a change of facts puts a camp back in the queue.
+`camp_sites` are drop-off sites (Census geocoder; ORS only with a street address; `geocode_source
+= 'hand'` is a pin Matt pasted, which imports never overwrite). The D3 radius (55 min day, 75
+overnight from Pack Square) is applied in `queryCamps`; unplaced sites stay in unless their state is
+far away. A site without a point takes its town's drive time from `data/camps/town-points.json` (`scripts/camps/town-points.ts`; shown as "~N min", `driveFromTown`), and a camp with no sites takes its provider's area town. Imports (`scripts/camps/import.ts` → `lib/camps/importCamps.ts`) never delete a camp, never change a slug, and skip extraction files older than the stored one. A camp is live only while its `last_extracted_at` equals its provider's `extracted_at`: a card the newest extraction no longer contains is retired (kept, not shown), never deleted. Cross-provider duplicates (the same camp listed by two providers) are dropped by `data/camps/duplicates.json`, reviewed decisions from `scripts/camps/find-duplicates.ts` candidates (fuzzy score >= 4, each pair reviewed by an Opus agent); `queryCamps` excludes them and a dropped camp's page redirects to the kept one.
+
 ### Row Level Security (RLS)
 
 RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so new tables will have RLS enabled automatically. All database writes from the app go through server-side Drizzle ORM using `DATABASE_URL` (the `postgres` role), which bypasses RLS. RLS policies only govern access via Supabase's PostgREST API (the `anon` and `authenticated` roles exposed by the client-side anon key).
@@ -361,6 +377,11 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `genre_notes`         | —                    | —                                                 |
 | `season_picks`        | —                    | —                                                 |
 | `letter_signatures`   | —                    | —                                                 |
+| `camp_providers`      | —                    | —                                                 |
+| `camps`               | —                    | —                                                 |
+| `camp_sites`          | —                    | —                                                 |
+| `camp_views`          | —                    | —                                                 |
+| `camp_calendars`      | —                    | —                                                 |
 
 "Own" means the policy restricts access to rows where `user_id = auth.uid()` (or `profile_id` belongs to the user for `matching_answers`).
 
@@ -370,18 +391,19 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 
 ### Cron Jobs (require `Authorization: Bearer {CRON_SECRET}`)
 
-| Route                    | Schedule        | Purpose                                                       |
-| ------------------------ | --------------- | ------------------------------------------------------------- |
-| `/api/cron/scrape`       | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup            |
-| `/api/cron/verify`       | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)             |
-| `/api/cron/ai`           | Every 3h at :20 | AI tagging, summaries, embeddings, image generation           |
-| `/api/cron/cleanup`      | 8x daily        | Dead URLs (soft-delete), non-NC, cancelled, duplicates        |
-| `/api/cron/dedup`        | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days |
-| `/api/cron/email-digest` | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                |
-| `/api/cron/top30-weekly` | Fri 11 AM ET    | Weekly Top 30 email                                           |
-| `/api/cron/playlist`     | Sun 7 AM ET     | Rebuild the weekly Spotify playlist (`?dryRun=1` to preview)  |
-| `/api/cron/news-scrape`  | Every 3h at :40 | Local news: fetch sources + full text into `news_articles`    |
-| `/api/cron/news-ai`      | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary |
+| Route                     | Schedule        | Purpose                                                                              |
+| ------------------------- | --------------- | ------------------------------------------------------------------------------------ |
+| `/api/cron/scrape`        | Every 6h at :00 | Scrape all sources, upsert to DB, rule-based dedup                                   |
+| `/api/cron/verify`        | Every 3h at :05 | Verify events missing data via Jina + AI (30/run)                                    |
+| `/api/cron/ai`            | Every 3h at :20 | AI tagging, summaries, embeddings, image generation                                  |
+| `/api/cron/cleanup`       | 8x daily        | Dead URLs (soft-delete), non-NC, cancelled, duplicates                               |
+| `/api/cron/dedup`         | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days                        |
+| `/api/cron/email-digest`  | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                                       |
+| `/api/cron/top30-weekly`  | Fri 11 AM ET    | Weekly Top 30 email                                                                  |
+| `/api/cron/playlist`      | Sun 7 AM ET     | Rebuild the weekly Spotify playlist (`?dryRun=1` to preview)                         |
+| `/api/cron/news-scrape`   | Every 3h at :40 | Local news: fetch sources + full text into `news_articles`                           |
+| `/api/cron/news-ai`       | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary                        |
+| `/api/cron/camps-refresh` | Daily 08:15 UTC | Camps: re-read due providers, re-extract changed ones, import, sync camp feed events |
 
 Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats). This is the only durable record — Vercel keeps runtime logs for only ~1 hour, so console output is useless for after-the-fact auditing.
 
@@ -471,22 +493,28 @@ missing data. Policy, as of 2026-10-14:
 
 ### Public APIs
 
-| Route                       | Method | Purpose                                                    |
-| --------------------------- | ------ | ---------------------------------------------------------- |
-| `/api/health`               | GET    | Health check (DB status, event count)                      |
-| `/api/chat`                 | POST   | AI conversational event discovery (rate limited)           |
-| `/api/export/json`          | GET    | Public events API (`format=compact` for AI agents)         |
-| `/api/export/markdown`      | GET    | Markdown export (same filters as the JSON export)          |
-| `/openapi.json`             | GET    | OpenAPI 3.1 spec for the two exports                       |
-| `/api/events/submit`        | POST   | Submit event via form                                      |
-| `/api/events/submit-url`    | POST   | Submit event via URL                                       |
-| `/api/events/report`        | POST   | Report an event                                            |
-| `/api/events/top30`         | GET    | Deep Top 30 pool for one category (cached)                 |
-| `/api/curator/[slug]`       | GET    | Public curator profile data                                |
-| `/api/events/favorites`     | POST   | Fetch public event data for a list of event IDs            |
-| `/api/events/[id]/favorite` | POST   | Increment/decrement an event's favorite count              |
-| `/api/events/[id]/track`    | GET    | Spotify track for a music event (matched once, then saved) |
-| `/api/city-status`          | GET    | Live garage spaces + active water notices (header badges)  |
+| Route                        | Method   | Purpose                                                                    |
+| ---------------------------- | -------- | -------------------------------------------------------------------------- |
+| `/api/health`                | GET      | Health check (DB status, event count)                                      |
+| `/api/chat`                  | POST     | AI conversational event discovery (rate limited)                           |
+| `/api/export/json`           | GET      | Public events API (`format=compact` for AI agents)                         |
+| `/api/export/markdown`       | GET      | Markdown export (same filters as the JSON export)                          |
+| `/openapi.json`              | GET      | OpenAPI 3.1 spec for the two exports                                       |
+| `/api/events/submit`         | POST     | Submit event via form                                                      |
+| `/api/events/submit-url`     | POST     | Submit event via URL                                                       |
+| `/api/events/report`         | POST     | Report an event                                                            |
+| `/api/events/top30`          | GET      | Deep Top 30 pool for one category (cached)                                 |
+| `/api/curator/[slug]`        | GET      | Public curator profile data                                                |
+| `/api/events/favorites`      | POST     | Fetch public event data for a list of event IDs                            |
+| `/api/events/[id]/favorite`  | POST     | Increment/decrement an event's favorite count                              |
+| `/api/events/[id]/track`     | GET      | Spotify track for a music event (matched once, then saved)                 |
+| `/api/city-status`           | GET      | Live garage spaces + active water notices (header badges)                  |
+| `/api/camps/[id]/reminder`   | GET      | Registration reminder .ics (`?audience=`, public default)                  |
+| `/api/camps/[id]/view`       | POST     | Camp view beacon (popularity, 14 days)                                     |
+| `/api/camps/feedback`        | POST     | Camp feedback to Slack (stores nothing)                                    |
+| `/api/camps/calendar`        | POST/GET | Saved-camps calendar: create/update token, `.ics` feed                     |
+| `/api/camps/export/markdown` | GET      | Every listed camp as compact Markdown for a parent's own AI (~106k tokens) |
+| `/api/camps/export/json`     | GET      | Every listed camp as minified JSON (full detail)                           |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes
@@ -522,12 +550,13 @@ day of its first showing that passes the date filter, not its first start date.
 
 ### Admin APIs (require `SUPER_ADMIN`)
 
-| Route                        | Method | Purpose                                   |
-| ---------------------------- | ------ | ----------------------------------------- |
-| `/api/admin/event/score`     | POST   | Set/clear event score overrides           |
-| `/api/admin/curator/verify`  | POST   | Verify a curator profile                  |
-| `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload           |
-| `/api/admin/plan-signatures` | POST   | Approve/reject a public `/plan` signature |
+| Route                        | Method | Purpose                                                  |
+| ---------------------------- | ------ | -------------------------------------------------------- |
+| `/api/admin/event/score`     | POST   | Set/clear event score overrides                          |
+| `/api/admin/curator/verify`  | POST   | Verify a curator profile                                 |
+| `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload                          |
+| `/api/admin/plan-signatures` | POST   | Approve/reject a public `/plan` signature                |
+| `/api/admin/camps`           | POST   | Confirm (at a card hash; 409 if changed), hide, fix, pin |
 
 Poster moderation guard is the canonical one: `getUser()` → 401, then
 `isSuperAdmin(user.id)` → 403. Both actions accept `pending_review` **or**
@@ -794,6 +823,24 @@ Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `S
 
 Halloween-season events (`lib/db/queries/halloween.ts`: events with the `Halloween` tag, plus title words for events the AI hasn't tagged yet; in-person only, like the feed) from today through Oct 31 ET. The tagging prompt adds `Halloween` to Halloween-themed events as they're enriched, and `npx tsx scripts/tag-halloween.ts [--apply]` re-judges every event from today through Oct 31 with the AI (2026-10-23: 242 of 1,280), so the page and its "See all Halloween events" link (`tagsInclude=Halloween` in both views: the feed's tag filter is any-of, so it can't also require Family) cover the same events. The page is open only while the season runs (Oct 1-31); the rest of the year it says when it's back. The default "After dark" view leaves out Family-tagged events and picks the wildest by `scoreAshevilleWeird`; `?for=family` shows only Family-tagged events, picked by score. The family view drops the blood and glowing eyes. Either way the picks are shown by date unless `?sort=ranked`. The two nights ending Oct 31 get a taped poster wall (top 10, dealt round-robin into two columns on phones and four from md, so the ranking reads across); earlier days show up to 3 cards each under a tombstone (on phones the tombstone and each card's poster sit above the text, which gets the full width; from lg the card posters are 220px, not 170). Posters show at their own shape (we store no image sizes, so the wall settles as they load); ones that won't load turn into a drawn flyer (`components/halloween/Poster.tsx`). The super admin, and anyone in `SEASON_EDITORS` (comma-separated user IDs; `canEditSeason` in `lib/utils/superAdmin.ts`, which grants nothing else), gets small buttons on the page: hide an event, upload a poster for it, and (above the wall) search that weekend's events to add one to the wall, After dark only. They are rows in `season_picks` (migration `drizzle/0023_season_picks.sql`, which must be run on the live database by hand; it carries over the posters first saved in `public/halloween/`), written through `POST /api/admin/season-picks` (getUser → 401, canEditSeason → 403). An event deduped into another row loses its edits. The page is always dark (`DARK_ONLY` in `components/ThemeProvider.tsx`, which also hides the theme toggle there). Decorations live in `components/halloween/` and animate only transform/opacity; reduced motion stops them and hides the ones that only make sense moving (`hw-float`, `hw-moving`). Through October (the `SEASONS` list in `lib/seasons.ts`, built so other holidays can join) every page's header shows an orange banner, a pumpkin beside the logo and a Halloween item in the Events menu, all linking here and drawn still, since their animations live in the page's own stylesheet. A season's dates are `MM-DD` (every year) or `YYYY-MM-DD` (that year only): the `/plan` letter's dark gray banner runs Nov 1-2, 2026 only, the two days before Election Day, with no logo badge or menu item (a season gets those only when its `LOOK` in `components/seasonal/SeasonalLinks.tsx` has them). The root layout takes the Eastern date once per render (`RenderDateProvider`); `useSeason` hydrates the season and the banner text from that date, then switches to the browser's own, so a page cached across Oct 1 or Nov 1 hydrates cleanly and then gains or drops the links (the header can render inside a client component, where the browser's date alone would disagree with the HTML).
 
+### Summer Camps (`/camps`)
+
+A directory of kids' summer camps within the D3 radius, for summer 2027 (plan:
+`docs/camps/01-context-and-plan.md`, as changed by `04-v2-plan.md`). Pipeline: discovery
+(`scripts/camps/discover.ts` → `data/camps/providers.json`) → extraction (`scripts/camps/extract.ts`:
+Sol + web search over our own fetched page text, one card per program, rows inside; Parks & Rec from
+its WebTrac catalog) → import → pages. The daily `camps-refresh` cron re-reads due providers and
+re-extracts only when their pages or the prompt changed; browser-only sites and the WebTrac catalog
+are refreshed by the nightly local task. `/camps` filters client-side on rows (kid ages/grades, week,
+drive, price, town, hours, registration, support), keeps filters in the URL, and shows an AI notice;
+the list is cached in 4 parts (Next refuses a cache entry over 2MB). Uncertain registration dates
+read "unconfirmed" until Matt confirms the camp. Camp events join the main feed as source `CAMPS`
+(`lib/camps/feedEvents.ts`, one per camp with a 2027 date, removed via `deadAt`, never `hidden`):
+hidden from All events, exports, digests and chat unless the "Summer Camp" tag is selected, never
+in Top 30, exempt from non-NC cleanup and dedup. **Run `npx tsx scripts/camps/sync-feed-events.ts
+--apply` only after this code is deployed**: older code doesn't hide camp events. The header's
+"More" menu (Playlist, Summer camps) and the camps season banner (Nov 5 - Mar 31) link here.
+
 ### Local News (`/news`)
 
 Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions.md`.
@@ -807,7 +854,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 
 ### Group Directory
 
-- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Disaster Plan · News · Playlist · Parking ("Events" opens an All events / Top events / Your feed / Groups menu, each with an icon; Groups lives only there since Disaster Plan (`/plan`) took its tab, and the Events tab highlights on group pages): on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Your List is "Your feed" in the Events menu (which highlights on `/events/your-list`) and linked from `/profile`, and the signed-out account icon is a plain sign-in link, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
+- `/groups` lists every non-hidden group (search + category chips, client-side, kept in `?q=` / `?cat=` via `history.replaceState` so Back restores them), grouped by category with the next upcoming event or "Last event <Mon YYYY>"; `/groups/[slug]` shows the first 10 upcoming events (the rest in a `<details>`) and up to 50 past events in a `<details>` that is collapsed unless nothing is upcoming. The cached query results carry a `GROUP_CACHE_SHAPE` version in their key: bump it when the cached shape or labels change, or dev/prod keep serving old entries. The header tabs are Events · Disaster Plan · News · Parking · More (a Playlist / Summer camps menu, right-aligned) ("Events" opens an All events / Top events / Your feed / Groups menu, each with an icon; Groups lives only there since Disaster Plan (`/plan`) took its tab, and the Events tab highlights on group pages): on hover at lg+ with a fine pointer, where the label itself links to `/events`, and on tap otherwise). Your List is "Your feed" in the Events menu (which highlights on `/events/your-list`) and linked from `/profile`, and the signed-out account icon is a plain sign-in link, and Posters has no tab (`/posters` is reached by URL and by poster events' links back to their poster)
 - Both pages render per request (`connection()`) over `unstable_cache` data keyed by the Eastern date and tagged `events` + `groups`, so the scrape job's cache invalidation refreshes them and yesterday's events never read as upcoming after midnight
 - The list comes from a multi-agent pipeline documented in `data/groups/README.md`: discovery → research (`data/groups/research/`) → links pass → `directory-overrides.json` (final human calls) → `npx tsx scripts/groups/build-directory.ts` → `npx tsx scripts/groups/seed-groups.ts [--apply]`. Edit the overrides, not `directory.json`. The seed prints a coverage report and a parity check (the pages' SQL prefilter vs a full JS scan) that must come back clean
 - Definition of a group (Matt): a specific set of people with a shared identity who return repeatedly. Not groups: trivia, open mics, karaoke, a business's paid classes/shows, low-value business networking, remote-only groups, anything outside Western NC

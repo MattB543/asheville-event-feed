@@ -1,0 +1,53 @@
+{
+  "method": "gap_fill",
+  "id": "r2-church-day-camps--south-west",
+  "input": "Find churches that run weekly summer day camps (not just Vacation Bible School) for kids and teens in Henderson, Transylvania, Polk, Haywood and Jackson counties, NC (Hendersonville, Brevard, Tryon, Waynesville, Sylva). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:58:12.308Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 64172,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1067,
+    "reasoningTokens": 707
+  },
+  "searches": [
+    "church \"summer day camp\" \"Hendersonville\" 2026",
+    "church \"summer camp\" \"Brevard, NC\" day -wilds",
+    "\"church\" \"summer camp\" \"Mills River\"",
+    "\"church\" \"day camp\" \"Hendersonville\" \"NC\" -Kanuga -Tekoa",
+    "site:gracebrevard.org \"summer\" \"camp\"",
+    "\"church\" \"summer day camp\" \"Flat Rock\"",
+    "\"church\" \"summer kids\" \"Hendersonville\" \"2026\""
+  ],
+  "ms": 67308,
+  "candidates": [
+    {
+      "name": "First Baptist Church of Sylva",
+      "url": "https://firstbaptistsylva.com/first-explorers",
+      "town": "Sylva",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general", "arts", "nature_outdoor"],
+      "note": "First Explorers summer day camp ran across multiple weeks in 2026, with chapel, crafts, swimming and field trips."
+    },
+    {
+      "name": "Cullowhee United Methodist Church",
+      "url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+      "town": "Cullowhee",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["faith_based", "general", "academic"],
+      "note": "2025 summer camps served ages 2–5 and completed K–5 across eight weeks; also runs Whee Read summer literacy programming."
+    },
+    {
+      "name": "First Baptist Church of Hendersonville",
+      "url": "https://myrock.fbchnc.org/page/414?EventOccurrenceId=320",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["faith_based", "general", "music"],
+      "note": "Listed FBC Summer Kids for 2026, plus July 6–10 morning choir camp for completed grades 1–5 and preschool Splash Camp."
+    }
+  ]
+}

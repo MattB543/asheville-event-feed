@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "girl-scouts-carolinas-peaks-to-piedmont",
+    "name": "Girl Scouts Carolinas Peaks to Piedmont",
+    "urls": [
+      "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:52.086Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "10dd737877086be0aaebdb7c0e6d47ae16fe3ec9ae1bb3f775e23e0dfbe7e278",
+  "response": {
+    "searches": [
+      "site:girlscoutsp2p.org \"2026\" \"day camp\" \"Asheville\"",
+      "site:girlscoutsp2p.org \"Black Mountain\" \"August 3\"",
+      "site:girlscoutsp2p.org \"day camp\" \"Black Mountain\" \"Location\""
+    ],
+    "usage": {
+      "inputTokens": 46385,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1539,
+      "reasoningTokens": 276
+    },
+    "status": "completed",
+    "ms": 49698,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+      "chars": 16272,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/get-involved/join/juliettes-individually-registered-members.html",
+      "chars": 11810,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/discover/activities/events.html?q=keyauwee",
+      "chars": 6704,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/content/dam/girlscoutsp2p-redesign/forms-and-documents/experience/Juliette%20Girl%20Scouts%20FAQ.pdf",
+      "chars": 4060,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors.html",
+      "chars": 7011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/ways-to-get-outside.html",
+      "chars": 10098,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/outdoor-girl-leadership-programs.html",
+      "chars": 7996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/",
+      "chars": 10273,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girl Scouts Carolinas Peaks to Piedmont",
+    "website_url": "https://www.girlscoutsp2p.org/",
+    "notes": "The official October 26, 2026 blog announces that 2027 Summer Camp details will be available November 19; it does not announce registration opening. No 2027 program list or dates were found. Official blog search results identify a 2026 Black Mountain day camp, but its venue, price and registration destination could not be found. Website and blog access was blocked by robots.txt; supplemental facts were read in official search results. The referenced 2026 Summer Camp Program Guide could not be retrieved. The summer page mentions troop camping at Camp Pisgah and Camp Ginger Cascades without identifying a supervised summer program or dates.",
+    "excluded": [
+      {
+        "name": "Overnight Camp",
+        "reason": "The 2026 supervised overnight program is at Keyauwee Program Center in Sophia, NC, plainly outside the approximately 75-minute Asheville drive area. Asheville transportation does not change the camp's location."
+      },
+      {
+        "name": "Counselor-in-Training",
+        "reason": "The 2026 CIT program accompanies summer camp at Keyauwee Program Center in Sophia, outside the directory's drive area."
+      },
+      {
+        "name": "Day Camp — Greensboro, Winston-Salem and Hickory sessions",
+        "reason": "These sites are outside the approximately 75-minute Asheville drive area; only the Black Mountain session is retained."
+      },
+      {
+        "name": "Riding Instructor-in-Training",
+        "reason": "Ongoing volunteer training and school-year weekend riding assistance, not a finite supervised summer camp."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only programs."
+      },
+      {
+        "name": "Work at Camp",
+        "reason": "Employment program."
+      },
+      {
+        "name": "School's Out, Camp Out",
+        "reason": "November teacher-workday program, outside summer."
+      },
+      {
+        "name": "Girl Scouts Love State Parks Weekend",
+        "reason": "September program, outside summer."
+      },
+      {
+        "name": "Juliettes / Individually Registered Members",
+        "reason": "Year-round membership option, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Day camp for girls in rising grades 1–5 focuses on adventure and discovery.",
+        "camp_page_url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": "2027 Summer Camp details will be available on National Camp Day, November 19!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Day camp programs run 9 a.m. - 3 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Black Mountain",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-20",
+          "time": null,
+          "text": "Summer camp registration opened Tuesday, January 20!",
+          "url": "https://blog.girlscoutsp2p.org/2026/02/02/todays-tips-2-2-26/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Once you register for a program and pay a $50 non-refundable deposit, you will have access to our online financial aid application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+          "https://blog.girlscoutsp2p.org/2026/06/22/todays-tips-6-22-26/",
+          "https://blog.girlscoutsp2p.org/2026/02/02/todays-tips-2-2-26/",
+          "https://blog.girlscoutsp2p.org/2026/10/26/todays-tips-10-26-26/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Black Mountain dates and rising grades were obtained from official dated blog search results. Find the drop-off venue and its published street address, price and registration link in the 2026 guide or registration platform. The 2027 details announcement applies to summer camp generally, not specifically a confirmed Black Mountain offering. The main page's three-meal and transportation FAQs concern overnight camp and were not applied to this card."
+      }
+    ]
+  }
+}

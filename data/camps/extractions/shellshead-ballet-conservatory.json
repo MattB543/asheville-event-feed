@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "shellshead-ballet-conservatory",
+    "name": "Shellshead Ballet Conservatory",
+    "urls": ["https://shellshead.com/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:24.272Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "04313a183e1afdfa4b497f69b6ae785d0c895dd5770011289c39dc4e1c1999f9",
+  "response": {
+    "searches": ["site:shellshead.com summer intensive 2026 2027"],
+    "usage": {
+      "inputTokens": 13049,
+      "cachedInputTokens": 8845,
+      "outputTokens": 715,
+      "reasoningTokens": 49
+    },
+    "status": "completed",
+    "ms": 20150,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://shellshead.com/",
+      "chars": 4699,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shellshead.com/class-schedule-1",
+      "chars": 1959,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shellshead Ballet Conservatory",
+    "website_url": "https://shellshead.com/",
+    "notes": "No 2027 summer information or dated 2026 intensive schedule was found on the official pages. The homepage's July open-studio registration dates are not explicitly tied to the summer intensive and were not extracted. The homepage lists two ZIP codes for the studio, but both give the same street address, town and state.",
+    "excluded": [
+      {
+        "name": "Ballet Classes for All Ages",
+        "reason": "Ongoing beginner, intermediate and advanced ballet classes, not finite summer camps."
+      },
+      {
+        "name": "Private Ballet Lessons",
+        "reason": "Private lessons booked as lessons."
+      },
+      {
+        "name": "Fall 2026 Classes",
+        "reason": "School-year dance classes outside summer."
+      },
+      {
+        "name": "Purple Tutu",
+        "reason": "Listed as ongoing ballet classes, with no finite summer offering stated."
+      },
+      {
+        "name": "Hip Hop/ Acrobatics/ Dance Team Clinic",
+        "reason": "Listed within general class information without summer dates or evidence of a finite summer clinic."
+      },
+      {
+        "name": "Ballet Performances",
+        "reason": "Performances rather than supervised summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Ballet Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Students train in ballet technique, pointe work, variations and contemporary dance. Admission is by audition only.",
+        "camp_page_url": "https://shellshead.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shellshead Ballet Conservatory",
+            "address": "907 Buffalo Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://shellshead.com/", "https://shellshead.com/contact-us/"],
+        "confidence": "medium",
+        "review_notes": "The intensive description is undated on a homepage currently advertising fall 2026; no summer dates, hours or prices are given. Day format and use of the provider's studio are inferred from the studio-based offering, not explicitly stated for the intensive. Confirm format and drop-off location."
+      }
+    ]
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "provider": {
+    "key": "ruby-ranch",
+    "name": "Ruby Ranch",
+    "urls": [
+      "https://www.rubyranchnc.com/ashevillecamps/summer-2026",
+      "https://www.rubyranchnc.com/ashevillecamps/summer-2027"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:59.783Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8e96fbccfb643e9b775770cdb4a5ad735d605d79335f640736da4899624a00f3",
+  "response": {
+    "searches": ["site:rubyranchnc.com address Candler"],
+    "usage": {
+      "inputTokens": 20762,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1139,
+      "reasoningTokens": 118
+    },
+    "status": "completed",
+    "ms": 25599,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2026",
+      "chars": 1445,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027",
+      "chars": 4531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/spring-break-2027",
+      "chars": 2996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/payment-for-events/p/ruby-ranch-summer-camp",
+      "chars": 4279,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027?itemId=2pioo1khwynn0y95tdmydblsn6ah4j",
+      "chars": 4531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027?itemId=lavgjh6s84jeg7q5mmxm567eq02a3l",
+      "chars": 4531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027?itemId=ts7xsjompw7kprpgsy542y47e9ep3x",
+      "chars": 4531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027?itemId=5ki6qfd2minyp36vzme6t3roxd6yhz",
+      "chars": 4531,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ruby Ranch",
+    "website_url": "https://www.rubyranchnc.com/",
+    "notes": "The 2027 summer page says dates are coming soon; the homepage says summer dates will be released in January 2027. The former summer-2026 URL returns a missing-page message in the supplied crawl. The store lists six summer weeks without a year, so they were not assigned to 2026 or 2027. An older Ruby Ranch Firefly Camp store listing remains online but is not part of the posted 2027 program list and was left out.",
+    "excluded": [
+      {
+        "name": "Ruby Ranch Spring Break Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Lessons",
+        "reason": "Riding lessons booked as lessons, rather than a finite summer camp."
+      },
+      {
+        "name": "Pony Parties",
+        "reason": "Parties rather than supervised summer camp programs."
+      },
+      {
+        "name": "Community Work Day & Gathering",
+        "reason": "Community gathering rather than a supervised youth camp."
+      },
+      {
+        "name": "Hominy Market",
+        "reason": "Market and seasonal social events rather than camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ruby Ranch Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "horses", "arts", "music", "cooking"],
+        "description": "Campers garden, cook, make art and music, and participate in horse care and riding. Afternoon activities include creek play and exploration of the working ranch.",
+        "camp_page_url": "https://www.rubyranchnc.com/ashevillecamps/summer-2027",
+        "registration_url": "https://www.rubyranchnc.com/payment-for-events/p/ruby-ranch-summer-camp",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "We will release summer camp dates in January 2027."
+        },
+        "ages": {
+          "min": 6,
+          "max": 16
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ruby Ranch",
+            "address": "36 Kel County Road",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": "Camp runs from 10am-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 450,
+            "unit": "other",
+            "label": "Online payment",
+            "year": 2027
+          },
+          {
+            "amount": 425,
+            "unit": "other",
+            "label": "Check, Zelle or Venmo",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Partial scholarships available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.rubyranchnc.com/ashevillecamps/summer-2027",
+          "https://www.rubyranchnc.com/payment-for-events/p/ruby-ranch-summer-camp",
+          "https://www.rubyranchnc.com/",
+          "https://www.rubyranchnc.com/events/community-work-day-potluck-36yzy-5tfb8-4h8mz"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page body explicitly identifies 2027, but its metadata still says 2026. The registration store lists June 15–19, June 29–July 3, July 6–10, July 27–31, August 3–7 and August 10–14 without a year; these were omitted. Confirm the price unit when 2027 sessions are posted. Ages are stated as 6–16 with an additional allowance for adventurous rising kindergarteners; the grade minimum records that exception, not a separate age band. Lunch together and cooking are described, but provision of lunch is not stated."
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "deep-creek-missionary-baptist-church-of-bryson-city",
+    "name": "Deep Creek Missionary Baptist Church of Bryson City",
+    "urls": [
+      "https://www.facebook.com/dcmbc/",
+      "https://www.facebook.com/DeepCreekMissionaryBaptistChurch/events/"
+    ],
+    "area": "Bryson City, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:16:46.108Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Deep Creek Missionary Baptist Church Bryson City VBS 2026",
+      "site:facebook.com \"Deep Creek\" \"Junkyard\" \"2026\"",
+      "\"DeepCreekMissionaryBaptistChurch\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21171,
+      "cachedInputTokens": 8845,
+      "outputTokens": 786,
+      "reasoningTokens": 295
+    },
+    "status": "completed",
+    "ms": 27555,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/dcmbc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/DeepCreekMissionaryBaptistChurch/events/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Deep Creek Missionary Baptist Church of Bryson City",
+    "website_url": null,
+    "notes": "No standalone official website or 2027 camp information was found. Both supplied Facebook pages opened without readable content. Third-party event listings identify Junkyard Redemption VBS 2026, but the complete schedule could not be confirmed on official pages.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Deep Creek Missionary Baptist Church.",
+        "camp_page_url": "https://www.facebook.com/DeepCreekMissionaryBaptistChurch/events/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Deep Creek Missionary Baptist Church",
+            "address": "151 Deep Creek Church Rd",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/dcmbc/photos_stream/",
+          "https://churchpop.ncbaptist.org/?orgid=190024317"
+        ],
+        "confidence": "low",
+        "review_notes": "Facebook camp details could not be read. AllEvents lists a June 7, 2026 event from 5:30–8:30 p.m. and other listings show additional dates, so neither the complete season nor daily hours are entered. Confirm the schedule, eligibility and registration directly with the church. Address is supported by the Baptist State Convention's ChurchPOP search snippet, rather than a readable church contact page."
+      }
+    ]
+  }
+}

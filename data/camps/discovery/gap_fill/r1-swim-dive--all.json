@@ -1,0 +1,72 @@
+{
+  "method": "gap_fill",
+  "id": "r1-swim-dive--all",
+  "input": "Find swimming, diving and water-safety camps for kids and teens in the Asheville area of Western North Carolina (within about an hour of Asheville). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:32:23.928Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 72941,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1449,
+    "reasoningTokens": 920
+  },
+  "searches": [
+    "Asheville swim camp 2026 swimming kids",
+    "\"swim\" \"camp\" \"2026\" \"Asheville\"",
+    "\"swim camp\" \"Asheville\" -site:kidvoyage.com",
+    "\"Asheville\" \"swim camps\" \"2025\"",
+    "site:uncabulldogs.com \"swim\" \"camp\" \"2025\"",
+    "site:buncombepool.com \"lessons\" \"2026\"",
+    "\"swim lessons\" \"summer\" \"2026\" \"Buncombe\"",
+    "\"UNC Asheville\" \"swim\" \"camp\" \"June\" \"2026\""
+  ],
+  "ms": 115712,
+  "candidates": [
+    {
+      "name": "YMCA of Western North Carolina",
+      "url": "https://ymcawnc.org/programs/camps/half-day",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day", "day", "overnight"],
+      "categories": ["sports", "general"],
+      "note": "Camp Kiddos for ages 3–6 includes basic water safety; also operates summer day camps and Camp Watia. Confirmed summer 2026."
+    },
+    {
+      "name": "Asheville Jewish Community Center",
+      "url": "https://www.jcc-asheville.org/camp-ruach/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "general"],
+      "note": "Camp Ruach includes swimming three mornings weekly; summer swim/dive lessons also offered. Camp begins June 14, 2027."
+    },
+    {
+      "name": "Black Mountain Recreation & Parks",
+      "url": "https://www.townofblackmountain.org/2475/Black-Mountain-Pool",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["clinic"],
+      "categories": ["sports"],
+      "note": "Seasonal outdoor pool offered supervised swim lessons in summer 2026; swim-team season excluded."
+    },
+    {
+      "name": "Kanuga",
+      "url": "https://campkanuga.org/program/day-camp/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["sports", "nature_outdoor", "faith_based", "general"],
+      "note": "General camps with mountain-lake swimming and canoeing, not swim-specialist camps; day camp returned in summer 2025."
+    },
+    {
+      "name": "The North Carolina Arboretum",
+      "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "sports"],
+      "note": "2026 Discovery Camps include outdoor-adventure sessions with waterfall swimming in DuPont State Forest, not dedicated swim instruction."
+    }
+  ]
+}

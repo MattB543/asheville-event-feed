@@ -1,0 +1,716 @@
+{
+  "provider": {
+    "key": "kp-volleyball-training",
+    "name": "KP Volleyball Training",
+    "urls": [
+      "https://kpvolleyballtraining.com/summer-volleyball-camps",
+      "https://kpvolleyballtraining.com/volleyball-skills-clinics"
+    ],
+    "area": "Candler and Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:10:49.206Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c91557332e0eee31bd4ce60adc6e61f3c8b2a95370e9696b106540a4c608adce",
+  "response": {
+    "searches": ["site:kpvolleyballtraining.com 2027"],
+    "usage": {
+      "inputTokens": 17409,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4538,
+      "reasoningTokens": 95
+    },
+    "status": "completed",
+    "ms": 75146,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
+      "chars": 2837,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+      "chars": 3450,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pci.jotform.com/form/260404995123153",
+      "chars": 7349,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kpvolleyballtraining.com/",
+      "chars": 2481,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "KP Volleyball Training",
+    "website_url": "https://kpvolleyballtraining.com/",
+    "notes": "No 2027 information was found. Cards retain 2026 information. Newbies offerings and High School Mini Camps listed on multiple pages are consolidated rather than duplicated under the clinic cards. All listed summer offerings meet at FernLeaf; the general Candler location is not assigned to these programs.",
+    "excluded": [
+      {
+        "name": "Private Lessons",
+        "reason": "Individual or small-group lessons scheduled by arrangement, not a finite summer camp."
+      },
+      {
+        "name": "Strength & Agility Training",
+        "reason": "General training offering without a stated finite summer camp schedule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fundamentals Volleyball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice passing, attacking, serving and setting, with an introduction to blocking and digging. Camp days include instruction, games, drills, competitive play and free play.",
+        "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "16:00",
+          "text": "Half day: 9:30 - 12:30 pm Daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 225,
+            "unit": "session",
+            "label": "Session 1 half day",
+            "year": 2026
+          },
+          {
+            "amount": 175,
+            "unit": "session",
+            "label": "Session 2 half day",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-16",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 325,
+              "unit": "session",
+              "label": "full day",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-24",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 275,
+              "unit": "session",
+              "label": "full day",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/summer-volleyball-camps",
+          "https://kpvolleyballtraining.com/",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Volleyball Mini Camp for Newbies!",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "An all-skills volleyball mini camp for players new to the sport.",
+        "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-15",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:30",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 75,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "19:30"
+            },
+            "price": {
+              "amount": 65,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/summer-volleyball-camps",
+          "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+          "https://kpvolleyballtraining.com/",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Summer camp page states grades 6-12; homepage states grades 6-10. Clinic page lists the same dates as All-Skills Clinics for Newbies, consolidated here. Single-date offerings are classified as clinics."
+      },
+      {
+        "name": "High School Mini Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Players train in setter and libero skills, serving and serve receive, and attacking and blocking through two-day skills sessions.",
+        "camp_page_url": "https://kpvolleyballtraining.com/summer-volleyball-camps",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-22",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 260,
+            "unit": "session",
+            "label": "Mini Skills Camp Bundle",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1: Setter & Libero Training",
+            "start": "2026-06-22",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:30",
+              "end": "11:30"
+            },
+            "price": {
+              "amount": 115,
+              "unit": "session",
+              "label": "includes both days",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1: Serve and Serve Receive",
+            "start": "2026-06-22",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "11:45",
+              "end": "13:45"
+            },
+            "price": {
+              "amount": 115,
+              "unit": "session",
+              "label": "includes both days",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1: Attacking & Blocking",
+            "start": "2026-06-22",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 115,
+              "unit": "session",
+              "label": "includes both days",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2: Setter & Libero Training",
+            "start": "2026-07-21",
+            "end": "2026-07-22",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "10:30",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 95,
+              "unit": "session",
+              "label": "includes both days",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2: Serve and Serve Receive",
+            "start": "2026-07-21",
+            "end": "2026-07-22",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "12:15",
+              "end": "13:45"
+            },
+            "price": {
+              "amount": 95,
+              "unit": "session",
+              "label": "includes both days",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/summer-volleyball-camps",
+          "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+          "https://kpvolleyballtraining.com/",
+          "https://pci.jotform.com/form/260404995123153",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session 2 uses July 21-22, $95 and hours agreed upon by clinic page and individual registration products. Summer camp page instead lists July 20-21, $115 and three skills blocks. Registration bundle retains July 20-21 and 10:30-4, conflicting with both schedules. No July attacking/blocking mini-camp row included because the revised clinic listing and individual registration products do not list it. June hours follow the camp page but conflict with registration bundle hours."
+      },
+      {
+        "name": "Middle School Tryout Prep Clinic Series",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players prepare for middle school tryouts with serving, passing, attacking, setting and all-skills clinics. The final session includes competitive play.",
+        "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-23",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "19:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "program",
+            "label": "Series (All 4 Sessions)",
+            "year": 2026
+          },
+          {
+            "amount": 55,
+            "unit": "session",
+            "label": "Individual Sessions",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1: Serving & Passing",
+            "start": "2026-07-23",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2: Attacking & Setting",
+            "start": "2026-07-27",
+            "end": "2026-07-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3: All Skills",
+            "start": "2026-07-30",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4: All Skills - Competitive Play",
+            "start": "2026-08-06",
+            "end": "2026-08-06",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+          "https://pci.jotform.com/form/260404995123153",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "BEGINNER CLINICS",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Beginner clinics cover basic volleyball skills including passing, attacking, serving and setting.",
+        "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-28",
+          "end": "2026-07-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 55,
+            "unit": "session",
+            "label": "Beginners All-Skills Clinics",
+            "year": 2026
+          },
+          {
+            "amount": 45,
+            "unit": "session",
+            "label": "Beg. Setting & Attacking Clinic",
+            "year": 2026
+          },
+          {
+            "amount": 45,
+            "unit": "session",
+            "label": "Beg. Serve & Pass Clinic",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Beginners All-Skills Clinics",
+            "start": "2026-06-28",
+            "end": "2026-06-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "15:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginners All-Skills Clinics",
+            "start": "2026-07-16",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "19:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginners All-Skills Clinics",
+            "start": "2026-07-25",
+            "end": "2026-07-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+          "https://kpvolleyballtraining.com/summer-volleyball-camps",
+          "https://pci.jotform.com/form/260404995123153",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "HS CLINICS",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "High school volleyball clinics focus on attacking and blocking, serving and serve receive, and setter and libero training.",
+        "camp_page_url": "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+        "registration_url": "https://pci.jotform.com/form/260404995123153",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-29",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "FernLeaf Community Charter School - Wilderness Campus",
+            "address": "249 Old Hendersonville Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 45,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "HS Attacking & Blocking Clinic",
+            "start": "2026-07-29",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:30",
+              "end": "19:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Serve & Serve Receive Clinic",
+            "start": "2026-07-29",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "19:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://kpvolleyballtraining.com/volleyball-skills-clinics",
+          "https://pci.jotform.com/form/260404995123153",
+          "https://www.fernleafccs.org/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

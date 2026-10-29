@@ -1,0 +1,171 @@
+{
+  "provider": {
+    "key": "skyland-united-methodist-church-of-asheville",
+    "name": "Skyland United Methodist Church of Asheville",
+    "urls": [
+      "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:24.496Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3fe4e3ff8efea34a56b7e786f4bd2482c95c870387f76600cb879a06e724836e",
+  "response": {
+    "searches": [
+      "site:skylandumc.com Bridges summer literacy 2026",
+      "site:skylandumc.com \"summer\" \"Bridges\" \"2026\"",
+      "open https://www.skylandumc.com/wp-content/uploads/2026/05/5-28-26.pdf"
+    ],
+    "usage": {
+      "inputTokens": 22677,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1439,
+      "reasoningTokens": 238
+    },
+    "status": "completed",
+    "ms": 41049,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+      "chars": 2542,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.skylandumc.com/",
+      "chars": 4747,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Skyland United Methodist Church of Asheville",
+    "website_url": "https://www.skylandumc.com/",
+    "notes": "No summer 2027 dates or registration milestones were found. The homepage's 2027 ministry volunteer commitments are not a summer camp schedule. Bridges summer camp is named in 2026 newsletters, but camper eligibility and drop-off location require confirmation; the school-year program's locations have not been assigned to the summer camp.",
+    "excluded": [
+      {
+        "name": "Bridges Reading Enrichment Program",
+        "reason": "The regular twice-weekly reading programs are school-year enrichment, separate from the summer literacy camp."
+      },
+      {
+        "name": "Around The Son Preschool",
+        "reason": "Preschool rather than a finite summer camp."
+      },
+      {
+        "name": "PB & J Club, Jr. Youth, Youth Group, Children's Church, Bible Explorers and Confirmation Class",
+        "reason": "Regular school-year or year-round church programs rather than finite summer camps."
+      },
+      {
+        "name": "VBS Youth Volunteer",
+        "reason": "Volunteer roles for rising grades 7–12, not a separately described camper or leadership training program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God through the Rainforest Falls Vacation Bible School program.",
+        "camp_page_url": "https://www.skylandumc.com/vbs-camper-form/",
+        "registration_url": "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Skyland United Methodist Church",
+            "address": "1984 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9 am – 12 noon"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 10,
+            "unit": "program",
+            "label": "Registration fee per child ($25 max/family)",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+          "https://www.skylandumc.com/wp-content/uploads/2026/06/6-18-26.pdf",
+          "https://www.skylandumc.com/",
+          "https://www.skylandumc.com/vbs-camper-form/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Bridges Summer Literacy Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "A weeklong summer literacy camp for children.",
+        "camp_page_url": "https://www.skylandumc.com/wp-content/uploads/2026/05/5-28-26.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 a.m. to 5:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.skylandumc.com/wp-content/uploads/2026/05/5-28-26.pdf",
+          "https://www.skylandumc.com/wp-content/uploads/2026/05/5-21-26.pdf",
+          "https://www.skylandumc.com/bridges-reading-program/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and camp hours were readable in official newsletter search results, but opening the PDFs returned no extractable text. Confirm summer camper eligibility, whether participation is restricted to a school's enrolled students, and the summer drop-off site. The regular Bridges programs serve Estes Elementary and W.D. Williams Elementary students, but those school-year details do not establish summer eligibility or sites."
+      }
+    ]
+  }
+}

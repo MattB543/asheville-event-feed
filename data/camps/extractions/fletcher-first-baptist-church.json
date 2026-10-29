@@ -1,0 +1,120 @@
+{
+  "provider": {
+    "key": "fletcher-first-baptist-church",
+    "name": "Fletcher First Baptist Church",
+    "urls": [
+      "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+      "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:30.937Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "669c9eee70712041aac9961ff302a2d93aebe175b6b31f3e540dbc0c44238359",
+  "response": {
+    "searches": ["site:fletcherfirstbaptist.com \"2027\" \"Vacation\""],
+    "usage": {
+      "inputTokens": 15459,
+      "cachedInputTokens": 8845,
+      "outputTokens": 815,
+      "reasoningTokens": 75
+    },
+    "status": "completed",
+    "ms": 20285,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+      "chars": 2222,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+      "chars": 2103,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/wp-content/uploads/2017/04/Fletcher-First-Baptist-VBS-Registration.pdf",
+      "chars": 3194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/",
+      "chars": 2502,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fletcher First Baptist Church",
+    "website_url": "https://www.fletcherfirstbaptist.com/",
+    "notes": "No summer 2027 information or registration opening date was found on the official pages. The 2026 event calendar confirms July 13–17, but the ministry page contains conflicting weekday and commencement details.",
+    "excluded": [
+      {
+        "name": "AWANA Clubs",
+        "reason": "School-year weekly program, September–May, rather than a finite summer camp."
+      },
+      {
+        "name": "Commencement Ceremony and Games",
+        "reason": "Single-evening ceremony and social event, not a separate camp."
+      },
+      {
+        "name": "Special Youth Service with Rev. Luke Waldroup",
+        "reason": "Single-day church service, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons, games, crafts, music, and snacks. The Emerald Crossing theme explores Psalm 23 and Jesus as the Good Shepherd.",
+        "camp_page_url": "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+        "registration_url": "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fletcher First Baptist Church",
+            "address": "5 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:00",
+          "text": "6:00–9:00 PM each evening"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+          "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+          "https://www.fletcherfirstbaptist.com/events/",
+          "https://www.fletcherfirstbaptist.com/wp-content/uploads/2017/04/Fletcher-First-Baptist-VBS-Registration.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and hours follow the event page, with the year explicitly confirmed by the 2026 event calendar. The ministry page labels July 13–17 as Monday–Thursday and lists commencement as Friday, July 25, which is inconsistent with the 2026 calendar and event listing. Check the church's intended final-day schedule. No eligibility ages or grades are stated; the registration form requests these details but does not establish limits."
+      }
+    ]
+  }
+}

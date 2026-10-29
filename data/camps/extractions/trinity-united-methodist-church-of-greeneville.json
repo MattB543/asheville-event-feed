@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "trinity-united-methodist-church-of-greeneville",
+    "name": "Trinity United Methodist Church of Greeneville",
+    "urls": ["https://vbspro.events/p/7059ab", "https://www.trinity-um-church.org/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:34.274Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c0625000f069bbb66262f5e4c9ea765e615fa20b6917f02e2854e04516faa5ca",
+  "response": {
+    "searches": ["site:trinity-um-church.org VBS 2027 2026"],
+    "usage": {
+      "inputTokens": 14373,
+      "cachedInputTokens": 8845,
+      "outputTokens": 417,
+      "reasoningTokens": 60
+    },
+    "status": "completed",
+    "ms": 11586,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/7059ab",
+      "chars": 1981,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trinity-um-church.org/",
+      "chars": 1106,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity United Methodist Church of Greeneville",
+    "website_url": "https://www.trinity-um-church.org/",
+    "notes": "No 2027 camp information or registration milestones found. The church homepage prints ZIP code 27745, while its VBS registration page and Church Center page print 37745; the street address, town and state agree.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Assemble for God - VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://vbspro.events/p/7059ab",
+        "registration_url": "https://vbspro.events/p/7059ab",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trinity United Methodist Church",
+            "address": "524 Tusculum Blvd.",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/7059ab",
+          "https://www.trinity-um-church.org/",
+          "https://trinityumcgreene.churchcenter.com/home"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

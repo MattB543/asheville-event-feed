@@ -1,0 +1,186 @@
+{
+  "provider": {
+    "key": "nc-arboretum",
+    "name": "The North Carolina Arboretum (Discovery Camp)",
+    "urls": ["https://ncarboretum.org/education-programs/discovery-camp/"],
+    "covers": ["track_age_cutoffs", "member_pricing"]
+  },
+  "extractedAt": "2026-10-28T21:05:41.039Z",
+  "run": {
+    "mode": "search",
+    "extraction": {
+      "provider_name": "The North Carolina Arboretum",
+      "website_url": "https://ncarboretum.org/",
+      "notes": "The official page says 2027 dates and registration details are coming soon. Direct opens returned no readable page content; official search-indexed content supplied the three offerings below. This is a partial extraction: additional offerings, eligibility bands, registration links and program-specific pricing could not be established. Sessions are 2026 dates, not projected 2027 dates.",
+      "excluded": [
+        {
+          "name": "Spring Break Camp",
+          "reason": "Occurs outside summer."
+        },
+        {
+          "name": "EXPLOREcorps High School Volunteer Program",
+          "reason": "Volunteer work program rather than a camper offering."
+        },
+        {
+          "name": "OAK: Outdoor Adventure Kids 2026 Fall Session 1",
+          "reason": "Fall program, outside summer."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Arboretum Adventures",
+          "variant": null,
+          "type": "day",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://ncarboretum.org/education-programs/discovery-camp/",
+          "registration_url": null,
+          "description": "Campers hike, look for animals, splash in creeks, play outdoor games and make crafts.",
+          "season_dates": {
+            "start": "2026-06-29",
+            "end": "2026-07-24",
+            "year": 2026,
+            "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+            "quote": "Session 1: June 29 – July 3",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": null,
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session 1",
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "Session 2",
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Buggin' Out",
+          "variant": null,
+          "type": "day",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://ncarboretum.org/education-programs/discovery-camp/",
+          "registration_url": null,
+          "description": "Campers explore the creek and woods while learning about butterflies, pollinators and aquatic insects. Activities include crafts, games and stories.",
+          "season_dates": {
+            "start": "2026-06-22",
+            "end": "2026-08-21",
+            "year": 2026,
+            "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+            "quote": "Session 1: June 22 – 26",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": null,
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session 1",
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Session 2",
+              "start": "2026-08-17",
+              "end": "2026-08-21",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Fur, Feathers, and Scales",
+          "variant": null,
+          "type": "day",
+          "categories": ["nature_outdoor"],
+          "camp_page_url": "https://ncarboretum.org/education-programs/discovery-camp/",
+          "registration_url": null,
+          "description": "Campers search streams, woods and gardens for wildlife. Activities include wildlife crafts, games, stories and live animal demonstrations.",
+          "season_dates": {
+            "start": "2026-06-08",
+            "end": "2026-08-07",
+            "year": 2026,
+            "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+            "quote": "Session 1: June 8 – 12",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": null,
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Session 1",
+              "start": "2026-06-08",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": "Session 2",
+              "start": "2026-08-03",
+              "end": "2026-08-07",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "site.ncarboretum.org \"Discovery Camp\" \"2026\"",
+        "site.ncarboretum.org/education-programs/discovery-camp \"2026\" \"grade\"",
+        "site.ncarboretum.org/education-programs/discovery-camp/ \"camp\" \"rising\""
+      ],
+      "usage": {
+        "inputTokens": 32063,
+        "cachedInputTokens": 8411,
+        "outputTokens": 1724,
+        "reasoningTokens": 372
+      },
+      "status": "completed",
+      "ms": 41476,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1
+  }
+}

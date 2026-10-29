@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "key": "opendoors-asheville",
+    "name": "OpenDoors Asheville",
+    "urls": ["https://opendoorsasheville.org/enrichment/", "https://opendoorsasheville.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:21.676Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0ab05a0441bb90eeca90be533397df2801810437cb53fbfb1543ed934d5f5d51",
+  "response": {
+    "searches": [
+      "site:opendoorsasheville.org \"refresher\"",
+      "\"OpenDoors Asheville\" \"2026\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 19046,
+      "cachedInputTokens": 8845,
+      "outputTokens": 677,
+      "reasoningTokens": 130
+    },
+    "status": "completed",
+    "ms": 22829,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://opendoorsasheville.org/enrichment/",
+      "chars": 3934,
+      "method": "fetch"
+    },
+    {
+      "url": "https://opendoorsasheville.org/",
+      "chars": 3809,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "OpenDoors Asheville",
+    "website_url": "https://opendoorsasheville.org/",
+    "notes": "No 2027 or 2026 camp details were found. The enrichment page describes Back-To-School Refresher Week under Summer 2024, without exact dates. The office address is published, but the camp's drop-off location is not identified. The student referral page lists an organization-wide intake waitlist; this is not a camp-specific availability statement.",
+    "excluded": [
+      {
+        "name": "Green River Preserve, Camp Watia, Camp Rockmont, Firefly Valley Pottery Camp, Asheville Museum of Science, and ABYSA Soccer Camp",
+        "reason": "These are other providers' camps attended by OpenDoors students, not programs operated by OpenDoors Asheville."
+      },
+      {
+        "name": "Tutoring and enrichment classes",
+        "reason": "Ongoing tutoring and enrichment classes are not identified as finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Back-To-School Refresher Week",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "A summer camp week for students of all ages to prepare for the school year.",
+        "camp_page_url": "https://opendoorsasheville.org/enrichment/",
+        "registration_url": null,
+        "season": {
+          "year": 2024,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://opendoorsasheville.org/enrichment/"],
+        "confidence": "medium",
+        "review_notes": "The program is described under the Summer 2024 heading as taking place in August; no exact dates or 2026/2027 details were found. Day-camp format is inferred from the local back-to-school week description, not explicitly stated. The page does not identify a camp venue, numeric age range, hours, price, or registration process."
+      }
+    ]
+  }
+}

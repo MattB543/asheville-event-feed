@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "spruce-pine-united-methodist-church",
+    "name": "Spruce Pine United Methodist Church",
+    "urls": ["https://sprucepineumc.org/NewSite/"],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:17:49.443Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9cc8d921fd6ac94e2a77a980777deb35eb2ce18c9f9607952e65df5bf69e14ee",
+  "response": {
+    "searches": [
+      "site:sprucepineumc.org 2026 \"VBS\"",
+      "open https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=530&m=0&option=com_jdownloads&task=download.send",
+      "site:sprucepineumc.org \"2026\" \"July 21\""
+    ],
+    "usage": {
+      "inputTokens": 22942,
+      "cachedInputTokens": 8845,
+      "outputTokens": 872,
+      "reasoningTokens": 235
+    },
+    "status": "completed",
+    "ms": 25854,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sprucepineumc.org/NewSite/",
+      "chars": 3104,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sprucepineumc.org/",
+      "chars": 3104,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spruce Pine United Methodist Church",
+    "website_url": "https://sprucepineumc.org/NewSite/",
+    "notes": "No 2027 camp information found. Official newsletter downloads did not render readable full text or PDF screenshots; 2026 VBS details were available in official-site search results. No registration opening date was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "An evening Vacation Bible School with the theme Creation Care, offered in cooperation with Trinity Episcopal Church, Central Baptist Church and First Presbyterian of Spruce Pine.",
+        "camp_page_url": "https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=525&m=0&option=com_jdownloads&task=download.send",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-21",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spruce Pine United Methodist Church",
+            "address": "11090 Hwy 226 South",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": "5:30 - 8:00 each evening"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sprucepineumc.org/NewSite/",
+          "https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=525&m=0&option=com_jdownloads&task=download.send",
+          "https://sprucepineumc.org/NewSite/index.php?Itemid=0&catid=2&id=521&m=0&option=com_jdownloads&task=download.send"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and Creation Care theme were stated in an official bulletin search result explicitly labeled 2026. Hours and church venue were stated in the June 2026 newsletter search result. Full newsletter downloads could not be read; check them for ages, fees, registration details and additional activities. The earlier bulletin says location was to be determined; the later June newsletter identifies SPUMC as the venue."
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "mt-pleasant-baptist-church-of-forest-city",
+    "name": "Mt. Pleasant Baptist Church of Forest City",
+    "urls": ["https://mtpleasantfc.org/"],
+    "area": "Forest City, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnames: DNS:*.e-zekielcms.com, DNS:e-zekielcms.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnam"
+  },
+  "extractedAt": "2026-10-29T17:24:11.395Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:mtpleasantfc.org VBS 2026 2027",
+      "site:mtpleasantfc.org \"Illumination\"",
+      "site:facebook.com \"Illumination Station\" \"397\""
+    ],
+    "usage": {
+      "inputTokens": 24048,
+      "cachedInputTokens": 8845,
+      "outputTokens": 972,
+      "reasoningTokens": 288
+    },
+    "status": "completed",
+    "ms": 27497,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mtpleasantfc.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnames: DNS:*.e-zekielcms.com, DNS:e-zekielcms.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: mtpleasantfc.org. is not in the cert's altnames: DNS:*.e-zekielcms.com, DNS:e-zekielcms.com); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://mtpleasantfc.org/\nCall log:\n\u001b[2m  - navigating to \"https://mtpleasantfc.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mt. Pleasant Baptist Church of Forest City",
+    "website_url": "https://mtpleasantfc.org/",
+    "notes": "No summer 2027 information was found. Direct access to the church website and its 2026 bulletin page was blocked by robots.txt; official page text was available through search results, but bulletin PDF links could not be retrieved. The VBS dates were found only in a third-party event listing, so they require official confirmation.",
+    "excluded": [
+      {
+        "name": "Spiritual Growth camping retreat",
+        "reason": "The ministry page describes this as a summer trip taken by the Jr. Youth group, rather than a separately offered camp. Excluded under the youth-group outings or trips rule."
+      },
+      {
+        "name": "Spiritual Growth Retreat",
+        "reason": "The ministry page describes this as a summer retreat taken by the Sr. Youth group. Excluded under the youth-group outings or trips rule."
+      },
+      {
+        "name": "Wednesday youth and children's ministries",
+        "reason": "Recurring year-round Bible study and youth-group meetings, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Welcome to Illumination Station- VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Mt. Pleasant Baptist Church.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mt. Pleasant Baptist Church",
+            "address": "397 Mt. Pleasant Church Rd.",
+            "town": "Forest City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://mtpleasantfc.org/", "https://mtpleasantfc.org/2026-bulletins"],
+        "confidence": "medium",
+        "review_notes": "The third-party listing https://happeningnext.com/event/welcome-to-illumination-station-vbs-eid3a0dsed23o gives July 12–17, 2026 at the church address. Confirm those dates in the church's July 2026 bulletins or official social media. The listing's 6 p.m. start and 8 p.m. end describe event endpoints and do not establish daily hours, so hours are null. The address is published in the official church homepage search result. No official VBS announcement or registration page was accessible."
+      }
+    ]
+  }
+}

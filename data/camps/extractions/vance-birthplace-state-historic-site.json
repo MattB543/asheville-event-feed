@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "key": "vance-birthplace-state-historic-site",
+    "name": "Vance Birthplace State Historic Site",
+    "urls": ["https://historicsites.nc.gov/news/events/summer-storytime-vance-birthplace"],
+    "area": "Weaverville, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:52.551Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fb0f53ef07613eecb9aad7048abdcb0f1dbcab12122d984469e4a501b28cffdf",
+  "response": {
+    "searches": ["site:historicsites.nc.gov \"Vance\" \"camp\""],
+    "usage": {
+      "inputTokens": 15939,
+      "cachedInputTokens": 8845,
+      "outputTokens": 236,
+      "reasoningTokens": 72
+    },
+    "status": "completed",
+    "ms": 13553,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://historicsites.nc.gov/news/events/summer-storytime-vance-birthplace",
+      "chars": 2930,
+      "method": "fetch"
+    },
+    {
+      "url": "https://historicsites.nc.gov/about/faq",
+      "chars": 5105,
+      "method": "fetch"
+    },
+    {
+      "url": "https://historicsites.nc.gov/",
+      "chars": 4189,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Vance Birthplace State Historic Site",
+    "website_url": "https://historicsites.nc.gov/all-sites/vance-birthplace",
+    "notes": "No qualifying summer camp programs or 2027 camp announcements were found on the official pages or in targeted web searches. The supplied Summer Storytime listing describes a family drop-in event on June 21, 2025, rather than a supervised youth camp.",
+    "excluded": [
+      {
+        "name": "Summer Storytime at Vance Birthplace",
+        "reason": "A single-day family drop-in storytime and crafts event, with readings at separate times; not a supervised youth camp or skill clinic."
+      }
+    ],
+    "cards": []
+  }
+}

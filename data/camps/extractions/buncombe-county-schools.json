@@ -1,0 +1,191 @@
+{
+  "provider": {
+    "key": "buncombe-county-schools",
+    "name": "Buncombe County Schools",
+    "urls": [
+      "https://nbhs.buncombeschools.org/o/bes/article/2893079",
+      "https://nbhs.buncombeschools.org/o/nbhs/article/1108697",
+      "https://oes.buncombeschools.org/o/bcs/page/summer-school-employment",
+      "https://ces.buncombeschools.org/o/ce/article/2893086",
+      "https://www.buncombeschools.org/o/wdw/article/2893095",
+      "https://wves.buncombeschools.org/o/nbhs/article/2944915"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:54:49.960Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bc3b4fba486d64aad6f262e19bb14f9e287e923fced73017754e379987929c23",
+  "response": {
+    "searches": [
+      "site:buncombeschools.org camp \"2027\"",
+      "site:buncombeschools.org \"North Buncombe\" \"Youth Football Camp\"",
+      "site:buncombeschools.org/o/nbhs/article/2944915 \"June\""
+    ],
+    "usage": {
+      "inputTokens": 37698,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1436,
+      "reasoningTokens": 326
+    },
+    "status": "completed",
+    "ms": 50396,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://nbhs.buncombeschools.org/o/bes/article/2893079",
+      "chars": 2875,
+      "method": "browser"
+    },
+    {
+      "url": "https://nbhs.buncombeschools.org/o/nbhs/article/1108697",
+      "chars": 3824,
+      "method": "browser"
+    },
+    {
+      "url": "https://oes.buncombeschools.org/o/bcs/page/summer-school-employment",
+      "chars": 4612,
+      "method": "browser"
+    },
+    {
+      "url": "https://ces.buncombeschools.org/o/ce/article/2893086",
+      "chars": 3098,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/o/bcs/page/enrollment",
+      "chars": 3286,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/page/enrollment",
+      "chars": 3286,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/o/bcs/page/salary-schedules",
+      "chars": 4415,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/o/bcs/page/williams-baldwin-teacher-campus",
+      "chars": 4201,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Buncombe County Schools",
+    "website_url": "https://www.buncombeschools.org/",
+    "notes": "No summer 2027 camp information was found. The North Buncombe football article could not be opened; official search results confirm the program but provide no readable dates, eligibility, fees or meeting location. The 2026 A.C. Reynolds article and documents listing were readable, but the registration links and PDF contents were not accessible in the returned page text. The 2023 Blackhawk basketball and baseball listings were not used as 2026 facts.",
+    "excluded": [
+      {
+        "name": "Agriculture Career Exploration Camp",
+        "reason": "Career exploration learning program specifically restricted to rising Buncombe County Schools 5th-8th graders; excluded under the district-only learning-program rule."
+      },
+      {
+        "name": "Summer Reading Camp",
+        "reason": "District reading instruction for its own current 2nd- and 3rd-grade students who have not met reading proficiency."
+      },
+      {
+        "name": "Summer School Employment",
+        "reason": "Employment opportunities for current BCS employees, not a youth camp."
+      },
+      {
+        "name": "Blackhawks Volleyball Camp",
+        "reason": "The supplied offering takes place May 15-18, 2023, outside summer."
+      },
+      {
+        "name": "Fuel & Flavor Camp",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Cupcakes at the Creek",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Space Jam",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "Woodworking Camp",
+        "reason": "Career learning program restricted to currently enrolled BCS students."
+      },
+      {
+        "name": "BCS E-Sports Camp",
+        "reason": "Learning program restricted to currently enrolled BCS students."
+      }
+    ],
+    "cards": [
+      {
+        "name": "North Buncombe Youth Football Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Youth football camp.",
+        "camp_page_url": "https://wves.buncombeschools.org/o/nbhs/article/2944915",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://wves.buncombeschools.org/o/nbhs/article/2944915"],
+        "confidence": "low",
+        "review_notes": "Only the official search snippet was readable: it names the camp and says it returns this June. Check the article for its publication year, dates, format, eligibility, price, registration link and drop-off venue. No location was inferred from the hosting school's footer."
+      },
+      {
+        "name": "ACRHS Youth Sports Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Summer youth sports camps offered by A.C. Reynolds High.",
+        "camp_page_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+          "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465"
+        ],
+        "confidence": "low",
+        "review_notes": "The April 27, 2026 article announces multiple youth sports camps. The documents listing names a 2026 AC Reynolds Rockets Youth Camps PDF, but its contents and the article's registration destinations were not accessible. Read that PDF to determine individual programs, session rows, dates, eligibility, fees and drop-off venues before publishing."
+      }
+    ]
+  }
+}

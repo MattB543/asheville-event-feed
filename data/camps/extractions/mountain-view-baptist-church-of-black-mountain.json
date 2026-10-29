@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "mountain-view-baptist-church-of-black-mountain",
+    "name": "Mountain View Baptist Church of Black Mountain",
+    "urls": ["https://www.mvcnc.com/news/vbs-2025"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:43.009Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9f4642b265b851324ff1358ddccda9346a81c715a208f8993132f3cfbc06f711",
+  "response": {
+    "searches": [
+      "site:mvcnc.com VBS 2026 2027",
+      "open https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14",
+      "site:mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 16493,
+      "cachedInputTokens": 8845,
+      "outputTokens": 978,
+      "reasoningTokens": 262
+    },
+    "status": "completed",
+    "ms": 29818,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mvcnc.com/news/vbs-2025",
+      "chars": 1135,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mvcnc.com/",
+      "chars": 1556,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain View Baptist Church of Black Mountain",
+    "website_url": "https://www.mvcnc.com/",
+    "notes": "No 2027 summer information found. An official 2026 VBS calendar entry was indexed in search, but the event page and calendar download returned no readable content when opened. The supplied VBS 2025 page remains online but does not provide dates or eligibility.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer camp."
+      },
+      {
+        "name": "Youth Group",
+        "reason": "Recurring year-round youth-group meetings, not a summer camp."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Seasonal festival outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children at Mountain View Baptist Church.",
+        "camp_page_url": "https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mountain View Baptist Church",
+            "address": "2221 N Fork-Right Fork Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mvcnc.com/",
+          "https://www.mvcnc.com/news/vbs-2025",
+          "https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14.ics",
+          "https://www.mvcnc.com/celebrate-recovery/celebrate-recovery/events"
+        ],
+        "confidence": "medium",
+        "review_notes": "The indexed official ICS states June 14, 2026, 22:00 UTC through June 15, 00:30 UTC, converted to June 14, 18:00–20:30 Eastern. These hours are confirmed only for that occurrence. Another official events search snippet lists VBS on Tuesday, June 16 at 6:00 PM, suggesting multiple evenings, but the complete schedule and final date could not be established. Check the event page or church directly for the full date range, eligibility, and registration link; neither the event page nor ICS was readable when opened."
+      }
+    ]
+  }
+}

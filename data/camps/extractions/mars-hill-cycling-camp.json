@@ -1,0 +1,269 @@
+{
+  "provider": {
+    "key": "mars-hill-cycling-camp",
+    "name": "Mars Hill Cycling Camp",
+    "urls": ["https://www.marshillcyclingcamp.com/mountain-bike-camp"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:22.116Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "282ef0fb6b923e3495c0f0d9a322334092c913175180855933ef178389b974d4",
+  "response": {
+    "searches": [
+      "site.marshillcyclingcamp.com 2027 registration BikeReg",
+      "open https://www.bikereg.com/78047",
+      "site:bikereg.com \"Mars Hill Cycling Camp Mountain Bike 1\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 25858,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2139,
+      "reasoningTokens": 259
+    },
+    "status": "completed",
+    "ms": 50621,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+      "chars": 6549,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/",
+      "chars": 1478,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/road-camp",
+      "chars": 7044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/q-a",
+      "chars": 6212,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/packing-list",
+      "chars": 4328,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/illness-injury",
+      "chars": 3167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/rules-and-expectations",
+      "chars": 3542,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.marshillcyclingcamp.com/scholarships",
+      "chars": 4244,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mars Hill Cycling Camp",
+    "website_url": "https://www.marshillcyclingcamp.com/",
+    "notes": "2027 programs and dates are posted. The MTB page says four sessions but lists only three; the home page says four sessions total across both programs. BikeReg's road camp event details additionally list MTB 4 July 26–31, outside the home page's stated season; this conflicting extra session is not included pending confirmation. Direct BikeReg opens returned no readable text; registration information was available in official search results. Scholarships remain labeled 2026, with '2027 scholarships TBD'.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Mars Hill Junior Cycling Camp - Mountain Bike",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Intermediate to advanced riders practice descending, climbing, cornering and braking, then ride technical trails in Western North Carolina. Camp also includes bike maintenance, training and racing strategies, nutrition instruction and off-bike group activities.",
+        "camp_page_url": "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+        "registration_url": "https://www.bikereg.com/mh-MTB-1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University — Dogwood Hall",
+            "address": "155 Townhouse Drive",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop Off: Mon, 1-2pm Pick Up: Sat, 11am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1735,
+            "unit": "session",
+            "label": "Includes housing, 3 meals/day, snacks and camp tech-tee",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "MTB 1",
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MTB 2",
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MTB 3",
+            "start": "2027-07-19",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "REGISTRATION OPEN!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Partial scholarship ($300 off camp registration cost) for any Mars Hill Cycling Camp session"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "3 meals/day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+          "https://www.marshillcyclingcamp.com/",
+          "https://www.marshillcyclingcamp.com/q-a",
+          "https://www.marshillcyclingcamp.com/scholarships",
+          "https://www.bikereg.com/78048",
+          "https://www.bikereg.com/78049",
+          "https://www.bikereg.com/78047"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program page advertises ages 10–18, while Q&A says campers are generally ages 12–18 racing age, with exceptions for experienced younger riders. Confirm whether a fourth MTB session July 26–31 listed in BikeReg road event details is actually offered; the MTB page lists three sessions despite saying four. Financial aid text describes 2026 scholarships only; 2027 scholarships are TBD. Daily sample itinerary is explicitly 2026 and has not been used as 2027 hours."
+      },
+      {
+        "name": "Mars Hill Junior Cycling Camp - Road/Gravel",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Riders practice bike handling, group riding, race tactics, maintenance and training on roads in Western North Carolina. The hybrid gravel option splits off for gravel-specific riding and instruction during part of the camp.",
+        "camp_page_url": "https://www.marshillcyclingcamp.com/road-camp",
+        "registration_url": "https://www.bikereg.com/78047",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University — Dogwood Hall",
+            "address": "155 Townhouse Drive",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop Off: Mon, June 14, 1-2pm Pick Up: Sat, June 19, 11am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1735,
+            "unit": "session",
+            "label": "Includes housing, 3 meals/day, snacks and tech-tee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-31",
+            "time": "00:15",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration opens: 10/31/26 12:15 am et",
+            "url": "https://www.bikereg.com/78047",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Junior M/F 10-18 Closed"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are need-based and awarded to help families for whom camp would otherwise be out of reach."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "3 meals/day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.marshillcyclingcamp.com/road-camp",
+          "https://www.marshillcyclingcamp.com/q-a",
+          "https://www.marshillcyclingcamp.com/scholarships",
+          "https://www.bikereg.com/78047"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp page says registration is open, but official BikeReg search results state an opening of October 31, 2026 at 12:15 am Eastern and show categories Closed. That unusually early time is explicitly printed; no conversion was made. Confirm current registration status and opening time on BikeReg. Program page and BikeReg main category advertise ages 10–18, while Q&A generally accepts racing ages 12–18 with younger exceptions. Financial aid describes 2026 offerings; 2027 scholarships are TBD. Group riding experience is required. Sample daily itinerary is labeled 2026. Format check: public opens time 00:15 is before 5 a.m.."
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "berry-chapel-baptist-church-of-spruce-pine",
+    "name": "Berry Chapel Baptist Church of Spruce Pine",
+    "urls": ["https://www.facebook.com/148986971866147/"],
+    "area": "Spruce Pine, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:18:44.407Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Berry Chapel Baptist Church Spruce Pine vacation bible school 2026",
+      "site:facebook.com \"Berry Chapel\" \"2026\" \"Bible\"",
+      "\"Berry Chapel\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 24916,
+      "cachedInputTokens": 8845,
+      "outputTokens": 668,
+      "reasoningTokens": 225
+    },
+    "status": "completed",
+    "ms": 27406,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/148986971866147/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Berry Chapel Baptist Church of Spruce Pine",
+    "website_url": null,
+    "notes": "No standalone official website or 2027 camp announcement was found. The supplied Facebook page returned no readable content. Third-party event search snippets list a 2026 Vacation Bible School, but its details could not be confirmed on the church's own page.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Berry Chapel Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/148986971866147/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Berry Chapel Baptist Church",
+            "address": "280 Chapel Street",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Confirm the 2026 dates and venue on the church's Facebook page, which could not be read. Dates June 27–July 2, 2026 and venue 280 Chapel Street appear only in search snippets for https://allevents.in/spruce-pine/berry-chapel-vacation-bible-school/200030279327512 and https://happeningnext.com/event/berry-chapel-vacation-bible-school-eid3a0ds5ggoo. Those listings give event boundary times of 6:00 p.m. and 8:30 p.m.; daily hours were left null because the daily schedule is not established. The Baptist State Convention church directory lists the physical address as 280 Chapel St, Spruce Pine, NC; some business listings instead give 224 Chapel Street. No official program content was readable."
+      }
+    ]
+  }
+}

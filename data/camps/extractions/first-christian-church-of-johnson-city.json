@@ -1,0 +1,147 @@
+{
+  "provider": {
+    "key": "first-christian-church-of-johnson-city",
+    "name": "First Christian Church of Johnson City",
+    "urls": ["https://www.fcc-jc.org/daycamp/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:36.777Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7a29361269091caddb5478ca42adf46296ca6d53a9804e84a635a540541fc2ad",
+  "response": {
+    "searches": [
+      "site:fcc-jc.org day camp 2026 2027",
+      "site.johnsoncitytn.org \"Freedom Hall\" \"1320\""
+    ],
+    "usage": {
+      "inputTokens": 22376,
+      "cachedInputTokens": 8845,
+      "outputTokens": 801,
+      "reasoningTokens": 144
+    },
+    "status": "completed",
+    "ms": 24487,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fcc-jc.org/daycamp/",
+      "chars": 3552,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fcc-jc.org/construction",
+      "chars": 3352,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fcc-jc.org/",
+      "chars": 2823,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Christian Church of Johnson City",
+    "website_url": "https://www.fcc-jc.org/",
+    "notes": "No summer 2027 camp information or registration milestones found. The known daycamp URL returned no readable text; the supplied event page and official daycamp mirror describe the camp. The official registration platform labels it FCC Kids Day Camp 2026.",
+    "excluded": [
+      {
+        "name": "KidVenture",
+        "reason": "School-year programming, not a finite summer camp."
+      },
+      {
+        "name": "Weekday Preschool",
+        "reason": "Year-round or school-year preschool, not a summer camp."
+      },
+      {
+        "name": "TCTC 2027",
+        "reason": "Youth conference in January, outside summer."
+      },
+      {
+        "name": "FCC Kids Day Camp Meeting",
+        "reason": "Training for camp volunteers, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "FCC Kids Day Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Children participate in music, Bible stories, crafts, outdoor play, and special experiences.",
+        "camp_page_url": "https://my.fcc-jc.org/daycamp",
+        "registration_url": "https://www.fcc-jc.org/Registration?RegistrationInstanceId=130&Slug=daycamp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Freedom Hall",
+            "address": "1320 Pactolas Rd",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": "Suggested donation per child",
+            "year": 2026
+          },
+          {
+            "amount": 100,
+            "unit": "program",
+            "label": "Maximum suggested donation per family",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Sorry FCC Kids Day Camp 2026 closed on 6/12/2026."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fcc-jc.org/page/414?EventOccurrenceId=187",
+          "https://my.fcc-jc.org/daycamp",
+          "https://www.fcc-jc.org/Registration?RegistrationInstanceId=130&Slug=daycamp",
+          "https://www.johnsoncitytn.org/services/freedom_hall_civic_center/upcoming_events.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 8–12 has no year on the event page; assigned 2026 using the official registration listing titled FCC Kids Day Camp 2026. Registration closure and the venue address were read through official search results. Early care and after care are offered, but their hours and costs are not given. The eligibility spans age 4 through rising sixth grade; no maximum age or minimum grade is stated."
+      }
+    ]
+  }
+}

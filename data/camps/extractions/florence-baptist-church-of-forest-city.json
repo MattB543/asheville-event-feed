@@ -1,0 +1,129 @@
+{
+  "provider": {
+    "key": "florence-baptist-church-of-forest-city",
+    "name": "Florence Baptist Church of Forest City",
+    "urls": ["https://www.florencechurch.net/events"],
+    "area": "Forest City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:33.993Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3ccd6791bc27c9276ea664a595b42dfe09ad6b0fb58001d57ca6cfc8718665f9",
+  "response": {
+    "searches": [
+      "site.florencechurch.net VBS 2026 2027",
+      "\"Florence\" \"Forest City\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 19857,
+      "cachedInputTokens": 8845,
+      "outputTokens": 844,
+      "reasoningTokens": 145
+    },
+    "status": "completed",
+    "ms": 22269,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.florencechurch.net/events",
+      "chars": 7202,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.florencechurch.net/",
+      "chars": 1688,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Florence Baptist Church of Forest City",
+    "website_url": "https://www.florencechurch.net/",
+    "notes": "No official 2027 or 2026 VBS dates or registration information found. The events page still lists June 1–4, 2025; those older dates and hours are not carried into this card. The Florence Kids page returned no readable body text when opened, although its official search result confirms Vacation Bible School.",
+    "excluded": [
+      {
+        "name": "Adult VBS",
+        "reason": "Adult-only offering."
+      },
+      {
+        "name": "Camp 2024 at Fort Caswell",
+        "reason": "Youth-group camp trip to Fort Caswell, outside the local drive area."
+      },
+      {
+        "name": "Upward 2023-2024 Season",
+        "reason": "Sports league or team season, not a finite summer camp."
+      },
+      {
+        "name": "Churchwide Pool Party",
+        "reason": "Single-evening social event."
+      },
+      {
+        "name": "Pumpkin Patch",
+        "reason": "Seasonal attraction and fundraiser, not a supervised summer camp."
+      },
+      {
+        "name": "Men’s Mission Trip",
+        "reason": "Mission trip outside summer."
+      },
+      {
+        "name": "Florence Kids weekly programs",
+        "reason": "Year-round Sunday and Wednesday children's ministry programs."
+      },
+      {
+        "name": "First Florence VBS 2026",
+        "reason": "Different provider in Florence, Mississippi."
+      },
+      {
+        "name": "FCC VBS 2026",
+        "reason": "Different provider in Florence, Oregon."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children and youth at Florence Church.",
+        "camp_page_url": "https://www.florencechurch.net/events",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Florence Baptist Church",
+            "address": "201 South Broadway St.",
+            "town": "Forest City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.florencechurch.net/events",
+          "https://www.florencechurch.net/",
+          "https://www.florencechurch.net/florence-kids"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

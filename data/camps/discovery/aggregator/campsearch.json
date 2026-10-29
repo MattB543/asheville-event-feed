@@ -1,0 +1,98 @@
+{
+  "method": "aggregator",
+  "id": "campsearch",
+  "input": "Use campsearch.com listings of camps near Asheville, NC to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:20:18.350Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 51313,
+    "cachedInputTokens": 0,
+    "outputTokens": 1394,
+    "reasoningTokens": 565
+  },
+  "searches": [
+    "site.campsearch.com Asheville camps",
+    "open https://www.campsearch.com/north-carolina/asheville",
+    "site.campsearch.com \"Asheville\" \"Camp Name\"",
+    "\"Camp Summer Haven\" \"Center\"",
+    "RiverLink RiverCamp 2026",
+    "site:campsearch.com \"Brevard\"",
+    "site:ridgecrestcamps.com 2027 dates"
+  ],
+  "ms": 60041,
+  "candidates": [
+    {
+      "name": "XP League Asheville",
+      "url": "https://xpleague.com/north-carolina-asheville/camps/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem"],
+      "note": "Esports and STEM summer camps for ages 7–17."
+    },
+    {
+      "name": "RiverLink",
+      "url": "https://riverlink.org/work/rivercamp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "RiverCamp offers watershed exploration and river recreation for rising grades 3–8; 2026 program confirmed."
+    },
+    {
+      "name": "Rainbow Community School",
+      "url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "academic", "arts", "general"],
+      "note": "Seven weeks of summer camps for rising grades 1–8; 2026 camps concluded."
+    },
+    {
+      "name": "The Center for Inspired Education",
+      "url": "https://www.centerforinspirededucation.com/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "arts", "cooking"],
+      "note": "Camp Summer Haven listed for 2026, ages 4–12; official page says kids camps are taking a summer off."
+    },
+    {
+      "name": "Ridgecrest Summer Camps",
+      "url": "https://www.ridgecrestcamps.com/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Runs Camp Ridgecrest for Boys and Camp Crestridge for Girls; two-week overnight sessions, completed grades 1–11."
+    },
+    {
+      "name": "Falling Creek Camp",
+      "url": "https://fallingcreek.com/sessions",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "sports", "horses", "general"],
+      "note": "Boys’ overnight camps lasting one to four weeks, plus father-son weekends; 2027 registration announced."
+    },
+    {
+      "name": "Camp Mondamin",
+      "url": "https://www.mondamin.com/dates-and-rates",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "sports", "horses"],
+      "note": "Boys’ overnight camp for ages 6–17, with outdoor skills and wilderness trips."
+    },
+    {
+      "name": "Talisman Camps",
+      "url": "https://talismancamps.com/program-overview/",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "nature_outdoor", "general"],
+      "note": "Overnight programs for ages 6–22 with autism, ADHD and learning differences; 2027 programs announced."
+    }
+  ]
+}

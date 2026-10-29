@@ -1,0 +1,193 @@
+{
+  "provider": {
+    "key": "lakeview-putt-and-play",
+    "name": "Lakeview Putt and Play",
+    "urls": ["https://lakeviewputtandplay.com/summer-camp/"],
+    "area": "Arden, NC",
+    "discovered_by": ["news828"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:15.900Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7a7e990af0f3a4f91ede990532f61edd6db458decf9654c90be9957744b02ae9",
+  "response": {
+    "searches": ["site:lakeviewputtandplay.com summer camp 2027 2026"],
+    "usage": {
+      "inputTokens": 17119,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1229,
+      "reasoningTokens": 56
+    },
+    "status": "completed",
+    "ms": 28047,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lakeviewputtandplay.com/summer-camp/",
+      "chars": 3823,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/CzLoEizNGHW5mpbWA",
+      "chars": 1303,
+      "method": "browser"
+    },
+    {
+      "url": "http://lakeviewputtandplay.com/summer-camp/",
+      "chars": 3823,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lakeviewputtandplay.com/",
+      "chars": 5999,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lakeview Putt and Play",
+    "website_url": "https://lakeviewputtandplay.com/",
+    "notes": "No 2027 camp information or registration milestones found. The linked Google registration form requires sign-in and could not be read.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Lakeview Putt & Play Summer Camp",
+        "type": "day",
+        "categories": ["general", "stem", "arts", "nature_outdoor"],
+        "description": "Campers participate in mini-golf, science experiments, nature walks, arts and crafts, outdoor games, laser tag, Gellyball and gem mining.",
+        "camp_page_url": "https://lakeviewputtandplay.com/summer-camp/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfOHYxMXIH75wwv_VQvLq0HWb0pcJMa6MxgLjI8-JybYYvjGw/viewform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lakeview Putt & Play",
+            "address": "2245 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:30",
+          "cost_text": "Limited spaces for additional charges may be available."
+        },
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6-10th",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13-17th",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 20-24th",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 27-31st",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "August 3-7th",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "August 10-14th",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Each camper should bring: Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://lakeviewputtandplay.com/summer-camp/",
+          "https://lakeviewputtandplay.com/",
+          "https://lakeviewputtandplay.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp dates do not print a year; 2026 is taken from the page footer and is consistent with the listed Monday–Friday weeks. Confirm the season year with the provider. The camp page lists VR activities, but the homepage says VR is temporarily unavailable. A $25 deposit is due at sign-up, with payment by phone after submitting the form."
+      }
+    ]
+  }
+}

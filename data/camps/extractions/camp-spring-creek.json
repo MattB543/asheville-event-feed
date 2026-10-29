@@ -1,0 +1,173 @@
+{
+  "provider": {
+    "key": "camp-spring-creek",
+    "name": "Camp Spring Creek",
+    "urls": ["https://campspringcreek.org/camp-admissions-sessions/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:38.745Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7084c4da0dec694a512db10e7e1d01c089d536bdf29c3edc315ec60162886c8c",
+  "response": {
+    "searches": [
+      "site:campspringcreek.org 2027 camp",
+      "site:campspringcreek.org \"2027\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 24584,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1182,
+      "reasoningTokens": 212
+    },
+    "status": "completed",
+    "ms": 31908,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campspringcreek.org/camp-admissions-sessions/",
+      "chars": 2754,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/rates-and-availability",
+      "chars": 2642,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-philosophy",
+      "chars": 2426,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-history",
+      "chars": 2141,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-people-1",
+      "chars": 5427,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/camp-video",
+      "chars": 1891,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/testimonials",
+      "chars": 2730,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/annual-report",
+      "chars": 1886,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Spring Creek",
+    "website_url": "https://campspringcreek.org/",
+    "notes": "The 2027 admissions offering is a six-week boarding session. The Support Us page mentions local scholarship day campers, but does not establish a separate 2027 day offering; no day card was added. Several additional pages returned empty text when opened; official search results supplied their content. No registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Virtual Tutoring",
+        "reason": "Ongoing individual tutoring sessions booked as lessons, not a finite summer camp."
+      },
+      {
+        "name": "Training & Outreach",
+        "reason": "Training for teachers, tutors and parents, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Spring Creek",
+        "type": "overnight",
+        "categories": ["academic", "arts", "nature_outdoor", "special_needs"],
+        "description": "Campers receive one-on-one Orton-Gillingham tutoring and take part in art, woodshop, swimming and outdoor activities. The residential program serves children with dyslexia and other language-based learning differences.",
+        "camp_page_url": "https://campspringcreek.org/camp-admissions-sessions/",
+        "registration_url": "https://campspringcreek.org/camp-in-touch/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-31",
+          "text": "2027 Dates: June 20 - July 31"
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Spring Creek",
+            "address": "774 Spring Creek Road",
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 18180,
+            "unit": "session",
+            "label": "Six-Week Boarding Student",
+            "year": 2027
+          },
+          {
+            "amount": 100,
+            "unit": "other",
+            "label": "Non-refundable application fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Six-Week Boarding Student",
+            "start": "2027-06-20",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "This need-based scholarship helps to supplement the cost of attending camp for deserving students."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "We accept campers with dyslexia and other language-based learning differences, including ADHD."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "At Camp Spring Creek, our food is prepared daily with as many fresh local ingredients as possible."
+        },
+        "transportation": null,
+        "sources": [
+          "https://campspringcreek.org/camp-admissions-sessions/",
+          "https://campspringcreek.org/",
+          "https://campspringcreek.org/our-philosophy",
+          "https://campspringcreek.org/activities-program/",
+          "https://campspringcreek.org/why-camp-spring-creek",
+          "https://campspringcreek.org/donate",
+          "https://campspringcreek.org/camp-in-touch/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The admissions page labels tuition as 2027 but retains a 2025–2026 installment schedule; those payment dates were not extracted. The homepage explicitly confirms June 20–July 31 as 2027 dates. Activity, meal, scholarship and application information was read from official search results because direct opens returned empty text. Confirm the current scholarship terms and application destination."
+      }
+    ]
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "provider": {
+    "key": "southland-camps",
+    "name": "Southland Camps",
+    "urls": ["https://www.southlandcamps.org/summer-camps"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:36.336Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d3d01448817cfca3413b241b493f8429e97e06be0405e3e0637580c54cde5472",
+  "response": {
+    "searches": [
+      "site.ridgehaven.org address Brevard",
+      "site:southlandcamps.org \"SUMMER\" \"CAMP PLANS\"",
+      "open https://www.southlandcamps.org/high-school-1"
+    ],
+    "usage": {
+      "inputTokens": 23746,
+      "cachedInputTokens": 8845,
+      "outputTokens": 977,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 25738,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.southlandcamps.org/summer-camps",
+      "chars": 527,
+      "method": "fetch"
+    },
+    {
+      "url": "https://southlandevents.churchcenter.com/registrations/events/2222467",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Southland Student Camps\")"
+    },
+    {
+      "url": "https://southlandevents.churchcenter.com/registrations/events/2222517",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Southland Student Camps\")"
+    },
+    {
+      "url": "https://www.southlandcamps.org/",
+      "chars": 1686,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/who-we-are-1",
+      "chars": 765,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/meet-the-team",
+      "chars": 3534,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/history",
+      "chars": 2152,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/copy-of-history",
+      "chars": 661,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/winter-retreats",
+      "chars": 550,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southlandcamps.org/high-school",
+      "chars": 4365,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southland Camps",
+    "website_url": "https://www.southlandcamps.org/",
+    "notes": "2027 summer dates are posted. The high-school detail page was readable through official search results but returned no text when opened. Registration is stated as Spring 2027, which cannot be represented as an exact date or month; no opening milestone was created.",
+    "excluded": [
+      {
+        "name": "Middle School Summer Camp",
+        "reason": "Held at Camp Kulaqua in High Springs, Florida, outside the Asheville-area drive radius."
+      },
+      {
+        "name": "High School Winter Retreat",
+        "reason": "Winter program, outside summer, held in Ocklawaha, Florida."
+      },
+      {
+        "name": "Middle School Winter Retreat",
+        "reason": "Winter program, outside summer, held in Ocklawaha, Florida."
+      }
+    ],
+    "cards": [
+      {
+        "name": "High School Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Students participate in worship through song and God's Word, huddle time, and outdoor recreation. Activities listed include hiking, mountain biking, ropes courses, and sports tournaments.",
+        "camp_page_url": "https://www.southlandcamps.org/high-school-1",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-12",
+          "text": "Registration Spring 2027"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ridge Haven",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-05-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registered and paid by May 1st, 2027",
+            "url": "https://www.southlandcamps.org/high-school-1",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "No. Each parent or church is responsible to cover the cost and transportation needs to get their child/student to and from the event."
+        },
+        "sources": [
+          "https://www.southlandcamps.org/summer-camps",
+          "https://www.southlandcamps.org/high-school-1",
+          "https://www.ridgehaven.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "High-school program details and the May 1 early-rate deadline were obtained from the official page's search result; opening the detail page returned no readable text. Prices remain TBD. The provider identifies participants as high school students without specifying numeric grades or ages."
+      }
+    ]
+  }
+}

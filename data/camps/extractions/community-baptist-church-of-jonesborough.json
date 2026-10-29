@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "key": "community-baptist-church-of-jonesborough",
+    "name": "Community Baptist Church of Jonesborough",
+    "urls": ["https://www.facebook.com/Community-Baptist-Church-Jonesborough-1749095825383543/"],
+    "area": "Jonesborough, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:31:54.521Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Community Baptist Church Jonesborough VBS 2026",
+      "site:facebook.com \"Community Baptist Church-Jonesborough\" \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 24789,
+      "cachedInputTokens": 8845,
+      "outputTokens": 390,
+      "reasoningTokens": 189
+    },
+    "status": "completed",
+    "ms": 17701,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/Community-Baptist-Church-Jonesborough-1749095825383543/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Community Baptist Church of Jonesborough",
+    "website_url": null,
+    "notes": "No standalone official website or 2027 summer program information was found. The supplied official Facebook page returned no readable text. Search found an older official Facebook VBS video, but no usable 2026 or 2027 program details. Third-party listings describe Camp Courageous VBS on August 6–8, 2025, with a family program August 9, at 430 Bill Jones Road, Jonesborough, TN; those historical listings were not used to create a current camp card. No 2026 dates or registration opening could be verified.",
+    "excluded": [
+      {
+        "name": "2026 VBS — Community Baptist Church, Greensboro",
+        "reason": "Different provider in Greensboro, NC, outside the directory's geographic area."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "provider": {
+    "key": "camp-illahee",
+    "name": "Camp Illahee",
+    "urls": [
+      "https://www.campillahee.com/parents/program-activities/",
+      "https://www.campillahee.com/parents/program-activities/sports/",
+      "https://www.campillahee.com/",
+      "https://www.campillahee.com/parents/sessions-rates/",
+      "https://www.campillahee.com/illahee-counselor-in-training/",
+      "https://www.campillahee.com/why-illahee/illahee-at-a-glance/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:00:48.654Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8cd70f66110bbadf15482f8da36a9ceb83a70d70f666db3a4e82625a7728faf1",
+  "response": {
+    "searches": [
+      "site:campillahee.com 2027 counselor training apply financial aid transportation",
+      "site:campillahee.com \"CIT\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 27354,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2120,
+      "reasoningTokens": 262
+    },
+    "status": "completed",
+    "ms": 44735,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campillahee.com/parents/program-activities/",
+      "chars": 4517,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/parents/program-activities/sports/",
+      "chars": 4204,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/",
+      "chars": 2916,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/parents/sessions-rates/",
+      "chars": 5854,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/private/",
+      "chars": 790,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/wp-content/uploads/2026/02/2026-Activity-Descriptions.pdf",
+      "chars": 14815,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/wp-content/uploads/2016/03/Camp-Illahee-Viewbook.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campillahee.com/parents/sessions-rates/attachment/060723176/",
+      "chars": 4036,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Illahee",
+    "website_url": "https://www.campillahee.com/",
+    "notes": "2027 session dates, rates and public enrollment opening are posted. The Counselor-In-Training page contains only a title and contact information; the activities page describes the leadership course but does not give separate CIT dates or rates. The at-a-glance and FAQ pages returned no readable text. The August 31 returning-camper deadline does not print a calendar year, so it was not extracted.",
+    "excluded": [
+      {
+        "name": "Junior Counselor",
+        "reason": "Staff employment program with an application, hiring process and required staff orientation."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Illahee",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "arts", "horses", "faith_based"],
+        "description": "Girls choose activities including swimming, horseback riding, sports, arts and outdoor adventures. Camp also includes cabin activities, evening programs and Christian worship.",
+        "camp_page_url": "https://www.campillahee.com/parents/sessions-rates/",
+        "registration_url": "https://www.campillahee.com/apply/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Illahee",
+            "address": "500 Illahee Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Three-Week Session",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Four-Week Session",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini-Session I",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini-Session II",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two-Week Session",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Junior Session",
+            "start": "2027-08-08",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Online enrollment for 2027 will open on August 17, 2026.",
+            "url": "https://www.campillahee.com/parents/sessions-rates/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "After a delicious fried chicken lunch, the afternoon cranks up with the camp wide Amazing Race, led by the Sparks, or the Swim Show led by CIT’s and counselors."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "At Camp Illahee there are no extra charges for activities, laundry or transportation."
+        },
+        "sources": [
+          "https://www.campillahee.com/",
+          "https://www.campillahee.com/parents/program-activities/",
+          "https://www.campillahee.com/parents/sessions-rates/",
+          "https://www.campillahee.com/apply/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Illahee Counselor-In-Training",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "Rising 11th-grade girls participate in a leadership course led by a director. CITs choose to assist in activities and help set up the dining hall.",
+        "camp_page_url": "https://www.campillahee.com/illahee-counselor-in-training/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Illahee",
+            "address": "500 Illahee Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campillahee.com/illahee-counselor-in-training/",
+          "https://www.campillahee.com/parents/program-activities/",
+          "https://www.campillahee.com/parents/sessions-rates/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

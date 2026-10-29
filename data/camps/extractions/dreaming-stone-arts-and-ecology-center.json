@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "dreaming-stone-arts-and-ecology-center",
+    "name": "Dreaming Stone Arts and Ecology Center",
+    "urls": ["https://dreamingstone.org/camp-2026/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:19.530Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "78153d699eae75d1d6c6b96deff0b4d9c3b120d444cb32a5e3be3134bb344bc4",
+  "response": {
+    "searches": ["site:dreamingstone.org camp 2027"],
+    "usage": {
+      "inputTokens": 17047,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1133,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 23862,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://dreamingstone.org/camp-2026/",
+      "chars": 3941,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dreamingstone.org/updates-2/",
+      "chars": 3544,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dreamingstone.org/our-campus/",
+      "chars": 5776,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dreamingstone.org/",
+      "chars": 2947,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Dreaming Stone Arts and Ecology Center",
+    "website_url": "https://dreamingstone.org/",
+    "notes": "No 2027 camp information was found on the official website. The January 2026 newsletter forecast registration going live in mid-February, but no exact 2026 opening date was found. Registration button destinations could not be retrieved.",
+    "excluded": [
+      {
+        "name": "Summer Internship",
+        "reason": "An internship providing operational and camp support, not a supervised youth camp."
+      },
+      {
+        "name": "Fall Salsa Dance Series",
+        "reason": "A lesson series outside summer."
+      },
+      {
+        "name": "Artist Residency in Local Schools",
+        "reason": "School-based programming, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Arts, Ecology and Circus Camp",
+        "type": "day",
+        "categories": ["arts", "music", "theater", "nature_outdoor"],
+        "description": "Campers participate in aerial and flow arts, outdoor education, earth skills, and music instruction. Optional afternoon activities include giant puppet construction or creative writing, drawing, and zine construction.",
+        "camp_page_url": "https://dreamingstone.org/camp-2026/",
+        "registration_url": "https://dreamingstone.org/camp-2026/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Dreaming Stone Arts and Ecology Center",
+            "address": "382 Pleasant Hill Rd.",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "Instructional programs run from 9 am to 2 pm every day (we ask that campers arrive at 8:45 am). Extended arts activities run through 5:00 pm for those who elect to stay the full day."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:45",
+          "late_pickup_end": "17:00",
+          "cost_text": "Extended Activities (9 am – 5 pm) – $340"
+        },
+        "prices": [
+          {
+            "amount": 265,
+            "unit": "session",
+            "label": "Programmed Time (9 am – 2 pm)",
+            "year": 2026
+          },
+          {
+            "amount": 340,
+            "unit": "session",
+            "label": "Extended Activities (9 am – 5 pm)",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week #1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week #2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you are in need of economic assistance, you can fill out a scholarship application here, or set up a payment plan."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers will be served nutritious snacks and fresh, free, locally sourced lunches."
+        },
+        "transportation": null,
+        "sources": [
+          "https://dreamingstone.org/camp-2026/",
+          "https://dreamingstone.org/our-campus/",
+          "https://dreamingstone.org/2026/05/january-newsletter-2-2026/",
+          "https://dreamingstone.org/past-events/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

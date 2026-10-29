@@ -1,0 +1,255 @@
+{
+  "provider": {
+    "key": "christmount",
+    "name": "Christmount",
+    "urls": [
+      "https://www.camplakeygap.org/program",
+      "https://www.camplakeygap.org/",
+      "https://www.camplakeygap.org/forms",
+      "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp",
+      "https://www.christmount.org/"
+    ],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:08.716Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b47cb53ab133e94830e10e4ef861f39ba32aabd6137f5315a91e340ec4e716ec",
+  "response": {
+    "searches": [
+      "site.christmount.org summer 2027 camps",
+      "open https://www.christmount.org/",
+      "site:christmount.org \"Summer 2027\" \"Camp\""
+    ],
+    "usage": {
+      "inputTokens": 29899,
+      "cachedInputTokens": 17650,
+      "outputTokens": 2034,
+      "reasoningTokens": 335
+    },
+    "status": "completed",
+    "ms": 61821,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.camplakeygap.org/program",
+      "chars": 4442,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/",
+      "chars": 4928,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/forms",
+      "chars": 1382,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp",
+      "chars": 2878,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/_files/ugd/048658_9294392546334095a140e49625d6066c.pdf",
+      "chars": 6184,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/_files/ugd/048658_4097db5cf52b46a29ef4e1ae9f2b1a16.pdf",
+      "chars": 6140,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/_files/ugd/048658_72296a3f757d4bd096c56062fa784c75.pdf",
+      "chars": 5921,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplakeygap.org/_files/ugd/048658_a51639311d91424fa812eede220a44d5.pdf",
+      "chars": 6002,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Christmount",
+    "website_url": "https://www.christmount.org/",
+    "notes": "Christmount's homepage now lists some dates under 2027 headings, while the individual camp pages still describe 2026. The homepage's Lakey Gap listing provides only week-start dates, without age assignments or end dates. The Summer 2027 page and several pages opened through the browser returned no readable text; homepage information was accessible through official search results. No 2027 registration milestones were found.",
+    "excluded": [
+      {
+        "name": "Service-Learning Trips",
+        "reason": "Service trips for middle-school and high-school groups are excluded youth-group trips, rather than summer camp offerings."
+      },
+      {
+        "name": "Sunshine Retreats",
+        "reason": "Retreats for adults with intellectual disabilities; adult-only programming."
+      },
+      {
+        "name": "Sunshine Online",
+        "reason": "Year-round online social group for adults."
+      },
+      {
+        "name": "Friends' Group (in-person)",
+        "reason": "Recurring adult social group, not a finite youth summer camp."
+      },
+      {
+        "name": "CLG Exercise Group",
+        "reason": "Recurring adult exercise and socialization group."
+      },
+      {
+        "name": "Camp Lakey Gap Fall Retreat",
+        "reason": "Held outside summer."
+      },
+      {
+        "name": "Music Workshop",
+        "reason": "Listed as a workshop, with no evidence found that it is a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Lakey Gap",
+        "type": "overnight",
+        "categories": ["special_needs", "nature_outdoor", "general"],
+        "description": "Residential camp for autistic campers with visually structured activities and individualized staff support. Activities include arts and crafts, hiking, creek games, swimming, music, and canoeing.",
+        "camp_page_url": "https://www.camplakeygap.org/program",
+        "registration_url": "https://www.camplakeygap.org/forms",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": null,
+          "text": "Weeks of June 14, 21, and 28 - Camp Lakey Gap for participants with autism"
+        },
+        "ages": {
+          "min": 4,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christmount",
+            "address": "222 Fern Way",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2400,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 2200,
+            "unit": "week",
+            "label": "2nd camper in family",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-01",
+          "time": null,
+          "text": "Registration for 2026 opens in January!",
+          "url": "https://www.camplakeygap.org/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available on a limited basis and are need-based."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "We provide 1:1 or 1:2 support for all campers to help make the transition to camp easier and to meet each camper where they are."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.christmount.org/",
+          "https://www.camplakeygap.org/",
+          "https://www.camplakeygap.org/program",
+          "https://www.camplakeygap.org/forms",
+          "https://www.camplakeygap.org/funding",
+          "https://www.camplakeygap.org/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The homepage lists weeks beginning June 14, 21, and 28 under June 2027, but the program page still lists the full 2026 schedule. No 2027 end dates or age assignments were found, so session rows are omitted rather than projecting 2026 durations or age bands. Ages and prices are fallback 2026 facts for youth sessions; adult-only weeks are omitted. The January 2026 registration opening is month-only: January 1 represents the stated month, not an exact opening day. Confirm the homepage's 2027 dates with the camp."
+      },
+      {
+        "name": "Camp Brooke / Girls on the Run",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor", "general"],
+        "description": "Girls participate in activities using the Girls on the Run curriculum around emotional intelligence, holistic health, and confidence building, with outdoor activities at Christmount.",
+        "camp_page_url": "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp",
+        "registration_url": "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-13",
+          "end": "2027-07-17",
+          "text": "July 13-17 - Camp Brooke / Girls on the Run Day Camp"
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Christmount",
+            "address": "222 Fern Way",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "Camp RUNS Monday-Friday 9am - 5pm"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:45",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships based on household income."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes lunch, snacks, curriculum, programming supplies, and t-shirt"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.christmount.org/",
+          "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The homepage lists July 13-17 under July 2027, while the program page explicitly lists July 13-17, 2026. Confirm whether the homepage reused the old dates: July 13-17, 2027 is Tuesday-Saturday, inconsistent with the program page's Monday-Friday format. Hours, drop-off, price, lunch, and scholarships are fallback 2026 details. Grades 3-5 appear in the program page's historical description of the partnership, not a separately stated 2027 eligibility rule."
+      }
+    ]
+  }
+}

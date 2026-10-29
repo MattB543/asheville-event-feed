@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "carolina-creative-arts",
+    "name": "Carolina Creative Arts",
+    "urls": ["https://www.carolinacreativearts.org/camp"],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:48.724Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4e4388d4a0df0b99b269d1230f0d7454fda2a45dcf2f25b5e42264eeb3ffc26d",
+  "response": {
+    "searches": [
+      "site:carolinacreativearts.org camp 2026",
+      "open https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+      "site:carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird \"July\"",
+      "\"Carolina Creative Arts\" \"2026\" \"camp\" \"July\""
+    ],
+    "usage": {
+      "inputTokens": 20224,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1109,
+      "reasoningTokens": 377
+    },
+    "status": "completed",
+    "ms": 35985,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.carolinacreativearts.org/camp",
+      "chars": 597,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinacreativearts.org/",
+      "chars": 1794,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolina Creative Arts",
+    "website_url": "https://www.carolinacreativearts.org/",
+    "notes": "No summer 2027 information was found. The official 2026 camp product page and several other official pages returned no readable body text when opened; the 2026 offering was confirmed through official search results and the supplied homepage text. An older product titled '1 Week Creative Arts Camp' describes two weeks in July without a readable year; it was not treated as a separate current offering. No summer drop-off location or street address could be established.",
+    "excluded": [
+      {
+        "name": "Improv Acting Day Camp - Youth",
+        "reason": "Scheduled September 7, 2026, outside summer."
+      },
+      {
+        "name": "Youth Intermediate Acting 12-Week Course",
+        "reason": "A youth course rather than a finite summer camp."
+      },
+      {
+        "name": "Private Study",
+        "reason": "Private lessons, not a summer camp."
+      },
+      {
+        "name": "Adult Improv Acting Workshop",
+        "reason": "Adult-only program."
+      },
+      {
+        "name": "Creative Life Workshop",
+        "reason": "Listed under adult programming."
+      }
+    ],
+    "cards": [
+      {
+        "name": "2 Week Theater Camp",
+        "type": "day",
+        "categories": ["theater", "music", "arts", "dance"],
+        "description": "Students write a play, build the set, choreograph and write songs to create an original production. Camp includes performing and backstage design and building activities.",
+        "camp_page_url": "https://www.carolinacreativearts.org/camp",
+        "registration_url": "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.carolinacreativearts.org/camp",
+          "https://www.carolinacreativearts.org/",
+          "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+          "https://www.carolinacreativearts.org/videos"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official 2026 product was visible only through search results; opening it returned no readable body text. Check that product for dates, ages, hours, prices and the drop-off venue. The homepage confirms that the 2026 campers produced The Magic Bridge, and the official videos search result identifies it as the 2026 two-week summer camp. No 2027 schedule or registration milestone was found."
+      }
+    ]
+  }
+}

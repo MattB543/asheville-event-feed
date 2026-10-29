@@ -1,0 +1,276 @@
+{
+  "provider": {
+    "key": "blue-ridge-taekwondo",
+    "name": "Blue Ridge Taekwondo",
+    "urls": ["https://blueridgetkd.com/summer-camp-in-east-asheville/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:50.243Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "02288018ae74bb55fa9e5ccaa2679b46998eaeb96c3a0c2a8f67eb5e6dbf9f77",
+  "response": {
+    "searches": ["site:blueridgetkd.com \"2027\" camp"],
+    "usage": {
+      "inputTokens": 17580,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2030,
+      "reasoningTokens": 112
+    },
+    "status": "completed",
+    "ms": 36031,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
+      "chars": 7516,
+      "method": "fetch"
+    },
+    {
+      "url": "https://blueridgetkd.com/",
+      "chars": 13334,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge Taekwondo",
+    "website_url": "https://blueridgetkd.com/",
+    "notes": "No 2027 camp information or registration milestones were found on official pages. The summer camp page still advertises 2026 enrollment and 'Only [11] Passes Remaining' after its listed season ended; these promotional statements were not treated as current availability. A $99 deposit is stated, but no total camp tuition is published.",
+    "excluded": [
+      {
+        "name": "Parents Night Out",
+        "reason": "Single-evening social events, including Snow in July and Escape the Dojo; not a multi-day evening camp."
+      },
+      {
+        "name": "Little Dragons Martial Arts",
+        "reason": "Ongoing preschool martial arts classes, not a finite summer camp."
+      },
+      {
+        "name": "Kids Martial Arts",
+        "reason": "Ongoing martial arts classes, not a finite summer camp."
+      },
+      {
+        "name": "Teen & Adult Martial Arts",
+        "reason": "Ongoing martial arts classes, not a finite summer camp."
+      },
+      {
+        "name": "Hapkido",
+        "reason": "Ongoing classes, not a finite summer camp."
+      },
+      {
+        "name": "Fitness Kickboxing",
+        "reason": "Ongoing fitness classes, not a finite summer camp."
+      },
+      {
+        "name": "Boxing",
+        "reason": "Ongoing classes, not a finite summer camp."
+      },
+      {
+        "name": "Weight Training",
+        "reason": "Ongoing training, not a finite summer camp."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Single social events, not camps."
+      },
+      {
+        "name": "Corporate Self-Defense Seminar",
+        "reason": "Workplace program for employees, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["sports", "arts"],
+        "description": "Campers practice Tae Kwon Do, balance and coordination exercises, and play games. Activities also include painting, drawing, crafts, and life-skills discussions.",
+        "camp_page_url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
+        "registration_url": "https://blueridgetkd.com/summer-camp-in-east-asheville/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Blue Ridge TaeKwonDo",
+            "address": "1340 Tunnel Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:30",
+          "text": "FULL DAY CAMPS 8:30am-4:30pm (extended hours also available)"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1: Warrior Skills Training",
+            "start": "2026-06-10",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Bully Defense & Confidence Mastery",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Martial Arts Olympics",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Ninja Warrior Week",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Breaking Barriers",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Korean Martial Arts Journey",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Leadership in Action",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Strength & Strategy Training",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9: Kindness & Confidence Week",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10: The Way of the Peaceful Warrior",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 11: Camp Showdown",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Lunch & Snacks (A LOT – They use energy and get Hungry!) (Peanut Free)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://blueridgetkd.com/summer-camp-in-east-asheville/",
+          "https://blueridgetkd.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The dates take their year from the page's '2026 Summer Camp in Asheville' heading. The page lists eleven numbered themes and eleven date ranges separately; session themes were paired with dates in their listed order. Confirm these pairings. Before and after care is explicitly available, but hours and fees are not published. The registration URL contains an inquiry form rather than a separately identified enrollment checkout."
+      }
+    ]
+  }
+}

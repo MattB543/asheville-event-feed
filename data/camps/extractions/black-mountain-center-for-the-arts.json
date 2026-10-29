@@ -1,0 +1,404 @@
+{
+  "provider": {
+    "key": "black-mountain-center-for-the-arts",
+    "name": "Black Mountain Center for the Arts",
+    "urls": ["https://www.blackmountainarts.org/summercamp"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet", "news828", "our_db", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:54:11.821Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9c14912893c9b5a00e2d6b053829aed8d58b37698f42ba00b7d73e23147bda99",
+  "response": {
+    "searches": ["site:blackmountainarts.org summer camp 2027"],
+    "usage": {
+      "inputTokens": 22149,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2086,
+      "reasoningTokens": 62
+    },
+    "status": "completed",
+    "ms": 39830,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.blackmountainarts.org/summercamp",
+      "chars": 6175,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blackmountainarts.org/dance/26-27registration",
+      "chars": 5245,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLScv8RD4Yn48bhEuOEIIvsYi2Zwo2Y4ucoJ5rC0aKDT6XoW9fg/viewform",
+      "chars": 4771,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform",
+      "chars": 4993,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform",
+      "chars": 4932,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blackmountainarts.org/faq",
+      "chars": 10416,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blackmountainarts.org/",
+      "chars": 2290,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Black Mountain Center for the Arts",
+    "website_url": "https://www.blackmountainarts.org/",
+    "notes": "No 2027 summer camp information or registration milestones found. Cards use 2026 information. The classes overview still describes 2025 camps and was not used for 2026 facts.",
+    "excluded": [
+      {
+        "name": "2026/27 Youth Dance Classes",
+        "reason": "School-year dance classes, not summer camps."
+      },
+      {
+        "name": "Music Lessons, Voice Lessons, and JAM",
+        "reason": "Recurring lessons rather than finite summer camps."
+      },
+      {
+        "name": "Adult Dance Classes",
+        "reason": "Adult-only classes, including fall mini-mesters."
+      },
+      {
+        "name": "Art in Bloom",
+        "reason": "Exhibition, garden tour, and social events rather than supervised youth camps."
+      },
+      {
+        "name": "Kids in Motion: Try Something Sweet",
+        "reason": "A pop-up dance class offered as a class rather than a camp or skill clinic."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Dance, Sing, & Play",
+        "type": "half_day",
+        "categories": ["dance", "music", "arts", "theater"],
+        "description": "Campers participate in music, dance, crafts, and imaginative games around weekly themes. Each week ends with a performance on the BMCA stage.",
+        "camp_page_url": "https://www.blackmountainarts.org/summercamp",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScv8RD4Yn48bhEuOEIIvsYi2Zwo2Y4ucoJ5rC0aKDT6XoW9fg/viewform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 9
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Black Mountain Center for the Arts",
+            "address": "225 W State St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 160,
+            "unit": "week",
+            "label": "sibling/multi-camp registrations",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Preschool Camp: Beach Boogie!",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary Camp: Groove & Glow",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Preschool Camp: Adventure Awaits",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary Camp: Broadway Beats",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Preschool Camp: Dance Mode",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary Camp: Pop-2-K",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Preschool Camp: Super Squad",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary Camp: Level-Up",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMCA Scholarships and Alternative Tuition Program"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blackmountainarts.org/summercamp",
+          "https://docs.google.com/forms/d/e/1FAIpQLScv8RD4Yn48bhEuOEIIvsYi2Zwo2Y4ucoJ5rC0aKDT6XoW9fg/viewform"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page gives elementary ages 5–9 and a $160 sibling/multi-camp price; the registration form gives elementary ages 6–9 and a 10% discount. Card uses the camp page's ages and discount price. The page directs five-year-olds who attended kindergarten in 2025/2026 to elementary camp and those starting kindergarten in 2026/2027 to preschool camp. The form lists only July 27–31 and August 10–14; earlier weeks remain listed on the camp page without explicit availability status."
+      },
+      {
+        "name": "Dungeons & Dragonslayers",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers create and play characters in Dungeons & Dragons and sample other tabletop role-playing games. Activities include shared storytelling, improvisation, and game design.",
+        "camp_page_url": "https://www.blackmountainarts.org/summercamp",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Black Mountain Center for the Arts",
+            "address": "225 W State St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": "per camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMCA Scholarships and Alternative Tuition Program"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blackmountainarts.org/summercamp",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfwOlbXld5OsBRO--yrmQ-gGyOkre88j_jNzCQf8WGB36PyoA/viewform",
+          "https://www.blackmountainarts.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Book & a Brush",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers use books as inspiration for painting, printmaking, collage, and papier-mâché projects. Projects incorporate math, science, social studies, and reading.",
+        "camp_page_url": "https://www.blackmountainarts.org/summercamp",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Black Mountain Center for the Arts",
+            "address": "225 W State St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": "one camper",
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "sibling",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMCA Scholarships and Alternative Tuition Program"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blackmountainarts.org/summercamp",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfsaWcIlElVqZGoVi5jg_EMl_LJSTA-IuCxvITpfh4dsk0Ong/viewform",
+          "https://www.blackmountainarts.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page prints August 3–3; the registration form gives August 3–7, which is used here. The form does not print a year; 2026 is taken from the linking summer camp page's heading."
+      }
+    ]
+  }
+}

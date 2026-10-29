@@ -1,0 +1,332 @@
+{
+  "provider": {
+    "key": "first-tee-western-north-carolina",
+    "name": "First Tee – Western North Carolina",
+    "urls": ["https://firstteetriad.org/2026-wnc-summer-session-information/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:06.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b714b20e44072923bdd215f070230017c5de57e5e8d570b269e90b070d9c3043",
+  "response": {
+    "searches": [
+      "site:firstteetriad.org WNC 2027 summer camp",
+      "open https://firstteetriad.org/2026-wnc-summer-session-information/",
+      "site:firstteetriad.org/wnc \"PLUS\""
+    ],
+    "usage": {
+      "inputTokens": 28777,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2418,
+      "reasoningTokens": 264
+    },
+    "status": "completed",
+    "ms": 49888,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
+      "chars": 2093,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstteetriad.org/2027-hbcu-summer-golf-internship/",
+      "chars": 5578,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstteetriad.org/",
+      "chars": 2248,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Tee – Western North Carolina",
+    "website_url": "https://firstteetriad.org/wnc/",
+    "notes": "No 2027 WNC youth camp information was found. The supplied 2026 camp page was readable in the supplied crawl and search results, but live opens returned no text; its Sign Up Here destination could not be recovered. Dates and prices below describe 2026. Mountain Glen and Red Bird sites are retained for the directory's drive-time check.",
+    "excluded": [
+      {
+        "name": "2027 HBCU Summer Golf Internship",
+        "reason": "Paid college internship and employment program, not a youth summer camp."
+      },
+      {
+        "name": "Parent-Child-Intern Tournament",
+        "reason": "Single evening family tournament, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "First Tee Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Golf summer camp for children ages 7–14.",
+        "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-09",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Municipal Golf Course",
+            "address": "226 Fairway Dr",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Red Bird Golf Links",
+            "address": "67 Cherokee Trail",
+            "town": "Sapphire",
+            "state": "NC"
+          },
+          {
+            "name": "Waynesville Inn and Golf Club",
+            "address": "176 Country Club Drive",
+            "town": "Waynesville",
+            "state": "NC"
+          },
+          {
+            "name": "Mountain Glen Golf Club",
+            "address": "1 Club House Dr",
+            "town": "Newland",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-09",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": "Asheville Municipal Golf Course",
+            "ages": {
+              "min": 7,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:30",
+              "end": "15:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": "Red Bird Golf Links",
+            "ages": {
+              "min": 7,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:30",
+              "end": "15:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-21",
+            "year": 2026,
+            "site": "Waynesville Inn and Golf Club",
+            "ages": {
+              "min": 7,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-22",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": "Mountain Glen Golf Club",
+            "ages": {
+              "min": 7,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-30",
+          "time": null,
+          "text": "Registration Opens: April 30th",
+          "url": "https://firstteetriad.org/2026-wnc-summer-session-information/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://firstteetriad.org/2026-wnc-summer-session-information/",
+          "https://www.ashevillegc.com/contactus/",
+          "https://www.waynesvilleinnandgolf.com/contact-us",
+          "https://boone-asheville-nc-mountain-golf-course.com/contact-mountain-glen/",
+          "https://sapphirevalleyresorts.com/amenities/red-bird-golf/",
+          "https://www.golfpass.com/travel-advisor/courses/25593-red-bird-golf-links"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and the April 30 opening take their year from the 2026 page heading. Waynesville hours are TBD. Red Bird's 67 Cherokee Trail address comes from third-party listings; its official resort page does not publish a course-specific street address. Confirm this address with the venue."
+      },
+      {
+        "name": "PLUS Blue Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Golf summer camp for current PLUS Blue participants.",
+        "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-07",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Municipal Golf Course",
+            "address": "226 Fairway Dr",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-30",
+          "time": null,
+          "text": "Registration Opens: April 30th",
+          "url": "https://firstteetriad.org/2026-wnc-summer-session-information/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://firstteetriad.org/2026-wnc-summer-session-information/",
+          "https://www.ashevillegc.com/contactus/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Girls Golf Club Clinic",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Golf clinic for girls ages 7–14.",
+        "camp_page_url": "https://firstteetriad.org/2026-wnc-summer-session-information/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-24",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mountain Glen Golf Club",
+            "address": "1 Club House Dr",
+            "town": "Newland",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-30",
+          "time": null,
+          "text": "Registration Opens: April 30th",
+          "url": "https://firstteetriad.org/2026-wnc-summer-session-information/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://firstteetriad.org/2026-wnc-summer-session-information/",
+          "https://boone-asheville-nc-mountain-golf-course.com/contact-mountain-glen/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

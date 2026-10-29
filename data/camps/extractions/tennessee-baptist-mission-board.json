@@ -1,0 +1,155 @@
+{
+  "provider": {
+    "key": "tennessee-baptist-mission-board",
+    "name": "Tennessee Baptist Mission Board",
+    "urls": ["https://tnbaptist.org/event/all-nations-camp-carson-springs/"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:49.413Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a127f0583c0951a46d72c4c79f13ac0542853295b73a9ef888f96fb0b6330927",
+  "response": {
+    "searches": [
+      "site.tnbaptist.org \"All Nations Camp\" \"2027\"",
+      "open https://tnbaptist.org/event-category/all-nations-camp/",
+      "site.tnbaptist.org/event/ \"All Nations Camp – Week 1\""
+    ],
+    "usage": {
+      "inputTokens": 21810,
+      "cachedInputTokens": 8845,
+      "outputTokens": 966,
+      "reasoningTokens": 211
+    },
+    "status": "completed",
+    "ms": 29687,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tnbaptist.org/event/all-nations-camp-carson-springs/",
+      "chars": 6632,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnbaptist.org/wp-content/uploads/2026/03/All-Nations-Camp-What-to-Bring-FLYER-ENGLISH.pdf",
+      "chars": 1818,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnbaptist.org/wp-content/uploads/2026/03/All-Nations-Camp-What-to-Bring-FLYER-SPANISH.pdf",
+      "chars": 2238,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnbaptist.org/event-category/all-nations-camp/",
+      "chars": 1212,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnbaptist.org/",
+      "chars": 3430,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tennessee Baptist Mission Board",
+    "website_url": "https://tnbaptist.org/",
+    "notes": "2027 All Nations Camp dates are posted for two weeks at Carson Springs. The individual 2027 event pages returned no readable body text; Week 1 ages and description were available in an official search result. Prices and arrival/departure times below are from 2026, not confirmed for 2027. No 2027 registration milestone was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "All Nations Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Campers participate in age-appropriate Bible study and outdoor activities. The camp serves students ages 6–17 from ethnic congregations of the Tennessee Baptist Convention.",
+        "camp_page_url": "https://tnbaptist.org/event-category/all-nations-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-06-11",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carson Springs Baptist Conference Center",
+            "address": "1120 Carson Springs Rd",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "2026: Starts at 2:00 p.m. on Monday; ends at 11:00 a.m. on Friday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 140,
+            "unit": "session",
+            "label": "Early Bird Rate (until May 1, 2026), per child or adult",
+            "year": 2026
+          },
+          {
+            "amount": 165,
+            "unit": "session",
+            "label": "After May 1, 2026, per child or adult",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tnbaptist.org/event-category/all-nations-camp/",
+          "https://tnbaptist.org/event/all-nations-camp-week-1/",
+          "https://tnbaptist.org/event/all-nations-camp-carson-springs/",
+          "https://tnbaptist.org/conference-centers/contact-us/",
+          "https://tnbaptist.org/wp-content/uploads/2026/03/All-Nations-Camp-What-to-Bring-FLYER-ENGLISH.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Read the full 2027 Week 1 and Week 2 event pages when accessible to check fees, registration links, arrival/departure times and whether both weeks share the stated ages. The Week 1 official search snippet states ages 6–17. The venue contact page publishes 1120 Carson Springs Rd; the 2026 event footer adds #7383. Hours and prices are explicitly retained from 2026. The 2026 page says no lunch is provided on arrival day, but does not establish overall lunch provision, so lunch is null."
+      }
+    ]
+  }
+}

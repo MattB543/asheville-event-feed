@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "browns-creek-baptist-church-of-burnsville",
+    "name": "Browns Creek Baptist Church of Burnsville",
+    "urls": [
+      "https://www.facebook.com/127211731037834",
+      "https://www.facebook.com/brownscreekbaptist/"
+    ],
+    "area": "Burnsville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:18:35.170Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Browns Creek Baptist Church Burnsville Emerald Crossing VBS 2026",
+      "site:facebook.com/brownscreekbaptist \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22486,
+      "cachedInputTokens": 8845,
+      "outputTokens": 944,
+      "reasoningTokens": 209
+    },
+    "status": "completed",
+    "ms": 25180,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/127211731037834",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/brownscreekbaptist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Browns Creek Baptist Church of Burnsville",
+    "website_url": null,
+    "notes": "No standalone church website or summer 2027 announcement was found. Both supplied Facebook pages returned no readable content. The 2026 VBS details were recovered from a third-party mirror of the church's June 7, 2026 Facebook post; no registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Game Night & Back-to-School Bash",
+        "reason": "A single evening family social event, not a multi-day camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Participants take part in Bible lessons, music, games and crafts. The final night includes a commencement program where children share what they learned.",
+        "camp_page_url": "https://www.facebook.com/brownscreekbaptist/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Browns Creek Baptist Church",
+            "address": "100 Lower Brown's Creek Road",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:45",
+          "end": "20:15",
+          "text": "5:45 PM - 8:15 PM each night"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/brownscreekbaptist/",
+          "https://www.facebook.com/brownscreekbaptist/posts/bring-your-kiddos-by-browns-creek-baptist-church-on-sunday-october-30th-for-trun/1480208995738094/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the original June 7, 2026 church post: dates, activities and hours were readable only through https://www.findglocal.com/US/Burnsville/127211731037834/Browns-Creek-Baptist-Church. Its post says June 14–19, 5:45–8:15 PM; third-party event listings instead end at 8:30 PM. The year comes from the mirrored post date and is corroborated by the 2026 event title. The church's indexed Facebook Trunk-or-Treat post and mirrored profile publish 100 Lower Browns Creek Road; the NC Baptist directory lists 76 Lower Browns Creek Rd. Confirm the current drop-off address. The VBS post says all ages and dinner served every night starting at 5:45 PM, but gives no numeric youth age range or lunch information."
+      }
+    ]
+  }
+}

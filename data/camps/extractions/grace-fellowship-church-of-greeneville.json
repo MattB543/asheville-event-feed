@@ -1,0 +1,89 @@
+{
+  "provider": {
+    "key": "grace-fellowship-church-of-greeneville",
+    "name": "Grace Fellowship Church of Greeneville",
+    "urls": ["https://gracefellowship.live/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:21:40.488Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d3d273b86fe9dfc8905a033e798903dbed0f951038ff6e2868b99555ca41b867",
+  "response": {
+    "searches": [
+      "\"Grace Fellowship\" \"Greeneville\" \"VBS\" 2026",
+      "\"Grace Fellowship\" \"836\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 24494,
+      "cachedInputTokens": 8845,
+      "outputTokens": 728,
+      "reasoningTokens": 182
+    },
+    "status": "completed",
+    "ms": 23562,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://gracefellowship.live/",
+      "chars": 1038,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grace Fellowship Church of Greeneville",
+    "website_url": "https://gracefellowship.live/",
+    "notes": "No 2027 camp information found. The church's official YouTube search result confirms a VBS program, but readable official sources did not provide its schedule or eligibility. Third-party 2026 event listings disagree on the ending date; their dates were not used.",
+    "excluded": [
+      {
+        "name": "True North VBS",
+        "reason": "Offered by a different Grace Fellowship Church in Milford, NJ, outside the directory area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Grace Fellowship Church of Greeneville.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grace Fellowship Church",
+            "address": "836 Baileyton Rd",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://gracefellowship.live/", "https://www.youtube.com/watch?v=hBJpLJ4Od-4"],
+        "confidence": "medium",
+        "review_notes": "The official YouTube search result identifies a 'VBS Program' at this church, but the video page returned no readable content. Confirm the schedule, ages and camp venue with the church. The church homepage publishes 836 Baileyton Rd; third-party VBS listings use that address. StayHappening lists July 8–11, 2026, while HappeningNext and AllEvents list July 8–12, 2026, possibly including a Sunday service. No dates or hours were extracted from those conflicting listings."
+      }
+    ]
+  }
+}

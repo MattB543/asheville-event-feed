@@ -1,0 +1,62 @@
+{
+  "provider": {
+    "key": "southside-christian-church-of-elizabethton",
+    "name": "Southside Christian Church of Elizabethton",
+    "urls": ["https://sscchurch.net/"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); chrome-tls: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); browser: page.goto: net::ERR_CERT_AUTHORITY"
+  },
+  "extractedAt": "2026-10-29T17:32:17.111Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:sscchurch.net VBS 2026",
+      "site:sscchurch.net \"VBS\"",
+      "\"sscchurch.net\" \"summer\""
+    ],
+    "usage": {
+      "inputTokens": 26793,
+      "cachedInputTokens": 8845,
+      "outputTokens": 557,
+      "reasoningTokens": 241
+    },
+    "status": "completed",
+    "ms": 30722,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sscchurch.net/",
+      "chars": 0,
+      "error": "fetch: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); chrome-tls: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://sscchurch.net/\nCall log:\n\u001b[2m  - navigating to \"https://sscchurch.net/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southside Christian Church of Elizabethton",
+    "website_url": "https://sscchurch.net/",
+    "notes": "No church-run summer camp or Vacation Bible School could be confirmed for 2027 or 2026. Direct access to sscchurch.net was blocked by robots.txt; research relied on indexed official-page text. The homepage mentions downloadable weekly bulletins, but no bulletin PDF could be accessed. The missions page promotes Camp ACC, operated by Appalachian Christian Camp rather than this church. Official pages checked through search included /children, /students, /missions and /contact. This does not establish that the church offers no summer programs.",
+    "excluded": [
+      {
+        "name": "Children's Ministry",
+        "reason": "Ongoing children's classes, groups and nursery care, not a finite summer camp."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Ongoing youth ministry; no finite summer camp offering was confirmed."
+      },
+      {
+        "name": "Camp ACC",
+        "reason": "The church's missions page promotes a camp operated by the separate provider Appalachian Christian Camp in Unicoi, TN."
+      },
+      {
+        "name": "Vacation Bible School — Southside Church, Clayton",
+        "reason": "Offered by a different Southside Church in Clayton, NC, not this Elizabethton provider and outside the local drive area."
+      }
+    ],
+    "cards": []
+  }
+}

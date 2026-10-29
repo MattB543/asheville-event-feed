@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "hendersonville-honeycrisps",
+    "name": "Hendersonville Honeycrisps",
+    "urls": ["https://www.playnsports.com/organization/hendersonville-honeycrisps/"],
+    "area": "East Flat Rock, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:25.619Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fcf9154f02d25fd3875dc8979ef5be94634f5b7903b8f5d2a1bfa628b6024bda",
+  "response": {
+    "searches": [
+      "Hendersonville Honeycrisps baseball camps 2026 2027",
+      "site:playnsports.com/event/ \"Honeycrisps\"",
+      "open https://www.playnsports.com/event/hendersonville-honeycrisps-baseball-camp-july-6th-to-8th/"
+    ],
+    "usage": {
+      "inputTokens": 33607,
+      "cachedInputTokens": 8845,
+      "outputTokens": 699,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 23722,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+      "chars": 5653,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/coaches-create-an-event/",
+      "chars": 9230,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/find-camps-clinics/",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/",
+      "chars": 12079,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Honeycrisps",
+    "website_url": "https://www.hendersonvillehoneycrisps.com/",
+    "notes": "No 2027 camp information or explicitly dated 2026 camp schedule was found. Search found older 2022 and 2023 camp pages and a July 6–8 event page without a year; their dates, prices, hours and registration deadlines were not carried forward.",
+    "excluded": [
+      {
+        "name": "Hendersonville Honeycrisps collegiate team season and player onboarding",
+        "reason": "Sports team season and player registration, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Hendersonville Honeycrisps Youth Baseball Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice hitting, pitching, fielding, base running and position-specific baseball skills with Honeycrisps players and coaches. Activities include age-appropriate games, competitions and team-building exercises.",
+        "camp_page_url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+        "registration_url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Henderson High School",
+            "address": "150 Eagle Pride Drive",
+            "town": "East Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+          "https://www.playnsports.com/event/hendersonville-honeycrisps-baseball-camp-july-6th-to-8th/",
+          "https://www.hendersoncountypublicschoolsnc.org/ehh/general-information/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The organization page gives ages 6–14 and the East Flat Rock address but no dated schedule or daily format. The July 6–8 event page identifies East Henderson High School at that address, but does not print a year. Confirm the forthcoming summer's venue and daily format; no undated event dates, price or hours have been assigned to 2026 or 2027."
+      }
+    ]
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "provider": {
+    "key": "boone-trail-baptist-church-of-johnson-city",
+    "name": "Boone Trail Baptist Church of Johnson City",
+    "urls": ["https://www.boonetrail.net/events/vbs-baptist-center"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:19.457Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9fcc811b19e491eb459d6f8933238977b3de287c2a30fe8db9b89a8ed357606e",
+  "response": {
+    "searches": [
+      "site:boonetrail.net 2026 camp VBS Centrikid Fuge",
+      "site:boonetrail.net \"VBS\" \"2026\"",
+      "site:gardner-webb.edu \"110 South Main\""
+    ],
+    "usage": {
+      "inputTokens": 31229,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1572,
+      "reasoningTokens": 259
+    },
+    "status": "completed",
+    "ms": 46496,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.boonetrail.net/events/vbs-baptist-center",
+      "chars": 1523,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.boonetrail.net/",
+      "chars": 3402,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boone Trail Baptist Church of Johnson City",
+    "website_url": "https://www.boonetrail.net/",
+    "notes": "No 2027 camp information found. CentriKid Camp and FUGE Camp have 2026 event listings. The only VBS listing found describes June 2025; its historical dates and hours were not carried into 2027 fields. Event pages returned no readable body when opened, but official search results supplied their event text.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "School-year program running mid-August through May."
+      },
+      {
+        "name": "Upward Basketball and Cheer",
+        "reason": "Sports league season, not a camp."
+      },
+      {
+        "name": "Women's Retreat",
+        "reason": "Adult retreat held outside summer."
+      },
+      {
+        "name": "Evangelism Conference",
+        "reason": "Conference held outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "CentriKid Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Children's overnight camp at Gardner-Webb University.",
+        "camp_page_url": "https://www.boonetrail.net/events/centrikid-kids-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Gardner-Webb University",
+            "address": "110 South Main Street",
+            "town": "Boiling Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.boonetrail.net/events/centrikid-kids-camp",
+          "https://gardner-webb.edu/people/paul-mcelearney/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and venue were read from the official search result. Overnight format is inferred from the multi-day camp listing. Retained Boiling Springs for the directory's drive-time check. Event start and end times are not daily camp hours."
+      },
+      {
+        "name": "FUGE Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Summer camp for students.",
+        "camp_page_url": "https://www.boonetrail.net/events/fuge-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.boonetrail.net/events/fuge-camp"],
+        "confidence": "medium",
+        "review_notes": "2026 dates were read from the official search result; the listing gives only United States as its location. Confirm the 2026 venue and geographic eligibility. Overnight format is inferred from the multi-day FUGE camp listing. An older Centrifuge listing names Panama City Beach, FL, but that location was not applied to 2026. General student-ministry grades were not treated as camp eligibility."
+      },
+      {
+        "name": "VBS @ Baptist Center",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School hosted by Boone Trail Baptist Church students at the Johnson City Baptist Center.",
+        "camp_page_url": "https://www.boonetrail.net/events/vbs-baptist-center",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Baptist Center",
+            "address": "926 Hopson St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.boonetrail.net/events/vbs-baptist-center"],
+        "confidence": "medium",
+        "review_notes": "Only a 2025 offering was found: June 16, 17 and 19, from 5:30 to 7:30 pm. Confirm whether VBS returns in 2027. Site is historical, from the church's event page. Third-party venue directories list 924 Hopson St rather than the event page's 926 Hopson St; no venue-owned address page was found to resolve the difference."
+      }
+    ]
+  }
+}

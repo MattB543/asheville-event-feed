@@ -1,0 +1,43 @@
+{
+  "method": "grid",
+  "id": "north--clinic",
+  "input": "Search the web for youth sports or skill \"clinics\" held in the summer for kids and teens in Madison, Yancey, Mitchell and McDowell counties, NC (Marshall, Mars Hill, Burnsville, Marion). Use that wording in your searches, not just \"camp\", and list every organization you find.",
+  "at": "2026-10-29T03:44:43.073Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 55570,
+    "cachedInputTokens": 5164,
+    "outputTokens": 785,
+    "reasoningTokens": 579
+  },
+  "searches": [
+    "youth sports clinics summer 2026 2025 Madison County Mars Hill Marshall NC",
+    "\"Marion\" \"NC\" \"clinic\" \"2025\" basketball summer",
+    "\"Marion\" \"clinic\" \"basketball\" \"June\" \"2025\"",
+    "\"McDowell\" \"summer\" \"clinics\"",
+    "Marion NC youth summer sports clinic 2025 2026 tennis golf",
+    "\"McDowell\" \"2025\" \"youth clinic\""
+  ],
+  "ms": 55311,
+  "candidates": [
+    {
+      "name": "Mars Hill University",
+      "url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+      "town": "Mars Hill",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["sports"],
+      "note": "Youth soccer skills camp ran June 16–20, 2025, for ages 5–15, with half-day and full-day options."
+    },
+    {
+      "name": "Mars Hill Cycling Camp",
+      "url": "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+      "town": "Mars Hill",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports", "nature_outdoor"],
+      "note": "Six-day overnight mountain-bike skills programs for ages 10–18; four June–July 2027 sessions announced."
+    }
+  ]
+}

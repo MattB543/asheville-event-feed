@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "east-fork-baptist-church-of-canton",
+    "name": "East Fork Baptist Church of Canton",
+    "urls": ["https://subsplash.com/eastforkbaptistchur/lb/ev/%2B788chnb"],
+    "area": "Canton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:56.490Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fb823c2c3836d6c33c98892cf50fd4a103f41840ce8d374c0258f15b4fc58994",
+  "response": {
+    "searches": [
+      "East Fork Baptist Canton VBS 2026 2027",
+      "open https://eastforkbaptist.org/vbs",
+      "site:eastforkbaptist.org/vbs \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 17885,
+      "cachedInputTokens": 8845,
+      "outputTokens": 751,
+      "reasoningTokens": 230
+    },
+    "status": "completed",
+    "ms": 31679,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/eastforkbaptistchur/lb/ev/%2B788chnb",
+      "chars": 711,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/eastforkbaptistchur/lb/ev/+788chnb/register",
+      "chars": 549,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Fork Baptist Church of Canton",
+    "website_url": "https://eastforkbaptist.org/",
+    "notes": "No readable official 2026 or 2027 camp announcement was found. The supplied Subsplash announcement explicitly describes VBS 2025, June 22–26; those dates, grades, hours, meal provision and free registration have not been carried forward. The official VBS and VBS devotion pages returned no readable text when opened.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children and teens.",
+        "camp_page_url": "https://eastforkbaptist.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Fork Baptist Church",
+            "address": "13175 Cruso Road",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastforkbaptist.org/",
+          "https://eastforkbaptist.org/vbs",
+          "https://subsplash.com/eastforkbaptistchur/lb/ev/%2B788chnb",
+          "https://subsplash.com/eastforkbaptistchur/lb/ev/+788chnb/register"
+        ],
+        "confidence": "low",
+        "review_notes": "Program existence and the church drop-off location are supported by the supplied 2025 announcement; the church's current official website confirms its address. Check the official VBS page for a readable 2026 or 2027 announcement before publishing current eligibility, schedule, pricing or registration details."
+      }
+    ]
+  }
+}

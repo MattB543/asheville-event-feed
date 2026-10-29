@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "hominy-baptist-church-of-candler",
+    "name": "Hominy Baptist Church of Candler",
+    "urls": [
+      "https://www.hominybaptist.com/thisweek/2025/7/28/vacation-bible-school",
+      "https://www.hominybaptist.com/child-care"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:46.814Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0786a16cb655abc6c04877432d22c4155edc6540de9592c491adb165ad7693d4",
+  "response": {
+    "searches": [
+      "site.hominybaptist.com \"2026\" \"Vacation\"",
+      "open https://www.hominybaptist.com/thisweek/2026/8/9/summer-pop-up-choir",
+      "\"Hominy\" \"Vacation Bible School\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20194,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1432,
+      "reasoningTokens": 254
+    },
+    "status": "completed",
+    "ms": 35294,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hominybaptist.com/thisweek/2025/7/28/vacation-bible-school",
+      "chars": 1572,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/child-care",
+      "chars": 3140,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/schedule",
+      "chars": 2629,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/",
+      "chars": 1895,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hominy Baptist Church of Candler",
+    "website_url": "https://www.hominybaptist.com/",
+    "notes": "No 2027 camp information was found. The supplied Vacation Bible School page describes July 28–30, 2025; those dates were not carried forward. An official 2026 calendar event lists Vacation Bible School as its preceding July 29 event, but the linked VBS page returned no readable content, so 2026 VBS dates and hours are left null. The children and newsletter pages also returned no readable content.",
+    "excluded": [
+      {
+        "name": "Hominy Child Care",
+        "reason": "The year-round infant and preschool childcare offering is excluded; its separately described summer camp is included."
+      },
+      {
+        "name": "After School program",
+        "reason": "School-year childcare, offered from mid-August to mid-June."
+      },
+      {
+        "name": "Children’s Choir",
+        "reason": "Recurring year-round church activity, not a finite summer camp."
+      },
+      {
+        "name": "Giant Indoor Movie and Games!",
+        "reason": "Single social event, not a multi-day camp."
+      },
+      {
+        "name": "Summer Pop-Up Choir",
+        "reason": "Single short Sunday choir event, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in educational outings, swimming, water parks, putt putt, movies, bowling, lake visits, and Nature Center outings. Summer camp serves students in the Enka district.",
+        "camp_page_url": "https://www.hominybaptist.com/child-care",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Summer camp is available to students in the entire Enka district from mid-June to mid-August."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hominy Baptist Church",
+            "address": "135 Candler School Rd",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "In summer camp breakfast, lunch, and snack are provided from Buncombe County Schools USDA program."
+        },
+        "transportation": null,
+        "sources": ["https://www.hominybaptist.com/child-care"],
+        "confidence": "medium",
+        "review_notes": "The childcare page is undated and describes a recurring mid-June to mid-August summer camp rather than a dated 2026 schedule. Its six-weeks-through-twelve-years age range and 7 a.m.–5:30 p.m. hours apply to childcare overall, not explicitly to summer camp, so camp ages and hours are left null. This is church-run summer childcare, not district-run summer school."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Hominy Baptist Church.",
+        "camp_page_url": "https://www.hominybaptist.com/thisweek/2026/7/29/vacation-bible-school",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hominy Baptist Church",
+            "address": "135 Candler School Rd",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hominybaptist.com/thisweek/2026/8/9/summer-pop-up-choir",
+          "https://www.hominybaptist.com/thisweek/2025/7/28/vacation-bible-school"
+        ],
+        "confidence": "low",
+        "review_notes": "The official August 9, 2026 Summer Pop-Up Choir page identifies an earlier July 29 Vacation Bible School event. The corresponding 2026 VBS URL returned no readable content; check its complete date range, daily hours, ages, and registration details. The supplied 2025 event confirms the church venue but its dates and hours were not reused for 2026."
+      }
+    ]
+  }
+}

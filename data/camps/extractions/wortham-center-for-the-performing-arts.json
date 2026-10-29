@@ -1,0 +1,243 @@
+{
+  "provider": {
+    "key": "wortham-center-for-the-performing-arts",
+    "name": "Wortham Center for the Performing Arts",
+    "urls": ["https://www.worthamarts.org/education/summer-camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": [
+      "seed_sheet",
+      "macaroni_kid",
+      "news828",
+      "our_db",
+      "grid",
+      "aggregator",
+      "gap_fill"
+    ],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:51.483Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "433c579fbbf00e8e282a35fa9289d52136bfd55ba0177b3a7afcf0db646ca161",
+  "response": {
+    "searches": ["site:worthamarts.org summer camps 2027 registration 2026"],
+    "usage": {
+      "inputTokens": 39671,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1507,
+      "reasoningTokens": 92
+    },
+    "status": "completed",
+    "ms": 30431,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.worthamarts.org/education/summer-camps/",
+      "chars": 10197,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worthamarts.org/visit/faq/",
+      "chars": 7702,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worthamarts.org/education/student-series-faqs/",
+      "chars": 9705,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worthamarts.org/education/summer-camps/faq/",
+      "chars": 7063,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worthamarts.org/",
+      "chars": 30000,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Wortham Center for the Performing Arts",
+    "website_url": "https://www.worthamarts.org/",
+    "notes": "No summer 2027 camp dates or registration milestones were found. The cards retain the explicitly labeled 2026 camp schedule. The 2026/27 performing arts season is not a summer camp announcement. The camp page still says registration is open, but its listed sessions are past; availability is left null.",
+    "excluded": [
+      {
+        "name": "Wortham Center Student Series",
+        "reason": "Performances attended by school groups, not supervised summer camp programs."
+      },
+      {
+        "name": "Classes at Wortham",
+        "reason": "Ongoing classes and lesson series, not finite summer camps."
+      },
+      {
+        "name": "Summer camp volunteers and interns",
+        "reason": "Workforce and volunteer opportunities, not camper programs."
+      },
+      {
+        "name": "Dorrance Dance Masterclass",
+        "reason": "Held in November, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Creative Arts Camps",
+        "type": "day",
+        "categories": ["arts", "music", "theater", "dance"],
+        "description": "Campers explore theater, music, movement, storytelling and visual arts through themed hands-on projects and collaborative performances. Camps conclude with a sharing for family and friends.",
+        "camp_page_url": "https://www.worthamarts.org/education/summer-camps/",
+        "registration_url": "https://www.worthamarts.org/education/summer-camps/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Wortham Center for the Performing Arts",
+            "address": "18 Biltmore Ave.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": null,
+          "text": "Rising 1st–2nd Grades: 9 am–1 pm; Rising 3rd–5th Grades: 9 am–3 pm"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [],
+        "sessions": [
+          {
+            "label": "WNC Animals",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Under the Sea",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 310,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fabulous Fables",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Spin Me a Tale",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 310,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Arts For All Kids scholarship opportunities exist to help ensure accessibility for families experiencing a range of financial circumstances."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers should bring a water bottle, a snack that does not need to be refrigerated, a lunch that does not need to be refrigerated, and any materials that have been assigned during their camp experience."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.worthamarts.org/education/summer-camps/",
+          "https://www.worthamarts.org/education/summer-camps/faq/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

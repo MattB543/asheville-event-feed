@@ -1,0 +1,1400 @@
+{
+  "provider": {
+    "key": "lutheridge",
+    "name": "Lutheridge (summer camps)",
+    "urls": [
+      "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+      "https://lutheridge.org/"
+    ],
+    "area": "Arden, NC",
+    "covers": ["pdf_brochure", "day_and_overnight", "multi_card", "faith_based"]
+  },
+  "extractedAt": "2026-10-28T21:06:48.226Z",
+  "run": {
+    "mode": "search",
+    "extraction": {
+      "provider_name": "Lutheridge",
+      "website_url": "https://lutheridge.org/",
+      "notes": "No summer 2027 facts were found. Direct opens of the website and supplied 2026 brochure returned no readable content; evidence below uses exact official-page wording returned by search indexing. Registration opening dates and current availability could not be verified. The Day Camp page conflicts internally: its summary says rising grades 1–6, its body says completed Kindergarten–5, and an indexed older description says 8am–5pm while the current body says 8am–4:30pm with Friday pickup at 3pm. Its July 12–17 date range is reproduced without correcting the Sunday start. The archive also lists Pioneers, Climb High, and Kairos Confirmation Camp, but current program details could not be retrieved; these require follow-up rather than treating them as excluded. Gathering Expedition has duplicate youth pages and a separate adult-leader page; duplicate youth listings are consolidated. Location addresses, registration platform URLs, and required fees could not be reliably extracted.",
+      "excluded": [
+        {
+          "name": "Adult Music Week",
+          "reason": "Adult-only program; eligibility is ages 18+."
+        },
+        {
+          "name": "Family Camp",
+          "reason": "Family-only camp."
+        },
+        {
+          "name": "bRIDGE Family Camp",
+          "reason": "Family-only camp."
+        },
+        {
+          "name": "Grandparents Camp",
+          "reason": "Grandparents and grandchildren attend together; family-only camp."
+        },
+        {
+          "name": "Gathering Expedition Camp — adult leaders",
+          "reason": "Separate adult continuing-education offering."
+        },
+        {
+          "name": "Handbell Retreats",
+          "reason": "Adult program outside summer."
+        },
+        {
+          "name": "Wild Women Weekends",
+          "reason": "Adult-only retreat outside summer."
+        },
+        {
+          "name": "Theology On Tap",
+          "reason": "Adult-only program outside summer."
+        },
+        {
+          "name": "bRIDGE fall retreats",
+          "reason": "Family retreats outside summer."
+        }
+      ],
+      "cards": [
+        {
+          "name": "PreKamp",
+          "variant": null,
+          "type": "half_day",
+          "categories": ["faith_based", "general"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+          "registration_url": null,
+          "description": "Children participate in faith formation, songs, games, crafts, and outdoor activities.",
+          "season_dates": null,
+          "ages": {
+            "min": 3,
+            "max": 6,
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+            "quote": "3-6 year olds",
+            "source_kind": "official_site"
+          },
+          "grades": null,
+          "hours": {
+            "start": "09:00",
+            "end": "13:00",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+            "quote": "9am -1pm daily",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 292,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+              "quote": "Tier 1 $292",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 367,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+              "quote": "Tier 2 $367",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 417,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+              "quote": "Tier 3 $417",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": {
+            "available": false,
+            "details": "Bring lunch; snack is provided. Campers must be potty-independent.",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/lutheridge-day-camp/",
+            "quote": "Bring your own lunch. Snack is provided.",
+            "source_kind": "official_site"
+          },
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-08",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-27",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Day Camp at Lutheridge",
+          "variant": null,
+          "type": "day",
+          "categories": ["faith_based", "general", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+          "registration_url": null,
+          "description": "Activities may include swimming, crafts, archery, canoeing, nature hikes, scavenger hunts, field games, and indoor climbing.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 1,
+            "max": 6,
+            "basis": "rising",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+            "quote": "Rising 1st - Rising 6th Graders",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": "08:00",
+            "end": "16:30",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+            "quote": "Drop off at 8:00am. Pick up at 4:30pm. (closing program and pick up at 3:00pm on Friday).",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 361,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+              "quote": "Tier 1 $361",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 486,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+              "quote": "Tier 2 $486",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 611,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+              "quote": "Tier 3 $611",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": {
+            "available": true,
+            "details": "Breakfast and lunch included daily.",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/day-camp-at-lutheridge/",
+            "quote": "Breakfast and lunch are included daily.",
+            "source_kind": "official_site"
+          },
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-08",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-06-15",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-06-22",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-06-29",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-12",
+              "end": "2026-07-17",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-20",
+              "end": "2026-07-24",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-27",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "First Camp",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "general"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/first-Camp/",
+          "registration_url": null,
+          "description": "Campers participate in faith formation, swimming, crafts, and songs. Full-week and two-night sampler options are offered.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 1,
+            "max": 2,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/first-Camp/",
+            "quote": "Elementary Campers: Completed Grades 1-2",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": "Sampler",
+              "start": "2026-06-10",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": "Sampler",
+              "start": "2026-06-17",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": "Full week",
+              "start": "2026-06-21",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": "Full week",
+              "start": "2026-06-28",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": "Music Week",
+              "start": "2026-07-05",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": "Full week",
+              "start": "2026-07-19",
+              "end": "2026-07-24",
+              "year": 2026
+            },
+            {
+              "label": "Sampler",
+              "start": "2026-07-29",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Crazy Cool Campout",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+          "registration_url": null,
+          "description": "Campers camp outdoors for one night, hike, climb, and cook a meal over a campfire.",
+          "season_dates": {
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+            "quote": "July 5 – 10, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 4,
+            "max": 6,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+            "quote": "Tweens: Completed Grades 4-6",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 775,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+              "quote": "Tier 1 $775",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 900,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+              "quote": "Tier 2 $900",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 1025,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/crazy-cool-campout/",
+              "quote": "Tier 3 $1,025",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-07-05",
+              "end": "2026-07-10",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Bike & Hike Explorers",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/bike-hike-explorers/",
+          "registration_url": null,
+          "description": "Campers learn mountain-biking basics onsite with a certified instructor, then ride a guided beginner trail in Dupont State Park.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/bike-hike-explorers/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 773,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/bike-hike-explorers/",
+              "quote": "Tier 1 $773",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 898,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/bike-hike-explorers/",
+              "quote": "Tier 2 $898",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 1023,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/bike-hike-explorers/",
+              "quote": "Tier 3 $1,023",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-14",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-26",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Sky Explorers",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/high-in-the-sky-explorers/",
+          "registration_url": null,
+          "description": "Campers traverse a high ropes course and participate in swimming, crafts, and camper-selected activities.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/high-in-the-sky-explorers/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 736,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/high-in-the-sky-explorers/",
+              "quote": "Tier 1 $736",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 861,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/high-in-the-sky-explorers/",
+              "quote": "Tier 2 $861",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 986,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/high-in-the-sky-explorers/",
+              "quote": "Tier 3 $986",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-07",
+              "end": "2026-06-12",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-19",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "River Explorers",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/river-explorers/",
+          "registration_url": null,
+          "description": "Campers take a tubing trip on the French Broad River and participate in swimming, crafts, and camper-selected activities.",
+          "season_dates": {
+            "start": "2026-06-28",
+            "end": "2026-07-03",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/river-explorers/",
+            "quote": "June 28 – July 3, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/river-explorers/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 775,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/river-explorers/",
+              "quote": "Tier 1 $775",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 900,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/river-explorers/",
+              "quote": "Tier 2 $900",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 1025,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/river-explorers/",
+              "quote": "Tier 3 $1,025",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-28",
+              "end": "2026-07-03",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Parkway Peak Explorers",
+          "variant": "Middle school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/parkway-peak-explorers/",
+          "registration_url": null,
+          "description": "This outdoor adventure program includes hiking and camping in the mountains.",
+          "season_dates": {
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/parkway-peak-explorers/",
+            "quote": "June 21 – 26, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/parkway-peak-explorers/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-21",
+              "end": "2026-06-26",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Parkway Peak Mountaineers",
+          "variant": "High school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+          "registration_url": null,
+          "description": "Campers hike in the mountains and take an overnight camping trip at Mount Mitchell.",
+          "season_dates": {
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+            "quote": "June 14 – 19, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+            "quote": "High School: Completed Grades 9-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 726,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+              "quote": "Tier 1 $726",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 851,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+              "quote": "Tier 2 $851",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 976,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/parkway-peak-mountaineers/",
+              "quote": "Tier 3 $976",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-14",
+              "end": "2026-06-19",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Cave & Wave Explorers",
+          "variant": "Middle school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/cave-wave-middle-school/",
+          "registration_url": null,
+          "description": "Campers explore Worley’s Cave, camp overnight, and go whitewater rafting.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/cave-wave-middle-school/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-07-05",
+              "end": "2026-07-10",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-19",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Cave & Wave Mountaineers",
+          "variant": "High school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+          "registration_url": null,
+          "description": "Campers explore Worley’s Cave, camp, and go whitewater rafting.",
+          "season_dates": {
+            "start": "2026-06-28",
+            "end": "2026-07-03",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+            "quote": "June 28 – July 3, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+            "quote": "High School: Completed Grades 9-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 854,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+              "quote": "Tier 1 $854",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 979,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+              "quote": "Tier 2 $979",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 1104,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/cave-wave-high-school/",
+              "quote": "Tier 3 $1,104",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-28",
+              "end": "2026-07-03",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Night Owls Explorers",
+          "variant": "Middle school",
+          "type": "overnight",
+          "categories": ["faith_based", "general", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/nite-owl-explorers/",
+          "registration_url": null,
+          "description": "Campers stay up later for night swims, glow-in-the-dark activities, and midnight snacks, and take an outing to Dupont State Park.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/nite-owl-explorers/",
+            "quote": "Middle School: Completed Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-14",
+              "end": "2026-06-19",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-26",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Night Owl Mountaineers",
+          "variant": "High school",
+          "type": "overnight",
+          "categories": ["faith_based", "general", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/nite-owl-mountaineers/",
+          "registration_url": null,
+          "description": "Campers stay up later for night swims, glow-in-the-dark activities, and midnight snacks, and take an outing to Dupont State Park.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/nite-owl-mountaineers/",
+            "quote": "High School: Completed Grades 9-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-28",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-19",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Rock & Raft Mountaineers",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/rock-raft-high-school/",
+          "registration_url": null,
+          "description": "Campers start at Lutheridge, then travel to Lutherock for hiking, rock climbing, and camping. The program also includes whitewater rafting, worship, and Bible studies.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/rock-raft-high-school/",
+            "quote": "Completed Grades 9-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 854,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/rock-raft-high-school/",
+              "quote": "Tier 1 $854",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 979,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/rock-raft-high-school/",
+              "quote": "Tier 2 $979",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 1104,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/rock-raft-high-school/",
+              "quote": "Tier 3 $1,104",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-21",
+              "end": "2026-06-26",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-19",
+              "end": "2026-07-24",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Soak & Soar Mountaineers",
+          "variant": "High school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/soak-soar-mountaineers/",
+          "registration_url": null,
+          "description": "Campers use Lutheridge’s challenge tower and zipline, then travel to Nantahala Outdoor Center for ziplining, an overnight campout, and whitewater rafting.",
+          "season_dates": {
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/soak-soar-mountaineers/",
+            "quote": "July 5 – 10, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 9,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/soak-soar-mountaineers/",
+            "quote": "Completed Grades 9-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-07-05",
+              "end": "2026-07-10",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Soak & Soar Explorers",
+          "variant": "Middle school",
+          "type": "overnight",
+          "categories": ["faith_based", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+          "registration_url": null,
+          "description": "Campers use Lutheridge’s challenge tower and travel to Nantahala Outdoor Center for ziplining, camping, and rafting.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "unspecified",
+            "year": 2026,
+            "url": "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+            "quote": "Soak & Soar Explorers (6th - 8th Grade)",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Campfirmation",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "general"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/campfirmation/",
+          "registration_url": null,
+          "description": "Confirmation classes participate in faith learning and camp activities such as swimming, games, crafts, Bible study, and worship.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 6,
+            "max": 8,
+            "basis": "unspecified",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/campfirmation/",
+            "quote": "Confirmation Age Students: Grades 6-8",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 722,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/campfirmation/",
+              "quote": "Tier 1 $722",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 847,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/campfirmation/",
+              "quote": "Tier 2 $847",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 972,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/campfirmation/",
+              "quote": "Tier 3 $972",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        },
+        {
+          "name": "Gathering Expedition Camp",
+          "variant": "Youth",
+          "type": "overnight",
+          "categories": ["faith_based", "general", "nature_outdoor"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+          "registration_url": null,
+          "description": "Campers live in cabins with counselors and participate in swimming, crafts, and offsite adventure and service outings. Evenings include worship, music, speakers, dances, and night swims.",
+          "season_dates": {
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+            "quote": "July 12 – 17, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": null,
+          "grades": {
+            "min": 7,
+            "max": 12,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+            "quote": "Completed Grades 7-12",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 650,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+              "quote": "Tier 1 $650",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 775,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+              "quote": "Tier 2 $775",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 900,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/gathering-expedition-camp/",
+              "quote": "Tier 3 $900",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-07-12",
+              "end": "2026-07-17",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Summershine",
+          "variant": null,
+          "type": "overnight",
+          "categories": ["faith_based", "general", "special_needs"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/summershine/",
+          "registration_url": null,
+          "description": "Teens and adults with developmental disabilities participate in crafts, singing, games, swimming, worship, and daily devotions.",
+          "season_dates": null,
+          "ages": {
+            "min": 15,
+            "max": null,
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/summershine/",
+            "quote": "Ages 15+",
+            "source_kind": "official_site"
+          },
+          "grades": null,
+          "hours": null,
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 749,
+              "unit": "session",
+              "tier": "Tier 1",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/summershine/",
+              "quote": "Tier 1 $749",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 874,
+              "unit": "session",
+              "tier": "Tier 2",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/summershine/",
+              "quote": "Tier 2 $874",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 999,
+              "unit": "session",
+              "tier": "Tier 3",
+              "year": 2026,
+              "url": "https://lutheridge.org/summer_camps/summershine/",
+              "quote": "Tier 3 $999",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": {
+            "available": true,
+            "details": "For developmental disabilities; counselor-to-camper ratio is 1:4. Campers must be toilet independent and able to walk distances and hills.",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/summershine/",
+            "quote": "Summershine offers a camp experience for teens (15 years and older) and adults with developmental disabilities.",
+            "source_kind": "official_site"
+          },
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-28",
+              "end": "2026-07-03",
+              "year": 2026
+            },
+            {
+              "label": null,
+              "start": "2026-07-26",
+              "end": "2026-07-31",
+              "year": 2026
+            }
+          ]
+        },
+        {
+          "name": "Lutheroad Day Camp",
+          "variant": "Partner churches; sites not specified",
+          "type": "day",
+          "categories": ["faith_based", "general"],
+          "camp_page_url": "https://lutheridge.org/summer_camps/lutheroad-day-camp/",
+          "registration_url": null,
+          "description": "Lutheridge staff bring music, arts and crafts, games, nature activities, and Bible study to partner churches.",
+          "season_dates": null,
+          "ages": null,
+          "grades": {
+            "min": 0,
+            "max": 5,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://lutheridge.org/summer_camps/lutheroad-day-camp/",
+            "quote": "Completed Grades: k5 -5",
+            "source_kind": "official_site"
+          },
+          "hours": null,
+          "extended_care": null,
+          "prices": [],
+          "fees": [],
+          "locations": [],
+          "financial_aid": null,
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": []
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": [
+        "open https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+        "site:lutheridge.org 2027 summer",
+        "site:lutheridge.org/summer_camps/ \"2026\"",
+        "site:lutheridge.org/summer_camps/ \"PreKamp\" \"2026\"",
+        "site:lutheridge.org/summer_camps/pioneers/",
+        "site:lutheridge.org \"Pioneers\" \"Completed\"",
+        "site:lutheridge.org/wp-content/uploads/2026-SUMMER \"Pioneers\""
+      ],
+      "usage": {
+        "inputTokens": 42829,
+        "cachedInputTokens": 8411,
+        "outputTokens": 11152,
+        "reasoningTokens": 660
+      },
+      "status": "completed",
+      "ms": 210697,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1
+  }
+}

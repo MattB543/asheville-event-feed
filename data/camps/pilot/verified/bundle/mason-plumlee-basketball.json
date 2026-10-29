@@ -1,0 +1,363 @@
+{
+  "provider": {
+    "key": "mason-plumlee-basketball",
+    "name": "Mason Plumlee Basketball Camp",
+    "urls": ["https://register.ryzer.com/camp.cfm?id=309477"],
+    "area": "Christ School, Arden, NC",
+    "covers": ["clinic", "registration_platform_only"]
+  },
+  "verifiedAt": "2026-10-29T00:56:15.085Z",
+  "verifyMs": 16,
+  "extraction": {
+    "provider_name": "Mason Plumlee Basketball Camp",
+    "website_url": "https://www.plumleebasketball.com/",
+    "notes": "2027 information is posted. Overnight and commuter options are kept on one card. Christ School's September 1, 2026 news article says June 21-27, but the camp website and registration platform both say June 21-24, 2027; those program-specific dates are used. Hours are null because the stated beginning and ending times describe the entire overnight session, not daily attendance hours. The registration deadline states 11:59pm CST; time is left null rather than treating it as Eastern. Price cutoff dates lack explicit calendar years and are not included as milestones.",
+    "excluded": [
+      {
+        "name": "Transform Your Tryout",
+        "reason": "Fall clinic offered September 12-13, 2026, outside summer."
+      },
+      {
+        "name": "Earn Your Minutes",
+        "reason": "Fall clinic offered September 12-13, 2026, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Basketball Camp at Christ School",
+        "variant": "Boys; overnight or commuter",
+        "type": "overnight",
+        "categories": ["sports"],
+        "camp_page_url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+        "registration_url": "https://register.ryzer.com/camp.cfm?id=338224",
+        "description": "Campers practice basketball skills, compete in games, review NBA film, and participate in strength and conditioning, outdoor team-building activities, and leadership discussions.",
+        "season_dates": {
+          "start": "2027-06-21",
+          "end": "2027-06-24",
+          "year": 2027,
+          "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+          "quote": "June 21st - 24th, 2027",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["domain_not_reviewed"],
+            "checkedAt": "2026-10-29T00:56:15.069Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 10,
+          "max": 17,
+          "year": 2027,
+          "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+          "quote": "Ages: 10 - 17 Boys",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["domain_not_reviewed"],
+            "checkedAt": "2026-10-29T00:56:15.069Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 800,
+            "unit": "session",
+            "tier": "Overnight (By August 1st)",
+            "year": 2027,
+            "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+            "quote": "Overnight (By August 1st): $800 (+$53 Fees)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["domain_not_reviewed"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 850,
+            "unit": "session",
+            "tier": "Overnight (By March 1st)",
+            "year": 2027,
+            "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+            "quote": "Overnight (By March 1st): $850 (+$56 Fees)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["domain_not_reviewed"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 900,
+            "unit": "session",
+            "tier": "Overnight (After March 1st)",
+            "year": 2027,
+            "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+            "quote": "Overnight (After March 1st): $900 (+$59 Fees)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["domain_not_reviewed"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 750,
+            "unit": "session",
+            "tier": "Commuter",
+            "year": 2027,
+            "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+            "quote": "Commuter: $750 (+$50 Fees)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["domain_not_reviewed"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [
+          {
+            "amount": 53,
+            "label": "Overnight fee, by August 1st",
+            "per": "session",
+            "year": 2027,
+            "url": "https://register.ryzer.com/camp.cfm?id=338224",
+            "quote": "Overnight (By August 1st): $800 (+$53 Fees)",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["platform_tenant_not_linked"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 56,
+            "label": "Overnight fee, by March 1st",
+            "per": "session",
+            "year": 2027,
+            "url": "https://register.ryzer.com/camp.cfm?id=338224",
+            "quote": "Overnight (By March 1st): $850 (+$56 Fees)",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["platform_tenant_not_linked"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 59,
+            "label": "Overnight fee, after March 1st",
+            "per": "session",
+            "year": 2027,
+            "url": "https://register.ryzer.com/camp.cfm?id=338224",
+            "quote": "Overnight (After March 1st): $900 (+$59 Fees)",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["platform_tenant_not_linked"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 50,
+            "label": "Commuter fee",
+            "per": "session",
+            "year": 2027,
+            "url": "https://register.ryzer.com/camp.cfm?id=338224",
+            "quote": "Commuter: $750 (+$50 Fees)",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["platform_tenant_not_linked"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Rd",
+            "town": "Arden",
+            "state": "NC",
+            "year": 2027,
+            "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+            "quote": "Location: 500 Christ School Rd, Arden, NC 28704",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["domain_not_reviewed"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "All meals included for overnight campers; commuter tuition includes meals but no lodging.",
+          "year": 2027,
+          "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+          "quote": "Overnight accomodations, all meals included",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["domain_not_reviewed"],
+            "checkedAt": "2026-10-29T00:56:15.069Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-06-20",
+            "time": null,
+            "precision": "date",
+            "year": 2027,
+            "url": "https://register.ryzer.com/camp.cfm?id=338224",
+            "quote": "Register By Jun 20, 2027 11:59pm CST",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["platform_tenant_not_linked", "needs_hand_check"],
+              "checkedAt": "2026-10-29T00:56:15.069Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": {
+          "status": "available",
+          "scope": "2027 session",
+          "year": 2027,
+          "url": "https://register.ryzer.com/camp.cfm?id=338224",
+          "quote": "Register for this event! Select a price option to continue.",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["platform_tenant_not_linked", "availability_status_not_in_quote"],
+            "checkedAt": "2026-10-29T00:56:15.069Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Overnight Camp",
+            "start": "2027-06-21",
+            "end": "2027-06-24",
+            "year": 2027
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": [],
+    "platformTenants": ["register.ryzer.com#309477"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "ages": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "lunch": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "availability": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 4,
+        "verified": 0,
+        "review": 4,
+        "dropped": 0
+      },
+      "fees": {
+        "total": 4,
+        "verified": 0,
+        "review": 4,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      },
+      "registration_milestones": {
+        "total": 1,
+        "verified": 0,
+        "review": 1,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 14,
+      "verified": 0,
+      "review": 14,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://register.ryzer.com/camp.cfm?id=309477",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.plumleebasketball.com/basketball-camp-at-christ-school.cfm",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://register.ryzer.com/camp.cfm?id=338224",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

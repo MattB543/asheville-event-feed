@@ -1,0 +1,173 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-swannanoa",
+    "name": "First Baptist Church of Swannanoa",
+    "urls": [
+      "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+      "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc"
+    ],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:37.543Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3a187cfc26ab90d2aed2cdfdc8222a24253b0226d9f1c521020f7be4f2151d79",
+  "response": {
+    "searches": [
+      "site:fbcswan.org \"2026\" \"camp\"",
+      "site:subsplash.com/firstbaptistchurchofswan \"Summer Camp\""
+    ],
+    "usage": {
+      "inputTokens": 25942,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1419,
+      "reasoningTokens": 203
+    },
+    "status": "completed",
+    "ms": 38120,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+      "chars": 1071,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+      "chars": 786,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register",
+      "chars": 542,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Swannanoa",
+    "website_url": "https://fbcswan.org/",
+    "notes": "No official summer 2027 information was found. VBS has explicit 2026 information. Summer Camp Alive! was found only on 2025 event pages, including a second week at https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bfz8ry47; its historical dates, prices, grades, hours and full-registration status are not carried forward as 2026 or 2027 facts. The church's Camp Eagle registration page does not identify a year or location.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp 2026",
+        "reason": "April 7–10, 2026 program outside summer."
+      },
+      {
+        "name": "Adult VBS 2026",
+        "reason": "Adult-only Vacation Bible School."
+      },
+      {
+        "name": "Summer Camp at Camp Eagle",
+        "reason": "The church's registration page does not identify the venue. The Camp Eagle found in official camp sources is in Fincastle, Virginia, plainly outside the directory's drive area; no local Camp Eagle site was established."
+      },
+      {
+        "name": "Children's ministry and preschool programs",
+        "reason": "Recurring Sunday School, Children's Church and Wednesday classes rather than finite summer camps."
+      },
+      {
+        "name": "412 Students",
+        "reason": "Recurring youth ministry meetings rather than a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible study, music and worship, games, crafts, snacks and missions through the Illumination Station theme.",
+        "camp_page_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+        "registration_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church Swannanoa",
+            "address": "503 Park St",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "Dinner begins at 5:30 PM. VBS runs from 6:00–8:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Camp Alive!",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A children's day camp with half-day and full-day options.",
+        "camp_page_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church Swannanoa",
+            "address": "503 Park St",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bfz8ry47"
+        ],
+        "confidence": "low",
+        "review_notes": "Only 2025 offerings were found. Check whether Summer Camp Alive! will return in 2027 and confirm its venue, eligibility, hours, fees and weeks. The supplied first event explicitly dates July 7–11, 2025; its 2026 copyright is not the program year."
+      }
+    ]
+  }
+}

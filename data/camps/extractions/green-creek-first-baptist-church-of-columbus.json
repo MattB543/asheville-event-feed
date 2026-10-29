@@ -1,0 +1,100 @@
+{
+  "provider": {
+    "key": "green-creek-first-baptist-church-of-columbus",
+    "name": "Green Creek First Baptist Church of Columbus",
+    "urls": ["https://vbspro.events/p/greencreekfb"],
+    "area": "Columbus, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:19.832Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bf0a525d5be26f6f09daea3860d5ca2487c480371fb293bafd44ef3e9ebf1811",
+  "response": {
+    "searches": [
+      "Green Creek First Baptist Church Columbus official VBS 2027",
+      "open https://vbspro.events/p/events/greencreekfb/details"
+    ],
+    "usage": {
+      "inputTokens": 14402,
+      "cachedInputTokens": 8845,
+      "outputTokens": 621,
+      "reasoningTokens": 92
+    },
+    "status": "completed",
+    "ms": 16036,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/greencreekfb",
+      "chars": 1936,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Green Creek First Baptist Church of Columbus",
+    "website_url": "https://greencreek.tithelysetup5.com/",
+    "notes": "No official 2027 VBS information was found. The church website and VBS details page returned no readable body text when opened; their official search results confirmed the church address and the Rome program description. The supplied 2026 registration page provides the dates, hours and closed registration status.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Rome VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School exploring Paul’s world and life for early Christians.",
+        "camp_page_url": "https://vbspro.events/p/greencreekfb",
+        "registration_url": "https://vbspro.events/p/greencreekfb",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Green Creek First Baptist Church",
+            "address": "534 Coxe Road",
+            "town": "Columbus",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": "5:30pm (EDT) to 8:00pm (EDT)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/greencreekfb",
+          "https://vbspro.events/p/events/greencreekfb/details",
+          "https://greencreek.tithelysetup5.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

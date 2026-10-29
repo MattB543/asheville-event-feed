@@ -1,0 +1,153 @@
+{
+  "provider": {
+    "key": "asheville-dance-theater",
+    "name": "Asheville Dance Theater",
+    "urls": ["https://ashevilledancetheater.com/summer_camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:28.144Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "46dd5ba335608ea0d1153f28219457983d7261507240ac2cacf1d3ee2f8cbed0",
+  "response": {
+    "searches": [
+      "site:ashevilledancetheater.com summer camp 2026 2027",
+      "site:ashevilledancetheater.com \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 18670,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1094,
+      "reasoningTokens": 142
+    },
+    "status": "completed",
+    "ms": 31458,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilledancetheater.com/summer_camp",
+      "chars": 2643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilledancetheater.com/fees",
+      "chars": 928,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilledancetheater.com/",
+      "chars": 1268,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Dance Theater",
+    "website_url": "https://ashevilledancetheater.com/",
+    "notes": "No 2027 camp information or camp registration dates found. The listed camp dates have no printed year; they are provisionally recorded as 2026 and require confirmation. Monthly tuition and class registration fees were not treated as camp prices.",
+    "excluded": [
+      {
+        "name": "Dance classes",
+        "reason": "Recurring dance lessons, including Creative Movement, Preschool, Ballet, Tap, Jazz, Hip Hop and Modern / Contemporary, rather than finite summer camps."
+      },
+      {
+        "name": "The Dancing Gems",
+        "reason": "Competitive company training, competitions and conventions throughout the dance season, not a finite summer camp."
+      },
+      {
+        "name": "Adult Ballet, Adult Tap and Stretch and Move",
+        "reason": "Adult-only recurring classes."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "half_day",
+        "categories": ["dance", "arts"],
+        "description": "Campers participate in themed crafts, snacks, short movies and dance activities. Camps include routines performed for friends and families.",
+        "camp_page_url": "https://ashevilledancetheater.com/summer_camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Dance Theater",
+            "address": "802 Fairview Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:00",
+          "text": "9:30am - 12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Bluey Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "K-Pop Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wicked Camp",
+            "start": "2026-08-03",
+            "end": "2026-08-06",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevilledancetheater.com/summer_camp",
+          "https://ashevilledancetheater.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Neither the camp page nor homepage prints a year with the dates. The dates are provisionally assigned to 2026 based on the Monday–Thursday alignment of K-Pop and Wicked camps and the homepage's May 29–31 recital weekend; confirm the year with the provider. The homepage also says 46 years since 1979, suggesting stale text. Bluey lists June 15–17 but describes a Thursday presentation, which would fall June 18 in 2026; retain the printed dates pending confirmation. The introductory text says two camps, but three current themes are listed."
+      }
+    ]
+  }
+}

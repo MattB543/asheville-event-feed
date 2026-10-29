@@ -1,0 +1,69 @@
+{
+  "method": "gap_fill",
+  "id": "r2-college-camps--asheville",
+  "input": "Find summer camps held at colleges and universities (athletics, academics, arts) open to kids for kids and teens in Asheville and Buncombe County, NC. Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:59:13.331Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 47575,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1052,
+    "reasoningTokens": 622
+  },
+  "searches": [
+    "UNC Asheville summer camps 2026 youth pre college",
+    "\"2026\" \"camp\" \"UNC Asheville\" -site:kidvoyage.com -site:teenlife.com",
+    "\"camp\" \"UNC Asheville\" \"2026\" \"Academy\"",
+    "\"Asheville\" \"2026\" \"camp\" \"iD Tech\"",
+    "site:abtech.edu \"2026\" \"camp\" \"ages\""
+  ],
+  "ms": 47114,
+  "candidates": [
+    {
+      "name": "University of North Carolina Asheville",
+      "url": "https://www.unca.edu/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "clinic", "overnight", "pre_college"],
+      "categories": ["sports", "academic", "stem", "arts", "music", "nature_outdoor"],
+      "note": "Youth athletics camps, STEAM Studio SkillSet camps, and residential high-school pre-college programs in sciences, arts and writing."
+    },
+    {
+      "name": "Warren Wilson College",
+      "url": "https://www.warrenwilsonsportscamps.com/",
+      "town": "Swannanoa",
+      "state": "NC",
+      "kinds": ["day", "half_day", "clinic"],
+      "categories": ["sports", "music", "dance"],
+      "note": "2026 full- and half-day youth basketball camps; tennis camps and Swannanoa Gathering folk-arts workshops with children's programming."
+    },
+    {
+      "name": "Montreat College",
+      "url": "https://www.montreat.edu/COMPASS/",
+      "town": "Montreat",
+      "state": "NC",
+      "kinds": ["pre_college", "overnight", "clinic"],
+      "categories": ["academic", "stem", "nature_outdoor", "sports", "faith_based"],
+      "note": "COMPASS academic immersion for rising high-school sophomores through college freshmen, June 20–24, 2027; also Cavalier sports camps."
+    },
+    {
+      "name": "Asheville-Buncombe Technical Community College",
+      "url": "https://abtech.edu/summercamps",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic", "stem"],
+      "note": "2026 Allied Health summer camp with hands-on healthcare labs and career exploration; age eligibility needs confirmation."
+    },
+    {
+      "name": "US Sports Camps",
+      "url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+      "town": "Montreat and Swannanoa",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["sports"],
+      "note": "2026 Nike baseball and softball camps at Montreat College and boys basketball at Warren Wilson College."
+    }
+  ]
+}

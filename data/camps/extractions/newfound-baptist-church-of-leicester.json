@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "newfound-baptist-church-of-leicester",
+    "name": "Newfound Baptist Church of Leicester",
+    "urls": ["https://www.newfoundbaptist.com/vbs", "https://www.newfoundbaptist.com/"],
+    "area": "Leicester, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:58.474Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a155c9e02478f15d76994f88a3f7d956dcd26ebc993ce879fd5464440a8c67bc",
+  "response": {
+    "searches": [
+      "site.newfoundbaptist.com VBS 2026 2027 \"July\"",
+      "\"Newfound Baptist\" \"Emerald\""
+    ],
+    "usage": {
+      "inputTokens": 18235,
+      "cachedInputTokens": 8845,
+      "outputTokens": 663,
+      "reasoningTokens": 116
+    },
+    "status": "completed",
+    "ms": 21624,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.newfoundbaptist.com/vbs",
+      "chars": 2184,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newfoundbaptist.com/",
+      "chars": 1577,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newfound Baptist Church of Leicester",
+    "website_url": "https://www.newfoundbaptist.com/",
+    "notes": "No 2027 camp announcement was found. The VBS page does not print a year; its dates are retained as inferred 2026 dates, with the uncertainty noted on the card.",
+    "excluded": [
+      {
+        "name": "Family Night",
+        "reason": "Single evening family celebration, not a separate supervised youth camp."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Seasonal festival outside summer."
+      },
+      {
+        "name": "Awana Clubs",
+        "reason": "School-year church program, not a finite summer camp."
+      },
+      {
+        "name": "Children's Bible Study",
+        "reason": "Recurring church class, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in music, Bible stories, crafts, and recreation. The Emerald Crossing theme explores Psalm 23 and David’s story.",
+        "camp_page_url": "https://www.newfoundbaptist.com/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Newfound Baptist Church",
+            "address": "2605 New Leicester Hwy",
+            "town": "Leicester",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:45",
+          "end": "20:45",
+          "text": "5:45-8:45 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Please contact the church office if you need transportation assistance at 683-3178."
+        },
+        "sources": ["https://www.newfoundbaptist.com/vbs", "https://www.newfoundbaptist.com/"],
+        "confidence": "medium",
+        "review_notes": "The VBS page prints July 26–30 and Family Night Friday July 31 without a year. Dates are interpreted as 2026, when July 31 falls on Friday; confirm the year with the church. Eligibility also includes preschoolers aged 4 and 5, who must be 4 and potty trained at the beginning of VBS; the completed kindergarten–eighth-grade range applies to older children. The page says online registration has ended but permits in-person registration, so overall availability is left null."
+      }
+    ]
+  }
+}

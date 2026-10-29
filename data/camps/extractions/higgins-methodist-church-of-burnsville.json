@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "higgins-methodist-church-of-burnsville",
+    "name": "Higgins Methodist Church of Burnsville",
+    "urls": ["https://www.higginsmethodist.com/vbs.html"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:18:38.078Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e88110ccccc702efe198a2190fde718c44a85bf209735be34b0784362ea14ade",
+  "response": {
+    "searches": ["site:higginsmethodist.com VBS 2027 2026"],
+    "usage": {
+      "inputTokens": 13609,
+      "cachedInputTokens": 8845,
+      "outputTokens": 853,
+      "reasoningTokens": 136
+    },
+    "status": "completed",
+    "ms": 21757,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.higginsmethodist.com/vbs.html",
+      "chars": 1708,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.higginsmethodist.com/",
+      "chars": 1654,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Higgins Methodist Church of Burnsville",
+    "website_url": "https://www.higginsmethodist.com/",
+    "notes": "No 2027 camp information found. The VBS page is headed 2026, but its Sunday July 13–Thursday July 17 weekday/date combination matches 2025, not 2026. Camp Funshine is promoted as a separate organization's volunteer opportunity, not a Higgins-operated camp.",
+    "excluded": [
+      {
+        "name": "Camp Funshine",
+        "reason": "A separate provider's camp; Higgins promotes volunteer opportunities and directs families to Summer Funshine's own website."
+      },
+      {
+        "name": "Kingdom Kidz After School Program",
+        "reason": "School-year after-school care, not a summer camp."
+      },
+      {
+        "name": "Night to Shine",
+        "reason": "A single social event outside summer, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School includes activities and study groups for children in first through fifth grades, middle school students, and high school students.",
+        "camp_page_url": "https://www.higginsmethodist.com/vbs.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Higgins Methodist Church",
+            "address": "101 N Main Street",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": "5:30 - 8:00pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A light dinner will be provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.higginsmethodist.com/vbs.html",
+          "https://www.higginsmethodist.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the VBS page's explicit 2026 heading. However, July 13–17, 2026 is Monday–Friday, whereas the page says Sunday–Thursday, which matches July 13–17, 2025. Confirm whether the heading or dates are stale. The page includes middle and high school groups without numeric grade limits, so the maximum grade is left null. No separate dated age-band sessions are listed. Online registration is mentioned, but no program-specific registration URL was identified."
+      }
+    ]
+  }
+}

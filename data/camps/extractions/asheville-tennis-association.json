@@ -1,0 +1,211 @@
+{
+  "provider": {
+    "key": "asheville-tennis-association",
+    "name": "Asheville Tennis Association",
+    "urls": ["https://www.avltennis.com/juniors/", "https://www.avltennis.com/terminettors"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:54:07.024Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "44e1232f36c31d96716fd573891aade7633715396bcfd611abd216febeabfdff",
+  "response": {
+    "searches": [
+      "site.avltennis.com \"2026\" \"camp\" Terminettors",
+      "\"Terminettors\" \"2026\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 25368,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1300,
+      "reasoningTokens": 170
+    },
+    "status": "completed",
+    "ms": 38838,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.avltennis.com/juniors/",
+      "chars": 7945,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.avltennis.com/terminettors",
+      "chars": 3662,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.avltennis.com/faqs",
+      "chars": 3046,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.avltennis.com/",
+      "chars": 2725,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Tennis Association",
+    "website_url": "https://www.avltennis.com/",
+    "notes": "No program-specific 2027 summer dates were found. The juniors page announces that programs resume in April 2027 with registration opening by March 1, but does not explicitly assign that announcement to either summer clinic; it is therefore not recorded as a summer registration milestone. Current pages have removed the detailed 2026 schedules. Searches did not recover official dated schedules or PDFs.",
+    "excluded": [
+      {
+        "name": "Aston Park Tennis Center Clinics",
+        "reason": "Recurring April–October tennis instruction rather than a separately identified finite summer camp or short summer clinic."
+      },
+      {
+        "name": "Junior Try Tennis® and Try Play",
+        "reason": "Intermittent year-round and after-school instructional lesson programs, not separately identified summer camps."
+      },
+      {
+        "name": "Junior Team Tennis",
+        "reason": "Competitive team season."
+      },
+      {
+        "name": "Junior Tournaments",
+        "reason": "Competitive tournaments rather than supervised camp or instructional clinic programs."
+      },
+      {
+        "name": "Terminettors spring and fall programming",
+        "reason": "After-school programming outside summer."
+      },
+      {
+        "name": "Private tennis lessons",
+        "reason": "Lessons booked individually, separate from ATA programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Terminettors Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "A five-day tennis camp introducing underrepresented youth in Buncombe County to tennis. Campers receive instruction, a tennis racquet, a camp shirt, snacks and daily lunches.",
+        "camp_page_url": "https://www.avltennis.com/terminettors",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Aston Park Tennis Center",
+            "address": "336 Hilliard Ave",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "healthy snacks and lunches each day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.avltennis.com/terminettors",
+          "https://www.ashevillenc.gov/news/aston-park-tennis-center-selected-as-1-of-6-national-host-sites-for-us-open-family-day-event/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Out and About in Buncombe County Clinics",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Beginner and advanced-beginner tennis clinics meet on two evenings within one week. Two instructors teach up to 14 participants.",
+        "camp_page_url": "https://www.avltennis.com/juniors/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "18:00",
+          "end": "19:30",
+          "text": "6:00-7:30pm on 2 evenings in the same week"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.avltennis.com/juniors/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Middle School Summer Clinic",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Tennis instruction for sixth- through eighth-graders who play on their middle school team or are considering joining. Players must be able to rally, serve and keep score; the clinic is capped at 12 players.",
+        "camp_page_url": "https://www.avltennis.com/juniors/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.avltennis.com/juniors/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

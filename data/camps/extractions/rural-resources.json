@@ -1,0 +1,289 @@
+{
+  "provider": {
+    "key": "rural-resources",
+    "name": "Rural Resources",
+    "urls": ["https://www.ruralresources.net/farm-day-camps"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:54.106Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "cf0a70937b1817258083e4d6a3c0e74e4cb6f3e15b1c821feb9eb033cc77b3e9",
+  "response": {
+    "searches": ["site:ruralresources.net \"2027\" camp"],
+    "usage": {
+      "inputTokens": 16846,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1788,
+      "reasoningTokens": 45
+    },
+    "status": "completed",
+    "ms": 30888,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ruralresources.net/farm-day-camps",
+      "chars": 2115,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/lil-sprouts-1-june-1-5",
+      "chars": 1757,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/explorers-1-june-8-12-2026",
+      "chars": 1491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/lil-sprouts-2-june-15-19",
+      "chars": 1770,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/explorers-2-june-22-26-2026",
+      "chars": 1497,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/explorers-3-july-6-10-2026",
+      "chars": 1491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/events-2/lil-sprouts-3-july-13-17",
+      "chars": 1770,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ruralresources.net/_files/ugd/15e416_3391421668bf4ec28f30175db54d6c30.pdf",
+      "chars": 3027,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rural Resources",
+    "website_url": "https://www.ruralresources.net/",
+    "notes": "No 2027 camp information or registration opening date was found. Dates and prices are from 2026. The linked scholarship application uses older program names and age/grade bands; those were not used for current camp eligibility. Its scholarship fee was not treated as a camp price.",
+    "excluded": [
+      {
+        "name": "Farm & Food Teen Training Program",
+        "reason": "A four-year, ongoing training program with school-year and summer classes and paid participation, rather than a finite summer camp."
+      },
+      {
+        "name": "F.A.R.M. [Farmer And Rancher Mentoring]",
+        "reason": "Paid internship and employment training program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Lil Sprouts",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers explore the farm and food education center, sing songs, participate in hands-on activities, and enjoy supervised water play at the creek.",
+        "camp_page_url": "https://www.ruralresources.net/farm-day-camps",
+        "registration_url": "https://www.ruralresources.net/farm-day-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rural Resources",
+            "address": "2870 Holly Creek Rd",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday - Friday, 9am - Noon"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 110,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "L1",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "L2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "L3",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Each year, thanks to the kind generosity of our donors and sponsors we are able to secure a small number of scholarships."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ruralresources.net/farm-day-camps",
+          "https://www.ruralresources.net/events-2/lil-sprouts-1-june-1-5",
+          "https://www.ruralresources.net/events-2/lil-sprouts-2-june-15-19",
+          "https://www.ruralresources.net/events-2/lil-sprouts-3-july-13-17"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Explorers",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "cooking"],
+        "description": "Campers explore the farm through activities including working with animals, arts and crafts, cooking, gardening, and creek stomping.",
+        "camp_page_url": "https://www.ruralresources.net/farm-day-camps",
+        "registration_url": "https://www.ruralresources.net/farm-day-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rural Resources",
+            "address": "2870 Holly Creek Rd",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Monday - Friday, 9:00am - 3:00pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 195,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "E1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "E2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "E3",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Each year, thanks to the kind generosity of our donors and sponsors we are able to secure a small number of scholarships."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ruralresources.net/farm-day-camps",
+          "https://www.ruralresources.net/events-2/explorers-1-june-8-12-2026",
+          "https://www.ruralresources.net/events-2/explorers-2-june-22-26-2026",
+          "https://www.ruralresources.net/events-2/explorers-3-july-6-10-2026"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

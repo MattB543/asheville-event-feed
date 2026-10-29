@@ -1,0 +1,66 @@
+{
+  "provider": {
+    "key": "buncombe-county-public-libraries",
+    "name": "Buncombe County Public Libraries",
+    "urls": ["https://www.buncombenc.gov/305/Summer-Learning-Program"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:10.703Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3c3569623d8679ef0e3719eff19f485c87069b95d1585770570b2b99f8a8756d",
+  "response": {
+    "searches": [
+      "site:buncombenc.gov libraries \"summer\" \"camp\" 2026",
+      "\"Buncombe\" \"library\" \"camp\" \"2026\" summer"
+    ],
+    "usage": {
+      "inputTokens": 21948,
+      "cachedInputTokens": 8845,
+      "outputTokens": 335,
+      "reasoningTokens": 124
+    },
+    "status": "completed",
+    "ms": 16681,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.buncombenc.gov/305/Summer-Learning-Program",
+      "chars": 4715,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombenc.gov/457/Register-of-Deeds",
+      "chars": 6865,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombenc.gov/",
+      "chars": 5070,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Buncombe County Public Libraries",
+    "website_url": "https://www.buncombenc.gov/161/Libraries",
+    "notes": "No qualifying supervised summer camp was found in the supplied official pages or targeted searches of the provider's official website and library calendar. The Summer Learning Program page announces the 2027 theme, Mysteries Await at Your Library, but does not describe a supervised camp or post camp dates or registration milestones. The supplied Register of Deeds page is unrelated to this provider's youth programs.",
+    "excluded": [
+      {
+        "name": "Summer Learning Program",
+        "reason": "A summer reading challenge and library activities, not an identified finite, supervised youth camp. The official page announces the 2027 theme, Mysteries Await at Your Library, without describing a camp format."
+      },
+      {
+        "name": "Story Times",
+        "reason": "Recurring library programming rather than a finite summer camp."
+      },
+      {
+        "name": "Adult Summer Reading Challenge",
+        "reason": "Adult-only, self-directed reading challenge rather than a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

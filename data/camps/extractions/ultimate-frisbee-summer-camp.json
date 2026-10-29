@@ -1,0 +1,278 @@
+{
+  "provider": {
+    "key": "ultimate-frisbee-summer-camp",
+    "name": "Ultimate Frisbee Summer Camp",
+    "urls": ["https://forms.gle/1nQy8WQhCtkkebke7"],
+    "area": "Asheville, NC",
+    "discovered_by": ["macaroni_kid", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:58.151Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "44fd0838b9d397f315bf8fbb60582c78342d74ab8469f129e30abf70e350a29b",
+  "response": {
+    "searches": ["\"UltimateFrisbeeSummerCamp\" \"2027\""],
+    "usage": {
+      "inputTokens": 21809,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2199,
+      "reasoningTokens": 166
+    },
+    "status": "completed",
+    "ms": 43398,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://forms.gle/1nQy8WQhCtkkebke7",
+      "chars": 8038,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.google.com/forms/about/?utm_source=product&utm_medium=forms_logo&utm_campaign=forms",
+      "chars": 30000,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ultimate Frisbee Summer Camp",
+    "website_url": "https://www.facebook.com/UltimateFrisbeeSummerCamp",
+    "notes": "No official 2027 information was found. The Facebook page and separate registration short link returned no readable text. The supplied 2026 information form is the primary source. Older listings mention Carrier Park and full-day options; these were not used because the 2026 form specifies Asheville Middle School and 9am–1pm.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Ultimate Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers learn Ultimate Frisbee fundamentals, techniques, rules and self-officiating through the Spirit of the Game.",
+        "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
+        "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Middle School Ultimate Field",
+            "address": "211 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9am-1pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 225,
+            "unit": "session",
+            "label": "Camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://docs.google.com/forms/d/e/1FAIpQLSfgwMiTFoBkuYdYdq49JjlxSRhTVe28TFhBxDApxCjIVi5WOQ/viewform?usp=send_form",
+          "https://ams.ashevillecityschools.net/students"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 form gives conflicting multiweek discounts: '$25 discount for multiple weeks!' and '$20 off each additional week!' Neither discount was entered. The $225 camper fee is presented alongside the weekly sessions, without an explicit billing unit."
+      },
+      {
+        "name": "Advanced/High School Pre Season Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An advanced/high school preseason Ultimate Frisbee camp.",
+        "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
+        "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Middle School Ultimate Field",
+            "address": "211 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9-1pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 225,
+            "unit": "session",
+            "label": "Camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://docs.google.com/forms/d/e/1FAIpQLSfgwMiTFoBkuYdYdq49JjlxSRhTVe28TFhBxDApxCjIVi5WOQ/viewform?usp=send_form",
+          "https://ams.ashevillecityschools.net/students"
+        ],
+        "confidence": "medium",
+        "review_notes": "The $225 camper fee is stated generally above the session list, without an explicit billing unit. The form also conflicts on multiweek discounts ($25 versus $20); neither discount was entered. The program title does not specify a numerical grade range."
+      },
+      {
+        "name": "CIT (Coaches in Training)",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A Coaches in Training program at Ultimate Frisbee Summer Camp.",
+        "camp_page_url": "https://forms.gle/1nQy8WQhCtkkebke7",
+        "registration_url": "https://forms.gle/VXAWyyUomLJVVUed8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Middle School Ultimate Field",
+            "address": "211 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://docs.google.com/forms/d/e/1FAIpQLSfgwMiTFoBkuYdYdq49JjlxSRhTVe28TFhBxDApxCjIVi5WOQ/viewform?usp=send_form",
+          "https://ams.ashevillecityschools.net/students"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official 2026 form names CIT, states it is free and asks whether the athlete is a CIT, but does not separately specify eligibility, duties, dates or hours. Confirm which camp sessions accept CIT participants and whether the half-day format applies."
+      }
+    ]
+  }
+}

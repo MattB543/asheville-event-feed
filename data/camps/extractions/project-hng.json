@@ -1,0 +1,117 @@
+{
+  "provider": {
+    "key": "project-hng",
+    "name": "Project HNG",
+    "urls": ["https://www.projecthng.org/programs/", "https://www.projecthng.org/summercamp2026"],
+    "area": "Fairview, NC",
+    "discovered_by": ["news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:10.850Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6b200a9c9f69287442645ab3bb9d4eb92055e2fc5ecb19cbf544f4e765c9a999",
+  "response": {
+    "searches": ["site:projecthng.org summer camp 2027 2026", "\"Project HNG\" \"camp\" \"June\""],
+    "usage": {
+      "inputTokens": 22808,
+      "cachedInputTokens": 8845,
+      "outputTokens": 561,
+      "reasoningTokens": 112
+    },
+    "status": "completed",
+    "ms": 19063,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.projecthng.org/programs/",
+      "chars": 3592,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.projecthng.org/summercamp2026",
+      "chars": 1126,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.projecthng.org/",
+      "chars": 2082,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Project HNG",
+    "website_url": "https://www.projecthng.org/",
+    "notes": "No 2027 camp dates or registration announcements were found. The supplied summer camp 2026 URL returns a page-not-found message, and searches did not locate an official dated 2026 schedule or registration page. The donation page suggests $650 to sponsor a week of camp; this is not included as a tuition price because it is a donation suggestion without a summer year.",
+    "excluded": [
+      {
+        "name": "Horseback Riding Lessons",
+        "reason": "Lessons booked as lessons, offered during spring, autumn and winter; not a summer camp."
+      },
+      {
+        "name": "Veterans Ride Community Program",
+        "reason": "Monthly veteran community rides, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Equine Assisted Therapy (EAT)",
+        "reason": "Individual therapeutic sessions, not a summer camp."
+      },
+      {
+        "name": "Project HNG Winter Benefit",
+        "reason": "Single fundraising evening outside summer, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Project HNG Summer Camp",
+        "type": "day",
+        "categories": ["arts", "horses", "nature_outdoor"],
+        "description": "Campers explore the arts, horseback riding and other activities in a farm setting.",
+        "camp_page_url": "https://www.projecthng.org/programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Project HNG",
+            "address": "15 Clarke Ln",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "provide scholarships to those who might not otherwise be able to attend"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.projecthng.org/programs/",
+          "https://www.projecthng.org/",
+          "https://www.projecthng.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

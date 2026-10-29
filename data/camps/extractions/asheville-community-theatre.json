@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "asheville-community-theatre",
+    "name": "Asheville Community Theatre",
+    "urls": ["https://ashevilletheatre.org/education/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:24.294Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ab59c1dc0d1f8dff8b4db41d8722b76ef4fc06524a08806d1e01ff92f1198332",
+  "response": {
+    "searches": [
+      "site:ashevilletheatre.org \"2026\" \"camp\"",
+      "site:ashevilletheatre.org \"2026\" \"Tanglewood\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 23544,
+      "cachedInputTokens": 8845,
+      "outputTokens": 830,
+      "reasoningTokens": 218
+    },
+    "status": "completed",
+    "ms": 26798,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilletheatre.org/education/summer-camp/",
+      "chars": 2993,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletheatre.org/",
+      "chars": 5450,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Community Theatre",
+    "website_url": "https://ashevilletheatre.org/",
+    "notes": "The official camp page says Summer 2026 programs have ended and Summer 2027 information will be posted at the beginning of 2027. Searches found no official 2026 schedule or brochure with dates, prices, ages or registration opening dates. The theatre publishes its address as 35 E. Walnut St., Asheville, NC 28801, but the current camp page does not explicitly identify a camp drop-off location.",
+    "excluded": [
+      {
+        "name": "Tanglewood Summer Camp teaching assistant and teaching positions",
+        "reason": "Employment positions, not camper programs."
+      },
+      {
+        "name": "Tanglewood Troupes",
+        "reason": "Year-long theatrical training programs; the troupe bootcamp is part of those programs rather than a separately offered summer camp."
+      },
+      {
+        "name": "Youth Productions",
+        "reason": "The posted offerings are fall, winter and spring production classes, not summer camps."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult-only classes for ages 18 and older."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Tanglewood Summer Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "A theatre camp for young people interested in exploring theatre.",
+        "camp_page_url": "https://ashevilletheatre.org/education/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Information for Summer 2027 will be posted at the beginning of 2027."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available by application for all summer camps."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://ashevilletheatre.org/education/summer-camp/"],
+        "confidence": "medium",
+        "review_notes": "The current page confirms the theatre camp and forthcoming 2027 information but does not explicitly state its day-camp format or camp location. Check the forthcoming 2027 program details for format and drop-off venue."
+      }
+    ]
+  }
+}

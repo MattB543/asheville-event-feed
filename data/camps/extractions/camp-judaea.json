@@ -1,0 +1,830 @@
+{
+  "provider": {
+    "key": "camp-judaea",
+    "name": "Camp Judaea",
+    "urls": ["https://www.campjudaea.org/dates-and-enrollment/", "https://www.campjudaea.org/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:08:30.849Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2fdd105b80df22d07b6af0a507dbcb5a25e2be4190e56c3cf1846314541a8438",
+  "response": {
+    "searches": [
+      "site.campjudaea.org \"A Day at CJ\"",
+      "open https://www.campjudaea.org/about/our-program/a-day-at-cj/",
+      "site:campjudaea.org \"Rishonim\" \"Taste\" \"10-12\"",
+      "site:campjudaea.org/about/our-program/ \"Rishonim\" -full-session"
+    ],
+    "usage": {
+      "inputTokens": 33494,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5600,
+      "reasoningTokens": 363
+    },
+    "status": "completed",
+    "ms": 98591,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campjudaea.org/dates-and-enrollment/",
+      "chars": 6264,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/",
+      "chars": 3683,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+      "chars": 14444,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/blog/",
+      "chars": 0,
+      "error": "fetch: HTTP 500; chrome-tls: HTTP 500 for https://www.campjudaea.org/blog/; browser: HTTP 500"
+    },
+    {
+      "url": "https://www.campjudaea.org/alumni/",
+      "chars": 4369,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shuk.campjudaea.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (getaddrinfo ENOTFOUND shuk.campjudaea.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND shuk.campjudaea.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at https://shuk.campjudaea.org/\nCall log:\n\u001b[2m  - navigating to \"https://shuk.campjudaea.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.campjudaea.org/support/giving-opportunities/",
+      "chars": 4313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/about/",
+      "chars": 4947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/about/camper-experience/",
+      "chars": 3794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campjudaea.org/about/our-program/",
+      "chars": 2579,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Judaea",
+    "website_url": "https://www.campjudaea.org/",
+    "notes": "Summer 2027 dates and rates are posted. No dated public registration opening was found. The dates page says registration is open, but A Day at CJ asks families to sign up for notification when registration opens. Direct enrollment-platform URLs could not be recovered from the readable pages. Tuition excludes transportation; the dates page also lists security fees of $180 for full-session campers and $90 for Rishonim, plus a 3% credit-card fee.",
+    "excluded": [
+      {
+        "name": "Gesher Counselor Cohort",
+        "reason": "Rising 12th graders join camp staff and work at CJ; this is an employment program."
+      },
+      {
+        "name": "Camp Tel Yehudah",
+        "reason": "Partner teen camp outside the Asheville-area drive radius; only the Atid portion held at Camp Judaea is included."
+      },
+      {
+        "name": "Young Judaea’s Gesher trip",
+        "reason": "Travel program to Israel, outside the geographic scope."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Discover CJ! and camp fairs",
+        "reason": "Informational events and fairs, not supervised summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "A Day at CJ",
+        "type": "day",
+        "categories": ["general", "faith_based", "nature_outdoor", "arts"],
+        "description": "Children try art, Israeli dance, archery, ropes-course activities and animal activities, with lunch in the dining hall. The program is for children who are not currently enrolled at Camp Judaea.",
+        "camp_page_url": "https://www.campjudaea.org/about/our-program/a-day-at-cj/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Judaea",
+            "address": "48 Camp Judaea Ln.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "17:30",
+          "text": "10:00 AM – 5:30 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "day",
+            "label": "No cost",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "First Session",
+            "start": "2027-06-20",
+            "end": "2027-06-20",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Second Session",
+            "start": "2027-07-18",
+            "end": "2027-07-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch in the Chadar Ochel (Dining Hall)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.campjudaea.org/about/our-program/a-day-at-cj/",
+          "https://www.campjudaea.org/dates-and-enrollment/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The dates page says 'Registration is open!' while this program's page says 'Sign up to get notified when registration opens!' Check program-specific registration availability."
+      },
+      {
+        "name": "Rishonim Taste of Camp Judaea",
+        "type": "overnight",
+        "categories": ["general", "faith_based"],
+        "description": "First-time campers participate in a short introductory residential program and sample activities offered in the longer sessions.",
+        "camp_page_url": "https://www.campjudaea.org/about/our-program/first-time-campers/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Judaea",
+            "address": "48 Camp Judaea Ln.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3250,
+            "unit": "session",
+            "label": "Tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rishonim Echad (1)",
+            "start": "2027-06-07",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rishonim Shtayim (2)",
+            "start": "2027-06-21",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rishonim Shalosh (3)",
+            "start": "2027-07-05",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rishonim Arba (4)",
+            "start": "2027-07-19",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-11-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Camp Judaea’s Scholarship Fund: Applications Open November 2, 2026",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The submission deadline for Camp Judaea’s Scholarship Fund applications is February 1, 2027.",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "CJ provides needs-based scholarships through the Camp Judaea Scholarship Fund."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please contact us if you have questions about whether or not Camp Judaea is the right place for your child."
+        },
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Camp Judaea offers optional buses to and from Atlanta, Charlotte, Durham, Greensboro, and Fairfax (VA), as well as group travel from South Florida."
+        },
+        "sources": [
+          "https://www.campjudaea.org/about/our-program/first-time-campers/",
+          "https://www.campjudaea.org/dates-and-enrollment/",
+          "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+          "https://www.campjudaea.org/about/camper-experience/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Full Session",
+        "type": "overnight",
+        "categories": ["general", "faith_based", "nature_outdoor", "sports"],
+        "description": "Campers participate in games, sports, projects and age-group educational activities. The Bogrim age group also takes a multi-day trip with outdoor activities and community service.",
+        "camp_page_url": "https://www.campjudaea.org/about/our-program/full-session/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Judaea",
+            "address": "48 Camp Judaea Ln.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 6400,
+            "unit": "session",
+            "label": "Offarim, Oranim, Sayarim, Tsofim and Kesher tuition",
+            "year": 2027
+          },
+          {
+            "amount": 7150,
+            "unit": "session",
+            "label": "Bogrim tuition, includes trip",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Offarim — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Offarim — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Oranim — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Oranim — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sayarim — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sayarim — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tsofim — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tsofim — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Kesher — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 8,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Kesher — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 8,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Bogrim — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Bogrim — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-11-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Camp Judaea’s Scholarship Fund: Applications Open November 2, 2026",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The submission deadline for Camp Judaea’s Scholarship Fund applications is February 1, 2027.",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "CJ provides needs-based scholarships through the Camp Judaea Scholarship Fund."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please contact us if you have questions about whether or not Camp Judaea is the right place for your child."
+        },
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Camp Judaea offers optional buses to and from Atlanta, Charlotte, Durham, Greensboro, and Fairfax (VA), as well as group travel from South Florida."
+        },
+        "sources": [
+          "https://www.campjudaea.org/about/our-program/full-session/",
+          "https://www.campjudaea.org/dates-and-enrollment/",
+          "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+          "https://www.campjudaea.org/about/camper-experience/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Chalutzim",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Participants take an outdoor adventure trip focused on group-building, leadership and nature knowledge. Back at CJ, they reflect on personal growth and their relationships with nature and one another.",
+        "camp_page_url": "https://www.campjudaea.org/about/our-program/teen-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Judaea",
+            "address": "48 Camp Judaea Ln.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 7150,
+            "unit": "session",
+            "label": "Tuition, includes trip",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Outdoor Adventure Track — First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outdoor Adventure Track — Second Session",
+            "start": "2027-07-05",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-11-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Camp Judaea’s Scholarship Fund: Applications Open November 2, 2026",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The submission deadline for Camp Judaea’s Scholarship Fund applications is February 1, 2027.",
+            "url": "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "CJ provides needs-based scholarships through the Camp Judaea Scholarship Fund."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please contact us if you have questions about whether or not Camp Judaea is the right place for your child."
+        },
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Camp Judaea offers optional buses to and from Atlanta, Charlotte, Durham, Greensboro, and Fairfax (VA), as well as group travel from South Florida."
+        },
+        "sources": [
+          "https://www.campjudaea.org/about/our-program/teen-programs/",
+          "https://www.campjudaea.org/dates-and-enrollment/",
+          "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+          "https://www.campjudaea.org/about/camper-experience/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Atid Leadership Seminar",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Participants spend a week at CJ receiving leadership training, completing a community service project and participating in traditional camp activities. Enrollment at Camp Tel Yehudah is required.",
+        "camp_page_url": "https://www.campjudaea.org/about/our-program/teen-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-16",
+          "end": "2027-06-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Judaea",
+            "address": "48 Camp Judaea Ln.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Tuition; TY enrollment required",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is open!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "CJ provides needs-based scholarships through the Camp Judaea Scholarship Fund."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please contact us if you have questions about whether or not Camp Judaea is the right place for your child."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campjudaea.org/about/our-program/teen-programs/",
+          "https://www.campjudaea.org/dates-and-enrollment/",
+          "https://www.campjudaea.org/dates-and-enrollment/tuition-assistance/",
+          "https://www.campjudaea.org/about/camper-experience/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

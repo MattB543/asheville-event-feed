@@ -1,0 +1,80 @@
+{
+  "provider": {
+    "key": "arp-conferences",
+    "name": "ARP Conferences",
+    "urls": ["https://arpconferences.org/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:24.341Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f966afd66b4e8032ab83c58aedd9038c63751f878ed9e93b2a4eefb20606f7c5",
+  "response": {
+    "searches": [
+      "site:arpconferences.org Quest Horizon conference Appalachia Mission work crew",
+      "open https://arpconferences.org/work-crew/"
+    ],
+    "usage": {
+      "inputTokens": 15731,
+      "cachedInputTokens": 8845,
+      "outputTokens": 453,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 16487,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://arpconferences.org/",
+      "chars": 1129,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/quest/register-for-quest/",
+      "chars": 2754,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/horizon/register-for-horizon/",
+      "chars": 2755,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/summer-2027/",
+      "chars": 977,
+      "method": "fetch"
+    },
+    {
+      "url": "http://arpconferences.org/wp-content/uploads/2025/06/Horizon-Schedule-2025.pdf",
+      "chars": 2204,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "ARP Conferences",
+    "website_url": "https://arpconferences.org/",
+    "notes": "The provider has posted its 2027 offerings. None qualify under the directory's camp rule: Quest and Horizon are explicitly youth conferences, Appalachia Mission is a mission trip, and Family Bible Conference is a family conference. Existing program names were retained in the exclusions. The attempted Work Crew and Family Bible Conference pages returned no readable text; Family Bible Conference is identified as a conference on the supplied homepage and the official About page.",
+    "excluded": [
+      {
+        "name": "Quest",
+        "reason": "An annual middle-school youth conference, excluded under the conference rule. Students lodge and participate with their church groups; the provider explicitly states that no camp counselors are provided."
+      },
+      {
+        "name": "Horizon",
+        "reason": "An annual high-school youth conference, excluded under the conference rule. Students lodge and participate with their church groups; the provider explicitly states that no camp counselors are provided."
+      },
+      {
+        "name": "Appalachia Mission",
+        "reason": "A mission trip in which youth groups and adults lead Vacation Bible Schools in Kentucky, Tennessee, and Virginia; mission trips are excluded. Its gathering site is Camp Jubilee in Tazewell, TN, outside the directory's area."
+      },
+      {
+        "name": "Family Bible Conference",
+        "reason": "A family conference, excluded under the conference rule rather than a separately identified supervised youth summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

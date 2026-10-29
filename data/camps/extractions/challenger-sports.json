@@ -1,0 +1,177 @@
+{
+  "provider": {
+    "key": "challenger-sports",
+    "name": "Challenger Sports",
+    "urls": [
+      "https://challengersports.com/soccer-camps/",
+      "https://challengersports.com/camp-finder/"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:29.150Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4bf921b9ae2c86fb2cd099c243d60761e5843764e8fc15e9d9d0a75b1f0e824f",
+  "response": {
+    "searches": [
+      "Challenger Sports Waynesville 2026 camp soccer",
+      "site:challenger.configio.com \"Waynesville\"",
+      "\"Challenger\" \"Waynesville\" \"June 15\""
+    ],
+    "usage": {
+      "inputTokens": 35832,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1347,
+      "reasoningTokens": 312
+    },
+    "status": "completed",
+    "ms": 40451,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://challengersports.com/soccer-camps/",
+      "chars": 9947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/camp-finder/",
+      "chars": 2441,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/wp-content/uploads/2025/10/Camps-With-Challenger-Sports.pdf",
+      "chars": 1085,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/foundational-skills-camps/",
+      "chars": 5941,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/wp-content/uploads/2025/10/Foundational-Skills-Camps-With-Challenger-Sports.pdf",
+      "chars": 1033,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/creative-skills-camps/",
+      "chars": 6060,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/wp-content/uploads/2025/10/Creative-Skills-Camps-With-Challenger-Sports.pdf",
+      "chars": 146,
+      "method": "fetch"
+    },
+    {
+      "url": "https://challengersports.com/camp-finder/?utm_source=Website+Camps+Page&utm_medium=Banner&utm_campaign=Early+Bird",
+      "chars": 2441,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Challenger Sports",
+    "website_url": "https://challengersports.com/",
+    "notes": "No official 2027 Waynesville camp schedule or registration opening date was found. The official Configio registration platform returned no readable program details. A third-party Kidvoyage listing reports Waynesville sessions June 15–19, 2026, at 550 Vance Street, but those dates, prices and the camp venue could not be verified on official camp pages and were omitted. The town confirms that 550 Vance Street is the Recreation Center's address, but this does not independently establish the camp's drop-off location.",
+    "excluded": [
+      {
+        "name": "Creative Skills Camps",
+        "reason": "National summer offering, but no local session within the Asheville service area could be established."
+      },
+      {
+        "name": "Team Camps",
+        "reason": "National customizable camp offering, but no local summer session could be established."
+      },
+      {
+        "name": "TinyTykes weekly sessions",
+        "reason": "Year-round weekly classes rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Foundational Skills Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Players practice technical soccer skills with international and US-based coaches. The curriculum also uses soccer to teach responsibility, integrity, respect, sportsmanship and leadership.",
+        "camp_page_url": "https://challengersports.com/foundational-skills-camps/",
+        "registration_url": "https://challenger.configio.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://challengersports.com/soccer-camps/",
+          "https://challengersports.com/foundational-skills-camps/",
+          "https://challengersports.com/camp-finder/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The ages are the national program's stated range, not a verified Waynesville session range. Confirm the local offering, dates, hours, venue and prices in Configio before publishing location-specific details. Kidvoyage lists local half-day and full-day options for ages 6–14, differing from the official national range of 6–12."
+      },
+      {
+        "name": "TinyTykes Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Children take part in soccer games, activities and adventures that develop coordination, balance, running, stopping, turning, kicking, dribbling, throwing and catching. Summer camps meet in short daily sessions Monday through Friday.",
+        "camp_page_url": "https://challengersports.com/soccer-camps/",
+        "registration_url": "https://challenger.configio.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "45 minutes- 1 hour per day."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://challengersports.com/soccer-camps/",
+          "https://challengersports.com/camp-finder/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The national page's overview says ages 2–5, while its summer-camp FAQ says ages 3–5 and explains that the year-round classes include two-year-olds. The card uses the summer-specific FAQ range and duration. Confirm local eligibility, dates, hours, venue and prices in Configio; no official Waynesville session details were readable."
+      }
+    ]
+  }
+}

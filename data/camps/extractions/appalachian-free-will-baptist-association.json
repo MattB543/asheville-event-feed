@@ -1,0 +1,123 @@
+{
+  "provider": {
+    "key": "appalachian-free-will-baptist-association",
+    "name": "Appalachian Free Will Baptist Association",
+    "urls": ["https://www.facebook.com/appyouthcamp/"],
+    "area": "Greeneville, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:20:59.664Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Appalachian Youth Camp\" 2026",
+      "The Oaks retreat conference center Greeneville address official",
+      "site:harmonychurch.org/camp \"2027\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 26996,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1051,
+      "reasoningTokens": 230
+    },
+    "status": "completed",
+    "ms": 37930,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/appyouthcamp/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Free Will Baptist Association",
+    "website_url": null,
+    "notes": "No standalone association website was found. Harmony Free Will Baptist publishes the camp's 2027 permission form and registration information. Facebook and direct page opens returned no readable text; camp information was accessible through official search-indexed content.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Appalachian Youth Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Campers spend four days and three nights together with structured activities and time for prayer and meditation.",
+        "camp_page_url": "https://harmonychurch.org/camp/",
+        "registration_url": "https://harmonychurch.org/camp/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-10",
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 17
+        },
+        "grades": {
+          "min": 4,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Oaks Family Conference Center and Camp",
+            "address": null,
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Includes all meals/snacks, lodging, and souvenirs",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-06-04",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The cost is $250 per child payable to Appalachian Youth Camp Board due no later than June 4th.",
+            "url": "https://harmonychurch.org/camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "ALL meals/snacks"
+        },
+        "transportation": {
+          "value": "no",
+          "text": "I understand that it’s my responsibility to either provide or arrange for transportation to and from camp."
+        },
+        "sources": [
+          "https://harmonychurch.org/camp/",
+          "https://www.oaksretreatcenter.com/contact",
+          "https://www.fwbfm.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official search-indexed camp page includes a 2027 permission form but retains an introductory reference to the 2025 online form. Confirm that the embedded registration form is for 2027. June 4 is explicitly a payment deadline, not an explicitly stated application deadline. Arrival is no later than 15:00 June 7; campers leave after the June 10 ceremony beginning at 10:30. The eligibility wording is rising grades 4–12 '(or who is 17yrs old)'. Venue address remains unresolved: third-party listings give 265 or 267 Camp Joshua Lane and 90 Stanley Lane; the operator identifies 90 Stanley Lane as its main office, while the venue's own readable indexed contact page supplies no street address. Confirm the camper drop-off address."
+      }
+    ]
+  }
+}

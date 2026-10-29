@@ -1,0 +1,249 @@
+{
+  "provider": {
+    "key": "trinity-episcopal-vbs",
+    "name": "Trinity Episcopal Church Asheville (Vacation Bible School)",
+    "urls": ["https://www.trinityasheville.org/vbs"],
+    "covers": ["vbs", "own_page"]
+  },
+  "verifiedAt": "2026-10-28T23:07:40.893Z",
+  "verifyMs": 7,
+  "extraction": {
+    "provider_name": "Trinity Episcopal Church Asheville",
+    "website_url": "https://www.trinityasheville.org/",
+    "notes": "No summer 2027 information found. Facts below describe 2026. The VBS page states 9:00–12:00, while the child-registration event lists an end time of 1:00 PM; the card uses the program page's hours. Both pages returned no readable body when opened; evidence uses exact text exposed in search results. The older /vbs-child-registration page has conflicting older dates and prices and was not used.",
+    "excluded": [
+      {
+        "name": "Godly Play and Sunday children's formation",
+        "reason": "Year-round religious education, not a finite summer camp."
+      },
+      {
+        "name": "Cherub Choir and Youth Choir",
+        "reason": "Recurring choir programs, not summer-only camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "variant": null,
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "camp_page_url": "https://www.trinityasheville.org/vbs",
+        "registration_url": "https://www.trinityasheville.org/event-details/vbs-2026-child-registration",
+        "description": "Children explore God's love through music, movement, crafts, science, yoga, and snacks. The fourth day includes water play.",
+        "season_dates": {
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "year": 2026,
+          "url": "https://www.trinityasheville.org/vbs",
+          "quote": "June 22-25, 2026",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.886Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 3,
+          "max": null,
+          "year": 2026,
+          "url": "https://www.trinityasheville.org/vbs",
+          "quote": "Ages 3 years old (potty trained) through 5th Grade (completed).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.886Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "completed",
+          "year": 2026,
+          "url": "https://www.trinityasheville.org/vbs",
+          "quote": "Ages 3 years old (potty trained) through 5th Grade (completed).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.886Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "year": 2026,
+          "url": "https://www.trinityasheville.org/vbs",
+          "quote": "9:00 - 12:00",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.886Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 45,
+            "unit": "program",
+            "tier": "Standard per child",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "Cost per child: $45 with a discounted fee for children of adult volunteers ($25 per child)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.886Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 25,
+            "unit": "program",
+            "tier": "Children of adult volunteers",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "Cost per child: $45 with a discounted fee for children of adult volunteers ($25 per child)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.886Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Trinity Episcopal Church",
+            "address": "60 Church St",
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/event-details/vbs-2026-child-registration",
+            "quote": "Trinity Episcopal, 60 Church St, Asheville, NC 28801, USA",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-28T23:07:40.886Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Contact Nanette Popa at Nanette@trinityasheville.org about scholarships.",
+          "year": 2026,
+          "url": "https://www.trinityasheville.org/vbs",
+          "quote": "Scholarships are always available if needed. Contact Nanette Popa Nanette@trinityasheville.org",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-28T23:07:40.886Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Vacation Bible School",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["trinityasheville.org"],
+    "platformTenants": [],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "ages": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 2,
+        "verified": 2,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 8,
+      "verified": 8,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.trinityasheville.org/vbs",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.trinityasheville.org/event-details/vbs-2026-child-registration",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

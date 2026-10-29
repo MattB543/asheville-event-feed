@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "serve-to-lead",
+    "name": "Serve To LEAD",
+    "urls": ["https://old.goservetolead.org/what-we-do/camps-service-opportunities/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:33.799Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "644769a61913d74a16257a22641fbfc333d7e2b85ae846d5a7b3696ff18421f9",
+  "response": {
+    "searches": [
+      "site:goservetolead.org Jumpstart summer 2026 2027",
+      "open https://goservetolead.org/asheville-student-summer-jumpstart-program/",
+      "site:goservetolead.org \"Jumpstart\" \"2026\"",
+      "site:goservetolead.org/asheville-student-summer-jumpstart-program/ \"program\" \"children\""
+    ],
+    "usage": {
+      "inputTokens": 25983,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1044,
+      "reasoningTokens": 367
+    },
+    "status": "completed",
+    "ms": 31662,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://old.goservetolead.org/what-we-do/camps-service-opportunities/",
+      "chars": 4077,
+      "method": "fetch"
+    },
+    {
+      "url": "https://old.goservetolead.org/leadership-service-events/register/",
+      "chars": 1042,
+      "method": "fetch"
+    },
+    {
+      "url": "https://old.goservetolead.org/",
+      "chars": 4386,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Serve To LEAD",
+    "website_url": "https://goservetolead.org/",
+    "notes": "No 2027 summer dates or registration milestones were found. The current official Summer Jumpstart page was indexed recently but returned no readable body when opened; its search snippet confirms the program's academic purpose. No usable 2026 schedule, prices, registration opening or drop-off address were found. Historical summer reports were not used to populate current ages or dates.",
+    "excluded": [
+      {
+        "name": "Youthful HAND after-school programming",
+        "reason": "School-year after-school care, rather than a finite summer camp."
+      },
+      {
+        "name": "Workforce Development",
+        "reason": "Youth employment and workforce-readiness programming."
+      },
+      {
+        "name": "World Changer Clubs",
+        "reason": "School-year leadership and service clubs rather than finite summer camps."
+      },
+      {
+        "name": "International Service Teams",
+        "reason": "International mission and service trips; also outside the Asheville-area drive range."
+      },
+      {
+        "name": "Youth Leadership Camp in Dominican Republic",
+        "reason": "Held in the Dominican Republic, outside the Asheville-area drive range."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youthful HAND Summer Jumpstart Program",
+        "type": "day",
+        "categories": ["academic", "general"],
+        "description": "A summer academic enrichment program that helps low-income Asheville students bridge learning gaps and prepare for the upcoming school year.",
+        "camp_page_url": "https://goservetolead.org/asheville-student-summer-jumpstart-program/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://goservetolead.org/asheville-student-summer-jumpstart-program/",
+          "https://old.goservetolead.org/serve-to-leads-jumpstart-program-bridges-gaps-for-diverse-asheville-youth/",
+          "https://old.goservetolead.org/summer-camp-advances-education-opportunity/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current Summer Jumpstart page could only be read through its official search snippet. Check the full page for current eligibility, schedule, registration and drop-off location. Historical reports place summer programming in Hillcrest, but a current venue and its street address could not be established. The existing program name was retained."
+      }
+    ]
+  }
+}

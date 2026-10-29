@@ -1,0 +1,193 @@
+{
+  "provider": {
+    "key": "north-carolina-association-of-student-councils",
+    "name": "North Carolina Association of Student Councils",
+    "urls": ["https://ncasc.us/summer-workshop/"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:29:08.472Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9bf3d92263de92d6fd441705c9ab74cdab8a9bb50d1e3010e79f19aa5d32b5d5",
+  "response": {
+    "searches": ["site.mhu.edu \"100 Athletic\""],
+    "usage": {
+      "inputTokens": 20533,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1329,
+      "reasoningTokens": 122
+    },
+    "status": "completed",
+    "ms": 26496,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ncasc.us/summer-workshop/",
+      "chars": 3910,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncasc.us/wp-content/uploads/2026/06/NCASC-2026-Advance-Info-for-Delegates.pdf",
+      "chars": 16949,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncasc.us/wp-content/uploads/2026/04/Mars-Hill-Brochure-2026.pdf",
+      "chars": 1491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncasc.us/wp-content/uploads/2026/04/26-Mars-Hill-Tentative-Schedule.pdf",
+      "chars": 1987,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncasc.us/wp-content/uploads/2026/04/NCASC-Summer-Leadership-Workshop-FAQs.pdf",
+      "chars": 3529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncasc.us/",
+      "chars": 3460,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Carolina Association of Student Councils",
+    "website_url": "https://ncasc.us/",
+    "notes": "The workshop page posts 2027 dates, prices and registration windows, but still links 2026 delegate information, brochure and schedule. Eligibility and meal coverage below come from the 2026 materials; updated 2027 documents are pending.",
+    "excluded": [
+      {
+        "name": "State convention and district leadership conferences",
+        "reason": "Conferences and conventions are excluded."
+      },
+      {
+        "name": "Advisor Program",
+        "reason": "Adult adviser training within the workshop, not a separate youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Leadership Workshop",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "Student leaders practice leadership skills through hands-on activities, small-group sessions and team challenges.",
+        "camp_page_url": "https://ncasc.us/summer-workshop/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "100 Athletic Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 425,
+            "unit": "program",
+            "label": "Early Birds",
+            "year": 2027
+          },
+          {
+            "amount": 450,
+            "unit": "program",
+            "label": "Members",
+            "year": 2027
+          },
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": "Non-members",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "opens",
+            "date": "2027-05-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird Registration: May 1-15",
+            "url": "https://ncasc.us/summer-workshop/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "early_bird",
+            "kind": "closes",
+            "date": "2027-05-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird Registration: May 1-15",
+            "url": "https://ncasc.us/summer-workshop/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-05-16",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Reglar Registration: May 16-31",
+            "url": "https://ncasc.us/summer-workshop/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "All schools may register students at the increased rate during this time; however, registration may close early if all beds are full",
+            "url": "https://ncasc.us/summer-workshop/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarship recipients should register at this time as well."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes: meals and lodging for 5 days/ 4 nights; snacks; materials; t-shirt; picture."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ncasc.us/summer-workshop/",
+          "https://ncasc.us/wp-content/uploads/2026/04/Mars-Hill-Brochure-2026.pdf",
+          "https://ncasc.us/wp-content/uploads/2026/06/NCASC-2026-Advance-Info-for-Delegates.pdf",
+          "https://www.marshilllions.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 brochure limits participation to middle and high school student leaders approved for their school's delegation, accompanied by an adviser or responsible adult; confirm this requirement for 2027. No numeric grade range is specified for the workshop. Meal coverage is explicitly stated only in the 2026 brochure. The 2026 arrival location is Broyhill Chapel; the 2027 page names only Mars Hill University. The individual registration form destination could not be retrieved. Registration windows without printed years are interpreted within the page's explicit 2027 workshop heading."
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "morganton-first-church-of-god",
+    "name": "Morganton First Church of God",
+    "urls": ["https://m1cog.org/events/2026/07/27/vbs"],
+    "area": "Morganton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.clov"
+  },
+  "extractedAt": "2026-10-29T17:32:32.920Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:m1cog.org VBS 2026 2027 Wonder Junction",
+      "site:m1cog.org/events/2026/07/ \"VBS\"",
+      "site:m1cog.org/events/2026/07/30/vbs"
+    ],
+    "usage": {
+      "inputTokens": 19379,
+      "cachedInputTokens": 8845,
+      "outputTokens": 721,
+      "reasoningTokens": 235
+    },
+    "status": "completed",
+    "ms": 25407,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://m1cog.org/events/2026/07/27/vbs",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://m1cog.org/events/2026/07/27/vbs\nCall log:\n\u001b[2m  - navigating to \"https://m1cog.org/events/2026/07/27/vbs\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://m1cog.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: m1cog.org. is not in the cert's altnames: DNS:*.cloversites.com, DNS:cloversites.com); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://m1cog.org/\nCall log:\n\u001b[2m  - navigating to \"https://m1cog.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Morganton First Church of God",
+    "website_url": "https://m1cog.org/",
+    "notes": "No 2027 camp information found. The official website blocks direct access via robots.txt; 2026 VBS details were read from indexed official event pages. Confirm whether VBS continued beyond July 29; only July 26–29 events were found.",
+    "excluded": [
+      {
+        "name": "Adventure Kids",
+        "reason": "Recurring year-round children's church classes, not a finite summer camp."
+      },
+      {
+        "name": "The Ridge Youth Ministries",
+        "reason": "Recurring youth ministry meetings, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Wonder Junction VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Evening Vacation Bible School for children.",
+        "camp_page_url": "https://m1cog.org/events/2026/07/27/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Morganton 1st Church of God",
+            "address": "675 Summers Road",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://m1cog.org/events/2026/07/26/vbs",
+          "https://m1cog.org/events/2026/07/27/vbs",
+          "https://m1cog.org/events/2026/07/28/vbs",
+          "https://m1cog.org/events/2026/07/29/vbs",
+          "https://m1cog.org/services"
+        ],
+        "confidence": "medium",
+        "review_notes": "Details came from indexed official pages because direct access was blocked. The year is explicit in the event URLs. July 26–29 each list VBS from 6–8pm; check the church calendar for any additional dates beyond July 29. Ages, pricing and registration details were not found."
+      }
+    ]
+  }
+}

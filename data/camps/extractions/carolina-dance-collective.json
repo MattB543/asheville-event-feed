@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "carolina-dance-collective",
+    "name": "Carolina Dance Collective",
+    "urls": ["https://www.carolinadancecollective.com/splash"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:45.653Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0433b8348b660b23d974967ab227c9784c5ae36377ecc7615603ea84325a5c8e",
+  "response": {
+    "searches": ["site:carolinadancecollective.com summer camp SPLASH 2026 2027"],
+    "usage": {
+      "inputTokens": 14465,
+      "cachedInputTokens": 8845,
+      "outputTokens": 705,
+      "reasoningTokens": 105
+    },
+    "status": "completed",
+    "ms": 22931,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.carolinadancecollective.com/splash",
+      "chars": 1119,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinadancecollective.com/schedule",
+      "chars": 1953,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinadancecollective.com/",
+      "chars": 1185,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolina Dance Collective",
+    "website_url": "https://www.carolinadancecollective.com/",
+    "notes": "No 2027 or 2026 summer camp information was found. The SPLASH page is an old announcement headed COMING JULY 2022; its dates and grade bands have not been carried forward. The 2026-2027 class schedule is a school-year schedule, not a summer camp announcement.",
+    "excluded": [
+      {
+        "name": "2026-2027 Class Schedule",
+        "reason": "School-year dance classes, not a finite summer camp."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult dance classes, not supervised youth summer programs."
+      },
+      {
+        "name": "Carolina Dance Center Summer Camps",
+        "reason": "A different provider located in Raleigh, NC, outside the directory's area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SPLASH",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "A summer dance camp offering ballet, tap, jazz, modern, musical theatre, and improvisation.",
+        "camp_page_url": "https://www.carolinadancecollective.com/splash",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carolina Dance Collective",
+            "address": "1266 Asheville Highway, Suite 2",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.carolinadancecollective.com/splash",
+          "https://www.carolinadancecollective.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The only camp announcement found is explicitly for July 2022. Confirm that SPLASH will return in 2027 and confirm its format, location, eligibility, dates, and hours. The day-camp classification is inferred from the studio summer camp announcement; hours are not published. The old Registration Coming Soon wording is not a 2027 announcement."
+      }
+    ]
+  }
+}

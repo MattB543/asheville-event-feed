@@ -1,0 +1,227 @@
+{
+  "provider": {
+    "key": "discovery-trails-learning-academy",
+    "name": "Discovery Trails Learning Academy",
+    "urls": ["https://discoverytrailsschool.org/summer-camp/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:26.320Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8051b998f79fdc184ba7c0c49765279abbe926458d9c1e0fb80b7c1968c11ad1",
+  "response": {
+    "searches": [
+      "site:discoverytrailsschool.org \"2027\"",
+      "open https://discoverytrailsschool.org/summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 21571,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1649,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 34659,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://discoverytrailsschool.org/summer-camp/",
+      "chars": 8776,
+      "method": "fetch"
+    },
+    {
+      "url": "https://discoverytrailsschool.org/enrollment-options-and-tuition/",
+      "chars": 3395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://discoverytrailsschool.org/preschool-enrollment/",
+      "chars": 868,
+      "method": "fetch"
+    },
+    {
+      "url": "https://discoverytrailsschool.org/summer-camp-sign-up/",
+      "chars": 632,
+      "method": "fetch"
+    },
+    {
+      "url": "https://discoverytrailsschool.org/preschool-camp/",
+      "chars": 3192,
+      "method": "fetch"
+    },
+    {
+      "url": "https://discoverytrailsschool.org/preschool-camp-sign-up/",
+      "chars": 638,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/discovery-trails-afterschool-academy/schedules/activity-set/1753675",
+      "chars": 428,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/discovery-trails-afterschool-academy/schedules/activity-set/1753676",
+      "chars": 428,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Discovery Trails Learning Academy",
+    "website_url": "https://discoverytrailsschool.org/",
+    "notes": "No summer 2027 information was found. The homepage says sign-ups for 2026 are available; the camp pages themselves do not print a year. Sawyer registration pages did not expose session details. Summer Camp lists eight themes but no readable dates, so dated session rows could not be populated.",
+    "excluded": [
+      {
+        "name": "Our K–5 Homeschool Co-op / Microschool",
+        "reason": "School-year academic instruction and enrichment, not a finite summer camp."
+      },
+      {
+        "name": "Adventure Fridays",
+        "reason": "School-year Friday enrichment and field trips."
+      },
+      {
+        "name": "Preschool",
+        "reason": "Regular preschool enrollment, distinct from Preschool Summer Camp."
+      },
+      {
+        "name": "Discovery Trails Summer Day Camp — YMCA of Greater Flint",
+        "reason": "Different provider in Michigan, outside the Asheville area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "arts"],
+        "description": "Campers explore weekly outdoor, science, and art themes through hands-on activities. Each group takes field trips twice a week.",
+        "camp_page_url": "https://discoverytrailsschool.org/summer-camp/",
+        "registration_url": "https://discoverytrailsschool.org/summer-camp-sign-up/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Discovery Trails Learning Academy",
+            "address": "2046 N Rugby Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:45",
+          "end": "15:00",
+          "text": "Monday–Friday; Group A runs 8:00 AM–3:00 PM and Group B runs 7:45 AM–2:45 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 320,
+            "unit": "week",
+            "label": "All weeks except Ninja Nature Games",
+            "year": 2026
+          },
+          {
+            "amount": 340,
+            "unit": "week",
+            "label": "Ninja Nature Games",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://discoverytrailsschool.org/summer-camp/",
+          "https://discoverytrailsschool.org/summer-camp-sign-up/",
+          "https://discoverytrailsschool.org/contact-us/",
+          "https://discoverytrailsschool.org/",
+          "https://www.hisawyer.com/discovery-trails-afterschool-academy/schedules/activity-set/1753675",
+          "https://www.hisawyer.com/discovery-trails-afterschool-academy/schedules/activity-set/1753676"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 attribution is based on the homepage, not a year printed on the camp page. Verify dates for the eight themes: Trail Rangers; Forest Potions & Magical Nature Science; Woodland Builders; Wildcrafting & Useful Plants; Art in the Wild; Ninja Nature Games; Caring for Creatures; Trailblazers in Space. No dates were readable on Sawyer. The site address is the provider's published location; the camp page does not separately confirm the drop-off address. The stated remaining balance of $220 does not account for the higher Ninja week price."
+      },
+      {
+        "name": "Preschool Summer Camp",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "arts", "general"],
+        "description": "Children participate in outdoor exploration, sensory play, art, nature crafts, storytime, and imaginative play. Fridays are Splash Day.",
+        "camp_page_url": "https://discoverytrailsschool.org/preschool-camp/",
+        "registration_url": "https://discoverytrailsschool.org/preschool-camp-sign-up/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": null,
+          "text": "Weeks of June 8th through the end of July"
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Discovery Trails Learning Academy",
+            "address": "2046 N Rugby Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday–Friday, 9:00 AM–1:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Please send your child with: Packed lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://discoverytrailsschool.org/preschool-camp/",
+          "https://discoverytrailsschool.org/preschool-camp-sign-up/",
+          "https://discoverytrailsschool.org/contact-us/",
+          "https://discoverytrailsschool.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page prints June 8 through the end of July without a year or exact final date; 2026 attribution is based on the homepage. Individual weeks are not listed, so no weekly rows were generated. The site address is the provider's published location rather than a separately stated camp drop-off address. Children must be fully potty trained. Each week requires at least six campers to run."
+      }
+    ]
+  }
+}

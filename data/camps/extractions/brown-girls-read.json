@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "brown-girls-read",
+    "name": "Brown Girls Read",
+    "urls": ["https://browngirlsread.org/summer-camp/"],
+    "area": "Spartanburg, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:54.834Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0929dde00369edaf937f21a47b496ac710f14b1cef0081dcdfb0124d0aecf86a",
+  "response": {
+    "searches": [
+      "site:browngirlsread.org \"camp\" \"2026\"",
+      "site.wofford.edu \"429 North Church\""
+    ],
+    "usage": {
+      "inputTokens": 22476,
+      "cachedInputTokens": 8845,
+      "outputTokens": 812,
+      "reasoningTokens": 136
+    },
+    "status": "completed",
+    "ms": 21681,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://browngirlsread.org/summer-camp/",
+      "chars": 1648,
+      "method": "fetch"
+    },
+    {
+      "url": "https://browngirlsread.org/",
+      "chars": 2923,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brown Girls Read",
+    "website_url": "https://browngirlsread.org/",
+    "notes": "No 2027 camp information or registration milestones found. The 2026 residential camp details are posted on the provider's Zeffy registration page. Empower Her Innovators has no finite summer schedule posted, so it is not included as a summer camp.",
+    "excluded": [
+      {
+        "name": "After-School Partnerships",
+        "reason": "School-year after-school programming, not a summer camp."
+      },
+      {
+        "name": "EmpowerHer Gala",
+        "reason": "Single evening fundraising event, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Crowned & Confident BRG Summer Camp",
+        "type": "overnight",
+        "categories": ["academic", "arts"],
+        "description": "Girls explore literature and participate in personal storytelling, vision boards, affirmation activities, professional photo shoots, and author panel discussions.",
+        "camp_page_url": "https://browngirlsread.org/summer-camp/",
+        "registration_url": "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-26",
+          "end": "2026-06-28",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Wofford College",
+            "address": "429 North Church Street",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "June 26 at 8:00 AM to June 28 at 5:00 PM EDT"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "program",
+            "label": "General Admission",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "For Scholarship Opportunities, fill out the SAM form HERE: 2026 Scholarship Request"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://browngirlsread.org/summer-camp/",
+          "https://browngirlsread.org/",
+          "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
+          "https://www.wofford.edu/admission/visit/directions-and-map"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

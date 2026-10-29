@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "cedar-creek-independent-missionary-baptist-church-of-johnson-city",
+    "name": "Cedar Creek Independent Missionary Baptist Church of Johnson City",
+    "urls": ["https://www.cedarcreekmissionarybaptistchurch.org/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:49.738Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7e8a68e2cfcd6db9a74982bf40a3a8c46667c45d27b8fb515e18e8f600a40635",
+  "response": {
+    "searches": [
+      "site:cedarcreekmissionarybaptistchurch.org \"Visit\"",
+      "\"Cedar Creek Independent Missionary Baptist\" \"Vacation Bible\" 2026",
+      "open https://www.cedarcreekmissionarybaptistchurch.org/vbs"
+    ],
+    "usage": {
+      "inputTokens": 18193,
+      "cachedInputTokens": 8845,
+      "outputTokens": 876,
+      "reasoningTokens": 202
+    },
+    "status": "completed",
+    "ms": 24748,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+      "chars": 2608,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+      "chars": 428,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cedar Creek Independent Missionary Baptist Church of Johnson City",
+    "website_url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+    "notes": "No 2027 information found. The official VBS registration page's search-indexed text lists June 26-28, 2026, although the page returned no readable text when opened and the supplied crawler text was blank. The homepage still lists July 11-13, 2025; those older dates and hours have not been carried forward.",
+    "excluded": [
+      {
+        "name": "Kids 4 Christ",
+        "reason": "School-year Wednesday-night youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Crossbearers",
+        "reason": "Recurring youth-group class, not a finite summer camp."
+      },
+      {
+        "name": "Cedar Creek Christian Camp",
+        "reason": "Different organization in Strasburg, Virginia, outside the directory's geographic area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+        "registration_url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-26",
+          "end": "2026-06-28",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cedar Creek Independent Missionary Baptist Church",
+            "address": "262 Cedar Creek Road",
+            "town": "Gray",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cedarcreekmissionarybaptistchurch.org/",
+          "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+          "https://www.cedarcreekmissionarybaptistchurch.org/visit-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 dates come only from the official VBS page's search-indexed text, which reads 'Cedar Creek Baptist Church Vacation Bible School June 26-28, 2026' and names the theme PromisedLand. Direct opening returned no readable text. Confirm those dates and the camp meeting location; the site address is the church's published location. No 2026 hours or age limits were found."
+      }
+    ]
+  }
+}

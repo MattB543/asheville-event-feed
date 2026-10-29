@@ -1,0 +1,79 @@
+{
+  "method": "gap_fill",
+  "id": "r2-college-camps--south-west",
+  "input": "Find summer camps held at colleges and universities (athletics, academics, arts) open to kids for kids and teens in Henderson, Transylvania, Polk, Haywood and Jackson counties, NC (Hendersonville, Brevard, Tryon, Waynesville, Sylva). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T04:00:05.024Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 50812,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1239,
+    "reasoningTokens": 627
+  },
+  "searches": [
+    "Brevard College summer camps 2026 youth",
+    "\"college\" \"summer camp\" \"Polk\" \"2025\"",
+    "site.southwesterncc.edu \"camp\" \"2025\"",
+    "\"SCC\" \"summer camps\" \"Sylva\"",
+    "\"Western Carolina University\" \"2026\" \"camp\" \"overnight\"",
+    "\"Western Carolina University\" \"2026\" \"camp\" \"UCA\""
+  ],
+  "ms": 51691,
+  "candidates": [
+    {
+      "name": "Brevard College",
+      "url": "https://brevard.edu/campusadventures/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["day", "half_day", "clinic"],
+      "categories": ["academic", "arts", "music", "sports"],
+      "note": "Campus Adventures enrichment, high-school Choral Institute, and youth basketball and baseball camps in 2025–2026."
+    },
+    {
+      "name": "Blue Ridge Community College",
+      "url": "https://www.blueridge.edu/community/summer-camps/",
+      "town": "Flat Rock; Brevard",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic", "stem"],
+      "note": "2026 Summer Academy offered eight hands-on career-exploration camps for elementary through high-school students on both campuses."
+    },
+    {
+      "name": "Haywood Community College",
+      "url": "https://www.haywood.edu/events/bobcat-college.php",
+      "town": "Clyde",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic", "stem", "arts", "nature_outdoor"],
+      "note": "Bobcat College summer day camp for rising grades 6–8 covers STEM, arts, healthcare, forensics and survival skills."
+    },
+    {
+      "name": "Southwestern Community College",
+      "url": "https://www.southwesterncc.edu/summer-camps/",
+      "town": "Sylva",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["academic"],
+      "note": "2025 Be a Trep! entrepreneurship day camp for rising grades 6–9 at the Jackson Campus."
+    },
+    {
+      "name": "Western Carolina University",
+      "url": "https://www.wcu.edu/engage/professional-enrichment/camps-and-programs-for-kids/index.aspx",
+      "town": "Cullowhee",
+      "state": "NC",
+      "kinds": ["day", "clinic"],
+      "categories": ["academic", "sports", "general"],
+      "note": "2026 youth offerings include Mages in the Mountains for rising grades 3–5, Lil’ Cats recreation camp and athletics camps."
+    },
+    {
+      "name": "P.R. Running Camp",
+      "url": "https://info.abcsportscamps.com/prrunningcamps",
+      "town": "Cullowhee",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports"],
+      "note": "July 2027 residential running camps at Western Carolina University for students graduating high school in 2028–2033."
+    }
+  ]
+}

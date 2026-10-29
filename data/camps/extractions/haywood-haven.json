@@ -1,0 +1,131 @@
+{
+  "provider": {
+    "key": "haywood-haven",
+    "name": "Haywood Haven",
+    "urls": ["https://www.haywoodhaven.org/summer-program/", "https://www.haywoodhaven.org/"],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:13.808Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4524730b51ae14b583109c6ae3dd8cb67c41ee22fdd09486e83114c1e5df023f",
+  "response": {
+    "searches": [
+      "site:haywoodhaven.org summer 2026 2027",
+      "site:haywoodhaven.org \"summer\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 27502,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1032,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 30994,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.haywoodhaven.org/summer-program/",
+      "chars": 7848,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.haywoodhaven.org/",
+      "chars": 7655,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.haywoodhaven.org/faq/",
+      "chars": 8091,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.haywoodhaven.org/request-information-about-enrollment/",
+      "chars": 4954,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Haywood Haven",
+    "website_url": "https://www.haywoodhaven.org/",
+    "notes": "No summer 2027 announcement or explicitly dated summer 2026 materials were found. The summer page still says “Register for Summer 2025,” but its June 2–August 27 activity dates match Tuesdays and Thursdays in 2026, not 2025. Dates and prices are omitted rather than assigning this conflicting material to a year. The inquiry form describes summer-camp admission by inquiry, follow-up, and invitation to register, with a $75 per-family registration fee, but does not identify a summer year.",
+    "excluded": [
+      {
+        "name": "Monthly Adventures for the Whole Family",
+        "reason": "Optional family outings requiring parent or guardian attendance and family-provided supervision and transportation."
+      },
+      {
+        "name": "Our Classes",
+        "reason": "School-year academic and enrichment classes, not a finite summer camp."
+      },
+      {
+        "name": "Kinder Prep",
+        "reason": "School-year preschool program."
+      },
+      {
+        "name": "BBQ Fundraiser",
+        "reason": "Fall fundraising dinner, not a supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Community Center",
+        "type": "day",
+        "categories": ["academic", "faith_based", "general"],
+        "description": "Children play math and language arts games in the morning and participate in afternoon projects such as cooking, crafts, woodworking, drama, and nature activities in a Christ-centered environment.",
+        "camp_page_url": "https://www.haywoodhaven.org/summer-program/",
+        "registration_url": "https://www.haywoodhaven.org/haywood-haven-inquiry-form/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Providence Church",
+            "address": "1400 Old Clyde Road",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:00",
+          "text": "Tuesdays & Thursdays · 8:30 AM – 3:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Lunch from home · snacks available for purchase"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.haywoodhaven.org/summer-program/",
+          "https://www.haywoodhaven.org/",
+          "https://www.haywoodhaven.org/haywood-haven-inquiry-form/",
+          "https://www.providencehaywood.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the summer year with the provider: the summer page labels registration Summer 2025, while the listed enrichment dates align with the Tuesday/Thursday calendar for 2026. Grades, hours, activities, and lunch policy are from that undated/conflicting summer page, not a confirmed 2027 announcement. It lists $250/month Community Builder, $350/month Community Participant, $50/day full-day drop-in, $25/day half-day drop-in, and selected $5 materials fees; these were omitted because their applicable year cannot be established. No dated session rows were assigned. The general FAQ's scholarship statement concerns school enrollment and was not applied to summer camp."
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-elizabethton-carter-county",
+    "name": "Boys & Girls Club of Elizabethton/Carter County",
+    "urls": ["https://bgcecc.org/"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:34.364Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "28645c0672c3ed7b58b0c235dc819649d958f3c296710e1ee7823abf2f1d76ef",
+  "response": {
+    "searches": [
+      "site:bgcecc.org summer 2026 2027 hours address",
+      "open https://bgcecc.org/wp-content/uploads/2025/11/Member-Parent-Handbook-2025-2026.pdf"
+    ],
+    "usage": {
+      "inputTokens": 15492,
+      "cachedInputTokens": 8845,
+      "outputTokens": 901,
+      "reasoningTokens": 105
+    },
+    "status": "completed",
+    "ms": 22928,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bgcecc.org/",
+      "chars": 4246,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgcecc.org/summer/",
+      "chars": 1515,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of Elizabethton/Carter County",
+    "website_url": "https://bgcecc.org/",
+    "notes": "No 2027 summer information or registration milestones were found. The summer page lists 2026 fees and says registration is closed, but does not provide dates or hours. The parent handbook PDF's readable text was incomplete.",
+    "excluded": [
+      {
+        "name": "After School",
+        "reason": "School-year after-school childcare, not a summer camp."
+      },
+      {
+        "name": "Athletic Leagues",
+        "reason": "Sports leagues and team seasons are excluded."
+      },
+      {
+        "name": "2026 DINO SENESI GOLF CLASSIC",
+        "reason": "A fundraising event, not a supervised youth summer program."
+      },
+      {
+        "name": "2026 Great Futures Dinner",
+        "reason": "A dinner event, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A supervised summer program for children who have completed kindergarten. Members can participate in field trips.",
+        "camp_page_url": "https://bgcecc.org/summer/",
+        "registration_url": "https://parentportal.bgcecc.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Boys & Girls Club of Elizabethton/Carter County",
+            "address": "104 Hudson Dr",
+            "town": "Elizabethton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 20,
+            "unit": "program",
+            "label": "Registration",
+            "year": 2026
+          },
+          {
+            "amount": 45,
+            "unit": "week",
+            "label": "Weekly fee",
+            "year": 2026
+          },
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "Members 13 years and older; registration and desired field trips cost extra",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "Summer 2026",
+          "text": "SUMMER REGISTRATION IS CURRENTLY CLOSED"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "No child is turned away based on inability to pay. Please let us know if you are interested in financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Weekly fees include all meals and snacks served at the Club."
+        },
+        "transportation": null,
+        "sources": [
+          "https://bgcecc.org/summer/",
+          "https://parentportal.bgcecc.org/Contact.aspx",
+          "https://parentportal.bgcecc.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

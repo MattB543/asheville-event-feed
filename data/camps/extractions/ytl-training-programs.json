@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "ytl-training-programs",
+    "name": "YTL Training Programs",
+    "urls": ["https://www.ytltrainingprograms.org/summer-camp", "https://ytltrainingprograms.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:22.305Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a6a17fc7556d577ac4df0fde6bf62bac5fc3cf5c41e4c0b3b0f84cf1ee3417b2",
+  "response": {
+    "searches": ["site:ytltrainingprograms.org summer camp 2027 address"],
+    "usage": {
+      "inputTokens": 13731,
+      "cachedInputTokens": 8845,
+      "outputTokens": 661,
+      "reasoningTokens": 54
+    },
+    "status": "completed",
+    "ms": 14982,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ytltrainingprograms.org/summer-camp",
+      "chars": 1487,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ytltrainingprograms.org/",
+      "chars": 995,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YTL Training Programs",
+    "website_url": "https://www.ytltrainingprograms.org/",
+    "notes": "No summer 2027 information found. The summer page still says 2026 registration is coming soon and gives only June–August, without exact dates. The 2026–2027 waitlist banner is for afterschool, not summer camp. The contact page publishes 789 Merrimon Ave., Asheville, NC 28804, but does not establish it as the camp drop-off location; sites are therefore empty.",
+    "excluded": [
+      {
+        "name": "R.O.S.E.S & M.O.S.S",
+        "reason": "School-year afterschool program, not a finite summer camp."
+      },
+      {
+        "name": "G.R.A.C.E for Teens",
+        "reason": "Afterschool program, not a finite summer camp."
+      },
+      {
+        "name": "Advocacy & Outreach",
+        "reason": "Ongoing family and student advocacy services, not a finite supervised summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["academic", "stem", "nature_outdoor", "general"],
+        "description": "Campers participate in STEM activities, agricultural enrichment, mindfulness activities and community service projects. The program also includes weekly field trips to parks, water parks, movie theaters and entertainment venues.",
+        "camp_page_url": "https://www.ytltrainingprograms.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Camp will run from June - August."
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "7:30 am to 5:30 pm, Monday through Friday."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ytltrainingprograms.org/summer-camp",
+          "https://www.ytltrainingprograms.org/contact-8"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

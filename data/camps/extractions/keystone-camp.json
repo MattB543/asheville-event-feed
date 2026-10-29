@@ -1,0 +1,369 @@
+{
+  "provider": {
+    "key": "keystone-camp",
+    "name": "Keystone Camp",
+    "urls": [
+      "https://keystonecamp.com/dates-rates",
+      "https://keystonecamp.com/",
+      "https://keystonecamp.com/activities/horseback-riding"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:33.138Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e09b0f8ed822532d743896d8fb37d3c14d138ed247d903aee7076379f0e4c9b0",
+  "response": {
+    "searches": [
+      "site:keystonecamp.com 2027 registration policies leadership aides CIT",
+      "site:keystonecamp.com \"2027\" \"priority\"",
+      "site:keystonecamp.com \"2027\" \"August 17\" registration"
+    ],
+    "usage": {
+      "inputTokens": 39854,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2448,
+      "reasoningTokens": 245
+    },
+    "status": "completed",
+    "ms": 67149,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://keystonecamp.com/dates-rates",
+      "chars": 7063,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/",
+      "chars": 4549,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/activities/horseback-riding",
+      "chars": 4098,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/dates-rates/which-session-is-right-for-me",
+      "chars": 7568,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/dates-rates/mother-daughter-weekend",
+      "chars": 4526,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/dates-rates/homeshows",
+      "chars": 3220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/blog",
+      "chars": 5567,
+      "method": "fetch"
+    },
+    {
+      "url": "https://keystonecamp.com/activities",
+      "chars": 4090,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Keystone Camp",
+    "website_url": "https://keystonecamp.com/",
+    "notes": "2027 sessions and tuition are posted. The linked priority-enrollment policies and direct application destination could not be retrieved. Leadership Program was found in older official descriptions and referenced retrospectively in September 2026, but no 2027 offering details were found; it is omitted because the 2027 program list is posted. Individual activities, including horseback riding, are components of Keystone Camp rather than separate camps.",
+    "excluded": [
+      {
+        "name": "Mother-Daughter Weekends",
+        "reason": "Family-only retreat, held in May rather than summer."
+      },
+      {
+        "name": "Home Shows",
+        "reason": "Informational open houses, not supervised youth camps."
+      },
+      {
+        "name": "Counselors-in-Training",
+        "reason": "The official Leadership Program description identifies the CIT stage as camp employment."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Keystone Camp",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "nature_outdoor",
+          "sports",
+          "horses",
+          "arts",
+          "theater",
+          "dance",
+          "music"
+        ],
+        "description": "Girls choose an activity schedule from over 30 offerings, including horseback riding, canoeing, climbing, swimming, arts and crafts, and drama. Sessions include a camp-out on camp property and a cabin-group tubing trip.",
+        "camp_page_url": "https://keystonecamp.com/dates-rates",
+        "registration_url": "https://keystonecamp.com/dates-rates",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
+        "grades": {
+          "min": 0,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Keystone Camp",
+            "address": "101 Keystone Camp Rd.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Key White Session",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "June Mini Session",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Session",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini I Session",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini II Session",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August Session",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Key Blue Session",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Key Yellow Session",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for 2027 Opens August 17th",
+            "url": "https://keystonecamp.com/dates-rates",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Our Campership Fund helps provide summer camp experiences for children of Transylvania County families who would otherwise not be able to attend."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "At Keystone, we eat all three meals together in our dining hall."
+        },
+        "transportation": null,
+        "sources": [
+          "https://keystonecamp.com/dates-rates",
+          "https://keystonecamp.com/dates-rates/which-session-is-right-for-me",
+          "https://keystonecamp.com/activities",
+          "https://keystonecamp.com/about-keystone",
+          "https://keystonecamp.com/contact-us",
+          "https://keystonecamp.com/alumnae/the-bill-and-sue-ives-campership-fund",
+          "https://keystonecamp.com/staff/daily-schedule"
+        ],
+        "confidence": "medium",
+        "review_notes": "August 17 is interpreted as August 17, 2026 for summer 2027 enrollment; the heading does not explicitly print the calendar year. Priority-enrollment policy details could not be retrieved, so separate audience dates are unknown. Grades follow the dates-and-rates page's stated 2026/2027 school-year basis. Ages 7–14 come from the undated About page rather than a year-specific eligibility statement; confirm that this range applies to every 2027 session. Registration URL points to the official page with Apply Now buttons rather than a verified direct application URL."
+      }
+    ]
+  }
+}

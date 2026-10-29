@@ -1,0 +1,81 @@
+{
+  "method": "aggregator",
+  "id": "wnc-parent",
+  "input": "Use WNC Parent and Asheville Citizen-Times summer camp guides (2024-2026) to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:23:36.541Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 61593,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1292,
+    "reasoningTokens": 754
+  },
+  "searches": [
+    "site.citizen-times.com WNC Parent summer camp guide 2025 2026",
+    "site.citizen-times.com \"2026\" \"camp guide\"",
+    "\"WNC Parent’s 2025 Day Camp Guide\" \"Asheville\" \"camp\"",
+    "\"WNC Parent\" \"2025\" \"day\" \"camp\" -site:citizen-times.com",
+    "open https://www.yahoo.com/lifestyle/guide-summer-day-camps-wnc-100853749.html",
+    "site.citizen-times.com/story/life/family/2025/02/07/ \"Asheville\"",
+    "6 Points Sports Academy summer 2026 Asheville official",
+    "site.camparrowhead.com summer 2026"
+  ],
+  "ms": 62388,
+  "candidates": [
+    {
+      "name": "URJ 6 Points Sports Academy",
+      "url": "https://6pointssports.org/summer/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports", "faith_based"],
+      "note": "Jewish residential sports camp at Asheville School; summer 2027 registration announced."
+    },
+    {
+      "name": "American Dance Training Camps",
+      "url": "https://americandancetrainingcamp.com/locations/nc-dance-camp/",
+      "town": "Cullowhee",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["dance"],
+      "note": "Overnight dance camp for girls ages 8–17 at Western Carolina University."
+    },
+    {
+      "name": "Asbury Hills Camp and Retreat Center",
+      "url": "https://asburyhills.org/summer-camp/",
+      "town": "Cleveland",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Christian summer camps for rising grades 2–12; 2027 schedule announced."
+    },
+    {
+      "name": "Blue Star Camps",
+      "url": "https://www.bluestarcamps.com/dates-fees/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "general", "nature_outdoor"],
+      "note": "Jewish residential camps for rising grades 2–11; operated in summer 2026."
+    },
+    {
+      "name": "Camp Arrowhead for Boys",
+      "url": "https://camparrowhead.com/",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "arts", "general"],
+      "note": "Boys’ sleepaway camp with outdoor activities, blacksmithing and woodworking."
+    },
+    {
+      "name": "Camp Cedar Cliff",
+      "url": "https://campcedarcliff.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Christian day and overnight summer programs; official site documents summer 2025."
+    }
+  ]
+}

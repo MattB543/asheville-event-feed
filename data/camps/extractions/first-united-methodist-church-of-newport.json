@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "first-united-methodist-church-of-newport",
+    "name": "First United Methodist Church of Newport",
+    "urls": ["https://www.fumcnewport.org/camp-in-the-community.html"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:44.502Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c58d725bec4e9b365f1e99bcc97da8b906fd416fae7af0118237adeae5acbca2",
+  "response": {
+    "searches": ["site.fumcnewport.org \"2027\" camp", "\"fumcnewport.org\" \"camp\""],
+    "usage": {
+      "inputTokens": 19166,
+      "cachedInputTokens": 8845,
+      "outputTokens": 477,
+      "reasoningTokens": 158
+    },
+    "status": "completed",
+    "ms": 16558,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fumcnewport.org/camp-in-the-community.html",
+      "chars": 1962,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumcnewport.org/first-umc-campus.html",
+      "chars": 1461,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumcnewport.org/",
+      "chars": 4225,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First United Methodist Church of Newport",
+    "website_url": "https://www.fumcnewport.org/",
+    "notes": "No 2027 information found. The camp page returned no readable content through the browser; the supplied official page text and an official search result confirm the 2026 offering. The registration button destination and linked camp booklet could not be retrieved.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp in the Community",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "A week-long day camp for children that shares the Gospel and develops relationships between the community and the church.",
+        "camp_page_url": "https://www.fumcnewport.org/camp-in-the-community.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First UMC Newport",
+            "address": "212 Washington Avenue",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fumcnewport.org/camp-in-the-community.html",
+          "https://www.fumcnewport.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

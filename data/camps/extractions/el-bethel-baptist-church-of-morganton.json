@@ -1,0 +1,95 @@
+{
+  "provider": {
+    "key": "el-bethel-baptist-church-of-morganton",
+    "name": "El Bethel Baptist Church of Morganton",
+    "urls": ["https://elbethelchurch.net/newer4ebbc/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:32:58.370Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b9b9df178a3aebe1d0ff0b30d0f9747a7694d1eaeabdde6a236da9f745ad8bf1",
+  "response": {
+    "searches": [
+      "site:elbethelchurch.net VBS 2026",
+      "\"El Bethel Baptist Church\" \"Morganton\" \"VBS\"",
+      "site:facebook.com/elbethelmorganton \"Rainforest\""
+    ],
+    "usage": {
+      "inputTokens": 23502,
+      "cachedInputTokens": 8845,
+      "outputTokens": 792,
+      "reasoningTokens": 255
+    },
+    "status": "completed",
+    "ms": 37110,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://elbethelchurch.net/newer4ebbc/",
+      "chars": 823,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://elbethelchurch.net/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://elbethelchurch.net/; browser: HTTP 403"
+    }
+  ],
+  "extraction": {
+    "provider_name": "El Bethel Baptist Church of Morganton",
+    "website_url": "https://elbethelchurch.net/newer4ebbc/",
+    "notes": "No 2027 summer program information was found. A third-party event listing identifies Rainforest Falls VBS on June 22, 2026 at the church; current details could not be corroborated on readable official pages. The church's Facebook page could not be read. Search results also surfaced an older official VBS post and a 2015 registration form, which were not used for 2026 facts.",
+    "excluded": [
+      {
+        "name": "StuMin & KidMin",
+        "reason": "Regular Wednesday church ministries, not finite summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rainforest Falls VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "El Bethel Baptist Church",
+            "address": "1669 N. Green St.",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://elbethelchurch.net/newer4ebbc/"],
+        "confidence": "medium",
+        "review_notes": "The program name and June 22, 2026 start date come only from the third-party listing https://happeningnext.com/event/rainforest-falls-vbs-eid3a0dpbim4t. Confirm the program dates, ages and hours with the church. The official homepage supplies the street address but does not describe this VBS; the church's Facebook page was unreadable."
+      }
+    ]
+  }
+}

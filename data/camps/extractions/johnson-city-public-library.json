@@ -1,0 +1,129 @@
+{
+  "provider": {
+    "key": "johnson-city-public-library",
+    "name": "Johnson City Public Library",
+    "urls": ["https://www.jcpl.org/summer-reading/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:53.776Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2de43428672ced73818fcc3a7dbcf00e789542826e6e0719901243095a19613f",
+  "response": {
+    "searches": [
+      "site:jcpl.org \"ETSU Day\"",
+      "site:jcpl.org \"2026\" \"Theater\"",
+      "site:jcpl.org \"theater lab\""
+    ],
+    "usage": {
+      "inputTokens": 28647,
+      "cachedInputTokens": 8845,
+      "outputTokens": 900,
+      "reasoningTokens": 196
+    },
+    "status": "completed",
+    "ms": 29256,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jcpl.org/summer-reading/",
+      "chars": 4873,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcpl.org/monthly-calendar/",
+      "chars": 1885,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcpl.org/",
+      "chars": 5263,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Johnson City Public Library",
+    "website_url": "https://www.jcpl.org/",
+    "notes": "No 2027 summer program information was found. The Connect Magazine page lists a June–August 2026 issue, but its embedded magazine and links were not accessible in the readable page. The summer-reading page mentions theater labs and writing groups without enough detail to establish separate finite camp programs.",
+    "excluded": [
+      {
+        "name": "Summer Reading: Unearth a Story",
+        "reason": "Self-directed reading challenge with prizes and library events, not a supervised camp."
+      },
+      {
+        "name": "Read & Romp",
+        "reason": "Ongoing weekly storytime with caregivers, not a finite summer camp."
+      },
+      {
+        "name": "Teen Advisory Board",
+        "reason": "Year-round monthly advisory and volunteer program, not a finite summer camp."
+      },
+      {
+        "name": "Art Explorers",
+        "reason": "Year-round monthly art program, not a finite summer camp."
+      },
+      {
+        "name": "Fossil Discovery and Reconstruction",
+        "reason": "Adult-only program for ages 18 and older."
+      }
+    ],
+    "cards": [
+      {
+        "name": "ETSU Day",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Teens meet ETSU staff, learn about academic programs, admissions and college life, and explore university library resources. Activities include games, creating custom t-shirts and meeting the university mascot.",
+        "camp_page_url": "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-06-10",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Public Library Jones Meeting Center",
+            "address": "100 West Millard Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "They’ll enjoy a free lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
+          "https://www.jcpl.org/hours-and-location/",
+          "https://www.jcpl.org/summer-reading/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "newport-first-free-will-baptist-church",
+    "name": "Newport First Free Will Baptist Church",
+    "urls": ["http://www.newportffwb.com/"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:26:33.165Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ea512ab537f6341c957e38fa22c041fcc37146f284a2ff188174b2b8d2e4c0a8",
+  "response": {
+    "searches": [
+      "\"Newport\" \"First Free Will Baptist\" \"VBS\" 2026",
+      "\"\" \"Newport First Free Will Baptist Church\" \"Journey with Jesus\"",
+      "\"Journey with Jesus\" \"Jimtown\""
+    ],
+    "usage": {
+      "inputTokens": 22959,
+      "cachedInputTokens": 8845,
+      "outputTokens": 550,
+      "reasoningTokens": 265
+    },
+    "status": "completed",
+    "ms": 27727,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "http://www.newportffwb.com/",
+      "chars": 1078,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport First Free Will Baptist Church",
+    "website_url": "https://www.newportffwb.com/",
+    "notes": "No 2027 summer program information was found. The supplied official homepage has no camp or VBS announcements. Third-party listings identify Journey with Jesus at this church on June 22–26, 2026, from 6:00–8:30 p.m., but the readable listings do not establish that it was a supervised youth program or Vacation Bible School. No official announcement confirming it was found, so no card was created. Listings also mention Son-Shine summer VBS 2025, but no 2026 or 2027 official details were found. Research leads: https://allevents.in/newport/journey-with-jesus/200030257029831 and https://allevents.in/newport/son-shine-summer-vbs-2025/200028300727041. The official site-map page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Journey with Jesus",
+        "reason": "Only third-party event listings were found; insufficient information to establish that this was a supervised youth summer program."
+      },
+      {
+        "name": "Son-Shine summer VBS 2025",
+        "reason": "Only a 2025 third-party listing was found; no 2026 or 2027 program information was located."
+      }
+    ],
+    "cards": []
+  }
+}

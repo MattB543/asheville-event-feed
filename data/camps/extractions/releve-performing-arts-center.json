@@ -1,0 +1,163 @@
+{
+  "provider": {
+    "key": "releve-performing-arts-center",
+    "name": "Relevé Performing Arts Center",
+    "urls": ["https://releveperformingartscenter.com/calendar"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:42.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "01ad29a26a831faf707653a70d0a31611f6712a7bbbabbce9d737864e2bee226",
+  "response": {
+    "searches": [
+      "site:releveperformingartscenter.com summer camp 2026 2027",
+      "open https://releveperformingartscenter.com/our-company"
+    ],
+    "usage": {
+      "inputTokens": 20642,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1217,
+      "reasoningTokens": 157
+    },
+    "status": "completed",
+    "ms": 29778,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://releveperformingartscenter.com/calendar",
+      "chars": 1367,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=506586",
+      "chars": 23194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/tuition-and-fees",
+      "chars": 897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/2026-27-schedule",
+      "chars": 886,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/",
+      "chars": 4244,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Relevé Performing Arts Center",
+    "website_url": "https://releveperformingartscenter.com/",
+    "notes": "No official 2027 or 2026 summer camp schedule was found. The calendar still lists a summer schedule alongside an explicit June 9, 2025 summer-class opening. Its undated camp entries appear to belong to that older schedule, so their dates and hours have not been carried forward. The two existing programs are retained without current-season dates. The Our Company page mentions a week-long placement intensive, but does not establish that it meets in summer; it was not added as a summer camp. Search results and the supplied official pages were insufficient to establish current summer dates, prices, ages or registration milestones.",
+    "excluded": [
+      {
+        "name": "Summer Classes",
+        "reason": "Recurring Monday and Tuesday classes, rather than a camp."
+      },
+      {
+        "name": "2026-27 Recreational Schedule",
+        "reason": "School-year dance classes rather than a finite summer camp."
+      },
+      {
+        "name": "Competitive Dance Company",
+        "reason": "An ongoing competitive dance program rather than a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Dance Camps",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Themed dance camps include Mermaids & Pirates, All Things Disney and Wicked.",
+        "camp_page_url": "https://releveperformingartscenter.com/calendar",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=506586",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Relevé Performing Arts Center",
+            "address": "2314 Asheville Highway Unit F",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://releveperformingartscenter.com/calendar",
+          "https://releveperformingartscenter.com/",
+          "https://app.jackrabbitclass.com/regv2.asp?id=506586"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar lists three themed camps from 9am to noon, but their dates lack a year and sit beneath a June 9, 2025 summer-class entry. Check for a replacement summer schedule before publishing dates or hours. The linked Jackrabbit form is general class registration, not a confirmed camp-specific enrollment page."
+      },
+      {
+        "name": "Gymnastics Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A summer gymnastics camp.",
+        "camp_page_url": "https://releveperformingartscenter.com/calendar",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=506586",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Relevé Performing Arts Center",
+            "address": "2314 Asheville Highway Unit F",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://releveperformingartscenter.com/calendar",
+          "https://releveperformingartscenter.com/",
+          "https://app.jackrabbitclass.com/regv2.asp?id=506586"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar lists July 21–25, 9am to noon, without a year, beneath a June 9, 2025 summer-class entry. Check for a replacement summer schedule before publishing dates or hours. The linked Jackrabbit form is general class registration, not a confirmed camp-specific enrollment page."
+      }
+    ]
+  }
+}

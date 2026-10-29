@@ -1,0 +1,120 @@
+{
+  "provider": {
+    "key": "higher-ground-adventures",
+    "name": "Higher Ground Adventures",
+    "urls": ["https://www.hgcamp.com/"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:46.770Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fb0d79586c8cb5dfe84b97496d0ae1fbc2df4e25d27449f93c1f0f405a687bb6",
+  "response": {
+    "searches": ["site:hgcamp.com 2027 camp", "open https://www.hgcamp.com/camper-registration"],
+    "usage": {
+      "inputTokens": 12480,
+      "cachedInputTokens": 8845,
+      "outputTokens": 531,
+      "reasoningTokens": 79
+    },
+    "status": "completed",
+    "ms": 13352,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hgcamp.com/",
+      "chars": 1358,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/spiritual-mission",
+      "chars": 1768,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/_files/ugd/4cc49f_60897a8251d04bf692953f8049c7c7cd.pdf",
+      "chars": 2849,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/team-1",
+      "chars": 1299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/camp-leadership",
+      "chars": 964,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/history-of-higher-ground-adventures",
+      "chars": 1686,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/general-6",
+      "chars": 1609,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hgcamp.com/donations",
+      "chars": 1047,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Higher Ground Adventures",
+    "website_url": "https://www.hgcamp.com/",
+    "notes": "No 2027 information found. The 2026 homepage identifies participants as youth of Black Mountain Home for Children; public enrollment is not established. A camper-registration page appeared in official search results, but opening it returned no readable content.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Higher Ground Adventures",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "A week-long overnight Christian adventure camp for youth of Black Mountain Home for Children. Activities include hiking, swimming, archery, outdoor games, worship, and Christian fellowship.",
+        "camp_page_url": "https://www.hgcamp.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Higher Ground Adventures",
+            "address": "170 Woodland Drive",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hgcamp.com/",
+          "https://www.hgcamp.com/team-1",
+          "https://www.hgcamp.com/spiritual-mission",
+          "https://www.hgcamp.com/history-of-higher-ground-adventures"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

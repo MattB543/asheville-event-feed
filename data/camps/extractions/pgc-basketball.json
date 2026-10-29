@@ -1,0 +1,329 @@
+{
+  "provider": {
+    "key": "pgc-basketball",
+    "name": "PGC Basketball",
+    "urls": [
+      "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+      "https://pgcbasketball.com/camp-locations/north-carolina/mars-hill/mars-hill-university/"
+    ],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:10:35.882Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e29e48c7f7b978ef28157f0a795cecc37ac3d9f78cd5d836401b5ab6e6c8baf7",
+  "response": {
+    "searches": [
+      "site:pgcbasketball.com \"mars-hill\" \"playmaker\" \"2026\"",
+      "open https://pgcbasketball.com/camps/playmaker-college-s/north-carolina-mars-hill-mars-hill-university-3/",
+      "site:pgcbasketball.com/camps/playmaker \"mars-hill-university\" \"2026\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 32703,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2763,
+      "reasoningTokens": 205
+    },
+    "status": "completed",
+    "ms": 55343,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pgcbasketball.com/camp-locations/north-carolina/mars-hill/mars-hill-university/",
+      "chars": 6515,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pgcbasketball.com/register/?pid=6113",
+      "chars": 29703,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pgcbasketball.com/schedule-locations/",
+      "chars": 3557,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pgcbasketball.com/wp-content/uploads/2026/06/SC-course-schedule-sneak-peek.pdf",
+      "chars": 3829,
+      "method": "fetch"
+    },
+    {
+      "url": "https://register.pgcbasketball.com/Registration/EventSelection/1/?filter=RegType|1^EventIDs|5653^EventDivisionTypes|100|101",
+      "chars": 2369,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pgcbasketball.com/priority-list-summer/",
+      "chars": 4027,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "PGC Basketball",
+    "website_url": "https://pgcbasketball.com/",
+    "notes": "2027 camp dates and locations are coming in January; no confirmed 2027 Mars Hill program list was found. Retained the confirmed 2026 programs. Playmaker College's official page was only partially readable, so its tuition and commuter option were not copied from Scoring College. Scoring College's commuter format is listed separately as a day card.",
+    "excluded": [
+      {
+        "name": "Observing Coach",
+        "reason": "Adult coach professional-development option, not a youth camp."
+      },
+      {
+        "name": "PGC Online and PGC+ Membership",
+        "reason": "Online courses and ongoing membership, not finite supervised summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Scoring College",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players study scoring skills through classroom instruction, basketball film and on-court practice. Training includes shooting footwork, attacking defenders, off-ball movement and leadership.",
+        "camp_page_url": "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+        "registration_url": "https://pgcbasketball.com/register/?pid=6113",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": "2027 Summer Basketball Camps Coming in January!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "100 Athletic Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in on the first day takes place between 11:30am-12:30pm. Check-out is at 11:30am on the final day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1095,
+            "unit": "session",
+            "label": "overnight player",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Opens Monday, Feb 1 @ 9am EST (6am PST)",
+            "url": "https://pgcbasketball.com/priority-list-summer/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Males: Closed; Females: Closed"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "PGC provides over $300,000 in financial assistance each year and we do our best to assist as many families as possible."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Registration includes meals & accommodations for 5 days and 4 nights."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "If your child is flying to a PGC session, you are responsible for their transportation to and from the session."
+        },
+        "sources": [
+          "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+          "https://pgcbasketball.com/register/?pid=6113",
+          "https://pgcbasketball.com/schedule-locations/",
+          "https://pgcbasketball.com/priority-list-summer/",
+          "https://pgcbasketball.com/financial-assistance/",
+          "https://hub.mhu.edu/socialworkclub/groups",
+          "https://pgcbasketball.com/wp-content/uploads/2026/06/SC-course-schedule-sneak-peek.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The grades represent the youth eligibility; college players are also eligible. The camp page specifies check-in 11:30am–12:30pm and checkout 11:30am, while the generic course PDF gives check-in 11am–12:30pm and checkout 11am–noon. Used the location-specific page. The 2027 registration opening is provider-wide, not confirmation of a 2027 Mars Hill session."
+      },
+      {
+        "name": "Scoring College (day)",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Commuting players attend the overnight camp's classroom, film and on-court basketball sessions, including evening training, without staying in the dorms.",
+        "camp_page_url": "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+        "registration_url": "https://pgcbasketball.com/register/?pid=6113",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": "2027 Summer Basketball Camps Coming in January!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "100 Athletic Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "22:00",
+          "text": "Daily drop-off at 8am and pick-up at 10pm (times may vary). Pick up and drop off times on the first and last day of camp vary."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 995,
+            "unit": "session",
+            "label": "commuter player",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Opens Monday, Feb 1 @ 9am EST (6am PST)",
+            "url": "https://pgcbasketball.com/priority-list-summer/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Males: Closed; Females: Closed"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "PGC provides over $300,000 in financial assistance each year and we do our best to assist as many families as possible."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All meals are also included in the price of the overnight camp commuter option."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "If your child is flying to a PGC session, you are responsible for their transportation to and from the session."
+        },
+        "sources": [
+          "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+          "https://pgcbasketball.com/register/?pid=6113",
+          "https://pgcbasketball.com/schedule-locations/",
+          "https://pgcbasketball.com/priority-list-summer/",
+          "https://pgcbasketball.com/financial-assistance/",
+          "https://hub.mhu.edu/socialworkclub/groups",
+          "https://pgcbasketball.com/wp-content/uploads/2026/06/SC-course-schedule-sneak-peek.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "College players are also eligible. The commuter tuition section says typical pickup is 10pm, but the generic course PDF lists the final-night competition until midnight. Confirm the actual commuter pickup schedule. The 2027 opening is provider-wide; Mars Hill dates remain unconfirmed."
+      },
+      {
+        "name": "Playmaker College",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players learn basketball decision-making, leadership and on-court communication in a five-day, four-night basketball camp.",
+        "camp_page_url": "https://pgcbasketball.com/camps/playmaker-college-s/north-carolina-mars-hill-mars-hill-university-3/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-07",
+          "end": "2026-07-11",
+          "text": "2027 Summer Basketball Camps Coming in January!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "100 Athletic Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Opens Monday, Feb 1 @ 9am EST (6am PST)",
+            "url": "https://pgcbasketball.com/priority-list-summer/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "PGC provides over $300,000 in financial assistance each year and we do our best to assist as many families as possible."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pgcbasketball.com/camps/playmaker-college-s/north-carolina-mars-hill-mars-hill-university-3/",
+          "https://pgcbasketball.com/camp-locations/north-carolina/mars-hill/mars-hill-university/",
+          "https://pgcbasketball.com/schedule-locations/",
+          "https://pgcbasketball.com/priority-list-summer/",
+          "https://pgcbasketball.com/financial-assistance/",
+          "https://hub.mhu.edu/socialworkclub/groups"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Playmaker College page returned only its opening content. Dates, grades and overnight format were readable, but tuition, specific registration link, meal details and possible additional sessions or commuter format require review of the complete page. The 2027 registration opening is provider-wide, not confirmation of a Mars Hill session."
+      }
+    ]
+  }
+}

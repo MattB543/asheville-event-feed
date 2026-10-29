@@ -1,0 +1,235 @@
+{
+  "provider": {
+    "key": "big-league-camp",
+    "name": "Big League Camp",
+    "urls": ["https://www.bigleaguecamp.com/camps/"],
+    "area": "Marion, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:18:21.755Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "593586a8e9ab9f00cb6367ed16ba504949966564580448cffe2d613590671501",
+  "response": {
+    "searches": [
+      "site:bigleaguecamp.com 2027 summer camp",
+      "open https://www.bigleaguecamp.com/camps/camp-brochure/"
+    ],
+    "usage": {
+      "inputTokens": 18095,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1544,
+      "reasoningTokens": 98
+    },
+    "status": "completed",
+    "ms": 31109,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bigleaguecamp.com/camps/",
+      "chars": 6154,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/about/",
+      "chars": 5951,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/",
+      "chars": 3040,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/membership/",
+      "chars": 2005,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/hours/",
+      "chars": 663,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/big-league-camp-travel-tournaments/",
+      "chars": 834,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/facility-rental/",
+      "chars": 1157,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bigleaguecamp.com/college-baseball-softball/",
+      "chars": 1676,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Big League Camp",
+    "website_url": "https://www.bigleaguecamp.com/",
+    "notes": "The camps page has a '2026-27 Dates' heading but says dates are to be determined. No registration opening date was found. The program schedule blocks conflict with the introductory age eligibility and describe Day Camp as overnight. The Camp Brochure page returned no readable brochure content. Pricing is taken from the table beneath the 2026-27 heading and labeled 2027; prices are subject to change.",
+    "excluded": [
+      {
+        "name": "Monthly Memberships and individual instruction",
+        "reason": "Ongoing facility memberships and instruction booked as lessons, not finite summer camp programs."
+      },
+      {
+        "name": "Travel Baseball Tournaments",
+        "reason": "Team competitions rather than supervised summer camp programs."
+      },
+      {
+        "name": "College Baseball & Softball Spring Training Practices and Games",
+        "reason": "College team training and tournaments outside summer."
+      },
+      {
+        "name": "Donnie Suttles Mental Toughness Outdoor Team Camp",
+        "reason": "Typically held late August through early November and presented as college team programming, not a youth summer offering."
+      },
+      {
+        "name": "Facility and Cabin Rentals",
+        "reason": "Rentals are not supervised youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice baseball or softball skills with coaches, play live games, and participate in daily outdoor challenges.",
+        "camp_page_url": "https://www.bigleaguecamp.com/camps/",
+        "registration_url": "https://www.bigleaguecamp.com/camps/",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Camp Dates To Be Determined"
+        },
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Big League Camp",
+            "address": "3645 Yancey Rd",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Individual player",
+            "year": 2027
+          },
+          {
+            "amount": 700,
+            "unit": "session",
+            "label": "Teammate discount: 2 or more players placed on the same team",
+            "year": 2027
+          },
+          {
+            "amount": 650,
+            "unit": "session",
+            "label": "Team discount: 10 players minimum",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Prices cover all meals and insurance, housing and laundry."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.bigleaguecamp.com/camps/",
+          "https://www.bigleaguecamp.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Day Camp schedule states ages 8-12, but the introduction says camps are open to ages 12-19 and those under 13 must be day campers only. The Day Camp block also says '5 Day Overnight Camp'; type follows the Day Camp name and day-camper pricing. Confirm eligibility and format with the provider. Baseball and softball are described as separate weeks, but no dates are provided, so no session rows can be created. Prices use the 2026-27 heading as their year context."
+      },
+      {
+        "name": "Outdoor Camp",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers receive baseball or softball instruction, play live games, and compete in outdoor challenges including canoe racing, fishing, archery, and a mud run. Campers stay in on-site log cabins.",
+        "camp_page_url": "https://www.bigleaguecamp.com/camps/",
+        "registration_url": "https://www.bigleaguecamp.com/camps/",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Camp Dates To Be Determined"
+        },
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Big League Camp",
+            "address": "3645 Yancey Rd",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 850,
+            "unit": "session",
+            "label": "Individual player",
+            "year": 2027
+          },
+          {
+            "amount": 800,
+            "unit": "session",
+            "label": "Teammate discount: 2 or more players placed on the same team",
+            "year": 2027
+          },
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Team discount: 10 players minimum",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Food will be catered in to the camp and three meals a day will be provided."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.bigleaguecamp.com/camps/",
+          "https://www.bigleaguecamp.com/about/",
+          "https://www.bigleaguecamp.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Outdoor Camp schedule states ages 13-18, while the introduction allows ages 12-19 with campers under 13 restricted to day attendance. Confirm whether 19-year-olds are eligible. The schedule specifies five days; the About page calls it one week. Baseball and softball are described as separate weeks, but dates are not provided. Prices use the 2026-27 heading as their year context. Registration requires emailing athlete@bigleaguecamp.com for a registration form."
+      }
+    ]
+  }
+}

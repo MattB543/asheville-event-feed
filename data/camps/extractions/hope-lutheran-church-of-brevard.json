@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "key": "hope-lutheran-church-of-brevard",
+    "name": "Hope Lutheran Church of Brevard",
+    "urls": ["https://hopebrevard.org/education/vacation-bible-school-2026"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:48.072Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6eac24790cf86264344858d01f3d6600166335b8bda2bcbe3bf4d88c07293ac1",
+  "response": {
+    "searches": ["\"Hope Lutheran Church\" \"Brevard\""],
+    "usage": {
+      "inputTokens": 15019,
+      "cachedInputTokens": 8845,
+      "outputTokens": 223,
+      "reasoningTokens": 43
+    },
+    "status": "completed",
+    "ms": 11600,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hopebrevard.org/education/vacation-bible-school-2026",
+      "chars": 1837,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hopebrevard.org/",
+      "chars": 5781,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hope Lutheran Church of Brevard",
+    "website_url": "https://hopebrevard.org/",
+    "notes": "Provider/location mismatch: the supplied website belongs to Hope Lutheran Church in Melbourne, Florida, not Brevard, North Carolina. Its official location page, https://hopebrevard.org/home/location, publishes 4541 North Wickham Road, Melbourne, FL 32935. No matching Brevard, NC provider was found. The previously extracted program should be removed from the local directory.",
+    "excluded": [
+      {
+        "name": "Rainforest Falls Vacation Bible School",
+        "reason": "The supplied official pages belong to a church in Melbourne, Florida, outside the Asheville-area drive radius, not a provider in Brevard, NC."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "provider": {
+    "key": "the-orchard-church-of-waynesville",
+    "name": "The Orchard Church of Waynesville",
+    "urls": ["https://www.theorchardnc.com/", "https://www.theorchardnc.com/events/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:14:35.976Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f04a839575102b9ba31d875f164506ba14943f464713b1ace2a5cc5932e29300",
+  "response": {
+    "searches": [
+      "site:theorchardnc.com \"camp\"",
+      "site:theorchardnc.churchcenter.com \"VBS\"",
+      "\"3476086\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 31114,
+      "cachedInputTokens": 8845,
+      "outputTokens": 968,
+      "reasoningTokens": 234
+    },
+    "status": "completed",
+    "ms": 33248,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.theorchardnc.com/",
+      "chars": 2340,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theorchardnc.com/events/",
+      "chars": 1672,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3319519",
+      "chars": 1174,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3828206",
+      "chars": 3186,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3556731",
+      "chars": 1141,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3920120",
+      "chars": 2589,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3940860",
+      "chars": 1037,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3940880",
+      "chars": 944,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Orchard Church of Waynesville",
+    "website_url": "https://www.theorchardnc.com/",
+    "notes": "No summer 2027 information found. The existing summer camp registration page returned no readable body, but official search results retain its description, grades, dates without a year, and prices. No additional summer camps or Vacation Bible School were found.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Prayer",
+        "reason": "Recurring prayer gathering, not a finite summer youth camp."
+      },
+      {
+        "name": "Financial Peace University",
+        "reason": "Financial education class outside summer; accompanying childcare is not a summer camp."
+      },
+      {
+        "name": "Orchard Play Group",
+        "reason": "Recurring family playground gathering, not a supervised youth camp."
+      },
+      {
+        "name": "Treats on the Street",
+        "reason": "Single fall community event outside summer."
+      },
+      {
+        "name": "Orchard College Friendsgiving",
+        "reason": "Single social event outside summer."
+      },
+      {
+        "name": "Orchard College Christmas Party",
+        "reason": "Single social event outside summer."
+      },
+      {
+        "name": "Winter Retreat 2027",
+        "reason": "January retreat outside summer."
+      },
+      {
+        "name": "PLACE Conference",
+        "reason": "Conference outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp: Teen Valley Ranch",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students in grades 6–12 attend summer camp at Teen Valley Ranch for Bible study, worship, and camp activities.",
+        "camp_page_url": "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+        "registration_url": "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Teen Valley Ranch",
+            "address": "216 TVR Loop Rd",
+            "town": "Plumtree",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+          "https://tvr.org/"
+        ],
+        "confidence": "low",
+        "review_notes": "The official registration search snippet states June 15th–20th, early bird $300 until March 31st, and $350 from April 1st, but does not print a year. Dates and prices are omitted because their summer year could not be established; season.year is a fallback placeholder, not a verified 2026 schedule. The overnight format is inferred from the multi-day residential camp venue. Confirm the church's drop-off location; the venue is listed, but church transportation or a church departure point was not stated. The venue publishes 216 TVR Loop Rd; third-party listings instead show 204 Teen Valley Ranch Rd."
+      }
+    ]
+  }
+}

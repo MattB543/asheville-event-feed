@@ -1,0 +1,544 @@
+{
+  "provider": {
+    "key": "rainbow-community-school",
+    "name": "Rainbow Community School",
+    "urls": ["https://rainbowcommunityschool.org/educational-programs/summer-programming/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:59:24.331Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ff2cbbbe2f56a412a29bb3bfe816f1702985c43a1019125570ddc76b436c6171",
+  "response": {
+    "searches": [
+      "site:rainbowcommunityschool.org summer camp 2026 policies Happiness",
+      "site:rainbowcommunityschool.org \"2026\" \"camp\" \"9\" \"policies\""
+    ],
+    "usage": {
+      "inputTokens": 29860,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3449,
+      "reasoningTokens": 197
+    },
+    "status": "completed",
+    "ms": 61701,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+      "chars": 29947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rainbowcommunityschool.org/admissions/tuition/",
+      "chars": 12098,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rainbowcommunityschool.org/annual-campaign-giving/",
+      "chars": 2100,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://rainbowcommunityschool.org/rainbow-annual-campaign/",
+      "chars": 4947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rainbowcommunityschool.org/",
+      "chars": 6540,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rainbow Community School",
+    "website_url": "https://rainbowcommunityschool.org/",
+    "notes": "2027 offerings are coming in February 2027; no registration opening date is announced. The live summer page returned no readable body through the browser, so program details use the supplied official-page text. Search did not locate the linked camp policies or current registration destinations. The older 2010 summer-camps page was not used.",
+    "excluded": [
+      {
+        "name": "Preschool",
+        "reason": "School-year preschool, not finite summer camp programming."
+      },
+      {
+        "name": "Before and After School Care",
+        "reason": "School-year childcare, not summer camp programming."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Happiness Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts", "cooking"],
+        "description": "Campers participate in playground play, making snacks, creative activities, movement, water play, and local creek outings. Activities vary between the rising grades 1–2 and 2–3 groups.",
+        "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in February 2027 for next year’s camp offerings!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Rainbow Community School",
+            "address": "574 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "includes all materials",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 summer camps",
+          "text": "Summer Camp 2026 has now concluded at Rainbow."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have limited scholarships to support the cost of summer camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Specialty Camps",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "theater", "music", "academic", "stem"],
+        "description": "Weekly themes include hiking and swimming, nature art, musical theater, ceramics, sewing, creative writing, puppetry, woodworking, and rock band performance. Camps offer either full-day activities or half-day activities with an optional afternoon extension.",
+        "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-08",
+          "end": "2026-07-31",
+          "text": "Check back in February 2027 for next year’s camp offerings!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Rainbow Community School",
+            "address": "574 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "HALF DAY (9-12:30) or FULL DAY (9:00 AM – 4:00 PM)"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "16:00",
+          "cost_text": "Add extended care option: $150"
+        },
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "full day; includes materials",
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "week",
+            "label": "half day; includes materials",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Surf & Turf",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 1: Nature & Art",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2: Surf & Turf",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2: Disney Hits Variety Show",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2: Nature & Art Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 3: Ceramics Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 3: Broadway Hits Variety Show",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 4: Surf & Turf",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 4: Upcycled Fashion",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 5: Musical Theatre Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 5: Let's Make a Zine! Middle School Creative Writing",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 6: Puppet Masters of the Universe",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 6: Woodworking",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 7: Surf & Turf",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 350,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 7: Rock Band Camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:30"
+            },
+            "price": {
+              "amount": 200,
+              "unit": "week",
+              "label": "includes materials",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 summer camps",
+          "text": "Summer Camp 2026 has now concluded at Rainbow."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have limited scholarships to support the cost of summer camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Afternoon extension ending at 16:00 is inferred from the stated whole-day coverage and full-day schedule; no separate extension pickup time is printed. Duplicate theme descriptions have minor wording differences but agree on dates, grades, hours, and prices."
+      },
+      {
+        "name": "PreK and Kindergarten Summer Programming",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer programming for rising PreK and kindergarten children.",
+        "camp_page_url": "https://rainbowcommunityschool.org/educational-programs/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in February 2027 for next year’s camp offerings!"
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 0,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://rainbowcommunityschool.org/educational-programs/summer-programming/"],
+        "confidence": "medium",
+        "review_notes": "The summer page gives only a referral to Kate Brantley for this offering. Confirm format, dates, location, and whether the general February 2027 offerings announcement also applies to this program."
+      }
+    ]
+  }
+}

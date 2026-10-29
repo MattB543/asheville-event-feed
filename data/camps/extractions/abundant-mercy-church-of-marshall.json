@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "abundant-mercy-church-of-marshall",
+    "name": "Abundant Mercy Church of Marshall",
+    "urls": ["https://www.abundantmercylife.org/"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:22:10.445Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "773c00e0824db968866934aa87d343a4b61e839a5e873a00f7f7ba097929b45c",
+  "response": {
+    "searches": ["\"Abundant Mercy\" Marshall \"VBS\"", "\"Abundant Mercy Church\" \"Facebook\""],
+    "usage": {
+      "inputTokens": 14818,
+      "cachedInputTokens": 8631,
+      "outputTokens": 403,
+      "reasoningTokens": 157
+    },
+    "status": "completed",
+    "ms": 14329,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.abundantmercylife.org/",
+      "chars": 920,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Abundant Mercy Church of Marshall",
+    "website_url": "https://www.abundantmercylife.org/",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School information was found on readable official pages or in web searches. The supplied homepage lists no upcoming events and directs visitors to Facebook, but searches did not locate a readable official church Facebook page. A third-party AllEvents listing identifies A Pirates Guide to Jesus VBS on June 21, 2025 at the church's address; this historical listing does not establish a 2026 or 2027 offering, so no card was created.",
+    "excluded": [
+      {
+        "name": "Wednesday Bible Study",
+        "reason": "Recurring year-round Bible study, not a finite summer youth program."
+      },
+      {
+        "name": "Sunday Service",
+        "reason": "Regular worship services, not a summer camp."
+      },
+      {
+        "name": "Gospel Music Concert",
+        "reason": "A single music event, not a supervised summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

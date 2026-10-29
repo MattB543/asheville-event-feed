@@ -1,0 +1,99 @@
+{
+  "provider": {
+    "key": "big-crabtree-baptist-church-of-spruce-pine",
+    "name": "Big Crabtree Baptist Church of Spruce Pine",
+    "urls": [
+      "https://www.facebook.com/BigCrabtreeBaptistChurch/",
+      "https://www.facebook.com/BigCrabtreeBaptistChurch/live/"
+    ],
+    "area": "Spruce Pine, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:18:44.925Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Big Crabtree Baptist\" \"2026\" VBS",
+      "site:facebook.com/BigCrabtreeBaptistChurch \"July\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20097,
+      "cachedInputTokens": 8845,
+      "outputTokens": 805,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 23168,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/BigCrabtreeBaptistChurch/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/BigCrabtreeBaptistChurch/live/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Big Crabtree Baptist Church of Spruce Pine",
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 camp information was found. The Facebook home page returned no readable content; indexed church posts confirm VBS activity but not the 2026 details. The 2026 dates and hours below come from an AllEvents reproduction of the church's event announcement, not a readable official page. No registration date was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS - Illumination Station",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School where children explore who Jesus is through the theme of light.",
+        "camp_page_url": "https://www.facebook.com/BigCrabtreeBaptistChurch/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Big Crabtree Baptist Church",
+            "address": "15 Big Crabtree Church Road",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6pm-8:30 nightly"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/BigCrabtreeBaptistChurch/posts/tonight-is-the-night-we-look-forward-to-seeing-you-as-we-learn-about-the-miracle/1339058299837113/"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm the 2026 announcement directly with the church: https://allevents.in/spruce-pine/vbs-2026-illumination-station/200029874143317 reproduces July 12-17, 2026, 6pm-8:30 nightly and gives 15 Big Crabtree Church Road. The official Facebook home page was unreadable, and the indexed official VBS post is from an older year. Confirm the venue address: the Mitchell County Baptist Association lists 2143 Rabbit Hop Rd at https://www.mymcba.org/churches-in-spruce-pine.html, while the state Baptist directory lists 15 Rabbit Hop Rd. No readable venue-published address was found."
+      }
+    ]
+  }
+}

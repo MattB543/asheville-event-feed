@@ -1,0 +1,154 @@
+{
+  "about": "Camps pilot (docs/camps/01-context-and-plan.md §8): 20 deliberately varied providers. `urls` are what discovery would hand extraction (mostly the exa seed sheet's own-site URL); `covers` says which pilot requirement each one tests. `site` is the geocoding fallback for cards whose pages state no address: the seed sheet's Location or the venue's own name, never an address we wrote. `domains` lists a provider's own domains that a person confirmed beyond its seed pages (Lutheridge moved to novusway.org; reviewed by the pilot session on 2026-10-28: lutheridge.org links it and its pages are Lutheridge's camp pages).",
+  "providers": [
+    {
+      "key": "asheville-parks-rec",
+      "name": "Asheville Parks & Recreation (City of Asheville summer camps)",
+      "urls": ["https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/"],
+      "area": "Asheville, NC (city community centers)",
+      "hint": "Registration runs through the city's WebTrac site (ncashevilleweb.myvscloud.com); a separate deterministic parser reads that catalog.",
+      "webtrac": true,
+      "covers": ["webtrac_catalog", "municipal", "multi_card", "grade_only"]
+    },
+    {
+      "key": "asheville-museum-of-science",
+      "name": "Asheville Museum of Science (summer science camps)",
+      "urls": ["https://ashevillescience.org/event/summer-science-camps/"],
+      "covers": ["pdf_only", "grade_bands", "themed_weeks"]
+    },
+    {
+      "key": "camp-rockmont",
+      "name": "Camp Rockmont",
+      "urls": ["https://rockmont.com/dates-rates-2026/"],
+      "area": "Black Mountain, NC",
+      "covers": ["overnight", "lists_2027", "campminder"],
+      "site": "375 Lake Eden Rd, Black Mountain, NC"
+    },
+    {
+      "key": "reynolds-baptist-vbs",
+      "name": "Reynolds Baptist Church (Vacation Bible School)",
+      "urls": ["https://www.facebook.com/events/1420847309803781/"],
+      "area": "Asheville, NC (520 Rose Hill Rd)",
+      "hint": "Its 2026 VBS (\"Illumination Station\") was posted as a Facebook event, the URL above; AVLGO's feed picked it up from Facebook. Look for the church's own website too.",
+      "covers": ["vbs", "facebook_only_date"]
+    },
+    {
+      "key": "asheville-art-museum",
+      "name": "Asheville Art Museum (Summer Art Camp)",
+      "urls": ["https://www.ashevilleart.org/learn/family-programs/summer-camp/"],
+      "covers": ["grade_only", "timed_registration_open"]
+    },
+    {
+      "key": "evergreen-summer-adventures",
+      "name": "Evergreen Summer Adventures (Evergreen Community Charter School)",
+      "urls": ["https://www.evergreensummercamp.org/"],
+      "covers": ["price_tiers_plus_fee", "grade_only", "extended_care"]
+    },
+    {
+      "key": "ymca-wnc",
+      "name": "YMCA of Western North Carolina (summer day camps)",
+      "urls": [
+        "https://www.ymcawnc.org/programs/camp/summer-day-camp/adventure",
+        "https://www.ymcawnc.org/programs/camp/summer-day-camp/cilt",
+        "https://www.ymcawnc.org/programs/camp/summer-day-camp/discovery",
+        "https://www.ymcawnc.org/programs/camp/summer-day-camp/explorer"
+      ],
+      "covers": ["multi_card", "member_pricing", "multi_site"]
+    },
+    {
+      "key": "camp-greenville",
+      "name": "YMCA Camp Greenville",
+      "urls": ["https://www.campgreenville.org/"],
+      "area": "Cedar Mountain / Cleveland, SC (Greenville County, SC)",
+      "covers": ["out_of_state", "overnight", "radius_edge"],
+      "site": "YMCA Camp Greenville"
+    },
+    {
+      "key": "asheville-school",
+      "name": "Asheville School (summer programs)",
+      "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
+      "covers": ["blocked_plain_fetch", "weak_seed_url"]
+    },
+    {
+      "key": "paca",
+      "name": "Performing Arts Center of Asheville (formerly Asheville Junior Theater) summer camps",
+      "urls": ["https://ashevillejuniortheater.com/summer-camps/"],
+      "area": "Arden, NC",
+      "covers": ["jackrabbit", "moved_url", "browser_only_fetch"],
+      "site": "174 Bradley Branch Rd, Arden, NC"
+    },
+    {
+      "key": "hahns-gymnastics",
+      "name": "Hahn's Gymnastics (summer camps)",
+      "urls": ["https://www.hahnsgymnastics.com/summer-camp"],
+      "area": "Arden / Asheville, NC",
+      "covers": ["iclasspro", "daily_drop_in"]
+    },
+    {
+      "key": "lutheridge",
+      "name": "Lutheridge (summer camps)",
+      "urls": [
+        "https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf",
+        "https://lutheridge.org/"
+      ],
+      "area": "Arden, NC",
+      "covers": ["pdf_brochure", "day_and_overnight", "multi_card", "faith_based"],
+      "site": "Lutheridge, Arden, NC",
+      "domains": ["novusway.org"]
+    },
+    {
+      "key": "unca-precollege",
+      "name": "UNC Asheville Pre-College Programs",
+      "urls": ["https://www.unca.edu/precollege/"],
+      "covers": ["pre_college", "campdoc", "multi_card"],
+      "site": "1 University Heights, Asheville, NC"
+    },
+    {
+      "key": "mason-plumlee-basketball",
+      "name": "Mason Plumlee Basketball Camp",
+      "urls": ["https://register.ryzer.com/camp.cfm?id=309477"],
+      "area": "Christ School, Arden, NC",
+      "covers": ["clinic", "registration_platform_only"]
+    },
+    {
+      "key": "leaf-global-arts",
+      "name": "LEAF Global Arts (summer camps)",
+      "urls": ["https://www.theleaf.org/camps"],
+      "covers": ["rising_grade_plus_min_age", "qgiv"]
+    },
+    {
+      "key": "kanuga-day-camp",
+      "name": "Kanuga Day Camp",
+      "urls": [],
+      "area": "Hendersonville, NC (Henderson County)",
+      "covers": ["outside_buncombe", "no_seed_url"],
+      "site": "Kanuga, Hendersonville, NC"
+    },
+    {
+      "key": "nc-arboretum",
+      "name": "The North Carolina Arboretum (Discovery Camp)",
+      "urls": ["https://ncarboretum.org/education-programs/discovery-camp/"],
+      "covers": ["track_age_cutoffs", "member_pricing"],
+      "site": "20 Frederick Law Olmsted Way, Asheville, NC"
+    },
+    {
+      "key": "ninjaville",
+      "name": "Ninjaville (ninja warrior camp for kids)",
+      "urls": ["https://ninjaville.org/ninja-warrior-camp-for-kids/"],
+      "covers": ["in_event_feed_as_daily_listings"]
+    },
+    {
+      "key": "black-mountain-summer-camp",
+      "name": "Town of Black Mountain Recreation & Parks Summer Camp",
+      "urls": ["https://www.townofblackmountain.org/2540/Summer-Camp"],
+      "area": "Black Mountain, NC",
+      "covers": ["municipal", "recdesk", "rising_grades", "resident_pricing"]
+    },
+    {
+      "key": "trinity-episcopal-vbs",
+      "name": "Trinity Episcopal Church Asheville (Vacation Bible School)",
+      "urls": ["https://www.trinityasheville.org/vbs"],
+      "covers": ["vbs", "own_page"]
+    }
+  ]
+}

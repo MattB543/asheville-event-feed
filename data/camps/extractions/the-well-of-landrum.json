@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "the-well-of-landrum",
+    "name": "The Well of Landrum",
+    "urls": [
+      "https://www.thewell-landrum.com/events/event/979/vacation-bible-school-true-north/2025-06-11",
+      "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10"
+    ],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:04.530Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "dcc2dda25e6d333a8a51cbdaa4dc8bd8541225872da395d237b54294bdc97e7d",
+  "response": {
+    "searches": [
+      "site:thewell-landrum.com \"2026\" \"Salt\"",
+      "Kidsalt Summersalt 2026 camp location Charleston university"
+    ],
+    "usage": {
+      "inputTokens": 24400,
+      "cachedInputTokens": 8845,
+      "outputTokens": 955,
+      "reasoningTokens": 173
+    },
+    "status": "completed",
+    "ms": 26570,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.thewell-landrum.com/events/event/979/vacation-bible-school-true-north/2025-06-11",
+      "chars": 1391,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10",
+      "chars": 1313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thewell-landrum.com/",
+      "chars": 1447,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Well of Landrum",
+    "website_url": "https://www.thewell-landrum.com/",
+    "notes": "No 2027 VBS information was found. The 2025 True North VBS is an older version of the same program, not a separate card. KidSalt and SummerSalt are held at Charleston Southern University in North Charleston, outside the directory's geographic range, according to their official operator pages: https://www.scbaptist.org/ministries/camps/kidsalt/ and https://www.scbaptist.org/ministries/camps/summersalt/. The VBS event page does not identify its meeting venue; the church footer lists 395 W. Rutherford St., while its homepage refers to worship at Landrum High School, so neither was assumed to be the VBS site.",
+    "excluded": [
+      {
+        "name": "KidSalt Summer Camp!",
+        "reason": "Overnight camp held at Charleston Southern University in North Charleston, SC, outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Overflow Student Ministries - SummerSalt Youth Camp",
+        "reason": "Camp held at Charleston Southern University in North Charleston, SC, outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "SPOUT! Ages 3 to 5th Grade",
+        "reason": "Recurring school-year children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Overflow Student Ministries - OVERFLOW WEDNESDAYS!",
+        "reason": "Recurring youth ministry meetings, not a finite summer camp."
+      },
+      {
+        "name": "Overflow Youth Ministries - BIG C YOUTH RALLY!",
+        "reason": "Single-evening youth event outside summer."
+      },
+      {
+        "name": "Trunk or Treat!",
+        "reason": "Seasonal social event outside summer."
+      },
+      {
+        "name": "Churchwide Picnic & Rubber Ducky Race!",
+        "reason": "Churchwide social event, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS - RAINFOREST FALLS!",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Evening Vacation Bible School. Supper is served.",
+        "camp_page_url": "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "17:30",
+          "end": "20:30",
+          "text": "5:30pm – 8:30pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thewell-landrum.com/events/event/1057/vbs-rainforest-falls/2026-06-10"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

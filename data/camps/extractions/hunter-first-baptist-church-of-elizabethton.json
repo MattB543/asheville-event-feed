@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "hunter-first-baptist-church-of-elizabethton",
+    "name": "Hunter First Baptist Church of Elizabethton",
+    "urls": ["https://www.hunterfbc.org/"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:27.570Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fb9f0e7734a94ded8c3d5b17f65d7d660b7cf1e5b2902436926e424158e04bb6",
+  "response": {
+    "searches": [
+      "site:hunterfbc.org VBS 2026",
+      "\"Hunter First Baptist\" \"VBS\" June",
+      "\"hunterfbc\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 26034,
+      "cachedInputTokens": 8845,
+      "outputTokens": 749,
+      "reasoningTokens": 217
+    },
+    "status": "completed",
+    "ms": 27571,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hunterfbc.org/",
+      "chars": 1841,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hunter First Baptist Church of Elizabethton",
+    "website_url": "https://www.hunterfbc.org/",
+    "notes": "No 2027 camp information or dated 2026 VBS details were found. The official VBS page was readable through indexed search text, but opening it directly returned no readable content. It contains an undated pre-registration form and the church address, without dates, hours, ages or prices.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Redemption Kids Program",
+        "reason": "School-year children's ministry; the church says it takes summers off."
+      },
+      {
+        "name": "Family Bucket List Challenge",
+        "reason": "Self-directed family activities, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.hunterfbc.org/vbs",
+        "registration_url": "https://www.hunterfbc.org/vbs",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hunter First Baptist Church",
+            "address": "693 Highway 91",
+            "town": "Elizabethton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.hunterfbc.org/vbs", "https://www.hunterfbc.org/"],
+        "confidence": "medium",
+        "review_notes": "The VBS page is undated and was accessible only through indexed search text; its direct open returned no readable content. Confirm the current summer offering and schedule. The church address appears on the VBS pre-registration page, but no separate camp-location statement is provided."
+      }
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "roseland-community-center",
+    "name": "Roseland Community Center",
+    "urls": ["https://www.facebook.com/225857359381223/"],
+    "area": "Tryon, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:24:35.847Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Roseland Community Center Tryon RISE summer camp 2026",
+      "site:facebook.com \"Roseland\" \"RISE\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20572,
+      "cachedInputTokens": 8845,
+      "outputTokens": 828,
+      "reasoningTokens": 138
+    },
+    "status": "completed",
+    "ms": 20932,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/225857359381223/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Roseland Community Center",
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 camp information was found. The supplied Facebook page opened without readable content. The 2026 details below come from local newspaper coverage and a mirror of the center's social posts, rather than directly readable official pages. No official registration opening date could be verified.",
+    "excluded": [
+      {
+        "name": "Juneteenth Celebration",
+        "reason": "Community festival, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "RISE!",
+        "type": "day",
+        "categories": ["general", "arts", "academic", "nature_outdoor"],
+        "description": "Children participate in cultural activities, sports, games, arts and crafts, local history workshops, and field trips.",
+        "camp_page_url": "https://www.facebook.com/225857359381223/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-01",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Roseland Community Center",
+            "address": "56 Peake Street",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Monday through Thursday, 9 a.m. to 3 p.m.; Fridays, 9 a.m. to noon."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "medium",
+        "review_notes": "Verify dates, ages, hours and free participation against the center's original 2026 announcement: https://www.tryondailybulletin.com/2026/06/08/roseland-community-center-announces-summer-enrichment-program-juneteenth-celebration/ reports these details. The July 7 newspaper recap confirms the July 1 conclusion. Address appears in the social-post mirror at https://www.findglocal.com/US/Tryon/225857359381223/Roseland-Community-Center and the county tourism venue listing at https://firstpeaknc.com/venue/roseland-community-center/. The mirror also reports a special July 1 drop-off at Garrison Chapel Baptist Church for a historical walk; its original post and venue address were not verified, so that temporary site is omitted. Facebook could not be read directly."
+      }
+    ]
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "sunshine-house",
+    "name": "Sunshine House",
+    "urls": ["https://sunshinehouse.com/region/upstate-sc-summer-camp/"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:22.365Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d5b4d00ebf2e77fa75b13791e5a1e7fc6b9ce2a5ecaa7c9a7cdaa2174317ae4d",
+  "response": {
+    "searches": [
+      "site:sunshinehouse.com Travelers Rest address summer camp",
+      "open https://sunshinehouse.com/center/sunshine-house-of-travelers-rest/"
+    ],
+    "usage": {
+      "inputTokens": 20188,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1391,
+      "reasoningTokens": 128
+    },
+    "status": "completed",
+    "ms": 31857,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sunshinehouse.com/region/upstate-sc-summer-camp/",
+      "chars": 6296,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunshinehouse.com/get-started/tuition-childcare-costs/",
+      "chars": 4398,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunshinehouse.com/programs/summer-camp/",
+      "chars": 4042,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunshinehouse.com/get-started/how-to-enroll/",
+      "chars": 2974,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunshinehouse.com/",
+      "chars": 5067,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sunshine House",
+    "website_url": "https://sunshinehouse.com/",
+    "notes": "No summer 2027 dates or registration milestones were found. Cards cover the Travelers Rest location specified in the request; the regional page also advertises other Upstate locations. Camp pages are undated and provide no exact seasonal dates, weekly calendars, or tuition amounts. The Travelers Rest center publishes operating hours of Monday–Friday, 7 a.m.–6 p.m., but does not separately state camp hours. Enrollment forms are emailed by the Center Director after a tour.",
+    "excluded": [
+      {
+        "name": "Infants, Toddlers, Explorers & Early Preschool, Preschool, Pre-K, and First Steps 4K",
+        "reason": "Year-round early education and childcare programs, not finite summer camps."
+      },
+      {
+        "name": "Before & After School",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "School Break Care",
+        "reason": "Separate school-break care offering outside the summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Next Level Adventure Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in weekly themed activities, hands-on projects, outdoor games, field trips, and experiences with special guests.",
+        "camp_page_url": "https://sunshinehouse.com/programs/summer-camp/",
+        "registration_url": "https://sunshinehouse.com/get-started/how-to-enroll/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Sunshine House of Travelers Rest",
+            "address": "6805 State Park Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Limited spaces available; registration is open."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Each day we provide a fresh, nutritious breakfast, lunch, and an afternoon snack—all planned by a licensed nutritionist."
+        },
+        "transportation": null,
+        "sources": [
+          "https://sunshinehouse.com/region/upstate-sc-summer-camp/",
+          "https://sunshinehouse.com/programs/summer-camp/",
+          "https://sunshinehouse.com/center/sunshine-house-of-travelers-rest/",
+          "https://sunshinehouse.com/get-started/how-to-enroll/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp pages do not identify a summer year; the 2026 season is a fallback with no dates populated. The regional FAQ requires campers to have attended Kindergarten before camp, recorded as completed Kindergarten eligibility. Availability is the undated regional camp-page statement, not a Travelers Rest session-specific statement. Example themes have no dated calendar and therefore are not session rows."
+      },
+      {
+        "name": "Junior Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Younger campers participate in on-site summer activities and in-house experiences with special guests, without off-site field trips.",
+        "camp_page_url": "https://sunshinehouse.com/programs/summer-camp/",
+        "registration_url": "https://sunshinehouse.com/get-started/how-to-enroll/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Sunshine House of Travelers Rest",
+            "address": "6805 State Park Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Each day we provide a fresh, nutritious breakfast, lunch, and an afternoon snack—all planned by a licensed nutritionist."
+        },
+        "transportation": null,
+        "sources": [
+          "https://sunshinehouse.com/region/upstate-sc-summer-camp/",
+          "https://sunshinehouse.com/programs/summer-camp/",
+          "https://sunshinehouse.com/center/sunshine-house-of-travelers-rest/",
+          "https://sunshinehouse.com/get-started/how-to-enroll/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The regional FAQ specifies 4-year-olds and 5-year-olds who have not yet attended Kindergarten. Junior Summer Camp is advertised regionally, but the Travelers Rest center lists only Summer Camp generically; confirm local Junior Summer Camp availability. Camp pages do not identify a summer year; the 2026 season is a fallback with no dates populated."
+      }
+    ]
+  }
+}

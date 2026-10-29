@@ -1,0 +1,131 @@
+{
+  "provider": {
+    "key": "mark-strazzer",
+    "name": "Mark Strazzer",
+    "urls": [],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "review",
+    "status_reason": "no official page found"
+  },
+  "extractedAt": "2026-10-29T16:56:58.381Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Mark Strazzer Ultimate Frisbee Summer Camp 2026 Asheville",
+      "open https://ashevilleultimate.org/ultimate-frisbee-summer-camp",
+      "site:ashevilleultimate.org/ultimate-frisbee-summer-camp \"2026\"",
+      "\"Ultimate Frisbee\" \"2026\" \"Strazzer\" Asheville camp",
+      "\"Ultimate Frisbee Summer Camp\" \"2026\" Asheville",
+      "site:ashevilleultimate.org/ultimate-frisbee-summer-camp"
+    ],
+    "usage": {
+      "inputTokens": 39022,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1523,
+      "reasoningTokens": 530
+    },
+    "status": "completed",
+    "ms": 50714,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [],
+  "extraction": {
+    "provider_name": "Mark Strazzer",
+    "website_url": "https://ashevilleultimate.org/ultimate-frisbee-summer-camp",
+    "notes": "No 2027 information found. The official AUC camp page and both Google Forms returned no readable content. Search results confirmed the summer camp, but most detailed accessible listings were third-party or older materials. Cards are retained conservatively with unknown facts left null. A third-party mirror of the provider's July 31, 2026 social post identifies High School Preseason starting August 3, 2026 at Asheville Middle School, 9am–1pm; those details require official confirmation and dates are not populated.",
+    "excluded": [
+      {
+        "name": "Spring Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Winter Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "After School Programming/Clubs",
+        "reason": "School-year programming rather than summer camp."
+      },
+      {
+        "name": "Individual and Small Group Coaching",
+        "reason": "Coaching booked as lessons rather than a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ultimate Frisbee Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn ultimate frisbee fundamentals and techniques and practice the sport's self-officiating rule, Spirit of the Game.",
+        "camp_page_url": "https://ashevilleultimate.org/ultimate-frisbee-summer-camp",
+        "registration_url": "https://forms.gle/r5ZSBNzWkYbmtdnQA",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://ashevilleultimate.org/ultimate-frisbee-summer-camp"],
+        "confidence": "low",
+        "review_notes": "The official camp page was readable only through a search snippet; the registration form returned no readable content. Confirm 2026 weeks, grade bands, prices, hours and drop-off site directly with the provider. Third-party listings disagree or may be stale about Carrier Park versus Asheville Middle School, so no site is assigned."
+      },
+      {
+        "name": "Ultimate Frisbee High School Preseason",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Ultimate frisbee preseason camp for high school students.",
+        "camp_page_url": null,
+        "registration_url": "https://forms.gle/Kr4LJDwH8hA2izot5",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Middle School",
+            "address": "211 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://ams.ashevillecityschools.net/for-students"],
+        "confidence": "low",
+        "review_notes": "Retained from the existing program list and a third-party mirror of the provider's July 31, 2026 post. The linked official registration form returned no readable content. Confirm the camp's full date range, half-day format, hours, eligibility and venue directly with the provider. The venue's own website publishes 211 South French Broad Avenue; the social mirror lists a general business address of 221 S French Broad Avenue."
+      }
+    ]
+  }
+}

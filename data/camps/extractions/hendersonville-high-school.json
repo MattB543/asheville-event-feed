@@ -1,0 +1,133 @@
+{
+  "provider": {
+    "key": "hendersonville-high-school",
+    "name": "Hendersonville High School",
+    "urls": [
+      "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
+      "https://hendersonvillesoccer.com/camps/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:29.544Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "757d18de0e55485f9d251977d6692d934d32ca6f765b5bcc1729c184248e01dc",
+  "response": {
+    "searches": [
+      "site.hendersoncountypublicschoolsnc.org/hhs \"camp\" \"2026\"",
+      "site.hendersonvillesoccer.com \"Contact\" \"615\""
+    ],
+    "usage": {
+      "inputTokens": 26853,
+      "cachedInputTokens": 8845,
+      "outputTokens": 834,
+      "reasoningTokens": 219
+    },
+    "status": "completed",
+    "ms": 24058,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
+      "chars": 3951,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hendersonvillesoccer.com/camps/",
+      "chars": 1292,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/hhs/files/2024/09/Bearcat-Basketball-Camp-boys.ADA2_.pdf",
+      "chars": 2064,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/zuwNkHscpFZaHv8B8",
+      "chars": 1692,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/hhs/general-information/new-student-enrollment/",
+      "chars": 7127,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hendersonvillesoccer.com/women/schedule/",
+      "chars": 1220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hendersonvillesoccer.com/women/jv-schedule/",
+      "chars": 869,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hendersonvillesoccer.com/men/schedule/",
+      "chars": 1435,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville High School",
+    "website_url": "https://www.hendersoncountypublicschoolsnc.org/hhs/",
+    "notes": "No 2027 or 2026 basketball camp details were found. The athletic camps page still links a flyer explicitly dated June 3–6, 2024; its dates, price, grades and hours have not been carried forward. The supplied hendersonvillesoccer.com pages belong to the Tennessee school, not this North Carolina provider.",
+    "excluded": [
+      {
+        "name": "Hendersonville High School Camp of Champions",
+        "reason": "This is the Hendersonville, Tennessee school’s soccer camp, associated with Russ Plummer Stadium and Sumner County BOE, not Hendersonville High School in North Carolina."
+      },
+      {
+        "name": "Bearcat Bridge",
+        "reason": "School orientation for the school's incoming students, rather than a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Bearcat Basketball Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice the basic fundamentals and skills of basketball.",
+        "camp_page_url": "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jim Pardue Gymnasium",
+            "address": "1 Bearcat Blvd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountypublicschoolsnc.org/hhs/athletic-camps/",
+          "https://www.hendersoncountypublicschoolsnc.org/hhs/files/2024/09/Bearcat-Basketball-Camp-boys.ADA2_.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The currently linked flyer describes only the 2024 camp, including its half-day format and Jim Pardue Gymnasium location. Check whether the program will return in 2027 and whether its format and venue remain the same. No 2026 or 2027 logistical details were found."
+      }
+    ]
+  }
+}

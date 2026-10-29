@@ -1,0 +1,277 @@
+{
+  "provider": {
+    "key": "town-of-forest-city-parks-and-recreation",
+    "name": "Town of Forest City Parks & Recreation",
+    "urls": ["https://www.townofforestcity.com/parks-recreation/youth-programs"],
+    "area": "Forest City, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:23:55.655Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4e77019edce5db1e9c0defebec19e7d7add3c9a94d3250edb65744090c22e8b7",
+  "response": {
+    "searches": [
+      "site:townofforestcity.com \"camp\" \"2026\"",
+      "\"Forest City Parks\" \"camp\" \"2026\" \"basketball\""
+    ],
+    "usage": {
+      "inputTokens": 34867,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1938,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 39754,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.townofforestcity.com/parks-recreation/youth-programs",
+      "chars": 8779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/finance/rates-fees",
+      "chars": 6456,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/sites/default/files/uploads/departments/finance/appendix-a-fy27-rates-and-fees.pdf",
+      "chars": 26289,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/holiday-schedule",
+      "chars": 7546,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/mayor-and-board-commissioners/board-commissioners-meeting-schedule",
+      "chars": 7907,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/fire-department/faq",
+      "chars": 8036,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/planning-code-enforcement/opening-business-forest-city-and-other-faqs",
+      "chars": 14574,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofforestcity.com/planning-code-enforcement/fee-schedule",
+      "chars": 413,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Town of Forest City Parks & Recreation",
+    "website_url": "https://www.townofforestcity.com/",
+    "notes": "No summer 2027 dates or registration milestones were found. The youth programs page directs families to Facebook for camp dates, but no readable camp schedule was located in search. The FY27 fee schedule is effective July 1, 2026; its fiscal-year title is not a summer 2027 announcement. Camp locations, hours and participant ages remain unknown.",
+    "excluded": [
+      {
+        "name": "Swimming Lessons",
+        "reason": "Two-week swimming lesson sessions, not a program named as a camp."
+      },
+      {
+        "name": "Soccer",
+        "reason": "Description of soccer organizations using town fields, not a finite camp offering."
+      },
+      {
+        "name": "Forest City Little League Baseball",
+        "reason": "Sports league and team seasons."
+      },
+      {
+        "name": "Forest City Swim Team",
+        "reason": "Sports team season."
+      },
+      {
+        "name": "Forest City Youth Football",
+        "reason": "Football and cheerleading team seasons."
+      },
+      {
+        "name": "Forest City Heat Youth Basketball",
+        "reason": "Competitive basketball teams, not a camp."
+      },
+      {
+        "name": "Recreational League Youth Basketball",
+        "reason": "Sports league."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Volleyball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Youth summer volleyball camp.",
+        "camp_page_url": "https://www.townofforestcity.com/parks-recreation/youth-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 30,
+            "unit": "session",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.townofforestcity.com/parks-recreation/youth-programs",
+          "https://www.townofforestcity.com/sites/default/files/uploads/departments/finance/appendix-a-fy27-rates-and-fees.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The $30 session fee is from the schedule effective July 1, 2026, rather than a dated summer camp announcement. Confirm the applicable summer fee and daytime format; dates, venue, hours and ages were not found."
+      },
+      {
+        "name": "Golf Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Youth summer golf camp.",
+        "camp_page_url": "https://www.townofforestcity.com/parks-recreation/municipal-golf-course",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 30,
+            "unit": "session",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.townofforestcity.com/parks-recreation/youth-programs",
+          "https://www.townofforestcity.com/parks-recreation/municipal-golf-course",
+          "https://www.townofforestcity.com/sites/default/files/uploads/departments/finance/appendix-a-fy27-rates-and-fees.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The fee schedule effective July 1, 2026 lists $30 per child per session without residency tiers. The municipal golf course search result instead lists $30 within corporate limits and $50 outside corporate limits, with no summer year. It says signup and payment are at Callison Recreation Center; this is not confirmation of the camper drop-off location. Confirm fees, camp venue and daytime format."
+      },
+      {
+        "name": "Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Youth summer basketball camp.",
+        "camp_page_url": "https://www.townofforestcity.com/parks-recreation/youth-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 30,
+            "unit": "session",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.townofforestcity.com/parks-recreation/youth-programs",
+          "https://www.townofforestcity.com/sites/default/files/uploads/departments/finance/appendix-a-fy27-rates-and-fees.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The $30 session fee is from the schedule effective July 1, 2026, rather than a dated summer camp announcement. Confirm the applicable summer fee and daytime format; dates, venue, hours and ages were not found. Gym locations listed for the basketball teams were not assigned to this camp."
+      },
+      {
+        "name": "Tennis Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Youth summer tennis camp.",
+        "camp_page_url": "https://www.townofforestcity.com/parks-recreation/youth-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 30,
+            "unit": "session",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.townofforestcity.com/parks-recreation/youth-programs",
+          "https://www.townofforestcity.com/sites/default/files/uploads/departments/finance/appendix-a-fy27-rates-and-fees.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The $30 session fee is from the schedule effective July 1, 2026, rather than a dated summer camp announcement. Confirm the applicable summer fee and daytime format; dates, venue, hours and ages were not found."
+      }
+    ]
+  }
+}

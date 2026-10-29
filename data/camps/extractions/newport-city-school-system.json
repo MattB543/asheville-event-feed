@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "newport-city-school-system",
+    "name": "Newport City School System",
+    "urls": ["https://www.newportcityschools.org/afterschoolprograms"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:41.661Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "443d70b9518ff1413a617d05d3388ed849846e6c3ac7012f7bd3209856d5306d",
+  "response": {
+    "searches": [
+      "site:newportcityschools.org summer 2026 programs",
+      "\"Newport Grammar\" \"summer\" \"2026\" camp"
+    ],
+    "usage": {
+      "inputTokens": 21138,
+      "cachedInputTokens": 8845,
+      "outputTokens": 354,
+      "reasoningTokens": 149
+    },
+    "status": "completed",
+    "ms": 17025,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.newportcityschools.org/afterschoolprograms",
+      "chars": 1946,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newportcityschools.org/sys/account/register",
+      "chars": 1662,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newportcityschools.org/",
+      "chars": 4151,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport City School System",
+    "website_url": "https://www.newportcityschools.org/",
+    "notes": "No identifiable qualifying summer camp was found. The official After School & Summer Programs page has a Summer Programs 2026 heading but provides no program names, activities, eligibility, dates or registration details. Searches found no additional official summer program details, camp PDFs or 2027 announcements. The fall announcement wording applies to the 2025-2026 after-school programs, not summer 2027. The supplied Connect Suite registration page creates a website notification account and is not camp registration. Summer offerings cannot be classified as district-only learning programs or public camps from the information available.",
+    "excluded": [
+      {
+        "name": "After School Programs 2025-2026",
+        "reason": "School-year after-school programming, outside the summer camp scope."
+      }
+    ],
+    "cards": []
+  }
+}

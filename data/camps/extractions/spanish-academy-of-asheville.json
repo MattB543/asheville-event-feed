@@ -1,0 +1,128 @@
+{
+  "provider": {
+    "key": "spanish-academy-of-asheville",
+    "name": "Spanish Academy of Asheville",
+    "urls": ["https://www.spanishacademyofasheville.com/summer-camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:02.106Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b8aea1daf9fa151fb22b82ecf55fec46419274c5599bf2ccde8c5763e97e5b78",
+  "response": {
+    "searches": ["site:spanishacademyofasheville.com \"summer\" \"2026\""],
+    "usage": {
+      "inputTokens": 16909,
+      "cachedInputTokens": 8845,
+      "outputTokens": 768,
+      "reasoningTokens": 71
+    },
+    "status": "completed",
+    "ms": 27249,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.spanishacademyofasheville.com/summer-camp",
+      "chars": 3562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spanishacademyofasheville.com/tuition-information",
+      "chars": 2801,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spanishacademyofasheville.com/faq",
+      "chars": 6851,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spanishacademyofasheville.com/",
+      "chars": 2108,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spanish Academy of Asheville",
+    "website_url": "https://www.spanishacademyofasheville.com/",
+    "notes": "The official camp page announces that 2027 information is coming soon. No dated 2026 sessions or prices were found. The FAQ gives currently enrolled families first access to enrollment but does not state an opening date. School-day extended care, lunch policies and scholarship information were not applied to summer camp.",
+    "excluded": [
+      {
+        "name": "Pre-K Programs",
+        "reason": "School-year preschool and childcare programs, not finite summer camps."
+      },
+      {
+        "name": "Kindergarten Immersion Program",
+        "reason": "School-year elementary education, not a summer camp."
+      },
+      {
+        "name": "Spanish Club",
+        "reason": "Regular after-school programming, not a finite summer camp."
+      },
+      {
+        "name": "Spanish Club at Glen Arden",
+        "reason": "Lesson series on regular school days, not a summer camp."
+      },
+      {
+        "name": "Spanish Club at Oakley Elementary",
+        "reason": "Lesson series on regular school days, not a summer camp."
+      },
+      {
+        "name": "Global Night",
+        "reason": "Single family social and cultural event, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["academic", "arts", "stem", "nature_outdoor", "sports"],
+        "description": "Children learn Spanish vocabulary through weekly themes involving gardening, Lego building, art, water activities, fantasy play, science experiments, sports and animals.",
+        "camp_page_url": "https://www.spanishacademyofasheville.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "2027 Summer Camp Info Coming Soon!"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spanish Academy of Asheville",
+            "address": "11 Rocket Dr. Suite 100",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:00",
+          "text": "5 days a week from 8:30 am to 3:00 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.spanishacademyofasheville.com/summer-camp",
+          "https://www.spanishacademyofasheville.com/faq",
+          "https://www.spanishacademyofasheville.com/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

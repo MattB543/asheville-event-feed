@@ -1,0 +1,136 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-henderson-county",
+    "name": "Boys & Girls Club of Henderson County",
+    "urls": [
+      "https://bgchendersonco.org/wp-content/uploads/2025/03/Summer-Application.pdf",
+      "https://bgchendersonco.org/programs/",
+      "https://bgchendersonco.org/Membership/",
+      "https://bgchendersonco.org/",
+      "https://bgchendersonco.org/membership/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:44.216Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "89346a672f67ac645ddd8e2e508c79e141a0f3f392ed351a96efacf9af2f202a",
+  "response": {
+    "searches": [
+      "site:bgchendersonco.org summer 2026 registration",
+      "site:bgchendersonco.org \"Summer\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 30242,
+      "cachedInputTokens": 8845,
+      "outputTokens": 844,
+      "reasoningTokens": 136
+    },
+    "status": "completed",
+    "ms": 22568,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bgchendersonco.org/wp-content/uploads/2025/03/Summer-Application.pdf",
+      "chars": 25036,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/programs/",
+      "chars": 884,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/Membership/",
+      "chars": 1571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/",
+      "chars": 4391,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of Henderson County",
+    "website_url": "https://bgchendersonco.org/",
+    "notes": "No summer 2027 dates or registration milestones were found. An official July 1, 2026 news article confirms free summer programming in 2026, but does not provide season dates, hours or eligibility. The linked summer application and field-trip calendar are explicitly for 2025 and were not used to populate 2026 facts. The membership page currently describes only school-year programming.",
+    "excluded": [
+      {
+        "name": "Afterschool Programming",
+        "reason": "School-year childcare running August 12, 2026–May 14, 2027, not a summer camp."
+      },
+      {
+        "name": "Sports Leagues",
+        "reason": "Basketball and flag football leagues and team seasons, not finite summer camps or clinics."
+      },
+      {
+        "name": "Good Character & Citizenship",
+        "reason": "Ongoing Club activities and leadership programs, not separately advertised finite summer camps."
+      },
+      {
+        "name": "Christmas Family Night",
+        "reason": "Single family social event outside summer."
+      },
+      {
+        "name": "Youth of the Year 2027",
+        "reason": "January recognition event, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Programming",
+        "type": "day",
+        "categories": ["general", "academic", "stem", "nature_outdoor"],
+        "description": "Members participate in Brain Gain, reading, STEM activities and activities chosen around their interests. Summer programming also includes field trips to local attractions and walks on the Parkway.",
+        "camp_page_url": "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Boys & Girls Club of Henderson County",
+            "address": "1304 Ashe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
+          "https://bgchendersonco.org/",
+          "https://bgchendersonco.org/Membership/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "provider": {
+    "key": "north-point-baptist-church-of-weaverville",
+    "name": "North Point Baptist Church of Weaverville",
+    "urls": [
+      "https://northpointbaptist.org/events/2025/06/23/vbs",
+      "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
+      "https://vbspro.events/p/e5c4cf"
+    ],
+    "area": "Weaverville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:12.218Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "abd6107aac919be4a9be40605b20792e15dd71aeb67e217748d0da6770420ec0",
+  "response": {
+    "searches": ["site:northpointbaptist.org 2027 VBS"],
+    "usage": {
+      "inputTokens": 16163,
+      "cachedInputTokens": 8845,
+      "outputTokens": 761,
+      "reasoningTokens": 67
+    },
+    "status": "completed",
+    "ms": 18798,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://northpointbaptist.org/events/2025/06/23/vbs",
+      "chars": 2512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
+      "chars": 2006,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/p/e5c4cf",
+      "chars": 2794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northpointbaptist.org/",
+      "chars": 2052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Point Baptist Church of Weaverville",
+    "website_url": "https://northpointbaptist.org/",
+    "notes": "No 2027 summer program details or registration dates found. The calendar contains additional recurring VBS entries extending outside summer; these were not treated as separate sessions because the dated 2026 event page and registration platform agree on June 15–19. A 2024 YUC Summer Camp listing was found, but no 2026 or 2027 details or camp location were found.",
+    "excluded": [
+      {
+        "name": "Sunday School and Praiseland",
+        "reason": "Year-round children's ministry programs, not finite summer camps."
+      },
+      {
+        "name": "Youth ministry gatherings, mission opportunities and excursions",
+        "reason": "Regular youth gatherings, mission opportunities and youth-group outings are outside the camp rule."
+      },
+      {
+        "name": "Youth at Fort Caswell",
+        "reason": "The historical listing names a coastal North Carolina venue outside the local drive-time area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids Summer VBS!",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Rainforest Falls Vacation Bible School explores the nature of God and what it means to be rooted in a relationship with their creator.",
+        "camp_page_url": "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
+        "registration_url": "https://vbspro.events/p/e5c4cf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 12
+        },
+        "grades": {
+          "min": null,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "North Point Baptist Church",
+            "address": "119 Monticello Rd",
+            "town": "Weaverville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://northpointbaptist.org/events/2026/06/15/kids-summer-vbs",
+          "https://vbspro.events/p/e5c4cf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "shaws-creek-baptist-church-of-hendersonville",
+    "name": "Shaws Creek Baptist Church of Hendersonville",
+    "urls": ["https://vbsmate.com/events/ShawsCreekBaptistHVL/31828"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:58.556Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0bb4fa319a506216d80daa540cd00ea61bcadd1513885fb023a6438d57c1176d",
+  "response": {
+    "searches": ["Shaws Creek Baptist Church Hendersonville official VBS 2027 2026"],
+    "usage": {
+      "inputTokens": 13958,
+      "cachedInputTokens": 8845,
+      "outputTokens": 609,
+      "reasoningTokens": 55
+    },
+    "status": "completed",
+    "ms": 15131,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbsmate.com/events/ShawsCreekBaptistHVL/31828",
+      "chars": 899,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/students/ShawsCreekBaptistHVL/31828",
+      "chars": 394,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/",
+      "chars": 1782,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shaws Creek Baptist Church of Hendersonville",
+    "website_url": "https://www.mycreek.org/",
+    "notes": "No 2027 VBS information was found on the official website or VBSMate listing. The 2026 listing is retained.",
+    "excluded": [
+      {
+        "name": "Shaws Creek Students",
+        "reason": "Weekly youth group and Sunday School, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A full-day Vacation Bible School with gospel-based teaching, activities, crafts and food. The theme is Magnified, Discovering The Bigness of God In the Smallest Things.",
+        "camp_page_url": "https://vbsmate.com/events/ShawsCreekBaptistHVL/31828",
+        "registration_url": "https://vbsmate.com/students/ShawsCreekBaptistHVL/31828",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shaws Creek Baptist Church",
+            "address": "91 Shaws Creek Church Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Registration for VBS is not currently open."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbsmate.com/events/ShawsCreekBaptistHVL/31828",
+          "https://vbsmate.com/students/ShawsCreekBaptistHVL/31828",
+          "https://www.mycreek.org/contact",
+          "https://www.mycreek.org/events"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

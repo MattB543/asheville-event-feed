@@ -1,0 +1,166 @@
+{
+  "provider": {
+    "key": "boones-creek-bible-church-of-johnson-city",
+    "name": "Boones Creek Bible Church of Johnson City",
+    "urls": ["https://www.bcbible.org/vbs/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:01.691Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6f99848148a4fdd7f4aa7a57f5ce40a8279c3fd435ed472986a80d95adc62800",
+  "response": {
+    "searches": ["site:bcbible.org \"2027\"", "site:wilds.org \"address\" \"1000\""],
+    "usage": {
+      "inputTokens": 22103,
+      "cachedInputTokens": 8845,
+      "outputTokens": 904,
+      "reasoningTokens": 128
+    },
+    "status": "completed",
+    "ms": 32129,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bcbible.org/vbs/",
+      "chars": 721,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/Q4bwFEMs5XjKCqSe6",
+      "chars": 0,
+      "error": "fetch: HTTP 410; browser: HTTP 410"
+    },
+    {
+      "url": "https://www.bcbible.org/",
+      "chars": 1119,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boones Creek Bible Church of Johnson City",
+    "website_url": "https://www.bcbible.org/",
+    "notes": "No church-specific summer 2027 information found. The church website blocked direct browser access; supplied page text and official search results were used. The VBS registration button's destination could not be retrieved. Youth Camp dates were found in the church's 2026 calendar; no church-specific price, eligibility or registration details were found.",
+    "excluded": [
+      {
+        "name": "Kids4Truth",
+        "reason": "Year-round children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Father–Son Campout at The Wilds",
+        "reason": "Family-only program outside summer, May 1–2, 2026."
+      },
+      {
+        "name": "Men’s Retreat at The Wilds",
+        "reason": "Adult-only retreat outside summer."
+      },
+      {
+        "name": "Ladies’ Retreat at The Wilds",
+        "reason": "Adult-only retreat outside summer."
+      },
+      {
+        "name": "Family Hike",
+        "reason": "Family outing rather than a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in games, songs, crafts and Bible teaching.",
+        "camp_page_url": "https://www.bcbible.org/vbs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-04",
+          "end": "2026-06-06",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Boones Creek Bible Church",
+            "address": "1528 Old Gray Station Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Thursday and Friday: 6pm–9pm; Saturday: 10am–2pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.bcbible.org/vbs/",
+          "https://www.bcbible.org/childrens-ministries/",
+          "https://www.bcbible.org/contact-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Youth Camp at The Wilds",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Youth attend a week of Christian camp at The Wilds, with preaching and time with other campers.",
+        "camp_page_url": "https://www.bcbible.org/calendar/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Rd",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.bcbible.org/calendar/",
+          "https://www.bcbible.org/teen-ministry/",
+          "https://www.bcbible.org/childrens-ministries/",
+          "https://wilds.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates come from the official calendar's search result under its 2026 heading. The church names The Wilds without specifying its campus; the North Carolina campus is inferred. Confirm the campus and whether church departure/drop-off is at the church rather than at camp."
+      }
+    ]
+  }
+}

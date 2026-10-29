@@ -1,0 +1,602 @@
+{
+  "provider": {
+    "key": "firefly-valley-pottery",
+    "name": "Firefly Valley Pottery",
+    "urls": [
+      "https://www.fireflyvalleydesign.com/potterysummercamps",
+      "https://www.fireflyvalleydesign.com/potterysummercamp"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:59:33.221Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d295b6b8d48b014988eab8f6a5fe68bec07d68d9f91cdf85491847c6adf8db59",
+  "response": {
+    "searches": ["site:fireflyvalleydesign.com \"2027\""],
+    "usage": {
+      "inputTokens": 22349,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4161,
+      "reasoningTokens": 112
+    },
+    "status": "completed",
+    "ms": 78168,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+      "chars": 8657,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fireflyvalleydesign.com/potterysummercamp",
+      "chars": 8657,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fireflyvalleydesign.com/firefly-valley-faqs",
+      "chars": 5412,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fireflyvalleydesign.com/favorite-camps",
+      "chars": 1685,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fireflyvalleydesign.com/",
+      "chars": 16991,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Firefly Valley Pottery",
+    "website_url": "https://www.fireflyvalleydesign.com/",
+    "notes": "2027 registration and scholarship application dates are announced, but summer session dates, locations and tuition remain labeled 2026. The FAQ conflicts with the camp page about hours, half-day tickets and scholarship timing; the specific camp page was used. Camp Summer Haven and SPEAK are referrals to other providers, not Firefly Valley programs. Older 2025 event listings were not used as current offerings.",
+    "excluded": [
+      {
+        "name": "Kids Pottery Classes",
+        "reason": "Spring and fall lesson series, not summer camps."
+      },
+      {
+        "name": "Freedom Fridays",
+        "reason": "School-year homeschool enrichment classes."
+      },
+      {
+        "name": "Winter and Spring Break Pottery Camps",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Adult pottery classes and workshops",
+        "reason": "Adult-only offerings and lesson series."
+      },
+      {
+        "name": "Birthday parties and special events",
+        "reason": "Private social events rather than summer camp programs."
+      },
+      {
+        "name": "Camp Summer Haven",
+        "reason": "Referral to a different provider."
+      },
+      {
+        "name": "SPEAK",
+        "reason": "Referral to a different provider."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Pottery Summer Camp",
+        "type": "day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers learn pinch, slab and coil hand-building techniques and receive individual pottery wheel tutorials. Activities also include outdoor play, painting, fiber arts, sculpture and baking.",
+        "camp_page_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+        "registration_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rainbow Community School",
+            "address": "574 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Firefly Valley Pottery",
+            "address": "25 Central Ave W",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:15",
+          "text": "10am - 4:15pm Monday-Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "09:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "$10/ hour per child"
+        },
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "week",
+            "label": "Full week, full day",
+            "year": 2026
+          },
+          {
+            "amount": 522.5,
+            "unit": "week",
+            "label": "Early Bird, Feb 14-28",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Pottery & Pollinators with Ona",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Spanish Language Week with Ona",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cats Week with Megan",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BIPOC Week with Shawn and Catina",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pottery Around the World with Ona",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cats Week with Megan and Ona",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LGBTQIA+ Week with Shawn",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pottery Around the World Week with Ona",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mexico Week with Ona",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Australia Pottery Week with Megan and Ona",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cherokee Pottery Week with Ona",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ocean Week with Ona",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pottery Around the World Week with Ona",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Oceans Week with Ms. Jesse",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-14",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for 2027 Summer Camp will be February 14 at 9am - put a reminder in your phone.",
+            "url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Scholarships are open on January 1, 2027 and close on Feb 1.",
+            "url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "closes",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Scholarships are open on January 1, 2027 and close on Feb 1.",
+            "url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are only for full day campers."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "No, but our OpenDoors of Asheville participants have lunch delivered and transportation provided, check out their program!"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "No, but our OpenDoors of Asheville participants have lunch delivered and transportation provided, check out their program!"
+        },
+        "sources": [
+          "https://www.fireflyvalleydesign.com/potterysummercamps",
+          "https://www.fireflyvalleydesign.com/firefly-valley-faqs",
+          "https://www.fireflyvalleydesign.com/contact",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 sites are assigned from the statement that the final three August weeks meet at Firefly Valley and earlier camps meet at Rainbow. The FAQ gives 10am-4pm and says half-day/single-day tickets are available, while the camp page gives 10am-4:15pm and explicitly disallows those tickets. The FAQ describes year-round scholarship applications with January 31 awards; the camp page's updated introduction explicitly announces January 1-February 1, 2027, while its older scholarship section contains 2026 and 2025 dates. BIPOC Week is restricted to Black, Indigenous and People of Color youth, including Asian Pacific Islanders; the simultaneous Pottery Around the World offering welcomes all campers. Tuition and operational details are retained as 2026, not confirmed for 2027."
+      },
+      {
+        "name": "Camp Helpers",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Helpers support camp staff, lead afternoon activities and have time for pottery hand-building and wheel work. New helpers apply before registering.",
+        "camp_page_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+        "registration_url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rainbow Community School",
+            "address": "574 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Firefly Valley Pottery",
+            "address": "25 Central Ave W",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:15",
+          "text": "10am - 4:15pm Monday-Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "09:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "$10/ hour per child"
+        },
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Helper tickets (full day)",
+            "year": 2026
+          },
+          {
+            "amount": 285,
+            "unit": "week",
+            "label": "Early Bird, Feb 14-28",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Pottery & Pollinators with Ona",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Spanish Language Week with Ona; Cats Week with Megan",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BIPOC Week; Pottery Around the World",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cats Week with Megan and Ona",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LGBTQIA+ Week; Pottery Around the World Week",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mexico Week with Ona",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Australia Pottery Week with Megan and Ona",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cherokee Pottery Week with Ona",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Rainbow Community School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ocean Week with Ona",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pottery Around the World Week with Ona",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Oceans Week with Ms. Jesse",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": "Firefly Valley Pottery",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-14",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for 2027 Summer Camp will be February 14 at 9am - put a reminder in your phone.",
+            "url": "https://www.fireflyvalleydesign.com/potterysummercamps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fireflyvalleydesign.com/potterysummercamps",
+          "https://www.fireflyvalleydesign.com/firefly-valley-faqs",
+          "https://www.fireflyvalleydesign.com/contact",
+          "https://rainbowcommunityschool.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Helper weeks and sites follow the main camp schedule; the page invites helpers to register for their chosen week but does not separately enumerate helper sessions. Simultaneous themes are retained together in helper week rows because separate helper assignments are not stated. Sites follow the final-three-August-weeks location statement. The camp page states 4:15pm pickup while the FAQ says 4pm. Helper tuition and operational details are retained as 2026, not confirmed for 2027. Scholarship and sibling codes are explicitly disallowed for helper tickets during Early Bird, but scholarship eligibility outside that period is unclear."
+      }
+    ]
+  }
+}

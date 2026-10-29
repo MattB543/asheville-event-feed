@@ -1,0 +1,569 @@
+{
+  "provider": {
+    "key": "the-adventure-school",
+    "name": "The Adventure School",
+    "urls": ["https://theadventureschool.org/summer-camps"],
+    "area": "Tryon, NC",
+    "discovered_by": ["news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:00:55.180Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "cbd5d79ec348c69c572608dd1afb54d8d0b9eccceffaf051cde92b66fed8fb39",
+  "response": {
+    "searches": [
+      "site:theadventureschool.org address Tryon 2027 summer",
+      "\"The Adventure School\" \"address\" Tryon",
+      "\"The Adventure School\" \"Tryon\" \"Road\""
+    ],
+    "usage": {
+      "inputTokens": 20878,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4252,
+      "reasoningTokens": 221
+    },
+    "status": "completed",
+    "ms": 81707,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://theadventureschool.org/summer-camps",
+      "chars": 5755,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/ZCFSpM7SJyQt4Szk8",
+      "chars": 1265,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/2cafuHDsgRQhUfXU6",
+      "chars": 1099,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=header",
+      "chars": 1265,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theadventureschool.org/",
+      "chars": 1777,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Adventure School",
+    "website_url": "https://theadventureschool.org/",
+    "notes": "No summer 2027 information or registration milestones were found. Cards retain the explicitly labeled 2026 information. Searches did not locate an official published campus street address or expedition drop-off location. Some additional official pages returned no readable text when opened, although search snippets were readable.",
+    "excluded": [
+      {
+        "name": "Wild Child",
+        "reason": "School-year preschool outdoor education program; distinct from Wild Child Summer."
+      },
+      {
+        "name": "Explorers",
+        "reason": "School-year enrichment program."
+      },
+      {
+        "name": "Navigators",
+        "reason": "School-year enrichment program."
+      },
+      {
+        "name": "Adventure Youth Group",
+        "reason": "Ongoing youth-group program and trimester expeditions, not a finite summer camp."
+      },
+      {
+        "name": "Adventure Days and Teen Day Trips",
+        "reason": "Recurring year-round Adventure Saturdays and teen outings; no finite summer offering found."
+      },
+      {
+        "name": "Adventure by Design",
+        "reason": "Customized programs for individuals or groups without a published finite youth summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Canoe Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers travel down a regional river in tandem canoes for four days, camping on shore each night and carrying their supplies.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "9:00 AM Monday - 4:30 PM Thursday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 615,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The Adventure School will provide transportation, food, and all canoeing and group camping equipment"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "The Adventure School will provide transportation, food, and all canoeing and group camping equipment"
+        },
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Multi-Adventure Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers practice outdoor living skills and participate in activities such as hiking, paddling, biking, rafting and climbing during a four-day, three-night expedition.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "9:00 AM Monday - 4:30 PM Thursday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 615,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The Adventure School will provide transportation, food, and all group equipment"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "The Adventure School will provide transportation, food, and all group equipment"
+        },
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Counselor-In-Training Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers train in rock climbing, canoeing and camp craft while developing outdoor skills, safety awareness and skills for assisting others. The four-day program includes one overnight.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-02",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "9:00 AM - 4:30 PM Monday & Tuesday; 9:00 AM Wednesday - 4:30 PM Thursday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer camp page lists ages 12-15, but the 2026 registration form lists ages 12-14 for CIT Camp. Ages follow the camp page. Classified as day camp with its included single overnight rather than a separate overnight offering."
+      },
+      {
+        "name": "Kin Ye",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers play games, explore outdoors and build friendships through shared adventures in a group of up to 10 campers. An optional Thursday-night campout is offered.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "Monday - Wednesday 9:00 AM - 4:30 PM; Thursday & Friday (overnight optional) 9:00 AM Thursday - 4:00 PM Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 475,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Kin Ye June",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Kin Ye August",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wild Weeks",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers explore the campus river, fields, creeks, woods and pond through activities guided by their interests. Activities have included tubing, canoeing, field games, stream walks, shelter building and treasure hunts.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Adventure School campus",
+            "address": null,
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "9:00 AM - 4:00 PM Monday - Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 325,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Wild Week 1",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Week 2",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Week 3",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Week 4",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfNV-mKr9f3BsfocT7_i_7-fD8fB2M_09sL0qE4za9rLdQYFw/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wild Child Summer",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Younger campers explore and play outdoors at their own pace and join some activities with older Wild Weeks campers. Campers must be potty-trained, and families choose three to five days per week.",
+        "camp_page_url": "https://theadventureschool.org/summer-camps",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScyF95BUL6MthJ6vNgwoTI-QNwpthfNZWDQy4pkxfnyUxU-GQ/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Adventure School campus",
+            "address": null,
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9:00 AM - 1:00 PM Monday - Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 165,
+            "unit": "week",
+            "label": "3-days",
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "week",
+            "label": "4-days",
+            "year": 2026
+          },
+          {
+            "amount": 225,
+            "unit": "week",
+            "label": "5-days",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Wild Child 1",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Child 2",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Child 3",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Wild Child 4",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "FULL/WAITLIST"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theadventureschool.org/summer-camps",
+          "https://docs.google.com/forms/d/e/1FAIpQLScyF95BUL6MthJ6vNgwoTI-QNwpthfNZWDQy4pkxfnyUxU-GQ/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

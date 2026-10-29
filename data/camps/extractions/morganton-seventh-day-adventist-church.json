@@ -1,0 +1,84 @@
+{
+  "provider": {
+    "key": "morganton-seventh-day-adventist-church",
+    "name": "Morganton Seventh-day Adventist Church",
+    "urls": ["https://morgantonnc.adventistchurch.org/ministries/vacation-bible-school/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:37.505Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e00e01b865b0efcb1ec47000e4052a5efea5762e7375d6c1cce498ffbd00728d",
+  "response": {
+    "searches": [
+      "site:morgantonnc.adventistchurch.org \"Vacation\" \"2027\"",
+      "open https://www.youtube.com/watch?v=5i9n4D7yjds"
+    ],
+    "usage": {
+      "inputTokens": 14907,
+      "cachedInputTokens": 8845,
+      "outputTokens": 611,
+      "reasoningTokens": 143
+    },
+    "status": "completed",
+    "ms": 19068,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://morgantonnc.adventistchurch.org/ministries/vacation-bible-school/",
+      "chars": 3014,
+      "method": "fetch"
+    },
+    {
+      "url": "https://morgantonnc.adventistchurch.org/",
+      "chars": 3362,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Morganton Seventh-day Adventist Church",
+    "website_url": "https://morgantonnc.adventistchurch.org/",
+    "notes": "No 2027 camp information found. The supplied official page identifies Vacation Bible School 2026 but provides no readable dates, ages, hours, prices or registration details. The linked 2026 YouTube video returned no readable content. The church publishes 2187 Jamestown Road, Morganton, NC, but the supplied text does not explicitly identify the VBS drop-off venue.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://morgantonnc.adventistchurch.org/ministries/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://morgantonnc.adventistchurch.org/ministries/vacation-bible-school/",
+          "https://morgantonnc.adventistchurch.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official page confirms the 2026 program through its heading, but its content is primarily an embedded video. Review the linked video https://www.youtube.com/watch?v=5i9n4D7yjds for dates, eligibility, hours and venue; it returned no readable content during research."
+      }
+    ]
+  }
+}

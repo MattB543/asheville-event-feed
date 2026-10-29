@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "weaverville-united-methodist-church",
+    "name": "Weaverville United Methodist Church",
+    "urls": ["https://www.weavervilleumc.org/vbs/"],
+    "area": "Weaverville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:11.775Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6d22a60411d60505b2fe635385c0a3752905c4c196fe54f3c6cc9de6b17aa326",
+  "response": {
+    "searches": ["site:weavervilleumc.org \"2027\" \"Bible\""],
+    "usage": {
+      "inputTokens": 14391,
+      "cachedInputTokens": 8845,
+      "outputTokens": 756,
+      "reasoningTokens": 77
+    },
+    "status": "completed",
+    "ms": 20450,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.weavervilleumc.org/vbs/",
+      "chars": 1400,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.weavervilleumc.org/",
+      "chars": 4186,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Weaverville United Methodist Church",
+    "website_url": "https://www.weavervilleumc.org/",
+    "notes": "No summer 2027 information or registration announcement was found. The VBS page still lists 2026. The Fellowship Center's camp address is 90 N. Main Street, distinct from the church's main street address of 85 N. Main Street.",
+    "excluded": [
+      {
+        "name": "WUMC Preschool",
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes, not a summer camp."
+      },
+      {
+        "name": "Children & Youth Ministries",
+        "reason": "Regular youth-group meetings, retreats and outings, not a separately named finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and their relationship with their Creator through the Rainforest Falls theme. All children must be potty trained to register.",
+        "camp_page_url": "https://www.weavervilleumc.org/vbs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "WUMC Fellowship Center",
+            "address": "90 N. Main Street",
+            "town": "Weaverville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9:00am to 12:00pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "FREE!",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 Vacation Bible School",
+          "text": "Register or Volunteer: CLOSED"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.weavervilleumc.org/vbs/",
+          "https://www.weavervilleumc.org/",
+          "https://www.weavervilleumc.org/blood-drive/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

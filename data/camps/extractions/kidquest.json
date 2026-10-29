@@ -1,0 +1,215 @@
+{
+  "provider": {
+    "key": "kidquest",
+    "name": "KidQuest",
+    "urls": ["https://www.kidquest.love/summer-camp"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:49.845Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a046952234e9cae57a8f9d29147c8d7bcdd2638f4a17c9fdde46a646ebcf0396",
+  "response": {
+    "searches": ["site:kidquest.love \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 12941,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1435,
+      "reasoningTokens": 48
+    },
+    "status": "completed",
+    "ms": 33775,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.kidquest.love/summer-camp",
+      "chars": 2071,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.procareconnect.com/register/62cef752-13e5-4344-9499-78e8017e35ca",
+      "chars": 986,
+      "method": "browser"
+    },
+    {
+      "url": "https://schools.procareconnect.com/form/158adcab-cf99-40fe-a669-2aa092cb483d",
+      "chars": 623,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.kidquest.love/",
+      "chars": 3510,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "KidQuest",
+    "website_url": "https://www.kidquest.love/",
+    "notes": "No summer 2027 information or dated registration opening was found. The summer page still displays 2026 space counts even though those sessions are in the past. The registration form has a stale '24-'25 grade prompt; the summer page explicitly states rising 1st–6th grade.",
+    "excluded": [
+      {
+        "name": "KidQuest Afterschool",
+        "reason": "School-year childcare, including school's-out day care, rather than a summer camp."
+      },
+      {
+        "name": "Black Mountain Tailgate Market",
+        "reason": "Market and parade craft event, not a finite supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "KidQuest Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts", "stem"],
+        "description": "Campers take field trips, swim, visit playgrounds, hike, make art projects, and do STEM experiments and outdoor activities.",
+        "camp_page_url": "https://www.kidquest.love/summer-camp",
+        "registration_url": "https://schools.procareconnect.com/register/62cef752-13e5-4344-9499-78e8017e35ca",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "KidQuest",
+            "address": "101 Church Street",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "Monday- Friday 9:00am-4:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 420,
+            "unit": "week",
+            "label": "Includes $200 registration/supply fee paid as deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 camp weeks",
+          "text": "June 22 - June 26 Full; August 3 - August 7 FULL"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Families provide snacks and lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.kidquest.love/summer-camp",
+          "https://schools.procareconnect.com/register/62cef752-13e5-4344-9499-78e8017e35ca",
+          "https://www.kidquest.love/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Procare form's grade prompt refers to the '24-'25 school year, while the official summer page labels the weeks 2026 and states rising 1st–6th grade; grades follow the summer page. Availability records the site's displayed 2026 counts, which remain posted after the sessions ended and should not be treated as 2027 availability."
+      }
+    ]
+  }
+}

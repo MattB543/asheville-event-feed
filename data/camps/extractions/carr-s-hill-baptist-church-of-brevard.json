@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "carr-s-hill-baptist-church-of-brevard",
+    "name": "Carr’s Hill Baptist Church of Brevard",
+    "urls": ["https://carrshillbaptist.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:25:00.277Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d256ea03725321b32436db43491d9c1cac2978e6c9a50ba99e5d597611f2c82a",
+  "response": {
+    "searches": ["site:carrshillbaptist.com VBS", "\"Carr's Hill Baptist\" \"2026\" \"VBS\""],
+    "usage": {
+      "inputTokens": 24484,
+      "cachedInputTokens": 8845,
+      "outputTokens": 595,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 19983,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://carrshillbaptist.com/",
+      "chars": 11857,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carrshillbaptist.com/updates/",
+      "chars": 10410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carrshillbaptist.com/updates/welcome-to-carr-s-hill-baptist-church-website/",
+      "chars": 12261,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carr’s Hill Baptist Church of Brevard",
+    "website_url": "https://carrshillbaptist.com/",
+    "notes": "No 2027 VBS announcement or registration dates were found. A search result for the church's YouTube channel identifies a video titled VBS 2026, but the video page could not be read and supplies no usable camp dates. The events page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Sunday School and Children's Church",
+        "reason": "Recurring year-round religious classes, not a finite summer camp."
+      },
+      {
+        "name": "Samaritan's Purse Shoebox Ministry 2025",
+        "reason": "Donation and shoebox collection activity outside summer, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carr’s Hill Baptist Church",
+            "address": "2719 Greenville Highway",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carrshillbaptist.com/",
+          "https://carrshillbaptist.com/updates/",
+          "https://www.youtube.com/live/pocsYOBi6eo"
+        ],
+        "confidence": "low",
+        "review_notes": "VBS is retained from the existing program list and corroborated only by a search result titled VBS 2026 from Carr's Hill Baptist on YouTube. Confirm the summer schedule, eligibility, meeting location and registration details with the church. The listed site is the church's published location; no readable current VBS announcement independently confirms drop-off there."
+      }
+    ]
+  }
+}

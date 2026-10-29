@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "laurel-ridge-country-club",
+    "name": "Laurel Ridge Country Club",
+    "urls": ["https://www.laurelridgeexperience.com/files/2025%20Membership%20Summary.pdf"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:25.464Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "21a8a80ee39daa485a498058e6e67ed76aac122009aae60c5f31d81dbe5584fc",
+  "response": {
+    "searches": [
+      "site:laurelridgeexperience.com \"camp\"",
+      "site:laurelridgeexperience.com \"camp\" \"2026\" \"July\"",
+      "open https://www.laurelridgeexperience.com/default.aspx?ID=210098&p=.NETEventView&seriesDate=6%2F18%2F2026+10%3A00%3A00+AM&ssid=100115&type=0",
+      "site:laurelridgeexperience.com \"210098\" \"PM\""
+    ],
+    "usage": {
+      "inputTokens": 20431,
+      "cachedInputTokens": 8845,
+      "outputTokens": 920,
+      "reasoningTokens": 237
+    },
+    "status": "completed",
+    "ms": 37154,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.laurelridgeexperience.com/files/2025%20Membership%20Summary.pdf",
+      "chars": 11410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.laurelridgeexperience.com/",
+      "chars": 2788,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Laurel Ridge Country Club",
+    "website_url": "https://www.laurelridgeexperience.com/",
+    "notes": "No 2027 camp information was found. Official 2026 camp event pages returned no readable body when opened; search results supplied the program description and ages. Session dates, hours, prices and registration details could not be confirmed, so they are omitted.",
+    "excluded": [
+      {
+        "name": "Tennis and golf lessons",
+        "reason": "Private, semi-private and group lessons are lesson offerings, not camps."
+      },
+      {
+        "name": "Tennis Skills Clinic",
+        "reason": "The available calendar lists recurring October clinics, outside summer, without identifying a finite youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Sports Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers receive golf and tennis instruction and participate in swimming and other activities.",
+        "camp_page_url": "https://www.laurelridgeexperience.com/default.aspx?ID=210098&p=v35EvtView&qfilter=RSC2&seriesDate=6%2F16%2F2026+10%3A00%3A00+AM&ssid=100032&type=0",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Laurel Ridge Country Club",
+            "address": "49 Cupp Lane",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.laurelridgeexperience.com/default.aspx?ID=210098&p=v35EvtView&qfilter=RSC2&seriesDate=6%2F16%2F2026+10%3A00%3A00+AM&ssid=100032&type=0",
+          "https://www.laurelridgeexperience.com/",
+          "https://www.laurelridgeexperience.com/files/2025%20Membership%20Summary.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages and activities come from an official search snippet describing a week-long camp. The event title says June 15, 2026, but alternate URLs contain June and July recurrence dates; those URL parameters were not treated as confirmed sessions. Check the club's event listing for actual weeks, hours, fees, registration instructions and membership eligibility."
+      }
+    ]
+  }
+}

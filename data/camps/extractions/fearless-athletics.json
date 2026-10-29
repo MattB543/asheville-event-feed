@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "fearless-athletics",
+    "name": "Fearless Athletics",
+    "urls": ["https://www.fearlessathletics-wnc.com/summer-camps"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:39.147Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "566cd19c94e87721de6b3fe3fec07785a021679a4a4ba227e695281e0c768ae4",
+  "response": {
+    "searches": [
+      "site:fearlessathletics-wnc.com camps 2027 2026",
+      "open https://www.fearlessathletics-wnc.com/summer-camps-clinics"
+    ],
+    "usage": {
+      "inputTokens": 14007,
+      "cachedInputTokens": 8845,
+      "outputTokens": 759,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 20548,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fearlessathletics-wnc.com/summer-camps",
+      "chars": 1247,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fearlessathletics-wnc.com/tumble-schedule",
+      "chars": 537,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fearlessathletics-wnc.com/",
+      "chars": 530,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fearless Athletics",
+    "website_url": "https://www.fearlessathletics-wnc.com/",
+    "notes": "No dated 2026 summer schedule or 2027 summer information was found. The camps page describes week-long camps and one-day clinics together without listing separate offerings. The alternate summer-camps-clinics page and contact page returned no readable text when opened; the official contact search result confirms the address.",
+    "excluded": [
+      {
+        "name": "Tumbling Program",
+        "reason": "Ongoing tumbling classes, not a finite summer camp."
+      },
+      {
+        "name": "All-Star competitive cheerleading",
+        "reason": "Competitive team season, not a summer camp."
+      },
+      {
+        "name": "Fearless Lock-ins",
+        "reason": "Single-night social events; the listed Halloween, winter and spring events are also outside summer."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private social events, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fearless Camps and Clinics",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Summer camps and clinics focus on cheerleading skills, including stunts, tumbling and choreography. The provider describes week-long camps and focused one-day clinics.",
+        "camp_page_url": "https://www.fearlessathletics-wnc.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fearless Athletics",
+            "address": "44 Business Park Circle, Unit 100",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fearlessathletics-wnc.com/summer-camps",
+          "https://www.fearlessathletics-wnc.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camps page is undated and gives only a general description, not a dated 2026 or 2027 offering list. Day format is based on its week-long camps and one-day clinics; no daily hours are published. The site uses the provider's published gym address for its in-house programs."
+      }
+    ]
+  }
+}

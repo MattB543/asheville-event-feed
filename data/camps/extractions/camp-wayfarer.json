@@ -1,0 +1,326 @@
+{
+  "provider": {
+    "key": "camp-wayfarer",
+    "name": "Camp Wayfarer",
+    "urls": [
+      "https://www.campwayfarer.com/summer-camp-costs-dates/",
+      "https://www.campwayfarer.com/horseback-riding-camps/",
+      "https://www.campwayfarer.com/",
+      "https://www.campwayfarer.com/parents/"
+    ],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:31.480Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6297efcf260cffa6eb44555a482b622fa4e76e572c7dcc1357fefe9d34fa8438",
+  "response": {
+    "searches": [
+      "site.campwayfarer.com 2027 registration opens",
+      "open https://www.campwayfarer.com/wayfarer-expeditions/",
+      "site:campwayfarer.com \"campintouch\""
+    ],
+    "usage": {
+      "inputTokens": 37496,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2017,
+      "reasoningTokens": 240
+    },
+    "status": "completed",
+    "ms": 45608,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campwayfarer.com/summer-camp-costs-dates/",
+      "chars": 10817,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/horseback-riding-camps/",
+      "chars": 10134,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/",
+      "chars": 9047,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/parents/",
+      "chars": 8790,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/visit/",
+      "chars": 9185,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/summer-camp-north-carolina/",
+      "chars": 10194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/the-wayfarer-difference/",
+      "chars": 10075,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/summer-camp-founders/",
+      "chars": 11758,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Wayfarer",
+    "website_url": "https://www.campwayfarer.com/",
+    "notes": "2027 dates and prices are posted. No dated registration opening announcement was found. Supplemental pages opened without readable text, including Wayfarer Expeditions, Camp Life, and Preparing for Camp; search snippets supplemented the supplied pages. Horseback riding is an optional activity within Camp Wayfarer, not a separately scheduled camp.",
+    "excluded": [
+      {
+        "name": "Cascadia",
+        "reason": "Both 2027 expedition sessions take place in the Pacific Northwest, outside the Asheville-area drive radius."
+      },
+      {
+        "name": "Working at Camp",
+        "reason": "Summer staff employment, not a youth camp offering."
+      },
+      {
+        "name": "Events & Facility Rentals",
+        "reason": "Venue rentals and private retreats, not a listed supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Wayfarer",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "horses", "arts"],
+        "description": "Campers participate in sports, swimming and boating, creative arts, horseback riding, and outdoor adventures. Overnight sessions include cabin life and evening activities.",
+        "camp_page_url": "https://www.campwayfarer.com/summer-camp-costs-dates/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-29",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 16
+        },
+        "grades": {
+          "min": 0,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Wayfarer",
+            "address": "One Red Bird Song Road",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Junior Main Camp",
+            "start": "2027-06-06",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 8325,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-20",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9925,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "1st Session Adventure Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2175,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "2nd Session Adventure Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2175,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "1st Session",
+            "start": "2027-06-20",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6325,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "2nd Session",
+            "start": "2027-07-11",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6325,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4925,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "July Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4925,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Available; Limited"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We serve three hearty, nutritious meals as well as a midday snack."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.campwayfarer.com/",
+          "https://www.campwayfarer.com/summer-camp-costs-dates/",
+          "https://www.campwayfarer.com/horseback-riding-camps/",
+          "https://www.campwayfarer.com/camp-life/camp-activities/",
+          "https://www.campwayfarer.com/camp-life/summer-camp-food/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The costs page lists rising K5–3rd grade for Adventure Camp, but its explanatory sentence describes children who have completed kindergarten through completed 2nd grade. Grades follow the explicit session tables, with K5 represented as kindergarten. The homepage states ages 5–16 without a year. Availability labels 'Limited' are mapped to available, not full or waitlist. Activity and meal details were accessible only through official search snippets. The Apply Now destination could not be established."
+      }
+    ]
+  }
+}

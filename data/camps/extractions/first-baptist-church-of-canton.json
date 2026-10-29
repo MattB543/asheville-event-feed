@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-canton",
+    "name": "First Baptist Church of Canton",
+    "urls": ["https://www.canton-fbc.org/vbsmemories"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:32.822Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c0fc3594d7ee70293e97339691fa48e3724177c93a838105e16e4ac694d45ecf",
+  "response": {
+    "searches": [
+      "site:canton-fbc.org VBS 2026",
+      "open https://www.canton-fbc.org/childrensactivities"
+    ],
+    "usage": {
+      "inputTokens": 14191,
+      "cachedInputTokens": 8845,
+      "outputTokens": 688,
+      "reasoningTokens": 116
+    },
+    "status": "completed",
+    "ms": 18548,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.canton-fbc.org/vbsmemories",
+      "chars": 1797,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.canton-fbc.org/",
+      "chars": 853,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Canton",
+    "website_url": "https://www.canton-fbc.org/",
+    "notes": "No 2027 camp information found. The 2026 VBS form states eligibility but does not give program dates or hours; its age-as-of date was not treated as a camp date. The Children and Happenings & Highlights pages returned no readable text when opened.",
+    "excluded": [
+      {
+        "name": "First Baptist Canton VBS (firstcanton.com)",
+        "reason": "A similarly named church outside this provider's Canton, NC service area; not this provider."
+      },
+      {
+        "name": "Youth nights",
+        "reason": "Recurring youth-group meals, games and Bible study, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children ages 3–11, preschool through rising sixth graders.",
+        "camp_page_url": "https://www.canton-fbc.org/vbsmemories",
+        "registration_url": "https://www.canton-fbc.org/vbsmemories",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 11
+        },
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "First Baptist Church of Canton",
+            "address": "208 Academy Street",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Sorry, but this form is now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.canton-fbc.org/vbsmemories", "https://www.canton-fbc.org/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

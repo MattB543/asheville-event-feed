@@ -1,0 +1,158 @@
+{
+  "provider": {
+    "key": "cashiers-historical-society",
+    "name": "Cashiers Historical Society",
+    "urls": ["https://www.cashiershistory.org/jam-camp-2026"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:44.729Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a51989733b8ce157b972f8d7f4d36ad1849d8ec2739fc322dd01327128c58b34",
+  "response": {
+    "searches": ["site:cashiershistory.org \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 21563,
+      "cachedInputTokens": 8845,
+      "outputTokens": 952,
+      "reasoningTokens": 50
+    },
+    "status": "completed",
+    "ms": 19813,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cashiershistory.org/jam-camp-2026",
+      "chars": 4873,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/s/JAMCamp2026_RegistrationForm.pdf",
+      "chars": 1361,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/s/JAMCamp2026_WelcomeInfoLetter.pdf",
+      "chars": 2641,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/s/JAMCamp2026_WaiverMediaRelease.pdf",
+      "chars": 3418,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/campustour",
+      "chars": 4314,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/s/CHS_2026_CampusMap_RF.pdf",
+      "chars": 416,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/summer-camp-exhibit",
+      "chars": 13400,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cashiershistory.org/",
+      "chars": 6266,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cashiers Historical Society",
+    "website_url": "https://www.cashiershistory.org/",
+    "notes": "No 2027 JAM Camp information or registration milestones were found. The 2026 waiver's media-release section retains July 23–25, 2025 dates, while the camp page, registration form and consent section agree on July 22–24, 2026. The Village Green is a final-performance destination, not a listed camp drop-off site.",
+    "excluded": [
+      {
+        "name": "Campfires & the Embers of Youth",
+        "reason": "Museum and digital exhibit about summer camp history, not a supervised youth camp."
+      },
+      {
+        "name": "Jan Wyatt Symposium",
+        "reason": "Symposium, not a youth camp."
+      },
+      {
+        "name": "Young Preservationist",
+        "reason": "Social events for young professionals and community members, not youth camps."
+      },
+      {
+        "name": "Camp Historical Society",
+        "reason": "Single-evening Capture the Flag and movie events, not multi-day evening camps."
+      },
+      {
+        "name": "Campus Tour",
+        "reason": "Self-guided visitor attraction, not a supervised youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "JAM Camp",
+        "type": "day",
+        "categories": ["music", "arts", "nature_outdoor"],
+        "description": "Campers receive instruction in traditional folk and old-time music on stringed instruments and participate in crafts, storytelling, games and nature activities. They present a short concert at The Village Green on the final day.",
+        "camp_page_url": "https://www.cashiershistory.org/jam-camp-2026",
+        "registration_url": "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69c23045eccfcd345da65c2b/1774334021512/JAMCamp2026_RegistrationForm.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Cashiers Historical Society Campus",
+            "address": "1940 Highway 107 South",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "17:00",
+          "text": "10:00am -5:00pm daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and snacks will be served at the camp."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.cashiershistory.org/jam-camp-2026",
+          "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69c23045eccfcd345da65c2b/1774334021512/JAMCamp2026_RegistrationForm.pdf",
+          "https://static1.squarespace.com/static/67c917a10994a41b882cd353/t/69bcda3cfcd2fb5b80936579/1773984316913/JAMCamp2026_WelcomeInfoLetter.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "provider": {
+    "key": "pegasus-hill-farm",
+    "name": "Pegasus Hill Farm",
+    "urls": ["https://pegasushillfarm.com/services/"],
+    "area": "Alexander, NC",
+    "discovered_by": ["seed_sheet", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:47.873Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "28a5d668d2bdec1c7a0f4cc6f60eda5c367b35228618669ae7b14bc59e6bd791",
+  "response": {
+    "searches": [
+      "site:pegasushillfarm.com camp Fledgling Wings",
+      "open https://pegasushillfarm.com/services/",
+      "site:pegasushillfarm.com \"summer camp\" \"Fledgling\""
+    ],
+    "usage": {
+      "inputTokens": 23402,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1385,
+      "reasoningTokens": 269
+    },
+    "status": "completed",
+    "ms": 39678,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pegasushillfarm.com/services/",
+      "chars": 2032,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.pegasushillfarm.com/riding-camps",
+      "chars": 1846,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pegasushillfarm.com/",
+      "chars": 1846,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pegasus Hill Farm",
+    "website_url": "https://pegasushillfarm.com/",
+    "notes": "No official 2027 camp information or year-specific 2026 camp page was found. The services page still lists Fledgling at $350/week and Wings at $450/week, but does not identify a summer year; these prices were not assigned to 2026 or 2027. Search found official registration PDFs from 2016–2018, but they could not be opened and their historical dates and eligibility were not carried forward. A third-party mirror of a March 16, 2026 social post describes an unnamed horse camp for ages 6 and up, June 15–19, July 20–24 and July 27–31, 9am–1pm; its connection to the two named programs could not be established, so those details were not assigned to either card.",
+    "excluded": [
+      {
+        "name": "Riding lessons",
+        "reason": "Year-round private, duet and group riding lessons booked as lessons, not summer camps."
+      },
+      {
+        "name": "Birthday parties",
+        "reason": "Single social events, not finite summer camp programs."
+      },
+      {
+        "name": "Off-site horse shows",
+        "reason": "Show participation and coaching, not a supervised summer camp program."
+      },
+      {
+        "name": "Pegasus Farm Equestrian Summer Programs",
+        "reason": "A different provider in Ohio, not Pegasus Hill Farm in Alexander, NC."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fledgling",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "A youth summer horse camp at Pegasus Hill Farm.",
+        "camp_page_url": "https://pegasushillfarm.com/services/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pegasus Hill Farm",
+            "address": "217 Flint Hill Road",
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pegasushillfarm.com/services/",
+          "https://pegasushillfarm.com/how-to-contact-the-best-place-to-ride/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current services page names this camp but has no year, dates, eligibility or hours. Confirm that Fledgling remains a distinct day camp for 2027 and whether the unnamed 2026 horse camp described in the third-party social-post mirror is this program. The official contact address was available through search results; direct page opens returned no readable text."
+      },
+      {
+        "name": "Wings",
+        "type": "clinic",
+        "categories": ["horses"],
+        "description": "A youth equestrian clinic at Pegasus Hill Farm.",
+        "camp_page_url": "https://pegasushillfarm.com/services/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pegasus Hill Farm",
+            "address": "217 Flint Hill Road",
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pegasushillfarm.com/services/",
+          "https://pegasushillfarm.com/how-to-contact-the-best-place-to-ride/",
+          "https://pegasushillfarm.com/wp-content/uploads/2018/06/PHF_CampRegistration_2018.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current services page lists Wings under summer camp without a year or program details. Clinic format is supported only by the search-indexed historical 2018 registration PDF, which calls it WINGS INTERMEDIATE/ADVANCED CLINIC; confirm current format and continued offering for 2027. Historical ages and dates were not carried forward. The PDF and contact page returned no readable text when opened."
+      }
+    ]
+  }
+}

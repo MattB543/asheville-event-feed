@@ -1,0 +1,117 @@
+{
+  "provider": {
+    "key": "literacy-together",
+    "name": "Literacy Together",
+    "urls": ["https://lit-together.org/programs/youth-literacy/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:01.454Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "fd6d3171b8ca3e017ddae7045e9d1cab272b11219c98f157c7c4ea9add62204b",
+  "response": {
+    "searches": [
+      "site:lit-together.org summer 2026 camp",
+      "open https://lit-together.org/internships/"
+    ],
+    "usage": {
+      "inputTokens": 19970,
+      "cachedInputTokens": 8845,
+      "outputTokens": 742,
+      "reasoningTokens": 147
+    },
+    "status": "completed",
+    "ms": 23234,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lit-together.org/programs/youth-literacy/",
+      "chars": 5589,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/register-your-child/",
+      "chars": 3095,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/wp-content/uploads/Buncombe-County-NC-Electronic-Brochure-Ovpt.-W_-Logo-1-2.pdf",
+      "chars": 6017,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/dolly-partons-imagination-library-faqs/",
+      "chars": 5693,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/the-youth-literacy-2022-summer-camp-training-started-on-monday-june-13th/",
+      "chars": 8064,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/",
+      "chars": 3261,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Literacy Together",
+    "website_url": "https://lit-together.org/",
+    "notes": "No 2027 camper dates or registration information were found. The current Youth Literacy page retains the camp name but describes its 2021 origins rather than a dated 2026 or 2027 offering. Search results mention Summer 2027 internship opportunities; those are paid tutoring jobs, not camper registration. The internships and summer camp update pages returned no readable text when opened. Historical 2022 dates have not been carried forward.",
+    "excluded": [
+      {
+        "name": "Youth Literacy academic-year tutoring",
+        "reason": "School-year tutoring, not a finite summer camp."
+      },
+      {
+        "name": "Literacy Leaders",
+        "reason": "Paid tutoring internship and employment program, not a youth camp."
+      },
+      {
+        "name": "Dolly Parton’s Imagination Library",
+        "reason": "Year-round book mailing program, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Igniting Superhero Readers Summer Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "A summer reading program for elementary-age children. Campers work with tutors on literacy skills.",
+        "camp_page_url": "https://lit-together.org/programs/youth-literacy/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://lit-together.org/programs/youth-literacy/",
+          "https://lit-together.org/the-youth-literacy-2022-summer-camp-training-started-on-monday-june-13th/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that the named camp remains a distinct offering for 2027: the current program page describes its establishment in 2021, while newer materials describe tutoring within partner summer camps. No dated 2026 camper schedule was found; season.year is a fallback with no dates asserted. Historical partner locations and academic-year tutoring sites have not been treated as confirmed summer drop-off sites."
+      }
+    ]
+  }
+}

@@ -1,0 +1,709 @@
+{
+  "provider": {
+    "key": "ridgecrest",
+    "name": "Ridgecrest",
+    "urls": [
+      "https://ridgecrestcamps.com/",
+      "https://boys.ridgecrestcamps.com/registration/datesandrates",
+      "https://girls.ridgecrestcamps.com/"
+    ],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:44.353Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e2677e37ce573e2f2d10cc2c0bff5df430d209fa0a124decd7b5d7cae0525f56",
+  "response": {
+    "searches": [
+      "site:boys.ridgecrestcamps.com SALT 2027",
+      "open https://boys.ridgecrestcamps.com/salt-program",
+      "site:boys.ridgecrestcamps.com/connect/contact \"Address\"",
+      "Ridgecrest SALT program 2027 dates",
+      "site:boys.ridgecrestcamps.com/salt-program \"dates\""
+    ],
+    "usage": {
+      "inputTokens": 37574,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4849,
+      "reasoningTokens": 531
+    },
+    "status": "completed",
+    "ms": 110174,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ridgecrestcamps.com/",
+      "chars": 1803,
+      "method": "fetch"
+    },
+    {
+      "url": "https://boys.ridgecrestcamps.com/registration/datesandrates",
+      "chars": 7048,
+      "method": "fetch"
+    },
+    {
+      "url": "https://girls.ridgecrestcamps.com/",
+      "chars": 6570,
+      "method": "fetch"
+    },
+    {
+      "url": "https://boys.ridgecrestcamps.com/register-now",
+      "chars": 2379,
+      "method": "fetch"
+    },
+    {
+      "url": "http://girls.ridgecrestcamps.com/registration/datesandrates",
+      "chars": 6867,
+      "method": "fetch"
+    },
+    {
+      "url": "https://girls.ridgecrestcamps.com/register-now",
+      "chars": 2545,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ridgecrestcamps.com/boys",
+      "chars": 7154,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ridgecrestcamps.com/girls",
+      "chars": 6570,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ridgecrest",
+    "website_url": "https://ridgecrestcamps.com/",
+    "notes": "2027 dates and tuition are posted for the main camps and wilderness offerings. The homepages retain a 2024 registration countdown; it was not used. SALT pages could not be opened in readable form, although official search results establish the program and completed-grade eligibility. No SALT dates or rates were recovered. Dates-and-rates pages contain stale $200 deposit introductory text conflicting with the detailed 2027 deposit policy; deposits are not represented as tuition prices. Availability tables are not updated in real time.",
+    "excluded": [
+      {
+        "name": "Father Son Camp",
+        "reason": "Family-only camp attended by fathers and sons together."
+      },
+      {
+        "name": "Mother Daughter Camp",
+        "reason": "Family-only camp attended by mothers and daughters together."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Summer Staff Positions",
+        "reason": "Employment program rather than a youth camp."
+      },
+      {
+        "name": "Starter Camp",
+        "reason": "Found only in historical testimonials and video archives, not in the posted 2027 program schedule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Ridgecrest for Boys",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Boys live in cabins and participate in camp activities, ropes-course adventures, games and Christian discipleship.",
+        "camp_page_url": "https://boys.ridgecrestcamps.com/",
+        "registration_url": "https://boys.ridgecrestcamps.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Ridgecrest for Boys",
+            "address": "290 Yates Avenue",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3725,
+            "unit": "session",
+            "label": "two-week session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session One",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session Two",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session Three",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session Four",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for summer 2027 will open to the general public beginning on September 21st.",
+            "url": "https://boys.ridgecrestcamps.com/friends",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Completed grades 1–8, all four sessions",
+          "text": "Open"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://boys.ridgecrestcamps.com/",
+          "https://boys.ridgecrestcamps.com/registration/datesandrates",
+          "https://boys.ridgecrestcamps.com/connect/contact",
+          "https://boys.ridgecrestcamps.com/friends"
+        ],
+        "confidence": "medium",
+        "review_notes": "Address and public registration opening were recovered from official search results. September 21 is assigned to fall 2026 from the explicitly stated summer 2027 registration context. Availability summarizes numerical spots and Open entries across the grade columns; the provider warns the chart is not real-time."
+      },
+      {
+        "name": "Highland Outpost",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Boys combine cabin living and traditional camp activities with woodland adventures, platform-tent overnights and breakfast preparation over an open fire.",
+        "camp_page_url": "https://boys.ridgecrestcamps.com/highland-outpost",
+        "registration_url": "https://boys.ridgecrestcamps.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Ridgecrest for Boys",
+            "address": "290 Yates Avenue",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3725,
+            "unit": "session",
+            "label": "two-week session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session One",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Two",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session Three",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session Four",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Session One",
+          "text": "Waiting List"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://boys.ridgecrestcamps.com/highland-outpost",
+          "https://boys.ridgecrestcamps.com/registration/datesandrates",
+          "https://boys.ridgecrestcamps.com/connect/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official address was recovered through search results. Activity description comes from the program's 2026 launch page; 2027 dates, eligibility and tuition come from the 2027 table. Availability is not real-time."
+      },
+      {
+        "name": "Pisgah Trailblazers",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Boys take two backpacking trips during their session, learning to set up camp and cook over a fire. They return to camp between trips for games, worship and other camp activities.",
+        "camp_page_url": "https://boys.ridgecrestcamps.com/trailblazer-program",
+        "registration_url": "https://boys.ridgecrestcamps.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Ridgecrest for Boys",
+            "address": "290 Yates Avenue",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3725,
+            "unit": "session",
+            "label": "two-week session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session One",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Two",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Three",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Four",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Sessions One, Two and Three",
+          "text": "Waiting List"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://boys.ridgecrestcamps.com/trailblazer-program",
+          "https://boys.ridgecrestcamps.com/registration/datesandrates",
+          "https://boys.ridgecrestcamps.com/connect/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official address was recovered through search results. Availability table is not updated in real time."
+      },
+      {
+        "name": "Camp Crestridge for Girls",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Girls live in cabins and participate in camp games, skill activities, ropes-course adventures and Christian discipleship.",
+        "camp_page_url": "https://girls.ridgecrestcamps.com/",
+        "registration_url": "https://girls.ridgecrestcamps.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Crestridge for Girls",
+            "address": "105 Balsam Road",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3725,
+            "unit": "session",
+            "label": "two-week session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session One",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "Session Two",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "Session Three",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "Session Four",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Completed grades 6 and 7 in Sessions One, Two and Four; completed grades 9–11 in Session Three",
+          "text": "Waiting List"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://girls.ridgecrestcamps.com/",
+          "https://girls.ridgecrestcamps.com/registration/datesandrates",
+          "https://girls.ridgecrestcamps.com/connect/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wilderness Program",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Girls spend most of their session outside camp hiking and camping in Pisgah National Forest.",
+        "camp_page_url": "https://girls.ridgecrestcamps.com/wilderness-program",
+        "registration_url": "https://girls.ridgecrestcamps.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Crestridge for Girls",
+            "address": "105 Balsam Road",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3725,
+            "unit": "session",
+            "label": "two-week session",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session One",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Two",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Three",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Session Four",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Sessions One, Two and Three",
+          "text": "Waiting List"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://girls.ridgecrestcamps.com/registration/datesandrates",
+          "https://girls.ridgecrestcamps.com/connect/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "SALT Program",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Service and Leadership Training equips participants with leadership skills for camp and beyond. Participants assist camp in its mission.",
+        "camp_page_url": "https://boys.ridgecrestcamps.com/salt-program",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Ridgecrest for Boys",
+            "address": "290 Yates Avenue",
+            "town": "Black Mountain",
+            "state": "NC"
+          },
+          {
+            "name": "Camp Crestridge for Girls",
+            "address": "105 Balsam Road",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://boys.ridgecrestcamps.com/salt-program",
+          "https://girls.ridgecrestcamps.com/salt-program",
+          "https://boys.ridgecrestcamps.com/connect/contact",
+          "https://girls.ridgecrestcamps.com/connect/contact"
+        ],
+        "confidence": "low",
+        "review_notes": "Both SALT pages returned no readable body. Official search snippets establish completed 11th-grade eligibility and service/leadership content, but not dates, tuition, application milestones or overnight details. Check both full program pages for 2027 information and confirm the overnight format. Both sites are retained as locations of their respective SALT programs; no dated site rows could be recovered."
+      }
+    ]
+  }
+}

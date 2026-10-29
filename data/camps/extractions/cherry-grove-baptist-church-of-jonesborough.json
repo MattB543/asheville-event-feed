@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "cherry-grove-baptist-church-of-jonesborough",
+    "name": "Cherry Grove Baptist Church of Jonesborough",
+    "urls": ["https://cherrygrovetn.org/"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:32:05.902Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bd0e9e4da9f7f6eafcf835f7563976b8bf574600bf9d02023717c454f2fa674d",
+  "response": {
+    "searches": [
+      "site:cherrygrovetn.org \"VBS\"",
+      "\"Cherry Grove Baptist\" \"Jonesborough\" \"VBS\"",
+      "\"Cherry Grove Baptist\" \"2026\" \"VBS\" Jonesborough facebook"
+    ],
+    "usage": {
+      "inputTokens": 22697,
+      "cachedInputTokens": 8845,
+      "outputTokens": 444,
+      "reasoningTokens": 212
+    },
+    "status": "completed",
+    "ms": 25774,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cherrygrovetn.org/",
+      "chars": 5938,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherry Grove Baptist Church of Jonesborough",
+    "website_url": "https://cherrygrovetn.org/",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School details were found in the supplied homepage or web searches. The official YouTube channel has a 'VBS 2025 Magnified Recap Video', but this does not establish a 2026 or 2027 offering. The bulletin page returned no readable content. No cards were created from the older recap alone.",
+    "excluded": [
+      {
+        "name": "Children's Department",
+        "reason": "Weekly, year-round children's ministry through sixth grade; no finite summer program is described."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Weekly, year-round youth ministry; its conferences and mission trips are excluded under the camp rule."
+      },
+      {
+        "name": "Good News club training",
+        "reason": "October training event, outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "provider": {
+    "key": "girls-on-the-run-of-western-north-carolina",
+    "name": "Girls on the Run of Western North Carolina",
+    "urls": ["https://www.gotrwnc.org/camp-program-details"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:46.384Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c44a7f6974354a86f8433e5ee534949d1177974158a5ff2c90f7cff54e5d3f11",
+  "response": {
+    "searches": [
+      "site.gotrwnc.org \"Camp\" \"2027\"",
+      "open https://www.christmount.org/",
+      "site.pinwheel.us \"2026\" \"Camp\" \"Western North Carolina\""
+    ],
+    "usage": {
+      "inputTokens": 19857,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1016,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 28399,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gotrwnc.org/camp-program-details",
+      "chars": 6355,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gotrwnc.org/",
+      "chars": 4153,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girls on the Run of Western North Carolina",
+    "website_url": "https://www.gotrwnc.org/",
+    "notes": "The GOTR program page still describes 2026. Partner venue Christmount's official homepage lists July 13–17 under July 2027 for Girls on the Run Day Camp; these 2027 dates are used, but should be confirmed because they repeat the 2026 dates. No 2027 registration milestone was found. Direct opens returned no readable text; Christmount's calendar and address were available in official search results.",
+    "excluded": [
+      {
+        "name": "3rd-5th Grade Program",
+        "reason": "School-year seasonal program, not a summer camp."
+      },
+      {
+        "name": "Heart & Sole",
+        "reason": "School-year seasonal program, not a summer camp."
+      },
+      {
+        "name": "Fall 5K",
+        "reason": "Single event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp GOTR",
+        "type": "day",
+        "categories": ["sports", "general"],
+        "description": "Girls build friendships through creative activities, discussions and movement games. Mornings feature GOTR lessons, and afternoons include traditional summer camp activities.",
+        "camp_page_url": "https://www.gotrwnc.org/camp-program-details",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-13",
+          "end": "2027-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Christmount Christian Assembly",
+            "address": "222 Fern Way",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9 am - 5 pm daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "Full-Price Registration",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "There are ample scholarships available and no girl is turned away from participating in the program due to family finances. The registration page has a self-reporting financial aid section and a pay-what-you-can option."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A healthy snack & lunch at Camp"
+        },
+        "transportation": null,
+        "sources": ["https://www.gotrwnc.org/camp-program-details", "https://www.christmount.org/"],
+        "confidence": "medium",
+        "review_notes": "Confirm Christmount's July 13–17, 2027 calendar entry with GOTR: GOTR's own page still lists July 13–17, 2026. The 2027 entry was read through an official search snippet. Grades, hours, lunch and financial aid are retained from the supplied 2026 program page; 2027 details for these fields were not found. Scholarship tiers are stated as percentages, so no calculated dollar tiers are included. The 2026 'registration now open' wording is stale and does not establish current availability or an opening date."
+      }
+    ]
+  }
+}

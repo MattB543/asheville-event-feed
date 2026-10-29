@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "providence-baptist-church-of-newport",
+    "name": "Providence Baptist Church of Newport",
+    "urls": ["https://www.pbcnewport.org/events"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:33.419Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ec03bb7b83d2c15be4f92a3fdddf8542ba5ca6f0e1bbad8860c9617d24e4759f",
+  "response": {
+    "searches": ["site:pbcnewport.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 12701,
+      "cachedInputTokens": 8845,
+      "outputTokens": 748,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 19976,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pbcnewport.org/events",
+      "chars": 1137,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pbcnewport.org/",
+      "chars": 1483,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Providence Baptist Church of Newport",
+    "website_url": "https://www.pbcnewport.org/",
+    "notes": "No 2027 or 2026 summer camp information was found. The events page still lists Wonder Junction with July 6–9, Sunday–Wednesday, which matches 2025 rather than 2026 or 2027. The card preserves that historical offering and dates without relabeling them. The linked registration form returned no readable content.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Wonder Junction Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in songs, skits, Bible lessons, crafts and games. A meal is provided each night.",
+        "camp_page_url": "https://www.pbcnewport.org/events",
+        "registration_url": "https://pbcnewport.breezechms.com/form/e6929c",
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-07-06",
+          "end": "2025-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Providence Baptist Church",
+            "address": "2263 Cosby Hwy",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:30",
+          "text": "Sunday-Wednesday, from 5:30 to 7:30 PM."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Each night, we'll have songs, skits, Bible lessons, crafts, games, and a meal for each child."
+        },
+        "transportation": null,
+        "sources": ["https://www.pbcnewport.org/events", "https://www.pbcnewport.org/contact"],
+        "confidence": "medium",
+        "review_notes": "The official events page does not print a year. Its Sunday–Wednesday, July 6–9 dates imply 2025, also corroborated by a third-party historical event listing. No 2026 fallback or 2027 announcement was found. Check for an updated VBS announcement before presenting these historical dates as an upcoming offering. The registration form returned no readable content."
+      }
+    ]
+  }
+}

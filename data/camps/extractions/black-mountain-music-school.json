@@ -1,0 +1,80 @@
+{
+  "provider": {
+    "key": "black-mountain-music-school",
+    "name": "Black Mountain Music School",
+    "urls": ["https://blackmountainmusicschool.com/summer-camp/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:33.235Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2b9c65a9512e5842b3fe39fd0c211d16a3e817eb7de769764ef405e79ea31a04",
+  "response": {
+    "searches": ["\"Black Mountain Music School\" \"Kelowna\""],
+    "usage": {
+      "inputTokens": 15552,
+      "cachedInputTokens": 8845,
+      "outputTokens": 347,
+      "reasoningTokens": 34
+    },
+    "status": "completed",
+    "ms": 13627,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://blackmountainmusicschool.com/summer-camp/",
+      "chars": 4541,
+      "method": "fetch"
+    },
+    {
+      "url": "https://blackmountainmusicschool.com/register/",
+      "chars": 3637,
+      "method": "fetch"
+    },
+    {
+      "url": "https://blackmountainmusicschool.com/fees/",
+      "chars": 2264,
+      "method": "fetch"
+    },
+    {
+      "url": "https://blackmountainmusicschool.com/",
+      "chars": 3313,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Black Mountain Music School",
+    "website_url": "https://blackmountainmusicschool.com/",
+    "notes": "Provider identity mismatch: the supplied official homepage, registration page and fees page publish 2170 Brentwood Rd., Kelowna, BC, Canada, not Black Mountain, NC. This provider is outside AVLGO's geographic coverage. No local camp cards were created.",
+    "excluded": [
+      {
+        "name": "Kitchen Creations",
+        "reason": "Offered by Black Mountain Music School in Kelowna, British Columbia, Canada, not Black Mountain, NC; outside the approximately 75-minute drive radius of Asheville."
+      },
+      {
+        "name": "Private and Combo Music Lessons",
+        "reason": "Recurring music lessons booked as lessons, not a finite summer camp."
+      },
+      {
+        "name": "Mini Rainbow Keys",
+        "reason": "Weekly music lesson series, not a summer camp."
+      },
+      {
+        "name": "Rainbow Keys",
+        "reason": "Weekly music lesson series, not a summer camp."
+      },
+      {
+        "name": "Accelerated Piano Lab",
+        "reason": "Weekly music lesson series, not a summer camp."
+      },
+      {
+        "name": "Daycare/Preschool Classes",
+        "reason": "Music classes provided in daycare or preschool settings, not a finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

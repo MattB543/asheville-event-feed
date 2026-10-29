@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "awanita-valley",
+    "name": "Awanita Valley",
+    "urls": ["https://www.awanita.org/"],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:52.550Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "82eea365339d6bf500e95f2f9a1657088d237bb381607978ea889c5979fee7e7",
+  "response": {
+    "searches": [
+      "site:awanita.org \"summer\" \"teen\"",
+      "open https://www.awanita.org/programmed-summer-session"
+    ],
+    "usage": {
+      "inputTokens": 15532,
+      "cachedInputTokens": 8845,
+      "outputTokens": 863,
+      "reasoningTokens": 111
+    },
+    "status": "completed",
+    "ms": 24857,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.awanita.org/",
+      "chars": 1992,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.awanita.org/retreats-and-camps",
+      "chars": 2620,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.awanita.org/summerstaff",
+      "chars": 1442,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Awanita Valley",
+    "website_url": "https://www.awanita.org/",
+    "notes": "No 2027 camper dates or registration milestones found. The 2027 summer staff announcement is an employment offering, not a camper announcement. The 2026 programmed summer session and inquiry pages were readable in official search results, but direct opens returned no text.",
+    "excluded": [
+      {
+        "name": "Summer Staff 2027",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Year-Round Internship Program",
+        "reason": "Year-long paid internship rather than a finite summer youth camp."
+      },
+      {
+        "name": "Teen Winter Weekend",
+        "reason": "December 4–6, 2026 event outside summer; also presented as a programmed conference."
+      },
+      {
+        "name": "Rooted: A Study on Rahab",
+        "reason": "February 26–28, 2027 event outside summer; also presented as a programmed conference."
+      },
+      {
+        "name": "Custom Retreats",
+        "reason": "Group-booked retreat services, not scheduled supervised youth camp offerings. Children's Camp and Youth Camp are listed as examples of retreats groups can plan, rather than separate scheduled programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Programmed Teen Summer Session",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "A programmed teen camp week for groups, with teaching sessions, discussion groups, worship, staff-led hikes, mountaintop adventure rides, and group recreation.",
+        "camp_page_url": "https://www.awanita.org/programmed-summer-session",
+        "registration_url": "https://www.awanita.org/contact-8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Awanita Valley",
+            "address": "600 Gap Creek Road",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.awanita.org/programmed-summer-session",
+          "https://www.awanita.org/contact-8",
+          "https://www.awanita.org/",
+          "https://www.awanita.org/retreats-and-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program dates and activities were obtained from official search-result text; direct opens returned no readable text. Overnight format is inferred from the five-day camp week and the provider's group lodging model. The inquiry page is titled Programmed Summer Session Inquiry, but its connection to the Register Now button could not be verified. Custom-retreat prices and meals were not assigned to this programmed session."
+      }
+    ]
+  }
+}

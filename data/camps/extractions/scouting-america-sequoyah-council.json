@@ -1,0 +1,257 @@
+{
+  "provider": {
+    "key": "scouting-america-sequoyah-council",
+    "name": "Scouting America — Sequoyah Council",
+    "urls": ["https://campdavycrockett.org/"],
+    "area": "Whitesburg, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:17.426Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e721167259537a7cebbda0cdeaa214d550cc56cd3503484521e25d4f52f3a1f0",
+  "response": {
+    "searches": [
+      "site.campdavycrockett.org 2027 summer",
+      "open https://scoutingevent.com/713-115916",
+      "site.scoutingevent.com/713 \"Summer Camp 2027\" \"Week\"",
+      "\"site:scoutingevent.com/713-115916\"",
+      "\"713-115916\" \"Youth\"",
+      "\"713-115916-272323\"",
+      "\"713-115916-272323\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 36734,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2467,
+      "reasoningTokens": 603
+    },
+    "status": "completed",
+    "ms": 69478,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campdavycrockett.org/",
+      "chars": 4368,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/about-camp-davy-crockett/",
+      "chars": 2404,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/parent-information/",
+      "chars": 2386,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/about-camp-davy-crockett/museum/",
+      "chars": 2382,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/scouts-bsa-summer-camp/",
+      "chars": 2518,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/winter-camp/",
+      "chars": 2318,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/frontier-camp/",
+      "chars": 1860,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campdavycrockett.org/c-o-p-e-climbing/",
+      "chars": 6831,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Scouting America — Sequoyah Council",
+    "website_url": "https://campdavycrockett.org/",
+    "notes": "The official registration platform has 2027 Scouts BSA summer camp listings, although the camp website still promotes 2026. Registration pages returned empty bodies when opened; only indexed official search text could be read. The session list below is incomplete: another 2027 session page was found at https://scoutingevent.com/713-115916-272323, but its dates could not be recovered. No complete 2027 provider-wide program list was found, so the separately advertised Cub Scout summer offering is retained with 2026 facts.",
+    "excluded": [
+      {
+        "name": "Winter Camp",
+        "reason": "Held in January, outside summer."
+      },
+      {
+        "name": "Cub Scout Haunted Adventure Weekend",
+        "reason": "Held in October, outside summer."
+      },
+      {
+        "name": "Sequoyah Council Klondike Derby",
+        "reason": "Held in February, outside summer."
+      },
+      {
+        "name": "Patrol Builders Weekends",
+        "reason": "Year-round, custom-scheduled unit outings rather than a listed finite summer camp offering."
+      },
+      {
+        "name": "Climbing Merit Badge Weekends",
+        "reason": "Custom-scheduled unit weekends with no summer session advertised."
+      },
+      {
+        "name": "Florida Sea Base, Northern Tier, Philmont Scout Ranch, and Summit Bechtel Reserve",
+        "reason": "Programs take place outside the local drive-time area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Scouts BSA Summer Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "general"],
+        "description": "Scouts participate in merit badge classes, swimming and lake activities, outdoor skills, and COPE and climbing. Camp also offers an Eaglebound advancement program and Frontier Camp activities involving early-1800s skills and crafts.",
+        "camp_page_url": "https://campdavycrockett.org/scouts-bsa-summer-camp/",
+        "registration_url": "https://scoutingevent.com/713-115916",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Davy Crockett",
+            "address": "142 Scout Camp Rd",
+            "town": "Whitesburg",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 385,
+            "unit": "week",
+            "label": "Scout",
+            "year": 2026
+          },
+          {
+            "amount": 400,
+            "unit": "week",
+            "label": "Scout, after May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1 (June 13-19)",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2 (June 20-26)",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4 (July 4-10)",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Campership (Financial Assistance) Requests are due April 30th"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campdavycrockett.org/",
+          "https://campdavycrockett.org/scouts-bsa-summer-camp/",
+          "https://campdavycrockett.org/parent-information/",
+          "https://campdavycrockett.org/about-camp-davy-crockett/",
+          "https://campdavycrockett.org/frontier-camp/",
+          "https://scoutingevent.com/713-115916-272321",
+          "https://scoutingevent.com/713-115916-272322",
+          "https://scoutingevent.com/713-115916-272324"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates come only from indexed official registration text; opened registration pages were empty. Check the full 2027 session list, youth prices, registration milestones and availability. The season spans only recovered rows. The parent page gives 2026 youth prices; no readable 2027 youth price was found. The venue's About page publishes 142 Scout Camp Rd; the parent mailing instructions and registration platform instead use 142 Boy Scout Road. The undated campership timeline was not treated as a 2027 registration deadline. Frontier Camp and COPE/climbing are presented as activities within this summer camp rather than separate registrations."
+      },
+      {
+        "name": "Kid Kamporee",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "stem", "general"],
+        "description": "Cub Scouts participate in range and target activities, swimming, crafts, STEM, nature walks, and Scout skills during a two-day, one-night camp.",
+        "camp_page_url": "https://campdavycrockett.org/cubcamps/",
+        "registration_url": "https://scoutingevent.com/713-kidkamporee26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-11",
+          "end": "2026-07-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Davy Crockett",
+            "address": "142 Scout Camp Rd",
+            "town": "Whitesburg",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Registration Closed: 07-03-2026 11:59 PM"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campdavycrockett.org/cubcamps/",
+          "https://scoutingevent.com/713-kidkamporee26",
+          "https://campdavycrockett.org/about-camp-davy-crockett/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 registration page was readable only in official indexed search text. It includes rising Tiger, Wolf, Bear and Webelos Scouts, whereas the camp website lists only rising Tiger, Wolf and Bear Scouts; no ages or numeric grades were inferred from these ranks. The website and registration page also disagree on the T-shirt cutoff (June 27 versus June 25). Check 2027 plans and eligibility. Use the venue's published physical address, 142 Scout Camp Rd, rather than the registration platform's 142 Boy Scout Rd. The noon arrival and 10:00 departure are overnight check-in/out times, not daily camp hours."
+      }
+    ]
+  }
+}

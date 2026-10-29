@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "north-canton-baptist-church-of-canton",
+    "name": "North Canton Baptist Church of Canton",
+    "urls": ["http://www.northcantonbaptistchurch.com/"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:13:47.710Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3833ae93d014c1186278e198a5f468416fa3154d3a164f7bb5fb6397e2723139",
+  "response": {
+    "searches": [
+      "site:northcantonbaptistchurch.com VBS",
+      "open https://subspla.sh/rdbcx6f",
+      "\"North Canton Baptist Church\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25428,
+      "cachedInputTokens": 8845,
+      "outputTokens": 816,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 25845,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "http://www.northcantonbaptistchurch.com/",
+      "chars": 887,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northcantonbaptistchurch.com/httpsdocsgooglecomformsd1gumej0r5wvypbwm2d0dbqhpghiuowtucugdiie-6z3oprefill",
+      "chars": 605,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Canton Baptist Church of Canton",
+    "website_url": "https://northcantonbaptistchurch.com/",
+    "notes": "No 2027 or 2026 summer camp details were found. The church's official media search result links to a Vacation Bible School registration page, but that page's indexed dates are June 23–28, 2024. Those older dates were not carried forward. The registration platform and KIDS page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Youth Fundraiser",
+        "reason": "A pasta lunch fundraiser is a social fundraising event, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "NCBC Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at North Canton Baptist Church.",
+        "camp_page_url": "https://subsplash.com/northcantonbaptistchurch/lb/ev/%2Brdbcx6f",
+        "registration_url": "https://subsplash.com/northcantonbaptistchurch/lb/ev/%2Brdbcx6f/register",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://northcantonbaptistchurch.com/",
+          "https://northcantonbaptistchurch.com/media/qj3bnhp/sunday-morning-praise-worship",
+          "https://subsplash.com/northcantonbaptistchurch/lb/ev/%2Brdbcx6f",
+          "https://subsplash.com/northcantonbaptistchurch/lb/ev/%2Brdbcx6f/register"
+        ],
+        "confidence": "low",
+        "review_notes": "Program identity is supported by official search snippets, but the linked registration dates describe 2024, not 2026 or 2027. Confirm whether VBS will return in 2027 and obtain current dates, youth eligibility, hours and drop-off location. The church publishes 735 North Canton Rd., Canton, NC 28716, but no readable current camp page confirmed that as the camp venue."
+      }
+    ]
+  }
+}

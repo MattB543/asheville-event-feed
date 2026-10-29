@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "musicworks-studio-of-performing-arts",
+    "name": "MusicWorks! Studio of Performing Arts",
+    "urls": ["https://performwithmusicworks.com/cp/summer-camps/"],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:34.705Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "67f229131a4ba3e8a433ded9ca5a803409c15ed01166a7f719d368db91f0fd21",
+  "response": {
+    "searches": [
+      "site:performwithmusicworks.com \"2027\" \"camp\"",
+      "open https://performwithmusicworks.com/event/broadway-bootcamp-with-hamiltons-tyler-mckenzie/",
+      "\"MusicWorks\" \"Tyler\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 28143,
+      "cachedInputTokens": 8845,
+      "outputTokens": 856,
+      "reasoningTokens": 229
+    },
+    "status": "completed",
+    "ms": 27090,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://performwithmusicworks.com/cp/summer-camps/",
+      "chars": 15429,
+      "method": "fetch"
+    },
+    {
+      "url": "https://performwithmusicworks.com/about-us/studio-calendar/",
+      "chars": 9723,
+      "method": "fetch"
+    },
+    {
+      "url": "https://performwithmusicworks.com/cdn-cgi/l/email-protection",
+      "chars": 735,
+      "method": "browser"
+    },
+    {
+      "url": "https://performwithmusicworks.com/",
+      "chars": 18655,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "MusicWorks! Studio of Performing Arts",
+    "website_url": "https://performwithmusicworks.com/",
+    "notes": "No summer 2027 camp dates or registration milestones were found. The summer camp page still promotes its summer 2026 interest list. The official Broadway Bootcamp with HAMILTON’s TYLER MCKENZIE event page returned only its title and unrelated testimonials; its dates, summer season, youth eligibility and program details could not be established, so it is not included as a card. The studio calendar PDF appeared in official search results, but could not be read or rendered; its general summer-session milestone was not assigned to individual camps.",
+    "excluded": [
+      {
+        "name": "Music Lessons (Ages 6+)",
+        "reason": "Private and group music lessons, rather than a finite summer camp."
+      },
+      {
+        "name": "School-year dance and musical theater programs",
+        "reason": "School-year classes and performing-company training, rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "half_day",
+        "categories": ["dance", "music", "theater", "arts"],
+        "description": "Campers explore dance, music, theater, tumbling and themed crafts. Activities include beginner choreography, rhythm games, storytelling and performance.",
+        "camp_page_url": "https://performwithmusicworks.com/cp/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "MusicWorks! Studio of Performing Arts",
+            "address": "164 Kingdom Hall",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Most camps run half days across three consecutive days."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://performwithmusicworks.com/cp/summer-camps/",
+          "https://performwithmusicworks.com/",
+          "https://performwithmusicworks.com/about-us/studio-calendar/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

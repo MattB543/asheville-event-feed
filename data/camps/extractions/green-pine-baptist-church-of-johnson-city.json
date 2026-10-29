@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "green-pine-baptist-church-of-johnson-city",
+    "name": "Green Pine Baptist Church of Johnson City",
+    "urls": ["https://www.youtube.com/@GreenPineBaptistChurch"],
+    "area": "Johnson City, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:26:05.075Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "383e2945ca9149c8c07a3c75bb7e968f3fdb49d3185f7f5d7e0a41bfda07fa27",
+  "response": {
+    "searches": [
+      "\"Green Pine Baptist\" \"VBS\" \"2026\"",
+      "\"Green Pine Baptist Church\" \"VBS 2026\"",
+      "\"Green Pine\" \"Awesome Wonders\""
+    ],
+    "usage": {
+      "inputTokens": 31166,
+      "cachedInputTokens": 8845,
+      "outputTokens": 771,
+      "reasoningTokens": 251
+    },
+    "status": "completed",
+    "ms": 25786,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.youtube.com/@GreenPineBaptistChurch",
+      "chars": 415,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen",
+      "chars": 4292,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.youtube.com/",
+      "chars": 852,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Green Pine Baptist Church of Johnson City",
+    "website_url": null,
+    "notes": "No standalone official website or 2027 camp announcement was found. The official YouTube channel's indexed video list confirms VBS 2026 (Awesome Wonders: Discovering the Greatness of God), but no dates, ages, hours, prices or registration information could be recovered. Direct opens of the YouTube channel and videos page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Green Pines Baptist Church Knightdale VBS",
+        "reason": "A different church in Knightdale, NC, outside the directory's geographic area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with the theme Awesome Wonders: Discovering the Greatness of God.",
+        "camp_page_url": "https://www.youtube.com/@GreenPineBaptistChurch",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.youtube.com/@GreenPineBaptistChurch",
+          "https://www.youtube.com/@GreenPineBaptistChurch/videos"
+        ],
+        "confidence": "low",
+        "review_notes": "The indexed official channel lists a video titled VBS 2026 (Awesome Wonders: Discovering the Greatness of God), but its individual video page and event details could not be recovered. Check the church's social media or contact the church for dates, eligibility, hours and registration. The official channel publishes the church address as 101 Toll Branch Lane, Johnson City, TN; sites is empty because the available VBS text does not explicitly identify the drop-off venue."
+      }
+    ]
+  }
+}

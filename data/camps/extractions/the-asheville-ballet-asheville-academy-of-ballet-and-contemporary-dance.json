@@ -1,0 +1,150 @@
+{
+  "provider": {
+    "key": "the-asheville-ballet-asheville-academy-of-ballet-and-contemporary-dance",
+    "name": "The Asheville Ballet / Asheville Academy of Ballet and Contemporary Dance",
+    "urls": [
+      "https://www.ashevilleballet.com/",
+      "https://www.ashevilleballet.com/june-july-august-class-schedule"
+    ],
+    "area": "Woodfin, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:11.277Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6a14be533dafca9503685c8b576caa9b4b21b9caf27467455814056614cf85eb",
+  "response": {
+    "searches": ["site:ashevilleballet.com \"Blue Ridge\" \"2026\""],
+    "usage": {
+      "inputTokens": 21000,
+      "cachedInputTokens": 8845,
+      "outputTokens": 911,
+      "reasoningTokens": 80
+    },
+    "status": "completed",
+    "ms": 24089,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevilleballet.com/",
+      "chars": 6522,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleballet.com/june-july-august-class-schedule",
+      "chars": 4387,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleballet.com/_files/ugd/714be6_6cd9407b92ff464db043e88f97d48684.pdf",
+      "chars": 3491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleballet.com/fall-spring-class-schedule",
+      "chars": 6950,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleballet.com/_files/ugd/714be6_1f384a975420447b97403307c63c9cef.pdf",
+      "chars": 4265,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevilleballet.com/blue-ridge-dance-camp",
+      "chars": 5221,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Asheville Ballet / Asheville Academy of Ballet and Contemporary Dance",
+    "website_url": "https://www.ashevilleballet.com/",
+    "notes": "2027 camp dates and registration details are coming soon. The camp page has been updated to mention 2027 but retains a June 15, 2026 deposit deadline; its undated tuition may also be retained from 2026.",
+    "excluded": [
+      {
+        "name": "Summer Classes",
+        "reason": "Recurring weekly dance and Pilates lessons with monthly or drop-in pricing, not a camp."
+      },
+      {
+        "name": "Fall/Spring Classes",
+        "reason": "School-year dance classes, not a summer camp."
+      },
+      {
+        "name": "The Nutcracker auditions and performances",
+        "reason": "Auditions and theatrical performances, not a supervised summer camp."
+      },
+      {
+        "name": "Alice in Wonderland and The Firebird",
+        "reason": "A theatrical performance outside summer, not a camp."
+      },
+      {
+        "name": "Fall Into Dance",
+        "reason": "A theatrical performance, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Blue Ridge Dance Camp",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Students receive daily instruction in ballet, pointe/pre-pointe, classical variations, modern/contemporary, partnering, and choreography.",
+        "camp_page_url": "https://www.ashevilleballet.com/blue-ridge-dance-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "2027 Dates Coming Soon. Details available in early 2027."
+        },
+        "ages": {
+          "min": 11,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Academy of Ballet and Contemporary Dance",
+            "address": "4 Weaverville Hwy",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Monday-Friday, 9am – 4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "session",
+            "label": "Monday-Friday camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students will bring their own packed lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ashevilleballet.com/",
+          "https://www.ashevilleballet.com/blue-ridge-dance-camp",
+          "https://www.ashevilleballet.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page announces summer 2027 dates TBA but retains a deposit deadline of June 15, 2026. The $550 tuition is undated and recorded as a 2026 fallback rather than a confirmed 2027 price. Confirm tuition and whether the stated hours remain applicable for 2027. The studio is inferred as the camp venue from the provider's location; the camp text does not explicitly name its drop-off venue. The official contact page publishes Asheville as the postal town, although the provider is in the Woodfin area."
+      }
+    ]
+  }
+}

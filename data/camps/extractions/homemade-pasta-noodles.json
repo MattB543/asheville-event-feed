@@ -1,0 +1,155 @@
+{
+  "provider": {
+    "key": "homemade-pasta-noodles",
+    "name": "Homemade Pasta Noodles",
+    "urls": [
+      "https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138",
+      "https://www.homemadepastanoodles.com/",
+      "https://www.homemadepastanoodles.com/classes"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: thin page (22 chars); browser: soft 404 (\"404 Page not found | Homemade Pasta Noodles\")"
+  },
+  "extractedAt": "2026-10-29T17:05:13.818Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "79d80a44fce20bba696a7ef0906ac94685923ed0c1b1674d774e3c03d95692d3",
+  "response": {
+    "searches": [
+      "site:homemadepastanoodles.com \"camp\"",
+      "\"Homemade Pasta Noodles\" \"camp\" \"2026\"",
+      "site:homemadepastanoodles.com \"kids\" \"camp\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 27257,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1373,
+      "reasoningTokens": 321
+    },
+    "status": "completed",
+    "ms": 36459,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138",
+      "chars": 0,
+      "error": "fetch: thin page (22 chars); browser: soft 404 (\"404 Page not found | Homemade Pasta Noodles\")"
+    },
+    {
+      "url": "https://www.homemadepastanoodles.com/",
+      "chars": 3454,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.homemadepastanoodles.com/classes",
+      "chars": 1866,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Homemade Pasta Noodles",
+    "website_url": "https://www.homemadepastanoodles.com/",
+    "notes": "No 2027 summer camp information found. Both legacy summer camp product pages returned empty content. Their URL titles identify camp offerings but do not establish the year, dates, ages, prices or format. A third-party listing also mentions Kids Cooking Camp, June 8–12, ages 9–13, at the shop, but its year could not be established; those details have not been included. The cards retain the legacy offerings for review without assigning their undated July dates to 2026 or 2027.",
+    "excluded": [
+      {
+        "name": "Kids’ Holiday Pie & Pastry Workshop with The Pasta Lady",
+        "reason": "Held December 29, 2026, outside summer."
+      },
+      {
+        "name": "Cooking Series",
+        "reason": "An ongoing cooking lesson series, not a finite youth summer camp."
+      },
+      {
+        "name": "Private Pasta Class Experience",
+        "reason": "Private group lessons, not a posted youth summer camp."
+      },
+      {
+        "name": "Events, Classes & Friday Night Pasta Plates",
+        "reason": "Regular cooking classes and dining events, not posted youth summer camps."
+      },
+      {
+        "name": "2026 SUMMER CAMP — Danjoy's Homemade Pasta",
+        "reason": "Different provider in Katy, Texas, outside the directory area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Pasta Summer Camp",
+        "type": "day",
+        "categories": ["cooking"],
+        "description": "Pasta summer camp.",
+        "camp_page_url": "https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138"],
+        "confidence": "low",
+        "review_notes": "The product page returned no readable content. Name comes only from the supplied URL slug. Confirm that this offering remains active, its exact name, youth eligibility, day format, year and meeting site. July 16 in the URL has no verified year and was not entered as a date."
+      },
+      {
+        "name": "Kids Cooking Camp",
+        "type": "day",
+        "categories": ["cooking"],
+        "description": "Cooking camp for children.",
+        "camp_page_url": "https://www.homemadepastanoodles.com/product/july-23-kids-cooking-camp-the-hendersonville-community-co-op/133",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hendersonville Community Co-op",
+            "address": "60 South Charleston Lane",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.homemadepastanoodles.com/product/july-23-kids-cooking-camp-the-hendersonville-community-co-op/133",
+          "https://www.hendersonville.coop/"
+        ],
+        "confidence": "low",
+        "review_notes": "The product page returned no readable content; program name and Co-op venue come from its URL slug. The Co-op publishes the listed address. Confirm current offering, venue, format, ages and dates. July 23 has no verified year. Determine whether this and Pasta Summer Camp are sessions of one program before publishing separate cards."
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "provider": {
+    "key": "gabriel-s-creek-baptist-church-of-mars-hill",
+    "name": "Gabriel’s Creek Baptist Church of Mars Hill",
+    "urls": [
+      "https://www.facebook.com/gaberielscreekbc/",
+      "https://www.facebook.com/watch/gaberielscreekbc/"
+    ],
+    "area": "Mars Hill, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:22:43.385Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Gabriel's Creek Baptist Church Mars Hill VBS 2026",
+      "site:facebook.com/gaberielscreekbc VBS 2026",
+      "\"gabrielscreekbc.com\""
+    ],
+    "usage": {
+      "inputTokens": 27528,
+      "cachedInputTokens": 8845,
+      "outputTokens": 868,
+      "reasoningTokens": 300
+    },
+    "status": "completed",
+    "ms": 32938,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/gaberielscreekbc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/watch/gaberielscreekbc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Gabriel’s Creek Baptist Church of Mars Hill",
+    "website_url": "https://www.gabrielscreekbc.com/",
+    "notes": "The church's indexed Facebook text identifies gabrielscreekbc.com as its website, but that website and both supplied Facebook pages returned no readable content. No 2027 information was found. Third-party event search results list a 2026 VBS, but its official announcement could not be read. Address sources conflict: MapQuest lists 132 Gabriels Creek Church Rd, while the NC Baptist directory lists 111 Gabriels Creek Church Rd; no church-published location could be verified.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://www.facebook.com/gaberielscreekbc/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The June 22–26, 2026 dates come only from search snippets for HappeningNext and AllEvents titled Gabriel’s Creek Baptist Church VBS 2026. Neither event page nor the church's Facebook announcement was readable. The snippets show an event range beginning at 6:30 pm and ending at 8:30 pm, but do not establish daily hours, so hours are omitted. Confirm dates, daily hours, eligibility and drop-off address with the church. Third-party listings are https://happeningnext.com/event/gabriel%E2%80%99s-creek-baptist-church-vbs-2026-eid3a0driti3k and https://allevents.in/mars-hill/gabriel%E2%80%99s-creek-baptist-church-vbs-2026/200030251777002."
+      }
+    ]
+  }
+}

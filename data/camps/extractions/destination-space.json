@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "destination-space",
+    "name": "Destination SPACE",
+    "urls": ["https://www.destinationspace-stem.org/media"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:13.225Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "65956b22a6ddb3a1ba0de6884fb174a9fdece143ab4bb992f3c27073af91a6b7",
+  "response": {
+    "searches": [
+      "site:destinationspace-stem.org \"2026\" camp",
+      "site:unca.edu 2026 \"satellite\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 17775,
+      "cachedInputTokens": 8845,
+      "outputTokens": 756,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 25298,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.destinationspace-stem.org/media",
+      "chars": 2483,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.destinationspace-stem.org/summer-camp-programs",
+      "chars": 2607,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.destinationspace-stem.org/",
+      "chars": 2471,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Destination SPACE",
+    "website_url": "https://www.destinationspace-stem.org/",
+    "notes": "No 2027 or 2026 camp dates or registration announcements were found. The summer camp page is undated and its archive runs through 2025. Historical Asheville locations were not treated as confirmed upcoming drop-off sites. The press-releases page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Deep Space Program",
+        "reason": "Ongoing student projects, curriculum development and internship opportunities, rather than a finite summer camp."
+      },
+      {
+        "name": "Destination SPACE Labs",
+        "reason": "Technology platforms and educational kits, not a scheduled supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Satellite Week",
+        "type": "pre_college",
+        "categories": ["stem"],
+        "description": "Students learn about satellites and remote sensing through hands-on projects. They build weather stations, launch them on weather balloons, and analyze the data, with additional activities including robotic rovers, model rockets, and space weather forecasting.",
+        "camp_page_url": "https://www.destinationspace-stem.org/summer-camp-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "The majority of our students attend on full scholarships."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.destinationspace-stem.org/summer-camp-programs",
+          "https://www.destinationspace-stem.org/media",
+          "https://www.destinationspace-stem.org/overview"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program description and scholarship statement are on an undated ongoing program page, not a 2026 or 2027 announcement. Pre-college classification is based on historical coverage reproduced on the provider's media page; the current camp page does not specify day versus overnight format or eligibility. Confirm upcoming format and Asheville-area location before publishing a site."
+      }
+    ]
+  }
+}

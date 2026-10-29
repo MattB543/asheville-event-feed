@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "key": "oak-forest-baptist-church-of-fletcher",
+    "name": "Oak Forest Baptist Church of Fletcher",
+    "urls": [
+      "https://www.oakforestbaptist.com/",
+      "https://www.facebook.com/OakForestBaptistChurch123/"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:25:15.214Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ef7eb9fc85ed115ef1491a8ecd0a8616f7bab3dc9d05b542a80fd48264593b29",
+  "response": {
+    "searches": [
+      "\"Oak Forest Baptist\" \"Fletcher\" \"VBS\" 2026",
+      "\"Oak Forest\" \"Fletcher\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21751,
+      "cachedInputTokens": 8845,
+      "outputTokens": 372,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 14656,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.oakforestbaptist.com/",
+      "chars": 1073,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/OakForestBaptistChurch123/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Forest Baptist Church of Fletcher",
+    "website_url": "https://www.oakforestbaptist.com/",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School information was found on readable official sources. The supplied homepage lists the church at 484 Jackson Rd., Fletcher, NC 28732 but does not list summer programs. The church's Facebook page and its children's ministry page (https://www.facebook.com/OFKidsFletcher/) returned no readable content. Search results surfaced an official children's ministry announcement for Hay Day Vacation Bible School in 2022 and a third-party listing for Outback Rock VBS in 2024; these older offerings were not used to create 2026 or 2027 cards. This does not establish that the church has stopped offering VBS.",
+    "excluded": [],
+    "cards": []
+  }
+}

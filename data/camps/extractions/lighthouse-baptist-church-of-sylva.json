@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "lighthouse-baptist-church-of-sylva",
+    "name": "Lighthouse Baptist Church of Sylva",
+    "urls": ["https://www.lighthousesylva.com/", "https://www.facebook.com/LighthouseBCSylva/"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:16:47.731Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "aaf5aab268afc3809e343afcefb4b5b527ef008774eab4a21a27575f3d0758d1",
+  "response": {
+    "searches": [
+      "site:lighthousesylva.com \"Bible\" \"2026\"",
+      "site:facebook.com \"Lighthouse Sylva\" \"June 15\" \"2026\"",
+      "\"Lighthouse Sylva\" \"2026\" \"June\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 25094,
+      "cachedInputTokens": 8845,
+      "outputTokens": 977,
+      "reasoningTokens": 369
+    },
+    "status": "completed",
+    "ms": 29778,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lighthousesylva.com/",
+      "chars": 1871,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/LighthouseBCSylva/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lighthouse Baptist Church of Sylva",
+    "website_url": "https://www.lighthousesylva.com/",
+    "notes": "No 2027 camp information found. The official events page, Church Center registration page and Facebook page returned no readable content when opened. A 2026 VBS announcement attributed to Lighthouse Sylva was readable in third-party search results, but its original official post could not be located. No official registration opening date found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in games, Bible lessons and missions activities with an Emerald Crossing theme.",
+        "camp_page_url": "https://www.facebook.com/LighthouseBCSylva/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lighthouse Sylva",
+            "address": "2577 US-441S",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:00",
+          "text": "VBS: 6:00–9:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lighthousesylva.com/",
+          "https://www.lighthousesylva.com/visit",
+          "https://www.lighthousesylva.com/events"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2026 dates, hours and activities against the church's original VBS announcement. These details came from a search snippet reproducing a Lighthouse Sylva announcement at https://stayhappening.com/e/vacation-bible-school-2026-E2ISYBK1GY3, not a readable official page. The announcement says June 15–19; the year comes from its 2026 event title. The church's official website confirms the address. The reproduced announcement also says dinner is served before VBS; lunch remains null because it does not address lunch. Ages, pricing and the registration link remain unknown."
+      }
+    ]
+  }
+}

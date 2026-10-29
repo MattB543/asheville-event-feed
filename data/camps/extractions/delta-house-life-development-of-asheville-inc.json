@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "delta-house-life-development-of-asheville-inc",
+    "name": "Delta House Life Development of Asheville, Inc.",
+    "urls": ["https://www.deltahouseleaap21stcentury.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:01.906Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "846a56344e2bff522c95427ba566858a871d92a3fcb4127d09e6ebaaecd99aa7",
+  "response": {
+    "searches": [
+      "site:deltahouseleaap21stcentury.com summer camp 2027 2026",
+      "open https://www.deltahouseleaap21stcentury.com/programs.html"
+    ],
+    "usage": {
+      "inputTokens": 15398,
+      "cachedInputTokens": 8845,
+      "outputTokens": 879,
+      "reasoningTokens": 91
+    },
+    "status": "completed",
+    "ms": 19870,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.deltahouseleaap21stcentury.com/",
+      "chars": 4116,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/goq9xv1GJZDB2YUv9",
+      "chars": 1704,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Delta House Life Development of Asheville, Inc.",
+    "website_url": "https://www.deltahouseleaap21stcentury.com/",
+    "notes": "No 2027 camp information or registration milestones found. The 2023–2024 application states that camp was free and transportation was provided; those older facts were not carried into the 2026 card. The programs page mentions mini summer camp but does not identify a separate named offering or current dates.",
+    "excluded": [
+      {
+        "name": "Delta House L.E.A.A.P. for Success After-school Programs",
+        "reason": "School-year after-school programming and enrichment classes, rather than a finite summer camp."
+      },
+      {
+        "name": "Girls Thrive for Womanhood",
+        "reason": "Described as after-school activities and field trips, with no separate summer camp offering identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Delta House LEAAP Youth Summer Camp",
+        "type": "day",
+        "categories": ["arts", "stem", "cooking", "dance", "music"],
+        "description": "A six-week youth summer camp focused on arts, community, and culture. Program activities include robotics, photography, cooking, dance, and jazz band or drum circle.",
+        "camp_page_url": "https://www.deltahouseleaap21stcentury.com/index.html",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScDllWfmRxo4n7JRDFF8g4QDVg7Jgd0RqQBgfMsFlztBS--EA/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Delta House",
+            "address": "218 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "It's not too late. New Registrations Accepted Daily!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.deltahouseleaap21stcentury.com/index.html",
+          "https://docs.google.com/forms/d/e/1FAIpQLScDllWfmRxo4n7JRDFF8g4QDVg7Jgd0RqQBgfMsFlztBS--EA/viewform?usp=send_form",
+          "https://www.deltahouseleaap21stcentury.com/programs.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The homepage still says new registrations are accepted daily, although the registration form's explicitly dated 2026 camp ended July 23, 2026. Check whether this availability statement is stale; it is not evidence of 2027 registration. Hours for after-school programming were not applied to summer camp."
+      }
+    ]
+  }
+}

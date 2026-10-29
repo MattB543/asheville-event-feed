@@ -1,0 +1,204 @@
+{
+  "provider": {
+    "key": "pisgah-collective",
+    "name": "Pisgah Collective",
+    "urls": ["https://www.pisgahcollective.com/20262027ee"],
+    "area": "Pisgah Forest, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:58.434Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "64fc2accdc0e96ee33fa8886728daec33cd8c06598214136ab004184334633b1",
+  "response": {
+    "searches": ["site:pisgahcollective.com summer 2027 sprouts seedlings"],
+    "usage": {
+      "inputTokens": 15867,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1497,
+      "reasoningTokens": 83
+    },
+    "status": "completed",
+    "ms": 28085,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pisgahcollective.com/20262027ee",
+      "chars": 2664,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pisgahcollective.com/s/Summer-26-SY-26-27-Schedule-Tuition-quick-sheet-update.pdf",
+      "chars": 6288,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pisgahcollective.com/",
+      "chars": 1281,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pisgah Collective",
+    "website_url": "https://www.pisgahcollective.com/",
+    "notes": "No summer 2027 dates or registration milestones were found. The Future Program Info page says enrollment is not yet open for 2027-2028 programming, but does not specifically identify summer 2027. Cards retain the explicitly labeled summer 2026 information. School-year ages and waitlist status were not applied to summer programs.",
+    "excluded": [
+      {
+        "name": "Morning Sprouts school-year program",
+        "reason": "School-year preschool programming; only the finite summer session is included."
+      },
+      {
+        "name": "Afternoon Seedlings school-year program",
+        "reason": "School-year programming; only the finite summer session is included."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Morning Sprouts",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Children learn and play outdoors, exploring nature in a child-centered setting.",
+        "camp_page_url": "https://www.pisgahcollective.com/20262027ee",
+        "registration_url": "https://www.pisgahcollective.com/20262027ee",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-07",
+          "end": "2026-08-13",
+          "text": null
+        },
+        "ages": {
+          "min": 1.5,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pisgah Collective",
+            "address": "2753 Asheville Highway",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "12:15",
+          "text": "5, 3 (MWF), or 2 (TTh) Day morning program schedule"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1200,
+            "unit": "session",
+            "label": "5 days/week; tuition after $50 deposit",
+            "year": 2026
+          },
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "3 days/week (MWF); tuition after $50 deposit",
+            "year": 2026
+          },
+          {
+            "amount": 500,
+            "unit": "session",
+            "label": "2 days/week (TTh); tuition after $50 deposit",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Non-refundable deposit per child/program, including $25 supply fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Filling out this form does not guarantee any financial assistance, but will allow Friends of Pisgah Collective to document and plan for summer support."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.pisgahcollective.com/20262027ee",
+          "https://static1.squarespace.com/static/591df15159cc6846fb742d1a/t/6977a67270ec8939bdae0a13/1769449074255/Summer+%2726+%26+SY+26-27+Schedule+%26+Tuition+quick+sheet+-update.pdf",
+          "https://www.pisgahcollective.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 1.5 outside 2-19."
+      },
+      {
+        "name": "Afternoon Seedlings",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Children learn and play outdoors, exploring nature in a child-centered setting.",
+        "camp_page_url": "https://www.pisgahcollective.com/20262027ee",
+        "registration_url": "https://www.pisgahcollective.com/20262027ee",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-07",
+          "end": "2026-08-13",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pisgah Collective",
+            "address": "2753 Asheville Highway",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Tuesday, Wednesday, and Thursday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 600,
+            "unit": "session",
+            "label": "3 afternoons/week (Tuesday, Wednesday, Thursday); tuition after $50 deposit",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Non-refundable deposit per child/program, including $25 supply fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Filling out this form does not guarantee any financial assistance, but will allow Friends of Pisgah Collective to document and plan for summer support."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.pisgahcollective.com/20262027ee",
+          "https://static1.squarespace.com/static/591df15159cc6846fb742d1a/t/6977a67270ec8939bdae0a13/1769449074255/Summer+%2726+%26+SY+26-27+Schedule+%26+Tuition+quick+sheet+-update.pdf",
+          "https://www.pisgahcollective.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

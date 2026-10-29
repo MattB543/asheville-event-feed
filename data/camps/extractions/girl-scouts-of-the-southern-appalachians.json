@@ -1,0 +1,340 @@
+{
+  "provider": {
+    "key": "girl-scouts-of-the-southern-appalachians",
+    "name": "Girl Scouts of the Southern Appalachians",
+    "urls": ["https://www.girlscoutcsa.org/summercamp"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:39.255Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a6efa115f81b0c1aadcc2d1f82812de954b40887a4a350e62d7b1d3fea181441",
+  "response": {
+    "searches": [
+      "site:girlscoutcsa.org \"Shero\" \"2026\"",
+      "site:girlscoutcsa.org/en \"sheros-journey\" \"Cost\""
+    ],
+    "usage": {
+      "inputTokens": 44518,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2470,
+      "reasoningTokens": 257
+    },
+    "status": "completed",
+    "ms": 49841,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.girlscoutcsa.org/summercamp",
+      "chars": 10004,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/en/get-involved/join/individually-registered-girls-irgs.html",
+      "chars": 8996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/pirates-vs-mermaids.html",
+      "chars": 7427,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/en/discover/activities-and-events/summer-stack-club.html",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/content/dam/girlscoutcsa-redesign/documents/2026%20Summer%20Stack%20Club%20Reading%20List.pdf",
+      "chars": 2566,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/content/dam/girlscoutcsa-redesign/documents/Summer%20Stack%20Club%20Reading%20Lists.pdf",
+      "chars": 11068,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/en/support-us/community-advocate/camp-tanasi-70th.html",
+      "chars": 8313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors.html",
+      "chars": 1626,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girl Scouts of the Southern Appalachians",
+    "website_url": "https://www.girlscoutcsa.org/",
+    "notes": "No 2027 summer camp dates or registration milestones were found. Camp Tanasi programs meet in Andersonville, TN, plainly outside the directory's drive-time area; only Camp Wildwood programs are retained. The Shero’s Journey page was readable through the search index, although direct site access is restricted by robots.txt. No dated 2026 registration opening was found.",
+    "excluded": [
+      {
+        "name": "Camper Sampler",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Glamping (Overnight Camp)",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Glamping (Day Camp)",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Classic Camp",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Cowgirl Week",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Ultimate Scout",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Pirates vs Mermaids",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Wilderness",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Counselor-in-Training",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Day Camp at Tanasi",
+        "reason": "Held at Camp Tanasi in Andersonville, TN, outside the Asheville drive-time area."
+      },
+      {
+        "name": "Me & Mine",
+        "reason": "Family-only weekend program, also held outside the Asheville drive-time area."
+      },
+      {
+        "name": "Summer Stack Club",
+        "reason": "Independent reading and patch program, not a supervised camp."
+      },
+      {
+        "name": "Camp Tanasi 70th Anniversary",
+        "reason": "Spring anniversary celebration with adult and family events, not a summer youth camp."
+      },
+      {
+        "name": "Summer Camp Staff",
+        "reason": "Employment positions, not youth camp programs."
+      },
+      {
+        "name": "Leadership Initiatives Summer Internships",
+        "reason": "Held at Georgetown University, outside the Asheville drive-time area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Shero’s Journey",
+        "type": "day",
+        "categories": ["general", "arts", "stem", "nature_outdoor"],
+        "description": "Campers earn badges, make crafts, conduct experiments, and participate in Girl Scout traditions.",
+        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
+        "registration_url": "https://mygs.girlscouts.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Wildwood",
+            "address": "1100 Woodland Ave",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:30",
+          "cost_text": "$50/girl/week"
+        },
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "session",
+            "label": "Sessions 1 and 2, member",
+            "year": 2026
+          },
+          {
+            "amount": 375,
+            "unit": "session",
+            "label": "Sessions 1 and 2, non-member",
+            "year": 2026
+          },
+          {
+            "amount": 195,
+            "unit": "session",
+            "label": "Session 3, member",
+            "year": 2026
+          },
+          {
+            "amount": 295,
+            "unit": "session",
+            "label": "Session 3, non-member",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-06-29",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited summer camp scholarships are available."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "All attendees will need to pack a lunch and a water bottle each day. Snacks will be provided."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-wildwood.html",
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page lists rising K–5 for each session but explicitly permits current fifth graders/rising sixth graders as campers; the card spans K–6. Dates are assigned to 2026 from the page's Fall 2026 eligibility wording and the parent page's Summer Camp 2026 heading. Aftercare begins at 16:00; regular camp start time is not stated. Program and address details were read through indexed official-page text."
+      },
+      {
+        "name": "Day Camp Counselor",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Older Girl Scouts train and assist during Shero’s Journey Session 3, earning leadership or service awards.",
+        "camp_page_url": "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
+        "registration_url": "https://mygs.girlscouts.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-07-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Wildwood",
+            "address": "1100 Woodland Ave",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 25,
+            "unit": "program",
+            "label": "member",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "DCC training",
+            "start": "2026-06-27",
+            "end": "2026-06-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-06-29",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "All attendees will need to pack a lunch and a water bottle each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-tanasi/summer-camp/sheros-journey.html",
+          "https://www.girlscoutcsa.org/en/members/for-girl-scouts/camp-and-outdoors/camp-wildwood.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is rising seventh graders through graduated twelfth graders, so grade basis is unspecified to preserve the mixed basis. June 27 training is required for all DCCs; PA/VIT training that day is required unless already earned. Dates are assigned to 2026 from explicit Fall 2026 eligibility wording and the parent summer camp heading. Details were read through indexed official-page text."
+      }
+    ]
+  }
+}

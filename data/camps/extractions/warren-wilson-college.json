@@ -1,0 +1,284 @@
+{
+  "provider": {
+    "key": "warren-wilson-college",
+    "name": "Warren Wilson College",
+    "urls": [
+      "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
+      "https://www.warrenwilsonsportscamps.com/",
+      "https://swannanoagathering.org/childrens-program/",
+      "https://swannanoagathering.org/",
+      "https://swangathering.com/"
+    ],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:02:04.792Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d3cad58f6264a7545c9b225808e0b3fcc105a7959bf0494ee59a9178cb1cf7ca",
+  "response": {
+    "searches": [
+      "site.warrenwilsonsportscamps.com 2026 camp soccer kids club lacrosse",
+      "open https://www.warrenwilsonsportscamps.com/",
+      "site.swannanoagathering.org \"Young Old-Time\"",
+      "site.swannanoagathering.org/old-time/ \"teen\""
+    ],
+    "usage": {
+      "inputTokens": 29619,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2132,
+      "reasoningTokens": 358
+    },
+    "status": "completed",
+    "ms": 53417,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
+      "chars": 1981,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.warrenwilsonsportscamps.com/",
+      "chars": 745,
+      "method": "fetch"
+    },
+    {
+      "url": "https://swannanoagathering.org/childrens-program/",
+      "chars": 2711,
+      "method": "fetch"
+    },
+    {
+      "url": "https://swannanoagathering.org/",
+      "chars": 1198,
+      "method": "fetch"
+    },
+    {
+      "url": "https://basketball.warrenwilsonsportscamps.com/content.cfm?content_id=Registration",
+      "chars": 1234,
+      "method": "fetch"
+    },
+    {
+      "url": "https://swannanoagathering.org/register/",
+      "chars": 1409,
+      "method": "fetch"
+    },
+    {
+      "url": "https://swannanoagathering.org/news-updates/",
+      "chars": 3312,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/aX173otzs9ze7wKQ6",
+      "chars": 2627,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Warren Wilson College",
+    "website_url": "https://www.warren-wilson.edu/",
+    "notes": "2027 Children’s Program dates are posted; basketball information remains for 2026. Several official pages returned no readable text when opened with the browser, including the athletics hub, soccer site and Old-Time page. No verifiable current details for Young Old-Time were obtained, so it is omitted pending review rather than assumed discontinued. The athletics hub also links Cross Country and Men's LAX, but no current summer youth offering details were found.",
+    "excluded": [
+      {
+        "name": "WWC Kids Club",
+        "reason": "Year-round athletics fan membership and events, not a finite supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice shooting, offensive moves, footwork, passing, dribbling and defensive skills with Warren Wilson basketball coaches and players. They participate in competitive games each day.",
+        "camp_page_url": "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
+        "registration_url": "https://www.oasyssports.com/WarrenWilsonWomensBasketball/global-login.cfm",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Devries Athletic Center",
+            "address": "104 Northwest Lane",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Full Day: 9AM to 3 PM; Half Day: 9 AM to 12 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "Full Day",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "session",
+            "label": "Half Day",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Meals and lodging are not provided. Please send all campers with a snack, water bottle and lunch. (Lunch is not needed for half day campers)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://basketball.warrenwilsonsportscamps.com/content/2026-summer-camps",
+          "https://www.oasyssports.com/WarrenWilsonWomensBasketball/global-login.cfm"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Children’s Program",
+        "type": "day",
+        "categories": ["arts", "general"],
+        "description": "Children participate in crafts, creative activities and games, with music incorporated into the program. Children from the local community may attend as space allows.",
+        "camp_page_url": "https://swannanoagathering.org/childrens-program/",
+        "registration_url": "https://swannanoagathering.org/childrens-program/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-24",
+          "text": "2027 Fee Information will be announced March 1, 2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Warren Wilson College",
+            "address": "701 Warren Wilson Road",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": null,
+          "text": "Monday – Friday. Drop Off: 8:45. Pick-up for lunch: Noon. End of Day Pick-up: 5:00 – 5:45 (timing varies slightly depending on the week your child attends)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Traditional Song Week",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Old-Time Music & Dance week",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Celtic Week",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Meals can be purchased at the Cafeteria. There is a small additional fee for lunchtime supervision, for parents not on campus to pick their child up for lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://swannanoagathering.org/childrens-program/",
+          "https://swannanoagathering.org/register/",
+          "https://www.warren-wilson.edu/admission/visit/campus-map"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Children’s Program page lists Sunday–Saturday Gathering week ranges but specifies Monday–Friday activities; session dates preserve the published ranges, not actual drop-off days. Ages are as of July 1, and bathroom independence is required. The campus address is verified, but the specific drop-off building is not identified. The direct local-child registration form destination could not be retrieved."
+      }
+    ]
+  }
+}

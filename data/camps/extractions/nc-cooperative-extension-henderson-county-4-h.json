@@ -1,0 +1,346 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-henderson-county-4-h",
+    "name": "N.C. Cooperative Extension — Henderson County 4-H",
+    "urls": [
+      "https://henderson.ces.ncsu.edu/4-h-special-interest-programs/",
+      "https://henderson.ces.ncsu.edu/news/f-r-e-s-h-4-h-program-2025/",
+      "https://henderson.ces.ncsu.edu/news/the-final-harvest-4-h-gardening-programs-2026/",
+      "https://henderson.ces.ncsu.edu/news/become-a-4-h-pumpkin-patch-kid/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:16:05.422Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9ca418a5d520c23b48630b5fe49a4015a58c77bb90bdb280aff4d9100fd1be9a",
+  "response": {
+    "searches": [
+      "site:henderson.ces.ncsu.edu \"2026\" \"camp\"",
+      "site:henderson.ces.ncsu.edu \"F.R.E.S.H\" \"2026\"",
+      "site:nps.gov carl sandburg home physical address 81"
+    ],
+    "usage": {
+      "inputTokens": 38181,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2316,
+      "reasoningTokens": 282
+    },
+    "status": "completed",
+    "ms": 59213,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://henderson.ces.ncsu.edu/4-h-special-interest-programs/",
+      "chars": 9367,
+      "method": "fetch"
+    },
+    {
+      "url": "https://henderson.ces.ncsu.edu/news/f-r-e-s-h-4-h-program-2025/",
+      "chars": 5916,
+      "method": "fetch"
+    },
+    {
+      "url": "https://henderson.ces.ncsu.edu/news/the-final-harvest-4-h-gardening-programs-2026/",
+      "chars": 6415,
+      "method": "fetch"
+    },
+    {
+      "url": "https://henderson.ces.ncsu.edu/news/become-a-4-h-pumpkin-patch-kid/",
+      "chars": 5410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSc-d05C6pfcBQuBIv9MEAfNSFtmL1iSTPdglvrqTYhH-o28Xw/viewform?usp=header",
+      "chars": 3654,
+      "method": "fetch"
+    },
+    {
+      "url": "https://henderson.ces.ncsu.edu/",
+      "chars": 5834,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Henderson County 4-H",
+    "website_url": "https://henderson.ces.ncsu.edu/",
+    "notes": "No 2027 dates or registration milestones found. Pumpkin Patch Kids is explicitly announced to return in 2027. F.R.E.S.H is listed for summer 2026, but the detailed article found describes 2025; its dates, ages and hours were not carried forward. Agriculture Day Camp and Cloverbud Nature Day Camp were found only in older materials, with no 2026 or 2027 offering confirmed.",
+    "excluded": [
+      {
+        "name": "4-H Overnight Camp",
+        "reason": "The Henderson County group attends Millstone 4-H Camp in Ellerbe, well outside the approximately 75-minute Asheville drive area. The other residential sites advertised are also outside the area."
+      },
+      {
+        "name": "4-H Mini Gardening",
+        "reason": "At-home gardening project, not a supervised summer camp."
+      },
+      {
+        "name": "4-H Pumpkin Program",
+        "reason": "At-home pumpkin-growing project, not a supervised summer camp."
+      },
+      {
+        "name": "4-H Sewing Classes",
+        "reason": "Lesson series rather than a program called a camp."
+      },
+      {
+        "name": "Knitting / Crochet Classes",
+        "reason": "Fall lesson series outside summer."
+      },
+      {
+        "name": "Livestock Judging, Quiz bowl and Skill-a-thon",
+        "reason": "Recurring contest preparation rather than a finite summer camp."
+      },
+      {
+        "name": "4-H Poultry Judging, Avian Bowl, & Skill-a-thon",
+        "reason": "Contest preparation rather than a finite summer camp."
+      },
+      {
+        "name": "BlueRidge Brooders 4-H Pullet Program",
+        "reason": "At-home animal-raising project spanning March through August, not a supervised summer camp."
+      },
+      {
+        "name": "The Dairy Beef Feeder Calf Program",
+        "reason": "At-home animal-care and showing project spanning February through September, not a supervised summer camp."
+      },
+      {
+        "name": "Market Hog Program",
+        "reason": "At-home animal-care and showing project spanning April through September, not a supervised summer camp."
+      },
+      {
+        "name": "4-H Clubs",
+        "reason": "Ongoing clubs rather than finite summer camps."
+      },
+      {
+        "name": "State 4-H Congress",
+        "reason": "Conference or convention."
+      },
+      {
+        "name": "Farm City Day",
+        "reason": "Fall fair or festival, not a camp."
+      },
+      {
+        "name": "4-H Fall Trainings",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "4-H Unmounted Horse Clinic",
+        "reason": "Fall clinic outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Pumpkin Patch Kids Program",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Youth grow giant pumpkins from seed to harvest at Bullington Gardens. Meetings include experiments, crafts, games, gardening activities and take-home projects.",
+        "camp_page_url": "https://henderson.ces.ncsu.edu/news/become-a-4-h-pumpkin-patch-kid/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSc-d05C6pfcBQuBIv9MEAfNSFtmL1iSTPdglvrqTYhH-o28Xw/viewform?usp=header",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-09-28",
+          "text": "A new season will begin in 2027!"
+        },
+        "ages": {
+          "min": 5,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bullington Gardens",
+            "address": "95 Upper Red Oak Trail",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "15:30",
+          "text": "Monday afternoons (Summer hours) 2:00 - 3:30; (Back to school hour) 4:00 - 5:00"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Kick-Off!",
+            "start": "2026-06-15",
+            "end": "2026-06-15",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Germination",
+            "start": "2026-06-29",
+            "end": "2026-06-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "What do plants need to grow",
+            "start": "2026-07-13",
+            "end": "2026-07-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Soil",
+            "start": "2026-07-27",
+            "end": "2026-07-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Water",
+            "start": "2026-08-10",
+            "end": "2026-08-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sunlight",
+            "start": "2026-08-24",
+            "end": "2026-08-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Plant parts",
+            "start": "2026-09-14",
+            "end": "2026-09-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pumpkin and Pollinator party!",
+            "start": "2026-09-28",
+            "end": "2026-09-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Any special accommodations we should be aware of?"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://henderson.ces.ncsu.edu/news/become-a-4-h-pumpkin-patch-kid/",
+          "https://henderson.ces.ncsu.edu/news/the-final-harvest-4-h-gardening-programs-2026/",
+          "https://docs.google.com/forms/d/e/1FAIpQLSc-d05C6pfcBQuBIv9MEAfNSFtmL1iSTPdglvrqTYhH-o28Xw/viewform?usp=header",
+          "https://www.bullingtongardens.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration specifies ages 5–7 as of January 1, 2026, allowing participants who subsequently turn 8; the October recap says ages 5–8. September 7 is listed as HOLIDAY and omitted as a meeting. October 3 is a Farm City Day display, omitted as a festival rather than a camp meeting. The form asks about accommodations but does not promise specific support."
+      },
+      {
+        "name": "4-H F.R.E.S.H Program",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Participants learn goat care and management, complete daily chores, and interact with visitors about the history and significance of Carl Sandburg Home National Historic Site.",
+        "camp_page_url": "https://henderson.ces.ncsu.edu/4-h-special-interest-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carl Sandburg Home National Historic Site",
+            "address": "1800 Little River Road",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://henderson.ces.ncsu.edu/4-h-special-interest-programs/",
+          "https://henderson.ces.ncsu.edu/news/f-r-e-s-h-4-h-program-2025/",
+          "https://www.nps.gov/carl/contacts.htm"
+        ],
+        "confidence": "medium",
+        "review_notes": "The SPIN page explicitly lists summer 2026, but no detailed 2026 schedule or application was found. Half-day format is supported only by the 2025 morning-shift description. NPS directs visitors to 1800 Little River Road; 81 Carl Sandburg Lane is its headquarters and mailing address. Exact participant drop-off arrangements are not stated."
+      }
+    ]
+  }
+}

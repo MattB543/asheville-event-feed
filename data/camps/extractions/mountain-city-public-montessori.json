@@ -1,0 +1,62 @@
+{
+  "provider": {
+    "key": "mountain-city-public-montessori",
+    "name": "Mountain City Public Montessori",
+    "urls": ["https://mountaincitypublic.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T16:57:15.296Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "da91345114f8581967531da458cff7a2bc0dab30c7f785ab965a9c128a82963b",
+  "response": {
+    "searches": [
+      "site:mountaincitypublic.org summer camp",
+      "site:mountaincitypublic.org \"summer\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 18589,
+      "cachedInputTokens": 8845,
+      "outputTokens": 398,
+      "reasoningTokens": 140
+    },
+    "status": "completed",
+    "ms": 17452,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mountaincitypublic.org/",
+      "chars": 2539,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mountaincitypublic.org/enrollment/",
+      "chars": 3329,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain City Public Montessori",
+    "website_url": "https://mountaincitypublic.org/",
+    "notes": "No qualifying summer camp program or summer 2027 camp information was found in the supplied official pages or targeted web searches of the provider's website, including indexed PDFs. The enrollment dates describe the 2026–2027 school year, not summer camp registration. The events page at https://mountaincitypublic.org/events/ returned no readable text. Reading camp references were found in Read to Achieve reporting PDFs, but no public camp offering was found.",
+    "excluded": [
+      {
+        "name": "School enrollment",
+        "reason": "Regular school-year education, not a finite summer camp."
+      },
+      {
+        "name": "Little Grove Preschool",
+        "reason": "The enrollment page identifies this as a partner preschool program, not a summer camp."
+      },
+      {
+        "name": "Read to Achieve reading camp",
+        "reason": "Referenced in school accountability reporting as a student reading intervention; no publicly accessible camp offering was found. School learning programs limited to the school's own students are excluded."
+      }
+    ],
+    "cards": []
+  }
+}

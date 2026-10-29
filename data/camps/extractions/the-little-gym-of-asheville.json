@@ -1,0 +1,137 @@
+{
+  "provider": {
+    "key": "the-little-gym-of-asheville",
+    "name": "The Little Gym of Asheville",
+    "urls": [
+      "https://www.thelittlegym.com/north-carolina-asheville/camps/",
+      "https://www.thelittlegym.com/north-carolina-asheville/blog/summer-camp-procedures/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:21.591Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0562cc09e94430cfe5eafb65ff5703a284f1e19188957ef97cc1b624fbd41e60",
+  "response": {
+    "searches": [
+      "site:thelittlegym.com/north-carolina-asheville \"2027\" camp",
+      "open https://www.thelittlegym.com/north-carolina-asheville/camps/"
+    ],
+    "usage": {
+      "inputTokens": 33535,
+      "cachedInputTokens": 8845,
+      "outputTokens": 768,
+      "reasoningTokens": 107
+    },
+    "status": "completed",
+    "ms": 19554,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.thelittlegym.com/north-carolina-asheville/camps/",
+      "chars": 13454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thelittlegym.com/north-carolina-asheville/blog/summer-camp-procedures/",
+      "chars": 4472,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thelittlegym.com/north-carolina-asheville/classes/",
+      "chars": 29342,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thelittlegym.com/faqs/",
+      "chars": 7365,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thelittlegym.com/camps/",
+      "chars": 22951,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thelittlegym.com/",
+      "chars": 2416,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Little Gym of Asheville",
+    "website_url": "https://www.thelittlegym.com/north-carolina-asheville/",
+    "notes": "No summer 2027 dates, prices or registration milestones were found. The readable camp calendar shows October–December 2026 rather than summer dates. Searches did not locate a summer 2026 schedule or a usable registration-platform link. Skill Thrill Camps appear only in the general FAQ; an Asheville offering was not confirmed.",
+    "excluded": [
+      {
+        "name": "Parent/Child, Pre-K Gymnastics, Grade School Gymnastics and Dance classes",
+        "reason": "Ongoing classes and lesson series, not finite summer camps."
+      },
+      {
+        "name": "Winter holiday camps",
+        "reason": "The December calendar's Ice Crystal, Dinosaur Ice Age, Blizzard Mountain, Penguin, Polar Bear and Snowman themes occur outside summer."
+      },
+      {
+        "name": "Birthday parties and member events",
+        "reason": "Parties and social events, not summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Super Quest Camps",
+        "type": "half_day",
+        "categories": ["sports", "general"],
+        "description": "Children participate in active play, skill-building games and creative activities with weekly themes. Campers must be bathroom independent.",
+        "camp_page_url": "https://www.thelittlegym.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Little Gym of Asheville",
+            "address": "10 Crispin Ct",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Our camp programs are 3-4 hours long."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Pack a lunch, a separate non-perishable snack and water bottle each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.thelittlegym.com/north-carolina-asheville/camps/",
+          "https://www.thelittlegym.com/north-carolina-asheville/blog/summer-camp-procedures/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

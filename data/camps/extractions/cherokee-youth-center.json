@@ -1,0 +1,130 @@
+{
+  "provider": {
+    "key": "cherokee-youth-center",
+    "name": "Cherokee Youth Center",
+    "urls": [
+      "https://www.cherokeeyouthcenter.com/summer-clubs",
+      "https://www.cherokeeyouthcenter.com/",
+      "https://www.ebci.gov/wp-content/uploads/2025/04/CYC-Parent-Handbook-2025-revised.pdf"
+    ],
+    "area": "Cherokee, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:58.079Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "81d27d72ab0f5e4e9a0ffc3366475c3d1e88255ec8cf5b0dfd2d56660365431b",
+  "response": {
+    "searches": [
+      "site.cherokeeyouthcenter.com summer 2026 2027",
+      "open https://www.cherokeeyouthcenter.com/orientation-2021"
+    ],
+    "usage": {
+      "inputTokens": 26534,
+      "cachedInputTokens": 8845,
+      "outputTokens": 985,
+      "reasoningTokens": 193
+    },
+    "status": "completed",
+    "ms": 27480,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cherokeeyouthcenter.com/summer-clubs",
+      "chars": 1913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cherokeeyouthcenter.com/",
+      "chars": 2963,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ebci.gov/wp-content/uploads/2025/04/CYC-Parent-Handbook-2025-revised.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ebci.gov/",
+      "chars": 4825,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherokee Youth Center",
+    "website_url": "https://www.cherokeeyouthcenter.com/",
+    "notes": "No 2027 summer dates, prices or registration milestones were found. The Summer Clubs page still lists 2024 activities; those activities were not treated as confirmed 2026 or 2027 offerings. The 2025 handbook was available only through the supplied partial text; the PDF and orientation page returned no readable content when opened. The orientation search result identifies a Parent Orientation 2026, but its slideshow could not be read.",
+    "excluded": [
+      {
+        "name": "After-School Program",
+        "reason": "School-year childcare, not a summer camp. The published annual fees and waiting lists specifically apply to after-school care."
+      },
+      {
+        "name": "Snowbird Youth Center Summer Program",
+        "reason": "Held in Robbinsville at 208 Snowbird Youth Center Road, plainly beyond the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Teacher Workday and School Closing Programming",
+        "reason": "School-calendar childcare outside the summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A supervised summer youth program for children ages 5–18 or grades K–12. Staff choose clubs for youth to participate in during the summer.",
+        "camp_page_url": "https://www.cherokeeyouthcenter.com/summer-clubs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Cherokee Youth Center",
+            "address": "1570 Acquoni Road",
+            "town": "Cherokee",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Each child will be evaluated on a case-by-case basis to determine if we can meet that child’s needs."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cherokeeyouthcenter.com/",
+          "https://www.cherokeeyouthcenter.com/summer-clubs",
+          "https://www.cherokeeyouthcenter.com/local-clubs",
+          "https://www.ebci.gov/wp-content/uploads/2025/04/CYC-Parent-Handbook-2025-revised.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages and grades are stated on the undated homepage, not in a summer-specific 2026 announcement. Special-needs policy comes from the 2025 handbook; check whether the 2026 orientation or a newer handbook changes it. No dated 2026 summer schedule was found. Handbook school-closing hours and lunch rules were not assigned to summer, and after-school fees and waiting-list status were not assigned to this program."
+      }
+    ]
+  }
+}

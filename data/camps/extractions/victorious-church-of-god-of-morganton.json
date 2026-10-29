@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "victorious-church-of-god-of-morganton",
+    "name": "Victorious Church of God of Morganton",
+    "urls": ["https://www.facebook.com/victoriouschurchofgod"],
+    "area": "Morganton, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:18:01.627Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Victorious Church of God Morganton vacation bible school 2026",
+      "\"victoriouschurchofgod\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 25599,
+      "cachedInputTokens": 8845,
+      "outputTokens": 330,
+      "reasoningTokens": 160
+    },
+    "status": "completed",
+    "ms": 16417,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/victoriouschurchofgod",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Victorious Church of God of Morganton",
+    "website_url": "https://www.victoriouschurchofgod.org/",
+    "notes": "Found the church's own website; its indexed text identifies its location as 109 Old Rock Quarry Rd, Morganton, NC 28655. The website and Facebook page returned no readable page content when opened. Searches found a historical Kingdom Chronicles Vacation Bible School announcement for July 18–23, with a registration link referring to 2022, but no identifiable 2026 or 2027 summer camp announcement. No cards were created from that older announcement. Review the church's Facebook posts directly for summer 2026 or 2027 information.",
+    "excluded": [],
+    "cards": []
+  }
+}

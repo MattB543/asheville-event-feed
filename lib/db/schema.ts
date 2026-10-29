@@ -13,8 +13,10 @@ import {
   check,
   customType,
   primaryKey,
+  doublePrecision,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import type { CampCard } from '../camps/contract';
 
 export const events = pgTable(
   'events',
@@ -848,4 +850,127 @@ export const genreNotes = pgTable('genre_notes', {
   genre: text('genre').primaryKey(),
   note: text('note'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+// Summer camps (/camps): docs/camps/04-v2-plan.md §4 (drizzle/0025). One card per program, as Sol
+// extracted it (`card`), plus Matt's fixes (`override`); the columns beside them are copied from the
+// effective card ({...card, ...override}) so the pages can filter in SQL. Written by
+// lib/camps/importCamps.ts (scripts/camps/import.ts and the refresh cron) and the /admin/camps
+// actions in lib/db/queries/camps.ts.
+
+// One row per provider from discovery (data/camps/providers.json).
+export const campProviders = pgTable('camp_providers', {
+  key: text('key').primaryKey(), // Provider.key: a stable slug, never changed once assigned
+  name: text('name').notNull(),
+  websiteUrl: text('website_url'), // As the extraction found it
+  urls: text('urls').array().default([]).notNull(), // Official camp pages that seed extraction
+  area: text('area'),
+  discoveredBy: text('discovered_by').array().default([]).notNull(),
+  hidden: boolean('hidden').default(false).notNull(), // Hides every camp it runs; the import never writes it
+  notes: text('notes'), // The extraction's notes on the provider
+  extractedAt: timestamp('extracted_at', { withTimezone: true }),
+  sourceHash: text('source_hash'), // Hash of the fetched source text, so a refresh re-extracts only changes
+  // The extraction's fingerprint (prompt + schema, or 'webtrac:...'): a new prompt re-extracts on refresh
+  extractionFingerprint: text('extraction_fingerprint'),
+  // Refresh bookkeeping (lib/camps/refresh.ts, drizzle/0026); the import never writes these.
+  // Last time the refresh read the pages and compared them; a failed read doesn't advance it
+  checkedAt: timestamp('checked_at', { withTimezone: true }),
+  checkError: text('check_error'), // Why the last check failed; null once one succeeds
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const camps = pgTable(
+  'camps',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    // '<provider key>:<slug of program name>' (campKeyFor). Never changes.
+    campKey: text('camp_key').unique().notNull(),
+    slug: text('slug').unique().notNull(), // Assigned once on first import and never changed
+    providerKey: text('provider_key')
+      .notNull()
+      .references(() => campProviders.key),
+    card: jsonb('card').$type<CampCard>().notNull(), // As extracted
+    // Matt's fixes: top-level CampCard keys that replace the extracted ones
+    override: jsonb('override').$type<Partial<CampCard>>(),
+    // From here to season_end, copied from the effective card
+    name: text('name').notNull(),
+    type: text('type').notNull(), // CAMP_TYPES
+    categories: text('categories').array().default([]).notNull(), // CAMP_CATEGORIES
+    confidence: text('confidence').notNull(), // 'high' | 'medium' | 'low'
+    reviewNotes: text('review_notes'),
+    ageMin: integer('age_min'),
+    ageMax: integer('age_max'),
+    gradeMin: integer('grade_min'), // Pre-K -1, K 0, 1st 1 ...
+    gradeMax: integer('grade_max'),
+    seasonYear: integer('season_year').notNull(),
+    seasonStart: date('season_start'),
+    seasonEnd: date('season_end'),
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // When Matt confirmed it
+    // cardHash of the effective card he confirmed: a re-extraction that changes it re-queues the camp
+    reviewedHash: text('reviewed_hash'),
+    hidden: boolean('hidden').default(false).notNull(), // Moderation; the import never writes it
+    // The provider extraction this camp was last in (drizzle/0027). Live only while it equals the
+    // provider's extracted_at: a program the newest extraction drops is retired, never deleted.
+    lastExtractedAt: timestamp('last_extracted_at', { withTimezone: true }),
+    firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).defaultNow().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(), // Card or override changed
+  },
+  (table) => ({
+    campsProviderIdx: index('camps_provider_idx').on(table.providerKey),
+    campsHiddenIdx: index('camps_hidden_idx').on(table.hidden),
+  })
+);
+
+// Where campers are dropped off, one row per provider and site name; cards point at sites by name.
+export const campSites = pgTable(
+  'camp_sites',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    providerKey: text('provider_key')
+      .notNull()
+      .references(() => campProviders.key),
+    name: text('name').notNull(),
+    address: text('address'),
+    town: text('town'),
+    state: text('state'),
+    lat: doublePrecision('lat'), // Null until placed (geocoder miss: Matt pastes a pin in /admin/camps)
+    lng: doublePrecision('lng'),
+    geocodeSource: text('geocode_source'), // 'census' | 'ors' | 'hand'; the import never overwrites 'hand'
+    geocodeLabel: text('geocode_label'), // The match the geocoder returned, for checking
+    driveMinutes: doublePrecision('drive_minutes'), // From Pack Square (ORS, no traffic); unrounded for D3
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    campSitesProviderNameIdx: uniqueIndex('camp_sites_provider_name_idx').on(
+      table.providerKey,
+      table.name
+    ),
+  })
+);
+
+// Popularity: one row per camp per Eastern day; the page shows the last 14 days.
+export const campViews = pgTable(
+  'camp_views',
+  {
+    campId: uuid('camp_id')
+      .notNull()
+      .references(() => camps.id, { onDelete: 'cascade' }),
+    day: date('day').notNull(),
+    count: integer('count').default(0).notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ name: 'camp_views_pk', columns: [table.campId, table.day] }),
+  })
+);
+
+// A subscribable calendar feed of saved camps, addressed by an unguessable token (no sign-in).
+export const campCalendars = pgTable('camp_calendars', {
+  token: text('token').primaryKey(),
+  campIds: uuid('camp_ids').array().default([]).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  lastFetchedAt: timestamp('last_fetched_at', { withTimezone: true }), // Last calendar-app poll
 });

@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "springdale-golf",
+    "name": "Springdale Golf",
+    "urls": ["https://www.springdalegolfnc.com/nc-junior-golf-tournaments"],
+    "area": "Canton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:01.085Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3dcfa805508bb180cf1b9634db9d2a9af779a0baade4890771462599fb803b80",
+  "response": {
+    "searches": ["site.springdalegolfnc.com \"camp\" \"2027\""],
+    "usage": {
+      "inputTokens": 17943,
+      "cachedInputTokens": 8845,
+      "outputTokens": 797,
+      "reasoningTokens": 107
+    },
+    "status": "completed",
+    "ms": 22898,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+      "chars": 4465,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/springdale-golf-club-membership-cost",
+      "chars": 5372,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/faq",
+      "chars": 3487,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/",
+      "chars": 6617,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Springdale Golf",
+    "website_url": "https://www.springdalegolfnc.com/",
+    "notes": "The official Junior Golf page says to stay tuned for 2027 dates. No dated 2026 schedule or additional 2027 camp details were found. Registration is handled by calling the Golf Shop at 828-235-8451, extension 1, or emailing ashley@springdalegolf.com.",
+    "excluded": [
+      {
+        "name": "PGA Junior League",
+        "reason": "Sports league, not a finite camp."
+      },
+      {
+        "name": "Youth on Course Partnership",
+        "reason": "Subsidized golf rounds, not a supervised camp program."
+      },
+      {
+        "name": "Springdale Golf Club Lessons",
+        "reason": "Golf lessons booked as lessons, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Golf Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice chipping, putting, bunker shots and full swings through instruction, drills and contests. The program also covers golf rules, etiquette and sportsmanship, with swimming pool time after the final clinic.",
+        "camp_page_url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+        "registration_url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "STAY TUNED FOR 2027 DATES"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Springdale Golf Course",
+            "address": "190 Golfwatch Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday-Wednesday, 9 AM—12 Noon Each Day"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.springdalegolfnc.com/nc-junior-golf-tournaments"],
+        "confidence": "medium",
+        "review_notes": "The camp page retains undated wording describing five three-day sessions, Monday-Wednesday hours of 9 AM-noon, and a $150 per-child session fee beside the 2027 coming-soon notice. Confirm whether these details apply to 2027. The fee is omitted because its summer year cannot be established. No ages, session dates or registration opening date are stated. The page promises a light snack and bottled water, but does not address lunch."
+      }
+    ]
+  }
+}

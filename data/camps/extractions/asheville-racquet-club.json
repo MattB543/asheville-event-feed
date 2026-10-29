@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "asheville-racquet-club",
+    "name": "Asheville Racquet Club",
+    "urls": ["https://ashevilleracquetclub.com/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:38.183Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8c8b87bbcf081db02dc1fa8f6f3f192d2c1adce0808d4503621ea1a26f19caf6",
+  "response": {
+    "searches": [
+      "site:ashevilleracquetclub.com \"2026\" \"camp\"",
+      "site:ashevilleracquetclub.com/wp-content/uploads/2026 \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 18612,
+      "cachedInputTokens": 8845,
+      "outputTokens": 863,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 22900,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilleracquetclub.com/summer-camp/",
+      "chars": 7749,
+      "method": "fetch"
+    },
+    {
+      "url": "http://ashevilleracquetclub.com/wp-content/uploads/2025/01/Summer-Camp-Flyer-2025-Final.pdf",
+      "chars": 1341,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleracquetclub.com/schedules/",
+      "chars": 4969,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleracquetclub.com/",
+      "chars": 5728,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Racquet Club",
+    "website_url": "https://ashevilleracquetclub.com/",
+    "notes": "No summer 2027 information or 2026 camp dates, prices, or daily schedule were found. The supplied flyer describes 2025, so its dates, prices, and hours were not carried forward. The 2026 camp page states member registration opened February 2 and nonmember registration opened February 9. An archived 2019 camp page was not used for current offerings.",
+    "excluded": [
+      {
+        "name": "Junior Tennis Programs",
+        "reason": "Recurring school-year tennis instruction, not a finite summer camp."
+      },
+      {
+        "name": "Childcare",
+        "reason": "Year-round club childcare, not a summer camp."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Lessons booked as lessons, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "All Sports Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn and practice tennis and pickleball, participate in other sports, and spend time in the pool. Children are grouped with others of the same age, with half-day and full-day options.",
+        "camp_page_url": "https://ashevilleracquetclub.com/summer-camp/",
+        "registration_url": "https://ashevilleracquetclub.com/summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Racquet Club South",
+            "address": "200 Racquet Club Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-09",
+          "time": null,
+          "text": "2026 All Sports Summer Camp registration will open to members on February 2nd and nonmembers on February 9th.",
+          "url": "https://ashevilleracquetclub.com/summer-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "EQUIPMENT NEEDED FOR CAMP: Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilleracquetclub.com/summer-camp/",
+          "https://ashevilleracquetclub.com/events/list/?tribe-bar-date=2022-09-21"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

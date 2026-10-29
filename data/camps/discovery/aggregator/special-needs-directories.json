@@ -1,0 +1,87 @@
+{
+  "method": "aggregator",
+  "id": "special-needs-directories",
+  "input": "Use directories of special-needs, autism and inclusive summer camps in Western North Carolina to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:27:38.210Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 39296,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1205,
+    "reasoningTokens": 444
+  },
+  "searches": [
+    "Western North Carolina special needs autism inclusive summer camps directory",
+    "open https://fsnnc.org/nc-summer-camp-directory/",
+    "site:fsnnc.org \"Asheville\" camp",
+    "Camp Ability WNC 2025 location",
+    "SOAR official North Carolina summer camp 2026"
+  ],
+  "ms": 48926,
+  "candidates": [
+    {
+      "name": "Christmount",
+      "url": "https://www.camplakeygap.org/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "nature_outdoor", "arts", "music", "general"],
+      "note": "Camp Lakey Gap offers weeklong residential sessions for autistic children and teens with 1:1 or 1:2 support; 2026 registration was announced."
+    },
+    {
+      "name": "Talisman Camps",
+      "url": "https://talismancamps.com/",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "nature_outdoor", "general"],
+      "note": "Residential adventure programs for ages 6–22 with autism, ADHD and learning differences; summer 2027 registration is open."
+    },
+    {
+      "name": "SOAR",
+      "url": "https://soarnc.org/adhd-camp/",
+      "town": "Balsam",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "nature_outdoor", "sports", "horses"],
+      "note": "North Carolina outdoor adventure camps for youth with ADHD and learning differences; the 2026 listing serves ages 8–25."
+    },
+    {
+      "name": "Asheville Jewish Community Center",
+      "url": "https://www.jcc-asheville.org/camp-ruach/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["special_needs", "general", "nature_outdoor", "arts", "sports", "faith_based"],
+      "note": "Camp Ruach, inclusive Camp Tikvah for autistic children, and teen leadership programming; summer 2027 begins June 14."
+    },
+    {
+      "name": "Camp Ability of WNC",
+      "url": "https://www.campabilitywnc.org/",
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["special_needs", "general", "sports", "arts", "music"],
+      "note": "Two-week summer day camp for children and teens with special needs and buddy support; listed for summer 2026."
+    },
+    {
+      "name": "BRAVO Asheville",
+      "url": "https://www.blueridgebravo.org/",
+      "town": "Asheville; Bryson City",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["special_needs", "nature_outdoor", "sports"],
+      "note": "2026 Asheville day camp for blind and low-vision K–12 students, plus Nantahala overnight adventure camp near Bryson City."
+    },
+    {
+      "name": "United Methodist Camp Tekoa",
+      "url": "https://camptekoa.org/future-families/summer-camps",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["general", "nature_outdoor", "faith_based"],
+      "note": "Day, overnight and adventure camps announced for summer 2027; its separate special-needs sessions are described as adult programs."
+    }
+  ]
+}

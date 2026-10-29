@@ -1,0 +1,92 @@
+{
+  "provider": {
+    "key": "blue-ridge-kids-center",
+    "name": "Blue Ridge Kids Center",
+    "urls": ["https://www.blueridgekidscenter.com/camps-and-choreography"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:38.740Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e152a51e4489a94baec9cdfacc56e50770508f0b6a4c0e9d62298e4cbf8f2f5a",
+  "response": {
+    "searches": ["site:blueridgekidscenter.com camp summer 2026 2027"],
+    "usage": {
+      "inputTokens": 14729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 518,
+      "reasoningTokens": 81
+    },
+    "status": "completed",
+    "ms": 18845,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.blueridgekidscenter.com/camps-and-choreography",
+      "chars": 1035,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.iclasspro.com/portal/blueridgekids",
+      "chars": 1272,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.blueridgekidscenter.com/faq-1",
+      "chars": 5487,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgekidscenter.com/",
+      "chars": 1744,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge Kids Center",
+    "website_url": "https://www.blueridgekidscenter.com/",
+    "notes": "No identifiable summer 2026 or 2027 camp schedule or registration dates were found on the official website or in search results. The Camps and Choreography page advertises custom camps for school and recreation teams throughout WNC, but does not establish summer timing, a finite session, or a drop-off location. Its free gym-training promotion refers to 2022. The supplied registration portal text contains no camp listings. Custom team camps may warrant a direct inquiry; no summer camp card could be substantiated from the available materials.",
+    "excluded": [
+      {
+        "name": "Camps and Choreography",
+        "reason": "Custom team camp and choreography services are advertised, but no identifiable finite summer youth program is specified."
+      },
+      {
+        "name": "Tumbling",
+        "reason": "Recurring six-week class series, not a camp."
+      },
+      {
+        "name": "Ninja Kids",
+        "reason": "Regular classes, not a summer camp."
+      },
+      {
+        "name": "Gymnastics",
+        "reason": "Recurring six-week class series, not a camp."
+      },
+      {
+        "name": "Rec Cheer and Dance",
+        "reason": "Seasonal and recurring skill classes, not a camp."
+      },
+      {
+        "name": "Novice Cheerleading",
+        "reason": "Cheerleading team program, not a finite summer camp."
+      },
+      {
+        "name": "Elite Cheerleading",
+        "reason": "Competitive cheerleading team season, not a camp."
+      },
+      {
+        "name": "Parents Night Out",
+        "reason": "Single-evening childcare and social events, including themed nights, are excluded."
+      },
+      {
+        "name": "Open Gyms",
+        "reason": "Recurring open-gym activities, not an identified finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "riverlink",
+    "name": "RiverLink",
+    "urls": ["https://riverlink.org/work/rivercamp/", "https://riverlink.org/work/out-of-school/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "news828", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:21.152Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "146a27527e4f9ec8babffc59a90ef27e1116424b44786baba4051124abddd74a",
+  "response": {
+    "searches": [
+      "site:riverlink.org RiverCamp 2027",
+      "open https://riverlink.org/work/rivercamp/",
+      "site:riverlink.org \"2026\" \"camp\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 27119,
+      "cachedInputTokens": 8845,
+      "outputTokens": 746,
+      "reasoningTokens": 233
+    },
+    "status": "completed",
+    "ms": 23995,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://riverlink.org/work/rivercamp/",
+      "chars": 3410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://riverlink.org/work/out-of-school/",
+      "chars": 11349,
+      "method": "fetch"
+    },
+    {
+      "url": "https://riverlink.org/",
+      "chars": 4730,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "RiverLink",
+    "website_url": "https://riverlink.org/",
+    "notes": "No 2027 dates or registration milestones were found. The camp page still advertises 2026 as sold out. Direct opens of the camp page and the indexed parent-packet PDF returned no readable content; the supplied camp-page text was used. The PDF's year and connection to the current 2026 Info Packet could not be established, so no packet-specific details were extracted.",
+    "excluded": [
+      {
+        "name": "Out of School",
+        "reason": "Partner-requested enrichment lessons for existing afterschool programs, summer school groups and summer camps, not a separately enrolled finite summer camp."
+      },
+      {
+        "name": "Voices of the River Contest",
+        "reason": "Art and poetry contest and exhibition, not a supervised summer camp."
+      },
+      {
+        "name": "Creek Week",
+        "reason": "Community celebration with public events and outings, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "RiverCamp",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Campers explore local freshwater ecosystems through science experiments, guided tours and river-based recreation. Activities include visits to waterfalls, forests, lakes and swimming holes.",
+        "camp_page_url": "https://riverlink.org/work/rivercamp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026",
+          "text": "RiverCamp is sold out for 2026, you can join the wait list below and we’ll reach out if a spot opens."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://riverlink.org/work/rivercamp/"],
+        "confidence": "medium",
+        "review_notes": "Read the current 2026 Info Packet linked from the camp page to establish dates, drop-off location, hours, prices and registration details. The supplied page gives rising grades 3–8 but no session dates or drop-off site. The provider's office address was not assumed to be the camp drop-off location. The indexed French-Broad-RiverCamp-Parent-Packet.pdf could not be read or verified as the current packet."
+      }
+    ]
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "provider": {
+    "key": "fauna-forest-farm",
+    "name": "Fauna Forest Farm",
+    "urls": [
+      "https://www.faunaforestfarm.org/summer",
+      "https://www.faunaforestfarm.org/summercamps"
+    ],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:06.777Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "54450ecc7676a11ce161c577486e67158578c410f1b8cb5694a322cdf5d18157",
+  "response": {
+    "searches": ["site:faunaforestfarm.org \"2027\" \"summer\"", "\"Fauna Forest Farm\" \"Road\""],
+    "usage": {
+      "inputTokens": 27133,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2629,
+      "reasoningTokens": 163
+    },
+    "status": "completed",
+    "ms": 55154,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.faunaforestfarm.org/summer",
+      "chars": 2188,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/summercamps",
+      "chars": 3697,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/heart-hands-on-the-land",
+      "chars": 4565,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/girlssummer",
+      "chars": 10467,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/resilientroots-series",
+      "chars": 7132,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/2026-summer-enrollment",
+      "chars": 2575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faunaforestfarm.org/",
+      "chars": 12058,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fauna Forest Farm",
+    "website_url": "https://www.faunaforestfarm.org/",
+    "notes": "No summer 2027 dates or registration milestones were found. Cards retain summer 2026 information. No published street address was found; the official contact page gives only Jonesborough, TN 37659. The contact-us-1 page contains placeholder contact information and was not used. An additional Heart & Hands on the Land page for ages 3-6 says Coming Soon but gives no dated summer season; its relationship to the current programs is unclear, so it was not added as a separate card.",
+    "excluded": [
+      {
+        "name": "Earth School",
+        "reason": "School-year program running September through May."
+      },
+      {
+        "name": "Mommy & Me on the Farm",
+        "reason": "Parent-and-child series, not a supervised youth camp; published sessions are outside summer."
+      },
+      {
+        "name": "Community Story Tree",
+        "reason": "Single family storytelling events, not camps."
+      },
+      {
+        "name": "Mama's Me Time: Yoga and Tea Circle for Women",
+        "reason": "Adult-only recurring class."
+      },
+      {
+        "name": "Farm With Us",
+        "reason": "Farm internship program, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Resilient Roots: A Summer Series for Youngers",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Children tend farm animals and gardens, explore wildlife, make crafts, and participate in nature-based songs, storytelling, mindfulness practices, and games.",
+        "camp_page_url": "https://www.faunaforestfarm.org/resilientroots-series",
+        "registration_url": "https://www.faunaforestfarm.org/2026-summer-enrollment",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fauna Forest Farm",
+            "address": null,
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:45",
+          "text": "Monday-Thursday 9a-1:45p"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 220,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 775,
+            "unit": "program",
+            "label": "all 4 weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "All 2026 weeks",
+          "text": "FULL"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.faunaforestfarm.org/summercamps",
+          "https://www.faunaforestfarm.org/resilientroots-series",
+          "https://www.faunaforestfarm.org/2026-summer-enrollment",
+          "https://www.faunaforestfarm.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages are normally 4-7; age 3 is permitted only for currently enrolled Earth School students. The summercamps page marks all four weeks full, while the detailed program page marks only weeks 1 and 2 full. Full status for weeks 3 and 4 follows the summer overview. Street address remains unknown."
+      },
+      {
+        "name": "Heart & Hands: Homesteading with the Land",
+        "type": "day",
+        "categories": ["nature_outdoor", "cooking", "arts"],
+        "description": "Children grow and harvest food, cook over fire, tend chickens, identify plants, build shelters, and make nature-based crafts.",
+        "camp_page_url": "https://www.faunaforestfarm.org/heart-hands-on-the-land",
+        "registration_url": "https://www.faunaforestfarm.org/2026-summer-enrollment",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fauna Forest Farm",
+            "address": null,
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:15",
+          "text": "Monday-Friday 9a-2:15p"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 Week 1",
+          "text": "FULL * Week 1: June 1-5 * FULL"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.faunaforestfarm.org/summer",
+          "https://www.faunaforestfarm.org/summercamps",
+          "https://www.faunaforestfarm.org/heart-hands-on-the-land",
+          "https://www.faunaforestfarm.org/2026-summer-enrollment",
+          "https://www.faunaforestfarm.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates omit the year in the program details; 2026 is established by the summer overview heading and enrollment page. Street address remains unknown."
+      },
+      {
+        "name": "Earth, Art, & Heart Skills for Girls",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Girls practice wilderness survival, gardening, homesteading, and functional art using natural materials. Activities also include sharing circles, song, dance, and wellness skills.",
+        "camp_page_url": "https://www.faunaforestfarm.org/girlssummer",
+        "registration_url": "https://www.faunaforestfarm.org/2026-summer-enrollment",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fauna Forest Farm",
+            "address": null,
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:15",
+          "text": "Monday-Friday 9a-2:15p"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.faunaforestfarm.org/summercamps",
+          "https://www.faunaforestfarm.org/girlssummer",
+          "https://www.faunaforestfarm.org/2026-summer-enrollment",
+          "https://www.faunaforestfarm.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The detailed page's 2026 heading and Dates & Cost section agree with the summer overview. A guest instructor biography still refers to June 16-20, which conflicts with the listed sessions and appears stale; those dates were not used. Street address remains unknown."
+      }
+    ]
+  }
+}

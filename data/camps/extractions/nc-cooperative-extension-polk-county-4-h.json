@@ -1,0 +1,290 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-polk-county-4-h",
+    "name": "N.C. Cooperative Extension — Polk County 4-H",
+    "urls": ["https://polk.ces.ncsu.edu/news/4-h-summer-camp-2025-3/"],
+    "area": "Columbus, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:23:43.077Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4c68dbe3f24c67b9037c75241c8d332d34838057b85d987299f146a30ab6f193",
+  "response": {
+    "searches": [
+      "site:polk.ces.ncsu.edu \"2026\" \"camp\"",
+      "site:polk.ces.ncsu.edu \"2026\" \"Next Level\"",
+      "site:polk.ces.ncsu.edu/event/ \"2026\" \"Cloverbud\""
+    ],
+    "usage": {
+      "inputTokens": 33794,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2334,
+      "reasoningTokens": 307
+    },
+    "status": "completed",
+    "ms": 47928,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://polk.ces.ncsu.edu/news/4-h-summer-camp-2025-3/",
+      "chars": 6047,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polk.ces.ncsu.edu/search/?tag=4-h-summer-camp",
+      "chars": 2217,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polk.ces.ncsu.edu/search/?tag=4-h-summer-adventures",
+      "chars": 2223,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polk.ces.ncsu.edu/search/?tag=2025-summer-camp",
+      "chars": 2218,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polk.ces.ncsu.edu/",
+      "chars": 4356,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Polk County 4-H",
+    "website_url": "https://polk.ces.ncsu.edu/",
+    "notes": "No 2027 summer program information or registration dates found. Official 2026 calendar entries provide dates and hours but omit program descriptions, eligibility, prices, registration links and drop-off locations. The supplied summer brochure is explicitly for 2025; its dates, prices and eligibility were not carried into 2026 cards. No newer summer brochure or PDF was found. Programs found only in 2025 materials were not used as 2026 offerings.",
+    "excluded": [
+      {
+        "name": "4-H Whitewater Rafting",
+        "reason": "Listed as a youth-group rafting outing, with no evidence of a camp or instructional clinic."
+      },
+      {
+        "name": "Color Your World with 4-H",
+        "reason": "The only 2026 entry is a single late-afternoon event, June 25 from 4:00–5:30 PM; no evidence of a multi-day evening camp or skill clinic."
+      },
+      {
+        "name": "Adult Sewing",
+        "reason": "Adult-only program."
+      },
+      {
+        "name": "4-H Sew Cool",
+        "reason": "September program, outside summer."
+      },
+      {
+        "name": "4-H Cloverbuds: Force and Motion",
+        "reason": "September program, outside summer."
+      },
+      {
+        "name": "4-H Stitch and Knead",
+        "reason": "October program, outside summer."
+      },
+      {
+        "name": "4-H Sewing",
+        "reason": "Calendar identifies a sewing class rather than a camp; no evidence distinguishing it from the provider's year-round classes."
+      },
+      {
+        "name": "First Aid and CPR",
+        "reason": "Calendar does not establish that this is a youth program."
+      },
+      {
+        "name": "Sourdough",
+        "reason": "Calendar does not establish that this is a youth program."
+      },
+      {
+        "name": "Water Bath Canning",
+        "reason": "The August entry does not establish that it is a youth program; separate from the explicitly named July 4-H class."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Cloverbud Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Cloverbud summer camp.",
+        "camp_page_url": "https://polk.ces.ncsu.edu/event/108709/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-09",
+          "end": "2026-06-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://polk.ces.ncsu.edu/event/108709/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "4-H Kitchen Creations",
+        "type": "half_day",
+        "categories": ["cooking"],
+        "description": "A summer 4-H kitchen program.",
+        "camp_page_url": "https://polk.ces.ncsu.edu/event/112913/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://polk.ces.ncsu.edu/event/112913/"],
+        "confidence": "medium",
+        "review_notes": "The calendar gives only the program title, date and hours. Confirm that this is a finite summer cooking offering rather than a year-round class, and whether additional days are listed in registration materials."
+      },
+      {
+        "name": "4-H Next Level Kitchen",
+        "type": "day",
+        "categories": ["cooking"],
+        "description": "A summer 4-H kitchen program.",
+        "camp_page_url": "https://polk.ces.ncsu.edu/event/112915/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-08",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "4-H Next Level Kitchen",
+            "start": "2026-07-08",
+            "end": "2026-07-08",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Next Level Kitchen",
+            "start": "2026-07-09",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://polk.ces.ncsu.edu/event/112915/",
+          "https://polk.ces.ncsu.edu/event/113136/"
+        ],
+        "confidence": "medium",
+        "review_notes": "July 8 is titled 4-H Next Level Kitchen and July 9 is titled Next Level Kitchen. Grouped as one program because the titles and hours match; confirm whether these are consecutive days of one session or separately registered clinics. Calendar pages contain no activity description."
+      },
+      {
+        "name": "4-H Water Bath Canning Class",
+        "type": "clinic",
+        "categories": ["cooking"],
+        "description": "A water bath canning class for 4-H youth.",
+        "camp_page_url": "https://polk.ces.ncsu.edu/event/113781/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-23",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "10:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://polk.ces.ncsu.edu/event/113781/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "provider": {
+    "key": "universal-cheerleaders-association",
+    "name": "Universal Cheerleaders Association",
+    "urls": ["https://www.varsity.com/uca/school/camps/locations/tn-etsu/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:48.062Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ce9562a5d732cd7b8a6f926514bb8281aff8935c6ad82262cc34790630943879",
+  "response": {
+    "searches": [
+      "site.etsu.edu Culp Center \"412\" address",
+      "open https://www.varsity.com/uca/school/camps/locations/unc-asheville-2/"
+    ],
+    "usage": {
+      "inputTokens": 29563,
+      "cachedInputTokens": 8845,
+      "outputTokens": 997,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 26749,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+      "chars": 8861,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/espn-air-dates-2023/",
+      "chars": 8657,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/",
+      "chars": 7872,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/camp-brochure/",
+      "chars": 4701,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/types/",
+      "chars": 10542,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/locations/",
+      "chars": 13718,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/types/fall-training/",
+      "chars": 8893,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/wp-content/uploads/2024/12/2-day-byo-home.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.varsity.com/uca/wp-content/uploads/2024/01/UCA_3Day_2024_BYOHomeCampSampleSchedule_.pdf",
+      "chars": 1729,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Universal Cheerleaders Association",
+    "website_url": "https://www.varsity.com/uca/",
+    "notes": "No 2027 summer dates or registration opening dates were found. The ETSU extraction uses the supplied official 2026 page text. The UNC Asheville location page was also checked, but its readable content did not list dates or camp types, so no additional session was added. The supplied ESPN page is a missing-page notice.",
+    "excluded": [
+      {
+        "name": "College Spirit Camp",
+        "reason": "The July 23–26, 2026 ETSU session is for college teams, not a youth summer program."
+      },
+      {
+        "name": "Fall Build Your Own Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Fall Stunt Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Spirit Days",
+        "reason": "Stadium performance events rather than summer camps."
+      },
+      {
+        "name": "Routine Choreography and Choreography Clean Ups",
+        "reason": "Choreography instruction services rather than a posted local summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Traditional Overnight Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Cheerleaders practice crowd leading and cheer skills and participate in leadership and team-bonding activities. Squads stay in campus dorms.",
+        "camp_page_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+        "registration_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-11",
+          "end": "2026-07-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University — D.P. Culp University Center",
+            "address": "412 J L Seehorn Jr. Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Junior High and High School",
+            "start": "2026-07-11",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "July 11–14, 2026",
+          "text": "Register Now!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+          "https://www.varsity.com/uca/school/camps/types/",
+          "https://www.etsu.edu/students/student-center/contactus.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplied ETSU page still says Register Now for a session that ended July 14, 2026; availability may be stale. Its live page returned no readable text during this check. The camp page gives a PO Box; the physical street address comes from ETSU's own Culp Center contact page. Junior High and High School is stated without numeric grade limits."
+      }
+    ]
+  }
+}

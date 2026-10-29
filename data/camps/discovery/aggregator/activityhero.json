@@ -1,0 +1,108 @@
+{
+  "method": "aggregator",
+  "id": "activityhero",
+  "input": "Use ActivityHero and Sawyer (hisawyer.com) listings of summer camps in and near Asheville, NC to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:23:31.721Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 71955,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1868,
+    "reasoningTokens": 761
+  },
+  "searches": [
+    "site.activityhero.com Asheville summer camps",
+    "site.hisawyer.com \"Asheville\" \"camp\"",
+    "site.hisawyer.com \"NC\" \"Asheville\" -site:go.hisawyer.com",
+    "\"site:hisawyer.com\" \"Asheville\" \"summer\"",
+    "Odyssey Clayworks summer camp 2026",
+    "site:activityhero.com/biz \"camp\" \"Hendersonville\"",
+    "Camp Timberlake dates rates 2026 Marion",
+    "Asheville Academy Taekwondo summer camp 2025 2026"
+  ],
+  "ms": 75015,
+  "candidates": [
+    {
+      "name": "Asheville Community Theatre",
+      "url": "https://ashevilletheatre.org/education/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["theater", "music", "dance", "arts"],
+      "note": "Tanglewood Summer offers theater and musical-production camps for kids and teens."
+    },
+    {
+      "name": "Billy Jonas",
+      "url": "https://www.billyjonas.com/about/camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Camp Bangin’ & Sangin’ offered week-long music, songwriting and creativity day camps in 2026."
+    },
+    {
+      "name": "Odyssey ClayWorks",
+      "url": "https://www.odysseyclayworks.com/summer-session",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["arts"],
+      "note": "Week-long summer pottery and clay camps for children and teens."
+    },
+    {
+      "name": "Light + Love Arts",
+      "url": "https://www.lightandlovearts.com/classes",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Summer camps combine open-ended process art, group activities and games."
+    },
+    {
+      "name": "URJ 6 Points Sports Academy",
+      "url": "https://6pointssports.org/summer/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports", "faith_based"],
+      "note": "Jewish overnight sports camps at Asheville School; summer 2027 registration announced."
+    },
+    {
+      "name": "Camp Timberlake",
+      "url": "https://camptimberlake.com/dates-enrollment/",
+      "town": "Marion",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "faith_based"],
+      "note": "Christian boys’ overnight camp; summer campus is in Marion, with 2027 sessions announced."
+    },
+    {
+      "name": "Christmount",
+      "url": "https://www.camplakeygap.org/",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "general"],
+      "note": "Runs Camp Lakey Gap, with week-long residential sessions for autistic children grouped by age."
+    },
+    {
+      "name": "YMCA Camp Greenville",
+      "url": "https://www.campgreenville.org/dates-rates",
+      "town": "Cleveland",
+      "state": "SC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports"],
+      "note": "Overnight adventure and teen leadership programs for rising K–12 campers; 2027 sessions announced."
+    },
+    {
+      "name": "Girl Scouts Carolinas Peaks to Piedmont",
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "general"],
+      "note": "Camp Pisgah was open for troop-led summer camping in 2026; council-facilitated activities were unavailable that summer."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "provider": {
+    "key": "newport-church-of-god-of-the-union-assembly",
+    "name": "Newport Church of God of the Union Assembly",
+    "urls": ["https://www.facebook.com/newportcogua/"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:26:49.146Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Newport Church God Union Assembly VBS 2026",
+      "open https://cogua.com/newport",
+      "site:facebook.com/newportcogua \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20857,
+      "cachedInputTokens": 8845,
+      "outputTokens": 914,
+      "reasoningTokens": 251
+    },
+    "status": "completed",
+    "ms": 35215,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/newportcogua/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport Church of God of the Union Assembly",
+    "website_url": "https://cogua.com/newport",
+    "notes": "Found an official church website and contact card confirming the Newport location. The website and Facebook page returned no readable body text when opened; indexed official snippets supplied the address. No 2027 camp information was found. A third-party event listing identifies a 2026 VBS hosted by this church; its details require official confirmation.",
+    "excluded": [
+      {
+        "name": "VBS 2026 - Mega Sports Camp!",
+        "reason": "Offered by Newport Assembly of God in Newport, Pennsylvania, not this Newport, Tennessee provider."
+      },
+      {
+        "name": "Wednesday Youth",
+        "reason": "Recurring year-round youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Bible themed trunk or treat",
+        "reason": "Single Halloween seasonal event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with lessons, food, games, and crafts.",
+        "camp_page_url": "https://www.facebook.com/newportcogua/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Newport Church of God of the Union Assembly",
+            "address": "116 Brookfield Dr.",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/newportcogua/",
+          "https://cogua.com/newport",
+          "https://cogua.com/newport/contactcard"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm VBS dates and activities with the church. These details came only from https://stayhappening.com/e/vbs-E2ISYFP5INJ, which names this church as host and lists June 14–17, 2026. Its event boundary times are 5 p.m. on the first date and 8 p.m. on the last date; daily hours were not established, so hours are null. Official Facebook and church pages could not be read directly. The venue address is confirmed by the indexed official church contact card."
+      }
+    ]
+  }
+}

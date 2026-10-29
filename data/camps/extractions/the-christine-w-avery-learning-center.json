@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "the-christine-w-avery-learning-center",
+    "name": "The Christine W. Avery Learning Center",
+    "urls": ["https://www.cwalearningcenter.org/", "https://cwalearningcenter.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:38.779Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "773b9e56b369cd4af2dde8ba446919b82942594634b20fadc8c6423a86c12f14",
+  "response": {
+    "searches": [
+      "site:cwalearningcenter.org summer camp",
+      "\"Christine\" \"Avery\" \"summer camp\"",
+      "open https://www.cwalearningcenter.org/",
+      "\"CWA\" \"2026\" \"summer camp\" Asheville"
+    ],
+    "usage": {
+      "inputTokens": 25039,
+      "cachedInputTokens": 8845,
+      "outputTokens": 722,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 68867,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cwalearningcenter.org/",
+      "chars": 5206,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cwalearningcenter.com/",
+      "chars": 5206,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.mybrightwheel.com/paperwork/forms/13e96752-2e36-4a9b-a2b4-271bbb5ae12a",
+      "chars": 219,
+      "method": "browser"
+    },
+    {
+      "url": "https://schools.mybrightwheel.com/paperwork/forms/566ed500-4d8e-49d0-aef8-26afb280c14a",
+      "chars": 219,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.cwalearningcenter.org/event-details/end-of-summer-bash-new-date-aug-28",
+      "chars": 1503,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Christine W. Avery Learning Center",
+    "website_url": "https://www.cwalearningcenter.org/",
+    "notes": "No identifiable 2026 or 2027 summer camp offering was found on the supplied official pages or in official-site search results. Historical partner descriptions and summer-camp staff job listings indicate prior summer programming, but do not establish a current program name or season. No camp card was created from those historical references. The older cwalearningcenter.com website is blocked by robots.txt; additional pages on cwalearningcenter.org returned no readable text. The supplied Brightwheel registration forms require login.",
+    "excluded": [
+      {
+        "name": "Early Learning",
+        "reason": "Ongoing early-childhood care, not a finite summer camp."
+      },
+      {
+        "name": "NC Pre-K",
+        "reason": "Preschool educational program, not a finite summer camp."
+      },
+      {
+        "name": "School Aged Programs",
+        "reason": "The current official description covers after-school care; no separate summer camp offering is described."
+      },
+      {
+        "name": "Music is Life- CWA Marching Band",
+        "reason": "Ongoing music education and after-school engagement program; no finite summer camp or summer intensive is identified."
+      },
+      {
+        "name": "School of Life Workforce Development",
+        "reason": "Workforce and employment preparation program, not an identified summer camp."
+      },
+      {
+        "name": "End of Summer Bash (New Date Aug 28)",
+        "reason": "Single social event on August 28, 2026, from 4–6 PM, not a camp."
+      },
+      {
+        "name": "CWA’s 10th Annual Cultural Enrichment Trip",
+        "reason": "Youth enrichment trip in July 2025, with destinations outside the directory's geographic area; not a local summer camp."
+      },
+      {
+        "name": "5th Annual Fall-ing With Families FALL FESTIVAL",
+        "reason": "Fall festival, not a summer camp."
+      },
+      {
+        "name": "Music is Life Marching Band Day",
+        "reason": "Community performance event in April, not a summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

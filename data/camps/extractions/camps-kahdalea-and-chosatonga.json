@@ -1,0 +1,667 @@
+{
+  "provider": {
+    "key": "camps-kahdalea-and-chosatonga",
+    "name": "Camps Kahdalea and Chosatonga",
+    "urls": [
+      "https://www.kahdalea.com/camp-sessions/",
+      "https://www.kahdalea.com/girls-camp/",
+      "https://www.kahdalea.com/camper-info/",
+      "https://www.kahdalea.com/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:00:13.116Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b54410eeade7649a6d2165814f29eb7738b0592750c95ec6710a67741d25464d",
+  "response": {
+    "searches": [
+      "site:kahdalea.com Chosatonga address directions",
+      "open https://www.kahdalea.com/camp-sessions/",
+      "site:kahdalea.com \"campintouch\""
+    ],
+    "usage": {
+      "inputTokens": 28522,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4308,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 82371,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.kahdalea.com/camp-sessions/",
+      "chars": 7492,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/girls-camp/",
+      "chars": 4613,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/camper-info/",
+      "chars": 11035,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/",
+      "chars": 5282,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/blog/session-updates/june-30-2026-main-session-opening-day-it-begins-again/",
+      "chars": 5885,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/blog/for-parents/june-13-2026-updates-adventures-and-srodowisko/",
+      "chars": 4419,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/blog/session-updates/june-8-2026-adventures-friendships-and-fun/",
+      "chars": 2739,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kahdalea.com/blog/session-updates/opening-day-for-chosatonga-june-and-mini-2026/",
+      "chars": 3854,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camps Kahdalea and Chosatonga",
+    "website_url": "https://www.kahdalea.com/",
+    "notes": "2027 dates and rates are posted. The June 30 weekday is printed as Tuesday, although June 30, 2027 is Wednesday; numeric dates were retained. Several session prices appear as two amounts without labels in the fetched text, so those prices were omitted pending review of their visual formatting. Additional official pages opened as empty documents; the Chosatonga location was available in the official directions search result. No dated registration-opening announcement was found.",
+    "excluded": [
+      {
+        "name": "Family Camp",
+        "reason": "Family-only program."
+      },
+      {
+        "name": "JC Spring Retreat",
+        "reason": "School-year spring retreat, outside summer."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Staff positions with additional work duties, rather than a separate youth camp program."
+      },
+      {
+        "name": "Off-Season Programs",
+        "reason": "Spring and fall retreats and facility rentals, outside summer."
+      },
+      {
+        "name": "CKC Missions",
+        "reason": "Mission trips are excluded."
+      },
+      {
+        "name": "Join Our Staff",
+        "reason": "Employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Kahdalea",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "horses", "arts", "music", "faith_based"],
+        "description": "Girls participate in hiking, climbing, canoeing, horseback riding, archery, swimming, arts and crafts, and guitar in a Christian camp setting.",
+        "camp_page_url": "https://www.kahdalea.com/girls-camp/",
+        "registration_url": "https://www.kahdalea.com/camp-sessions/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-03",
+          "end": "2027-07-30",
+          "text": "2027 Dates and Rates"
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Kahdalea",
+            "address": "2500 Morgan Mill Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Main Session",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Full Summer Session",
+            "start": "2027-06-03",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "One Week Mini Camp",
+            "start": "2027-06-03",
+            "end": "2027-06-08",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week A",
+            "start": "2027-06-12",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week B",
+            "start": "2027-06-30",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week C",
+            "start": "2027-07-17",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird: (applied before or by November 1st)",
+            "url": "https://www.kahdalea.com/camp-sessions/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
+        },
+        "sources": [
+          "https://www.kahdalea.com/camp-sessions/",
+          "https://www.kahdalea.com/girls-camp/",
+          "https://www.kahdalea.com/camper-info/",
+          "https://www.kahdalea.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 sessions page says Tuesday, June 30, but that date is Wednesday in 2027. The homepage says campers are ages 8–17 with seven-year-olds in introductory sessions, while the 2027 session table explicitly allows ages 7–15 in primary sessions; the session table was used. Check the paired tuition amounts and payment-method labels visually before adding prices."
+      },
+      {
+        "name": "Camp Chosatonga",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "horses", "arts", "music", "faith_based"],
+        "description": "Boys participate in wilderness activities, swimming, canoeing, climbing, archery, team sports, and arts and crafts in a Christian camp setting. Chosatonga shares riding and tennis facilities with Kahdalea.",
+        "camp_page_url": "https://www.kahdalea.com/boys-camp/",
+        "registration_url": "https://www.kahdalea.com/camp-sessions/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-03",
+          "end": "2027-07-30",
+          "text": "2027 Dates and Rates"
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Chosatonga",
+            "address": "3662 Parkway Road",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Main Session",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Full Summer Session",
+            "start": "2027-06-03",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "One Week Mini Camp",
+            "start": "2027-06-03",
+            "end": "2027-06-08",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week A",
+            "start": "2027-06-12",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week B",
+            "start": "2027-06-30",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week C",
+            "start": "2027-07-17",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird: (applied before or by November 1st)",
+            "url": "https://www.kahdalea.com/camp-sessions/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
+        },
+        "sources": [
+          "https://www.kahdalea.com/camp-sessions/",
+          "https://www.kahdalea.com/camper-info/",
+          "https://www.kahdalea.com/",
+          "https://mail.kahdalea.com/directions.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Chosatonga's GPS address comes from the official directions search snippet; the page opened empty. The boys-camp page also opened empty. The 2027 table prints an incorrect weekday for June 30. The homepage age range conflicts with the explicit session-table ages, which were used. Check paired tuition amounts and payment-method labels visually."
+      },
+      {
+        "name": "Junior Counselor Program",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Junior counselors receive leadership training and additional duties and responsibilities at camp. The program emphasizes Christian living, resourcefulness, self-confidence, and modeling high standards.",
+        "camp_page_url": "https://www.kahdalea.com/camper-info/",
+        "registration_url": "https://www.kahdalea.com/camp-sessions/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-03",
+          "end": "2027-07-30",
+          "text": "For rising high school juniors and seniors and for rising college freshmen"
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Kahdalea",
+            "address": "2500 Morgan Mill Road",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "Camp Chosatonga",
+            "address": "3662 Parkway Road",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "JUNE SESSION for JC-1s",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Camp Kahdalea",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4430,
+              "unit": "session",
+              "label": "JC-1s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "JUNE SESSION for JC-2s",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Camp Kahdalea",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3322.5,
+              "unit": "session",
+              "label": "JC-2s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MAIN SESSION for JC-1s",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": "Camp Kahdalea",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5150,
+              "unit": "session",
+              "label": "JC-1s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MAIN SESSION for JC-2s",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": "Camp Kahdalea",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3862.5,
+              "unit": "session",
+              "label": "JC-2s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "JUNE SESSION for JC-1s",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Camp Chosatonga",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4430,
+              "unit": "session",
+              "label": "JC-1s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "JUNE SESSION for JC-2s",
+            "start": "2027-06-03",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": "Camp Chosatonga",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3322.5,
+              "unit": "session",
+              "label": "JC-2s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MAIN SESSION for JC-1s",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": "Camp Chosatonga",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5150,
+              "unit": "session",
+              "label": "JC-1s",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MAIN SESSION for JC-2s",
+            "start": "2027-06-30",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": "Camp Chosatonga",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3862.5,
+              "unit": "session",
+              "label": "JC-2s",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird: (applied before or by November 1st)",
+            "url": "https://www.kahdalea.com/camp-sessions/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "There are a limited number of Summer Staff JC positions with some added duties available for those who may be in financial need. Please call our office to learn more."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Campers arriving by plane will be met at the Asheville, NC Airport. The airport pick-up and return is provided by the camps."
+        },
+        "sources": [
+          "https://www.kahdalea.com/camp-sessions/",
+          "https://www.kahdalea.com/camper-info/",
+          "https://mail.kahdalea.com/directions.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility includes rising college freshmen, which cannot be represented as a high-school maximum in the grades field; maximum is null. The stated typical age of 16 is not an eligibility limit. The June 30 weekday is incorrect for 2027. Chosatonga's address was read only in an official search snippet. Early-bird terms are general and do not specifically mention JCs; confirm applicability. Financial assistance described involves additional Summer Staff duties."
+      }
+    ]
+  }
+}

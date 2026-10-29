@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "harvey-family-farm",
+    "name": "Harvey Family Farm",
+    "urls": ["https://www.harveyfamilyfarm.com/nature-camp"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:49.544Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f4b8aa246a8f89e4e2c6799304308ce7554625af33ae3e47dafeb0f587b06c7b",
+  "response": {
+    "searches": [
+      "site:harveyfamilyfarm.com \"camp\" \"2027\"",
+      "open https://www.harveyfamilyfarm.com/flower-farm-events-workshops/nature-camp-week-1-9rcy6"
+    ],
+    "usage": {
+      "inputTokens": 17206,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1142,
+      "reasoningTokens": 110
+    },
+    "status": "completed",
+    "ms": 26184,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.harveyfamilyfarm.com/nature-camp",
+      "chars": 5124,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/nature-camp",
+      "chars": 1257,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/p/nature-camp-june-22-26-2026",
+      "chars": 1611,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/p/nature-camp-june-22-26-2026-be76e-hbc5w-nhz6s",
+      "chars": 1611,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/",
+      "chars": 2905,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Harvey Family Farm",
+    "website_url": "https://www.harveyfamilyfarm.com/",
+    "notes": "No summer 2027 camp information found. The supplied registration store category has no results, and both supplied 2026 product links return page-not-found messages. The camp form page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Books in Bloom",
+        "reason": "Family story-time event, not a finite supervised youth camp."
+      },
+      {
+        "name": "Camp on the Farm",
+        "reason": "Tent-site reservations, not a supervised youth camp."
+      },
+      {
+        "name": "You-Pick Flowers & Herbs",
+        "reason": "Seasonal attraction, not a supervised youth camp."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "School and homeschool group visits, not a summer camp offering."
+      },
+      {
+        "name": "Pumpkins & Petals",
+        "reason": "Fall floral arrangement workshop outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nature Camp on the Flower Farm",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "arts"],
+        "description": "Campers explore plants, insects, soil, and the creek through guided nature activities, science experiments, and crafts. Each day also includes supervised free play on the farm.",
+        "camp_page_url": "https://www.harveyfamilyfarm.com/nature-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Harvey Family Farm",
+            "address": "101 Harvey Lane",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Camp opens at 9 am and closes at 4 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 255,
+            "unit": "week",
+            "label": "per child",
+            "year": 2026
+          },
+          {
+            "amount": 225,
+            "unit": "week",
+            "label": "additional siblings",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June 22-26",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 6-10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "We will provide popsicles & healthy snacks. Parents are responsible for packing a lunch each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.harveyfamilyfarm.com/nature-camp",
+          "https://www.harveyfamilyfarm.com/flower-farm-events-workshops/nature-camp-week-1-9rcy6",
+          "https://www.harveyfamilyfarm.com/flower-farm-events-workshops"
+        ],
+        "confidence": "medium",
+        "review_notes": "The main camp page lists two 2026 weeks, while the June 2026 event page says to choose from three weeks; only the two explicitly dated weeks were retained. Ages 6-12 are stated on the June 2026 event page. Prices appear on the main page alongside its 2026 dates; the weekly unit is inferred from the week-based booking structure. The event page's 'Register Now' language was not treated as current availability because its booking product pages are missing."
+      }
+    ]
+  }
+}

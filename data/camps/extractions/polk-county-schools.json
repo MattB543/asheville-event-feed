@@ -1,0 +1,146 @@
+{
+  "provider": {
+    "key": "polk-county-schools",
+    "name": "Polk County Schools",
+    "urls": [
+      "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+      "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/"
+    ],
+    "area": "Columbus and Tryon, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:47.596Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "69cf43c85cd9c546f26ef701e3bfaf5b31c607832dc6c4abdde73ec2b448e8a6",
+  "response": {
+    "searches": [
+      "site.polkschools.org \"summer\" \"2027\"",
+      "site:polkschools.org \"summer seminars\" \"Polk County students\""
+    ],
+    "usage": {
+      "inputTokens": 26587,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1059,
+      "reasoningTokens": 177
+    },
+    "status": "completed",
+    "ms": 26873,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+      "chars": 9800,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+      "chars": 8076,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+      "chars": 4076,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/wp-content/uploads/2026/07/Enrollment-Guide-v3.pdf",
+      "chars": 1317,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/polkschools.org/advancedlearningaig/frequently-asked-questions-faqs",
+      "chars": 3348,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/students-master-3d-modeling-and-printing-in-summer-camp/",
+      "chars": 4947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-elementary-students-tackle-mystery-solving-summer-camp/",
+      "chars": 5536,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-students-blend-science-art-at-summer-creative-camp/",
+      "chars": 5165,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Polk County Schools",
+    "website_url": "https://polkschools.org/",
+    "notes": "No cards retained under the exclusion for district-only summer learning programs. The district's official AIG Summer Seminars materials explicitly describe the series as for students enrolled in Polk County Schools: https://moodle.polkschools.org/pluginfile.php/70/mod_page/content/16/AIG%20Summer%20Seminars%202024.pdf and https://polkschools.org/aig-summer-seminars/. The 2026 announcement offers the seminars to Advanced Learning and AIG students; no evidence of eligibility outside the district was found. The current enrichment page says Summer 2027: TBA. The 2026 Google registration form returned no readable text, so its eligibility questions could not be checked.",
+    "excluded": [
+      {
+        "name": "Computer Science with Sphero Robotics",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "3D Printing with TinkerCad and a 3D Scanner",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Culture and Cuisine Camp",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Space Exploration Camp",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Lego Robotics and Archeology",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Cuttin’ It Up!",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Herbalism and Alchemy",
+        "reason": "AIG Summer Seminars learning program for students enrolled in Polk County Schools; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Mystery, Danger and Heroism",
+        "reason": "Historical 2025 AIG Summer Seminars learning program serving district students; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Creative Cultivators",
+        "reason": "Historical 2025 AIG Summer Seminars learning program serving district students; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Drones - Learn to Fly",
+        "reason": "Historical 2025 AIG Summer Seminars learning program serving district students; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "So You Want To Write a Novel (or a Screenplay...or a Podcast...)",
+        "reason": "Historical 2025 AIG Summer Seminars learning program serving district students; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Crime Buster: A Deep Dive into Forensic Science",
+        "reason": "Historical 2025 AIG Summer Seminars learning program serving district students; district-only summer learning programs are excluded."
+      },
+      {
+        "name": "Elementary, Middle School and High School Clubs",
+        "reason": "School-year clubs and enrichment activities, rather than finite summer camps."
+      },
+      {
+        "name": "Passion Projects / Project Nerd",
+        "reason": "School-year independent learning projects and a March presentation event, not a summer camp."
+      },
+      {
+        "name": "BOLT Mentorship Program",
+        "reason": "Ongoing mentorship program, not a finite supervised summer camp."
+      },
+      {
+        "name": "Gear Up",
+        "reason": "Seven-year college and career readiness initiative; no separately defined finite summer camp was identified."
+      }
+    ],
+    "cards": []
+  }
+}

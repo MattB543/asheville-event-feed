@@ -1,0 +1,370 @@
+{
+  "provider": {
+    "key": "need-more-outdoors",
+    "name": "Need More Outdoors",
+    "urls": ["https://needmoreoutdoors.org/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:18.805Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "81736161d8a7d6bbbc94be6d2f95b692ae0a8d72e5f1fb85bc95cef1708bb311",
+  "response": {
+    "searches": [
+      "site:needmoreoutdoors.org camps 2026",
+      "open https://needmoreoutdoors.org/eco-splash-camps/",
+      "site:needmoreoutdoors.org/eco-splash-camps \"Dates\"",
+      "site:needmoreoutdoors.org/eco-splash-camps/ \"cost\"",
+      "site:needmoreoutdoors.org/kids-leadership-kayak-camp \"Dates\" \"2026\"",
+      "site:needmoreoutdoors.org/kids-leadership-kayak-camp \"Cost\""
+    ],
+    "usage": {
+      "inputTokens": 41378,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3169,
+      "reasoningTokens": 525
+    },
+    "status": "completed",
+    "ms": 79836,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://needmoreoutdoors.org/",
+      "chars": 2724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://needmoreoutdoors.org/updates-need-more-outdoors-blog/",
+      "chars": 4307,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Need More Outdoors",
+    "website_url": "https://needmoreoutdoors.org/",
+    "notes": "No 2027 camp dates or registration milestones were found. Several program pages returned empty text when opened; official search excerpts supplied the readable details. The PDF Downloads page returned no readable download links; search found only a historical 2021 PDF. The events calendar's latest camp entries are from 2022 and were not used for 2026 dates. Drop-off locations remain unknown except for Eco Splash Camps.",
+    "excluded": [
+      {
+        "name": "Nantahala Kids Club",
+        "reason": "Spring and fall after-school paddling program, outside summer."
+      },
+      {
+        "name": "After-school programs",
+        "reason": "School-year childcare or enrichment rather than a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Eco Splash Camps",
+        "type": "day",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers raft or kayak and explore stream ecology, including fish counts and learning about salamanders.",
+        "camp_page_url": "https://needmoreoutdoors.org/eco-splash-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-23",
+          "end": "2026-08-30",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Endless River Adventures",
+            "address": "14157 Highway 19 W",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "two-day camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-05-23",
+            "end": "2026-05-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-13",
+            "end": "2026-06-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-02",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-18",
+            "end": "2026-07-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-01",
+            "end": "2026-08-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-29",
+            "end": "2026-08-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you live in the far western counties here in the 828 area, you can apply for funding support to participate in Need More Outdoors programs, as well as Endless River Adventure kids camps."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/eco-splash-camps/",
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/",
+          "https://www.endlessriveradventures.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, price, hours and meeting location were readable only in official search excerpts headed 2026 Eco Splash Dates. The homepage mentions two- or three-day camps, while the program page lists two-day sessions."
+      },
+      {
+        "name": "Learn to Kayak Weekend Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers receive an introduction to whitewater kayaking on rivers in western North Carolina.",
+        "camp_page_url": "https://needmoreoutdoors.org/adventures-activities/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you live in the far western counties here in the 828 area, you can apply for funding support to participate in Need More Outdoors programs, as well as Endless River Adventure kids camps."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All equipment, instructors, meals and snacks are included."
+        },
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program description and hours come from readable official search excerpts of the activities page, which returned empty text on opening. No dated 2026 schedule, age limits or drop-off location was found."
+      },
+      {
+        "name": "Advanced Kids Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Experienced young paddlers attend two-day intermediate or advanced kayaking camps to improve skills and paddle local rivers.",
+        "camp_page_url": "https://needmoreoutdoors.org/adventures-activities/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you live in the far western counties here in the 828 area, you can apply for funding support to participate in Need More Outdoors programs, as well as Endless River Adventure kids camps."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official activities search excerpt describes two-day intermediate and advanced camps but gives no dated schedule or operational details. Day format is inferred from the provider's local kayaking camp offerings; confirm whether any overnight component exists."
+      },
+      {
+        "name": "Kids Leadership Kayak Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Young paddlers work on kayaking skills and leadership through decision-making, cooperation and helping peers.",
+        "camp_page_url": "https://needmoreoutdoors.org/kids-leadership-kayak-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you live in the far western counties here in the 828 area, you can apply for funding support to participate in Need More Outdoors programs, as well as Endless River Adventure kids camps."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/kids-leadership-kayak-camp/",
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page returned empty text; official search excerpts and the activities listing establish the offering for beginner through experienced paddlers, but no dated 2026 schedule was found. Day format is inferred; historical 2022 event details were not transferred."
+      },
+      {
+        "name": "Day at the Barn Camp",
+        "type": "day",
+        "categories": ["horses", "nature_outdoor", "arts"],
+        "description": "Campers learn about horses, explore trails and creeks, learn about the environment and fossils, and create art.",
+        "camp_page_url": "https://needmoreoutdoors.org/day-at-the-barn-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 85,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "50% and 100% scholarships for all youth in the #828 area"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "includes guides, transportation, lunch, and all equipment"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "includes guides, transportation, lunch, and all equipment"
+        },
+        "sources": ["https://needmoreoutdoors.org/day-at-the-barn-camp/"],
+        "confidence": "medium",
+        "review_notes": "The page states Next Date: July 15th without a program year; the date is omitted rather than assigning a year from the copyright. Price is retained as the current fallback fact labeled 2026, but its season is not explicit. Hours interpret 9–4:30 as daytime. Otter Creek School Farm is an activity venue, but the page does not identify the drop-off point; transportation is included."
+      }
+    ]
+  }
+}

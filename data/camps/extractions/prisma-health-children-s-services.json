@@ -1,0 +1,243 @@
+{
+  "provider": {
+    "key": "prisma-health-children-s-services",
+    "name": "Prisma Health Children's Services",
+    "urls": ["https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage"],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:16.570Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5d3a1596e0c0872f4bb1f3b8d9d72ed0580aa37c5a517b65ea8b74f88661db59",
+  "response": {
+    "searches": [
+      "site.prismahealthchildrens.org camps 2027 Courage Buddy",
+      "site.greenvillerec.com \"Pleasant Ridge\" \"4232\"",
+      "site.prismahealth.org \"Camp Buddy\" \"Pleasant Ridge\""
+    ],
+    "usage": {
+      "inputTokens": 35522,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2186,
+      "reasoningTokens": 326
+    },
+    "status": "completed",
+    "ms": 52757,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage",
+      "chars": 7600,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps",
+      "chars": 2117,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+      "chars": 2843,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-cary-s-kids",
+      "chars": 2586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart",
+      "chars": 2815,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-kemo",
+      "chars": 12913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/",
+      "chars": 685,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Prisma Health Children's Services",
+    "website_url": "https://www.prismahealthchildrens.org/",
+    "notes": "No 2027 dates or registration announcements were found. Camp Courage has no dated 2026 schedule on the supplied page. The foundation also mentions Camp Crescent and Camp Luv-a-Lung, but current summer dates, format and eligible local sites could not be established. The provider homepage returned a bot interruption to the supplied crawler; Camp Buddy and Camp Heart to Heart returned empty content when opened during research, so their supplied official page text was used.",
+    "excluded": [
+      {
+        "name": "Camp Cary's Kids",
+        "reason": "Weekend-long family-only camp retreat."
+      },
+      {
+        "name": "CAMP KEMO",
+        "reason": "Held at Camp Cole in Eastover, SC, in the Midlands, plainly outside the Asheville drive area."
+      },
+      {
+        "name": "Camp Burnt Gin",
+        "reason": "Held near Wedgefield in Sumter County, SC, plainly outside the Asheville drive area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Courage",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "special_needs"],
+        "description": "Children and teens treated for cancer or a blood disorder participate in swimming, zip line, fishing, archery, crafts and a talent show. The camp is medically staffed by the Prisma Health pediatric hematology/oncology team.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pleasant Ridge Camp and Retreat Center",
+            "address": "4232 Hwy 11",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "cost-free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Our camps are medically staffed by members of the Prisma Health Pediatric hematology/oncology team, and our volunteers are trained in the unique medical and psychosocial needs of our camper population."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage",
+          "https://www.clementskindness.org/camp-courage/",
+          "https://greenvillerec.com/parks/pleasant-ridge-park/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated official page lists Main Camp for ages 6–12 and Teen Camp for ages 13–18, each lasting one week, but provides no dates to create session rows. The venue is identified by camp funding partner Clement's Kindness rather than the provider camp page; confirm it for the next season. Free pricing is from the undated current page."
+      },
+      {
+        "name": "Camp Buddy",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "special_needs"],
+        "description": "Children with Type 1 diabetes participate in arts and crafts, swimming, outdoor recreation and evening programming while learning diabetes management. An on-site medical team provides blood sugar checks and diabetes education.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-24",
+          "end": "2026-07-26",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pleasant Ridge County Park",
+            "address": "4232 Hwy 11",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-30",
+          "time": null,
+          "text": "Registration Opens: Monday, March 30th and Closes: Friday, May 22nd",
+          "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Our on-site medical team is present throughout the entire duration of the camp, attending to the health of campers and providing blood sugar checks, diabetes management and continuing education throughout the day."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+          "https://www.prismahealthchildrens.org/locations/practices/link---pediatric-endocrinology/diabetes",
+          "https://greenvillerec.com/parks/pleasant-ridge-park/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Overnight format is inferred from the Friday–Sunday schedule, evening programming and continuous medical supervision; the supplied page does not explicitly say overnight. Venue is stated on the provider's Pediatric Diabetes Center page. Registration dates take their year from the 2026 camp information heading. The registration button destination could not be retrieved."
+      },
+      {
+        "name": "Camp Heart to Heart",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "special_needs"],
+        "description": "Children with heart conditions participate in arts and crafts, swimming, outdoor recreation and evening programming. An on-site medical team adapts activities to each camper's needs.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-26",
+          "end": "2026-06-28",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Registration Opens: March 2, 2026 – June 1, 2026",
+          "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "An on-site medical team is present throughout the duration of camp attending to the health of our patients and ensuring that each activity is uniquely adapted to the needs of each camper."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart"
+        ],
+        "confidence": "medium",
+        "review_notes": "Overnight format is inferred from the Friday–Sunday schedule, evening programming and continuous medical supervision; the supplied page does not explicitly say overnight. No drop-off venue was established; confirm that the next season meets within the directory's drive area. The registration button destination could not be retrieved."
+      }
+    ]
+  }
+}

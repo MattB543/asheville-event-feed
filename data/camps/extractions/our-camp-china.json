@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "our-camp-china",
+    "name": "Our Camp China",
+    "urls": ["https://ourcampchina.com/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:41.322Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f0209caf3e639dd1b91cfb4411e0df24a9aefa442f55211115f54cded9978192",
+  "response": {
+    "searches": ["site:ourcampchina.com 2027"],
+    "usage": {
+      "inputTokens": 23731,
+      "cachedInputTokens": 8845,
+      "outputTokens": 310,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 19222,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ourcampchina.com/",
+      "chars": 3108,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/registration/",
+      "chars": 4074,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/event-view/camp-china-2026-registration-opens/",
+      "chars": 863,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/facilities/",
+      "chars": 2068,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/lodging/",
+      "chars": 4457,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/images/Camp%20Chiana%20Directions.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://ourcampchina.com/about-us/",
+      "chars": 3360,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/programs/",
+      "chars": 4189,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ourcampchina.com/wp-content/uploads/2022/07/Adoption-Resources_2022.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Our Camp China",
+    "website_url": "https://ourcampchina.com/",
+    "notes": "No summer 2027 information was found on the official website. The published 2026 event ran July 3–6. The homepage and FAQ identify Camp China as a family camp, with youth breakout sessions, parent programming and shared family activities; no independently enrolled youth camp was identified.",
+    "excluded": [
+      {
+        "name": "Camp China",
+        "reason": "Family-only summer heritage camp for families with children from China, rather than a standalone youth camp. The official homepage describes it as designed for the entire family, and the FAQ explicitly identifies it as a family camp."
+      },
+      {
+        "name": "Adult Adoptees",
+        "reason": "Adult-only activity track for adoptees ages 18 and older."
+      },
+      {
+        "name": "Counselor Application / Registration",
+        "reason": "Volunteer counselor recruitment and registration, not a separate youth camp or counselor-in-training program."
+      }
+    ],
+    "cards": []
+  }
+}

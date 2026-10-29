@@ -1,0 +1,504 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-mcdowell-county-4-h",
+    "name": "N.C. Cooperative Extension — McDowell County 4-H",
+    "urls": [
+      "https://mcdowell.ces.ncsu.edu/news/2026-4-h-summer-discovery/",
+      "https://mcdowell.ces.ncsu.edu/mcdowellcounty4-hclubs/"
+    ],
+    "area": "Marion, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:45.859Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9acc4d679d44ee6bb6d20c1ad24771baf072ebb378a0ec46b5fb32b6dfbe1284",
+  "response": {
+    "searches": [
+      "site:mcdowell.ces.ncsu.edu \"2026\" \"Livestock Camp\"",
+      "\"Marion\" \"EMS\" \"South Garden\"",
+      "\"Marion NC\" \"EMS\" \"Garden Street\""
+    ],
+    "usage": {
+      "inputTokens": 31125,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3482,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 69799,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mcdowell.ces.ncsu.edu/news/2026-4-h-summer-discovery/",
+      "chars": 3853,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mcdowell.ces.ncsu.edu/mcdowellcounty4-hclubs/",
+      "chars": 6602,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mcdowell.ces.ncsu.edu/documents/4157/Summer_Discovery_2026_Final.docx_1.pdf",
+      "chars": 8788,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mcdowell.ces.ncsu.edu/",
+      "chars": 4684,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — McDowell County 4-H",
+    "website_url": "https://mcdowell.ces.ncsu.edu/",
+    "notes": "No summer 2027 information found. Cards retain 2026 information. Summer Discovery field trips are retained because participants begin and end in Marion, even when destinations are farther away.",
+    "excluded": [
+      {
+        "name": "McDowell County 4-H Clubs",
+        "reason": "Ongoing community clubs rather than finite summer camps."
+      },
+      {
+        "name": "80th Annual McDowell Junior Livestock Show",
+        "reason": "Livestock show rather than a supervised camp or clinic."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Discovery",
+        "type": "day",
+        "categories": ["general", "cooking", "nature_outdoor"],
+        "description": "Youth participate in educational workshops, field trips and hands-on activities, including cooking, hiking, fishing and visits to museums and historic sites.",
+        "camp_page_url": "https://mcdowell.ces.ncsu.edu/news/2026-4-h-summer-discovery/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-18",
+          "end": "2026-08-12",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cooperative Extension Conference Room",
+            "address": "60 E Court St",
+            "town": "Marion",
+            "state": "NC"
+          },
+          {
+            "name": "Parking lot behind the former EMS station",
+            "address": null,
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1,
+            "unit": "program",
+            "label": "Required one-time insurance fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Canning Fruit Jam",
+            "start": "2026-06-18",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": "Cooperative Extension Conference Room",
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 5,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fun With Frosting - Cake Decorating 101",
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": "Cooperative Extension Conference Room",
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 5,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Pizza! Pizza!",
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": "Cooperative Extension Conference Room",
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 5,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "NASCAR Hall of Fame",
+            "start": "2026-06-30",
+            "end": "2026-06-30",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 35,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Cataloochee",
+            "start": "2026-07-08",
+            "end": "2026-07-08",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Gem Mining / Tom’s Creek Falls Hike",
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 5,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fish On!",
+            "start": "2026-07-16",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 5,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Natural Tunnel State Park in Duffield, Virginia",
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Kerr Scott Dam Fishing",
+            "start": "2026-07-29",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Linville Falls/Linville Caverns",
+            "start": "2026-08-03",
+            "end": "2026-08-03",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 5,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Carowinds",
+            "start": "2026-08-05",
+            "end": "2026-08-05",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "19:00"
+            },
+            "price": {
+              "amount": 45,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Carolina Hemlocks",
+            "start": "2026-08-11",
+            "end": "2026-08-11",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 9,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Orchard at Altapass",
+            "start": "2026-08-12",
+            "end": "2026-08-12",
+            "year": 2026,
+            "site": "Parking lot behind the former EMS station",
+            "ages": {
+              "min": 5,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-05-13",
+          "time": "13:30",
+          "text": "Registration BEGINS: Wednesday, May 13, 2026 at 1:30 pm",
+          "url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/Summer_Discovery_2026_Final.docx_1.pdf"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has any special needs, contact the 4-H Agent prior to registration. Every effort will be made to accommodate special needs if adequate notification is given."
+        },
+        "lunch": {
+          "value": "no",
+          "text": "What to bring: Bagged lunch"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "All workshops will begin and end in the parking lot behind the former EMS station located on South Garden Street. Unless otherwise stated. (Look for the Big Red Van)"
+        },
+        "sources": [
+          "https://mcdowell.ces.ncsu.edu/news/2026-4-h-summer-discovery/",
+          "https://mcdowell.ces.ncsu.edu/mcdowellcounty4-hclubs/",
+          "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/Summer_Discovery_2026_Final.docx_1.pdf",
+          "https://mcdowell.ces.ncsu.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The PDF identifies the departure parking lot only as behind the former EMS station on South Garden Street. Third-party listings give 41 S Garden St, but no official historical venue address was found; the address is left null. Bagged lunches are requested for field trips; cooking workshops do not state a lunch policy."
+      },
+      {
+        "name": "McDowell Youth Livestock Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Participants work with livestock, explore feedstuffs, learn meat identification and become familiar with livestock-production equipment. They also have an opportunity to earn Beef Quality Assurance certification.",
+        "camp_page_url": "https://mcdowell.ces.ncsu.edu/news/mcdowell-youth-livestock-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-18",
+          "end": "2026-08-20",
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "McDowell Agricultural Center, Inc.",
+            "address": "188 Ag Services Drive",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events. Please contact the county Extension office or campus department offering the program at least 14 days prior to the event to make arrangements."
+        },
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Participants should bring a packed lunch on the first two days, and lunch will be provided on the final day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://mcdowell.ces.ncsu.edu/news/mcdowell-youth-livestock-camp/",
+          "https://mcdowell.ces.ncsu.edu/event/114291/",
+          "https://mcdowell.ces.ncsu.edu/event/114292/",
+          "https://mcdowell.ces.ncsu.edu/event/114293/",
+          "https://mcdowell.ces.ncsu.edu/news/mcdowell-county-cattlemens-association-will-meet/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,586 @@
+{
+  "provider": {
+    "key": "flat-rock-playhouse",
+    "name": "Flat Rock Playhouse",
+    "urls": [
+      "https://www.flatrockplayhouse.org/2026summercamps",
+      "https://www.flatrockplayhouse.org/classes-camps"
+    ],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:59:39.559Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "aee8d2e99a35c7ac93c968555b3a7f1d51dadf6c79da4510e9e5ac373c3204ce",
+  "response": {
+    "searches": ["site:flatrockplayhouse.org \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 26168,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4155,
+      "reasoningTokens": 104
+    },
+    "status": "completed",
+    "ms": 78010,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.flatrockplayhouse.org/2026summercamps",
+      "chars": 3562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/classes-camps",
+      "chars": 1903,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+      "chars": 21898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/faqs",
+      "chars": 8870,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/playhousejrfaqs",
+      "chars": 4538,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
+      "chars": 6053,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+      "chars": 5265,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.flatrockplayhouse.org/footloosecamp",
+      "chars": 2734,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Flat Rock Playhouse",
+    "website_url": "https://www.flatrockplayhouse.org/",
+    "notes": "No official 2027 summer camp information was found. Dates and prices below describe 2026. The summer landing page states registration opens February 23; scholarship applications open February 23 and close March 31. Its lower scholarship section instead describes Winter/Spring applications and was not used for summer deadlines. Footloose is described as a one-time-only camp. Published sold-out and closed notices concern the past 2026 sessions, not 2027 availability.",
+    "excluded": [
+      {
+        "name": "2026 Fall Classes",
+        "reason": "School-year lesson series outside summer."
+      },
+      {
+        "name": "Playhouse Jr. Apprenticeships",
+        "reason": "Professional training and employment opportunities for early-career artists, not a youth summer camp."
+      },
+      {
+        "name": "Playhouse Jr. School Tour",
+        "reason": "Touring school performances, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Acting Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Campers practice acting, voice, movement, improvisation, and scene work. Each group prepares a performance for family and friends.",
+        "camp_page_url": "https://www.flatrockplayhouse.org/2026summercamps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Playhouse Jr. Education Center",
+            "address": "1855 Little River Rd.",
+            "town": "Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Flat Rock Playhouse Main Property",
+            "address": "2661 Greenville Highway",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rising K - 2nd Acting Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Playhouse Jr. Education Center",
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "closed"
+          },
+          {
+            "label": "Rising 3rd - 5th Acting Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Playhouse Jr. Education Center",
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "full"
+          },
+          {
+            "label": "Rising 3rd - 5th Acting Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Flat Rock Playhouse Main Property",
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "full"
+          },
+          {
+            "label": "Rising 6th - 8th Acting Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Playhouse Jr. Education Center",
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 260,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": null,
+          "text": "REGISTRATION OPENS ON FEBRUARY 23!",
+          "url": "https://www.flatrockplayhouse.org/2026summercamps"
+        },
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 sessions",
+          "text": "REGISTRATION CLOSED; SOLD OUT!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available upon application."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child needs additional support in a program, accommodations can be made with the education staff on a case-by-case basis."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.flatrockplayhouse.org/2026summercamps",
+          "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
+          "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/playhousejrfaqs"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session subpages print dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page. Elementary sessions are half-day; the middle-school session runs until 2 pm."
+      },
+      {
+        "name": "Musical Theatre Camp",
+        "type": "half_day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Campers practice acting, singing, and dancing through training and rehearsals. They share their work with family and friends at the end of the week.",
+        "camp_page_url": "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Flat Rock Playhouse Main Property",
+            "address": "2661 Greenville Highway",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 205,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rising 3rd - 5th Musical Theatre Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Rising K - 2nd Musical Theatre Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": null,
+          "text": "REGISTRATION OPENS ON FEBRUARY 23!",
+          "url": "https://www.flatrockplayhouse.org/2026summercamps"
+        },
+        "availability": {
+          "status": "full",
+          "scope": "2026 sessions",
+          "text": "SOLD OUT!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available upon application."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child needs additional support in a program, accommodations can be made with the education staff on a case-by-case basis."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.flatrockplayhouse.org/risingk-5thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
+          "https://www.flatrockplayhouse.org/playhousejrfaqs"
+        ],
+        "confidence": "medium",
+        "review_notes": "The session page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
+      },
+      {
+        "name": "Musical Mania Camp",
+        "type": "day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Campers study and perform songs, scenes, and choreography from Seussical the Musical. The week ends with a performance for family and friends.",
+        "camp_page_url": "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Playhouse Jr. Education Center",
+            "address": "1855 Little River Rd.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 260,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": null,
+          "text": "REGISTRATION OPENS ON FEBRUARY 23!",
+          "url": "https://www.flatrockplayhouse.org/2026summercamps"
+        },
+        "availability": {
+          "status": "full",
+          "scope": "2026 session",
+          "text": "SOLD OUT!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available upon application."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child needs additional support in a program, accommodations can be made with the education staff on a case-by-case basis."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
+          "https://www.flatrockplayhouse.org/playhousejrfaqs"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
+      },
+      {
+        "name": "\"Footloose\": An Immersive Experience",
+        "type": "half_day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Campers explore songs, dances, scenes, and technical theatre with members of the Footloose cast and creative team. The week ends with attendance at the Friday matinee.",
+        "camp_page_url": "https://www.flatrockplayhouse.org/footloosecamp",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Playhouse Jr. Education Center",
+            "address": "1855 Little River Rd.",
+            "town": "Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Flat Rock Playhouse Main Property",
+            "address": "2661 Greenville Highway",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday - Thursday 9:00 am - 12:00 pm. Friday: See Matinee of \"Footloose\" at Flat Rock Playhouse!"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "session",
+            "label": "includes the price of the ticket to see the show",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": null,
+          "text": "REGISTRATION OPENS ON FEBRUARY 23!",
+          "url": "https://www.flatrockplayhouse.org/2026summercamps"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available upon application."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child needs additional support in a program, accommodations can be made with the education staff on a case-by-case basis."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.flatrockplayhouse.org/footloosecamp",
+          "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
+          "https://www.flatrockplayhouse.org/playhousejrfaqs"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates lack a year on the program pages; 2026 is taken from the linking 2026 Summer Camps landing page. Friday drop-off and pickup times and the daily allocation between the two listed camp locations are not specified. The provider calls this a one-time-only camp."
+      },
+      {
+        "name": "Conservatory Musical Theatre Camp",
+        "type": "day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Teen campers take acting, dance, and music classes in a collegiate-style musical theatre session. They collaborate on an original revue presented at the end of the week.",
+        "camp_page_url": "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=548849",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Playhouse Jr. Education Center",
+            "address": "1855 Little River Rd.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 260,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": null,
+          "text": "REGISTRATION OPENS ON FEBRUARY 23!",
+          "url": "https://www.flatrockplayhouse.org/2026summercamps"
+        },
+        "availability": {
+          "status": "full",
+          "scope": "2026 session",
+          "text": "SOLD OUT!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available upon application."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child needs additional support in a program, accommodations can be made with the education staff on a case-by-case basis."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.flatrockplayhouse.org/rising6th-12thsummercamps",
+          "https://www.flatrockplayhouse.org/2026summercamps",
+          "https://www.flatrockplayhouse.org/playhousejrfaqs"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page prints dates without a year; 2026 is taken from the linking 2026 Summer Camps landing page."
+      }
+    ]
+  }
+}

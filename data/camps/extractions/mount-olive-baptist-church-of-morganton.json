@@ -1,0 +1,95 @@
+{
+  "provider": {
+    "key": "mount-olive-baptist-church-of-morganton",
+    "name": "Mount Olive Baptist Church of Morganton",
+    "urls": ["https://www.themombc.org/", "https://www.facebook.com/648076052227711/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.themombc.org/"
+  },
+  "extractedAt": "2026-10-29T17:18:56.289Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:themombc.org VBS 2026",
+      "\"648076052227711\" \"Bible\"",
+      "\"Mount Olive Baptist Church of Morganton\""
+    ],
+    "usage": {
+      "inputTokens": 28206,
+      "cachedInputTokens": 8845,
+      "outputTokens": 706,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 29990,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.themombc.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.themombc.org/\nCall log:\n\u001b[2m  - navigating to \"https://www.themombc.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/648076052227711/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Olive Baptist Church of Morganton",
+    "website_url": null,
+    "notes": "No 2027 summer information found. The supplied website themombc.org currently identifies an Indiana congregation, not the Morganton church, and was blocked by robots.txt. The supplied Facebook page could not be read. A 2026 Morganton Vacation Bible School was found in third-party event listings, but its dates and venue could not be confirmed on readable official pages. No registration opening date was found. No verified standalone website for the Morganton congregation was found.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School (Mount Olive Missionary Baptist Church)",
+        "reason": "The supplied themombc.org website identifies a different congregation in Indiana, outside the local area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mount Olive Baptist Church",
+            "address": "5388 Mt. Olive Church Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The church's Facebook page https://www.facebook.com/648076052227711/ could not be read. Dates and address come only from https://allevents.in/morganton/vacation-bible-school/200030202550415 and are corroborated by https://happeningnext.com/event/vacation-bible-school-eid3a0dqg12ir; confirm both with the church. These listings give an event range from 6:00 PM July 13 to 8:30 PM July 17, but do not establish daily hours. The address also appears on third-party church directories, but a venue-published address was not accessible. Confirm youth eligibility and program details."
+      }
+    ]
+  }
+}

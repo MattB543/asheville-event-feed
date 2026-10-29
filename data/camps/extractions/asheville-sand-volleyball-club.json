@@ -1,0 +1,155 @@
+{
+  "provider": {
+    "key": "asheville-sand-volleyball-club",
+    "name": "Asheville Sand Volleyball Club",
+    "urls": ["https://pci.jotform.com/form/260769187292167"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:29:23.363Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e3f67b3c980bf0b2a2c639d17d3ca52e9b9d51342737b004af92e176abc28b8d",
+  "response": {
+    "searches": [
+      "\"Asheville Sand Volleyball Club\" camp 2026 2027",
+      "open https://highlandbrewing.com/volleyball/"
+    ],
+    "usage": {
+      "inputTokens": 18999,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1162,
+      "reasoningTokens": 109
+    },
+    "status": "completed",
+    "ms": 27752,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pci.jotform.com/form/260769187292167",
+      "chars": 21671,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Sand Volleyball Club",
+    "website_url": null,
+    "notes": "Highland Brewing's official volleyball page says it hopes youth camps will return in 2027, but does not announce dates or registration. No separate provider website was found. The venue page says all 2026 camps are full, superseding the registration form's June-only full notice.",
+    "excluded": [
+      {
+        "name": "Volleyball leagues",
+        "reason": "Sports leagues rather than finite youth camps; Highland's leagues are for ages 21+."
+      },
+      {
+        "name": "Pick-up Volleyball",
+        "reason": "Adult recreational play for ages 21+, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Asheville Beach Volleyball Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice passing, setting, hitting, serving, defensive positioning and offensive strategies through drills and games. They play beach doubles, fours and six-on-six formats based on skill level.",
+        "camp_page_url": "https://pci.jotform.com/form/260769187292167",
+        "registration_url": "https://pci.jotform.com/form/260769187292167",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-08-07",
+          "text": "We’re hopeful that youth volleyball camps will return in 2027."
+        },
+        "ages": {
+          "min": 10,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Highland Brewing Co.",
+            "address": "12 Old Charlotte Highway",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday - Friday 9am-12pm"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:15",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 195,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June 22",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "July 6",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "August 3",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 camps",
+          "text": "Our 2026 Youth Volleyball Camps are underway, and all camps are now full."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pci.jotform.com/form/260769187292167",
+          "https://highlandbrewing.com/volleyball/",
+          "https://highlandbrewing.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration form does not print a year beside its dates; 2026 is assigned using Highland's official 2026 camp notice. Friday end dates are derived from the stated Monday–Friday weeks. The introductory text states camp runs 9am–12pm with early drop-off at 8:15am, while question 28 says sessions run 8:15–12pm; the card treats 8:15 as early drop-off. Highland's current page still describes 2026 camps as underway although their dates have passed."
+      }
+    ]
+  }
+}

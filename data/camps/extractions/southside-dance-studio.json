@@ -1,0 +1,206 @@
+{
+  "provider": {
+    "key": "southside-dance-studio",
+    "name": "Southside Dance Studio",
+    "urls": ["https://www.sodancewnc.com/summer-2026/summer-camp"],
+    "area": null,
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:20.559Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "79f4fb83b3ede90b0118e3ed75f0e33eef40aa8ab372bd104f30d0ca79f332f0",
+  "response": {
+    "searches": [
+      "site:sodancewnc.com summer intensive 2026 2027",
+      "\"Southside Dance Studio\" \"4110\" \"Fletcher\""
+    ],
+    "usage": {
+      "inputTokens": 21485,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1432,
+      "reasoningTokens": 170
+    },
+    "status": "completed",
+    "ms": 35833,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sodancewnc.com/summer-2026/summer-camp",
+      "chars": 1428,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/tuition-and-information",
+      "chars": 1069,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/tuition-and-information/tuition-and-information",
+      "chars": 1057,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/tuition-and-information/progression-of-classes",
+      "chars": 1069,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/tuition-and-information/dress-code",
+      "chars": 1355,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/tuition-and-information/waiver-form",
+      "chars": 4803,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSf4eQT10_jaRym-bEXRarhp7Lz4RgQuL9Yl6OnnovZzn5Q1Bw/viewform?usp=header",
+      "chars": 882,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sodancewnc.com/",
+      "chars": 1216,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southside Dance Studio",
+    "website_url": "https://www.sodancewnc.com/",
+    "notes": "No summer 2027 information or registration dates found. Summer 2026 facts are retained. The intensive page and contact page were readable through official search results, but direct opens returned no text. No intensive registration destination could be recovered.",
+    "excluded": [
+      {
+        "name": "Summer Classes",
+        "reason": "Dance lesson series and drop-in classes, not a camp."
+      },
+      {
+        "name": "Fall Classes",
+        "reason": "School-year dance classes outside summer."
+      },
+      {
+        "name": "Spring Classes",
+        "reason": "Dance classes outside summer."
+      },
+      {
+        "name": "Hendersonville Ballet",
+        "reason": "Ongoing performing company, rehearsals and performances, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "K-Pop Summer Dance Camp",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Beginning and continuing dancers explore ballet technique in groups divided by level. No previous dance experience is required.",
+        "camp_page_url": "https://www.sodancewnc.com/summer-2026/summer-camp",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSf4eQT10_jaRym-bEXRarhp7Lz4RgQuL9Yl6OnnovZzn5Q1Bw/viewform?usp=header",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Southside Dance Studio",
+            "address": "4110 Hendersonville Road, Suite 50",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 165,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sodancewnc.com/summer-2026/summer-camp",
+          "https://docs.google.com/forms/d/e/1FAIpQLSf4eQT10_jaRym-bEXRarhp7Lz4RgQuL9Yl6OnnovZzn5Q1Bw/viewform?usp=header",
+          "https://www.sodancewnc.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Studio location is assumed as the camp venue from the provider's contact page; camp materials do not explicitly name a drop-off site. The official contact page gives the street address but omits town and state; Fletcher, NC was corroborated by multiple business listings. The registration form requires a $50 non-refundable deposit toward the $165 total. Snacks are stated, but lunch is not addressed."
+      },
+      {
+        "name": "Intermediate/Advanced Intensive",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Dancers receive instruction in ballet technique, pointe, variations and conditioning, divided by level. The intensive is for dancers in Ballet 4 and Advanced Ballet.",
+        "camp_page_url": "https://www.sodancewnc.com/summer-2026/summer-intensive",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Southside Dance Studio",
+            "address": "4110 Hendersonville Road, Suite 50",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 210,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sodancewnc.com/summer-2026/summer-intensive",
+          "https://www.sodancewnc.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, eligibility, hours and price were read from the official page's search result; direct opening returned no text. Its registration link destination could not be recovered. Ballet 4 is a dance level, not a school grade. Studio location is assumed as the camp venue from the provider's contact page. The official contact page omits town and state; Fletcher, NC was corroborated by multiple business listings."
+      }
+    ]
+  }
+}

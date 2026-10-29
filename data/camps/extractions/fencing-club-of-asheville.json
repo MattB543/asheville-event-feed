@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "fencing-club-of-asheville",
+    "name": "Fencing Club of Asheville",
+    "urls": ["https://fencingclubasheville.com/asheville-sport-fencing-summer-camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:11.058Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f60a5633e158dd50db577705692961abd72f772302f8bca5bbbd179c6c68576a",
+  "response": {
+    "searches": ["site:fencingclubasheville.com summer 2027 camps"],
+    "usage": {
+      "inputTokens": 14650,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1217,
+      "reasoningTokens": 112
+    },
+    "status": "completed",
+    "ms": 28797,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fencingclubasheville.com/asheville-sport-fencing-summer-camps/",
+      "chars": 2816,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/pay-online/",
+      "chars": 3376,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/schedule/",
+      "chars": 3814,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/asheville-sport-fencing-winter-camp/",
+      "chars": 2641,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/asheville-homeschool-sports-classes-camps-and-demos/",
+      "chars": 1346,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/fencing-equipment-faqs/",
+      "chars": 8886,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fencingclubasheville.com/",
+      "chars": 2486,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fencing Club of Asheville",
+    "website_url": "https://fencingclubasheville.com/",
+    "notes": "The official summer page announces that 2027 dates, pricing and sign-up will be announced in spring, but gives no specific registration date. Web searches found no additional updates. Customized homeschool camps are mentioned without a summer offering or schedule.",
+    "excluded": [
+      {
+        "name": "Asheville Sport Fencing Winter Camp",
+        "reason": "Held during winter break, outside summer."
+      },
+      {
+        "name": "Intro Class, Beginner Class and Intermediate Class",
+        "reason": "Year-round fencing classes, not finite summer camps."
+      },
+      {
+        "name": "Private Lessons",
+        "reason": "Individually booked lessons, not camps."
+      },
+      {
+        "name": "Competitive Track",
+        "reason": "Ongoing individualized training and tournament coaching, not a finite summer program."
+      },
+      {
+        "name": "Open Fencing",
+        "reason": "Ongoing open-floor fencing, not a finite supervised summer camp."
+      },
+      {
+        "name": "Asheville Homeschool Sports Classes, Camps and Demos",
+        "reason": "Custom options are offered by arrangement, but no identifiable summer camp offering is listed."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Asheville Sport Fencing Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn Olympic fencing with equipment provided. Beginner sessions require no experience; intermediate sessions are intended for fencers with at least a month of previous experience.",
+        "camp_page_url": "https://fencingclubasheville.com/asheville-sport-fencing-summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-13",
+          "end": "2026-07-24",
+          "text": "Registration for our 2027 summer camps is not open yet. Dates, pricing and sign-up will be announced in the spring."
+        },
+        "ages": {
+          "min": 10,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fencing Club of Asheville",
+            "address": "457B N. Louisiana Ave.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Camps typically run 9am to 3pm, Monday through Friday."
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "Early drop-off and late pick-up have been available for an extra fee by request."
+        },
+        "prices": [
+          {
+            "amount": 475,
+            "unit": "week",
+            "label": "including lunch and snacks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "beginner",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "intermediate",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Our 2026 camps were $475 for the week, including lunch and snacks."
+        },
+        "transportation": null,
+        "sources": [
+          "https://fencingclubasheville.com/asheville-sport-fencing-summer-camps/",
+          "https://fencingclubasheville.com/",
+          "https://fencingclubasheville.com/fencing-equipment-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Hours are described as typical, and extended care as historically available, rather than confirmed for 2027. Lunch and prices describe 2026 only. The equipment guide generically says owning gear is required for camps, while the summer camp page explicitly provides equipment for both beginner and intermediate camps; the program-specific wording was used. The statement that both 2026 camps filled up is historical and was not treated as current availability."
+      }
+    ]
+  }
+}

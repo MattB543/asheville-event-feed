@@ -1,0 +1,221 @@
+{
+  "provider": {
+    "key": "olympic-start-elite-gymnastics-academy",
+    "name": "Olympic Start Elite Gymnastics Academy (OSEGA)",
+    "urls": ["https://osegagym.com/events/"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:25.069Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7082470d325e29f0a83f4da2503b31e4c8ea84cd4b7247bf4b54f414271d6a65",
+  "response": {
+    "searches": [
+      "site.osegagym.com \"2027\" camp",
+      "open https://portal.iclasspro.com/osegagym/camps"
+    ],
+    "usage": {
+      "inputTokens": 17287,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1121,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 25082,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://osegagym.com/events/",
+      "chars": 4399,
+      "method": "fetch"
+    },
+    {
+      "url": "https://portal.iclasspro.com/osegagym/booking",
+      "chars": 1167,
+      "method": "browser"
+    },
+    {
+      "url": "https://osegagym.com/specials/",
+      "chars": 4709,
+      "method": "fetch"
+    },
+    {
+      "url": "https://osegagym.com/",
+      "chars": 6728,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Olympic Start Elite Gymnastics Academy (OSEGA)",
+    "website_url": "https://osegagym.com/",
+    "notes": "No official 2027 summer dates or registration milestones found. The events page lists ongoing camp descriptions and undated summer prices, but no session dates or explicit summer year. The iClassPro camps page returned no readable session listings.",
+    "excluded": [
+      {
+        "name": "Spring Break and Winter camps",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Open Gyms",
+        "reason": "Drop-in open play, not a finite supervised summer camp; the provider states there are no summer open gyms."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Social events rather than camps."
+      },
+      {
+        "name": "PARENT'S NIGHT OUT",
+        "reason": "Single-evening social event rather than a multi-day evening camp."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "Group outings rather than summer camp programs."
+      },
+      {
+        "name": "Gymnastics & Ninja Classes",
+        "reason": "Recurring lesson series, not camps."
+      },
+      {
+        "name": "After School",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "Bright Stars Pre-K Program",
+        "reason": "Year-round preschool, separate from the Pre-K camp."
+      },
+      {
+        "name": "Competitive Teams",
+        "reason": "Team seasons rather than camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Full-Day camp",
+        "type": "day",
+        "categories": ["sports", "stem", "arts", "general"],
+        "description": "Campers rotate through gymnastics and ninja free play, outdoor playground time, games, STEM activities, foam pit and trampoline time, and arts and crafts. Summer camps also include gymnastics, ninja obstacle, and outdoor obstacle course racing training.",
+        "camp_page_url": "https://osegagym.com/events/",
+        "registration_url": "https://portal.iclasspro.com/osegagym/booking",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "OSEGA DREAM ACADEMY",
+            "address": "260 Rutledge Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "17:30",
+          "text": "Monday – Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "register before April 1st",
+            "year": 2026
+          },
+          {
+            "amount": 325,
+            "unit": "week",
+            "label": "after April 1st",
+            "year": 2026
+          },
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "after May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Full day campers should bring at least 2 snacks, and a lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://osegagym.com/events/",
+          "https://osegagym.com/specials/",
+          "https://portal.iclasspro.com/osegagym/booking"
+        ],
+        "confidence": "medium",
+        "review_notes": "Summer prices have no explicit year on the events page; retained as 2026 fallback information, not confirmed 2026-specific pricing. No dated summer session listings were readable in the registration portal."
+      },
+      {
+        "name": "Pre-K Half-Day camp",
+        "type": "half_day",
+        "categories": ["sports", "arts", "general"],
+        "description": "Campers rotate through the Pre-K gymnastics and ninja gyms, classroom play, table activities and arts, outdoor playground time, and foam pit and trampoline time.",
+        "camp_page_url": "https://osegagym.com/events/",
+        "registration_url": "https://portal.iclasspro.com/osegagym/booking",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 4
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "OSEGA DREAM ACADEMY",
+            "address": "260 Rutledge Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "12:30",
+          "text": "Monday – Friday"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "1/2 day pre-k campers and students need to bring a snack, a lunch, change of clothes, and a supply of diapers and wipes if needed."
+        },
+        "transportation": null,
+        "sources": [
+          "https://osegagym.com/events/",
+          "https://osegagym.com/specials/",
+          "https://portal.iclasspro.com/osegagym/booking"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp description and hours are undated; retained as current fallback information under 2026. No explicit summer year or dated sessions were readable in the registration portal."
+      }
+    ]
+  }
+}

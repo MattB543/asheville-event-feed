@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "mount-zion-baptist-church-of-canton",
+    "name": "Mount Zion Baptist Church of Canton",
+    "urls": ["https://thechurchinthemount.com/"],
+    "area": "Canton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:32:51.218Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c56e349522f8038fe4ede35fde7e095567bf84897f69f84c9c12945cd885ebb4",
+  "response": {
+    "searches": [
+      "site:thechurchinthemount.com VBS 2026",
+      "\"thechurchinthemount\" \"VBS\"",
+      "site:thechurchinthemount.com \"Kids\""
+    ],
+    "usage": {
+      "inputTokens": 24553,
+      "cachedInputTokens": 8845,
+      "outputTokens": 429,
+      "reasoningTokens": 208
+    },
+    "status": "completed",
+    "ms": 24151,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://thechurchinthemount.com/",
+      "chars": 3410,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Zion Baptist Church of Canton",
+    "website_url": "https://thechurchinthemount.com/",
+    "notes": "No qualifying summer camp or Vacation Bible School offering for 2026 or 2027 was found in the supplied homepage text or official-site search results. The Kids and Events pages returned no readable body text when opened; search snippets describe general ministries and community events but provide no summer program details. This does not establish that the church offers no summer programs.",
+    "excluded": [
+      {
+        "name": "Kids ministry",
+        "reason": "Regular Sunday and Wednesday children's ministry, rather than a finite summer camp."
+      },
+      {
+        "name": "Trunk of Treats at the Mount!",
+        "reason": "Single seasonal social event on October 31, outside summer."
+      },
+      {
+        "name": "Donation Missions Meal",
+        "reason": "December fundraising meal, not a supervised summer youth program."
+      }
+    ],
+    "cards": []
+  }
+}

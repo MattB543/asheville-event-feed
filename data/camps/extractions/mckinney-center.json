@@ -1,0 +1,282 @@
+{
+  "provider": {
+    "key": "mckinney-center",
+    "name": "McKinney Center",
+    "urls": [
+      "https://mckinneycenter.com/education/summer-camp/",
+      "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/"
+    ],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:48.829Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6f05af3db8cd3c37a03b0527373657b30085778325b947c2c33e81c0cd93bd42",
+  "response": {
+    "searches": [
+      "site:mckinneycenter.com summer camp 2026 Artsploration Pottery",
+      "McKinney Center 2026 summer camps catalog June pottery tuition",
+      "open https://mckinneycenter.com/wp-content/uploads/2025/11/Spring-2026-Catalog-v6-compressed.pdf",
+      "site:mckinneycenter.com \"2026\" \"Play\" \"Grades\""
+    ],
+    "usage": {
+      "inputTokens": 34528,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2071,
+      "reasoningTokens": 290
+    },
+    "status": "completed",
+    "ms": 51229,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mckinneycenter.com/education/summer-camp/",
+      "chars": 1698,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/",
+      "chars": 1597,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mckinneycenter.com/about-us/faqs/",
+      "chars": 4463,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026-2/",
+      "chars": 1565,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://mckinneycenter.com/",
+      "chars": 2471,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "McKinney Center",
+    "website_url": "https://mckinneycenter.com/",
+    "notes": "No summer 2027 information or registration milestones found. The summer-camp landing page contains placeholder text, and the CourseStorm summer 2026 category no longer displays individual offerings. The Spring 2026 catalog PDF was found but returned no readable content. Cards use the official 2026 event calendar; ages, grades and prices from older camps were not carried forward.",
+    "excluded": [
+      {
+        "name": "Summer & Camp Intern",
+        "reason": "Employment/internship program, not a supervised youth camp."
+      },
+      {
+        "name": "Fall 2026 Classes",
+        "reason": "Classes outside summer, not summer camps."
+      },
+      {
+        "name": "StoryTown Radio Show",
+        "reason": "Public performance series, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Play in A Week Summer Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "A summer theater camp.",
+        "camp_page_url": "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/",
+        "registration_url": "https://mc-kinney-center.coursestorm.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "McKinney Center at Booker T. Washington School",
+            "address": "103 Franklin Ave",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mckinneycenter.com/event/play-in-a-week-summer-camp-2026/",
+          "https://mckinneycenter.com/events/month/2026-06/",
+          "https://mc-kinney-center.coursestorm.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Artsploration Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "A summer art camp.",
+        "camp_page_url": "https://mckinneycenter.com/event/artsploration-101-camp-2026/",
+        "registration_url": "https://mc-kinney-center.coursestorm.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "McKinney Center at Booker T. Washington School",
+            "address": "103 Franklin Ave",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Artsploration 101",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Artsploration 202",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mckinneycenter.com/events/month/2026-06/",
+          "https://mckinneycenter.com/event/artsploration-101-camp-2026/",
+          "https://mckinneycenter.com/event/artsploration-202-camp-2026/",
+          "https://mckinneycenter.com/event/artsploration-202-camp-2026-5/",
+          "https://mc-kinney-center.coursestorm.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Pottery Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "A summer pottery camp.",
+        "camp_page_url": "https://mckinneycenter.com/event/pottery-101-camp-2026/",
+        "registration_url": "https://mc-kinney-center.coursestorm.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "McKinney Center at Booker T. Washington School",
+            "address": "103 Franklin Ave",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Pottery 101",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pottery 202",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mckinneycenter.com/events/month/2026-06/",
+          "https://mckinneycenter.com/event/pottery-101-camp-2026/",
+          "https://mckinneycenter.com/event/pottery-202-camp-2026/",
+          "https://mckinneycenter.com/event/pottery-202-camp-2026-5/",
+          "https://mc-kinney-center.coursestorm.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

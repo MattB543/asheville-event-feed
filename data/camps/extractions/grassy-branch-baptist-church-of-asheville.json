@@ -1,0 +1,114 @@
+{
+  "provider": {
+    "key": "grassy-branch-baptist-church-of-asheville",
+    "name": "Grassy Branch Baptist Church of Asheville",
+    "urls": [
+      "https://www.facebook.com/gbbc.avl/",
+      "https://www.facebook.com/events/1549971726466764/"
+    ],
+    "area": "Asheville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["our_db"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:02:31.603Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Grassy Branch Baptist Church Asheville Wonder Junction VBS 2026",
+      "site:facebook.com/gbbc.avl \"Wonder\" \"2026\"",
+      "open https://www.findglocal.com/US/Asheville/101055544973223/Grassy-Branch-Baptist-Church"
+    ],
+    "usage": {
+      "inputTokens": 18966,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1005,
+      "reasoningTokens": 259
+    },
+    "status": "completed",
+    "ms": 27784,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/gbbc.avl/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/events/1549971726466764/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grassy Branch Baptist Church of Asheville",
+    "website_url": "https://www.grassybranch.org/",
+    "notes": "No 2027 camp information found. The church's Facebook page and supplied event URL returned no readable text. The official website's VBS registration page still explicitly describes 2024, so it was not used for 2026 dates or registration. The 2026 VBS details were recovered from third-party event listings and mirrored church social posts; these require official confirmation.",
+    "excluded": [
+      {
+        "name": "Grassy Branch Preschool",
+        "reason": "School-year preschool operating September–May, not a summer camp."
+      },
+      {
+        "name": "GBkids",
+        "reason": "Recurring Sunday School and Children's Church, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Wonder Junction VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about Jesus through Vacation Bible School. Thursday is Family Night.",
+        "camp_page_url": "https://www.facebook.com/events/1549971726466764/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-02",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 7,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Grassy Branch Baptist Church",
+            "address": "499 Riceville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "6:00–8:00 PM nightly"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.grassybranch.org/", "https://www.grassybranch.org/contact-us"],
+        "confidence": "medium",
+        "review_notes": "Confirm dates, eligibility and hours against the church's Facebook event, which could not be read. Third-party listings https://happeningnext.com/event/wonder-junction-vbs-eid3a0dsgekfv and https://stayhappening.com/e/wonder-junction-vbs-E2ISYNXGJWU identify August 2–6, 2026, 6–8 PM; the former states ages 4 (fully potty trained) through 7th grade and Thursday Family Night. Mirrored church posts at https://www.findglocal.com/US/Asheville/101055544973223/Grassy-Branch-Baptist-Church corroborate the 2026 event. The official site's registration page is labeled 2024 and should not be treated as current. Address comes from the official church website."
+      }
+    ]
+  }
+}

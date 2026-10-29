@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "the-grace-place-church-of-morganton",
+    "name": "The Grace Place Church of Morganton",
+    "urls": ["https://www.graceplace.info/events-1/vbs", "https://www.graceplace.info/events"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:56.678Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "02a7a9412873dac56bf39c6d182346876d3ec45017288edd3e96038207f28cf9",
+  "response": {
+    "searches": [
+      "site:graceplace.info \"VBS\" \"2026\"",
+      "open https://www.graceplace.info/events-1/vbs-1"
+    ],
+    "usage": {
+      "inputTokens": 14094,
+      "cachedInputTokens": 8845,
+      "outputTokens": 631,
+      "reasoningTokens": 103
+    },
+    "status": "completed",
+    "ms": 16844,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.graceplace.info/events-1/vbs",
+      "chars": 1359,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.graceplace.info/events",
+      "chars": 518,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.graceplace.info/",
+      "chars": 1513,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Grace Place Church of Morganton",
+    "website_url": "https://www.graceplace.info/",
+    "notes": "No 2027 information was found. The supplied /events-1/vbs page describes 2025; the newer /events-1/vbs-1 search result explicitly lists 2026 dates. The newer event page returned no readable text when opened.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School themed \"The Greatest Gift.\"",
+        "camp_page_url": "https://www.graceplace.info/events-1/vbs-1",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Grace Place",
+            "address": "2010 Hwy 18 / US 64",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.graceplace.info/events",
+          "https://www.graceplace.info/events-1/vbs-1",
+          "https://www.graceplace.info/visit-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 event dates and ending time were available only in the official search result for /events-1/vbs-1; opening that page returned no readable text. Its event range is August 3 at 6:00 PM through August 7 at 8:30 PM, rather than an explicit daily schedule; check daily hours."
+      }
+    ]
+  }
+}

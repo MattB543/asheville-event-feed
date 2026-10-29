@@ -1,0 +1,121 @@
+{
+  "provider": {
+    "key": "skyland-first-baptist-church-of-arden",
+    "name": "Skyland First Baptist Church of Arden",
+    "urls": ["https://skylandbaptist.org/?page_id=250", "https://skylandbaptist.org/?page_id=197"],
+    "area": "Arden, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:24.744Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "27fbdec559ad24e479efc4c6cf04dd59945840316d978788aad56ba965f7d2dc",
+  "response": {
+    "searches": ["site:skylandbaptist.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 14476,
+      "cachedInputTokens": 8845,
+      "outputTokens": 588,
+      "reasoningTokens": 69
+    },
+    "status": "completed",
+    "ms": 16867,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://skylandbaptist.org/?page_id=250",
+      "chars": 1713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandbaptist.org/?page_id=197",
+      "chars": 1250,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandbaptist.org/",
+      "chars": 1601,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Skyland First Baptist Church of Arden",
+    "website_url": "https://skylandbaptist.org/",
+    "notes": "No official 2027 dates or registration announcements, or dated 2026 VBS schedule, were found. The children's ministry page describes an annual summer VBS without a specific year.",
+    "excluded": [
+      {
+        "name": "Children’s Group / Youth Group",
+        "reason": "Weekly year-round church groups, not finite summer camps."
+      },
+      {
+        "name": "Sunday School / Preschool Church / Children’s Church",
+        "reason": "Year-round church classes and worship activities."
+      },
+      {
+        "name": "Good News Clubs",
+        "reason": "After-school Bible studies, not summer camps."
+      },
+      {
+        "name": "SONshine Crafters Craft Show",
+        "reason": "Craft show rather than a supervised youth camp; held outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in skits, music, games, crafts, Bible Adventure and Sticky Scriptures during a week of evening Vacation Bible School. Supper is provided before the stations.",
+        "camp_page_url": "https://skylandbaptist.org/?page_id=250",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Skyland First Baptist Church",
+            "address": "2115 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "Supper 5:30-6; VBS stations 6-8:30."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We enjoy supper, that is provided for us from 5:30-6."
+        },
+        "transportation": null,
+        "sources": [
+          "https://skylandbaptist.org/?page_id=250",
+          "https://skylandbaptist.org/?page_id=197",
+          "https://skylandbaptist.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages and hours come from an undated annual VBS description, not a dated 2026 announcement. Season year 2026 is a fallback with no dates supplied. The meal field records the provided supper, not a midday lunch."
+      }
+    ]
+  }
+}

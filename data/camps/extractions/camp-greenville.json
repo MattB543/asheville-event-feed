@@ -1,0 +1,1277 @@
+{
+  "provider": {
+    "key": "camp-greenville",
+    "name": "YMCA Camp Greenville",
+    "urls": ["https://www.campgreenville.org/"],
+    "area": "Cedar Mountain / Cleveland, SC (Greenville County, SC)",
+    "discovered_by": ["pilot", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:53.317Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f885b19ee0bba4f04cface00e5ca95e2e75be2dcb09d0bca5019c167deb13231",
+  "response": {
+    "searches": [
+      "site:campgreenville.org contact 100 YMCA Camp Road",
+      "open https://static1.squarespace.com/static/5e7789dafb856c5ea0b9da6f/t/6ad0eed1cf9aa973696cabe5/1792077521800/2027%2Bprogram%2Bavailability%2B10-15-26.pdf",
+      "site:campgreenville.org \"Adventure Guides\" \"father\""
+    ],
+    "usage": {
+      "inputTokens": 31968,
+      "cachedInputTokens": 8845,
+      "outputTokens": 8233,
+      "reasoningTokens": 305
+    },
+    "status": "completed",
+    "ms": 147167,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campgreenville.org/",
+      "chars": 3963,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenville.org/dates-rates",
+      "chars": 6553,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenville.org/s/2027-program-availability-10-15-26.pdf",
+      "chars": 2555,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgreenville.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.campgreenville.org/new",
+      "chars": 3379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenville.org/base-camp",
+      "chars": 11055,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenville.org/adventure-trips",
+      "chars": 22967,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenville.org/leadership-development",
+      "chars": 12398,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YMCA Camp Greenville",
+    "website_url": "https://www.campgreenville.org/",
+    "notes": "Summer 2027 dates, rates and registration milestones are posted. The supplied availability PDF's text could be read, but its colored session grid could not be rendered; division-specific Base Camp availability therefore needs review. Mini week appears on an older overview but is absent from the posted 2027 program list and was omitted. Adventure Trips are supervised camp expeditions originating at Camp Greenville, not youth-group outings; distant expedition destinations were not treated as drop-off sites.",
+    "excluded": [
+      {
+        "name": "Parent + Me",
+        "reason": "Family-only program requiring a parent or guardian to attend with the child."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp."
+      },
+      {
+        "name": "Spectrum & Stargazers Family Camp",
+        "reason": "Family-only spring and fall camp weekends."
+      },
+      {
+        "name": "Adventure Guides",
+        "reason": "Parent-child family program, including family campouts and outings."
+      },
+      {
+        "name": "Senior LDP",
+        "reason": "Employment program with an employee hiring process and paid stipend."
+      },
+      {
+        "name": "LDP Retreats",
+        "reason": "Fall and spring retreats, outside summer."
+      },
+      {
+        "name": "Daddy Daughter Dance",
+        "reason": "Single social event, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Base Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers choose activities and participate in cabin activities, interest-based clubs, hikes, swimming, paddling, crafts, games and campfires during a one-week overnight program.",
+        "camp_page_url": "https://www.campgreenville.org/base-camp",
+        "registration_url": "https://www.campgreenville.org/login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "YMCA Camp Greenville",
+            "address": "4399 YMCA Camp Road",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1525,
+            "unit": "week",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "18:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "6:00 PM EST for only D3 level campers (all programs)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "19:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "7:00 PM EST for all D2 level campers (D3 will remain open)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "20:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "8:00 PM EST for all D1 (includes Parent + Me) & D4 (includes sophomore LDP) level campers (D2 and D3 will remain open)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "18:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Families of 2026 waitlisted campers are invited to register at 6:00 PM.",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "All others may register starting at 7:00 PM.",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available to those who pay the initial $200 non-refundable deposit and submit the appropriate application and documentation."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "After lunch & rest hour, campers will participate in Clubs & Cabin Activities."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Airport Transportation to/from GSP or AVL and camp is available for an additional fee each way (form coming soon)."
+        },
+        "sources": [
+          "https://www.campgreenville.org/base-camp",
+          "https://www.campgreenville.org/dates-rates",
+          "https://www.campgreenville.org/contact",
+          "https://www.campgreenville.org/login"
+        ],
+        "confidence": "medium",
+        "review_notes": "Split session rows by division after visually checking the 2027 availability PDF: its colored grid could not be rendered, so the rows currently show the general session schedule rather than confirmed division-by-week offerings. The contact page publishes 4399 YMCA Camp Road; the Pretty Place FAQ instead gives 100 YMCA Camp Road. The contact-page address is used for camp."
+      },
+      {
+        "name": "Adventure Trips",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers hike, paddle, climb, explore caves and practice outdoor living skills on supervised expeditions. Depending on the trip, campers return to Camp Greenville each evening or camp off-site in tents, hammocks or under tarps.",
+        "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+        "registration_url": "https://www.campgreenville.org/login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "YMCA Camp Greenville",
+            "address": "4399 YMCA Camp Road",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1675,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          },
+          {
+            "amount": 3350,
+            "unit": "session",
+            "label": "2 weeks",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "D2 Adventure — Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D2 Adventure — Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Whitewater — Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Caving — Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Caving — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Lakes + Rivers — Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Lakes + Rivers — Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Lakes + Rivers — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Lakes + Rivers — Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Water + Sky — Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Water + Sky — Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Water + Sky — Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Bike + Climb — Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Bike + Climb — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Outback — Sessions 3-4",
+            "start": "2027-06-27",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Outback — Sessions 7-8",
+            "start": "2027-07-25",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D3 Great Smoky Mountain National Park — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 Whitewater — Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 Whitewater — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 Whitewater — Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 New River Gorge — Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 New River Gorge — Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 Monk’s Ultimate — Sessions 1-2",
+            "start": "2027-06-13",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "D4 French Broad River — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "18:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "6:00 PM EST for only D3 level campers (all programs)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "19:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "7:00 PM EST for all D2 level campers (D3 will remain open)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "20:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "8:00 PM EST for all D1 (includes Parent + Me) & D4 (includes sophomore LDP) level campers (D2 and D3 will remain open)",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "18:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Families of 2026 waitlisted campers are invited to register at 6:00 PM.",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "All others may register starting at 7:00 PM.",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available to those who pay the initial $200 non-refundable deposit and submit the appropriate application and documentation."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Airport Transportation to/from GSP or AVL and camp is available for an additional fee each way (form coming soon)."
+        },
+        "sources": [
+          "https://www.campgreenville.org/adventure-trips",
+          "https://www.campgreenville.org/dates-rates",
+          "https://www.campgreenville.org/contact",
+          "https://www.campgreenville.org/login"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and grade bands are explicitly listed for 2027 on the Adventure Trips page. Current gender-specific session availability could not be mapped from the PDF's text without its colored grid. The contact page publishes 4399 YMCA Camp Road; the Pretty Place FAQ gives 100 YMCA Camp Road. The contact-page address is used."
+      },
+      {
+        "name": "Leadership Development Program",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "Sophomore participants complete a week of training in leading activities, working with children and participating in a camp community. Junior participants volunteer in cabins or on adventure trips with staff support; both levels may add an assigned Service Corps week.",
+        "camp_page_url": "https://www.campgreenville.org/leadership-development",
+        "registration_url": "https://www.campgreenville.org/login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "YMCA Camp Greenville",
+            "address": "4399 YMCA Camp Road",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1525,
+            "unit": "week",
+            "label": "Sophomore LDP",
+            "year": 2027
+          },
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Junior LDP",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Sophomore LDP — Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sophomore LDP — Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sophomore LDP — Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sophomore LDP — Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sophomore LDP — Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sophomore LDP — Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "20:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "October 6, 2026 at 8 PM for returning campers",
+            "url": "https://www.campgreenville.org/leadership-development",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "18:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Families of 2026 waitlisted campers are invited to register at 6:00 PM.",
+            "url": "https://www.campgreenville.org/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "October 13, 2026 at 7 PM for new campers",
+            "url": "https://www.campgreenville.org/leadership-development",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-05",
+            "time": "17:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Junior LDPs: Applications Open: October 5, 2026 at 5 PM",
+            "url": "https://www.campgreenville.org/leadership-development",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "closes",
+            "date": "2026-11-09",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Junior LDPs: Applications Close: November 9, 2026",
+            "url": "https://www.campgreenville.org/leadership-development",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available to those who pay the initial $200 non-refundable deposit and submit the appropriate application and documentation."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Airport Transportation to/from GSP or AVL and camp is available for an additional fee each way (form coming soon)."
+        },
+        "sources": [
+          "https://www.campgreenville.org/leadership-development",
+          "https://www.campgreenville.org/dates-rates",
+          "https://www.campgreenville.org/contact",
+          "https://www.campgreenville.org/login"
+        ],
+        "confidence": "medium",
+        "review_notes": "Season dates span only the explicitly dated Sophomore training sessions. Junior LDP and optional Service Corps weeks are assigned according to participant availability and camp needs; no dated rows were inferred for them. Senior LDP is excluded as employment. Registration milestones on October 6 and October 13 concern Sophomore LDP; October 5 and November 9 concern Junior applications. The contact page publishes 4399 YMCA Camp Road, while the Pretty Place FAQ gives 100 YMCA Camp Road."
+      }
+    ]
+  }
+}

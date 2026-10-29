@@ -1,0 +1,200 @@
+{
+  "provider": {
+    "key": "camp-ton-a-wandah",
+    "name": "Camp Ton-A-Wandah",
+    "urls": [
+      "https://www.camptonawandah.com/dates-rates/camp-life/activities/land-sports.html",
+      "https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+      "https://www.camptonawandah.com/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:23.003Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "cee356a06df8156747e1be5c051ea534ef1472dcb26dd458320fd4e52cb21025",
+  "response": {
+    "searches": [
+      "site:camptonawandah.com 2027 dates rates",
+      "open https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+      "site:camptonawandah.com \"2026\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 33004,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1556,
+      "reasoningTokens": 225
+    },
+    "status": "completed",
+    "ms": 40703,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.camptonawandah.com/dates-rates/camp-life/activities/land-sports.html",
+      "chars": 5288,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+      "chars": 6080,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/",
+      "chars": 5007,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/dates-rates.html",
+      "chars": 6549,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
+      "chars": 7550,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/prospective-families/dates-rates/leaders-in-training.html",
+      "chars": 6949,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/dates-rates/history.html",
+      "chars": 4660,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camptonawandah.com/dates-rates/camp-life/activities.html",
+      "chars": 7021,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Ton-A-Wandah",
+    "website_url": "https://www.camptonawandah.com/",
+    "notes": "No official 2027 summer dates, tuition, or camper registration opening dates were found. The supplied official pages describe both programs but omit dated session schedules. Direct browser opens of the dates/rates and LIT pages returned no readable text; supplied crawler text and official search results were used. Undated session lengths were not converted into calendar dates. An indexed application PDF named TonAWandah_Appl17_2_1.pdf appears historical and was not used for current rates or dates.",
+    "excluded": [
+      {
+        "name": "Mother Daughter Weekend",
+        "reason": "Family-only retreat; listed dates are also outside summer."
+      },
+      {
+        "name": "GUGG - Grown Up Girls Getaway",
+        "reason": "Adult-only retreat for women over 21."
+      },
+      {
+        "name": "Alumnae Ecuador Experience",
+        "reason": "Alumnae service trip outside summer and outside the local service area."
+      },
+      {
+        "name": "Youth Development Counselors",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Out of Camp Trips",
+        "reason": "Optional outings within the residential camp, not standalone camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Ton-A-Wandah",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "horses", "arts"],
+        "description": "Girls participate in horseback riding, swimming, canoeing, archery, land sports, arts and crafts, and outdoor activities. One-week starter, two-week, and traditional three-week options are offered.",
+        "camp_page_url": "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Ton-A-Wandah",
+            "address": "300 West Ton A Wandah Rd.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camptonawandah.com/",
+          "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
+          "https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+          "https://www.camptonawandah.com/dates-rates/camp-life/activities.html",
+          "https://www.camptonawandah.com/contact.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program information is undated; season year 2026 denotes fallback information, not a published dated schedule. The homepage states ages 5–16 but contains older historical wording. Starter sessions specifically serve first-time campers ages 5–10, rising kindergarten–5th grade; two-week sessions serve first-time campers or campers returning from Starter Session. No dated rows could be created."
+      },
+      {
+        "name": "Leaders In Training",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Rising junior and senior girls combine traditional camp activities with leadership workshops, CPR/First Aid certification, supervised work with younger campers, and service projects. Session focuses include Ecuador Experience, Camp Deep-Dive, and Adventure Learning.",
+        "camp_page_url": "https://www.camptonawandah.com/prospective-families/dates-rates/leaders-in-training.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Ton-A-Wandah",
+            "address": "300 West Ton A Wandah Rd.",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camptonawandah.com/prospective-families/dates-rates/leaders-in-training.html",
+          "https://www.camptonawandah.com/prospective-families/dates-rates/session-options.html",
+          "https://www.camptonawandah.com/contact.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The LIT description and three session focuses are undated; no calendar dates or tuition were found. Season year 2026 denotes fallback information rather than a published dated schedule. Ecuador Experience begins and ends at camp and includes six days in Ecuador; it is retained as a focus within the local residential leadership program, not listed as a separate trip. The application and curriculum links could not be resolved from the readable supplied text. Accepted applicants' parents are instructed to complete registration through CampMinder."
+      }
+    ]
+  }
+}

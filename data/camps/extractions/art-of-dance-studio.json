@@ -1,0 +1,179 @@
+{
+  "provider": {
+    "key": "art-of-dance-studio",
+    "name": "Art of Dance Studio",
+    "urls": ["https://www.artofdancestudio.org/services-4"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:18.285Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c3505f7b7c03d562a40475e1cd2bb7aaeeb429c59b193d4ab4807b0b43b3f3be",
+  "response": {
+    "searches": ["site:artofdancestudio.org \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 15547,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1077,
+      "reasoningTokens": 75
+    },
+    "status": "completed",
+    "ms": 23666,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.artofdancestudio.org/services-4",
+      "chars": 1810,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artofdancestudio.org/tuition-and-prices",
+      "chars": 1150,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artofdancestudio.org/register-now",
+      "chars": 1591,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artofdancestudio.org/2022-23-class-schedule",
+      "chars": 1863,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artofdancestudio.org/",
+      "chars": 1224,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Art of Dance Studio",
+    "website_url": "https://www.artofdancestudio.org/",
+    "notes": "No summer 2027 camp information or registration milestones found. The registration platform returned no readable text. The contact page's body and site footer publish different studio addresses.",
+    "excluded": [
+      {
+        "name": "ART OF DANCE SUMMER CLASSES",
+        "reason": "Drop-in dance lessons, not a camp."
+      },
+      {
+        "name": "2026-27 Class Schedule",
+        "reason": "School-year dance classes."
+      },
+      {
+        "name": "PARENTS NIGHT OUT!",
+        "reason": "Recurring single-evening events, not a multi-day summer camp."
+      },
+      {
+        "name": "AOD PreK for the Arts",
+        "reason": "Ongoing preschool childcare, not a finite summer camp."
+      },
+      {
+        "name": "HomeSchool",
+        "reason": "Ongoing homeschool educational program, not a summer camp."
+      },
+      {
+        "name": "Art of Dance Company (AODC)",
+        "reason": "Competitive dance team program, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Half day camps",
+        "type": "half_day",
+        "categories": ["dance", "theater", "music", "arts"],
+        "description": "Campers participate in crafts and games, with optional acting, voice and dance lessons included.",
+        "camp_page_url": "https://www.artofdancestudio.org/services-4",
+        "registration_url": "https://app.gostudiopro.com/online/artofdancenc",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Art of Dance Studio",
+            "address": "576 Upward Road, Unit #8",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 155,
+            "unit": "session",
+            "label": "half day",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "WICKED CAMP",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "K-POP CAMP",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "HELLO KITTY CAMP",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.artofdancestudio.org/services-4",
+          "https://www.artofdancestudio.org/contact-1"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp dates omit a year; 2026 is taken from the same page's instruction to choose SUMMER 2026. The $155 price is presented for half-day camps without an explicit billing unit; session is interpreted as one listed five-day camp. Confirm the drop-off address: the contact page explicitly says the studio is located at 576 Upward Road, Unit #8, while its footer and the camp page list 520 S. Allen Road, Flat Rock, NC 28731."
+      }
+    ]
+  }
+}

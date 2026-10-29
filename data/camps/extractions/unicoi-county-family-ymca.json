@@ -1,0 +1,128 @@
+{
+  "provider": {
+    "key": "unicoi-county-family-ymca",
+    "name": "Unicoi County Family YMCA",
+    "urls": ["https://ucfymca.org/childcare/camps/", "https://ucfymca.org/programs/"],
+    "area": "Erwin, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:31.780Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "63a63e9361af2757ffe5ab8fb091c8f55fd0c7d488759a0d55cc342d289cb73f",
+  "response": {
+    "searches": ["site:ucfymca.org summer camp 2026 2027", "site:ucfymca.org \"camp\" \"June\""],
+    "usage": {
+      "inputTokens": 52601,
+      "cachedInputTokens": 8845,
+      "outputTokens": 594,
+      "reasoningTokens": 144
+    },
+    "status": "completed",
+    "ms": 21339,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ucfymca.org/childcare/camps/",
+      "chars": 3566,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ucfymca.org/programs/",
+      "chars": 4378,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ucfymca.org/schedules/",
+      "chars": 1946,
+      "method": "fetch"
+    },
+    {
+      "url": "https://operations.daxko.com/Online/5060/ProgramsV2/Home.mvc",
+      "chars": 441,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.daxko.com/services/websites?utm_source=digitalservices&utm_medium=footerlink&utm_campaign=digitalservicestraffic&utm_content=daxko",
+      "chars": 5952,
+      "method": "browser"
+    },
+    {
+      "url": "https://ucfymca.org/wp-content/uploads/sites/63/2026/10/October-Pool-Schedule.jpg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ucfymca.org/",
+      "chars": 22782,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Unicoi County Family YMCA",
+    "website_url": "https://ucfymca.org/",
+    "notes": "No 2027 summer camp dates or registration milestones found. The camp page provides a general program description but no dated sessions, ages, prices or drop-off location. The YMCA publishes its facility address as 601 Love Street, Erwin, TN, but the camp page does not explicitly identify it as the camp site. The Camp archive returned no readable content.",
+    "excluded": [
+      {
+        "name": "Before and After School Care",
+        "reason": "School-year childcare, not a finite summer camp."
+      },
+      {
+        "name": "Y-Tots Daycare",
+        "reason": "Year-round preschool childcare, not a finite summer camp."
+      },
+      {
+        "name": "Child Watch",
+        "reason": "Ongoing childcare while parents use the facility, not a finite summer camp."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Lessons booked as lessons, not a camp."
+      },
+      {
+        "name": "Child Camp",
+        "reason": "The test-event page contains placeholder text describing a community picnic rather than a documented youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Day Camp",
+        "type": "day",
+        "categories": ["general", "sports", "stem", "arts"],
+        "description": "Campers participate in sports, STEM activities, arts and crafts, swimming and field trips.",
+        "camp_page_url": "https://ucfymca.org/childcare/camps/",
+        "registration_url": "https://operations.daxko.com/Online/5060/ProgramsV2/Home.mvc",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ucfymca.org/childcare/camps/",
+          "https://ucfymca.org/programs/",
+          "https://operations.daxko.com/Online/5060/ProgramsV2/Home.mvc"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

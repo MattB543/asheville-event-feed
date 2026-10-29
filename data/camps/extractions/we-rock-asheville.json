@@ -1,0 +1,131 @@
+{
+  "provider": {
+    "key": "we-rock-asheville",
+    "name": "We Rock Asheville",
+    "urls": ["https://www.werockasheville.org/summer-camp-2026"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:33.334Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "633259c582e3169a8d3cd8e987b0972b78dbaee51a51f8c0421033acf3233d0e",
+  "response": {
+    "searches": ["site:werockasheville.org \"2027\""],
+    "usage": {
+      "inputTokens": 15642,
+      "cachedInputTokens": 8845,
+      "outputTokens": 801,
+      "reasoningTokens": 65
+    },
+    "status": "completed",
+    "ms": 21232,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.werockasheville.org/summer-camp-2026",
+      "chars": 4050,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockasheville.org/summer-camp-2022-1",
+      "chars": 4050,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockasheville.org/",
+      "chars": 2566,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "We Rock Asheville",
+    "website_url": "https://www.werockasheville.org/",
+    "notes": "No 2027 camp information or registration dates were found. The 2026 camp page supplies the retained camp details. Older homepage metadata describes ages 8-14, but the current homepage body and 2026 camp page both specify ages 8-16.",
+    "excluded": [
+      {
+        "name": "Junior volunteers",
+        "reason": "Volunteer roles for youth ages 16-18, not a separately described supervised camp program."
+      },
+      {
+        "name": "Camper Showcase",
+        "reason": "A single performance event associated with camp, not a separate camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "We Rock Asheville Camp",
+        "type": "day",
+        "categories": ["music", "arts"],
+        "description": "Campers form bands, write an original song, receive instrument instruction, and learn about sound equipment. They also participate in workshops and attend performances and Q&A sessions with local musicians.",
+        "camp_page_url": "https://www.werockasheville.org/summer-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "ArtSpace Charter School",
+            "address": "2030 US Hwy 70",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Camp runs from 9am-4pm M-F."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": "17:00",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "suggested enrollment fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Registration has now closed."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "We Rock is proud to offer full and partial scholarships to families that request a reduced fee, no questions asked."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and two snacks are provided to all campers daily."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.werockasheville.org/summer-camp-2026",
+          "https://www.werockasheville.org/",
+          "https://www.artspacecharter.org/apps/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

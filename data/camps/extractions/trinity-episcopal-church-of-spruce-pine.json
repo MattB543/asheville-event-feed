@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "trinity-episcopal-church-of-spruce-pine",
+    "name": "Trinity Episcopal Church of Spruce Pine",
+    "urls": ["https://trinityspnc.org/"],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:17:56.165Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1c1281f196b3315608c2bca537259de4a26066d82d2dafcc74b66d0b8337501c",
+  "response": {
+    "searches": [
+      "site:trinityspnc.org \"Bible\"",
+      "site:firstpressprucepine.org \"2026\" \"July\""
+    ],
+    "usage": {
+      "inputTokens": 21679,
+      "cachedInputTokens": 8845,
+      "outputTokens": 622,
+      "reasoningTokens": 137
+    },
+    "status": "completed",
+    "ms": 26636,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trinityspnc.org/",
+      "chars": 1643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/service-schedule",
+      "chars": 1134,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/s/Service-Schedule-Jul-Dec-2026.pdf",
+      "chars": 1936,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/s/Service-Schedule-Jan-Jul-2026.pdf",
+      "chars": 1908,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/s/Service-Schedule-July-thru-Dec-2025-2ydw.pdf",
+      "chars": 1920,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/s/Service-Schedule-Jan-Jul-2025.pdf",
+      "chars": 1919,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinityspnc.org/s/Service-Schedule-Jul-Dec-2024.pdf",
+      "chars": 1715,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Episcopal Church of Spruce Pine",
+    "website_url": "https://trinityspnc.org/",
+    "notes": "No 2027 camp information found. A participating congregation's official VBS page confirms Trinity participated in VBS 2026, themed God's Good Creation, but dates, ages, hours, registration and the 2026 drop-off venue were not found. That website blocked direct access; its official search result was readable. Older 2025 venue and eligibility details were not carried forward.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School offered jointly by Central Baptist, First Presbyterian of Spruce Pine, Spruce Pine United Methodist, and Trinity Episcopal. The 2026 theme was God's Good Creation (Genesis 1:1-2:3).",
+        "camp_page_url": "https://www.firstpressprucepine.org/home",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.firstpressprucepine.org/home", "https://trinityspnc.org/"],
+        "confidence": "medium",
+        "review_notes": "2026 participation and theme are supported by the official First Presbyterian VBS page's search snippet only; direct access was blocked by robots.txt. Check for a 2027 announcement and confirm dates, eligibility and drop-off venue. Trinity's church address is not assigned as a camp site because the 2026 VBS venue was not stated."
+      }
+    ]
+  }
+}

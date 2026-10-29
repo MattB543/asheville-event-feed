@@ -1,0 +1,53 @@
+{
+  "provider": {
+    "key": "cathey-s-creek-baptist-church-of-brevard",
+    "name": "Cathey’s Creek Baptist Church of Brevard",
+    "urls": ["https://www.catheyscreekbaptistchurch.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:24:59.921Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "243c43524e3b8e617e550883b55a99e89418e7b8f8d90e16d716b51cfc9d5e82",
+  "response": {
+    "searches": [
+      "site:catheyscreekbaptistchurch.com youth vacation bible school 2026",
+      "\"Cathey’s Creek\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 17637,
+      "cachedInputTokens": 8845,
+      "outputTokens": 433,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 19649,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.catheyscreekbaptistchurch.com/",
+      "chars": 1356,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cathey’s Creek Baptist Church of Brevard",
+    "website_url": "https://www.catheyscreekbaptistchurch.com/",
+    "notes": "No 2026 or 2027 summer camp or Vacation Bible School offering was found on the official website or in targeted web searches. The official Youth page describes monthly community activities, not a finite summer program. A third-party 2025 VBS PDF lists this church for August 3–7, 6–8:30 p.m., but no corresponding 2026 or 2027 announcement was found; those historical dates were not carried forward. The Youth and Contact Us pages returned no readable text when opened, although the Youth page text was available through official-site search results.",
+    "excluded": [
+      {
+        "name": "Youth ministry monthly activities",
+        "reason": "Recurring youth-group community activities, including water slides, Easter egg hunts and Christmas caroling; not a finite supervised summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes, not a summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

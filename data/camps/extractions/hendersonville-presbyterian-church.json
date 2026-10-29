@@ -1,0 +1,178 @@
+{
+  "provider": {
+    "key": "hendersonville-presbyterian-church",
+    "name": "Hendersonville Presbyterian Church",
+    "urls": ["https://www.hendersonvillepc.org/preschool/summer-program.cfm"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:05.181Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6894cb382bb5d855820f120db037bccf5d0827165a2150a03faf8410a6f5defd",
+  "response": {
+    "searches": [
+      "site:hendersonvillepc.org \"2027\" \"Summer\"",
+      "site:hendersonvillepc.org \"2026\" \"5-Day\""
+    ],
+    "usage": {
+      "inputTokens": 25477,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1149,
+      "reasoningTokens": 153
+    },
+    "status": "completed",
+    "ms": 33922,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+      "chars": 1830,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/2026-27%20registration%20packet%20English.pdf",
+      "chars": 16554,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf",
+      "chars": 13033,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/preschool/tuition-rates.cfm",
+      "chars": 1507,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/tuition%20sch%202026-2027.pdf",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/",
+      "chars": 3205,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Presbyterian Church",
+    "website_url": "https://www.hendersonvillepc.org/",
+    "notes": "2027 Summer Art Program dates and age groups are posted. No 2027 registration packet or registration opening date was found. Direct web access was blocked by robots.txt; supplied official-page text and official search results were used. Historical mentions of a 5-Day Club were found, but no 2026 or 2027 offering was established.",
+    "excluded": [
+      {
+        "name": "Creative Beginnings Christian Preschool",
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Summer Ministry Internship",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Letting Hope In!",
+        "reason": "Adult Sunday school class, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Program",
+        "type": "half_day",
+        "categories": ["arts", "music"],
+        "description": "Children explore drawing, painting, sculpting, classical music, and poetry in a two-week morning program.",
+        "camp_page_url": "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-23",
+          "text": "Classes are Monday-Friday mornings in July, with sufficient enrollment."
+        },
+        "ages": {
+          "min": 2,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hendersonville Presbyterian Church",
+            "address": "699 N. Grove St",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "11:45",
+          "text": "Monday through Friday 8:45am -11:45am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Tuition",
+            "year": 2026
+          },
+          {
+            "amount": 75,
+            "unit": "other",
+            "label": "Registration/Materials Fee (non-refundable)",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Ages 2-3",
+            "start": "2027-07-12",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 2,
+              "max": 3
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 4-6",
+            "start": "2027-07-12",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Given the size and scope of Creative Beginnings Christian Preschool, the school is unable to accommodate certain special needs of children and their behavioral problems. Please inform the director of any special needs or problems your child has."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+          "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": "Exact hours and special-needs policy are from the 2026 Summer Art registration packet; the 2027 page states only mornings. Prices are explicitly labeled 2026. A 2027 packet has not been found."
+      }
+    ]
+  }
+}

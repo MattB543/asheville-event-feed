@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "grassy-creek-baptist-church-of-spruce-pine",
+    "name": "Grassy Creek Baptist Church of Spruce Pine",
+    "urls": ["https://grassycreekbc.org/", "https://www.facebook.com/GCBCSprucePine/"],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:17:52.465Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f80cb2647d5739cdec7cf0c550a3cce00e70531f0ce08d0b71138484b834482f",
+  "response": {
+    "searches": [
+      "site.grassycreekbc.org vacation bible school 2026",
+      "\"site:grassycreekbc.org\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 26539,
+      "cachedInputTokens": 8845,
+      "outputTokens": 375,
+      "reasoningTokens": 184
+    },
+    "status": "completed",
+    "ms": 14345,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://grassycreekbc.org/",
+      "chars": 3173,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/GCBCSprucePine/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grassy Creek Baptist Church of Spruce Pine",
+    "website_url": "https://grassycreekbc.org/",
+    "notes": "No qualifying summer camp or Vacation Bible School offering for 2026 or 2027 could be verified from the supplied official homepage or web searches. The official GCBC Kids Ministry page and Facebook page returned no readable text when opened. Review the church's Facebook announcements directly for summer offerings; the absence of cards does not establish that the church offers no camps.",
+    "excluded": [
+      {
+        "name": "GCBC Kids",
+        "reason": "Recurring Sunday-evening children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Youth Bible Study",
+        "reason": "Recurring church youth Bible study, not a finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

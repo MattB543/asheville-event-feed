@@ -1,0 +1,308 @@
+{
+  "method": "aggregator",
+  "id": "kidvoyage",
+  "input": "Use kidvoyage.com camp listings for Asheville and Western North Carolina to find organizations running summer camps and summer programs for kids and teens. For each organization listed, give the organization's own official URL (search for it), never the listing page.",
+  "at": "2026-10-29T03:21:22.587Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 81296,
+    "cachedInputTokens": 5180,
+    "outputTokens": 3472,
+    "reasoningTokens": 723
+  },
+  "searches": [
+    "site:kidvoyage.com Asheville summer camps",
+    "open https://kidvoyage.com/camps/usa/asheville-nc",
+    "Asheville Art Museum summer camp 2026",
+    "Camp Falling Creek Mondamin Green Cove summer 2026 official",
+    "Asheville Junior Theater summer camps official",
+    "Camp Highlander summer dates 2026 official",
+    "site:kidvoyage.com \"Asheville\" \"camp\" \"YMCA\"",
+    "Blue Star camps official dates rates",
+    "Camp Lakey Gap official 2026",
+    "ABYSA summer camps 2026 official"
+  ],
+  "ms": 124278,
+  "candidates": [
+    {
+      "name": "Asheville Art Museum",
+      "url": "https://www.ashevilleart.org/learn/family-programs/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day", "day"],
+      "categories": ["arts"],
+      "note": "Summer art sessions for rising K–12 students."
+    },
+    {
+      "name": "University of North Carolina Asheville",
+      "url": "https://www.unca.edu/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight", "pre_college"],
+      "categories": ["academic", "stem", "arts", "nature_outdoor"],
+      "note": "Teen residential pre-college programs and SkillSet summer camps."
+    },
+    {
+      "name": "Groce United Methodist Church of Asheville",
+      "url": "https://www.groceumc.org/musiccamp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music", "arts", "faith_based"],
+      "note": "Music camp for ages 5–12 with crafts, recreation and lunch."
+    },
+    {
+      "name": "Asheville Junior Theater / The Performing Arts Company of Asheville",
+      "url": "https://www.thepaca.com/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["theater", "music", "dance", "arts"],
+      "note": "Musical theater, improv and dance camps; combines multiple Kidvoyage session listings."
+    },
+    {
+      "name": "Adventure Center of Asheville",
+      "url": "https://ashevilletreetopsadventurepark.com/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "sports"],
+      "note": "Adventure day camps and Kolo Bike Park mountain-biking camps."
+    },
+    {
+      "name": "The North Carolina Arboretum",
+      "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "stem", "arts"],
+      "note": "Discovery summer camps with outdoor exploration and nature activities."
+    },
+    {
+      "name": "Asheville Community Theatre",
+      "url": "https://ashevilletheatre.org/education/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["theater", "music", "dance"],
+      "note": "Tanglewood summer theater camps for children and teens."
+    },
+    {
+      "name": "Asheville Buncombe Youth Soccer Association",
+      "url": "https://www.abysa.org/Default.aspx?tabid=946857",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["sports"],
+      "note": "FUNdamentals and competitive soccer summer camps."
+    },
+    {
+      "name": "Parkway Playhouse",
+      "url": "https://parkwayplayhouse.com/",
+      "town": "Burnsville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater", "music", "dance"],
+      "note": "Junior theater summer camps and teen production apprenticeships."
+    },
+    {
+      "name": "Croley's Premier Martial Arts",
+      "url": "https://premiermartialarts.com/north-carolina-asheville/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["sports", "arts"],
+      "note": "Martial arts summer camps with training, games and themed activities."
+    },
+    {
+      "name": "Asheville Sun Soo Martial Arts",
+      "url": "https://martialartsasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports", "nature_outdoor", "arts", "stem"],
+      "note": "K–5 camps combine martial arts, outdoor adventures, crafts and science."
+    },
+    {
+      "name": "Zaniac Asheville",
+      "url": "https://www.zaniaclearning.com/asheville/programs/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["stem", "academic"],
+      "note": "STEM summer camps at Biltmore Park and UNC Asheville locations."
+    },
+    {
+      "name": "Black Mountain Center for the Arts",
+      "url": "https://www.blackmountainarts.org/summercamp",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["arts", "theater", "music", "dance"],
+      "note": "Preschool and youth arts camps, including performance and theater sessions."
+    },
+    {
+      "name": "Christmount",
+      "url": "https://www.camplakeygap.org/forms",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["special_needs", "general", "nature_outdoor"],
+      "note": "Runs Camp Lakey Gap, a weeklong residential camp with youth sessions for autistic campers."
+    },
+    {
+      "name": "Camps Merri-Mac and Timberlake",
+      "url": "https://merri-mac.com/dates-rates/",
+      "town": "Black Mountain and Marion",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "faith_based"],
+      "note": "Girls' Merri-Mac and boys' Timberlake residential camps; 2027 sessions announced."
+    },
+    {
+      "name": "Camp Cedar Cliff",
+      "url": "https://campcedarcliff.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general", "sports"],
+      "note": "Christian youth day and overnight summer camps."
+    },
+    {
+      "name": "Falling Creek Camp",
+      "url": "https://fallingcreek.com/sessions",
+      "town": "Zirconia",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "faith_based"],
+      "note": "Boys' residential camps with several session lengths; 2027 registration announced."
+    },
+    {
+      "name": "Camps Mondamin and Green Cove",
+      "url": "https://www.mondamin.com/bridge",
+      "town": "Tuxedo",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "sports", "horses", "general"],
+      "note": "Mondamin for boys and Green Cove for girls, with outdoor adventure programs."
+    },
+    {
+      "name": "Camp Highlander",
+      "url": "https://www.camphighlander.com/sessions",
+      "town": "Mills River",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports"],
+      "note": "Residential summer camp for boys and girls ages 6–16."
+    },
+    {
+      "name": "Kanuga",
+      "url": "https://campkanuga.org/dates-rates/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Coed Episcopal-affiliated Camp Kanuga; 2027 summer sessions announced."
+    },
+    {
+      "name": "Blue Star Camps",
+      "url": "https://www.bluestarcamps.com/dates-fees/",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general", "sports", "arts"],
+      "note": "Jewish residential summer camp for ages 6–16."
+    },
+    {
+      "name": "Camp Ton-A-Wandah",
+      "url": "https://www.camptonawandah.com/dates-rates/dates-rates-3.html",
+      "town": "Hendersonville",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "arts", "horses"],
+      "note": "Girls' residential summer camp with waterfront, arts and outdoor activities."
+    },
+    {
+      "name": "Rockbrook Camp",
+      "url": "https://www.rockbrookcamp.com/registration/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "arts", "sports", "horses"],
+      "note": "Girls ages 6–16 attend two-, three- or four-week residential sessions."
+    },
+    {
+      "name": "Gwynn Valley Camp",
+      "url": "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "arts", "sports"],
+      "note": "Coed farm, wilderness and traditional summer camp; 2027 registration open."
+    },
+    {
+      "name": "Keystone Camp",
+      "url": "https://keystonecamp.com/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "horses", "arts", "theater"],
+      "note": "Girls' residential camp with riding, sports, arts, drama and climbing."
+    },
+    {
+      "name": "Camp Illahee",
+      "url": "https://www.campillahee.com/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "horses", "arts", "faith_based"],
+      "note": "Girls' residential camp with waterfront, riding, sports and arts activities."
+    },
+    {
+      "name": "Camps Kahdalea and Chosatonga",
+      "url": "https://www.kahdalea.com/camp-sessions/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general", "sports", "arts"],
+      "note": "Separate girls' and boys' residential camps with mountain adventure programs."
+    },
+    {
+      "name": "Camp Merrie-Woode",
+      "url": "https://www.merriewoode.com/newpage",
+      "town": "Sapphire",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["general", "nature_outdoor", "sports", "arts"],
+      "note": "Girls' residential summer camp with outdoor adventures."
+    },
+    {
+      "name": "Eagle's Nest Foundation",
+      "url": "https://www.enf.org/camp/",
+      "town": "Pisgah Forest",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["nature_outdoor", "arts", "general", "sports"],
+      "note": "Eagle's Nest sleepaway camp for children and teens, with outdoor and arts activities."
+    },
+    {
+      "name": "Mountain Roots",
+      "url": "https://mountainroots.org/camps/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "arts", "academic"],
+      "note": "Day camps for ages 4–10 and Roots Crew counselor-in-training opportunities."
+    },
+    {
+      "name": "The Wilds Christian Association",
+      "url": "https://wildsnc.org/camps/youth/",
+      "town": "Brevard",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["faith_based", "nature_outdoor", "sports", "general"],
+      "note": "The Wilds of North Carolina offers junior and teen residential summer programs."
+    }
+  ]
+}

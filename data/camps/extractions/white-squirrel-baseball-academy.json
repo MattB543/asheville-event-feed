@@ -1,0 +1,284 @@
+{
+  "provider": {
+    "key": "white-squirrel-baseball-academy",
+    "name": "White Squirrel Baseball Academy",
+    "urls": [
+      "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+      "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:29:01.610Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "93add94fc3a2be3f7fa74f5f2a403f4c87d749752cbd31841df2de5abfb2a36b",
+  "response": {
+    "searches": [
+      "site.sites.google.com/brevard.edu/brevard-baseball-camps 2027",
+      "\"Gil Coan Field\" \"address\""
+    ],
+    "usage": {
+      "inputTokens": 35015,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2060,
+      "reasoningTokens": 158
+    },
+    "status": "completed",
+    "ms": 44749,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+      "chars": 1426,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
+      "chars": 903,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.google.com/url?q=https%3A%2F%2Fwww.playnsports.com%2Fevent%2Fkids-summer-camp-1%2F&sa=D&sntz=1&usg=AOvVaw2aVDBv8plfMtzyHHtafhkA",
+      "chars": 17194,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.google.com/url?q=https%3A%2F%2Fwww.playnsports.com%2Fevent%2Fkids-summer-camp-2%2F&sa=D&sntz=1&usg=AOvVaw2ThCGa8Jita1Ipsa0abu6S",
+      "chars": 17057,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.google.com/url?q=https%3A%2F%2Fwww.playnsports.com%2Fevent%2Fbrevard-baseball-prospect-camp-1%2F&sa=D&sntz=1&usg=AOvVaw30EvJrgyxKP0lQMAWWN1V0",
+      "chars": 16973,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.google.com/url?q=https%3A%2F%2Fwww.playnsports.com%2Fevent%2Fbrevard-baseball-prospect-camp-2%2F&sa=D&sntz=1&usg=AOvVaw3MLmYjU4n_xU8heeF5-8Bo",
+      "chars": 17164,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.google.com/url?q=https%3A%2F%2Fwww.playnsports.com%2Fevent%2Fbrevard-baseball-prospect-camp-3%2F&sa=D&sntz=1&usg=AOvVaw128-KaUorsqRsGQDzFOq-w",
+      "chars": 9283,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "White Squirrel Baseball Academy",
+    "website_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+    "notes": "No summer 2027 information or registration milestones were found. Cards retain the posted 2026 offerings. Registration platforms contain conflicting prospect-camp grades and misleading price ranges; the explicitly stated $100 camp fee is used.",
+    "excluded": [
+      {
+        "name": "Fall Brevard Baseball Showcase",
+        "reason": "November 1 offering is outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids Summer Baseball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice hitting, pitching, fielding and base running with college coaches and players. Activities include team games, competitions and an end-of-week showcase.",
+        "camp_page_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
+        "registration_url": "https://www.playnsports.com/event/kids-summer-camp-1/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Gil Coan Field",
+            "address": "292 Kings Creek Loop",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "9 AM - 4:30 PM | Check in 8:30 AM"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": "17:00",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Kids Summer Camp 1",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Kids Summer Camp 2",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are no longer available"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+          "https://sites.google.com/brevard.edu/brevard-baseball-camps/summer-camps",
+          "https://www.playnsports.com/event/kids-summer-camp-1/",
+          "https://www.playnsports.com/event/kids-summer-camp-2/",
+          "https://brevard.edu/venue/gil-coan-field/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official summer page and registration headers give 9 AM–4:30 PM, but both registration descriptions say 9 AM–4 PM daily. Used the official summer page hours. Registration descriptions explicitly allow pickup until 5 PM. Generic 'Food and Drinks' inclusion does not establish lunch provision."
+      },
+      {
+        "name": "Brevard College Baseball Prospect Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players receive position-specific instruction and participate in a simulated college-style practice. Coaches evaluate players through a pro-style workout with performance metrics.",
+        "camp_page_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/prospect-camps",
+        "registration_url": "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-25",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Brevard High School Baseball Field",
+            "address": "609 N. Country Club Rd.",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "Gil Coan Field",
+            "address": "292 Kings Creek Loop",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": "10:00 am - 4:00 pm | Check in 9:30 am; pitchers only check in at 11:30 AM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Showcase Camp I",
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": "Brevard High School Baseball Field",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Showcase Camp 2",
+            "start": "2026-07-08",
+            "end": "2026-07-08",
+            "year": 2026,
+            "site": "Gil Coan Field",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Showcase Camp 3",
+            "start": "2026-08-08",
+            "end": "2026-08-08",
+            "year": 2026,
+            "site": "Gil Coan Field",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are no longer available"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/brevard.edu/brevard-baseball-camps/home",
+          "https://sites.google.com/brevard.edu/brevard-baseball-camps/prospect-camps",
+          "https://www.playnsports.com/event/brevard-baseball-prospect-camp-1/",
+          "https://www.playnsports.com/event/brevard-baseball-prospect-camp-2/",
+          "https://www.playnsports.com/event/brevard-baseball-prospect-camp-3/",
+          "https://brevard.edu/venue/gil-coan-field/",
+          "https://bhs.tcsnc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Home page explicitly dates all three showcases to 2026. Home page and registration headers say grades 9–JUCO, while descriptions say grades 9–12; encoded the explicitly numeric high-school range, but JUCO participants are also advertised. Showcase 1 description names Gil Coan Field, but its specific location notice moves the event to Brevard High School because of delayed renovations; used the relocation notice. Registration footers show $1,250–$100 or $1,750–$100, while descriptions and home page consistently state $100. June and July registration pages give July 31 closing dates after their events; omitted those historical closing dates."
+      }
+    ]
+  }
+}

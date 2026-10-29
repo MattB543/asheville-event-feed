@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "cedar-creek-club",
+    "name": "Cedar Creek Club",
+    "urls": ["https://cedarcreekclub.com/family-fun"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:48.537Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7d40bd121f66237f9b4c7408e5bea16b4cd514ddfe51093a19c5569538614031",
+  "response": {
+    "searches": ["site:cedarcreekclub.com camp 2027 summer kids"],
+    "usage": {
+      "inputTokens": 14381,
+      "cachedInputTokens": 8845,
+      "outputTokens": 663,
+      "reasoningTokens": 131
+    },
+    "status": "completed",
+    "ms": 17939,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cedarcreekclub.com/family-fun",
+      "chars": 1877,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cedarcreekclub.com/",
+      "chars": 3011,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cedar Creek Club",
+    "website_url": "https://cedarcreekclub.com/",
+    "notes": "No 2027 camp information or dated 2026 schedule was found on the public official pages. The member website includes a private login; detailed camp schedules and registration may be restricted to members. The public camp description gives a recurring mid-June through mid-August season without a year or exact dates.",
+    "excluded": [
+      {
+        "name": "Sports Clinics & Camps",
+        "reason": "The public page describes youth tennis, pickleball and croquet instruction generally, but does not identify a finite summer offering or summer schedule."
+      },
+      {
+        "name": "Private Lessons",
+        "reason": "Lessons booked as lessons, rather than a summer camp."
+      },
+      {
+        "name": "Weekly Yoga classes",
+        "reason": "Recurring classes rather than a finite youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Kids Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Campers participate in outdoor activities, arts and crafts, and nature discovery.",
+        "camp_page_url": "https://cedarcreekclub.com/family-fun",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cedar Creek Club",
+            "address": "42 Racquet Club Drive",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://cedarcreekclub.com/family-fun", "https://cedarcreekclub.com/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

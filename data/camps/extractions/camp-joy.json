@@ -1,0 +1,216 @@
+{
+  "provider": {
+    "key": "camp-joy",
+    "name": "Camp Joy",
+    "urls": ["https://campjoy.net/camps/nc/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:35.130Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f0f940992ea9a6fa22bf7720bd56c2e748dfdd9b3086968986e96d5499540ce6",
+  "response": {
+    "searches": [
+      "site:campjoy.net scholarships FAQ camper requirements",
+      "open https://campjoy.net/camps/nc/",
+      "site:campjoy.net \"Scholarships\" \"financial\""
+    ],
+    "usage": {
+      "inputTokens": 21783,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1092,
+      "reasoningTokens": 172
+    },
+    "status": "completed",
+    "ms": 30623,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campjoy.net/camps/nc/",
+      "chars": 2972,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/wp-content/uploads/2026/10/Statement-of-Faith.pdf",
+      "chars": 863,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/wp-content/uploads/2023/04/Counselor-Expectations-2023.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/wp-content/uploads/2023/03/Camper-Packing-List.pdf",
+      "chars": 556,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/wp-content/uploads/2023/04/Camp-Joy-Medication-Policy.pdf",
+      "chars": 3580,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/",
+      "chars": 2743,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/about/",
+      "chars": 3268,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campjoy.net/about/who-we-are/",
+      "chars": 3193,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Joy",
+    "website_url": "https://campjoy.net/",
+    "notes": "2027 North Carolina camper dates are posted. Direct browser opens returned no readable text for the NC, scholarship and FAQ pages; the supplied NC page text and official search results were used. No camper registration opening date was found. Counselor application deadlines are not camper registration milestones.",
+    "excluded": [
+      {
+        "name": "Camp Joy SC",
+        "reason": "Held in Aiken, SC, outside the directory's drive-time area."
+      },
+      {
+        "name": "Camp Joy FL",
+        "reason": "Held in Lake Wales, FL, outside the directory's drive-time area."
+      },
+      {
+        "name": "Camp Joy VA",
+        "reason": "Held in Wirtz, VA, outside the directory's drive-time area."
+      },
+      {
+        "name": "Camp Joy TN",
+        "reason": "Held at Johnston Woods in Tennessee, outside the directory's drive-time area."
+      },
+      {
+        "name": "Family Retreat 2026",
+        "reason": "Family retreat held March 27–29, outside summer; not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Joy NC",
+        "type": "overnight",
+        "categories": ["faith_based", "special_needs"],
+        "description": "Christian co-ed overnight camp for people with intellectual and developmental disabilities. Campers are paired one-on-one with counselors and participate in Christian fellowship, prayer and worship.",
+        "camp_page_url": "https://campjoy.net/camps/nc/",
+        "registration_url": "https://campjoy.net/applications/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 675,
+            "unit": "session",
+            "label": "Total cost; includes $150 registration due with application and $525 tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Camp Joy does have limited scholarship monies available. A scholarship application can be filled out by emailing info@campjoy.net for a form."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "We offer one-on-one life-changing camps for people with intellectual and developmental disabilities."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Campers must be able to eat food prepared by the Camp Joy cafeteria which can accommodate gluten free."
+        },
+        "transportation": null,
+        "sources": [
+          "https://campjoy.net/camps/nc/",
+          "https://campjoy.net/about/who-we-are/",
+          "https://campjoy.net/applications/",
+          "https://campjoy.net/applications/scholarships/",
+          "https://campjoy.net/camper-requirements/",
+          "https://campjoy.net/wp-content/uploads/2026/10/Statement-of-Faith.pdf",
+          "https://bonclarken.org/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Fees appear with the 2027 schedule but have no separate year label. Scholarship and cafeteria information were readable only through official search results. Camper eligibility includes self-help, dietary, behavioral and medical restrictions; review the requirements before applying. Bonclarken publishes 500 Pine Drive as its location, but its driving-directions page recommends 5 Pine Drive for GPS navigation."
+      }
+    ]
+  }
+}

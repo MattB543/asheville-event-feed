@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "westview-baptist-church-of-asheville",
+    "name": "Westview Baptist Church of Asheville",
+    "urls": ["https://westviewbaptist.org/summer/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:43.701Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1a73ec0fc8526d50f85cdd3c52c90b12c93c2d243b2d0530793737eb0e24c224",
+  "response": {
+    "searches": ["\"Westview Baptist Church\" \"Asheville\""],
+    "usage": {
+      "inputTokens": 15394,
+      "cachedInputTokens": 8845,
+      "outputTokens": 489,
+      "reasoningTokens": 49
+    },
+    "status": "completed",
+    "ms": 14332,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://westviewbaptist.org/summer/",
+      "chars": 3654,
+      "method": "fetch"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3467943",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3506024",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3495239",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3495332",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3495321",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events",
+      "chars": 739,
+      "method": "fetch"
+    },
+    {
+      "url": "https://westview.churchcenter.com/registrations/events/3485302",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Westview Baptist Church\")"
+    },
+    {
+      "url": "https://westviewbaptist.org/",
+      "chars": 4311,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Westview Baptist Church of Asheville",
+    "website_url": null,
+    "notes": "Provider identity mismatch: the supplied website and Church Center account belong to Westview Baptist Church in Sanford, Florida, at 4100 H.E. Thomas Jr. Pkwy, not an Asheville church. The official homepage and About page confirm Sanford. Searches did not establish an Asheville provider by this exact name. Do not retain the existing programs under this provider. Although its FUGE trip visits nearby Ridgecrest, it is offered by the Florida church. No 2027 summer information was found in the supplied materials or search results.",
+    "excluded": [
+      {
+        "name": "VBS",
+        "reason": "Offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
+      },
+      {
+        "name": "Summer Camps",
+        "reason": "The Olympics, Around the World and Survivor weeks are offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
+      },
+      {
+        "name": "FUGE Camp at Ridgecrest",
+        "reason": "A camp trip offered by the unrelated Sanford, Florida church, not the requested Asheville provider, despite its Ridgecrest destination."
+      },
+      {
+        "name": "CHAMPS Basketball Camp",
+        "reason": "Offered by the unrelated Westview Baptist Church in Sanford, Florida, outside the directory area."
+      },
+      {
+        "name": "Centershot Archery Club",
+        "reason": "A weekly archery club requiring parents to accompany children under 16, rather than a supervised youth camp; also offered by the unrelated Florida church."
+      },
+      {
+        "name": "Magic Show",
+        "reason": "A single-evening family entertainment event, not a camp; also offered by the unrelated Florida church."
+      },
+      {
+        "name": "Family Night",
+        "reason": "A single-evening family event, not a camp; also offered by the unrelated Florida church."
+      }
+    ],
+    "cards": []
+  }
+}

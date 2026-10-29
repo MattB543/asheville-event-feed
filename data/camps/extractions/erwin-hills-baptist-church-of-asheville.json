@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "erwin-hills-baptist-church-of-asheville",
+    "name": "Erwin Hills Baptist Church of Asheville",
+    "urls": ["https://www.facebook.com/ErwinHillsBaptist/"],
+    "area": "Asheville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:10:56.074Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Erwin Hills Baptist Church Asheville VBS 2026",
+      "site:facebook.com/ErwinHillsBaptist \"2026\" \"VBS\"",
+      "\"Wonder VBS 2026\" \"Erwin\""
+    ],
+    "usage": {
+      "inputTokens": 27718,
+      "cachedInputTokens": 8845,
+      "outputTokens": 677,
+      "reasoningTokens": 238
+    },
+    "status": "completed",
+    "ms": 24326,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/ErwinHillsBaptist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Erwin Hills Baptist Church of Asheville",
+    "website_url": null,
+    "notes": "No standalone church website or summer 2027 announcement was found. The church's Facebook page opened without readable content. Third-party event listings identify Wonder VBS 2026 on June 7–10, 2026; these details could not be confirmed on an accessible official church page. No registration dates were found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Wonder VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Erwin Hills Baptist Church.",
+        "camp_page_url": "https://www.facebook.com/ErwinHillsBaptist/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Erwin Hills Baptist Church",
+            "address": "281 New Leicester Hwy",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://churchpop.bscnc.org/?orgid=190022101"],
+        "confidence": "low",
+        "review_notes": "Confirm the program name and June 7–10, 2026 dates with the church: they appear only in third-party listings at https://happeningnext.com/event/wonder-vbs-2026-eid3a0dqavean and https://allevents.in/asheville/wonder-vbs-2026/200030195725115. Facebook returned no readable content. The physical address is published by the Baptist State Convention of North Carolina's ChurchPOP directory, rather than an accessible church-owned page. Event listings give an overall 6:30 p.m.–9 p.m. span, but daily hours could not be verified and are left null."
+      }
+    ]
+  }
+}

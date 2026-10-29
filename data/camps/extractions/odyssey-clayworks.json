@@ -1,0 +1,145 @@
+{
+  "provider": {
+    "key": "odyssey-clayworks",
+    "name": "Odyssey ClayWorks",
+    "urls": [
+      "https://www.odysseyclayworks.com/clay-camp",
+      "https://www.odysseyclayworks.com/kids-classes",
+      "https://www.odysseyclayworks.com/summer-session",
+      "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "our_db", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:01.692Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "57e51a2f2dd30f92f676c9149f2929d6ffa8d79929211985b568e20ab685254d",
+  "response": {
+    "searches": [
+      "site.odysseyclayworks.com \"camp\" \"2026\"",
+      "site:hisawyer.com/marketplace \"Odyssey\" \"camp\" \"2026\"",
+      "\"FLORA AND FAUNA\" \"1801965\" \"Dates\""
+    ],
+    "usage": {
+      "inputTokens": 35725,
+      "cachedInputTokens": 8845,
+      "outputTokens": 850,
+      "reasoningTokens": 273
+    },
+    "status": "completed",
+    "ms": 38010,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.odysseyclayworks.com/clay-camp",
+      "chars": 1122,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.odysseyclayworks.com/kids-classes",
+      "chars": 1125,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.odysseyclayworks.com/summer-session",
+      "chars": 1127,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=all",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=drop-ins",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=camps",
+      "chars": 355,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Odyssey ClayWorks",
+    "website_url": "https://www.odysseyclayworks.com/",
+    "notes": "No 2027 camp information was found. The Clay Camp page's embedded Sawyer schedule reports a software problem, and the supplied Sawyer schedules show no activity details. Search found an official Sawyer listing for FLORA AND FAUNA: APPALACHIAN PARADISE! WITH BE ROSE SNYDER, but opening it returned no readable content; its snippet describes handbuilding and wheel activities without dates, hours or prices. No complete 2026 session list could be recovered.",
+    "excluded": [
+      {
+        "name": "Summer Residency",
+        "reason": "Paid studio residency involving maintenance and assisting camp instructors, not a supervised youth camp."
+      },
+      {
+        "name": "Private Lessons",
+        "reason": "Pottery lessons booked as lessons, not camps."
+      },
+      {
+        "name": "Session Classes",
+        "reason": "Multi-week pottery classes rather than finite summer youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Clay Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Children work with clay through handbuilding and pottery-wheel activities.",
+        "camp_page_url": "https://www.odysseyclayworks.com/clay-camp",
+        "registration_url": "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Odyssey ClayWorks",
+            "address": "236 Clingman Avenue Ext.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.odysseyclayworks.com/clay-camp",
+          "https://www.odysseyclayworks.com/contact/",
+          "https://www.odysseyclayworks.com/summer-residency",
+          "https://www.hisawyer.com/marketplace/activity-set/1801965"
+        ],
+        "confidence": "low",
+        "review_notes": "Check the restored Sawyer camp schedule for the full session list, dates, hours, prices and registration milestones. Ages 6–14 are stated on the undated Summer Residency page in reference to Clay Camp children, rather than on a year-specific camp listing. Activities are supported only by the official Sawyer search snippet for the Flora and Fauna theme. Day-camp format is provisional because the readable camp page contains no schedule details."
+      }
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "provider": {
+    "key": "kanuga-day-camp",
+    "name": "Kanuga Day Camp",
+    "urls": [
+      "https://campkanuga.org/program/day-camp/",
+      "https://campkanuga.org/dates-rates/",
+      "https://campkanuga.org/",
+      "https://www.kanuga.org/camps-outdoor-education/",
+      "https://www.kanuga.org/camps-outdoor-education/daycamp/",
+      "https://www.kanuga.org/daycamp/"
+    ],
+    "area": "Hendersonville, NC (Henderson County)",
+    "discovered_by": ["pilot", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:52:33.166Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f3dac479e009dd3e622e88b70f5588fdab9fb0af8d85070d9a1dae7c059231ea",
+  "response": {
+    "searches": [
+      "site.kanuga.org \"daycamp\" \"2027\"",
+      "open https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf"
+    ],
+    "usage": {
+      "inputTokens": 28325,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1506,
+      "reasoningTokens": 148
+    },
+    "status": "completed",
+    "ms": 35771,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campkanuga.org/program/day-camp/",
+      "chars": 4113,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campkanuga.org/dates-rates/",
+      "chars": 7167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campkanuga.org/",
+      "chars": 4407,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kanuga.org/camps-outdoor-education/",
+      "chars": 5115,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campkanuga.org/request-info/",
+      "chars": 7167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kanuga.org/daycamp/?_ga=2.258003011.897031006.1768842663-1300845769.1729109166",
+      "chars": 6248,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campkanuga.org/program/day-camp/kanuga.org/daycamp",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found - Camp Kanuga\")"
+    },
+    {
+      "url": "https://campkanuga.org/dates-rates/how-to-register/",
+      "chars": 6149,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campkanuga.campbrainregistration.com/",
+      "chars": 832,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Kanuga Day Camp",
+    "website_url": "https://www.kanuga.org/daycamp/",
+    "notes": "No Day Camp-specific 2027 dates or rates were found. The Camp Kanuga 2027 dates-and-rates page lists residential programs but not Day Camp; its general October 1 registration announcement was not applied to Day Camp because the Day Camp page directs families to a separate registration link. This extraction is limited to the named Day Camp provider, not Kanuga's residential programs.",
+    "excluded": [
+      {
+        "name": "Mountain Trail Outdoor School",
+        "reason": "Outdoor education provided to visiting organizations, rather than a listed finite summer camp offering."
+      },
+      {
+        "name": "Youth Week",
+        "reason": "Youth conference."
+      },
+      {
+        "name": "Winterlight",
+        "reason": "Youth conference outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kanuga Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "sports", "general"],
+        "description": "Campers participate in swimming, climbing, archery, forest exploration, fort building, and arts and crafts. Activities combine structured camp programming with time to explore nature.",
+        "camp_page_url": "https://www.kanuga.org/daycamp/",
+        "registration_url": "https://www.kanuga.org/daycamp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Bob Campbell Youth Campus",
+            "address": "130 Kanuga Chapel Drive",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": "9am – 9:30am – Campers Arrive; 4pm – 4:30pm – Campers are picked up"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Essential",
+            "year": 2026
+          },
+          {
+            "amount": 430,
+            "unit": "session",
+            "label": "Sustainer",
+            "year": 2026
+          },
+          {
+            "amount": 460,
+            "unit": "session",
+            "label": "Visionary",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session A",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session B",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session C",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session D",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session E",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.kanuga.org/daycamp/",
+          "https://campkanuga.org/program/day-camp/",
+          "https://campkanuga.org/dates-rates/",
+          "https://www.kanuga.org/wp-content/uploads/2026/01/Kanuga-Day-Camp-Parent-Handbook-2026-DRAFT.docx.pdf",
+          "https://www.kanuga.org/directions/",
+          "https://www.kanuga.org/bob-campbell-youth-campus/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 Day Camp page states rising grades 1–6, while the linked 2026 draft handbook states rising K–6; the card follows the program page. The older campkanuga.org Day Camp page gives arrival by 9:30 a.m.; the 2026 page and handbook specify arrival from 9–9:30 a.m. The address is Kanuga's published GPS address, not a separately published street address for the youth-campus entrance. The handbook mentions maximizing scholarship funding but does not clearly state how Day Camp families obtain aid; financial_aid remains null. Lunch is on the schedule, but the readable material does not establish whether it is provided."
+      }
+    ]
+  }
+}

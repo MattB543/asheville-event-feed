@@ -1,0 +1,47 @@
+{
+  "provider": {
+    "key": "clyde-free-will-baptist-church-of-clyde",
+    "name": "Clyde Free Will Baptist Church of Clyde",
+    "urls": [],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "no official page found"
+  },
+  "extractedAt": "2026-10-29T17:13:47.202Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Clyde Free Will Baptist Church Clyde vacation bible school 2026",
+      "\"Clyde Free\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 24322,
+      "cachedInputTokens": 8845,
+      "outputTokens": 327,
+      "reasoningTokens": 114
+    },
+    "status": "completed",
+    "ms": 15829,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [],
+  "extraction": {
+    "provider_name": "Clyde Free Will Baptist Church of Clyde",
+    "website_url": null,
+    "notes": "No fetched page text was supplied. Searches for the church's name and spelling variants found directory listings and a Christmas-play video, but no identifiable official website or official summer camp/Vacation Bible School announcement for 2026 or 2027. No cards could be verified; this does not establish that the church offers no summer programs. First Baptist Church of Clyde is a different provider and was not used.",
+    "excluded": [
+      {
+        "name": "Clyde Community Vacation Bible School: Snowball Mountain Challenge!",
+        "reason": "Held in Clyde, Ohio, by a different organization; not this provider and outside the local drive area."
+      },
+      {
+        "name": "2024 Clyde Freewill Baptist Christmas Play",
+        "reason": "A single evening Christmas event outside summer, not a camp."
+      }
+    ],
+    "cards": []
+  }
+}

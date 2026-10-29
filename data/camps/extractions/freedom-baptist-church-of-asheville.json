@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "freedom-baptist-church-of-asheville",
+    "name": "Freedom Baptist Church of Asheville",
+    "urls": [
+      "https://vbspro.events/p/events/freedomasheville/details",
+      "https://www.freedombaptistasheville.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:00.773Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f42fe8e472f145159a0686fca0b12dbd71c0e954cf7cf243a1d3c9b8ac226f31",
+  "response": {
+    "searches": [
+      "site.freedombaptistasheville.org VBS 2026 2027",
+      "\"site:freedombaptistasheville.org\" \"children\""
+    ],
+    "usage": {
+      "inputTokens": 19027,
+      "cachedInputTokens": 8845,
+      "outputTokens": 769,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 24030,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/freedomasheville/details",
+      "chars": 3313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.freedombaptistasheville.org/",
+      "chars": 1644,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Freedom Baptist Church of Asheville",
+    "website_url": "https://www.freedombaptistasheville.org/",
+    "notes": "No dated 2026 or 2027 VBS announcement was found. The VBS Pro details page gives August 1–5 as Sunday–Thursday and August 6 as Friday, but does not identify a year; its platform copyright is not an event year. These dates have therefore not been assigned to either summer. The registration landing page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Awana",
+        "reason": "Recurring church ministry, not a finite summer camp."
+      },
+      {
+        "name": "Youth Ministry",
+        "reason": "Recurring youth ministry; no qualifying finite summer camp was identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Bible Circle VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons, crafts, music and games with a circus theme. Dinner is offered for the entire family.",
+        "camp_page_url": "https://vbspro.events/p/events/freedomasheville/details",
+        "registration_url": "https://vbspro.events/p/events/freedomasheville",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Freedom Baptist Church",
+            "address": "50 Rice Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/freedomasheville/details",
+          "https://www.freedombaptistasheville.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated VBS page calls the theme Bible Circus but its program heading is Bible Circle VBS; the existing program name is retained. Confirm whether this historical offering will return in 2027. The page lists August 1–5, commencement August 6, nightly kickoff at 6:20pm and dismissal at 8:45pm, but no event year is printed. Dates and hours are withheld because they cannot be attributed to 2026 or 2027."
+      }
+    ]
+  }
+}

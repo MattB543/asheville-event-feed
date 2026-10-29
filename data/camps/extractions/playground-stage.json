@@ -1,0 +1,286 @@
+{
+  "provider": {
+    "key": "playground-stage",
+    "name": "Playground Stage",
+    "urls": ["https://playgroundstage.org/summer-camp-2026", "https://playgroundstage.org/"],
+    "area": "Arden, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:11.286Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0f27ffaf14a8cb346eb663c24e7ba7efbfe86c4fa09b989b8b1498dab637a63d",
+  "response": {
+    "searches": ["site:playgroundstage.org \"2027\"", "open https://playgroundstage.org/cit"],
+    "usage": {
+      "inputTokens": 20989,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2052,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 39214,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://playgroundstage.org/summer-camp-2026",
+      "chars": 7227,
+      "method": "fetch"
+    },
+    {
+      "url": "https://playgroundstage.org/",
+      "chars": 2604,
+      "method": "fetch"
+    },
+    {
+      "url": "https://playgroundstage.org/after-school-classes",
+      "chars": 2532,
+      "method": "fetch"
+    },
+    {
+      "url": "https://playgroundstage.org/summer-family-musical-26",
+      "chars": 3933,
+      "method": "fetch"
+    },
+    {
+      "url": "https://playgroundstage.org/camp-sample-schedule",
+      "chars": 1484,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Playground Stage",
+    "website_url": "https://playgroundstage.org/",
+    "notes": "No 2027 camp dates or program list found. The CIT page announces applications will resume in March 2027. Additional official pages returned empty content when opened, but their indexed text was readable. Two financial-aid pages differ on scholarship percentages; only their shared statement that scholarships are available is used.",
+    "excluded": [
+      {
+        "name": "After-School Theatre Programs",
+        "reason": "School-year after-school classes, not summer camps."
+      },
+      {
+        "name": "Summer Family Musical",
+        "reason": "Family-only production: every registered child must have at least one adult participating."
+      },
+      {
+        "name": "Summer College Acting and Teaching Interns",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Willy Wonka",
+        "reason": "Public performances of the family musical, not a separate supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Musical Theatre Summer Camps",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Campers practice acting, singing and dancing, make sets and costumes, and rehearse a children's musical. Each session ends with a performance for friends and family.",
+        "camp_page_url": "https://playgroundstage.org/summer-camp-2026",
+        "registration_url": "https://playgroundstage.jumbula.com/view#/home",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Avery's Creek Community Center",
+            "address": "899 Glenn Bridge Rd SE",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Monday-Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 600,
+            "unit": "session",
+            "label": "Tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-29",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-07-13",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial Aid Scholarships are available for families in need who apply."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "If this is offered again in 2026 PGS will be participating. Be prepared to pack your child a lunch and a snack each day that does not need to be refrigerated or heated if you do not wish to participate or if the program is not available in 2026."
+        },
+        "transportation": null,
+        "sources": [
+          "https://playgroundstage.org/summer-camp-2026",
+          "https://playgroundstage.org/financial-aid",
+          "https://playgroundstage.org/financial-aid-1"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Counselor In Training",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Teen volunteers learn theatre education, backstage theatre arts and theatre administration. They help campers rehearse, lead theatre games, create production materials and assist with backstage duties.",
+        "camp_page_url": "https://playgroundstage.org/cit",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-07-24",
+          "text": "Applications will resume in March 2027 for summer 2027"
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Avery's Creek Community Center",
+            "address": "899 Glenn Bridge Rd SE",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-29",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-07-13",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-03-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Applications will resume in March 2027 for summer 2027",
+            "url": "https://playgroundstage.org/cit",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026",
+          "text": "CIT Applications are closed for the 2026 season"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://playgroundstage.org/cit",
+          "https://playgroundstage.org/summer-camp-2026"
+        ],
+        "confidence": "medium",
+        "review_notes": "CIT details and the March 2027 application announcement were readable only through official-page search results; opening the page returned empty content. Session dates and the camp venue are taken from the 2026 summer-camp page because CITs serve those camp sessions. The CIT page also requires training June 10, 2026, 2–4 p.m. at Avery's Creek Community Center and completion of Red Cross Babysitting Basics. Eligibility is stated as rising 7th–12th grader OR age 12–18, not necessarily both."
+      }
+    ]
+  }
+}

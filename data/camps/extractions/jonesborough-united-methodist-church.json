@@ -1,0 +1,130 @@
+{
+  "provider": {
+    "key": "jonesborough-united-methodist-church",
+    "name": "Jonesborough United Methodist Church",
+    "urls": ["https://www.jnsbrumc.org/vbs-2026.html"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:05.946Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9d38c278a9186a73139d3da96d324b1bc2c63d0d2b3aab4c628ab3342cb2131a",
+  "response": {
+    "searches": [
+      "site:jnsbrumc.org VBS 2026 2027",
+      "open https://www.jnsbrumc.org/uploads/8/7/5/7/8757305/may_31_insert.pdf"
+    ],
+    "usage": {
+      "inputTokens": 18939,
+      "cachedInputTokens": 8845,
+      "outputTokens": 986,
+      "reasoningTokens": 154
+    },
+    "status": "completed",
+    "ms": 26642,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jnsbrumc.org/vbs-2026.html",
+      "chars": 1221,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jnsbrumc.org/summer-mission-trip.html",
+      "chars": 1301,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jnsbrumc.org/",
+      "chars": 3118,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jonesborough United Methodist Church",
+    "website_url": "https://www.jnsbrumc.org/",
+    "notes": "No 2027 VBS information found. Additional 2026 dates and hours were found in the official May 31 bulletin insert through search results; direct opening returned no readable text.",
+    "excluded": [
+      {
+        "name": "Summer Mission Trip",
+        "reason": "Youth mission trips are excluded."
+      },
+      {
+        "name": "Adventure Kids",
+        "reason": "Recurring school-year ministry; the church explicitly says it does not meet during summer."
+      },
+      {
+        "name": "Toddler Program",
+        "reason": "Recurring Sunday ministry, not a finite summer camp."
+      },
+      {
+        "name": "JUMC Youth",
+        "reason": "Recurring Bible study, fellowship and Sunday school, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children age 2 through grade 5.",
+        "camp_page_url": "https://www.jnsbrumc.org/vbs-2026.html",
+        "registration_url": "https://www.jnsbrumc.org/vbs-2026.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Jonesborough United Methodist Church Fellowship Hall",
+            "address": "211 West Main Street",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "Starting at 6pm and ending at 8pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-06-22",
+          "time": "17:30",
+          "text": "Registration 5:30pm Monday evening",
+          "url": "https://www.jnsbrumc.org/vbs-2026.html"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jnsbrumc.org/vbs-2026.html",
+          "https://www.jnsbrumc.org/uploads/8/7/5/7/8757305/may_31_insert.pdf",
+          "https://www.jnsbrumc.org/uploads/8/7/5/7/8757305/927_bulletin_for_1045__4_.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and hours come from the official May 31 insert's search result, which describes a three-night VBS June 22–24 and mentions November 2026 elsewhere. The VBS page heading supplies 2026; the insert does not print a year alongside the VBS dates. Monday registration is mapped to June 22 using those dates. Church address comes from the official September 27, 2026 bulletin search result. Direct opens of the VBS page and insert returned no readable text."
+      }
+    ]
+  }
+}

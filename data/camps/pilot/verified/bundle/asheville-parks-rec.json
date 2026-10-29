@@ -1,0 +1,3255 @@
+{
+  "provider": {
+    "key": "asheville-parks-rec",
+    "name": "Asheville Parks & Recreation (City of Asheville summer camps)",
+    "urls": ["https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/"],
+    "area": "Asheville, NC (city community centers)",
+    "hint": "Registration runs through the city's WebTrac site (ncashevilleweb.myvscloud.com); a separate deterministic parser reads that catalog.",
+    "webtrac": true,
+    "covers": ["webtrac_catalog", "municipal", "multi_card", "grade_only"]
+  },
+  "verifiedAt": "2026-10-29T00:56:15.021Z",
+  "verifyMs": 88,
+  "extraction": {
+    "provider_name": "Asheville Parks & Recreation",
+    "website_url": "https://www.ashevillenc.gov/department/parks-recreation/",
+    "notes": "2027 camp schedules and registration information are not yet posted. The official camp page says they will be published February 1, 2027; this is an information-publication date, not a registration opening date. All extracted camp facts describe 2026. The city page says no camp June 19, although WebTrac lists June 15-19 for traditional camps. Outdoor camp prices differ: the city page lists $120/$220/$180 without residency tiers, while WebTrac lists resident/nonresident prices of $110/$120, $210/$220, and $170/$180 respectively; the registration-platform tiers are recorded below. WebTrac age limits for traditional camps are recorded alongside the city page's rising-grade eligibility without converting either. Traditional weekly sessions are left for the separate catalog parser. 'Unavailable' catalog statuses were not interpreted as closed or full. No registration opening date for 2027 was found.",
+    "excluded": [
+      {
+        "name": "Summer team member jobs",
+        "reason": "Employment opportunities, not camper programs."
+      },
+      {
+        "name": "Open play and theme days for ages 1-6",
+        "reason": "The page describes open play rather than a supervised drop-off camp and does not establish camper supervision."
+      },
+      {
+        "name": "APR Afterschool",
+        "reason": "School-year childcare, not a summer camp offering."
+      },
+      {
+        "name": "Youth athletics leagues",
+        "reason": "Sports leagues and team seasons are excluded."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Day Camp",
+        "variant": "Tempie Avery Montford Community Center",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+        "description": "Campers participate in games, crafts, cultural arts, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 5,
+          "max": 11.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+          "quote": "Ages5-11.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Youth camps for rising 1st-5th graders feature games, crafts, cultural arts, and field trips.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Tempie Avery Montford Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Linwood Crump Shiloh Community Center",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+        "description": "Campers participate in games, crafts, cultural arts, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 5,
+          "max": 11.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+          "quote": "Ages5-11.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Youth camps for rising 1st-5th graders feature games, crafts, cultural arts, and field trips.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Linwood Crump Shiloh Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Wesley Grant Southside Community Center",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+        "description": "Campers participate in games, crafts, cultural arts, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 5,
+          "max": 11.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+          "quote": "Ages5-11.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Youth camps for rising 1st-5th graders feature games, crafts, cultural arts, and field trips.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Wesley Grant Southside Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Youth Day Camp",
+        "variant": "Stephens-Lee Community Center",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+        "description": "Campers participate in games, crafts, cultural arts, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 5,
+          "max": 11.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+          "quote": "Ages5-11.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Youth camps for rising 1st-5th graders feature games, crafts, cultural arts, and field trips.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Stephens-Lee Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Tempie Avery Montford Community Center",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+        "description": "Campers participate in creative activities, projects, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 11,
+          "max": 16.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+          "quote": "Ages11-16.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Teen camps offer a cool and enriching alternative for rising 6th-9th graders that include creative activities, diverse projects, field trips, and more.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Tempie Avery Montford Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Linwood Crump Shiloh Community Center",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+        "description": "Campers participate in creative activities, projects, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 11,
+          "max": 16.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+          "quote": "Ages11-16.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Teen camps offer a cool and enriching alternative for rising 6th-9th graders that include creative activities, diverse projects, field trips, and more.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Linwood Crump Shiloh Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Wesley Grant Southside Community Center",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+        "description": "Campers participate in creative activities, projects, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 11,
+          "max": 16.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+          "quote": "Ages11-16.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Teen camps offer a cool and enriching alternative for rising 6th-9th graders that include creative activities, diverse projects, field trips, and more.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Wesley Grant Southside Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Teen Day Camp",
+        "variant": "Stephens-Lee Community Center",
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+        "description": "Campers participate in creative activities, projects, and field trips.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 11,
+          "max": 16.99,
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+          "quote": "Ages11-16.99",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Teen camps offer a cool and enriching alternative for rising 6th-9th graders that include creative activities, diverse projects, field trips, and more.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 8:30am-6pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Stephens-Lee Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Locations: Tempie Avery Montford, Linwood Crump Shiloh, Wesley Grant Southside, and Stephens-Lee community centers",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "SOAR financial assistance; eligibility application required.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included in registration fee.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration fee",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": []
+      },
+      {
+        "name": "Nature Nuts",
+        "variant": null,
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260301",
+        "description": "Campers explore nature, wildlife, and sustainability through games, hands-on activities, and outdoor adventures.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-06-17",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Nature Nuts, June 15-17",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 6,
+          "max": 8,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 6-8 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 110,
+            "unit": "session",
+            "tier": "Resident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260301",
+            "quote": "Res/NR Price $110.00/$120.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          },
+          {
+            "amount": 120,
+            "unit": "session",
+            "tier": "Nonresident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260301",
+            "quote": "Res/NR Price $110.00/$120.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Murphy-Oakley Community Center picnic shelter",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": {
+          "available": true,
+          "details": "Transportation to program activities included; not home-to-camp transportation.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "registration_milestones": [],
+        "availability": {
+          "status": "full",
+          "scope": "Nature Nuts 2026 session",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260301",
+          "quote": "StatusFull\nDescriptionNature Nuts",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Nature Nuts",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Venture Bound",
+        "variant": "Ages 8-10",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+        "description": "Campers spend five days on outdoor exploration activities. Ten-year-olds may register in either age group, and campers may register for only one session.",
+        "season_dates": {
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Venture Bound, June 22-26 and July 20-24",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 8,
+          "max": 10,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Campers split into two groups for age-based activities: 8-10 and 10-12 years-old.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 210,
+            "unit": "session",
+            "tier": "Resident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+            "quote": "Res/NR Price $210.00/$220.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          },
+          {
+            "amount": 220,
+            "unit": "session",
+            "tier": "Nonresident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+            "quote": "Res/NR Price $210.00/$220.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Murphy-Oakley Community Center picnic shelter",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": {
+          "available": true,
+          "details": "Transportation to program activities included; not home-to-camp transportation.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "registration_milestones": [],
+        "availability": {
+          "status": "full",
+          "scope": "Session 1, ages 8-10 only; session 2 is marked Unavailable.",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+          "quote": "StatusFull\nDescriptionVenture Bound Session 1 ages 8-10",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Venture Bound",
+        "variant": "Ages 10-12",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+        "description": "Campers spend five days on outdoor exploration activities. Ten-year-olds may register in either age group, and campers may register for only one session.",
+        "season_dates": {
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Venture Bound, June 22-26 and July 20-24",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 10,
+          "max": 12,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Campers split into two groups for age-based activities: 8-10 and 10-12 years-old.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 210,
+            "unit": "session",
+            "tier": "Resident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+            "quote": "Res/NR Price $210.00/$220.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          },
+          {
+            "amount": 220,
+            "unit": "session",
+            "tier": "Nonresident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+            "quote": "Res/NR Price $210.00/$220.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Murphy-Oakley Community Center picnic shelter",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": {
+          "available": true,
+          "details": "Transportation to program activities included; not home-to-camp transportation.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "registration_milestones": [],
+        "availability": {
+          "status": "full",
+          "scope": "Session 2, ages 10-12; session 1 is also marked Full.",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+          "quote": "StatusFull\nDescriptionVenture Bound Session 2 ages 10-12",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Teenventure",
+        "variant": null,
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260303",
+        "description": "Campers explore trails and waterfalls and participate in whitewater activities around the Appalachian Mountains.",
+        "season_dates": {
+          "start": "2026-07-07",
+          "end": "2026-07-10",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Teenventure, July 7-10",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 12-15 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 170,
+            "unit": "session",
+            "tier": "Resident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260303",
+            "quote": "Res/NR Price $170.00/$180.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          },
+          {
+            "amount": 180,
+            "unit": "session",
+            "tier": "Nonresident",
+            "year": 2026,
+            "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260303",
+            "quote": "Res/NR Price $170.00/$180.00",
+            "source_kind": "registration_platform",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "chrome-tls"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Murphy-Oakley Community Center picnic shelter",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm, camp meets at Murphy-Oakley Community Center’s picnic shelter",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": {
+          "available": true,
+          "details": "Transportation to program activities included; not home-to-camp transportation.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all equipment, instruction, and transportation to program activities, but campers must bring lunch and water bottle each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "registration_milestones": [],
+        "availability": {
+          "status": "full",
+          "scope": "Teenventure 2026 session",
+          "year": 2026,
+          "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260303",
+          "quote": "StatusFull\nDescriptionTeenventure Camp",
+          "source_kind": "registration_platform",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "chrome-tls"
+          }
+        },
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Teenventure",
+            "start": "2026-07-07",
+            "end": "2026-07-10",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Wrestling",
+        "variant": null,
+        "type": "day",
+        "categories": ["sports"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": null,
+        "description": "Campers practice wrestling through instruction, drills, live wrestling, fitness challenges, and games. The camp serves beginning through advanced wrestlers.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Wrestling, June 8-12",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 10,
+          "max": 14,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 10-14 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm at Asheville High School",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Asheville High School",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm at Asheville High School",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle or drink each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all materials and instruction, but campers must bring lunch and water bottle or drink each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Wrestling",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Ultimate Sports",
+        "variant": null,
+        "type": "day",
+        "categories": ["sports"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": null,
+        "description": "Campers try sports including basketball, flag football, soccer, and volleyball, along with crafts, games, and group challenges.",
+        "season_dates": {
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ultimate Sports, June 15-18",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 12,
+          "max": 15,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 12-15 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm at Burton Street Community Center",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Burton Street Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm at Burton Street Community Center",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle or drink each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all materials and instruction, but campers must bring lunch and water bottle or drink each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Ultimate Sports",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Tabletop Gaming",
+        "variant": null,
+        "type": "day",
+        "categories": ["general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": null,
+        "description": "Campers play a variety of tabletop games and may bring their own games.",
+        "season_dates": {
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Tabletop Gaming, June 22-26",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 10,
+          "max": 13,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 10-13 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm at Burton Street Community Center",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Burton Street Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm at Burton Street Community Center",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle or drink each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all materials and instruction, but campers must bring lunch and water bottle or drink each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Tabletop Gaming",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Future Innovators",
+        "variant": null,
+        "type": "day",
+        "categories": ["stem", "general"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": null,
+        "description": "Campers participate in group challenges, leadership tasks, STEM activities, mock trials, and community service, as well as games and crafts.",
+        "season_dates": {
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Future Innovators, July 20-24",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 10,
+          "max": 14,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 10-14 years-old",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm at Burton Street Community Center",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee: $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Burton Street Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Hours: 9am-5pm at Burton Street Community Center",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": {
+          "available": false,
+          "details": "Bring lunch and a water bottle or drink each day.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Registration fee includes all materials and instruction, but campers must bring lunch and water bottle or drink each day",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Future Innovators",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          }
+        ]
+      },
+      {
+        "name": "Therapeutic Recreation Day Camp",
+        "variant": "Murphy-Oakley Community Center",
+        "type": "day",
+        "categories": ["special_needs", "general", "arts", "nature_outdoor"],
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": null,
+        "description": "Campers participate in group games, arts and crafts, nature exploration, special events, and field trips. The camp is designed for children and teens with mild to moderate cognitive or developmental delays.",
+        "season_dates": {
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Dates: June 8-August 14 (no camp on June 19)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": {
+          "min": 6,
+          "max": 18,
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Ages: 6-18 years-old or high school graduation",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "grades": null,
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Hours: 9am-5pm",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "tier": "City of Asheville resident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "tier": "Nonresident; siblings receive a $10 discount",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Fee (per week): $70 for City of Asheville resident ($80 for nonresident), siblings receive a $10 discount",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [],
+        "locations": [
+          {
+            "name": "Murphy-Oakley Community Center",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC",
+            "year": 2026,
+            "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+            "quote": "Location: Murphy-Oakley Community Center",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:14.933Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "financial_aid": {
+          "available": true,
+          "details": "Financial assistance available subject to eligibility.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Financial assistance available (more info on eligibility)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": {
+          "available": true,
+          "details": "Designed for mild to moderate cognitive or developmental delays. Essential eligibility requirements apply; contact Lori Long for an eligibility meeting unless enrolled in TR childcare in the preceding 12 months. One-on-one supervision is not provided; participants may attend with an aid or worker at no additional charge.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "TR camps are designed for kids and teens with mild to moderate cognitive or developmental delays who may excel in a summer camp designed to support their unique needs.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "lunch": {
+          "available": true,
+          "details": "Daily lunch and snacks included.",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Daily lunch and snacks included with registration.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "18:00",
+          "year": 2026,
+          "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "quote": "Online registration is available 24 hours/day beginning Monday, March 2, 2026, at 6pm.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": ["needs_hand_check", "weekday_supports_year"],
+            "checkedAt": "2026-10-29T00:56:14.933Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026
+          },
+          {
+            "label": "Week 2; no camp June 19",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["ashevillenc.gov"],
+    "platformTenants": ["ncashevilleweb.myvscloud.com"],
+    "byField": {
+      "season_dates": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "ages": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 8,
+        "verified": 8,
+        "review": 0,
+        "dropped": 0
+      },
+      "hours": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "lunch": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "last_year_registration_opened": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 34,
+        "verified": 34,
+        "review": 0,
+        "dropped": 0
+      },
+      "locations": {
+        "total": 17,
+        "verified": 17,
+        "review": 0,
+        "dropped": 0
+      },
+      "transportation": {
+        "total": 4,
+        "verified": 4,
+        "review": 0,
+        "dropped": 0
+      },
+      "availability": {
+        "total": 4,
+        "verified": 4,
+        "review": 0,
+        "dropped": 0
+      },
+      "special_needs": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 170,
+      "verified": 170,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260301&primarycode=mt260301&primarycode=sh260301&primarycode=sl260301",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=gt260302&primarycode=mt260302&primarycode=sh260302&primarycode=sl260302",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260301",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260302",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      },
+      {
+        "url": "https://ncashevilleweb.myvscloud.com/webtrac/web/search.html?display=detail&module=AR&primarycode=or260303",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      }
+    ]
+  }
+}

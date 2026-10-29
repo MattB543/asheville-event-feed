@@ -1,0 +1,169 @@
+{
+  "provider": {
+    "key": "avl-clay",
+    "name": "AVL clay",
+    "urls": ["https://avlclay.kilnfire.com/classes/kids-makers-camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:02:38.541Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f747885db5b386c375ae8d12569755c5b631b513e3ff0e66ce391d4b81b5ee79",
+  "response": {
+    "searches": ["site.avlclay.com camp 2026 2027", "open https://www.avlclay.com/classes"],
+    "usage": {
+      "inputTokens": 13910,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1185,
+      "reasoningTokens": 103
+    },
+    "status": "completed",
+    "ms": 28935,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+      "chars": 1558,
+      "method": "browser"
+    },
+    {
+      "url": "https://avlclay.kilnfire.com/",
+      "chars": 76,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "AVL clay",
+    "website_url": "https://www.avlclay.com/",
+    "notes": "No 2027 camp information found. The main website's classes page and the individual Kilnfire registration page returned no readable text when opened. The supplied camp page lists no upcoming sessions.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Kids Maker's Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers make themed clay sculptures and functional pottery with a local elementary art teacher. The rising fifth-through-eighth-grade weeks include time on the pottery wheel.",
+        "camp_page_url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+        "registration_url": "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "AVL Clay",
+            "address": "4 Mulvaney St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday - Thursday 9am-1pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 225,
+            "unit": "week",
+            "label": "Per Person",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Under the Sea",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Food - Good Enough to Eat!",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wooded Wonderland and Forest Friends",
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "All About Me",
+            "start": "2026-08-10",
+            "end": "2026-08-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://avlclay.kilnfire.com/classes/kids-makers-camp",
+          "https://www.avlclay.com/contact",
+          "https://avlclay.kilnfire.com/classes/kids-makers-camp/v4l5w3/register"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplied camp page does not print a year. Dates are assigned to 2026 based on the June 15, 2026 Makers Camp listing and the Monday–Thursday date pattern; confirm the year with the provider. The individual Food registration search snippet says '2 Spots Left!' while the supplied main page says 'No Upcoming Sessions'; availability is left null because the individual listing appears stale. Lunch together is mentioned, but the page does not say whether lunch is provided."
+      }
+    ]
+  }
+}

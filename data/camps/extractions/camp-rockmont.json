@@ -1,0 +1,616 @@
+{
+  "provider": {
+    "key": "camp-rockmont",
+    "name": "Camp Rockmont",
+    "urls": ["https://rockmont.com/dates-rates-2026/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["pilot", "seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:07.510Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "445311c89c1ec53d7cf3f2d8ca0b4187f5982539523e7fb825c0dc15781cfb91",
+  "response": {
+    "searches": [
+      "site:rockmont.com CIT2 counselor training 2027",
+      "site:rockmont.com scholarship financial assistance camp"
+    ],
+    "usage": {
+      "inputTokens": 28526,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4387,
+      "reasoningTokens": 193
+    },
+    "status": "completed",
+    "ms": 86467,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://rockmont.com/dates-rates-2026/",
+      "chars": 5577,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.com/dates-rates-faq/",
+      "chars": 3953,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.com/camp-skills-activities/",
+      "chars": 5109,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.com/camp-sessions/",
+      "chars": 5013,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.com/camp-programs/father-son-weekend/",
+      "chars": 5638,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.com/parents/faq/",
+      "chars": 8310,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rockmont.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://rockmont.com/programs/main-camp/",
+      "chars": 3465,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Rockmont",
+    "website_url": "https://rockmont.com/",
+    "notes": "2027 dates and rates are posted. Registration is open, but no dated opening for returning families was found. Grade information conflicts between the detailed session headings, summary table, navigation and FAQ. The Pay What You Can page lists dates matching 2026, not 2027; its assistance was not carried into the 2027 cards. Adventure Week appears in alumni materials but is absent from the posted 2027 program list.",
+    "excluded": [
+      {
+        "name": "Father / Son Weekend",
+        "reason": "Family-only program; the posted weekends are also outside summer."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Summer Camp Positions",
+        "reason": "Employment program rather than a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp Sessions",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "arts", "faith_based", "general"],
+        "description": "Boys participate in outdoor skills, sports, crafts, swimming, cabin activities and the Rockmont Council program. Longer sessions offer adventure trips in mountain biking, paddling, rock climbing and backpacking.",
+        "camp_page_url": "https://rockmont.com/camp-sessions/",
+        "registration_url": "https://rockmont.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": "Registration for the 2027 Summer is OPEN!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Rockmont",
+            "address": "375 Lake Eden Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Main Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 8825,
+              "unit": "session",
+              "label": "4 Weeks",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7295,
+              "unit": "session",
+              "label": "3 Weeks",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Two Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5360,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Two Week 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5360,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Two Week 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5360,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Two Week 4",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 9,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5360,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Mini Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 4,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2650,
+              "unit": "session",
+              "label": "first-time campers",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is Open!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "There is a fresh fruit and salad bar at lunch and dinner meal times."
+        },
+        "transportation": null,
+        "sources": [
+          "https://rockmont.com/dates-rates-2027/",
+          "https://rockmont.com/camp-sessions/",
+          "https://rockmont.com/programs/main-camp/",
+          "https://rockmont.com/dates-rates-faq/",
+          "https://rockmont.com/camp-skills-activities/",
+          "https://rockmont.com/parents/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Grades follow the detailed 2027 dates-and-rates headings: Main and June 3rd–9th, Two Week 1st–9th, Mini K–4th. The same page's summary table instead extends Main, June and Two Week through 11th and labels its grade column '25/26'. The FAQ says rising 4th is the youngest for Main/June and Two Week serves rising 1st–10th. Confirm eligibility and grade basis. Ages were omitted because the FAQ's 6–16 range conflicts with the homepage's 7–17 range and the FAQ uses older program names. Dates without a repeated year use the 2027 page heading."
+      },
+      {
+        "name": "Counselor in Training (CIT)",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "CITs participate in adventure trips, camp skills and group discussions about leadership, faith and personal growth. They develop leadership skills and continue in the Rockmont Council program.",
+        "camp_page_url": "https://rockmont.com/camp-programs/counselor-in-training/",
+        "registration_url": "https://rockmont.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": "Stay from 2-8 weeks!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp Rockmont",
+            "address": "375 Lake Eden Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3647.5,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4412.5,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2680,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2680,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2680,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Two Week 4",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2680,
+              "unit": "session",
+              "label": "50% off Session",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-27",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "General Registration Opens on Thursday, August 27th @ 11:00 am EDT",
+            "url": "https://rockmont.com/camp-programs/counselor-in-training/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is Open!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "There is a fresh fruit and salad bar at lunch and dinner meal times."
+        },
+        "transportation": null,
+        "sources": [
+          "https://rockmont.com/camp-programs/counselor-in-training/",
+          "https://rockmont.com/dates-rates-2027/",
+          "https://rockmont.com/camp-sessions/",
+          "https://rockmont.com/parents/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The CIT page explicitly specifies grades 10–11 for the 2026/2027 school year; navigation instead uses rising 11th–12th. Session rows use the rates page's statement that CITs can attend any two-, three- or four-week session, with dates from those sessions. Dollar prices are calculated from the stated 50% discount, not separately printed CIT dollar rates. Registration's calendar year is inferred from the 2027 summer context and Thursday, August 27 matching 2026; the sentence omits a year."
+      },
+      {
+        "name": "CIT2",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "Returning CITs live in camper cabins and assist counselors with nighttime cabin duties. They choose camp skills and adventure trips while developing leadership skills.",
+        "camp_page_url": "https://rockmont.com/camp-programs/counselor-in-training/",
+        "registration_url": "https://rockmont.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": "Any Session!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 11,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp Rockmont",
+            "address": "375 Lake Eden Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1000,
+            "unit": "week",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week 2",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Two Week 4",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-27",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "General Registration Opens on Thursday, August 27th @ 11:00 am EDT",
+            "url": "https://rockmont.com/camp-programs/counselor-in-training/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration is Open!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "There is a fresh fruit and salad bar at lunch and dinner meal times."
+        },
+        "transportation": null,
+        "sources": [
+          "https://rockmont.com/camp-programs/counselor-in-training/",
+          "https://rockmont.com/dates-rates-2027/",
+          "https://rockmont.com/camp-sessions/",
+          "https://rockmont.com/parents/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The CIT2 heading specifies returning CITs in 11th grade for 2026/2027, but the following sentence still says completed 11th grade in 2024/2025. Confirm eligibility. Admission requires a camper application and director interview; not all applicants are accepted. Rows use the shared CIT session framework and 2027 session dates; confirm whether Mini Camp is eligible because CIT2 says 'Any Session!' while the shared CIT description specifies stays of at least two weeks. Registration's calendar year is inferred from the 2027 summer context and Thursday, August 27 matching 2026."
+      }
+    ]
+  }
+}

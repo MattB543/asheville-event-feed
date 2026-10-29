@@ -1,0 +1,186 @@
+{
+  "provider": {
+    "key": "artemis-archery-asheville",
+    "name": "Artemis Archery Asheville",
+    "urls": ["https://artemisarcheryasheville.com/summer-day-camp"],
+    "area": "Candler, NC",
+    "discovered_by": ["news828"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:00:02.896Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ea8faadd8f1750bb00bceabe14660b7aab69c846ea5c84358b70b439f268a1dc",
+  "response": {
+    "searches": [
+      "site:artemisarcheryasheville.com \"2027\"",
+      "open https://artemisarcheryasheville.com/saturday-teen-day-program"
+    ],
+    "usage": {
+      "inputTokens": 19059,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1245,
+      "reasoningTokens": 94
+    },
+    "status": "completed",
+    "ms": 27256,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://artemisarcheryasheville.com/summer-day-camp",
+      "chars": 17337,
+      "method": "fetch"
+    },
+    {
+      "url": "https://artemisarcheryasheville.com/",
+      "chars": 4068,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Artemis Archery Asheville",
+    "website_url": "https://artemisarcheryasheville.com/",
+    "notes": "No 2027 camp information or registration date found. The camp meets in Alexander, not at the published archery range in Leicester; no camp street address was found. The official summer page still advertises 2026 registration as open.",
+    "excluded": [
+      {
+        "name": "Private Individual and Group Archery Lessons",
+        "reason": "Booked as lessons, not a summer camp."
+      },
+      {
+        "name": "Unique Archery Lessons",
+        "reason": "Archery lessons and shoots, not a camp."
+      },
+      {
+        "name": "Teen Sisters of the Wild Wisdom",
+        "reason": "Alternating-Saturday program listed for April and May, outside summer, and currently on hold."
+      },
+      {
+        "name": "Private RADkid training",
+        "reason": "Private training booked as a series of classes, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Artemis Archery Adventure Day Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice traditional archery, outdoor survival skills, and radKIDS self-defense and safety skills. Activities include fire building, map-and-compass navigation, water purification, shelter building, knife safety, and campfire cooking.",
+        "camp_page_url": "https://artemisarcheryasheville.com/summer-day-camp",
+        "registration_url": "https://artemisarcheryasheville.com/summer-day-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Alexander",
+            "address": null,
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Monday through Friday 9 am to 4pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 360,
+            "unit": "week",
+            "label": "local check / money order",
+            "year": 2026
+          },
+          {
+            "amount": 371,
+            "unit": "week",
+            "label": "PayPal",
+            "year": 2026
+          },
+          {
+            "amount": 334,
+            "unit": "week",
+            "label": "PayPal, second sibling",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Kids",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Kids",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Teens",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "no",
+          "text": "Campers with \"special needs\" or serious mental health issues are beyond the scope of our little day camp."
+        },
+        "lunch": {
+          "value": "no",
+          "text": "Lunch, snacks, sneakers and rain gear not included."
+        },
+        "transportation": null,
+        "sources": [
+          "https://artemisarcheryasheville.com/summer-day-camp",
+          "https://artemisarcheryasheville.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page repeats the same dates under one stale '3 SESSIONS SUMMER 2025' heading; multiple other headings and the registration form explicitly label them 2026. Main age listings say 8–11 for kids, while Camp Details adds 'and sometimes mature 7 yr. olds'; confirm exceptions with the director. Obtain the Alexander drop-off street address; the home page explicitly says camp is separate from the Leicester range."
+      }
+    ]
+  }
+}

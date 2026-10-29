@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "grace-baptist-church-of-elizabethton",
+    "name": "Grace Baptist Church of Elizabethton",
+    "urls": ["https://elizabethtongrace.com/vbs-at-gbc"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:08.307Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "18db1557e1fb47acc723f08cc2d5ceb97ddb3bd71d8beaf703c5eeba5573ba65",
+  "response": {
+    "searches": ["site.elizabethtongrace.com VBS 2026 2027", "\"elizabethtongrace\" \"VBS\""],
+    "usage": {
+      "inputTokens": 19224,
+      "cachedInputTokens": 8845,
+      "outputTokens": 678,
+      "reasoningTokens": 122
+    },
+    "status": "completed",
+    "ms": 22743,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://elizabethtongrace.com/vbs-at-gbc",
+      "chars": 1054,
+      "method": "fetch"
+    },
+    {
+      "url": "https://elizabethtongrace.com/gbc-vbs-registration",
+      "chars": 2473,
+      "method": "fetch"
+    },
+    {
+      "url": "https://elizabethtongrace.com/",
+      "chars": 2704,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grace Baptist Church of Elizabethton",
+    "website_url": "https://elizabethtongrace.com/",
+    "notes": "No 2027 VBS information found. The registration form references August 2026 but does not establish eligible grades; its Pre-K through 12th-grade choices were not treated as eligibility. Search results surfaced older church Facebook VBS announcements, which were not used for 2026 facts.",
+    "excluded": [
+      {
+        "name": "TeamKid",
+        "reason": "Regular Wednesday ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Youth On Mission",
+        "reason": "Regular Wednesday youth ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes."
+      },
+      {
+        "name": "Trunk-or-Treat",
+        "reason": "Single social event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS @ GBC",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children at Grace Baptist Church.",
+        "camp_page_url": "https://elizabethtongrace.com/vbs-at-gbc",
+        "registration_url": "https://elizabethtongrace.com/gbc-vbs-registration",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grace Baptist Church",
+            "address": "1114 Broad Street",
+            "town": "Elizabethton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://elizabethtongrace.com/vbs-at-gbc",
+          "https://elizabethtongrace.com/gbc-vbs-registration",
+          "https://elizabethtongrace.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "sapphire-valley-master-association",
+    "name": "Sapphire Valley Master Association",
+    "urls": ["https://sapphirevalleyresorts.com/event/mermaid-art-camp/"],
+    "area": "Sapphire, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:47.572Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6ef3f5ab46e239b53a6c82132f1bfec17b52a12e659adf26c47d6e8871131bc8",
+  "response": {
+    "searches": ["site:sapphirevalleyresorts.com camp 2026 2027"],
+    "usage": {
+      "inputTokens": 19242,
+      "cachedInputTokens": 8845,
+      "outputTokens": 715,
+      "reasoningTokens": 102
+    },
+    "status": "completed",
+    "ms": 18655,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sapphirevalleyresorts.com/event/mermaid-art-camp/",
+      "chars": 1380,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://sapphirevalleyresorts.com/faq/amenity-card-policy/",
+      "chars": 6945,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sapphirevalleyresorts.com/",
+      "chars": 1913,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sapphire Valley Master Association",
+    "website_url": "https://sapphirevalleyresorts.com/",
+    "notes": "No official 2027 or 2026 camp information was found. The only camp listing found is dated July 15, 2025; its historical dates are retained without projecting them forward. The camp page does not identify a drop-off venue, so the association's mailing address has not been used as a camp site.",
+    "excluded": [
+      {
+        "name": "MERMAID Splash Pool Party",
+        "reason": "A pool-party social event, not a supervised camp or skill clinic."
+      },
+      {
+        "name": "Arts & Crafts Festival",
+        "reason": "A festival, not a youth camp."
+      },
+      {
+        "name": "WATERFALLS & OVERLOOKS HIKE",
+        "reason": "A recreational outing, not a youth camp."
+      },
+      {
+        "name": "Vordach Zipline",
+        "reason": "An ongoing recreational attraction booked by reservation, not a finite youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "MERMAID ART CAMP!!",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "A mermaid-themed art camp for children.",
+        "camp_page_url": "https://sapphirevalleyresorts.com/event/mermaid-art-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-07-15",
+          "end": "2025-07-15",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "1:00 pm to 4:00 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sapphirevalleyresorts.com/event/mermaid-art-camp/"],
+        "confidence": "medium",
+        "review_notes": "The official listing explicitly dates this camp July 15, 2025. No 2026 or 2027 replacement was found; check for a new listing before treating this as a current offering. The page does not state ages, price, registration instructions or the drop-off venue."
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "provider": {
+    "key": "fontana-regional-library",
+    "name": "Fontana Regional Library",
+    "urls": [
+      "https://fontanalib.org/events/summer-learning-program-registration-2",
+      "https://fontanalib.org/"
+    ],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:13.847Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e5576a76f9706872e5cc7a8df977c6700ab47b976611ae64c06b33220853498c",
+  "response": {
+    "searches": [
+      "site.fontanalib.org summer learning 2026 camp",
+      "site:fontanalib.org \"camp\" -inurl:books"
+    ],
+    "usage": {
+      "inputTokens": 23209,
+      "cachedInputTokens": 8845,
+      "outputTokens": 480,
+      "reasoningTokens": 134
+    },
+    "status": "completed",
+    "ms": 18164,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fontanalib.org/events/summer-learning-program-registration-2",
+      "chars": 804,
+      "method": "browser"
+    },
+    {
+      "url": "https://fontanalib.org/",
+      "chars": 3944,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fontana Regional Library",
+    "website_url": "https://www.fontanalib.org/",
+    "notes": "No qualifying supervised summer camp was identified on the official pages or in targeted searches. No 2027 camp information was found. The supplied Summer Learning Program Registration URL now returns a 404; its older indexed description concerns reading logs and prizes, not a supervised camp. The current Summer Reading Program page describes independent reading and take-home activities, with an end-of-summer celebration.",
+    "excluded": [
+      {
+        "name": "Summer Learning Program",
+        "reason": "Reading-log and prize program; no finite supervised camp attendance is described."
+      },
+      {
+        "name": "Summer Reading Challenge",
+        "reason": "Independent daily reading with weekly prizes and Take & Make kits to enjoy at home, rather than a supervised camp."
+      },
+      {
+        "name": "Archaeology Dig-Site Party",
+        "reason": "End-of-summer celebration for reading-program finishers; a single social event rather than a camp."
+      },
+      {
+        "name": "Summer Learning Program Celebration",
+        "reason": "Single reward party for reading-program participants, rather than a camp."
+      },
+      {
+        "name": "MCPL: Friday Free Kids' Movie - We're Back!",
+        "reason": "Single movie event rather than a camp."
+      },
+      {
+        "name": "Hudson Library: Kids Zone for grades K-5",
+        "reason": "Recurring school-year library activities, not a finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,389 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-mitchell-county-4-h",
+    "name": "N.C. Cooperative Extension — Mitchell County 4-H",
+    "urls": ["https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:15.779Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "47cc886bb380a6d290f4db2558e6feabec1111baea070804cd3dea62b75536ac",
+  "response": {
+    "searches": ["site:mitchell.ces.ncsu.edu 2027 \"summer\""],
+    "usage": {
+      "inputTokens": 17770,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2449,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 42919,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+      "chars": 4779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/mitchell-county-4-h/4honline-enrollment/",
+      "chars": 6241,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/search/?tag=summer-fun",
+      "chars": 2722,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/",
+      "chars": 4329,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Mitchell County 4-H",
+    "website_url": "https://mitchell.ces.ncsu.edu/",
+    "notes": "No 2027 summer camp information was found. Registration for 2026 Summer Fun was in person at the Mitchell County Center, 10 S Mitchell Ave, Bakersville, NC 28705; the page does not identify this as the camp drop-off location. The 2026 page still says registration is open, but all listed sessions are past, so current availability is left null. Older materials were not used to fill 2026 details.",
+    "excluded": [
+      {
+        "name": "4-H Jr. Summer Camp",
+        "reason": "Older official materials place this residential camp at Eastern Environmental 4-H Camp in Creswell, NC, outside the directory's geographic range."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun",
+        "type": "day",
+        "categories": ["arts", "stem", "nature_outdoor", "cooking", "sports"],
+        "description": "Youth participate in summer camps covering cooking and food preservation, crafts, photography, electricity, robotics, shooting, and horticulture.",
+        "camp_page_url": "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-03",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Food Preservation the Old Timey Way",
+            "start": "2026-06-03",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 40,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Teen Cuisine: Cook Camp — June 8-9, 15-16, 22-23",
+            "start": "2026-06-08",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Sewing Seeds Camp",
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Homeade Jams and Jellies",
+            "start": "2026-06-16",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Future Photographers Camp",
+            "start": "2026-06-05",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Electricity Explorers Camp",
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Camp Cook and Play — June 29-30, July 6-7, 13-14",
+            "start": "2026-06-29",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Robotics Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-06",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Cloverbud Craft Camp",
+            "start": "2026-07-08",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Sharp Shoooters Camp",
+            "start": "2026-07-10",
+            "end": "2026-07-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Junior Craft Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-13",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Wood and Nature Crafts",
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Kitchen Chemistry",
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Seed to Seasoning: Horticulture Camp",
+            "start": "2026-07-30",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": null,
+          "text": "Summer Fun Registration Opens",
+          "url": "https://mitchell.ces.ncsu.edu/event/94442/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities. Requests can be served more effectively if notice is provided at least 10 days before the event."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+          "https://mitchell.ces.ncsu.edu/event/94442/",
+          "https://mitchell.ces.ncsu.edu/mitchell-county-4-h/4honline-enrollment/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "cherry-springs-baptist-church-of-old-fort",
+    "name": "Cherry Springs Baptist Church of Old Fort",
+    "urls": [
+      "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+      "https://cherryspringsbaptistchurch.com/Home",
+      "https://cherryspringsbaptistchurch.com/Events"
+    ],
+    "area": "Old Fort, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:26.264Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7ee8ff7f9f055bafe9f6f5bd724feab1e3b30846f5728780640c0efb4d6eda89",
+  "response": {
+    "searches": [
+      "\"Cherry Springs Baptist\" \"2026\" \"Bible\"",
+      "\"Cherry Springs Baptist\" \"Vacation Bible School\""
+    ],
+    "usage": {
+      "inputTokens": 18948,
+      "cachedInputTokens": 8845,
+      "outputTokens": 751,
+      "reasoningTokens": 202
+    },
+    "status": "completed",
+    "ms": 23732,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+      "chars": 1011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Home",
+      "chars": 1733,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Events",
+      "chars": 1189,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/",
+      "chars": 1733,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherry Springs Baptist Church of Old Fort",
+    "website_url": "https://cherryspringsbaptistchurch.com/Home",
+    "notes": "No 2027 camp information or registration announcements were found. The official Vacation Bible School page contains no program details. A third-party listing mentions Weekly VBS in June 2026 at the church, but its dates and hours were not corroborated by an official source and have been omitted. The official contact-page search result publishes the church address; opening that page returned no readable text.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cherry Springs Baptist Church",
+            "address": "6 Bull Walker Road",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+          "https://cherryspringsbaptistchurch.com/Home",
+          "https://cherryspringsbaptistchurch.com/Events",
+          "https://cherryspringsbaptistchurch.com/Contact-Us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official VBS page establishes the program name but supplies no dates, eligibility, activities, or registration details. Confirm that VBS will run in summer 2027 and meets at the church: the 2026 church venue appears in a third-party event listing, while the address itself is published in the official contact-page search result."
+      }
+    ]
+  }
+}

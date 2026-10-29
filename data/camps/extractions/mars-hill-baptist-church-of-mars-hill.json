@@ -1,0 +1,122 @@
+{
+  "provider": {
+    "key": "mars-hill-baptist-church-of-mars-hill",
+    "name": "Mars Hill Baptist Church of Mars Hill",
+    "urls": [
+      "https://sites.google.com/view/marshillbc/newsletters",
+      "https://sites.google.com/view/marshillbc/home",
+      "http://www.marshillbc.org/"
+    ],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:24.086Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c6d6c4164430941cfdf62315dc03b0ee44503642a587c66f7f2660d897013c53",
+  "response": {
+    "searches": [
+      "site:sites.google.com/view/marshillbc \"Contact\" \"address\"",
+      "\"Mars Hill Baptist Church\" \"67\" \"Main\""
+    ],
+    "usage": {
+      "inputTokens": 19533,
+      "cachedInputTokens": 8845,
+      "outputTokens": 902,
+      "reasoningTokens": 209
+    },
+    "status": "completed",
+    "ms": 24782,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/view/marshillbc/newsletters",
+      "chars": 3583,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/view/marshillbc/home",
+      "chars": 2702,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.marshillbc.org/",
+      "chars": 643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/",
+      "chars": 1253,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mars Hill Baptist Church of Mars Hill",
+    "website_url": "https://sites.google.com/view/marshillbc/home",
+    "notes": "No 2027 Vacation Bible School information found. The legacy marshillbc.org website displays a hosting default page. Newsletter attachments and registration forms were not accessible in the supplied text; a Google Drive sign-in page was returned. The youth page also mentions UniDiversity Summer Camp for Middle Schoolers; its official website places the 2027 camp at Maryville College, Tennessee, outside the directory's drive-time area.",
+    "excluded": [
+      {
+        "name": "Mars Hill Baptist Church Preschool",
+        "reason": "School-year preschool beginning in September, not a finite summer camp."
+      },
+      {
+        "name": "Chicago Mission Trip",
+        "reason": "Youth mission trips are excluded."
+      },
+      {
+        "name": "UniDiversity Summer Camp for Middle Schoolers",
+        "reason": "The official UniDiversity website lists its 2027 venue as Maryville College, Tennessee, plainly beyond about 75 minutes' drive from Asheville."
+      },
+      {
+        "name": "Sunday School and Sunday evening youth ministry",
+        "reason": "Ongoing year-round religious education and youth activities, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with the theme Growing in Love.",
+        "camp_page_url": "https://sites.google.com/view/marshillbc/newsletters",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-04",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill Baptist Church",
+            "address": "67 N. Main St.",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/view/marshillbc/newsletters",
+          "https://sites.google.com/view/marshillbc/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "August 4–6 is assigned to 2026 from the newsletter's July 31, 2026 heading. The newsletter does not explicitly name the drop-off venue; the church is used as the presumed venue. Its contact page labels 67 N. Main St. as its mailing address, and location listings corroborate that address. Check the inaccessible registration attachments for venue, ages, hours and any fees."
+      }
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "provider": {
+    "key": "3d-dojo-studios",
+    "name": "3D Dojo Studios",
+    "urls": ["https://3ddojostudios.com/mentorship-2/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:56.483Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "86934c12a08bc7d76dd388f5b66e1f19885c48dc9cda1e3cc14970de695e1679",
+  "response": {
+    "searches": [
+      "site:3ddojostudios.com \"summer\" \"2027\"",
+      "open https://3ddojostudios.com/product/virtual-summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 15817,
+      "cachedInputTokens": 8845,
+      "outputTokens": 916,
+      "reasoningTokens": 92
+    },
+    "status": "completed",
+    "ms": 28618,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://3ddojostudios.com/mentorship-2/",
+      "chars": 7010,
+      "method": "fetch"
+    },
+    {
+      "url": "https://3ddojostudios.com/course-registration/",
+      "chars": 618,
+      "method": "fetch"
+    },
+    {
+      "url": "https://3ddojostudios.com/",
+      "chars": 4177,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "3D Dojo Studios",
+    "website_url": "https://3ddojostudios.com/",
+    "notes": "No 2027 information or explicitly dated 2026 camp schedule was found. The current camp listings are undated and describe online participation only. The live shop lists $450, while the older page titled Virtual Summer Camp 2024 lists $300; the older price was not used. The live camp product page returned no readable text when opened, though its description appeared in official search results.",
+    "excluded": [
+      {
+        "name": "3D Modeling Fundamentals",
+        "reason": "Ongoing trade-school course rather than a finite youth summer camp."
+      },
+      {
+        "name": "Web Development Bootcamp",
+        "reason": "12-week trade-school course; not identified as a youth summer camp."
+      },
+      {
+        "name": "Character Design for Beginners",
+        "reason": "Regular mentorship course rather than a summer camp."
+      },
+      {
+        "name": "Advanced 3D Modeling",
+        "reason": "Six-month trade-school course rather than a youth summer camp."
+      },
+      {
+        "name": "Private Tutoring",
+        "reason": "Individual lessons, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Virtual Summer Camp",
+        "type": "half_day",
+        "categories": ["arts", "stem"],
+        "description": "Young artists learn fundamental principles of 3D modeling online in an eight-week mentoring course. They attend three 2.5-hour classes per week and receive live feedback and critique.",
+        "camp_page_url": "https://3ddojostudios.com/mentorship-2/",
+        "registration_url": "https://3ddojostudios.com/product/virtual-summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Classes are available Monday – Saturday. 3 days per week for 2.5 hours per session."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 450,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://3ddojostudios.com/",
+          "https://3ddojostudios.com/mentorship-2/",
+          "https://3ddojostudios.com/shop/",
+          "https://3ddojostudios.com/product/virtual-summer-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Current listings do not state a summer year; 2026 is used for the undated current offering and shop price, not an explicitly confirmed 2026 schedule. The camp says new sessions begin June, July, and August but gives no exact dates, so no session rows were created. This is fully virtual, with no drop-off site. Confirm whether virtual-only camps belong in the directory. The camp-specific section states 2.5-hour classes; a general mentorship section elsewhere states 5 hours per class. The $450 price is from the live shop; the older 2024 camp page gives $300."
+      }
+    ]
+  }
+}

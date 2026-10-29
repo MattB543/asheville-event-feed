@@ -1,0 +1,70 @@
+{
+  "provider": {
+    "key": "fiddlehead-farm-and-forest",
+    "name": "Fiddlehead Farm & Forest",
+    "urls": [
+      "https://fiddleheadff.com/offerings/summer-camp-full-day/",
+      "https://fiddleheadff.com/wp-content/uploads/2025/04/FiddleheadCampFlyer0325.pdf"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:13.545Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "baa1aede5ce18897b2895f40d318eaa7c9e6f3f2459804ece15ba3cc7c883b61",
+  "response": {
+    "searches": ["site:fiddleheadff.com \"2027\""],
+    "usage": {
+      "inputTokens": 12758,
+      "cachedInputTokens": 8845,
+      "outputTokens": 298,
+      "reasoningTokens": 47
+    },
+    "status": "completed",
+    "ms": 11189,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fiddleheadff.com/offerings/summer-camp-full-day/",
+      "chars": 379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fiddleheadff.com/wp-content/uploads/2025/04/FiddleheadCampFlyer0325.pdf",
+      "chars": 907,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fiddleheadff.com/",
+      "chars": 602,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fiddlehead Farm & Forest",
+    "website_url": "https://fiddleheadff.com/",
+    "notes": "The official homepage states that this location is permanently closed. No 2027 camp information was found. The supplied camp flyer describes summer 2025, not 2026 or 2027; its dates and prices were not carried forward. Residual camp and employment pages remain online despite the closure notice.",
+    "excluded": [
+      {
+        "name": "Fiddlehead Day Camp",
+        "reason": "The provider's official homepage states that the location is permanently closed. The historical 2025 flyer is not evidence of an upcoming summer camp."
+      },
+      {
+        "name": "Camp Counselor for Summer Camps",
+        "reason": "Employment listing, not a camper program."
+      },
+      {
+        "name": "TOP ROPE BELAY CLASS",
+        "reason": "A class rather than a summer camp."
+      },
+      {
+        "name": "CLIMB COMP TEAM",
+        "reason": "Competitive sports team, not a finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-erwin",
+    "name": "First Baptist Church of Erwin",
+    "urls": ["https://www.erwinfirst.org/", "https://www.facebook.com/FirstBaptistErwin/"],
+    "area": "Erwin, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:26:13.087Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7efdc946b9e373d1695fc7c74d418d43ca65b3ff96c4b7f71ce80958446037e3",
+  "response": {
+    "searches": [
+      "site.erwinfirst.org \"VBS\"",
+      "site:facebook.com/FirstBaptistErwin \"Rainforest\""
+    ],
+    "usage": {
+      "inputTokens": 26395,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1078,
+      "reasoningTokens": 255
+    },
+    "status": "completed",
+    "ms": 31099,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.erwinfirst.org/",
+      "chars": 2254,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/FirstBaptistErwin/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.erwinfirst.org/lighttheway",
+      "chars": 5518,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Erwin",
+    "website_url": "https://www.erwinfirst.org/",
+    "notes": "No summer 2027 announcement was found. The church's Facebook page and calendar could not be read. A June 3, 2026 news search result reports VBS June 15–17, 2026; a third-party event listing identifies the theme as Rainforest Falls. Another third-party listing advertises Road Trip VBS July 13–17, but its season attribution could not be confirmed. These were not treated as separate programs. Official confirmation of the 2026 VBS details remains needed.",
+    "excluded": [
+      {
+        "name": "Pathlight for Kids",
+        "reason": "Recurring missions-based children's class, not a finite summer camp."
+      },
+      {
+        "name": "Youth Bible Study",
+        "reason": "Weekly youth Bible study, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes, not a summer camp."
+      },
+      {
+        "name": "Moms with Littles",
+        "reason": "Recurring gathering of mothers and young children, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/FirstBaptistErwin/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Erwin",
+            "address": "200 Love Street",
+            "town": "Erwin",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "17:45",
+          "end": "20:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.erwinfirst.org/",
+          "https://www.facebook.com/FirstBaptistErwin/posts/pre-register-your-kids-online-now-for-first-baptist-church-of-erwins-vbs-june-17/2225154327537971/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Facebook search result confirms that this church offers VBS, but describes an older season whose eligibility and support details were not reused. Dates and hours here come only from the June 3, 2026 news search result at https://article.wn.com/view/2026/06/03/VBS_planned_at_Erwin_First_Baptist/ and are corroborated by the Rainforest Falls third-party listing at https://happeningnext.com/event/vbs-rainforest-falls-exploring-the-nature-of-god-eid3a0dpxtv0m. Check the church's official announcement for the 2026 dates and hours, and resolve the different July dates advertised at https://www.1079thebridge.com/events/vbs-at-first-baptist-church-erwin-2/. No readable official 2026 or 2027 camp announcement was found."
+      }
+    ]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "oak-grove-christian-church-of-arden",
+    "name": "Oak Grove Christian Church of Arden",
+    "urls": [
+      "https://oakgrovechristianchurch.com/student-ministries",
+      "https://oakgrovechristianchurch.com/",
+      "https://www.facebook.com/OakGroveChristianChurchArden/"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:15.700Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "59fa65468ca3d8d714773082016ea46a1da296c65cdb03edba8e54e37318c128",
+  "response": {
+    "searches": [
+      "\"Oak Grove Christian Church\" \"Arden\" \"VBS\" \"2026\"",
+      "\"OGCC 2026 Vacation Bible School\""
+    ],
+    "usage": {
+      "inputTokens": 26888,
+      "cachedInputTokens": 8845,
+      "outputTokens": 785,
+      "reasoningTokens": 209
+    },
+    "status": "completed",
+    "ms": 27889,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://oakgrovechristianchurch.com/student-ministries",
+      "chars": 2090,
+      "method": "fetch"
+    },
+    {
+      "url": "https://oakgrovechristianchurch.com/",
+      "chars": 3242,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/OakGroveChristianChurchArden/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Grove Christian Church of Arden",
+    "website_url": "https://oakgrovechristianchurch.com/",
+    "notes": "No official 2027 summer information found. The student ministries page documents VBS 2024 but provides no current camp details. Third-party event listings advertise OGCC 2026 Vacation Bible School on July 7 and July 10, 2026, from 5:30–8:00 p.m.; these details were not confirmed on readable official pages and have been left out. The official Facebook page and calendar returned no readable content.",
+    "excluded": [
+      {
+        "name": "Children & Youth Programs",
+        "reason": "General ongoing children and youth ministry, not a finite summer camp offering."
+      },
+      {
+        "name": "Bible Study Group",
+        "reason": "Ongoing Bible study, not a finite supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children and youth.",
+        "camp_page_url": "https://oakgrovechristianchurch.com/student-ministries",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Oak Grove Christian Church",
+            "address": "5 Morris Rd",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://oakgrovechristianchurch.com/student-ministries",
+          "https://oakgrovechristianchurch.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official student ministries page confirms only VBS 2024. Check the church's Facebook page for the 2026 schedule and any 2027 announcement. The church address is officially published, but use of that location for the upcoming VBS has not been confirmed. The ministry-wide K–12 statement was not applied to VBS eligibility."
+      }
+    ]
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "provider": {
+    "key": "camp-greystone",
+    "name": "Camp Greystone",
+    "urls": [
+      "https://www.campgreystone.com/blog/2026/4/activities-offered-summer-2026",
+      "https://www.campgreystone.com/dates-rates",
+      "https://www.campgreystone.com/",
+      "https://www.campgreystone.com/explore/animals"
+    ],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:12.799Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0792de17a6a018b6bac77612ce59bbafb39d5e42a101cda8790cee3c685a154c",
+  "response": {
+    "searches": [
+      "site:campgreystone.com 2027 \"September\" registration",
+      "open https://www.campgreystone.com/blog/2026/9/early-bird-enrollment-opens-next-week"
+    ],
+    "usage": {
+      "inputTokens": 26133,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1646,
+      "reasoningTokens": 102
+    },
+    "status": "completed",
+    "ms": 37155,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campgreystone.com/blog/2026/4/activities-offered-summer-2026",
+      "chars": 3173,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/dates-rates",
+      "chars": 16807,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/",
+      "chars": 3259,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/explore/animals",
+      "chars": 6643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/dates-rates/junior-camp",
+      "chars": 4388,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/dates-rates/june-camp",
+      "chars": 4443,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/dates-rates/main-camp",
+      "chars": 5081,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreystone.com/dates-rates/august-camp",
+      "chars": 4132,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Greystone",
+    "website_url": "https://www.campgreystone.com/",
+    "notes": "Junior, June, Main, and August Camps are grouped as session rows of the existing overnight program. The dates page retains older summer information; only its explicitly labeled 2027 dates and rates are used. Dog Camp and the riding options are activities within the residential program, not separate enrollable camps.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp Greystone",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "faith_based",
+          "nature_outdoor",
+          "sports",
+          "arts",
+          "horses",
+          "cooking"
+        ],
+        "description": "A Christian overnight camp for girls with activity classes, horseback riding options, cabin activities, and evening programs. Junior campers sample activities with their cabin groups, while June, Main, and August campers choose their classes.",
+        "camp_page_url": "https://www.campgreystone.com/dates-rates",
+        "registration_url": "https://www.campgreystone.com/dates-rates",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Greystone",
+            "address": "21 Camp Greystone Lane",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Junior Camp",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "June Camp",
+            "start": "2027-06-07",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 7,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6800,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-28",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 10500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August Camp",
+            "start": "2027-08-02",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 7,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-09-09",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "We will open enrollments at 10 a.m. EST on Wednesday, September 9th.",
+            "url": "https://www.campgreystone.com/blog/2026/9/early-bird-enrollment-opens-next-week",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "closes",
+            "date": "2026-09-16",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "You can enroll any time between September 9th - September 16th for guaranteed enrollment in your eligible sessions, but make sure to enroll ASAP if you are hoping to change sessions for 2027 (more information on this below).",
+            "url": "https://www.campgreystone.com/blog/2026/9/early-bird-enrollment-opens-next-week",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "New campers",
+          "text": "As our Wait List is continual, when you apply as a new camper, you will start on a Wait List."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "The Great Day Fund provides these camperships to eligible families – both new and current camp families – who are in need of financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We also have a fresh fruit bar at breakfast and a complete salad bar, with protein options, at both lunch and dinner."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.campgreystone.com/",
+          "https://www.campgreystone.com/dates-rates",
+          "https://www.campgreystone.com/dates-rates/junior-camp",
+          "https://www.campgreystone.com/dates-rates/june-camp",
+          "https://www.campgreystone.com/dates-rates/main-camp",
+          "https://www.campgreystone.com/dates-rates/august-camp",
+          "https://www.campgreystone.com/explore/animals",
+          "https://www.campgreystone.com/blog/2026/9/early-bird-enrollment-opens-next-week",
+          "https://www.campgreystone.com/alumnae/the-great-day-fund",
+          "https://www.campgreystone.com/parents/during-the-summer/food-nutrition"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

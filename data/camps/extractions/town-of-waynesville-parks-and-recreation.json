@@ -1,0 +1,248 @@
+{
+  "provider": {
+    "key": "town-of-waynesville-parks-and-recreation",
+    "name": "Town of Waynesville Parks & Recreation",
+    "urls": [
+      "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
+      "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:12.514Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "579b8594430e56c234c4bc4acfd61963a70daa910d5dd01bb992a302ce9b779d",
+  "response": {
+    "searches": ["site:waynesvillenc.gov \"Summer Basecamp\" \"2027\""],
+    "usage": {
+      "inputTokens": 21924,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1678,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 36224,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
+      "chars": 7871,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am",
+      "chars": 6955,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/services/register-deeds",
+      "chars": 3448,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/services/vendor-registration",
+      "chars": 4024,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/departments/parks-recreation/base-camp-go-festival-fees",
+      "chars": 5455,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/departments/parks-recreation/membership-and-rental-rates",
+      "chars": 6176,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/sites/default/files/Membership%20Fees%20FY27.pdf",
+      "chars": 1787,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillenc.gov/sites/default/files/Corporate%20Fees_0.pdf",
+      "chars": 2235,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Town of Waynesville Parks & Recreation",
+    "website_url": "https://www.waynesvillenc.gov/departments/parks-recreation",
+    "notes": "No summer 2027 announcement was found on official pages. The older Camps page refers to summer 2022; the current youth camps page and 2026 registration announcement describe Summer Basecamp. Registration is in person at the Recreation Center front desk.",
+    "excluded": [
+      {
+        "name": "After-School Program",
+        "reason": "School-year childcare, not a summer camp."
+      },
+      {
+        "name": "Impending Weather Camps",
+        "reason": "Snow-day and teacher-workday camps are outside summer."
+      },
+      {
+        "name": "Morning Childcare",
+        "reason": "Ongoing drop-in childcare requiring parents to remain on site, not a finite summer camp."
+      },
+      {
+        "name": "Base Camp On the Go Festival Fees",
+        "reason": "Festival equipment or activity rental, not a supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Basecamp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts"],
+        "description": "Campers enjoy outdoor activities, make hands-on arts and crafts, and explore the mountainous region of Western North Carolina.",
+        "camp_page_url": "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Waynesville Recreation Center",
+            "address": "550 Vance Street",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "18:00",
+          "text": "Monday-Friday, 8 am - 6 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": "Residents and Town Employees: first child, 3 days or more per week",
+            "year": 2026
+          },
+          {
+            "amount": 90,
+            "unit": "week",
+            "label": "Residents and Town Employees: each additional child",
+            "year": 2026
+          },
+          {
+            "amount": 190,
+            "unit": "week",
+            "label": "Non-residents: first child, 3 days or more per week",
+            "year": 2026
+          },
+          {
+            "amount": 100,
+            "unit": "week",
+            "label": "Non-residents: each additional child",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "day",
+            "label": "Per child, maximum of 2 days per week",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "The Sprouts",
+            "start": "2026-06-08",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": -1,
+              "max": 0,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Blossoms",
+            "start": "2026-06-08",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Pines",
+            "start": "2026-06-08",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Oaks",
+            "start": "2026-06-08",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-14",
+          "time": "06:00",
+          "text": "The Waynesville Recreation Center is excited to announce that registration for Summer Basecamp 2026 will take place on Saturday, March 14th, 2026, from 6:00 AM to 11:00 AM at the Recreation Center.",
+          "url": "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.waynesvillenc.gov/departments/parks-recreation/camps-youth",
+          "https://www.waynesvillenc.gov/news/summer-basecamp-2026-registration-march-14th-600-am",
+          "https://www.waynesvillenc.gov/departments/parks-recreation/contact-operating-hours-directions"
+        ],
+        "confidence": "medium",
+        "review_notes": "July 31 is calculated as the final Friday of eight consecutive Monday-Friday weeks starting June 8; the 2026 announcement does not explicitly print an end date or individual weekly dates. Confirm the end date and any holiday closures. The youth camps page omits a year beside June 8 and rates; these are treated as 2026 because the dated 2026 announcement matches them. The Oaks is listed as 5th Grade & Up in the announcement; its maximum of rising 8th grade comes from the overall eligibility on the youth camps page. The Recreation Center is the registration venue and provider location; confirm that it is also the camp drop-off venue."
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "wnc-nature-center",
+    "name": "WNC Nature Center",
+    "urls": ["https://wildwnc.org/teen-programs/", "https://wildwnc.org/education/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/teen-programs/; browser: HTTP 403"
+  },
+  "extractedAt": "2026-10-29T17:29:57.407Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "open https://wildwnc.org/teen-programs/",
+      "site.wildwnc.org summer camp 2026",
+      "site:wildwnc.org \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25757,
+      "cachedInputTokens": 8845,
+      "outputTokens": 719,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 26950,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://wildwnc.org/teen-programs/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/teen-programs/; browser: HTTP 403"
+    },
+    {
+      "url": "https://wildwnc.org/education/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/education/; browser: HTTP 403"
+    },
+    {
+      "url": "https://wildwnc.org/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/; browser: HTTP 403"
+    }
+  ],
+  "extraction": {
+    "provider_name": "WNC Nature Center",
+    "website_url": "https://wildwnc.org/",
+    "notes": "No 2027 summer program dates or registration announcements were found. The current Teen Programs page explicitly cancels the Young Naturalist Teen Program for summer 2026 and says it may continue in the future as resources allow. Older official 2026 PDFs still list Young Naturalist and Shift Leader dates; these should not be treated as active offerings. The education overview still mentions two summer teen volunteer opportunities. A 2022 article mentions elementary summer camps, but no current 2026 or 2027 offering was found. Direct opens of the two supplied pages returned no readable text; their indexed official-page text was available through search.",
+    "excluded": [
+      {
+        "name": "Young Naturalist Teen Program",
+        "reason": "The current official Teen Programs page says the program was not offered for summer 2026. No confirmed 2027 offering was found."
+      },
+      {
+        "name": "Young Naturalist Shift Leader Program",
+        "reason": "The older 2026 information letter describes leading Young Naturalists during their shifts, but the current official page cancels the Young Naturalist summer program. No independently confirmed 2027 Shift Leader offering was found."
+      },
+      {
+        "name": "Schools & Groups",
+        "reason": "Group field trips and educational visits, rather than a finite supervised summer camp enrollment."
+      },
+      {
+        "name": "Outreach Education",
+        "reason": "Educational presentations booked by classrooms, libraries, camps and other groups, rather than a summer camp operated by this provider."
+      },
+      {
+        "name": "Wild Walks & Junior Wild Walks",
+        "reason": "Monthly behind-the-scenes events for children and adults, not summer camps."
+      },
+      {
+        "name": "Painting With Animals",
+        "reason": "Children's art classes offered throughout the year, not a summer camp."
+      },
+      {
+        "name": "Wolf Howl",
+        "reason": "Fall evening events, outside summer."
+      },
+      {
+        "name": "Night at the Nature Center",
+        "reason": "Spring events for children and families, outside summer."
+      },
+      {
+        "name": "Holiday Critter Check Up",
+        "reason": "A December event, outside summer."
+      },
+      {
+        "name": "Brews & Bears Summer Event Series",
+        "reason": "After-hours social and fundraising events, not supervised youth camps."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "provider": {
+    "key": "tr-makers-co",
+    "name": "TR Makers Co.",
+    "urls": ["https://trmakersco.org/kids-maker-day/"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:23.369Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "537c6834200d949be747e5b9c34062dd3cbfab6f245ac8f9195b700741d3d524",
+  "response": {
+    "searches": [
+      "site:trmakersco.org summer 2026 camp",
+      "\"Travelers Rest Makers Co.\" \"camp\" \"2026\" summer art"
+    ],
+    "usage": {
+      "inputTokens": 27391,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1022,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 30964,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trmakersco.org/kids-maker-day/",
+      "chars": 3779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trmakersco.org/play/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found - TR Makers Co.\")"
+    },
+    {
+      "url": "https://trmakersco.org/schedule/",
+      "chars": 1926,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trmakersco.org/summer-student-internship-ages-12-15/",
+      "chars": 4780,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/travelers-rest-makers-co/schedules/activity-set/1870156?day=2026-11-02&view=cal&source=camps",
+      "chars": 371,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/travelers-rest-makers-co/schedules/activity-set/1870157?day=2026-11-03&view=cal&source=camps",
+      "chars": 424,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/travelers-rest-makers-co/schedules/activity-set/1870158?day=2026-12-21&view=cal&source=camps",
+      "chars": 397,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/travelers-rest-makers-co/schedules/activity-set/2013110?day=2026-12-28&view=cal&source=camps",
+      "chars": 421,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/travelers-rest-makers-co/schedules/activity-set/2013113?day=2026-12-28&view=cal&source=camps",
+      "chars": 423,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "TR Makers Co.",
+    "website_url": "https://trmakersco.org/",
+    "notes": "No official summer 2027 dates or registration announcements were found. The current summer camp page describes the program but does not list summer 2026 dates, ages, hours or prices. Archived event listings found in search describe 2024 camps; those dates and prices were not carried forward. The Sawyer schedule embedded on the official website reported a loading problem.",
+    "excluded": [
+      {
+        "name": "Fall and Spring Half Day Camps",
+        "reason": "School-closure camps outside summer, including Art History Explorers and Abstract Sculptors in November 2026."
+      },
+      {
+        "name": "Elf Camp!",
+        "reason": "Winter-break camp in December 2026, outside summer."
+      },
+      {
+        "name": "Fashion Camp MORNING (three days)",
+        "reason": "Winter-break camp in December 2026, outside summer."
+      },
+      {
+        "name": "Fashion Camp AFTERNOON (three days)",
+        "reason": "Winter-break camp in December 2026, outside summer."
+      },
+      {
+        "name": "Summer Student Internship – Ages 12-15",
+        "reason": "Volunteer and pre-employment internship assisting studio staff and campers, rather than a camper program."
+      },
+      {
+        "name": "Arts Lead Learning – Homeschool Classes",
+        "reason": "School-year homeschool lesson series."
+      },
+      {
+        "name": "Mini Makers",
+        "reason": "Recurring early-childhood classes, including a summer class series, rather than a camp."
+      },
+      {
+        "name": "Parents Night Out",
+        "reason": "Single-evening events rather than a multi-day evening camp."
+      },
+      {
+        "name": "Book a Play Date!",
+        "reason": "Individually booked art experiences rather than a summer camp."
+      },
+      {
+        "name": "Parties and Private Events",
+        "reason": "Private parties and social events rather than summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Maker Camps for Kids",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers create handmade projects, practice artistic techniques and use makers tools. Projects follow the process from conception and sketching through handcrafting and completion.",
+        "camp_page_url": "https://trmakersco.org/kids-maker-day/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "TR Makers Co.",
+            "address": "3 S Main Street",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://trmakersco.org/kids-maker-day/", "https://trmakersco.org/"],
+        "confidence": "medium",
+        "review_notes": "The current program page retains a summer camp description without a dated summer schedule. Day type reflects the studio-based offering, but the current page does not establish whether summer sessions are half-day or full-day. Check the official summer page and Sawyer schedule when 2027 offerings are published."
+      }
+    ]
+  }
+}

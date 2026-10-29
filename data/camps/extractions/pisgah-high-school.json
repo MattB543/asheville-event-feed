@@ -1,0 +1,64 @@
+{
+  "provider": {
+    "key": "pisgah-high-school",
+    "name": "Pisgah High School",
+    "urls": ["https://phs.haywood.k12.nc.us/"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:07.982Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8c37a26bd4e2d16ac230ad5563a765ca2887e29f2938d275949ee6703ee283d6",
+  "response": {
+    "searches": ["site:phs.haywood.k12.nc.us camp 2026", "\"Pisgah\" \"camp\" \"2026\" \"Canton\""],
+    "usage": {
+      "inputTokens": 19449,
+      "cachedInputTokens": 8845,
+      "outputTokens": 335,
+      "reasoningTokens": 133
+    },
+    "status": "completed",
+    "ms": 20495,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://phs.haywood.k12.nc.us/",
+      "chars": 2852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/document/d/1BUL2hzvMsVfCwV5LX-ZjkRN9zu_TQtRW6GmS5mC_-dg/edit",
+      "chars": 384,
+      "method": "fetch"
+    },
+    {
+      "url": "https://phs.haywood.k12.nc.us/summer-reading-lists/",
+      "chars": 2651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://phs.haywood.k12.nc.us/schedules/",
+      "chars": 2493,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pisgah High School",
+    "website_url": "https://phs.haywood.k12.nc.us/",
+    "notes": "No official 2026 or 2027 summer camp offerings were found in the supplied pages or targeted web searches. Historical official results include PHS Black Bear Softball Camp and PHS Black Bear Basketball Camp in a May 23, 2019 announcement, and a volleyball camp waiver uploaded in 2023; these do not establish current offerings and were not made into cards. The school website blocks direct browser access with robots.txt, so additional official pages were accessible only through search results. No 2027 registration announcements were found.",
+    "excluded": [
+      {
+        "name": "AP – Summer Reading Assignments",
+        "reason": "School-course assignments, not a finite supervised summer camp; intended for the school's own students."
+      },
+      {
+        "name": "PHS Sports Schedules",
+        "reason": "School athletic team seasons and schedules, not summer camps."
+      }
+    ],
+    "cards": []
+  }
+}

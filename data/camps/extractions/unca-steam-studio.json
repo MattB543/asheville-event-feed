@@ -1,0 +1,303 @@
+{
+  "provider": {
+    "key": "unca-steam-studio",
+    "name": "UNCA STEAM Studio",
+    "urls": ["https://www.skillset.tools/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:50.932Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "01192765cf3b137937f8a298df11e212cc56051ddf3a5f4b217be0e8b81b94ba",
+  "response": {
+    "searches": [
+      "site:skillset.tools summer camp 2026",
+      "site:eventbrite.com \"Woodturning Summer Camp 2026\"",
+      "site:unca.edu \"Carol Belk Theatre\" address"
+    ],
+    "usage": {
+      "inputTokens": 32717,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2368,
+      "reasoningTokens": 206
+    },
+    "status": "completed",
+    "ms": 53796,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.skillset.tools/",
+      "chars": 1441,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.skillset.tools/faqs",
+      "chars": 10386,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eventbrite.com/cc/skillset-unca-steam-studio-300139?utm-campaign=social&utm-content=creatorshare&utm-medium=discovery&utm-term=odclsxcollection&utm-source=cp&aff=escb",
+      "chars": 8863,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "UNCA STEAM Studio",
+    "website_url": "https://www.skillset.tools/",
+    "notes": "No summer 2027 program list, dates, or registration milestones were found. Cards use the official 2026 Eventbrite listings. Eventbrite's collection-level 'From $0.00' is not treated as a camp tuition price. Historical camp examples on the Programs page without 2026 dates were not added.",
+    "excluded": [
+      {
+        "name": "After-school programming",
+        "reason": "Fall and spring after-school classes are school-year programs, not summer camps."
+      },
+      {
+        "name": "Adult classes and workshops",
+        "reason": "Adult-only programming."
+      },
+      {
+        "name": "Bridge The Gap! A Fundraiser for SkillSet Scholarships",
+        "reason": "Single-evening fundraising event, not a supervised youth camp."
+      },
+      {
+        "name": "Studio tours and school field trips",
+        "reason": "Bookable tours and field trips rather than finite summer camp offerings."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Woodturning Summer Camp",
+        "type": "day",
+        "categories": ["arts", "stem"],
+        "description": "Woodturning summer camp for ages 13-17.",
+        "camp_page_url": "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
+        "registration_url": "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "UNC Asheville STEAM Studio",
+            "address": "821 Riverside Dr. Ste 140",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Sales ended"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "For tuition-based programs, limited financial assistance is available on a first-come first-serve basis to families in need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.eventbrite.com/e/woodturning-summer-camp-2026-ages-13-17-registration-1983388481339",
+          "https://www.skillset.tools/programs/",
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Make Your Own Custom Electric Guitar Summer Camp",
+        "type": "day",
+        "categories": ["arts", "stem", "music"],
+        "description": "Summer camp for ages 13-17 focused on making a custom electric guitar.",
+        "camp_page_url": "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
+        "registration_url": "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "UNC Asheville STEAM Studio",
+            "address": "821 Riverside Dr. Ste 140",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Sales ended"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "For tuition-based programs, limited financial assistance is available on a first-come first-serve basis to families in need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004",
+          "https://www.skillset.tools/programs/",
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Form Function Fabrication Summer Camp",
+        "type": "day",
+        "categories": ["arts", "stem"],
+        "description": "Form Function Fabrication summer camp for returning students ages 13-17.",
+        "camp_page_url": "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
+        "registration_url": "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "UNC Asheville STEAM Studio",
+            "address": "821 Riverside Dr. Ste 140",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Sales ended"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "For tuition-based programs, limited financial assistance is available on a first-come first-serve basis to families in need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.eventbrite.com/e/form-function-fabrication-summer-camp-2026-returning-students-ages-13-17-registration-1983464385370",
+          "https://www.skillset.tools/programs/",
+          "https://www.skillset.tools/faqs",
+          "https://www.skillset.tools/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Costumes & Cosplay Summer Camp",
+        "type": "day",
+        "categories": ["arts", "theater"],
+        "description": "Costumes and cosplay summer camp for ages 11-14.",
+        "camp_page_url": "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
+        "registration_url": "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carol Belk Theatre",
+            "address": "300 Theatre Lane",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 camp",
+          "text": "Sold out"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Sold out? Financial Aid Still Available!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523",
+          "https://www.skillset.tools/programs/",
+          "https://www.unca.edu/venue/carol-belk-theatre/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

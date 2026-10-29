@@ -1,0 +1,617 @@
+{
+  "provider": {
+    "key": "blue-ridge-council-scouting-america",
+    "name": "Blue Ridge Council, Scouting America",
+    "urls": [
+      "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+      "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf"
+    ],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:07:40.029Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c3c813a6c576715bca34cb605f1424bca93360de1d8822eb787d423946d859b0",
+  "response": {
+    "searches": [
+      "site.blueridgecouncil.org 2027 day camp",
+      "site:efbc.org address Easley",
+      "site:scoutingevent.com/551-109513 \"PM\""
+    ],
+    "usage": {
+      "inputTokens": 46268,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4435,
+      "reasoningTokens": 310
+    },
+    "status": "completed",
+    "ms": 85141,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+      "chars": 5661,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+      "chars": 21745,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2025/11/CIT.pdf",
+      "chars": 2073,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2025/11/Area-Director.pdf",
+      "chars": 2991,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/BRC-Event-or-Camp-Financial-Assistance-Request-Form-Feb-2026.pdf",
+      "chars": 2733,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/",
+      "chars": 3109,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+      "chars": 2832,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge Council, Scouting America",
+    "website_url": "https://www.blueridgecouncil.org/",
+    "notes": "2027 Camp Old Indian information is posted; Cub Scout pages still describe 2026. The preliminary 2027 guide leaves specialty-track timing undecided between July 11–17 and July 18–24, while the camp page and registration platform list July 18–24 as specialty week. The 2026 Counselor in Training offering is absent from the supplied 2027 program guide and is not carried forward. Webelos Woods has no summer dates posted.",
+    "excluded": [
+      {
+        "name": "Cub Scout Day Camp — Oconee",
+        "reason": "High Falls County Park in Seneca is outside the approximately 75-minute Asheville service area."
+      },
+      {
+        "name": "Cub Scout Day Camp — Greenwood",
+        "reason": "Camp Oasis in Greenwood is outside the approximately 75-minute Asheville service area."
+      },
+      {
+        "name": "Cub Scout Day Camp — Anderson",
+        "reason": "Lights of Hope in Anderson is outside the approximately 75-minute Asheville service area."
+      },
+      {
+        "name": "Cub-O-Ree",
+        "reason": "May 1–3, 2026 is outside summer."
+      },
+      {
+        "name": "Cub Family Weekends",
+        "reason": "Family-only camping weekends."
+      },
+      {
+        "name": "Camp Old Indian Department Director and Staff",
+        "reason": "Employment opportunities, not youth camp programs."
+      },
+      {
+        "name": "Camp Old Indian Winter Camp",
+        "reason": "December program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Old Indian",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "stem", "general"],
+        "description": "Scouts camp with their troops, earn merit badges, and participate in hiking, aquatics, climbing, range activities, games, and campfires.",
+        "camp_page_url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+        "registration_url": "https://scoutingevent.com/551-COI27",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Old Indian",
+            "address": "601 Callahan Mountain Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 445,
+            "unit": "week",
+            "label": "In-council youth, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 485,
+            "unit": "week",
+            "label": "In-council youth, regular",
+            "year": 2027
+          },
+          {
+            "amount": 455,
+            "unit": "week",
+            "label": "Out-of-council youth, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 495,
+            "unit": "week",
+            "label": "Out-of-council youth, regular",
+            "year": 2027
+          },
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Bounce Back, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 315,
+            "unit": "week",
+            "label": "Bounce Back, regular",
+            "year": 2027
+          },
+          {
+            "amount": 90,
+            "unit": "day",
+            "label": "Day pass, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 100,
+            "unit": "day",
+            "label": "Day pass, regular",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tracks Week",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2026-11-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Register one adult leader and pay the $190 campsite deposit by November 15, 2026 to hold your unit’s spot for summer 2027.",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Campership applications due",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-04-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Remainder of fees due to keep the Early Bird discount",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-05-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "All fees due · Last day to change registrations",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "The Blue Ridge Council offers financial support of up to 50% of the Early Bird registration fee for summer camp at Camp Old Indian."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Camp Old Indian is a Special Needs Ready Camp"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "This year, we will be serving all our meals in cafeteria style with the help of the awesome camp staff."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+          "https://scoutingevent.com/551-COI27",
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Specialty-week timing conflicts with the preliminary guide, which says July 11–17 or July 18–24. Used July 18–24 from the camp page and registration platform. The website gives only $300 Bounce Back and $90 day pass, while the guide also gives regular rates of $315 and $100. Registration platform closes weeks 1–5 May 1 at 23:59 and specialty week May 8 at 23:59, whereas the guide says May 1 is the last day to change registrations. Lunch wording is from the 2026 guide."
+      },
+      {
+        "name": "Pinnacle High Adventure Mountain Leadership Program",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Scouts operate as a mountain expedition team, rotating leadership roles while climbing, rappelling, rafting, mountain biking, and practicing wilderness survival and search-and-rescue skills. Participants live in a dedicated high-adventure campsite and complete a backcountry overnight.",
+        "camp_page_url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+        "registration_url": "https://scoutingevent.com/551-COI27",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-24",
+          "text": "Offered each week of camp"
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Old Indian",
+            "address": "601 Callahan Mountain Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "program",
+            "label": "Five-day Mountain Leadership Program, in addition to camp registration",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tracks Week",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+          "https://scoutingevent.com/551-COI27"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is ages 14+, or age 13 and finished eighth grade; the combined condition cannot be represented by a simple grade range. Weekly rows use the camp attendance dates; exact five-day activity dates are not stated. Specialty-week timing remains tentative in the guide. The $150 is an additional fee, not total tuition; base camp registration is required."
+      },
+      {
+        "name": "Cub Scout Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "sports"],
+        "description": "Cub Scouts participate in archery, slingshots, Scout skills, STEM activities, and games. First graders must have a parent present during camp.",
+        "camp_page_url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+        "registration_url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Easley First Baptist",
+            "address": "300 East First Avenue",
+            "town": "Easley",
+            "state": "SC"
+          },
+          {
+            "name": "Advent UMC",
+            "address": "2258 Woodruff Road",
+            "town": "Simpsonville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:00",
+          "text": "Camps Hours vary by location typical hours are Monday-Thursday from 8:30 am- 4:00 pm and Fridays 8:30 am-1:00 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": "Early bird before May 15",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "Regular after May 15",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Easley",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Easley First Baptist",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mauldin/Simpsonville",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Advent UMC",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+          "https://www.blueridgecouncil.org/camps/cub-scout-camping/",
+          "https://www.efbc.org/contact-us",
+          "https://advent-umc.org/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Cub Scout Twilight Camp",
+        "type": "evening",
+        "categories": ["nature_outdoor", "stem", "sports"],
+        "description": "Cub Scouts participate in a week-long evening outdoor program with dinosaur-themed hands-on activities and Scout skills. First graders must have a parent present during camp.",
+        "camp_page_url": "https://scoutingevent.com/551-109513",
+        "registration_url": "https://scoutingevent.com/551-109513",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Aldersgate UMC",
+            "address": "7 Shannon Drive",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": "Early bird before May 15",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "Regular after May 15",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+          "https://scoutingevent.com/551-109513",
+          "https://aumcsc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration platform's evening format and dinosaur theme were readable only through official search snippets. Exact evening hours could not be retrieved; the council page's typical daytime hours were not applied."
+      }
+    ]
+  }
+}

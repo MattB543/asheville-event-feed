@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "faith-fellowship-church-of-newdale",
+    "name": "Faith Fellowship Church of Newdale (Burnsville)",
+    "urls": ["https://ffcn.org/"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:18:29.606Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "611aa16fdb930fb3fd2a2bde93e555e947ad923f021cba1d00dcc49be001ffce",
+  "response": {
+    "searches": ["site:ffcn.org \"Vacation\""],
+    "usage": {
+      "inputTokens": 17008,
+      "cachedInputTokens": 8845,
+      "outputTokens": 590,
+      "reasoningTokens": 89
+    },
+    "status": "completed",
+    "ms": 16223,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ffcn.org/",
+      "chars": 1074,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ffcn.org/weekly-schedule",
+      "chars": 1035,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Faith Fellowship Church of Newdale (Burnsville)",
+    "website_url": "https://ffcn.org/",
+    "notes": "The official Upcoming Events search result announces 2027 Vacation Bible School with the theme SPY U and says to check back for the date. Direct opens of the Upcoming Events and Contact Us pages returned no readable text; their official search results supplied the program details and location.",
+    "excluded": [
+      {
+        "name": "Sunday School and Wednesday Bible Study",
+        "reason": "Recurring year-round church activities, not finite summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible teachings through the SPY U theme, collecting clues and cracking codes to learn about God.",
+        "camp_page_url": "https://ffcn.org/upcoming-events",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back for the date!"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Faith Fellowship Church of Newdale",
+            "address": "35 Partner Ln",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://ffcn.org/upcoming-events", "https://ffcn.org/contact-us"],
+        "confidence": "medium",
+        "review_notes": "Program announcement and venue address were readable only in official-page search results. The Upcoming Events result explicitly identifies 2027 Vacation Bible School and SPY U, but gives no dates, ages, hours, prices or registration information. Check the full pages when readable."
+      }
+    ]
+  }
+}

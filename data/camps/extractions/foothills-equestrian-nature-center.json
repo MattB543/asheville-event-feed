@@ -1,0 +1,245 @@
+{
+  "provider": {
+    "key": "foothills-equestrian-nature-center",
+    "name": "Foothills Equestrian Nature Center (FENCE)",
+    "urls": ["https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf"],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:54.241Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "72606ff339b8540791740c6f186a3e517e1702cfaa15787b80c3036d960ff2a1",
+  "response": {
+    "searches": [
+      "site:fence.org \"summer\" \"2027\"",
+      "open https://fence.org/nature-center/day-camps/",
+      "site:fence.org \"Summer Day Camps\" \"scholarships\""
+    ],
+    "usage": {
+      "inputTokens": 20496,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1642,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 37596,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
+      "chars": 4978,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fence.org/",
+      "chars": 7755,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Foothills Equestrian Nature Center (FENCE)",
+    "website_url": "https://fence.org/",
+    "notes": "No official 2027 camp information was found. Dates and fees are from the 2026 registration form. The legacy day-camps page returned no readable content. The registration form requests return by May 15, 2026; this is not a 2027 registration milestone.",
+    "excluded": [
+      {
+        "name": "Therapeutic Riding of Tryon (TROT)",
+        "reason": "Ongoing therapeutic riding program, not a finite summer camp."
+      },
+      {
+        "name": "Summer Camp Team",
+        "reason": "Counselor employment opportunity, not a camper program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "horses"],
+        "description": "Campers explore nature, make crafts, and participate in outdoor activities such as hiking, wading, creek stomping, and wildlife observations. Weekly offerings include horse, nature and art, and environmental camps.",
+        "camp_page_url": "https://www.fence.org/nature-center/day-camps",
+        "registration_url": "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Foothills Equestrian Nature Center",
+            "address": "3381 Hunting Country Road",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Horse Camp",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Horse Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "All Day Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Half Day Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 150,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Nature / Art Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 150,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Environmental Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Half Day Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": {
+              "amount": 150,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fence.org/wp-content/uploads/2026/02/Summer-Day-Camp-Registration-Form.pdf",
+          "https://fence.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 form explicitly identifies the season year in its liability release. The site address is FENCE's published main address; the form does not explicitly identify the drop-off entrance, so confirm whether horse weeks use a different entrance. The legacy camp page could not be read. Credit-card payments incur a 3% fee according to the registration form."
+      }
+    ]
+  }
+}

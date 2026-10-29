@@ -1,0 +1,319 @@
+{
+  "provider": {
+    "key": "we-rock-the-spectrum-asheville",
+    "name": "We Rock the Spectrum Asheville",
+    "urls": ["https://www.werockthespectrumasheville.com/summer-camp-2026-2/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:09:21.539Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d1d2c5b6b1d294aba8db4767cfe043d83ab9ebd2e9aef15a50312c2adb50479f",
+  "response": {
+    "searches": ["site:werockthespectrumasheville.com \"2027\""],
+    "usage": {
+      "inputTokens": 23209,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1810,
+      "reasoningTokens": 85
+    },
+    "status": "completed",
+    "ms": 34531,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.werockthespectrumasheville.com/summer-camp-2026-2/",
+      "chars": 3035,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/birthday-parties-private-playdates/",
+      "chars": 5220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/private-playdates/",
+      "chars": 1491,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/schedule/",
+      "chars": 1264,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/category/camps",
+      "chars": 4749,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/category/schools-out-camp",
+      "chars": 3318,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/category/summer-camp",
+      "chars": 2566,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.werockthespectrumasheville.com/schedule",
+      "chars": 1264,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "We Rock the Spectrum Asheville",
+    "website_url": "https://www.werockthespectrumasheville.com/",
+    "notes": "No 2027 summer camp information or registration milestones were found. The January 2026 camp page could not be opened because of robots.txt, but its text was available in official-site search results. Hours and prices were not found for summer camp; spring-break prices and hours were not carried over. The May 2026 registration statement is historical, so current availability is left null.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp!",
+        "reason": "Held April 6–10, outside summer."
+      },
+      {
+        "name": "School’s Out Camps",
+        "reason": "Advertised for teacher workdays, holidays and snow days rather than summer."
+      },
+      {
+        "name": "Asheville Preschool",
+        "reason": "Ongoing preschool program, not a finite summer camp."
+      },
+      {
+        "name": "Kids Morning Out",
+        "reason": "Ongoing weekday drop-off care, not a finite summer program."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private social events, not camps."
+      },
+      {
+        "name": "Private Playdates",
+        "reason": "Private facility rentals; childcare is explicitly not included."
+      },
+      {
+        "name": "Parent's Night Out",
+        "reason": "Single-evening events, not multi-day evening camps."
+      },
+      {
+        "name": "Let Children Lead Offers Academic Tutoring",
+        "reason": "Ongoing academic tutoring, not a finite summer camp."
+      },
+      {
+        "name": "Not So Spooky Halloween Event",
+        "reason": "Seasonal social event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in imaginative play, group activities, games, crafts and movement organized around weekly themes.",
+        "camp_page_url": "https://www.werockthespectrumasheville.com/summer-camp-2026-2/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-08-28",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "We Rock the Spectrum Asheville",
+            "address": "63 Turtle Creek Dr",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Welcome Summer",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Space is the Place",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Animal Planet",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Around the World Explorer",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Superheroes / July 4 Celebration",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "STEM Week",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Mighty Jungle",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Inventor Workshop",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mermaids & Pirates",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Treasure Hunters",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Adventureland / Fairy Tales",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Aloha Summer",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Back to School Bash",
+            "start": "2026-08-24",
+            "end": "2026-08-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has not previously attended our gym for drop-off services, please call the gym to discuss your child’s needs before enrolling in camp."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.werockthespectrumasheville.com/summer-camp-2026-2/",
+          "https://www.werockthespectrumasheville.com/summer-camp-2026/",
+          "https://www.werockthespectrumasheville.com/schedule/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The pre-enrollment needs consultation is stated on the January 2026 official camp page, read through search results only; it does not specify particular accommodations. The May camp page calls ages 3–7 ideal rather than stating a strict eligibility range."
+      }
+    ]
+  }
+}

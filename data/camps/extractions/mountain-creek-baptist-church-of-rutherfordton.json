@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "mountain-creek-baptist-church-of-rutherfordton",
+    "name": "Mountain Creek Baptist Church of Rutherfordton",
+    "urls": ["https://802048273532159894.weebly.com/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:32:29.339Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "997863438fd74ae58b166c29665fa0a30b967b93bae66dfd16902a02ae5447b1",
+  "response": {
+    "searches": [
+      "\"Mountain Creek Baptist\" \"Rutherfordton\" \"VBS\" \"2026\"",
+      "\"Mountain Creek Baptist Church\" \"Rutherfordton\" \"Vacation Bible\"",
+      "site:facebook.com \"Mountain Creek Baptist Church Gilkey\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 24896,
+      "cachedInputTokens": 8845,
+      "outputTokens": 446,
+      "reasoningTokens": 236
+    },
+    "status": "completed",
+    "ms": 19180,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://802048273532159894.weebly.com/",
+      "chars": 1123,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain Creek Baptist Church of Rutherfordton",
+    "website_url": "https://802048273532159894.weebly.com/",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School information could be verified on official pages or indexed official social posts. The official calendar page returned no readable event details. A third-party listing reports Vacation Bible School on July 8, 2025, but no current-year offering was found; no card was created from that historical listing. Search results also included unrelated churches with the same name in Chattanooga, TN, and Greenville, SC.",
+    "excluded": [
+      {
+        "name": "Children and Youth",
+        "reason": "Regular Wednesday church programming, not a finite summer camp."
+      },
+      {
+        "name": "Fall Harvest Festival",
+        "reason": "Fall festival and single community event, not a summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

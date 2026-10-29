@@ -1,0 +1,141 @@
+{
+  "provider": {
+    "key": "the-rad-school-of-mural-arts",
+    "name": "The RAD School of Mural Arts",
+    "urls": [
+      "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:10.157Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d0b8920cf45f9184d42f1bf23071ffd54fd4a04ff02c58ca7570489767a33943",
+  "response": {
+    "searches": [
+      "site:radschoolofmuralarts.com summer camp 2026 2027",
+      "\"RAD\" \"Mural Camp\" \"2026\"",
+      "site:radschoolofmuralarts.com \"camp\" \"2026\" \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 17331,
+      "cachedInputTokens": 8845,
+      "outputTokens": 892,
+      "reasoningTokens": 255
+    },
+    "status": "completed",
+    "ms": 32952,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+      "chars": 2157,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/the-rad-school-of-mural-arts-shop/",
+      "chars": 1741,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=facebook",
+      "chars": 664,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=twitter",
+      "chars": 0,
+      "error": "fetch: thin page (26 chars); browser: HTTP 403"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=linkedin",
+      "chars": 962,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=reddit",
+      "chars": 821,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=tumblr",
+      "chars": 421,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=pinterest",
+      "chars": 533,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=jetpack-whatsapp",
+      "chars": 1815,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The RAD School of Mural Arts",
+    "website_url": "https://radschoolofmuralarts.com/",
+    "notes": "No summer 2027 announcement or dated 2026 summer schedule was found. Current registration listings contain fall 2026 and spring 2027 classes, not summer camp registration. Several official pages returned no readable body when opened, including the 2026RAD_Mural_camper_Appr_web attachment page; search snippets did not expose camp details.",
+    "excluded": [
+      {
+        "name": "Mural 101",
+        "reason": "Afterschool mural class offered during fall and spring, not a summer camp."
+      },
+      {
+        "name": "Community Mural Workshop for Adults",
+        "reason": "Adult-only workshop, offered outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "RAD Summer Mural Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "A youth summer camp focused on mural arts.",
+        "camp_page_url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "RAD Rendezvous Studios",
+            "address": "87 Roberts St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "We would love to see that fund grow so any kid that wants to participate in the classes and Summer Mural Camp can regardless of their families’ income."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+          "https://radschoolofmuralarts.com/the-rad-school-of-mural-arts-shop/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official scholarship page confirms the camp and its venue but gives no summer year, schedule, eligibility, hours or price. The 2026 season year is a fallback with no dated facts. Confirm the camp's current format and scholarship availability; the scholarship page expresses a funding goal rather than guaranteeing awards."
+      }
+    ]
+  }
+}

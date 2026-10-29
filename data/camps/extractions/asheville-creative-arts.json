@@ -1,0 +1,88 @@
+{
+  "provider": {
+    "key": "asheville-creative-arts",
+    "name": "Asheville Creative Arts",
+    "urls": ["https://ashevillecreativearts.org/camps-and-classes/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:09.017Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d2aacbad859b5989f6dd18e48990d51e03e1bfba93e83af311922d290935ab13",
+  "response": {
+    "searches": [
+      "site:ashevillecreativearts.org summer camp 2026 2027",
+      "open https://ashevillecreativearts.org/shows-events/incubator-series/"
+    ],
+    "usage": {
+      "inputTokens": 20958,
+      "cachedInputTokens": 8845,
+      "outputTokens": 520,
+      "reasoningTokens": 105
+    },
+    "status": "completed",
+    "ms": 18064,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillecreativearts.org/camps-and-classes/",
+      "chars": 4749,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/about/in-the-media/",
+      "chars": 11447,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/camps-and-classes/register-for-classes/",
+      "chars": 3742,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/get-involved/donate-to-our-partner-organizations/register-for-lnc-festival/",
+      "chars": 7947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/",
+      "chars": 4753,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Creative Arts",
+    "website_url": "https://ashevillecreativearts.org/",
+    "notes": "No eligible youth summer camp with 2026 or 2027 details was found. The current Camps and Classes and Register for Classes pages describe teaching-artist services and school residencies, not finite summer camps. The news archive contains a Summer Theatre Camp announcement for 2018 only; no current continuation was found. The 2027 Incubator Series lists Sarah Malinak Summer Camp in June 2027, but describes it as an artist residency rather than a supervised youth camp. Official pages checked additionally: https://ashevillecreativearts.org/shows-events/incubator-series/ and https://ashevillecreativearts.org/help-for-movers-shakers/asheville-creative-farm/.",
+    "excluded": [
+      {
+        "name": "Arts POW!",
+        "reason": "Bookable in-school and out-of-school teaching-artist services; no finite summer camp offering is stated."
+      },
+      {
+        "name": "TAPAS residency and performance opportunities",
+        "reason": "School residency and performance offerings for Asheville City Schools, not a public summer camp."
+      },
+      {
+        "name": "Sarah Malinak Summer Camp",
+        "reason": "An international artist residency convening artists to develop works and artistic practices, not a supervised youth summer camp."
+      },
+      {
+        "name": "Classes and workshops at Asheville Creative Farm",
+        "reason": "General forthcoming classes and workshops; no finite youth summer program is described."
+      },
+      {
+        "name": "Legacy Neighborhoods Coalition Festival",
+        "reason": "Festival and vendor registration, not a youth camp."
+      },
+      {
+        "name": "Asheville Creative Arts’ (End of) Summer Soiree",
+        "reason": "Single community social event, not a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

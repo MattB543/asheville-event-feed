@@ -1,0 +1,306 @@
+{
+  "method": "seed_sheet",
+  "id": "exa-sheet-2",
+  "input": "Below is a spreadsheet of kids' summer programs (summer 2026) that an earlier web search found near Asheville, one row per program; several rows can belong to one organization. Do not search the web. Return one row per organization, covering every organization in the list: drop a row only when it is clearly not a kids' summer program or clearly outside the area. Name the organization, not the program or the VBS theme. url: one of the row's sources when it is the organization's own page (prefer its camp page), never a directory, news article or event listing; otherwise null. town: the town where campers attend; a venue name is not a town (give the venue's town when you know it, else null).\n\n1. Cultivate Climbing | ages: 6–14 | location: 37 Foundy Street, Asheville, NC | sources: https://cultivateclimbing.com/summer-camp/\n2. Educational Garden Project | ages: Garden Camp: ages 6–10; Counselor-in-Training program: ages 11–16 | location: 15 Overbrook Place, Asheville, NC 28805 | sources: https://www.theeducationalgardenproject.org/summer-camp https://www.theeducationalgardenproject.org/\n3. Evergreen Summer Adventures | ages: Rising kindergarten through rising 9th grade | location: Evergreen Community Charter School, 50 Bell Rd, Asheville | sources: https://www.evergreensummercamp.org/ https://www.evergreenccs.org/scoop/2026/may7\n4. FirstShine Summer Camp | ages: Teenagers and young adults with special needs; exact age range not stated | location: First Baptist Church of Asheville, 5 Oak Street, Asheville, Buncombe County | sources: https://fbca.net/firstshine-summer-camp/\n5. FLAG Camp | ages: 5-12 | location: Arden Church, 35 Airport Road, Arden, Buncombe County | sources: https://ardenadventist.com/flag-camp\n6. Forest Floor Wilderness Programs | ages: Age bands vary by program: 6–7, 6–8, 7–8, 9–12, 9–13, 10–13, 10–14, 12–16, 13–17, and 14–17. | location: Asheville, Buncombe County, North Carolina; locations include Shope Creek at 472 Shope Creek Road, Haw Creek Commons, and Hutch Mountain | sources: https://forestfloorasheville.com/summer-camps/ https://forest-floor.jumbula.com/summer-camps https://forestfloorasheville.com/\n7. Growing Wild Forest School | ages: Ages 3–6 | location: West Asheville, Buncombe County, North Carolina | sources: https://www.growingwildforestschool.org/camp https://www.growingwildforestschool.org/post/hiring-for-summer-2026\n8. Hahn's Gymnastics Summer Camps | ages: 3–12 | location: Hahn's Gymnastics, 18 Legend Drive Lane, Arden, NC 28704 | sources: https://www.hahnsgymnastics.com/summer-camp https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-1-survivor https://www.hahnsgymnastics.com/hahns-calendar/summer-camp-week-2-splish-splash-waterbash\n9. Lakewood Church “Kingdom Quest” VBS (VBS) | ages: ? | location: Lakewood Church, 41 Byrd Road, Black Mountain, Buncombe County | sources: https://lakewoodbmt.com/events/vbs\n10. LEAF Global Arts | ages: Rising first graders through age 12; no children under 5 | location: LEAF Global Experience, 19 Eagle Street, Asheville, NC 28801 | sources: https://www.theleaf.org/camps https://secure.qgiv.com/for/leafcampregistration/event/leafcamp/\n11. Local Cloth Farm to Fabric Kids Summer Camp | ages: 8-13 | location: Local Cloth, 408 Depot St #100, Asheville, NC 28801 | sources: https://www.riverartsdistrict.com/event/farm-to-fabric-kids-summer-camp/ https://www.riverartsdistrict.com/event/farm-to-fabric-kids-summer-camp-2/\n12. Lutheridge | ages: PreKamp: ages 3–6; Day Camp: completed kindergarten–5th grade; First Camp: grades 1–2; Pioneers: grades 3–5; Crazy Cool Campout and Climb High: grades 4–6; Rock & Raft: grades 9–12; additional middle-school programs. | location: Arden, Buncombe County, North Carolina; physical camp at 2511 Hendersonville Road / 2049 Upper Laurel Drive | sources: https://lutheridge.org/wp-content/uploads/2026-SUMMER-BROCHURE-updated-11.20.25.pdf https://lutheridge.org/summer-camps/ https://lutheridge.org/summer_camps/first-camp/ https://lutheridge.org/summer_camps/crazy-cool-campout/ https://lutheridge.org/summer_camps/rock-raft-high-school/ https://lutheridge.org/summer_camps/gathering-expedition-camp-3/\n13. Mason Plumlee Basketball Camp | ages: 10-16 | location: Christ School, 500 Christ School Rd, Arden | sources: https://register.ryzer.com/camp.cfm?id=309477\n14. Montreat Clubs & Child Care | ages: 2 years old through recently graduated high school seniors; day-camp programming is described for children who have completed kindergarten through recent high-school graduates | location: Montreat Conference Center, Montreat, NC | sources: https://montreat.org/tsim26 https://montreat.org/day-in-life-of-clubbie https://montreat.org/clubs-corner-reflections\n15. Music Academy Asheville / Rock Academy Summer Camps | ages: Opening Act: rising grades 4-6; Bluegrass: 8-17; Rock Academy: 12-17 | location: 1408 Patton Ave Suite F, Asheville, NC 28806 | sources: https://musicacademyasheville.com/programs/summer-camps/ https://musicacademyasheville.com/programs/\n16. Ninjaville | ages: Children; exact age range not stated | location: 1078 Tunnel Road, Asheville, NC | sources: https://ninjaville.org/ninja-warrior-camp-for-kids/ https://ninjaville.org/camp-registration/\n17. North Carolina Arboretum Discovery Camp | ages: Track-specific age cutoffs; exact age bands for every track were not exposed. | location: 20 Frederick Law Olmsted Way, Asheville, Buncombe County, North Carolina | sources: https://ncarboretum.org/education-programs/discovery-camp/\n18. Odyssey ClayWorks Summer Kids Clay Camp | ages: ? | location: 236 Clingman Ave Extension, Asheville, NC 28801 | sources: https://www.odysseyclayworks.com/clay-camp https://avlgo.com/events/summer-kids-camps-at-odyssey-clayworks-2026-08-14-068345 https://www.odysseyclayworks.com/\n19. Odyssey Community School Summer Camps | ages: Black Bears and Bobcats: rising grades 2-3; themed camps: rising grade 4+ | location: 90 Zillicoa St, Asheville | sources: https://odysseycommunity.org/news/k7yji0639fhh2lybh6cselq4ualtrp https://odysseycommunity.org/events/summer-pool-registrations-open https://odysseycommunity.org/summer-camp\n20. Playground Stage Summer Camp | ages: Entering/rising grades 1–6 | location: Avery’s Creek Community Center, 899 Glenn Bridge Road SE, Arden, Buncombe County, NC 28704 | sources: https://playgroundstage.org/summer-camp-2026 https://playgroundstage.jumbula.com/Summer2026/SummerCamp2026Session3713724\n21. Ruby Ranch Summer Camp with Molly’s Riding School | ages: 6-16, or adventurous rising kindergarteners | location: Ruby Ranch, Candler, NC | sources: https://www.rubyranchnc.com/ashevillecamps/summer-2026\n22. School of Living Arts (SOLA) Summer Camp | ages: Children and teens; teen backpacking ages 12-18 | location: SOLA campus and Western North Carolina outdoor sites; Asheville-area program | sources: https://www.sanctuaryoflivingarts.org/summer-camp\n23. Southside Dance Studio K-Pop Summer Dance Camp | ages: 4-8 | location: Southside Dance Studio, Buncombe County/Asheville area; street address not shown | sources: https://www.sodancewnc.com/summer-2026/summer-camp\n24. Sun Soo Center for Excellence | ages: Grades K–5 | location: 800 Fairview Road, Suite D2, Asheville, NC | sources: https://martialartsasheville.com/summer-camps/ https://martialartsasheville.com/events/summer-camp-2026-week-9-water-fun/\n25. Swift App School App Camp | ages: Grades 6–8 and 9–12 | location: 45 S French Broad Avenue, Asheville, listed through Asheville City Schools Beyond School | sources: https://beyondschool.ashevillecityschools.net/programs/app-camp/ https://www.swiftappschool.com/appcamp https://www.linkedin.com/posts/swift-app-school_app-development-foundations-of-coding-activity-7421643700755152896-8x8h\n26. Tanglewood Summer (Asheville Community Theatre) | ages: 5-18 (Youth Camp 5-13; Advanced Camp 13-18) | location: 35 E Walnut St, Asheville, NC 28801; 2026 listing also indicates UNC Asheville venue during renovations | sources: https://ashevilletheatre.org/education/summer-camp/ https://kidvoyage.com/camps/usa/acts-tanglewood-summer-camp\n27. The Asheville Kitchen | ages: Children; exact age range not shown | location: Asheville, NC; specific venue not shown | sources: https://www.theashevillekitchen.com/kids-baking-camps-2026\n28. The Learning Community Summer Camps | ages: Varies by camp; indexed page lists rising 1st-9th, including rising 3rd-6th, 4th-7th, 1st-6th, and 7th-9th | location: The Learning Community School, 1220 Bee Tree Rd, Swannanoa | sources: https://thelearningcommunity.org/camps/\n29. The Little Gym Asheville | ages: Super Quest: ages 3–10. Skill Thrill: ages 6–12. | location: 10 Crispin Court, Asheville, NC | sources: https://www.thelittlegym.com/north-carolina-asheville/camps/\n30. Trinity Baptist Church Asheville “Junkyard Redemption” VBS (VBS) | ages: ? | location: Trinity Baptist Church, 216 Shelburne Road, Asheville, Buncombe County | sources: https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js https://tbcavl.com/vbs\n31. Trinity Episcopal Vacation Bible School (VBS) | ages: ? | location: Trinity Episcopal Church, Asheville, Buncombe County | sources: https://www.trinityasheville.org/vbs\n32. Ultimate Frisbee Summer Camp (private Mark Strazzer program) | ages: Rising 2nd grade through high school | location: Asheville Middle School, 221 S French Broad, Asheville | sources: https://www.avlgo.com/events/high-school-ultimate-frisbee-summer-camp-2026-08-07-e032f3 https://ashevilleultimate.org/youth-ultimate",
+  "at": "2026-10-29T03:18:03.799Z",
+  "webSearch": false,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 3564,
+    "cachedInputTokens": 0,
+    "outputTokens": 2019,
+    "reasoningTokens": 0
+  },
+  "searches": [],
+  "ms": 34093,
+  "candidates": [
+    {
+      "name": "Cultivate Climbing",
+      "url": "https://cultivateclimbing.com/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Climbing camps for ages 6–14."
+    },
+    {
+      "name": "Educational Garden Project",
+      "url": "https://www.theeducationalgardenproject.org/summer-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "Garden Camp for ages 6–10 and counselor-in-training program for ages 11–16."
+    },
+    {
+      "name": "Evergreen Community Charter School",
+      "url": "https://www.evergreensummercamp.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor"],
+      "note": "Evergreen Summer Adventures for rising kindergarten through rising ninth grade."
+    },
+    {
+      "name": "First Baptist Church of Asheville",
+      "url": "https://fbca.net/firstshine-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["special_needs"],
+      "note": "FirstShine summer camp for teenagers and young adults with special needs."
+    },
+    {
+      "name": "Arden Church",
+      "url": "https://ardenadventist.com/flag-camp",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "faith_based"],
+      "note": "FLAG summer camp for ages 5–12."
+    },
+    {
+      "name": "Forest Floor Wilderness Programs",
+      "url": "https://forestfloorasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "Wilderness summer programs with age groups spanning ages 6–17 at several area sites."
+    },
+    {
+      "name": "Growing Wild Forest School",
+      "url": "https://www.growingwildforestschool.org/camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "Forest summer camp for ages 3–6 in West Asheville."
+    },
+    {
+      "name": "Hahn's Gymnastics",
+      "url": "https://www.hahnsgymnastics.com/summer-camp",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Gymnastics summer camps for ages 3–12."
+    },
+    {
+      "name": "Lakewood Church of Black Mountain",
+      "url": "https://lakewoodbmt.com/events/vbs",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Kingdom Quest Vacation Bible School; ages not stated."
+    },
+    {
+      "name": "LEAF Global Arts",
+      "url": "https://www.theleaf.org/camps",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "music"],
+      "note": "Summer camps for rising first graders through age 12; minimum age 5."
+    },
+    {
+      "name": "Local Cloth",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Farm to Fabric kids' summer camp for ages 8–13."
+    },
+    {
+      "name": "Lutheridge",
+      "url": "https://lutheridge.org/summer-camps/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["faith_based", "nature_outdoor", "general"],
+      "note": "Preschool, elementary, middle-school and high-school camps, including outdoor adventure programs."
+    },
+    {
+      "name": "Mason Plumlee Basketball Camp",
+      "url": "https://register.ryzer.com/camp.cfm?id=309477",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["clinic"],
+      "categories": ["sports"],
+      "note": "Basketball camp for ages 10–16 at Christ School."
+    },
+    {
+      "name": "Montreat Conference Center",
+      "url": "https://montreat.org/tsim26",
+      "town": "Montreat",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "faith_based"],
+      "note": "Summer Clubs and Child Care serve ages 2 through recent high-school graduates."
+    },
+    {
+      "name": "Music Academy Asheville",
+      "url": "https://musicacademyasheville.com/programs/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Opening Act, Bluegrass and Rock Academy camps for children and teens."
+    },
+    {
+      "name": "Ninjaville",
+      "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Ninja warrior summer camps for children; exact ages not stated."
+    },
+    {
+      "name": "North Carolina Arboretum",
+      "url": "https://ncarboretum.org/education-programs/discovery-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor", "stem"],
+      "note": "Discovery Camp with track-specific age requirements."
+    },
+    {
+      "name": "Odyssey ClayWorks",
+      "url": "https://www.odysseyclayworks.com/clay-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Kids' summer clay camps; ages not stated."
+    },
+    {
+      "name": "Odyssey Community School",
+      "url": "https://odysseycommunity.org/summer-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "Black Bears and Bobcats camps for rising grades 2–3 and themed camps for rising grade 4 and up."
+    },
+    {
+      "name": "Playground Stage",
+      "url": "https://playgroundstage.org/summer-camp-2026",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater"],
+      "note": "Summer theater camp for rising grades 1–6 at Avery’s Creek Community Center."
+    },
+    {
+      "name": "Ruby Ranch / Molly’s Riding School",
+      "url": "https://www.rubyranchnc.com/ashevillecamps/summer-2026",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["horses", "nature_outdoor"],
+      "note": "Riding summer camp for ages 6–16, also accepting adventurous rising kindergarteners."
+    },
+    {
+      "name": "School of Living Arts (SOLA)",
+      "url": "https://www.sanctuaryoflivingarts.org/summer-camp",
+      "town": null,
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["nature_outdoor"],
+      "note": "Children's and teen summer programs, including backpacking for ages 12–18; Asheville-area sites."
+    },
+    {
+      "name": "Southside Dance Studio",
+      "url": "https://www.sodancewnc.com/summer-2026/summer-camp",
+      "town": null,
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["dance"],
+      "note": "K-pop summer dance camp for ages 4–8 in the Buncombe County area."
+    },
+    {
+      "name": "Sun Soo Center for Excellence",
+      "url": "https://martialartsasheville.com/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Summer camps for grades K–5 at its martial arts center."
+    },
+    {
+      "name": "Swift App School",
+      "url": "https://www.swiftappschool.com/appcamp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem"],
+      "note": "App development summer camps for grades 6–8 and 9–12."
+    },
+    {
+      "name": "Asheville Community Theatre",
+      "url": "https://ashevilletheatre.org/education/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater"],
+      "note": "Tanglewood Youth Camp for ages 5–13 and Advanced Camp for ages 13–18."
+    },
+    {
+      "name": "The Asheville Kitchen",
+      "url": "https://www.theashevillekitchen.com/kids-baking-camps-2026",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["cooking"],
+      "note": "Kids' summer baking camps; ages not stated."
+    },
+    {
+      "name": "The Learning Community School",
+      "url": "https://thelearningcommunity.org/camps/",
+      "town": "Swannanoa",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "Summer camps with varying grade ranges spanning rising grades 1–9."
+    },
+    {
+      "name": "The Little Gym Asheville",
+      "url": "https://www.thelittlegym.com/north-carolina-asheville/camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Super Quest camps for ages 3–10 and Skill Thrill camps for ages 6–12."
+    },
+    {
+      "name": "Trinity Baptist Church of Asheville",
+      "url": "https://tbcavl.com/vbs",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Junkyard Redemption Vacation Bible School; ages not stated."
+    },
+    {
+      "name": "Trinity Episcopal Church of Asheville",
+      "url": "https://www.trinityasheville.org/vbs",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Summer Vacation Bible School; ages not stated."
+    },
+    {
+      "name": "Mark Strazzer",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Private ultimate frisbee summer camps for rising second grade through high school at Asheville Middle School."
+    }
+  ]
+}

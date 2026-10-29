@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "old-time-gospel-baptist-church-of-newport",
+    "name": "Old Time Gospel Baptist Church of Newport",
+    "urls": ["https://www.facebook.com/Old-Time-Gospel-Baptist-Church-283421165042636/"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:26:26.871Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Old Time Gospel Baptist\" \"Newport\" \"Bible\"",
+      "\"Old Time Gospel Baptist Church\" Newport website",
+      "site:facebook.com \"Newport\" \"VBS\" \"Old Time\""
+    ],
+    "usage": {
+      "inputTokens": 20438,
+      "cachedInputTokens": 8845,
+      "outputTokens": 757,
+      "reasoningTokens": 290
+    },
+    "status": "completed",
+    "ms": 22333,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/Old-Time-Gospel-Baptist-Church-283421165042636/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Old Time Gospel Baptist Church of Newport",
+    "website_url": null,
+    "notes": "No standalone website or 2027 camp information found. The supplied Facebook page returned no readable content. Third-party event listings identify a 2026 Vacation Bible School beginning June 21, but its complete dates and details could not be verified on an official page.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": "https://www.facebook.com/Old-Time-Gospel-Baptist-Church-283421165042636/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Old Time Gospel Baptist Church",
+            "address": "445 Beech St",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The official Facebook page could not be read. Confirm the church's location and VBS details directly with the provider. The address appears in the Foothills Quartet's venue listing and third-party event listings, not a readable church-published location page. AllEvents lists June 21, 2026 at 6:15 p.m.; NewsBreak reproduces an invitation describing nightly classes and meals, but no official post was accessible, so dates, hours and meal support are left null."
+      }
+    ]
+  }
+}

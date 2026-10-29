@@ -1,0 +1,84 @@
+{
+  "provider": {
+    "key": "henderson-county-family-ymca",
+    "name": "Henderson County Family YMCA",
+    "urls": ["https://hcfymca.org/programs/summer-day-camp/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:33.280Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "29d23497fcabad8c3fcc38be16c611a24b43ca78903ea2c85ebc62bc1064e7c8",
+  "response": {
+    "searches": ["site:hcfymca.org \"460\" \"Henderson\""],
+    "usage": {
+      "inputTokens": 19799,
+      "cachedInputTokens": 8845,
+      "outputTokens": 289,
+      "reasoningTokens": 48
+    },
+    "status": "completed",
+    "ms": 11242,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hcfymca.org/programs/summer-day-camp/",
+      "chars": 2746,
+      "method": "fetch"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?cc_category_id=160&cid=5025",
+      "chars": 596,
+      "method": "browser"
+    },
+    {
+      "url": "https://hcfymca.org/wp-content/uploads/sites/33/2026/02/2026-Summer-Day-Camp-Parent-Packet.pdf",
+      "chars": 10629,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcfymca.org/programs/schedules/",
+      "chars": 1471,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.daxko.com/services/websites?utm_source=digitalservices&utm_medium=footerlink&utm_campaign=digitalservicestraffic&utm_content=daxko",
+      "chars": 5952,
+      "method": "browser"
+    },
+    {
+      "url": "https://hcfymca.org/",
+      "chars": 4053,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcfymca.org/wp-content/uploads/sites/33/2026/10/2026-Lap-Pool-Schedule-with-SAW-Dates-1.pdf",
+      "chars": 1894,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hcfymca.org/wp-content/uploads/sites/33/2026/08/August-2026-Warm-Pool-Schedule-4.pdf",
+      "chars": 1614,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Henderson County Family YMCA",
+    "website_url": "https://hcfymca.org/",
+    "notes": "Provider/location mismatch: the supplied website belongs to Henderson County Family YMCA in Henderson, Kentucky, not Hendersonville, North Carolina. Its official homepage and contact page publish 460 Klutey Park Plaza, Henderson, KY 42420. No cards are included because this provider is outside AVLGO's geographic coverage. Do not carry forward the existing Summer Day Camp listing using these sources.",
+    "excluded": [
+      {
+        "name": "Summer Day Camp",
+        "reason": "The supplied official website and 2026 parent packet describe the Henderson, Kentucky YMCA's camp, outside approximately 75 minutes' drive of Asheville; this is not a Hendersonville, NC provider. Cub Camp, Explorers and Navigators are age groups within this excluded program."
+      },
+      {
+        "name": "Spring Break Day Camp",
+        "reason": "Outside summer and offered by the Henderson, Kentucky organization, outside AVLGO's geographic coverage."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -25,15 +25,19 @@ export async function proxy(request: NextRequest) {
  * - api/city-status (anonymous, polled every minute by every open tab, CDN-cached:
  *   a session refresh here would cost a Supabase call and a Set-Cookie that defeats the cache)
  * - Public docs, crawler files and the documented exports (developers, openapi.json,
- *   llms.txt, sitemap.xml, robots.txt, api/export/json, api/export/markdown): anonymous
- *   and CDN-cached for the same reason. Each is anchored with `$` so only that exact
- *   path is skipped, never a sibling or child route
+ *   llms.txt, sitemap.xml, robots.txt, api/export/json, api/export/markdown,
+ *   api/camps/export/json, api/camps/export/markdown): anonymous and CDN-cached for the
+ *   same reason. Each is anchored with `$` so only that exact path is skipped, never a
+ *   sibling or child route
+ * - api/camps/calendar/<token> (the saved-camps feed calendar apps poll, CDN-cached) and
+ *   api/camps/<id>/view (the anonymous popularity beacon): no session to refresh, and a
+ *   Set-Cookie would defeat the feed's cache
  */
 export const config = {
   matcher: [
     {
       source:
-        '/((?!_next/static|_next/image|favicon.ico|avl-data/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
+        '/((?!_next/static|_next/image|favicon.ico|avl-data/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|api/camps/export/(?:json|markdown)/?$|api/camps/calendar/|api/camps/[^/]+/view/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
       has: [
         {
           type: 'header',

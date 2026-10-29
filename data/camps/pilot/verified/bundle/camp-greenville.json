@@ -1,0 +1,788 @@
+{
+  "provider": {
+    "key": "camp-greenville",
+    "name": "YMCA Camp Greenville",
+    "urls": ["https://www.campgreenville.org/"],
+    "area": "Cedar Mountain / Cleveland, SC (Greenville County, SC)",
+    "covers": ["out_of_state", "overnight", "radius_edge"],
+    "site": "YMCA Camp Greenville"
+  },
+  "verifiedAt": "2026-10-29T00:56:15.063Z",
+  "verifyMs": 34,
+  "extraction": {
+    "provider_name": "YMCA Camp Greenville",
+    "website_url": "https://www.campgreenville.org/",
+    "notes": "Summer 2027 dates, rates and registration timeline are posted. Several program pages returned no readable body; indexed official text was used where available. Extraction is incomplete: the full Adventure trip list, Base Camp division eligibility, LDP training dates and program-availability chart could not be read. Adventure cards below are grouped by documented division pending review of individual trip offerings. No availability status was inferred from the chart legend. The dates-rates page's summer-2025 metadata conflicts with its explicit Summer 2027 body; the body was used.",
+    "excluded": [
+      {
+        "name": "Parent + Me",
+        "reason": "Parent-and-child family-only program."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp."
+      },
+      {
+        "name": "Spectrum & Stargazers Family Camp",
+        "reason": "Family-only program; posted weekends are in spring and fall."
+      },
+      {
+        "name": "Adventure Guides",
+        "reason": "Family participation program rather than a supervised youth-only summer camp."
+      },
+      {
+        "name": "Senior LDP",
+        "reason": "Participants apply for employment through the YMCA hiring system."
+      },
+      {
+        "name": "LDP Fall and Spring Retreats",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Spring Break Adventure Trip",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Base Camp",
+        "variant": null,
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "camp_page_url": "https://www.campgreenville.org/base-camp",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Campers live in cabins and participate in camper-chosen and group activities, campfires and evening programs.",
+        "season_dates": {
+          "start": "2027-06-13",
+          "end": "2027-08-07",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/dates-rates",
+          "quote": "Session 1: June 13 - 19\n\nSession 2: June 20 - 26\n\nSession 3: June 27 - July 3\n\nSession 4: July 4 - 10\n\nSession 5: July 11 - 17\n\nSession 6: July 18 - 24\n\nSession 7: July 25 - 31\n\nSession 8: August 1 - 7",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "ages": null,
+        "grades": null,
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1525,
+            "unit": "week",
+            "tier": null,
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Base Camp: $1525",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [
+          {
+            "amount": 200,
+            "label": "Non-refundable registration deposit",
+            "per": "session",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [],
+        "financial_aid": {
+          "available": true,
+          "details": "Requires the initial deposit and an application with documentation.",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/dates-rates",
+          "quote": "Financial aid is available to those who pay the initial $200 non-refundable deposit and submit the appropriate application and documentation.",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "available": true,
+          "details": "Airport transportation between camp and GSP or AVL is available for an additional fee each way.",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/dates-rates",
+          "quote": "Airport Transportation to/from GSP or AVL and camp is available for an additional fee each way (form coming soon).",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "registration_milestones": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": null,
+            "precision": "date",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "PHASE 1 - October 6, 2026",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": ["needs_hand_check"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "18:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027
+          }
+        ]
+      },
+      {
+        "name": "D2 Adventure",
+        "variant": "Division 2",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Campers combine on-camp activities with off-camp exploration, returning to Camp Greenville each evening.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 6,
+          "basis": "rising",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/adventure-trips",
+          "quote": "Rising into 5th & 6th",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1675,
+            "unit": "week",
+            "tier": null,
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Adventure Camp - 1 Week: $1675",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [
+          {
+            "amount": 200,
+            "label": "Non-refundable registration deposit",
+            "per": "session",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "7:00 PM EST for all D2 level campers (D3 will remain open)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Trips",
+        "variant": "Division 3; individual trips require further review",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Adventure campers learn outdoor skills and travel on activity-focused trips, sleeping in tents or under tarps.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/adventure-trips",
+          "quote": "Rising into 7th, 8th, & 9th",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [
+          {
+            "amount": 200,
+            "label": "Non-refundable registration deposit",
+            "per": "session",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "18:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "6:00 PM EST for only D3 level campers (all programs)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Adventure Trips",
+        "variant": "Division 4; individual trips require further review",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "camp_page_url": "https://www.campgreenville.org/adventure-trips",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Adventure campers learn outdoor skills and travel on activity-focused trips, sleeping in tents or under tarps.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/adventure-trips",
+          "quote": "Rising into 10th, 11th, & 12th",
+          "source_kind": "official_site",
+          "check": {
+            "status": "verified",
+            "match": "exact",
+            "flags": [],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [
+          {
+            "amount": 200,
+            "label": "Non-refundable registration deposit",
+            "per": "session",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "20:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "8:00 PM EST for all D1 (includes Parent + Me) & D4 (includes sophomore LDP) level campers (D2 and D3 will remain open)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Sophomore Leadership Development Program",
+        "variant": "Sophomore LDP",
+        "type": "overnight",
+        "categories": ["general"],
+        "camp_page_url": "https://www.campgreenville.org/leadership-development",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Participants learn to lead others, facilitate camp activities and serve as role models.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 9,
+          "basis": "current",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/leadership-development",
+          "quote": "Sophomore LDPs (current Freshmen/9th grade)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["grade_basis_not_in_quote"],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1525,
+            "unit": "session",
+            "tier": null,
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Sophomore LDP: $1525",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "fees": [
+          {
+            "amount": 200,
+            "label": "Non-refundable registration deposit",
+            "per": "session",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "A non-refundable deposit of $200 is required at registration (per camper, per session).",
+            "source_kind": "official_site",
+            "check": {
+              "status": "verified",
+              "match": "exact",
+              "flags": [],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-10-06",
+            "time": "20:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "8:00 PM EST for all D1 (includes Parent + Me) & D4 (includes sophomore LDP) level campers (D2 and D3 will remain open)",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-13",
+            "time": "19:00",
+            "precision": "datetime",
+            "year": 2027,
+            "url": "https://www.campgreenville.org/dates-rates",
+            "quote": "Families of 2026 waitlisted campers are invited to register at 6:00 PM. All others may register starting at 7:00 PM.",
+            "source_kind": "official_site",
+            "check": {
+              "status": "review",
+              "match": "exact",
+              "flags": ["needs_hand_check", "value_not_in_quote:date"],
+              "checkedAt": "2026-10-29T00:56:15.029Z",
+              "fetchMethod": "fetch"
+            }
+          }
+        ],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      },
+      {
+        "name": "Junior Leadership Development Program",
+        "variant": "Junior LDP",
+        "type": "overnight",
+        "categories": ["general"],
+        "camp_page_url": "https://www.campgreenville.org/leadership-development",
+        "registration_url": "https://www.campgreenville.org/login",
+        "description": "Participants learn to lead others, facilitate camp activities and serve as role models. An application process is required.",
+        "season_dates": null,
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 10,
+          "basis": "current",
+          "year": 2027,
+          "url": "https://www.campgreenville.org/leadership-development",
+          "quote": "Junior LDPs (current Sophomores/10th grade)",
+          "source_kind": "official_site",
+          "check": {
+            "status": "review",
+            "match": "exact",
+            "flags": ["grade_basis_not_in_quote"],
+            "checkedAt": "2026-10-29T00:56:15.029Z",
+            "fetchMethod": "fetch"
+          }
+        },
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "fees": [],
+        "locations": [],
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "registration_milestones": [],
+        "availability": null,
+        "last_year_registration_opened": null,
+        "sessions": []
+      }
+    ]
+  },
+  "report": {
+    "ownDomains": ["campgreenville.org"],
+    "platformTenants": ["campgreenville.campintouch.com"],
+    "byField": {
+      "season_dates": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "financial_aid": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "transportation": {
+        "total": 1,
+        "verified": 1,
+        "review": 0,
+        "dropped": 0
+      },
+      "prices": {
+        "total": 3,
+        "verified": 3,
+        "review": 0,
+        "dropped": 0
+      },
+      "fees": {
+        "total": 5,
+        "verified": 5,
+        "review": 0,
+        "dropped": 0
+      },
+      "registration_milestones": {
+        "total": 11,
+        "verified": 1,
+        "review": 10,
+        "dropped": 0
+      },
+      "grades": {
+        "total": 5,
+        "verified": 3,
+        "review": 2,
+        "dropped": 0
+      }
+    },
+    "totals": {
+      "total": 27,
+      "verified": 15,
+      "review": 12,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.campgreenville.org/",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.campgreenville.org/dates-rates",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.campgreenville.org/adventure-trips",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      },
+      {
+        "url": "https://www.campgreenville.org/leadership-development",
+        "ok": true,
+        "method": "fetch",
+        "kind": "html"
+      }
+    ]
+  }
+}

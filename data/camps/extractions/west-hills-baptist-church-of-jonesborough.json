@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "west-hills-baptist-church-of-jonesborough",
+    "name": "West Hills Baptist Church of Jonesborough",
+    "urls": ["http://www.westhillsjonesborough.com/"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND www.westhillsjonesborough.com); chrome-tls: fetch failed (getaddrinfo ENOTFOUND www.westhillsjonesborough.com); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.westhillsjonesborough.com/"
+  },
+  "extractedAt": "2026-10-29T17:32:06.358Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:westhillsjonesborough.com VBS 2026",
+      "\"West Hills\" \"Jonesborough\" \"VBS\"",
+      "\"West Hills Baptist Church\" \"Jonesborough\" site:facebook.com"
+    ],
+    "usage": {
+      "inputTokens": 24523,
+      "cachedInputTokens": 8845,
+      "outputTokens": 831,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 27088,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "http://www.westhillsjonesborough.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (getaddrinfo ENOTFOUND www.westhillsjonesborough.com); chrome-tls: fetch failed (getaddrinfo ENOTFOUND www.westhillsjonesborough.com); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.westhillsjonesborough.com/\nCall log:\n\u001b[2m  - navigating to \"http://www.westhillsjonesborough.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West Hills Baptist Church of Jonesborough",
+    "website_url": "http://www.westhillsjonesborough.com/",
+    "notes": "The official website was blocked by robots.txt and no readable official summer-camp announcement was found. No 2027 information was found. A third-party HappeningNext listing identifies Fruit of the Spirit VBS on July 18, 2026; the card is retained for review, not as an officially verified announcement. Its listing is https://happeningnext.com/event/fruit-of-the-spirit-vbs-eid3a0dsqxbce. Searches also found a 2025 What A Mess VBS listing, which was not used for 2026 or 2027 facts.",
+    "excluded": [
+      {
+        "name": "West Hills Baptist Church Harvest Festival",
+        "reason": "An October seasonal festival and single social event, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fruit of the Spirit VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-18",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "West Hills Baptist Church",
+            "address": "1416 Persimmon Ridge Rd",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The program name, July 18, 2026 date, 10 a.m.–3 p.m. hours and address come only from the HappeningNext search listing at https://happeningnext.com/event/fruit-of-the-spirit-vbs-eid3a0dsqxbce. The listing itself returned no readable page text. Confirm these details and the venue's published address with the church; its official website could not be read."
+      }
+    ]
+  }
+}

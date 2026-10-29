@@ -1,0 +1,55 @@
+{
+  "method": "gap_fill",
+  "id": "r1-lacrosse-field-hockey--all",
+  "input": "Find lacrosse and field hockey camps and clinics for kids and teens in the Asheville area of Western North Carolina (within about an hour of Asheville). Look past the big, well-known camps: search with varied wording and town names and list every organization you find.",
+  "at": "2026-10-29T03:30:52.237Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 80820,
+    "cachedInputTokens": 5180,
+    "outputTokens": 1379,
+    "reasoningTokens": 1060
+  },
+  "searches": [
+    "Asheville lacrosse camp summer 2026 2025",
+    "\"lacrosse\" \"camp\" \"2025\" \"Asheville\"",
+    "\"lacrosse\" \"camp\" \"Asheville\" \"2026\" -site:insidelacrosse.com -site:maxpreps.com",
+    "\"lacrosse\" \"summer\" \"2025\" \"Swannanoa\"",
+    "site:x10lacrosse.com Asheville 2026",
+    "\"lacrosse\" \"camp\" \"Waynesville\" \"2025\"",
+    "site:camptimberlake.com \"2026\" \"lacrosse\"",
+    "site:ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college \"2026\"",
+    "site:tardevils.com/home-page/f/explore-tardevils-first-in-field-hockey \"ASHEVILLE\" \"July\""
+  ],
+  "ms": 91799,
+  "candidates": [
+    {
+      "name": "X10 Lacrosse",
+      "url": "https://www.x10lacrosse.com/asheville",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports", "nature_outdoor"],
+      "note": "Lacrosse overnight camp at Christ School for boys and girls ages 10–16; June 15–19, 2026."
+    },
+    {
+      "name": "US Sports Camps",
+      "url": "https://www.ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college",
+      "town": "Montreat",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Nike boys lacrosse camp for ages 9–18 with Montreat coaching staff; 2027 updates announced, dates pending."
+    },
+    {
+      "name": "Camp Timberlake",
+      "url": "https://camptimberlake.com/prospective-families/program/",
+      "town": "Marion",
+      "state": "NC",
+      "kinds": ["overnight"],
+      "categories": ["sports", "nature_outdoor", "faith_based", "general"],
+      "note": "Boys’ Christian overnight summer camp offering lacrosse among its activities; operated in summer 2026."
+    }
+  ]
+}

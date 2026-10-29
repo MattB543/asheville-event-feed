@@ -1,0 +1,136 @@
+{
+  "provider": {
+    "key": "sycamore-shoals-state-historic-park",
+    "name": "Sycamore Shoals State Historic Park",
+    "urls": [
+      "https://tnstateparks.com/events/junior-ranger-camp-2026-help-background-check-required"
+    ],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:21.730Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "100c91728bdf363e7c84b10578ae1bfbb2bad7b82750dd8922c5bae7fe706f19",
+  "response": {
+    "searches": [
+      "site.tnstateparks.com Sycamore Shoals \"Junior Ranger\" \"2026\"",
+      "\"Sycamore Shoals\" \"camp\" \"2026\" \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 24766,
+      "cachedInputTokens": 8845,
+      "outputTokens": 806,
+      "reasoningTokens": 138
+    },
+    "status": "completed",
+    "ms": 26602,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tnstateparks.com/events/junior-ranger-camp-2026-help-background-check-required",
+      "chars": 4564,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/user/register",
+      "chars": 2233,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/overnight-stays/camping",
+      "chars": 9167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/happenings/summer",
+      "chars": 2530,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/get-involved/campground-hosts",
+      "chars": 6345,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/sites/default/files/2026-06/Big%20Ridge%20Host%20Page%20%282%29.pdf",
+      "chars": 2338,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/sites/default/files/2026-06/Cedars%20of%20Lebanon%20Host%20Page%20to%20be%20approveed.pdf",
+      "chars": 2504,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tnstateparks.com/sites/default/files/2026-06/Chickasaw%20host%20page%20p%20approved%20for%20Niki.pdf",
+      "chars": 2734,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sycamore Shoals State Historic Park",
+    "website_url": "https://tnstateparks.com/parks/sycamore-shoals",
+    "notes": "No 2027 camp details or registration dates were found. The available 2026 state park page is a volunteer recruitment listing, not camper registration. A separate park schedule search result lists July 15–17, conflicting with the volunteer page's explicit July 14–17 camp dates. The supplemental park website returned no readable text.",
+    "excluded": [
+      {
+        "name": "Junior Ranger Camp 2026 Help (Background Check Required)",
+        "reason": "Volunteer recruitment for camp setup and support, not a youth camp offering; the underlying Junior Ranger Camp is retained separately."
+      },
+      {
+        "name": "Camping at Tennessee State Parks",
+        "reason": "Unsupervised recreational camping accommodations, not a finite supervised youth program."
+      },
+      {
+        "name": "Tennessee State Parks Campground Hosts",
+        "reason": "Live-in volunteer work program, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Ranger Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "A four-day Junior Ranger Camp at Sycamore Shoals State Historic Park.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Sycamore Shoals State Historic Park",
+            "address": "1651 W. Elk Avenue",
+            "town": "Elizabethton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tnstateparks.com/events/junior-ranger-camp-2026-help-background-check-required",
+          "https://sycamoreshoalstn.wordpress.com/special-events-calendar/2025-schedule-of-events/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the volunteer listing's explicit statement that camp occurs July 14–17, 2026; July 13 is volunteer setup, not a camper day. The supplemental page headed '2026 Schedule of Events' lists July 15–17 in its search result. Confirm the dates and day-camp format with the park. No camper-facing 2026 registration page was found; ages, hours, activities and prices remain unknown."
+      }
+    ]
+  }
+}

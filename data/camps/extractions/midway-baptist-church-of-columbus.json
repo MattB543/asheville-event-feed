@@ -1,0 +1,182 @@
+{
+  "provider": {
+    "key": "midway-baptist-church-of-columbus",
+    "name": "Midway Baptist Church of Columbus",
+    "urls": ["https://mwbaptist.org/recent-events/", "https://mwbaptist.org/"],
+    "area": "Columbus, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:08.433Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b3c167b3a7520630d776b884b73f195da682d8533effa471a7ce0e3c21d19434",
+  "response": {
+    "searches": [
+      "site:mwbaptist.org VBS 2027 Illumination Station",
+      "site.fortcaswell.com address Oak Island"
+    ],
+    "usage": {
+      "inputTokens": 23721,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1181,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 33043,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mwbaptist.org/recent-events/",
+      "chars": 7522,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/",
+      "chars": 3109,
+      "method": "browser"
+    },
+    {
+      "url": "https://mwbaptist.org/event-category/camp/",
+      "chars": 1578,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/events/worship-in-the-park-2024-schedule/",
+      "chars": 1887,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/events/2023-summer-youth-camp-caswell/",
+      "chars": 2412,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/events/mens-camping-fishing-trip/",
+      "chars": 1706,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/events/camp-property-workday/",
+      "chars": 1671,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://mwbaptist.org/events/easter-schedule/",
+      "chars": 2212,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Midway Baptist Church of Columbus",
+    "website_url": "https://mwbaptist.org/",
+    "notes": "No Midway summer 2027 program information was found. The VBS event and ministries pages were readable through official search results, but direct opens returned no readable text. The MyVBS registration page also returned no readable text.",
+    "excluded": [
+      {
+        "name": "Camp Caswell",
+        "reason": "Held at Fort Caswell, 100 Caswell Beach Rd, Oak Island, NC, on the coast and outside the approximately 75-minute drive area. Meeting at Midway for departure does not make the overnight camp local."
+      },
+      {
+        "name": "Men’s Camping Trip",
+        "reason": "Outside summer: April 30–May 2, 2026; not identified as a supervised youth camp."
+      },
+      {
+        "name": "Camp Property Workday",
+        "reason": "Volunteer cabin cleanup, not a youth camp, and held outside summer."
+      },
+      {
+        "name": "VBS Decorating – Volunteers Needed",
+        "reason": "Volunteer decorating and preparation, not a supervised youth camp."
+      },
+      {
+        "name": "Children’s Church",
+        "reason": "Recurring year-round church programming, not a finite summer camp."
+      },
+      {
+        "name": "Kids Bible Class – Sunday Evenings",
+        "reason": "Weekly church classes, not a finite summer camp."
+      },
+      {
+        "name": "Donuts with Dad",
+        "reason": "Single social event, not a camp."
+      },
+      {
+        "name": "Worship In The Park 2026",
+        "reason": "Community worship events, not supervised youth camps."
+      },
+      {
+        "name": "Respond Women’s Retreat",
+        "reason": "Women's retreat outside summer, not a youth camp."
+      },
+      {
+        "name": "Women’s Ministry Archery & Badminton",
+        "reason": "September women's ministry event, outside summer and not identified as a youth clinic."
+      },
+      {
+        "name": "Bible-Themed Trunk or Treat",
+        "reason": "Single seasonal social event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS – Illumination Station",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons, crafts, recreation and music. Dinner is served each night.",
+        "camp_page_url": "https://mwbaptist.org/events/vbs-2025-magnified/",
+        "registration_url": "https://www.myvbs.org/vbs-2026-4415",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-15",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Midway Baptist Church",
+            "address": "2101 NC-108",
+            "town": "Columbus",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:45",
+          "text": "Nightly 5:30 pm – 8:45 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The kids will be served dinner each night."
+        },
+        "transportation": null,
+        "sources": [
+          "https://mwbaptist.org/recent-events/",
+          "https://mwbaptist.org/events/vbs-2025-magnified/",
+          "https://mwbaptist.org/ministries-2/",
+          "https://mwbaptist.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program-specific venue and activity description were obtained through official search results because direct opens returned no readable text. Dates, hours and eligibility are also plainly stated in the supplied recent-events text. The event URL retains an older theme, but its displayed title explicitly identifies VBS 2026 – Illumination Station. Meal support records dinner, not a midday lunch."
+      }
+    ]
+  }
+}

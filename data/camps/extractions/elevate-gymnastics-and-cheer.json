@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "key": "elevate-gymnastics-and-cheer",
+    "name": "Elevate Gymnastics & Cheer",
+    "urls": ["https://elevategymandcheer.com/kids-camps"],
+    "area": "Fairview, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:05.943Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4b8908f359a5ed44208373e663e6fa7f1f2b02470a06bdd9d801323b05455e5c",
+  "response": {
+    "searches": ["\"Elevate Gymnastics\" \"Fairview\" \"NC\""],
+    "usage": {
+      "inputTokens": 17316,
+      "cachedInputTokens": 8845,
+      "outputTokens": 248,
+      "reasoningTokens": 53
+    },
+    "status": "completed",
+    "ms": 9475,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://elevategymandcheer.com/kids-camps",
+      "chars": 5848,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=555998",
+      "chars": 4490,
+      "method": "fetch"
+    },
+    {
+      "url": "https://elevategymandcheer.com/",
+      "chars": 6821,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Elevate Gymnastics & Cheer",
+    "website_url": "https://elevategymandcheer.com/",
+    "notes": "The supplied provider is in Fairview, Tennessee, not Fairview, North Carolina. Its official homepage and camp page publish 7107 Adams Dr, Fairview, TN 37062. Web searches did not identify a matching provider in Fairview, NC. The previously extracted Summer Wonders Camp should be removed from the local directory because its only published site is outside the Asheville drive-time area.",
+    "excluded": [
+      {
+        "name": "Summer Wonders Camp",
+        "reason": "Held at Elevate Gymnastics & Cheer, 7107 Adams Dr, Fairview, TN 37062, not Fairview, NC; outside approximately 75 minutes' drive of Asheville."
+      }
+    ],
+    "cards": []
+  }
+}

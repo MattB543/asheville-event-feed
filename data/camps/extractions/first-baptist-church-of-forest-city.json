@@ -1,0 +1,132 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-forest-city",
+    "name": "First Baptist Church of Forest City",
+    "urls": ["https://fbcforestcity.churchcenter.com/registrations/events"],
+    "area": "Forest City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:46.992Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "55983fbc41cfdf7c465ae9c35fa7ab1cf096c0432a7d483352128e25fd3b1fba",
+  "response": {
+    "searches": [
+      "First Baptist Church Forest City NC vacation bible school 2026",
+      "site:fbcforestcity.com \"2026\" \"Vacation\""
+    ],
+    "usage": {
+      "inputTokens": 21748,
+      "cachedInputTokens": 8845,
+      "outputTokens": 880,
+      "reasoningTokens": 192
+    },
+    "status": "completed",
+    "ms": 29255,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events",
+      "chars": 726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations",
+      "chars": 726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3771104",
+      "chars": 2306,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3938120",
+      "chars": 2777,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3839058",
+      "chars": 3833,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3770919",
+      "chars": 1091,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3964345",
+      "chars": 1295,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3770923",
+      "chars": 1190,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Forest City",
+    "website_url": "https://fbcforestcity.com/",
+    "notes": "The supplied Church Center pages belong to First Baptist Church in Forest City, Iowa (18508 E Highway 9), not the North Carolina provider. The North Carolina church's official website lists summer Vacation Bible School, but no 2027 or 2026 dates, registration milestones, or program details were found. Its published church address is 211 West Main Street, Forest City, NC 28043; the children's page does not explicitly identify the VBS drop-off location. Direct opens of the official website returned no readable text; official search-indexed page text was used.",
+    "excluded": [
+      {
+        "name": "Ministry Registration 2026-27: The Huddle, Ignite, and Fusion",
+        "reason": "These belong to the similarly named church in Forest City, Iowa, and are school-year ministry programs rather than summer camps."
+      },
+      {
+        "name": "Car Care Checkup, New Adult Sunday School Classes Begin, Men's Breakfast, Karen Fredrickson's Open House Retirement Party, and Mugs & Muffins",
+        "reason": "These belong to the similarly named church in Forest City, Iowa and are adult classes, service events, or social gatherings, not youth summer camps."
+      },
+      {
+        "name": "Sunday School and Worship",
+        "reason": "Recurring year-round church programming, not a finite summer camp."
+      },
+      {
+        "name": "TeamKID missions education",
+        "reason": "Listed as ongoing children's ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Family field trips",
+        "reason": "Family outings, not supervised youth summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Summer Vacation Bible School for children.",
+        "camp_page_url": "https://fbcforestcity.com/children",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://fbcforestcity.com/children", "https://fbcforestcity.com/"],
+        "confidence": "medium",
+        "review_notes": "The official children's page confirms summer Vacation Bible School only in search-indexed text; direct opens returned no readable content. Check for a dedicated 2027 announcement and confirm dates, eligibility, registration, and drop-off location. No year-specific dates have been assigned."
+      }
+    ]
+  }
+}

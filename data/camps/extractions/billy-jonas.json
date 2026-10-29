@@ -1,0 +1,184 @@
+{
+  "provider": {
+    "key": "billy-jonas",
+    "name": "Billy Jonas",
+    "urls": ["https://billyjonas.com/about/camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:38.632Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2bd1a14a535b467b307cc51a677bcab1b6701aff22676166e2f2c031cfff2359",
+  "response": {
+    "searches": ["site.billyjonas.com camp 2027"],
+    "usage": {
+      "inputTokens": 19972,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1110,
+      "reasoningTokens": 64
+    },
+    "status": "completed",
+    "ms": 26408,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://billyjonas.com/about/camp/",
+      "chars": 3964,
+      "method": "fetch"
+    },
+    {
+      "url": "https://billyjonas.com/about/presskit/FAQ",
+      "chars": 6152,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/billy-jonas/schedules?schedule_id=camps",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://billyjonas.com/about/camp/c/5009",
+      "chars": 3965,
+      "method": "fetch"
+    },
+    {
+      "url": "https://billyjonas.com/events/intro/",
+      "chars": 1861,
+      "method": "fetch"
+    },
+    {
+      "url": "https://billyjonas.com/",
+      "chars": 9109,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Billy Jonas",
+    "website_url": "https://billyjonas.com/",
+    "notes": "No 2027 camp information or registration dates were found. The supplied camp page explicitly describes summer 2026; its older page title and metadata refer to earlier editions. Sawyer's supplied page shows no session details.",
+    "excluded": [
+      {
+        "name": "Camp Bangin' & Sangin'! Adult Week",
+        "reason": "July 6-10, 2026 is explicitly designated ADULT WEEK; adult-only programs are excluded."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Bangin' & Sangin'!",
+        "type": "day",
+        "categories": ["music", "arts"],
+        "description": "Campers participate in music, songwriting, and creative activities, including making instruments from recyclable materials.",
+        "camp_page_url": "https://billyjonas.com/about/camp/",
+        "registration_url": "https://www.hisawyer.com/billy-jonas/schedules?schedule_id=camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Evergreen Community Charter School",
+            "address": "50 Bell Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Monday to Friday, 9am to 3pm"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:15",
+          "late_pickup_end": "16:00",
+          "cost_text": "Early drop-off 8:15-8:45am, $20/day; extended day until 4pm, $20/day."
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Most weeks",
+            "year": 2026
+          },
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": "Ages 11-14, junior counselors",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "2026 camp",
+          "text": "REGISTRATION IS OPEN!"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarships available. Contact office@BillyJonas.com for info."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "YOUTH CAMPERS should bring: Lunch and snack, with cold-pak"
+        },
+        "transportation": null,
+        "sources": [
+          "https://billyjonas.com/about/camp/",
+          "https://www.evergreenccs.org/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page still says registration is open for the already-ended 2026 season; Sawyer provides no readable availability details. Check whether that statement is stale. The $375 price is stated as 'Most weeks' rather than explicitly assigned to ages 5-10; the $250 weekly price explicitly applies to ages 11-14."
+      }
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "covenant-presbyterian-church-of-hendersonville",
+    "name": "Covenant Presbyterian Church of Hendersonville",
+    "urls": ["https://www.covpca.org/vacation-bible-school-2026-2.cfm", "https://www.covpca.org/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:45.718Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d7cb2afcddca16df47392f4d98be214d13c98f4924ed84876fc82dcea83e78ee",
+  "response": {
+    "searches": [
+      "site:covpca.org \"2026\" \"Vacation\"",
+      "site:covpca.org \"VBS\" \"ages\" \"2026\"",
+      "site:covpca.org \"June 15, 2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 24605,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1020,
+      "reasoningTokens": 258
+    },
+    "status": "completed",
+    "ms": 32689,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+      "chars": 1300,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.covpca.org/",
+      "chars": 1662,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Covenant Presbyterian Church of Hendersonville",
+    "website_url": "https://www.covpca.org/",
+    "notes": "No 2027 camp information found. Web opens returned empty text for the VBS and calendar pages; official indexed calendar results supplied the 2026 dates and hours. The VBS page's registration destination could not be recovered.",
+    "excluded": [
+      {
+        "name": "Cambodia Mission Trip 2025-2026",
+        "reason": "Mission trips are excluded."
+      },
+      {
+        "name": "Fall Bible Conference 2026",
+        "reason": "Conference outside summer."
+      },
+      {
+        "name": "Harvest Festival 2026",
+        "reason": "Seasonal festival outside summer, not a camp."
+      },
+      {
+        "name": "Fellowship Meal, Youth, Bible Study",
+        "reason": "Recurring church youth programming, not a finite summer camp."
+      },
+      {
+        "name": "An American Tapestry",
+        "reason": "Music presentation, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with the theme Emerald Crossing Psalm 23.",
+        "camp_page_url": "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Covenant Presbyterian Church",
+            "address": "2101 Kanuga Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9:00 AM - 12:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+          "https://www.covpca.org/",
+          "https://www.covpca.org/welcome/?day=18&month=6&year=2026",
+          "https://www.covpca.org/pro/responsive/tools/includes/events/event_view.cfm?detailid=461862&event_type=main&eventid=3465&memberid=3174"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, theme and hours come from official search snippets: the June 15 event entry and June calendar entries for June 16–19. Direct opens returned empty text. Confirm the church is the drop-off venue and recover the registration link from the VBS page; its footer publishes the church address but readable camp text does not explicitly identify the venue."
+      }
+    ]
+  }
+}

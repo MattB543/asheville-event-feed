@@ -1,0 +1,205 @@
+{
+  "provider": {
+    "key": "national-inventors-hall-of-fame",
+    "name": "National Inventors Hall of Fame",
+    "urls": ["https://www.invent.org/program-search/camp-invention/nc48/11544"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:59.969Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ce0ebc6638a8566281069298cc4ffc7959267c92f93d280016e7656f2b183b09",
+  "response": {
+    "searches": ["site.acacademy.org \"74 Riverwood\""],
+    "usage": {
+      "inputTokens": 30210,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1124,
+      "reasoningTokens": 66
+    },
+    "status": "completed",
+    "ms": 28174,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.invent.org/program-search/camp-invention/nc48/11544",
+      "chars": 4667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/program-search",
+      "chars": 3639,
+      "method": "fetch"
+    },
+    {
+      "url": "https://registration.invent.org/Registration/EventSelection/1/?filter=RegType%7C1%5EEventIDs%7CBqouS7c88k8%3D%5EEventDivisionTypes%7C5%7C6%5EForce%7CTrue%5EPersistFilter%7CTrue",
+      "chars": 451,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/programs/camp-invention",
+      "chars": 15702,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/sites/default/files/2024-10/MA-Disclaimer-Camp_2024_FINAL.pdf",
+      "chars": 794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/programs/faqs-for-parents",
+      "chars": 24817,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/sites/default/files/2021-02/NIHF_2018_Summer_Program_Evaluation.pdf",
+      "chars": 19965,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.invent.org/educators/faqs",
+      "chars": 9965,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "National Inventors Hall of Fame",
+    "website_url": "https://www.invent.org/",
+    "notes": "Summer 2027 preregistration is offered at Asheville Christian Academy, but dates and hours have not been finalized. No dated registration opening announcement was found. Cards are limited to the identified Swannanoa location.",
+    "excluded": [
+      {
+        "name": "Club Invention Afterschool Program",
+        "reason": "Afterschool program rather than a finite summer camp."
+      },
+      {
+        "name": "Invention Project",
+        "reason": "Year-round education program; no local summer offering identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Invention",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers design products, build and test structures, take apart mechanical gadgets and explore chemistry through hands-on STEM challenges.",
+        "camp_page_url": "https://www.invent.org/program-search/camp-invention/nc48/11544",
+        "registration_url": "https://registration.invent.org/Account/Login/?returnUrl=%252fRegistration%252fEventSelection%252fChild%252f%253ffilter%253dRegType%257c1%255eEventIDs%257cBqouS7c88k8%253d%255eEventDivisionTypes%257c5%257c6%255eForce%257cTrue%255ePersistFilter%257cTrue&skip=False",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "This site has not locked in all the site details, but you can still register today to secure your spot! Details will be emailed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Christian Academy",
+            "address": "74 Riverwood Road",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 290,
+            "unit": "program",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Summer 2027 preregistration",
+          "text": "Preregister for Summer 2027"
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If you would like to speak with someone to determine if Camp Invention is a good fit for your child or to discuss reasonable accommodations, please contact us at 800-968-4332 a minimum of 12 weeks prior to the start date of the program."
+        },
+        "lunch": {
+          "value": "no",
+          "text": "Each day, your child will need to bring a packed lunch, drink and snack clearly labeled with their name, unless your location notifies you otherwise."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.invent.org/program-search/camp-invention/nc48/11544",
+          "https://www.invent.org/programs/camp-invention",
+          "https://www.invent.org/programs/faqs-for-parents",
+          "https://www.ashevillechristian.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Leaders-in-Training",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Middle school participants develop mentoring and collaboration skills while guiding younger Camp Invention campers throughout the week.",
+        "camp_page_url": "https://www.invent.org/program-search/camp-invention/nc48/11544",
+        "registration_url": "https://registration.invent.org/Account/Login/?returnUrl=%252fRegistration%252fEventSelection%252fChild%252f%253ffilter%253dRegType%257c1%255eEventIDs%257cBqouS7c88k8%253d%255eEventDivisionTypes%257c5%257c6%255eForce%257cTrue%255ePersistFilter%257cTrue&skip=False",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "This site has not locked in all the site details, but you can still register today to secure your spot! Details will be emailed."
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Christian Academy",
+            "address": "74 Riverwood Road",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 190,
+            "unit": "program",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.invent.org/program-search/camp-invention/nc48/11544",
+          "https://www.invent.org/programs/leaders-in-training",
+          "https://www.invent.org/sites/default/files/file-upload/2025-12/LI-Flyer-Licensed.pdf",
+          "https://www.ashevillechristian.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

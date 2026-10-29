@@ -1,0 +1,135 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-rutherfordton",
+    "name": "First Baptist Church of Rutherfordton",
+    "urls": ["https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:59.961Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ad2f2ebaa9cada11d153f752bb0afd08558c7eb6178cd9ef50b5fd2375e449e9",
+  "response": {
+    "searches": [
+      "site:firstbaptistrutherfordton.com \"2026\" \"camp\"",
+      "site:firstbaptistrutherfordton.com/ministries/children"
+    ],
+    "usage": {
+      "inputTokens": 19564,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1171,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 31914,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+      "chars": 1424,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstbaptistrutherfordton.com/",
+      "chars": 1896,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Rutherfordton",
+    "website_url": "https://www.firstbaptistrutherfordton.com/",
+    "notes": "No 2027 camp information was found. Additional official pages were accessible through search results, but direct access was blocked by robots.txt. The church publishes its address as 246 N. Main Street, Rutherfordton, NC 28139; neither 2026 camp listing explicitly identifies a camp venue or drop-off location. A 2025 Explosion, Implosion & Chain Reaction Camp listing was found, but no 2026 or 2027 offering was found.",
+    "excluded": [
+      {
+        "name": "Youth Pool Party",
+        "reason": "Single-evening social event, not a camp."
+      },
+      {
+        "name": "Water Olympics",
+        "reason": "Single-evening event, not a multi-day evening camp."
+      },
+      {
+        "name": "Children's Trip to Thermal City Gold Mine",
+        "reason": "Children's ministry outing, not a camp."
+      },
+      {
+        "name": "Fundraiser for Children's Summer Camp",
+        "reason": "Fundraising event, not the camp itself."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Advocacy Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A summer advocacy camp offered by First Baptist Church Rutherfordton.",
+        "camp_page_url": "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+          "https://www.firstbaptistrutherfordton.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The year comes from the official event URL. The listing gives an event span from August 3 at 9am to August 6 at 3pm, not explicit daily hours; daily hours are therefore null. Day-camp format is inferred from those endpoints. Confirm the youth eligibility and camp/drop-off venue with the church."
+      },
+      {
+        "name": "Passport Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Passport Summer Camp offered through First Baptist Church Rutherfordton.",
+        "camp_page_url": "https://www.firstbaptistrutherfordton.com/events/2026/07/06/passport-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.firstbaptistrutherfordton.com/events/2026/07/06/passport-summer-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official event was read through search results. Its year comes from the event URL. Overnight format is inferred, not explicitly stated in the listing. The listing's midnight start was not treated as an actual arrival time. No venue was identified; confirm whether the camp meets within AVLGO's drive-time area before publishing."
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "mount-pisgah-academy-seventh-day-adventist-church-of-candler",
+    "name": "Mount Pisgah Academy Seventh-day Adventist Church of Candler",
+    "urls": ["https://vbspro.events/p/dba6f0"],
+    "area": "Candler, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:54.845Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c1e5efb5ad69e0745a76dbebec4f79b330e86493ab9a555ac3accd68c3096c2c",
+  "response": {
+    "searches": [
+      "Mount Pisgah Academy church Candler vacation bible school 2027 Mountain Miracles",
+      "open https://mpasda.org/ministries/"
+    ],
+    "usage": {
+      "inputTokens": 14148,
+      "cachedInputTokens": 8845,
+      "outputTokens": 644,
+      "reasoningTokens": 95
+    },
+    "status": "completed",
+    "ms": 17010,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/dba6f0",
+      "chars": 1967,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Pisgah Academy Seventh-day Adventist Church of Candler",
+    "website_url": "https://mpasda.org/",
+    "notes": "No 2027 camp information or registration dates were found. The church's ministries page did not return readable text when opened, although its search result lists Vacation Bible School.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Mountain of Miracles",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://vbspro.events/p/dba6f0",
+        "registration_url": "https://vbspro.events/p/dba6f0",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mount Pisgah Academy SDA Church",
+            "address": "21 Academy Dr",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": "6:30pm (EDT) to 8:30pm (EDT)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://vbspro.events/p/dba6f0", "https://mpasda.org/contact/"],
+        "confidence": "medium",
+        "review_notes": "VBS Pro states 6:30–8:30 p.m. A third-party mirror of a June 24, 2026 church social post lists 6:00–8:00 p.m. for the same July 20–23 event. The card uses the official registration page's hours; check the original church announcement to resolve the discrepancy."
+      }
+    ]
+  }
+}

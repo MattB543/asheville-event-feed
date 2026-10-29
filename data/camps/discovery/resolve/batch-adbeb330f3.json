@@ -1,0 +1,146 @@
+{
+  "method": "resolve",
+  "id": "batch-adbeb330f3",
+  "input": "1. Asheville Youth Sailing | town: Arden, NC | the page we have (https://ashevilleyouthsailing.org/) failed: page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND ashevilleyouthsaili\n2. Miss Jill's Summer Camp | town: ?\n3. Asheville City Schools Foundation | town: Asheville, NC | the page we have (https://www.acsf.org/dream-team) failed: page doesn't mention a kids' camp, summer program or VBS\n4. Journeymen | town: Asheville, NC | the page we have (https://journeymenasheville.org/programs/) failed: page doesn't mention a kids' camp, summer program or VBS\n5. Marvelous Math Club | town: Asheville, NC\n6. OpenDoors Asheville | town: Asheville, NC | the page we have (https://opendoorsasheville.org/) failed: page doesn't mention a kids' camp, summer program or VBS\n7. Serve To LEAD | town: Asheville, NC\n8. West Asheville Yoga | town: Asheville, NC | the page we have (https://www.westashevilleyoga.com/events/) failed: page doesn't mention a kids' camp, summer program or VBS",
+  "at": "2026-10-29T03:55:48.248Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 42864,
+    "cachedInputTokens": 4577,
+    "outputTokens": 1244,
+    "reasoningTokens": 599
+  },
+  "searches": [
+    "Asheville Youth Sailing summer camp 2026",
+    "\"Marvelous Math Club\" summer 2025 2026",
+    "site.acsf.org \"summer\" \"2025\"",
+    "\"acsf.org\" \"summer\" \"DREAM\"",
+    "\"Asheville City Schools Foundation\" \"summer\" \"2026\""
+  ],
+  "ms": 45671,
+  "candidates": [
+    {
+      "name": "Asheville Youth Sailing",
+      "url": "https://ashevillesailing.org/register/camp/UtrglcPyx5/class",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Club registration page lists 2026 Summer Youth Learn-to-Sail at Lake Julian."
+    },
+    {
+      "name": "Miss Jill's Summer Camp",
+      "url": "https://motherhoodmoxie.com/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Miss Jill’s Summer Camp 2026 offers home-based STEAM camp in West Asheville for ages 4–9."
+    },
+    {
+      "name": "Asheville City Schools Foundation",
+      "url": "https://www.acsf.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "DREAM is listed as a summer program by the school district, but dated 2025–2027 summer programming was not confirmed."
+    },
+    {
+      "name": "Journeymen",
+      "url": "https://journeymenasheville.org/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official profile links summer enrollment and calendar; no program year could be verified."
+    },
+    {
+      "name": "Marvelous Math Club",
+      "url": "https://www.unca.edu/marvelous-math-club/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official page describes an elementary-age after-school club; no dated summer offering found."
+    },
+    {
+      "name": "OpenDoors Asheville",
+      "url": "https://opendoorsasheville.org/enrichment/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official enrichment page mentions summer camps, but no 2025–2027 offering was verified there."
+    },
+    {
+      "name": "Serve To LEAD",
+      "url": "https://old.goservetolead.org/what-we-do/camps-service-opportunities/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official site describes camps and past Asheville summer programming; dates found were before 2025."
+    },
+    {
+      "name": "West Asheville Yoga",
+      "url": "https://www.westashevilleyoga.com/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": [],
+      "categories": [],
+      "note": "Official site found, but its current pages did not verify a 2025–2027 kids’ summer program."
+    }
+  ],
+  "asked": [
+    {
+      "name": "Asheville Youth Sailing",
+      "town": "Arden",
+      "state": "NC",
+      "note": "the page we have (https://ashevilleyouthsailing.org/) failed: page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND ashevilleyouthsaili"
+    },
+    {
+      "name": "Miss Jill's Summer Camp",
+      "town": null,
+      "state": null,
+      "note": null
+    },
+    {
+      "name": "Asheville City Schools Foundation",
+      "town": "Asheville",
+      "state": "NC",
+      "note": "the page we have (https://www.acsf.org/dream-team) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Journeymen",
+      "town": "Asheville",
+      "state": "NC",
+      "note": "the page we have (https://journeymenasheville.org/programs/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Marvelous Math Club",
+      "town": "Asheville",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "OpenDoors Asheville",
+      "town": "Asheville",
+      "state": "NC",
+      "note": "the page we have (https://opendoorsasheville.org/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    },
+    {
+      "name": "Serve To LEAD",
+      "town": "Asheville",
+      "state": "NC",
+      "note": null
+    },
+    {
+      "name": "West Asheville Yoga",
+      "town": "Asheville",
+      "state": "NC",
+      "note": "the page we have (https://www.westashevilleyoga.com/events/) failed: page doesn't mention a kids' camp, summer program or VBS"
+    }
+  ]
+}

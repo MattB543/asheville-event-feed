@@ -1,0 +1,142 @@
+{
+  "provider": {
+    "key": "biltmore-tutoring",
+    "name": "Biltmore Tutoring",
+    "urls": ["https://www.biltmoretutoring.com/classes/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:02:58.227Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "792337cec84aa98a03ec807695ad397ef33892ca9987091a8e2aa6b60a2c96d4",
+  "response": {
+    "searches": [
+      "site:biltmoretutoring.com summer boot camps 2027 2026",
+      "open https://www.biltmoretutoring.com/summer-boot-camp-2023/"
+    ],
+    "usage": {
+      "inputTokens": 15350,
+      "cachedInputTokens": 8845,
+      "outputTokens": 993,
+      "reasoningTokens": 82
+    },
+    "status": "completed",
+    "ms": 25032,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.biltmoretutoring.com/classes/",
+      "chars": 2061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.biltmoretutoring.com/",
+      "chars": 4276,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Biltmore Tutoring",
+    "website_url": "https://www.biltmoretutoring.com/",
+    "notes": "2027 dates are coming in spring. The official 2026 boot camp announcement supplies the fallback dates and hours. Its heading, body and date table explicitly identify 2026, although a trailing excerpt still mentions 2023.",
+    "excluded": [
+      {
+        "name": "Private tutoring and individual test preparation",
+        "reason": "Individual tutoring booked as lessons, not a finite summer camp."
+      },
+      {
+        "name": "College Counseling",
+        "reason": "Individual counseling service, not a supervised summer camp."
+      },
+      {
+        "name": "Free SAT practice test",
+        "reason": "At-home diagnostic test, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SAT and ACT summer boot camps",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Students receive five days of small-group SAT or ACT instruction focused on test-taking strategies. Tuition includes books, practice materials and two practice tests with diagnostic feedback.",
+        "camp_page_url": "https://www.biltmoretutoring.com/classes/",
+        "registration_url": "https://www.biltmoretutoring.com/contact/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-27",
+          "end": "2026-08-07",
+          "text": "Summer 2027 dates will be announced in spring."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Biltmore Tutoring",
+            "address": "10 Crispin Court, Suite D-201",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "10:00 AM – 3:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1295,
+            "unit": "session",
+            "label": "Includes registration, books, practice materials, instruction and diagnostic tests",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "SAT SUMMER BOOT CAMP",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "ACT SUMMER BOOT CAMP",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.biltmoretutoring.com/classes/",
+          "https://www.biltmoretutoring.com/",
+          "https://www.biltmoretutoring.com/contact/",
+          "https://www.biltmoretutoring.com/summer-boot-camp-2023/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The classes page presents $1,295 tuition alongside its summer 2027 announcement, but does not explicitly attach a year to the price; it is recorded as 2027. Dates and hours are explicitly for 2026 in the archived announcement. That announcement's trailing excerpt mentions 2023, while its heading, main text and table all say 2026."
+      }
+    ]
+  }
+}

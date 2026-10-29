@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "foothills-christian-church-of-morganton",
+    "name": "Foothills Christian Church of Morganton (formerly First Advent Christian Church)",
+    "urls": ["https://vbspro.events/p/events/61e04e", "https://foothillschristianchurchnc.org/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:32:10.144Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f0db67e4ca96c6402a5bf0a8577ba5b9accb87215792b25075be683bfd7c4f37",
+  "response": {
+    "searches": ["site:foothillschristianchurchnc.org VBS 2027"],
+    "usage": {
+      "inputTokens": 15067,
+      "cachedInputTokens": 8845,
+      "outputTokens": 481,
+      "reasoningTokens": 71
+    },
+    "status": "completed",
+    "ms": 14183,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/61e04e",
+      "chars": 2565,
+      "method": "fetch"
+    },
+    {
+      "url": "https://foothillschristianchurchnc.org/",
+      "chars": 3354,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Foothills Christian Church of Morganton (formerly First Advent Christian Church)",
+    "website_url": "https://foothillschristianchurchnc.org/",
+    "notes": "No 2027 summer camp information or registration dates were found. The card retains the explicitly dated 2026 VBS information.",
+    "excluded": [
+      {
+        "name": "Children's Church",
+        "reason": "Recurring year-round church program, not a finite summer camp."
+      },
+      {
+        "name": "Wednesday Night Kids & Youth",
+        "reason": "Recurring year-round church program, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School: Rainforest Falls",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and what it means to have a relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "camp_page_url": "https://vbspro.events/p/events/61e04e",
+        "registration_url": "https://vbspro.events/p/events/61e04e",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Foothills Christian Church of Morganton",
+            "address": "211 Lenoir Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 Vacation Bible School",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/61e04e",
+          "https://foothillschristianchurchnc.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

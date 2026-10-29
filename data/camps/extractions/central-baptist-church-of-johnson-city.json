@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "central-baptist-church-of-johnson-city",
+    "name": "Central Baptist Church of Johnson City",
+    "urls": ["https://www.cbcjc.org/kids", "https://www.cbcjc.org/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:49.652Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "38be8693fc14e4eb2f9397c274ac404dbb7e62d07b2aa682808ad304f37a95eb",
+  "response": {
+    "searches": ["site.cbcjc.org VBS 2026 2027", "\"cbcjc\" \"VBS\""],
+    "usage": {
+      "inputTokens": 19297,
+      "cachedInputTokens": 8845,
+      "outputTokens": 824,
+      "reasoningTokens": 122
+    },
+    "status": "completed",
+    "ms": 25049,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cbcjc.org/kids",
+      "chars": 5534,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbcjc.org/",
+      "chars": 2736,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Central Baptist Church of Johnson City",
+    "website_url": "https://www.cbcjc.org/",
+    "notes": "No 2027 VBS announcement or dated 2026 VBS schedule was found. The kids page describes an ongoing annual VBS but supplies no dates, hours, price or registration link. The events page returned no readable content, and the calendar search result showed an error loading events.",
+    "excluded": [
+      {
+        "name": "Preschool Ministry and weekday preschool",
+        "reason": "Regular preschool and year-round ministry programming, not a finite summer camp."
+      },
+      {
+        "name": "COMPASS, Kingdom Kids, Kids Choir and Praise Ringers",
+        "reason": "Recurring weekly children's ministry programs, not summer camps."
+      },
+      {
+        "name": "KICK OFF COOK OUT, TRUNK OR TREAT, CHRISTMAS ACTIVITIES, EASTER EGGTRAVAGANZA and END OF YEAR PICNIC",
+        "reason": "Social events, festivals or programs outside summer, not qualifying camps."
+      },
+      {
+        "name": "SUMMER ACTIVITIES",
+        "reason": "Only unspecified activities for families and children are described; no finite supervised camp offering is identified."
+      },
+      {
+        "name": "Summer Vacation Bible School — Central Baptist Church, Southington",
+        "reason": "The July 12–16, 2027 offering belongs to a different Central Baptist Church in Southington, Connecticut."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in worship music, crafts, recreation and Bible lessons during a week of Vacation Bible School.",
+        "camp_page_url": "https://www.cbcjc.org/kids",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Central Baptist Church",
+            "address": "300 North Roan Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.cbcjc.org/kids", "https://www.cbcjc.org/"],
+        "confidence": "medium",
+        "review_notes": "The VBS description and rising Pre-K through seventh-grade eligibility are evergreen and not labeled for a specific summer. The church address is published in its footer, but no dated VBS announcement explicitly confirms the drop-off location."
+      }
+    ]
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "provider": {
+    "key": "ke-camps",
+    "name": "KE Camps",
+    "urls": ["https://kecamps.com/camps/lake-toxaway-country-club"],
+    "area": "Lake Toxaway, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:51.495Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7d9b2cf491faf20f8f090a2db4a689f87f80443926011fc7effbb66d613545dd",
+  "response": {
+    "searches": [
+      "site.kecamps.com \"Toxaway\" \"2026\"",
+      "open https://kecamps.com/camps/lake-toxaway-country-club"
+    ],
+    "usage": {
+      "inputTokens": 19328,
+      "cachedInputTokens": 8845,
+      "outputTokens": 769,
+      "reasoningTokens": 138
+    },
+    "status": "completed",
+    "ms": 19800,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kecamps.com/camps/lake-toxaway-country-club",
+      "chars": 5539,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.campbrainregistration.com/",
+      "chars": 719,
+      "method": "browser"
+    },
+    {
+      "url": "https://kecamps.com/",
+      "chars": 1615,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.com/camps/camps",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Page Not Found\")"
+    },
+    {
+      "url": "https://kecamps.com/clubs",
+      "chars": 5337,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.com/camps/clubs",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Page Not Found\")"
+    },
+    {
+      "url": "https://kecamps.com/club-faqs",
+      "chars": 6199,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.com/club-testimonials",
+      "chars": 3435,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.com/web-lead-form",
+      "chars": 1040,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kecamps.com/parents",
+      "chars": 5370,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "KE Camps",
+    "website_url": "https://kecamps.com/",
+    "notes": "The supplied official camp page announces that 2027 dates, rates and registration information are coming soon. No dated 2026 session schedule or 2027 registration milestone was found. Direct browser opens returned no readable text; program details were extracted from the supplied official-page text. The weekly traditions PDF link was not available in that text.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp Toxaway",
+        "type": "day",
+        "categories": ["general", "sports", "arts", "stem"],
+        "description": "Campers participate in group games, arts and crafts, STEM challenges, food activities and recreational sports. Activities include high ropes, golf, tennis, pickleball and croquet.",
+        "camp_page_url": "https://kecamps.com/camps/lake-toxaway-country-club",
+        "registration_url": "https://kecamps.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "2027 Dates and Rates coming soon!"
+        },
+        "ages": {
+          "min": 5,
+          "max": 9
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lake Toxaway Country Club",
+            "address": "4366 West Club Boulevard",
+            "town": "Lake Toxaway",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Camp Day: 9:00am - 3:00pm. Drop-Off Window: 8:30am - 9:00am. Pick-Up Window: 3:00pm - 3:30pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has special needs or will require extra assistance while at camp, please contact us before you enroll to discuss!"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "The club will provide a delicious and kid-friendly lunch for every camper each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://kecamps.com/camps/lake-toxaway-country-club",
+          "https://www.laketoxawaycc.com/our-story"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

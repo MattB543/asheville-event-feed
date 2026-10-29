@@ -1,0 +1,200 @@
+{
+  "provider": {
+    "key": "first-united-methodist-church-of-sylva",
+    "name": "First United Methodist Church of Sylva",
+    "urls": [
+      "https://www.sylvafumc.org/children",
+      "https://www.sylvafumc.org/pages/the-early-learning-center"
+    ],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:42.082Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a11f36eff27f24439d324a91f55ddd8ea0bc773f2240d41a280a3f77574e69a8",
+  "response": {
+    "searches": [
+      "site:sylvafumc.org \"2026\" \"summer\"",
+      "\"Sylva\" \"Camp Patton Springs\"",
+      "\"Camp Patton Springs\" \"2026\"",
+      "site:dq5pwpg1q8ru0.cloudfront.net \"ELC\" \"Summer\" \"Sylva\""
+    ],
+    "usage": {
+      "inputTokens": 36737,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1735,
+      "reasoningTokens": 378
+    },
+    "status": "completed",
+    "ms": 56325,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sylvafumc.org/children",
+      "chars": 1911,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sylvafumc.org/pages/the-early-learning-center",
+      "chars": 2716,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sylvafumc.org/",
+      "chars": 1770,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First United Methodist Church of Sylva",
+    "website_url": "https://www.sylvafumc.org/",
+    "notes": "No summer-specific 2027 dates or registration milestones were found. The Early Learning Center explicitly offers a separate June–July summer program, so that offering is retained rather than excluding the entire year-round center. Its 2026–27 handbook PDF and calendar spreadsheet were found through official hosting search results, but their full contents could not be opened. Camp Patton Springs and Vacation Bible School remain listed on the children's page, without current schedules or program-specific details.",
+    "excluded": [
+      {
+        "name": "The Early Learning Center school-year program",
+        "reason": "Year-round preschool and school-year childcare; only the separately stated summer program is included."
+      },
+      {
+        "name": "77 Jackson St. Afterschool",
+        "reason": "School-year afterschool childcare."
+      },
+      {
+        "name": "Me & You Dance",
+        "reason": "A social event, not a camp."
+      },
+      {
+        "name": "Nursery, First Kids Grow, and The Bridge Group",
+        "reason": "Recurring Sunday ministry programming, not finite summer camps."
+      },
+      {
+        "name": "ASP and Wilderness Trail",
+        "reason": "Youth-group summer trips, rather than separately offered camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "The Early Learning Center",
+        "type": "half_day",
+        "categories": ["general"],
+        "description": "A half-day summer program for young children. The center uses play-based learning and hands-on experiences.",
+        "camp_page_url": "https://www.sylvafumc.org/pages/the-early-learning-center",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "We offer a summer program in June through July."
+        },
+        "ages": {
+          "min": 0.25,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "First United Methodist Church of Sylva",
+            "address": "77 Jackson St.",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday–Friday, 9:00 AM–12:00 PM"
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": null,
+          "cost_text": "For an additional fee."
+        },
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sylvafumc.org/pages/the-early-learning-center",
+          "https://www.sylvafumc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "June–July has no explicit summer year; 2026 is used as the fallback, not as confirmed dated sessions. Ages, hours, early drop-off, and learning approach describe the center generally, rather than a summer-specific schedule. Confirm that these apply to summer enrollment. The registration announcement is explicitly for the 2026–27 school year and was not treated as summer registration. Format check: ages 0.25 outside 2-19."
+      },
+      {
+        "name": "Camp Patton Springs",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "A camp offered through the church's children's ministry.",
+        "camp_page_url": "https://www.sylvafumc.org/children",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sylvafumc.org/children",
+          "https://www.youtube.com/watch?v=NqszLOTbIcU"
+        ],
+        "confidence": "low",
+        "review_notes": "The current children's page only names the camp. Overnight format is provisional, based on the church's historical 2021 video description referring to a full weekend-long camp; confirm current format, summer timing, youth eligibility, and drop-off location. The ministry-wide birth-through-fifth-grade range was not assigned to this program."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School offered through the church's children's ministry.",
+        "camp_page_url": "https://www.sylvafumc.org/children",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.sylvafumc.org/children"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

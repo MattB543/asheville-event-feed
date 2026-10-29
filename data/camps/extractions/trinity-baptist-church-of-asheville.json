@@ -1,0 +1,152 @@
+{
+  "provider": {
+    "key": "trinity-baptist-church-of-asheville",
+    "name": "Trinity Baptist Church of Asheville",
+    "urls": [
+      "https://tbcavl.com/vbs",
+      "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:42.358Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f91edd1f909f80fc870bbaec6756635463901e0e96a556c47da2b09907c10e9c",
+  "response": {
+    "searches": [
+      "site.subsplash.com/trinitybaptistchurch-nor \"Kids\" \"2026\" camp",
+      "\"Trinity\" \"LAUNCH\" \"camp\" \"Asheville\"",
+      "\"\" \"Launch\" \"Kids' Camp\" Asheville Trinity",
+      "Venture of Faith Camp address"
+    ],
+    "usage": {
+      "inputTokens": 36849,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1327,
+      "reasoningTokens": 321
+    },
+    "status": "completed",
+    "ms": 38471,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tbcavl.com/vbs",
+      "chars": 3529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+      "chars": 1505,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+      "chars": 692,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tbcasheville.org/im-new/campus-map/",
+      "chars": 1627,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tbcavl.com/",
+      "chars": 2342,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Baptist Church of Asheville",
+    "website_url": "https://www.tbcasheville.org/",
+    "notes": "No official 2027 VBS information was found. The known tbcavl.com/vbs page and current events page returned no readable text. The 2026 Kids' Camp event was found through an official Subsplash search result, but its page returned no readable text; it names Venture of Faith Camp in Lake Park, Georgia, outside the directory's area.",
+    "excluded": [
+      {
+        "name": "LAUNCH | Kids' Camp",
+        "reason": "The official 2026 event names Venture of Faith Camp, whose published location is 1309 Highway 135 South, Lake Park, GA; outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Arise Youth Conference",
+        "reason": "Youth conference, excluded under the camp rule. The church's 2026 permission form places it in Pigeon Forge, TN."
+      },
+      {
+        "name": "Launch | Trinity Kids",
+        "reason": "Recurring year-round children's ministry meetings, not a finite summer camp."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Fall festival and single-evening social event outside summer."
+      },
+      {
+        "name": "Land of the Sky Jubilee",
+        "reason": "Church gathering rather than a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Launch Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore God's redemption plan through the Junkyard Redemption theme, based on Ephesians 1:7. Activities include snacks, crafts, and games.",
+        "camp_page_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+        "registration_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": -1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Trinity Baptist Church Student Center",
+            "address": "216 Shelburne Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:15",
+          "text": "Monday–Thursday: drop-off begins 5:30 PM; meals begin 5:45 PM; VBS begins 6:30 PM; pickup begins 8:15 PM. Sunday kickoff: 10:00 AM. Friday commencement service: 6:00 PM; food and inflatables to follow."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+          "https://www.tbcasheville.org/ministries/launch/",
+          "https://www.tbcasheville.org/im-new/campus-map/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event's calendar header begins July 12 at 10:15 AM, while its detailed schedule gives the Sunday kickoff as 10:00 AM; the detailed schedule is used. Eligibility is stated as 'PreK4 to Rising 7th Grade'; rising explicitly modifies the upper endpoint. Meals are evening meals, so lunch is left null. The hours end represents when pickup begins, not a stated final pickup deadline."
+      }
+    ]
+  }
+}

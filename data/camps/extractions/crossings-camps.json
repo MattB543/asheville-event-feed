@@ -1,0 +1,200 @@
+{
+  "provider": {
+    "key": "crossings-camps",
+    "name": "Crossings Camps",
+    "urls": [
+      "https://gocrossings.org/find-a-camp/student-camp/carson-springs-student/",
+      "https://core.gocrossings.org/events"
+    ],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:27.690Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7ebf3562b7521f736fb5b9b68191a07953314969b3961e383a2ae6fb53364c96",
+  "response": {
+    "searches": [
+      "Carson Springs conference center official address",
+      "open https://gocrossings.org/campprep/"
+    ],
+    "usage": {
+      "inputTokens": 31819,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1329,
+      "reasoningTokens": 131
+    },
+    "status": "completed",
+    "ms": 28702,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://gocrossings.org/find-a-camp/student-camp/carson-springs-student/",
+      "chars": 12434,
+      "method": "fetch"
+    },
+    {
+      "url": "https://core.gocrossings.org/events",
+      "chars": 2812,
+      "method": "browser"
+    },
+    {
+      "url": "https://gocrossings.org/wp-content/uploads/2025/10/Registration-Policy-2025-2026-2.pdf",
+      "chars": 5432,
+      "method": "fetch"
+    },
+    {
+      "url": "https://core.gocrossings.org/event-registration/participant",
+      "chars": 629,
+      "method": "browser"
+    },
+    {
+      "url": "https://gocrossings.org/find-a-camp/",
+      "chars": 15667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gocrossings.org/find-a-camp/student-camp/",
+      "chars": 22498,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gocrossings.org/wp-content/uploads/2026/07/26-27-Reg-Policy-Final.pdf",
+      "chars": 5571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gocrossings.org/find-a-camp/kids-camp/",
+      "chars": 14957,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Crossings Camps",
+    "website_url": "https://gocrossings.org/",
+    "notes": "2027 Carson Springs Student Camp dates and pricing are posted. No dated group-registration opening was found. The parent page says individual registration opens Spring 2027, without a specific month or date. A page titled Camp Prep - Testing gives April 1; that testing-page date was not used. The general Find a Camp page says entering grades 6-12, while the Carson Springs page and Student Camp FAQ say entering grades 7-12. No 2027 Kids Camp at Carson Springs was found; the Tennessee overview specifies kids camp at Linden Valley only. The camp-prep and day-camp URLs returned no readable text.",
+    "excluded": [
+      {
+        "name": "Student Camp at Cedarmore",
+        "reason": "Bagdad, KY is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Kids Camp at Cedarmore",
+        "reason": "Bagdad, KY is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Student Camp at Jonathan Creek",
+        "reason": "Hardin, KY is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Kids Camp at Jonathan Creek",
+        "reason": "Hardin, KY is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Student Camp at Linden Valley",
+        "reason": "Linden, TN is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Kids Camp at Linden Valley",
+        "reason": "Linden, TN is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Student Camp at Skycroft",
+        "reason": "Middletown, MD is outside the directory's approximately 75-minute drive area."
+      },
+      {
+        "name": "Crossings on Mission at Carson Springs",
+        "reason": "Mission program; mission trips are excluded."
+      },
+      {
+        "name": "Summer Missionary Staff 2027",
+        "reason": "Summer employment program, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Student Camp at Carson Springs",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Campers participate in staff-led worship, Bible studies, church-group discussions, and supervised indoor and outdoor activities.",
+        "camp_page_url": "https://gocrossings.org/find-a-camp/student-camp/carson-springs-student/",
+        "registration_url": "https://core.gocrossings.org/events",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carson Springs",
+            "address": "1120 Carson Springs Road",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Arrival times are on the first day of camp between 2:00 and 4:00 PM in 10-minute windows. All student camp groups must depart by 9:00 am the last day of camp."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Bunkhouse, per participant",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Carson Springs Student Camp",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Bunkhouse",
+          "text": "Spots Open: 2"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are prepared on property and included for all guests."
+        },
+        "transportation": null,
+        "sources": [
+          "https://gocrossings.org/find-a-camp/student-camp/carson-springs-student/",
+          "https://core.gocrossings.org/events",
+          "https://gocrossings.org/find-a-camp/",
+          "https://gocrossings.org/find-a-camp/student-camp/",
+          "https://tnbaptist.org/conference-centers/carson-springs/",
+          "https://gocrossings.org/parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm grade eligibility: the general Find a Camp page says entering grades 6-12, but the Carson Springs-specific page and Student Camp FAQ state entering grades 7-12. The card uses the program-specific range. Registration is organized through church groups; individual participant registration is separate. Availability reflects the official CORE listing's two open Bunkhouse spots."
+      }
+    ]
+  }
+}

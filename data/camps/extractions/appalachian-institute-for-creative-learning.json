@@ -1,0 +1,77 @@
+{
+  "provider": {
+    "key": "appalachian-institute-for-creative-learning",
+    "name": "Appalachian Institute for Creative Learning",
+    "urls": ["https://appalachianinstitute.org/summercamp/"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:59.779Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "437f2d2b68ec2fae4c4d0ab7388191248b5481829ce47b6944da3224cb339e82",
+  "response": {
+    "searches": ["site:appalachianinstitute.org leadership Berea 2027"],
+    "usage": {
+      "inputTokens": 24141,
+      "cachedInputTokens": 8845,
+      "outputTokens": 401,
+      "reasoningTokens": 55
+    },
+    "status": "completed",
+    "ms": 14171,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://appalachianinstitute.org/summercamp/",
+      "chars": 7576,
+      "method": "fetch"
+    },
+    {
+      "url": "https://aicl.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://appalachianinstitute.org/parent-information/",
+      "chars": 28796,
+      "method": "fetch"
+    },
+    {
+      "url": "https://appalachianinstitute.org/in-person-policy-guide/",
+      "chars": 9280,
+      "method": "fetch"
+    },
+    {
+      "url": "https://appalachianinstitute.org/",
+      "chars": 4434,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Institute for Creative Learning",
+    "website_url": "https://appalachianinstitute.org/",
+    "notes": "The provider's current summer camp and family guide pages locate camp at Berea College, 101 Chestnut St., Berea, KY, outside AVLGO's approximately 75-minute drive area. The family guide explicitly describes a move from North Carolina to Kentucky. Older indexed pages still mention Mars Hill University; these do not establish a current local offering. The summer camp page says registration for 2027 is coming soon. No current Asheville-area site was found.",
+    "excluded": [
+      {
+        "name": "Appalachian Institute Summer Camp",
+        "reason": "The residential program is now held at Berea College in Berea, Kentucky, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Appalachian Institute Summer Camp (day)",
+        "reason": "The day program is now held at Berea College in Berea, Kentucky, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Leaders-in-Training",
+        "reason": "Leadership classes run within the camp program at Berea College in Berea, Kentucky, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Camp Apprentices",
+        "reason": "The mentored post-high-school program runs within the camp community at Berea College in Berea, Kentucky, outside the approximately 75-minute drive area from Asheville."
+      }
+    ],
+    "cards": []
+  }
+}

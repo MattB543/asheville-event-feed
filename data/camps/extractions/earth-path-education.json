@@ -1,0 +1,244 @@
+{
+  "provider": {
+    "key": "earth-path-education",
+    "name": "Earth Path Education",
+    "urls": [
+      "https://www.earthpatheducation.com/programs",
+      "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp",
+      "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp-2027"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:23:38.736Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a07d45fe78c3b356162d49ef25136945fcb28b2457195e0aafce1f6f8eca45a8",
+  "response": {
+    "searches": [
+      "\"Kingfisher Waters\" Candler address",
+      "\"Kingfisher Waters\" \"address\"",
+      "site:earthpatheducation.com/event-details/growing-goddess-rites-of-passage-ages-11-14-moon-mystics-ages-15-18-4 \"Tuition\"",
+      "\"Growing Goddess\" \"2027\" \"sleep\"",
+      "\"Growing Goddess\" \"overnight\" \"Earth Path\"",
+      "site:earthpatheducation.com \"2027\" \"Tuition\" \"Goddess\""
+    ],
+    "usage": {
+      "inputTokens": 46091,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2216,
+      "reasoningTokens": 610
+    },
+    "status": "completed",
+    "ms": 55392,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.earthpatheducation.com/programs",
+      "chars": 4117,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp",
+      "chars": 7020,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp-2027",
+      "chars": 7185,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.earthpatheducation.com/",
+      "chars": 5782,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Earth Path Education",
+    "website_url": "https://www.earthpatheducation.com/",
+    "notes": "2027 dates are posted for both retained programs. The Growing Goddess event page returned no readable body when opened; its indexed official text supplied dates, ages and activities, but not complete logistics. No published street address was found for Kingfisher Waters; search results for Kingfisher Folk Fest refer to a different named venue and were not used. Watershed Regeneration Initiation appears only in 2026 materials and is omitted because the provider has posted its 2027 program list.",
+    "excluded": [
+      {
+        "name": "Watershed Regeneration Initiation",
+        "reason": "Found only in 2026 materials; absent from the posted 2027 program list."
+      },
+      {
+        "name": "Women's Initiation and Rites of Passage Guide Training- Full Certification Pathway",
+        "reason": "Adult training outside summer."
+      },
+      {
+        "name": "Moon Daughters Retreat",
+        "reason": "Family-only retreat outside summer."
+      },
+      {
+        "name": "Oaxaca Pilgrimage: Zapotec Cultural Immersion",
+        "reason": "Outside summer and outside the Asheville-area drive radius."
+      },
+      {
+        "name": "Drum Lodge: Frame Drum Making Ceremony",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "REMEMBER YOUR MEDICINE",
+        "reason": "Adult training outside summer and outside the Asheville-area drive radius."
+      },
+      {
+        "name": "Moon Daughters: Mother–Daughter Surf & Turtle Restoration Immersion",
+        "reason": "Family-only immersion outside summer and outside the Asheville-area drive radius."
+      },
+      {
+        "name": "Rose Initiation and Women's Rites of Passage Guide Training",
+        "reason": "Adult-only initiation and professional training."
+      },
+      {
+        "name": "Soy de Barro: Women’s Initiation & Rites of Passage Guide Training",
+        "reason": "Adult-only initiation and professional training."
+      },
+      {
+        "name": "Rites of Passage Guide Training (Online Course)",
+        "reason": "Self-paced adult guide training, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Growing Goddess Spring Retreat (2026)",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Growing Goddess Winter Mystery School",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nature Sisters Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Girls participate in nature games, fire-making, herbalism, earth arts, song and movement. Activities include pond and creek play, plant walks and crafting with natural materials.",
+        "camp_page_url": "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp-2027",
+        "registration_url": "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-02",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kingfisher Waters",
+            "address": null,
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Camp runs daily from 9:00 a.m. to 3:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 325,
+            "unit": "program",
+            "label": "Tuition; plus $8.13 ticket service fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Participants bring their own lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.earthpatheducation.com/programs",
+          "https://www.earthpatheducation.com/event-details/nature-sisters-day-camp-2027"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Growing Goddess Rites of Passage & Moon Mystics",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Young women participate in a five-day nature-based rites-of-passage program with wilderness experiences, ceremony and creativity. Participants undertake a wilderness solo, write vows to themselves and learn silversmithing to make a ring.",
+        "camp_page_url": "https://www.earthpatheducation.com/event-details/growing-goddess-rites-of-passage-ages-11-14-moon-mystics-ages-15-18-4",
+        "registration_url": "https://www.earthpatheducation.com/event-details/growing-goddess-rites-of-passage-ages-11-14-moon-mystics-ages-15-18-4",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-19",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Growing Goddess",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Moon Mystics",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 15,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.earthpatheducation.com/programs",
+          "https://www.earthpatheducation.com/event-details/growing-goddess-rites-of-passage-ages-11-14-moon-mystics-ages-15-18-4"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official event page was readable only through indexed search text. Confirm overnight format, tuition and exact drop-off venue with the provider. The event description names Marshall but no specific venue or address was recovered. The listed 9:00 AM July 19 arrival and 8:00 PM July 23 ending are event endpoints, not daily camp hours."
+      }
+    ]
+  }
+}

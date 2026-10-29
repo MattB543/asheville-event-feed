@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "mountain-gateway-museum-and-heritage-center",
+    "name": "Mountain Gateway Museum and Heritage Center",
+    "urls": ["https://www.mgmnc.org/"],
+    "area": "Old Fort, NC",
+    "discovered_by": ["aggregator"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:29:02.406Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e12d02a4512d38cee048b6f118385acc0305c723634fa41c48fbcb4f63f96631",
+  "response": {
+    "searches": [
+      "site.mgmnc.org summer camp 2026 2027",
+      "\"Mountain Gateway Museum\" \"summer\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22532,
+      "cachedInputTokens": 8845,
+      "outputTokens": 393,
+      "reasoningTokens": 164
+    },
+    "status": "completed",
+    "ms": 21950,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mgmnc.org/",
+      "chars": 2148,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mgmnc.org/things-do/music-jam-schedule",
+      "chars": 2042,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain Gateway Museum and Heritage Center",
+    "website_url": "https://www.mgmnc.org/",
+    "notes": "No qualifying summer camp programs or 2027 camp announcements were found in the supplied official pages or web searches. The homepage lists no upcoming events. The museum has relocated to 78-C Catawba Ave, Old Fort, NC following Hurricane Helene damage. Attempts to read the events page and the PATH Outdoor Explorer Pack and N.C. Kids Exploration Journal pages returned no readable text.",
+    "excluded": [
+      {
+        "name": "Eco Explore Program",
+        "reason": "An ongoing, self-directed community science and badge program, not a finite supervised summer camp. The museum also states that its grounds are currently closed to the program because of Hurricane Helene damage."
+      },
+      {
+        "name": "Music Jam",
+        "reason": "A recurring music gathering rather than a finite supervised youth camp; canceled until further notice because of Hurricane Helene damage."
+      }
+    ],
+    "cards": []
+  }
+}

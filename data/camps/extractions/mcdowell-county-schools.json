@@ -1,0 +1,68 @@
+{
+  "provider": {
+    "key": "mcdowell-county-schools",
+    "name": "McDowell County Schools",
+    "urls": ["https://www.mcdowell.k12.nc.us/departments/cte/camp-opportunity"],
+    "area": "Marion, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:08:46.333Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a8d9a7562d2f39cd4b67162b51b8d3212418f22fca54bceacefdbe4e9764e4b7",
+  "response": {
+    "searches": ["site.mcdowell.k12.nc.us \"Camp Opportunity\" \"2026\""],
+    "usage": {
+      "inputTokens": 16827,
+      "cachedInputTokens": 8845,
+      "outputTokens": 386,
+      "reasoningTokens": 88
+    },
+    "status": "completed",
+    "ms": 13567,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mcdowell.k12.nc.us/departments/cte/camp-opportunity",
+      "chars": 5191,
+      "method": "browser"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdhGP1b0WspKsYP83BSrHmZMMCbI57IuMmqkDzMcZwgVbKrSw/viewform?usp=header",
+      "chars": 363,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mcdowell.k12.nc.us/boe/meeting-schedule-and-minutes",
+      "chars": 4584,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.mcdowell.k12.nc.us/",
+      "chars": 7019,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "McDowell County Schools",
+    "website_url": "https://www.mcdowell.k12.nc.us/",
+    "notes": "No 2027 camp information was found. Camp Opportunity is excluded because it is a career-learning program restricted to McDowell County Schools students. Its official school calendar lists June 15–18, 2026, while the supplied registration form is still labeled 2025 and closed. Search also found school Summer Bridge information restricted to enrolled students. Additional official pages could not be opened because of robots.txt restrictions; official search results were readable.",
+    "excluded": [
+      {
+        "name": "Camp Opportunity",
+        "reason": "District-only summer learning program: the official page limits eligibility to rising 7th–9th grade students from McDowell County Public Schools, and the registration form explicitly says only students enrolled in McDowell County Schools can participate. Activities focus on career exploration and hands-on learning."
+      },
+      {
+        "name": "Summer Bridge",
+        "reason": "School summer learning and transition program for enrolled McDowell Early College and McDowell Academy for Innovation students."
+      },
+      {
+        "name": "Camp Opportunity of Maryland",
+        "reason": "Different organization with a similar name; its Maryland camp is outside the Asheville service area."
+      }
+    ],
+    "cards": []
+  }
+}

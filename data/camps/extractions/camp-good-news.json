@@ -1,0 +1,312 @@
+{
+  "provider": {
+    "key": "camp-good-news",
+    "name": "Camp Good News",
+    "urls": ["https://campgoodnewsnc.org/summer-schedule/", "https://campgoodnewsnc.org/"],
+    "area": "Fairview, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:47.431Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "cb959e4bd3e20605230627e25a53267561da953307dd18d7e9507ba22711fb6c",
+  "response": {
+    "searches": ["site:campgoodnewsnc.org \"2027\""],
+    "usage": {
+      "inputTokens": 18290,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2111,
+      "reasoningTokens": 89
+    },
+    "status": "completed",
+    "ms": 42706,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campgoodnewsnc.org/summer-schedule/",
+      "chars": 3851,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/",
+      "chars": 1906,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/registration-form/",
+      "chars": 1879,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+      "chars": 6256,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/wp-content/uploads/2026/09/Copy-of-Advance-Permission-Slip-.docx.pdf",
+      "chars": 2045,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/about-us/",
+      "chars": 2726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/why-camp-is-free/",
+      "chars": 3454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/counselors/",
+      "chars": 3656,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Good News",
+    "website_url": "https://campgoodnewsnc.org/",
+    "notes": "2027 registration forms are announced for the new year, but no specific opening date or 2027 summer schedule is posted. Returning campers are told to expect forms by the end of March 2027; this is a mailing estimate, not a registration milestone. Cards retain the explicitly labeled 2026 schedule. The registration PDF contains overlapping 2024 and 2026 text; dates below follow the Summer 2026 Schedule on the website. The $350 figure is an operating cost and suggested donation, not required tuition.",
+    "excluded": [
+      {
+        "name": "Discipleship Training",
+        "reason": "October–May program outside summer."
+      },
+      {
+        "name": "Winter Advance",
+        "reason": "January and April weekends outside summer."
+      },
+      {
+        "name": "Saturday Night Alive",
+        "reason": "Single evening event in January, outside summer."
+      },
+      {
+        "name": "Fall Advance",
+        "reason": "October weekend outside summer."
+      },
+      {
+        "name": "Counselors",
+        "reason": "Volunteer staffing opportunity rather than a camper program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "A Christian day camp for boys and girls ages 7–10. Camp activities include chapel, games, crafts, swimming and scripture memory.",
+        "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
+        "registration_url": "https://campgoodnewsnc.org/registration-form/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": "2027 registration forms will be available in the new year!"
+        },
+        "ages": {
+          "min": 7,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Good News",
+            "address": "110 Maranatha Rd",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:00",
+          "text": "8:30am-4pm, Monday-Friday. Campers will be dropped off between 8am-8:45am and will be picked up at 4pm everyday."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "tuition free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campgoodnewsnc.org/summer-schedule/",
+          "https://campgoodnewsnc.org/registration-form/",
+          "https://campgoodnewsnc.org/about-us/",
+          "https://campgoodnewsnc.org/why-camp-is-free/",
+          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+          "https://campgoodnewsnc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration PDF contains overlapping 2024 and 2026 text; the day-camp dates use the explicitly labeled 2026 website schedule. The Directions page spells the street Marantha; the About Us page and registration release publish Maranatha, which is used here. Activities are described camp-wide rather than separately for day camp."
+      },
+      {
+        "name": "Children’s Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers attend chapel twice daily and participate in archery, swimming, sports, crafts, scripture memory, music and campfires. Overnight weeks are divided by age and gender.",
+        "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
+        "registration_url": "https://campgoodnewsnc.org/registration-form/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-28",
+          "end": "2026-08-07",
+          "text": "2027 registration forms will be available in the new year!"
+        },
+        "ages": {
+          "min": 7,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Good News",
+            "address": "110 Maranatha Rd",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Campers arrive on Sunday afternoon between 4:00-5:00PM and leave 12:00pm on Friday afternoon."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "tuition free",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Teen Boys",
+            "start": "2026-06-28",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle Boys",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr. Boys",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Teen Girls",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle Girls",
+            "start": "2026-07-26",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr. Girls",
+            "start": "2026-08-02",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campgoodnewsnc.org/summer-schedule/",
+          "https://campgoodnewsnc.org/registration-form/",
+          "https://campgoodnewsnc.org/about-us/",
+          "https://campgoodnewsnc.org/why-camp-is-free/",
+          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+          "https://campgoodnewsnc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration PDF contains overlapping 2024 and 2026 dates, including June 30–July 5 versus June 28–July 3 for teen boys. All session dates follow the explicitly labeled Summer 2026 Schedule on the website. The Directions page spells the street Marantha; the About Us page and registration release publish Maranatha, which is used here."
+      }
+    ]
+  }
+}

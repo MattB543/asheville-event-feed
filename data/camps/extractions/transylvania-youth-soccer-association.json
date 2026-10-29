@@ -1,0 +1,164 @@
+{
+  "provider": {
+    "key": "transylvania-youth-soccer-association",
+    "name": "Transylvania Youth Soccer Association",
+    "urls": ["https://tysa.us/summercamp/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:39.915Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "29b51d92f615596ec9416bcef64366bd352af688dc6732bdc2a621356de26c9c",
+  "response": {
+    "searches": ["site:tysa.us \"camp\" \"2027\""],
+    "usage": {
+      "inputTokens": 15019,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1247,
+      "reasoningTokens": 73
+    },
+    "status": "completed",
+    "ms": 26639,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tysa.us/summercamp/",
+      "chars": 2418,
+      "method": "fetch"
+    },
+    {
+      "url": "https://playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190",
+      "chars": 784,
+      "method": "browser"
+    },
+    {
+      "url": "https://tysa.us/summer/",
+      "chars": 2071,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tysa.us/",
+      "chars": 2419,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Transylvania Youth Soccer Association",
+    "website_url": "https://tysa.us/",
+    "notes": "No summer 2027 camp information or registration opening date was found on official pages. The PlayMetrics signup page requires an account and does not expose additional camp details.",
+    "excluded": [
+      {
+        "name": "5v5 Summer Series",
+        "reason": "Six-week sports competition series with one game each Tuesday evening, rather than a camp or skill clinic."
+      },
+      {
+        "name": "TYSA Recreation",
+        "reason": "Sports leagues and team seasons."
+      },
+      {
+        "name": "EFC Academy",
+        "reason": "Competitive soccer team program, not a finite summer camp."
+      },
+      {
+        "name": "EFC Classic",
+        "reason": "Competitive soccer team program, not a finite summer camp."
+      },
+      {
+        "name": "3v3 Community Cup",
+        "reason": "Adult-only soccer tournament for ages 18 and older."
+      }
+    ],
+    "cards": [
+      {
+        "name": "ECUSTA FC's Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Players participate in technical soccer training, small-sided games, and competitive activities led by coaches with collegiate playing backgrounds and Ecusta FC coaching staff. The camp is open to Ecusta FC players and other competitive players.",
+        "camp_page_url": "https://tysa.us/summercamp/",
+        "registration_url": "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ecusta Sports Complex",
+            "address": "324 Ecusta Rd",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Academy (U8–U12): 9:00 AM – 12:00 PM daily; Classic (U13–U19): 2:00 PM – 5:00 PM daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "program",
+            "label": "per player",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Academy (U8–U12)",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Classic (U13–U19)",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tysa.us/summercamp/",
+          "https://app.playmetrics.com/signup?clubToken=TG9naW4tQ2x1Yi52MS0xODU1LTE3ODIwNTk0OTJ8VWZLRzVVUEFFdzV3emxleGlIaDJZdGY4aU1pbjRCZWlpZjZaU2Q2K2l0bz0=&program_id=101190",
+          "https://tysa.us/Recreation/",
+          "https://tysa.us/tryouts/",
+          "https://tysa.us/contact/ecusta-field/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp lists soccer divisions U8–U12 and U13–U19 rather than ages in years; numeric ages are left null. Dates are labeled 2026 by the camp page heading. The camp and Recreation pages give 324 Ecusta Rd, while the 26/27 tryouts page gives 824 Ecusta Road for the Ecusta Turf Field. The dedicated field page provides no street address; confirm whether the tryouts address is a typo or a different entrance."
+      }
+    ]
+  }
+}

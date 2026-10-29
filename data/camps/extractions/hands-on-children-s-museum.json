@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "hands-on-children-s-museum",
+    "name": "Hands On! Children’s Museum",
+    "urls": ["https://www.handsonwnc.org/?url=summer-camps"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_DATE_INVALID at https://www.handsonwnc.org/?url=summer-camps"
+  },
+  "extractedAt": "2026-10-29T17:01:58.773Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site.handsonwnc.org summer camps 2026 Hands On",
+      "site:handsonwnc.org \"2026\" \"June\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 23643,
+      "cachedInputTokens": 8845,
+      "outputTokens": 809,
+      "reasoningTokens": 143
+    },
+    "status": "completed",
+    "ms": 24646,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.handsonwnc.org/?url=summer-camps",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_DATE_INVALID at https://www.handsonwnc.org/?url=summer-camps\nCall log:\n\u001b[2m  - navigating to \"https://www.handsonwnc.org/?url=summer-camps\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.handsonwnc.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_DATE_INVALID at https://www.handsonwnc.org/\nCall log:\n\u001b[2m  - navigating to \"https://www.handsonwnc.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hands On! Children’s Museum",
+    "website_url": "https://www.handsonwnc.org/",
+    "notes": "No 2027 information found. The official website blocked direct opening through robots.txt; its indexed 2026 camp and registration pages were readable through search results. The linked current Summer Camp Guide and embedded registration form could not be accessed. Search found only an older 2018 camp-guide PDF, which was not used for current facts. Third-party theme listings contain inconsistent hours, end dates and prices, so these were not imported.",
+    "excluded": [
+      {
+        "name": "Summer Camp Volunteer Application",
+        "reason": "Volunteer application, not a camper program."
+      },
+      {
+        "name": "Mad Science Labs and Critter Crafts",
+        "reason": "Recurring museum programs, not finite summer camps."
+      },
+      {
+        "name": "Science on Wheels - Outreach Programs",
+        "reason": "Bookable outreach workshops for groups, not a listed supervised summer camp."
+      },
+      {
+        "name": "Hands On! S.T.E.A.M. Summer Camp and Paleontology Summer Camp",
+        "reason": "Offered by the separate Hands On! Discovery Center at the Gray Fossil Site, not this Hendersonville provider."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Full-day camps offer learning activities led by museum staff with assistance from youth volunteers.",
+        "camp_page_url": "https://www.handsonwnc.org/?url=summer-camps",
+        "registration_url": "https://www.handsonwnc.org/?url=summer-camps%2Fsummer-camp-registration",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Hands On! Children’s Museum",
+            "address": "318 North Main Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "All camps start promptly at 9:00am and conclude at 4:00pm."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "$75 per week, per session"
+        },
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Campers are required to bring a non-perishable lunch to camp every day. Lunches are available for purchase from Black Bear Coffee at an additional cost of $50 for the entire week, payable at the time of registration."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.handsonwnc.org/?url=summer-camps",
+          "https://www.handsonwnc.org/?url=summer-camps%2Fsummer-camp-registration",
+          "https://www.handsonwnc.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Facts were read from indexed official-page search results because direct access was blocked. Check the current Summer Camp Guide and embedded registration form for 2026 session dates, themes, prices and registration opening. No 2027 dates or registration milestones were found."
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "oak-hill-fire-and-rescue-protection-association",
+    "name": "Oak Hill Fire & Rescue Protection Association",
+    "urls": ["https://oakhillonline.org/community", "https://oakhillonline.org/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:41.459Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "22bcd9efd02e1da43ae9aa2c747116e1d7cd74a8caac6aba8efab80df16de829",
+  "response": {
+    "searches": [
+      "site:oakhillonline.org \"camp\" \"2027\"",
+      "open https://oakhillonline.org/community"
+    ],
+    "usage": {
+      "inputTokens": 14104,
+      "cachedInputTokens": 8845,
+      "outputTokens": 846,
+      "reasoningTokens": 126
+    },
+    "status": "completed",
+    "ms": 21601,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://oakhillonline.org/community",
+      "chars": 5158,
+      "method": "fetch"
+    },
+    {
+      "url": "https://oakhillonline.org/",
+      "chars": 1319,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Hill Fire & Rescue Protection Association",
+    "website_url": "https://oakhillonline.org/",
+    "notes": "No 2027 camp information found. The community page gives June 15–20, 2026 for Fire Camp but separately lists a family cookout on 'Saturday July 20'; this conflicts with the camp dates. The official contact page publishes 2400 North Carolina Highway 181, Morganton, NC 28655, but the camp page does not explicitly identify its drop-off venue, so sites is empty.",
+    "excluded": [
+      {
+        "name": "Oak Hill Fire Rescue Corps Program",
+        "reason": "Ongoing youth community-service and training program, not a finite summer camp."
+      },
+      {
+        "name": "Junior Firefighter Program",
+        "reason": "Ongoing junior membership and firefighter training program, not a finite summer camp."
+      },
+      {
+        "name": "Family cookout",
+        "reason": "Single social event associated with Fire Camp, not a separate camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fire Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers learn what it is like to be a firefighter, including CPR and search and rescue skills.",
+        "camp_page_url": "https://oakhillonline.org/community",
+        "registration_url": "https://oakhillonline.org/community",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "16:00",
+          "text": "Monday - Saturday 8am-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch provided during camp."
+        },
+        "transportation": null,
+        "sources": ["https://oakhillonline.org/community", "https://oakhillonline.org/contact-us"],
+        "confidence": "medium",
+        "review_notes": "The community page states camp dates June 15–20, 2026, but describes the associated cookout as 'Saturday July 20 4pm-5pm'; check the cookout date with the provider. The page states 'Applications due: May 18, 2026 for a free T-shirt'; this is not a registration opening and is not included among 2027 milestones. Confirm the camp drop-off venue; the provider's contact address is not explicitly identified as the camp location."
+      }
+    ]
+  }
+}

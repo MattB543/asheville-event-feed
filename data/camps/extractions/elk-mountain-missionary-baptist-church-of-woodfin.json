@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "elk-mountain-missionary-baptist-church-of-woodfin",
+    "name": "Elk Mountain Missionary Baptist Church of Woodfin",
+    "urls": [
+      "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/"
+    ],
+    "area": "Woodfin, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:11:14.347Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Elk Mountain Missionary Baptist Church Woodfin Vacation Bible School 2026",
+      "open https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
+      "site:facebook.com \"Elk Mountain\" \"2026\" \"VBS\"",
+      "\"Cruising Through Rome\" \"Elk\""
+    ],
+    "usage": {
+      "inputTokens": 26263,
+      "cachedInputTokens": 8845,
+      "outputTokens": 850,
+      "reasoningTokens": 283
+    },
+    "status": "completed",
+    "ms": 30696,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Elk Mountain Missionary Baptist Church of Woodfin",
+    "website_url": null,
+    "notes": "No standalone church website or 2027 camp announcement was found. The supplied Facebook page opened without readable content. A FindGlocal mirror mentions promotion of Vacation Bible School on June 17, 2026, and AllEvents lists a 2026 event titled Cruising Through Rome With Paul VBS 2026 beginning July 13. These third-party listings were insufficient to confirm the full schedule, so dates and hours are omitted.",
+    "excluded": [
+      {
+        "name": "Popsicles in the Park",
+        "reason": "A single promotional social event for Vacation Bible School, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Elk Mountain Missionary Baptist Church",
+            "address": "197 Elk Mountain Road",
+            "town": "Woodfin",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/Elk-Mountain-Baptist-Vacation-Bible-School-2318881058372564/"
+        ],
+        "confidence": "low",
+        "review_notes": "Facebook content could not be read directly. Confirm the program's dates, ages, hours and registration details with the church. The address 197 Elk Mountain Road appears in the Facebook-content mirror on FindGlocal and the AllEvents event listing, but could not be verified directly on the church's page. Other business directories list 176 or 187 Elk Mountain Road; confirm the published venue address before mapping."
+      }
+    ]
+  }
+}

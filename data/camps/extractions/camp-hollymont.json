@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "camp-hollymont",
+    "name": "Camp Hollymont",
+    "urls": ["https://hollymont.com/explore/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:40.826Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9b212d0ca01c5526a3c2943489b343b9805589e43c85849e79920f1aae6d695a",
+  "response": {
+    "searches": [
+      "site.hollymont.com counselors training 2027",
+      "open https://hollymont.com/counselors-in-training/"
+    ],
+    "usage": {
+      "inputTokens": 20055,
+      "cachedInputTokens": 8845,
+      "outputTokens": 429,
+      "reasoningTokens": 89
+    },
+    "status": "completed",
+    "ms": 14065,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hollymont.com/explore/",
+      "chars": 5392,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/2027dates-and-rates/",
+      "chars": 2675,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/registration/",
+      "chars": 1058,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/explore/camp-life/",
+      "chars": 3220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/explore/first-time-campers/",
+      "chars": 4942,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/wp-content/uploads/2016/08/Packing-List-for-7-Day-Campers.pdf",
+      "chars": 2443,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/wp-content/uploads/2016/08/Packing-List-for-13-20-and-27-Day-Campers.pdf",
+      "chars": 2485,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/",
+      "chars": 2562,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Hollymont",
+    "website_url": "https://hollymont.com/",
+    "notes": "The provider now publishes its summer camp location as 339 Nacoochee Drive, Rabun Gap, GA 30568, rather than Asheville. Driving estimates to Rabun Gap are approximately 1 hour 45 minutes, plainly outside the directory's approximately 75-minute area. No cards retained. Official location sources: https://hollymont.com/ and https://hollymont.com/2027dates-and-rates/. Drive-time check: https://www.rome2rio.com/s/Asheville/Rabun-Gap-Nacoochee-School. The Counselors in Training page also contains a conflicting 'CIT 2026 Sessions' heading alongside 2026-27 school-year eligibility and dates whose weekdays match 2027.",
+    "excluded": [
+      {
+        "name": "Camp Hollymont",
+        "reason": "All published summer sessions meet in Rabun Gap, GA, approximately 1 hour 45 minutes from Asheville, outside the directory's approximately 75-minute driving area."
+      },
+      {
+        "name": "Counselors in Training",
+        "reason": "Held at Camp Hollymont in Rabun Gap, GA, outside the directory's approximately 75-minute driving area."
+      },
+      {
+        "name": "Mother-Daughter Session",
+        "reason": "Family-only camp for mothers and daughters; also held in Rabun Gap, GA, outside the directory's driving area."
+      }
+    ],
+    "cards": []
+  }
+}

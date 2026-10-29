@@ -1,0 +1,72 @@
+{
+  "provider": {
+    "key": "asheville-contemporary-dance-theatre-new-studio-of-dance",
+    "name": "Asheville Contemporary Dance Theatre / New Studio of Dance",
+    "urls": ["https://www.acdt.org/?page_id=2605"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:20.019Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7a31a797cb4b03b687f13a9ec9b77fde83a52bd93fd6265e413c98e739a8348e",
+  "response": {
+    "searches": [
+      "site:acdt.org summer 2026 camps 2027",
+      "site:acdt.org/wordpress/wp-content/uploads/ \"2026\" \"camp\"",
+      "\"acdt.org\" \"summer\" \"camps\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 26945,
+      "cachedInputTokens": 8845,
+      "outputTokens": 534,
+      "reasoningTokens": 254
+    },
+    "status": "completed",
+    "ms": 25109,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.acdt.org/?page_id=2605",
+      "chars": 899,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.acdt.org/?page_id=6330",
+      "chars": 1294,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.acdt.org/",
+      "chars": 1954,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.acdt.org/wordpress/wp-content/uploads/2026-2027-Schedule.pdf",
+      "chars": 4341,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Contemporary Dance Theatre / New Studio of Dance",
+    "website_url": "https://www.acdt.org/",
+    "notes": "No summer 2027 information was found. The official Summer 2026 Camps page contains registration-link labels and cancellation/refund policies, but its readable text does not identify individual camps or intensives, dates, ages, hours, or prices. Attempts to open the page and its WordPress variant returned no readable content; searches did not locate an official summer brochure or additional program details. No cards were created rather than inventing program names or details. A reviewer should inspect the original page visually and follow its Parent Portal/Online Registration link.",
+    "excluded": [
+      {
+        "name": "Fall 2026 – Spring 2027 Classes",
+        "reason": "School-year dance, aerial, and fencing classes and lesson series, not finite summer camps."
+      },
+      {
+        "name": "Adult/Teen Tap Workshops",
+        "reason": "Fall lesson series outside summer."
+      },
+      {
+        "name": "Asheville Dance Theater Summer Camps",
+        "reason": "A different Asheville provider at 802 Fairview Road, not Asheville Contemporary Dance Theatre / New Studio of Dance."
+      }
+    ],
+    "cards": []
+  }
+}

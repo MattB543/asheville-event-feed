@@ -1,0 +1,267 @@
+{
+  "provider": {
+    "key": "cullowhee-united-methodist-church",
+    "name": "Cullowhee United Methodist Church",
+    "urls": [
+      "https://www.cullowheeumc.org/events/vacation-bible-school/",
+      "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+      "https://www.cullowheeumc.org/wheeread/"
+    ],
+    "area": "Cullowhee, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:16:16.257Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "3951b515226a22f8ddfd17a8a87c58526371759f04c423f07235709678e1e98e",
+  "response": {
+    "searches": [
+      "site:cullowheeumc.org \"2027\" camp",
+      "site:cullowheeumc.org \"camp\" \"2026\" preschool"
+    ],
+    "usage": {
+      "inputTokens": 20083,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1967,
+      "reasoningTokens": 236
+    },
+    "status": "completed",
+    "ms": 40002,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cullowheeumc.org/events/vacation-bible-school/",
+      "chars": 1690,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+      "chars": 2066,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cullowheeumc.org/wheeread/",
+      "chars": 3335,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cullowheeumc.org/wp-content/uploads/2025/01/summer-camp.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cullowheeumc.org/events/end-of-summer-picnic/",
+      "chars": 1593,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cullowheeumc.org/",
+      "chars": 1591,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cullowhee United Methodist Church",
+    "website_url": "https://www.cullowheeumc.org/",
+    "notes": "No 2027 camp dates or registration milestones were found. The 2027 ministry spending plan mentions Whee Read but does not announce summer dates or registration. The preschool and elementary camp page still describes 2025; no 2026 or 2027 details were found, so those cards retain the existing program names but omit historical dates, prices and eligibility. The linked 2025 summer-camp PDF returned no readable content, and the screenshot attempt failed.",
+    "excluded": [
+      {
+        "name": "End of Summer Picnic",
+        "reason": "Single evening social event, not a camp."
+      },
+      {
+        "name": "Cullowhee Kids Preschool",
+        "reason": "School-year preschool, separate from the finite summer day camps."
+      },
+      {
+        "name": "Whee Read Too! Book-A-Thon Fundraiser",
+        "reason": "Fundraising activity, not a supervised youth camp."
+      },
+      {
+        "name": "Reading Buddies for Whee Read",
+        "reason": "Volunteer opportunity supporting Whee Read, not a separate camper program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Cullowhee United Methodist Church.",
+        "camp_page_url": "https://www.cullowheeumc.org/events/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cullowhee United Methodist Church",
+            "address": "416 Central Dr",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.cullowheeumc.org/events/vacation-bible-school/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Whee Read Summer Literacy Program",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Children practice reading during a five-week summer literacy program. Reading Buddy volunteers provide one-on-one reading practice.",
+        "camp_page_url": "https://www.cullowheeumc.org/wheeread/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Cullowhee United Methodist Church",
+            "address": "416 Central Dr",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch is served from 11:30 to 12:00 on Tuesday-Thursday."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.cullowheeumc.org/wheeread/",
+          "https://www.cullowheeumc.org/events/whee-read/",
+          "https://www.cullowheeumc.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Preschool Summer Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer day camp for preschool children.",
+        "camp_page_url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cullowhee United Methodist Church",
+            "address": "416 Central Dr",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+          "https://www.cullowheeumc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official camp page describes only 2025. Confirm whether this program will return in 2027 and obtain current eligibility, dates, hours, prices and enrollment instructions. The linked 2025 PDF could not be read."
+      },
+      {
+        "name": "Elementary School Summer Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer day camp for elementary school children.",
+        "camp_page_url": "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cullowhee United Methodist Church",
+            "address": "416 Central Dr",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cullowheeumc.org/summer-camps-at-cullowhee-umc/",
+          "https://www.cullowheeumc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official camp page describes only 2025. Confirm whether this program will return in 2027 and obtain current eligibility, dates, hours, prices and enrollment instructions. The linked 2025 PDF could not be read."
+      }
+    ]
+  }
+}

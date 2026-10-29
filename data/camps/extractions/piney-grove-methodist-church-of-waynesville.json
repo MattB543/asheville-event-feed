@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "piney-grove-methodist-church-of-waynesville",
+    "name": "Piney Grove Methodist Church of Waynesville",
+    "urls": ["https://www.facebook.com/pineygrovemethodist/"],
+    "area": "Waynesville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:13:21.187Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Piney Grove Methodist Church Waynesville vacation bible school 2026",
+      "site:facebook.com/pineygrovemethodist \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 23772,
+      "cachedInputTokens": 8845,
+      "outputTokens": 392,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 15796,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/pineygrovemethodist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Piney Grove Methodist Church of Waynesville",
+    "website_url": null,
+    "notes": "No standalone website for the Waynesville church was found. The supplied Facebook page could be opened but returned no readable content. Indexed posts from that account include an older reference to a VBS planning meeting, but no verifiable 2026 or 2027 summer program announcement, dates, ages or registration details were found. No cards are created from that historical planning reference. Review the church's Facebook page directly for announcements.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School — Piney Grove Baptist Church, Knoxville",
+        "reason": "A different provider in Knoxville, TN, not Piney Grove Methodist Church of Waynesville."
+      },
+      {
+        "name": "Vacation Bible School — Piney Grove Baptist Church, Fuquay-Varina",
+        "reason": "A different provider in Fuquay-Varina, NC, outside the directory's local area."
+      }
+    ],
+    "cards": []
+  }
+}

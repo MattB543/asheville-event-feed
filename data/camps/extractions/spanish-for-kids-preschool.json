@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "spanish-for-kids-preschool",
+    "name": "Spanish for Kids Preschool",
+    "urls": ["https://spanishforkidspres.wixsite.com/class"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:29.880Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7a8c1f9713c02d5867705fbd40fe828e40b05ec84f4dabac88f9d18c05396358",
+  "response": {
+    "searches": [
+      "site:spanishforkidspres.wixsite.com/class summer camp contact",
+      "open https://spanishforkidspres.wixsite.com/class/contact"
+    ],
+    "usage": {
+      "inputTokens": 14306,
+      "cachedInputTokens": 8845,
+      "outputTokens": 697,
+      "reasoningTokens": 126
+    },
+    "status": "completed",
+    "ms": 18354,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://spanishforkidspres.wixsite.com/class",
+      "chars": 2643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://spanishforkidspres.wixsite.com/class/lista-de-precios",
+      "chars": 1128,
+      "method": "fetch"
+    },
+    {
+      "url": "https://spanishforkidspres.wixsite.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error: Page Not Found | Wix.com\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spanish for Kids Preschool",
+    "website_url": "https://spanishforkidspres.wixsite.com/class",
+    "notes": "No 2027 camp information or dated 2026 camp schedule was found. The homepage advertises Summer Camp without a year. Contact-page address was available through an official search result, but the page returned no readable text when opened. Tuition information describes the school-year program and was not applied to camp.",
+    "excluded": [
+      {
+        "name": "Immersion Spanish Program for little kids",
+        "reason": "Year-round preschool program, not a finite summer camp."
+      },
+      {
+        "name": "After School program",
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Spanish Academy of Asheville Summer Camp",
+        "reason": "A different Asheville provider with a similar name."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer camp for children ages 4 to 8.",
+        "camp_page_url": "https://spanishforkidspres.wixsite.com/class",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spanish for Kids Preschool",
+            "address": "29 Shelby Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://spanishforkidspres.wixsite.com/class",
+          "https://spanishforkidspres.wixsite.com/class/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp listing and ages are undated on the homepage; no summer-specific 2026 or 2027 details were found. The site is the provider's published address from its official contact-page search snippet; confirm that camp drop-off occurs there."
+      }
+    ]
+  }
+}

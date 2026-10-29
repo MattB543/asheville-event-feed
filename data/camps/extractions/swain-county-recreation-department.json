@@ -1,0 +1,183 @@
+{
+  "provider": {
+    "key": "swain-county-recreation-department",
+    "name": "Swain County Recreation Department",
+    "urls": ["https://www.swaincountync.gov/recreation-department/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:16:18.551Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "660accd977e67b5cd45ec8d197a11307203ae8f8d929f418e2ba11cf2196f79b",
+  "response": {
+    "searches": [
+      "site:swaincountync.gov \"camp\" \"2026\"",
+      "open https://www.swaincountync.gov/download/rec-park-camp-flyer/",
+      "site:swaincountync.gov/wp-content/uploads/ \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 32894,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1229,
+      "reasoningTokens": 263
+    },
+    "status": "completed",
+    "ms": 38108,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.swaincountync.gov/recreation-department/",
+      "chars": 15532,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/register-of-deeds/",
+      "chars": 7644,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/building-inspections-permits-fees/",
+      "chars": 14030,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/download/rec-basketball-registration-flyer/",
+      "chars": 2553,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/download/rec-dept-senior-days-registration-packet/",
+      "chars": 2581,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/holiday-schedule/",
+      "chars": 3249,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/faqs/",
+      "chars": 12834,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swaincountync.gov/",
+      "chars": 5080,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Swain County Recreation Department",
+    "website_url": "https://www.swaincountync.gov/recreation-department/",
+    "notes": "No 2027 camp information found. Official document pages for a camp flyer dated January 7, 2026 and a youth soccer camp flyer dated February 10, 2026 were found, but their attachments could not be accessed. The registration catalog did not expose readable camp listings. The recurring first-Monday-in-February registration statement was not converted into a 2027 registration date.",
+    "excluded": [
+      {
+        "name": "Swim Lessons",
+        "reason": "Lessons booked as lessons, not a camp."
+      },
+      {
+        "name": "Youth Football, Youth Cheerleading, Youth Volleyball, Youth Basketball, Ridge Runner Wrestling, T-Ball, Youth Flag Football, Baseball and Softball",
+        "reason": "Sports leagues or team seasons, not finite camps or clinics."
+      },
+      {
+        "name": "Golf",
+        "reason": "September–October program, outside summer."
+      },
+      {
+        "name": "Senior Games and adult recreation programs",
+        "reason": "Adult-only programs."
+      },
+      {
+        "name": "Pool Party Bash, Breakfast with Santa, Easter Egg Hunt and Halloween Trunk or Treat",
+        "reason": "Social or seasonal events, not camps."
+      },
+      {
+        "name": "Summer Camp Counselor Positions",
+        "reason": "Employment program, not a youth camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Day camp for children who have completed kindergarten and meet the camp's age cutoff.",
+        "camp_page_url": "https://www.swaincountync.gov/recreation-department/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 11
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "17:00",
+          "text": "Monday-Friday 8:00am – 5:00pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.swaincountync.gov/recreation-department/",
+          "https://www.swaincountync.gov/download/rec-park-camp-flyer/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated Day Camp section states that children must have completed kindergarten and cannot turn 12 before January 1 of the camp year; the numeric maximum represents that cutoff, not an age limit throughout camp. It says camp ends in August but gives no exact dates. The 2026 flyer attachment could not be read. Camp drop-off location is not identified: the department page lists an office at 30 Rec Park Drive and a contact address at 240 West Deep Creek Road, while also reporting the indoor facility closed. Confirm the camp venue before mapping."
+      },
+      {
+        "name": "Youth Soccer Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Youth soccer camp.",
+        "camp_page_url": "https://www.swaincountync.gov/download/rec-dept-youth-soccer-camp-flyer/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.swaincountync.gov/download/rec-dept-youth-soccer-camp-flyer/"],
+        "confidence": "low",
+        "review_notes": "Only the official document landing page was readable; it dates the flyer February 10, 2026. The attachment could not be accessed. Confirm summer timing, format, program name, venue, ages, dates and fees from the flyer before publication."
+      }
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "hoopers-creek-baptist-church-of-fletcher",
+    "name": "Hoopers Creek Baptist Church of Fletcher",
+    "urls": ["https://vbspro.events/p/events/9d3d85", "https://vbspro.events/p/cdea8a"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:18.434Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b1bd7f2608727d4f6d449351dbd99ae10f88fe3f96519be4a44690bf3183ddf4",
+  "response": {
+    "searches": ["Hoopers Creek Baptist Church Fletcher official VBS 2027"],
+    "usage": {
+      "inputTokens": 14594,
+      "cachedInputTokens": 8845,
+      "outputTokens": 577,
+      "reasoningTokens": 51
+    },
+    "status": "completed",
+    "ms": 14917,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/9d3d85",
+      "chars": 1979,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/p/cdea8a",
+      "chars": 1993,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hoopers Creek Baptist Church of Fletcher",
+    "website_url": "https://www.hooperscreekbaptist.com/",
+    "notes": "No summer 2027 announcement was found. The supplied 2025 page, Missions of all Missions, is a prior-year VBS theme and is not included as a separate current program.",
+    "excluded": [
+      {
+        "name": "Fall Festival",
+        "reason": "A seasonal social event outside summer, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Are You Prepared?",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://vbspro.events/p/events/9d3d85",
+        "registration_url": "https://vbspro.events/p/events/9d3d85",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hoopers Creek Baptist Church",
+            "address": "71 Hoopers Creek Church Rd",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "21:00",
+          "text": "6:30pm (EDT) to 9:00pm (EDT)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/9d3d85",
+          "https://www.hooperscreekbaptist.com/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

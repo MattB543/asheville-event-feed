@@ -1,0 +1,206 @@
+{
+  "provider": {
+    "key": "flat-creek-baptist-church-of-weaverville",
+    "name": "Flat Creek Baptist Church of Weaverville",
+    "urls": [
+      "https://www.fcbcweaverville.org/events/vbs/",
+      "https://www.fcbcweaverville.org/vbs-registration/",
+      "https://www.fcbcweaverville.org/",
+      "https://www.thrivebiblecamp.org/"
+    ],
+    "area": "Weaverville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:11:32.802Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "22ab1197bb3bd873c711df4528edf33369444ca50118b2d944597f1de70a94f1",
+  "response": {
+    "searches": ["site.fcbcweaverville.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 20314,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1540,
+      "reasoningTokens": 152
+    },
+    "status": "completed",
+    "ms": 36327,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fcbcweaverville.org/events/vbs/",
+      "chars": 712,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fcbcweaverville.org/vbs-registration/",
+      "chars": 1017,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fcbcweaverville.org/",
+      "chars": 1817,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thrivebiblecamp.org/",
+      "chars": 766,
+      "method": "fetch"
+    },
+    {
+      "url": "https://form.jotform.com/220555106058046",
+      "chars": 138,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.thrivebiblecamp.org/faq.html",
+      "chars": 5277,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thrivebiblecamp.org/serve.html",
+      "chars": 623,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thrivebiblecamp.org/sponsor.html",
+      "chars": 1008,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Flat Creek Baptist Church of Weaverville",
+    "website_url": "https://www.fcbcweaverville.org/",
+    "notes": "No 2027 program dates or registration milestones were found. THRIVE's homepage lists 2026 registration as open, but its FAQ still says 2025 registration is closed, and the supplied Jotform was unavailable. Older undated THRIVE preregistration material was not used.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "School-year program meeting September through May, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School includes crafts and nightly meals. The kickoff includes games, inflatables, face painting, and food.",
+        "camp_page_url": "https://www.fcbcweaverville.org/events/vbs/",
+        "registration_url": "https://www.fcbcweaverville.org/vbs-registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Flat Creek Baptist Church",
+            "address": "21 Flat Creek Church Rd",
+            "town": "Weaverville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "June 14th - 5pm - KICK OFF; June 15th–19th - 6-830pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "meal served nightly"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.fcbcweaverville.org/events/vbs/",
+          "https://www.fcbcweaverville.org/vbs-registration/",
+          "https://www.fcbcweaverville.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official VBS pages print June 14–19 without a year. Dates are assigned to 2026 based on the matching third-party event listing at https://happeningnext.com/event/vacation-bible-school-eid3a0dqmoxto; confirm the year with the church. The event page lists 6–8:30 pm generally, while the registration page specifies a 5 pm kickoff on June 14. The meal is an evening meal, not lunch."
+      },
+      {
+        "name": "THRIVE Bible Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "sports"],
+        "description": "Campers participate in chapel, devotions, music, crafts, swimming, archery, ropes, and sports. Campers stay in cabins with counselors.",
+        "camp_page_url": "https://www.thrivebiblecamp.org/",
+        "registration_url": "https://www.thrivebiblecamp.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Flat Creek Baptist Church",
+            "address": "21 Flat Creek Church Rd",
+            "town": "Weaverville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "session",
+            "label": "per camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "2026",
+          "text": "2026 registration is OPEN"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Please visit our Scholarship page and fill out the form. You can still register your child while scholarship information is being reviewed to reserve your spot."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your child has special medical concerns, we ask that you make us aware of these needs, and help us to understand how we are to respond."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "We pride ourselves on providing delicious quality meals to campers with special diets."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Yes. We provide transportation to and from camp."
+        },
+        "sources": [
+          "https://www.thrivebiblecamp.org/",
+          "https://www.thrivebiblecamp.org/faq.html",
+          "https://www.thrivebiblecamp.org/activities--facilities.html",
+          "https://www.thrivebiblecamp.org/about.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 homepage clearly states dates, ages, and price. Its open-registration statement conflicts with the FAQ's stale 2025 closed-registration statement; the supplied registration form was unavailable, and the 2026 dates are past. Registration URL points to the homepage containing the Camper Registration button. The FAQ specifies church drop-off from 9–9:45 am on the first day and pickup at 11 am on the last day. Overnight activities occur at Camp Ta-Pa-Win-Go, 111 CBM Camp Rd, Watauga, TN 37694; the church is the published parent drop-off and pickup location. Special-needs wording addresses medical concerns only."
+      }
+    ]
+  }
+}

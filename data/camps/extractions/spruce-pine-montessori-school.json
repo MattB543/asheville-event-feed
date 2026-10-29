@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "spruce-pine-montessori-school",
+    "name": "Spruce Pine Montessori School",
+    "urls": ["https://www.sprucepinemontessori.org/summer-program"],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:43.178Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "25b426474b42250e05b41af325f5a2ffc6efc79eebbaa74f24078cc02ddfbea9",
+  "response": {
+    "searches": [
+      "site:sprucepinemontessori.org summer 2027 2026",
+      "open https://www.sprucepinemontessori.org/forms"
+    ],
+    "usage": {
+      "inputTokens": 17656,
+      "cachedInputTokens": 8845,
+      "outputTokens": 864,
+      "reasoningTokens": 130
+    },
+    "status": "completed",
+    "ms": 27032,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sprucepinemontessori.org/summer-program",
+      "chars": 2773,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sprucepinemontessori.org/",
+      "chars": 1083,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spruce Pine Montessori School",
+    "website_url": "https://www.sprucepinemontessori.org/",
+    "notes": "No dated 2027 summer announcement or dated 2026 camp schedule was found. The summer page gives an undated recurring schedule. Search results show 2026-27 tuition and calendar documents on the Forms page, but opening that page returned no readable content, so those documents could not be checked.",
+    "excluded": [
+      {
+        "name": "Toddler Program",
+        "reason": "Year-round childcare program; its explicitly named Summer Camp offering is included separately."
+      },
+      {
+        "name": "Primary Program",
+        "reason": "School-year preschool program; its explicitly named Summer Camp offering is included separately."
+      },
+      {
+        "name": "Elementary Program",
+        "reason": "School-year elementary education, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Toddlers continue the regular Montessori materials and curriculum. Primary students participate in weekly-themed lessons, hands-on projects, art, singing, storytelling, outdoor games, woods explorations and water play.",
+        "camp_page_url": "https://www.sprucepinemontessori.org/summer-program",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Exact dates are determined each spring."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spruce Pine Montessori School",
+            "address": "67 Walnut Avenue",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "14:45",
+          "text": "Regular Hours: 8:30-2:45"
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "17:30",
+          "cost_text": null
+        },
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sprucepinemontessori.org/summer-program",
+          "https://www.sprucepinemontessori.org/our-school/location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page is undated; no exact 2026 or 2027 dates were established. Hours use its explicit Regular Hours statement, although its typical daily schedule lists arrival at 8:15-8:45 and pickup at 2:45-3:00. Confirm summer eligibility ages directly: the camp names toddler and primary groups but does not state ages. No age-band session rows were created because exact season dates are unknown. Lunch appears in the daily schedule, but the page does not say whether it is provided."
+      }
+    ]
+  }
+}

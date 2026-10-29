@@ -1,0 +1,205 @@
+{
+  "provider": {
+    "key": "montreat-conference-center",
+    "name": "Montreat Conference Center",
+    "urls": [
+      "https://montreat.org/mra_category/summer-conf",
+      "https://montreat.org/mra_category/youth",
+      "https://montreat.org/tsim26",
+      "https://montreat.org/events/myc-27",
+      "https://montreat.org/a-week-in-the-world-of-clubs"
+    ],
+    "area": "Montreat, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:02.374Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "751d4a7c4ba23692c84f3db9b2ee76c69d148d0e48fe9d0b46bdf6ee709dfb7b",
+  "response": {
+    "searches": [
+      "site:montreat.org clubs childcare 2027 2026",
+      "site:montreat.org/clubs \"2026\"",
+      "site:montreat.org \"Clubs\" \"2026\" \"weeks\"",
+      "site:montreat.org/y-ya-events/myc-guidebook \"Clubs\" \"four\""
+    ],
+    "usage": {
+      "inputTokens": 56033,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1612,
+      "reasoningTokens": 397
+    },
+    "status": "completed",
+    "ms": 51945,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://montreat.org/mra_category/summer-conf",
+      "chars": 7416,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat.org/mra_category/youth",
+      "chars": 7414,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat.org/tsim26",
+      "chars": 12574,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat.org/events/myc-27",
+      "chars": 25015,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat.org/email-signup?mra-id=tsim",
+      "chars": 3957,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat-pottery.square.site/",
+      "chars": 4457,
+      "method": "browser"
+    },
+    {
+      "url": "https://montreat.org/forms/youth-individual-registration",
+      "chars": 5424,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montreat.org/accommodations",
+      "chars": 10167,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Montreat Conference Center",
+    "website_url": "https://montreat.org/",
+    "notes": "The conferences in the existing program list are excluded under the conference rule. The Clubs page returned no readable content, so dates, prices, age bands and drop-off locations could not be extracted. Official 2027 Worship & Music materials still mention Clubs and childcare, but do not provide their full summer schedules. No complete 2027 camp program list was found. The searchable Clubs registration FAQ is from 2023 and was not used for 2026 or 2027 facts.",
+    "excluded": [
+      {
+        "name": "Montreat Youth Conference",
+        "reason": "Youth conference; conferences and conventions are excluded."
+      },
+      {
+        "name": "Jeremiah Project",
+        "reason": "Worship-leadership participation within Montreat Youth Conference, rather than a separately offered summer camp."
+      },
+      {
+        "name": "Middle School Conference",
+        "reason": "Youth conference; conferences and conventions are excluded."
+      },
+      {
+        "name": "Worship & Music",
+        "reason": "Intergenerational conference; conferences and conventions are excluded."
+      },
+      {
+        "name": "Currie Craft Center and Sally Jones Pottery classes",
+        "reason": "Individual arts classes and workshops, not a supervised youth camp program."
+      },
+      {
+        "name": "Montreat Summer Staff",
+        "reason": "Seasonal employment program."
+      },
+      {
+        "name": "Montreat Mission Experience",
+        "reason": "Youth-group service outings associated with the youth conference."
+      },
+      {
+        "name": "Friday Night at the Barn",
+        "reason": "Weekly social dances, not a finite supervised youth camp."
+      },
+      {
+        "name": "Public Hikes",
+        "reason": "Public recreational outings, not a supervised youth camp."
+      },
+      {
+        "name": "Montreat Campground",
+        "reason": "Recreational campsite rentals, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Montreat Clubs",
+        "type": "day",
+        "categories": ["general", "faith_based", "nature_outdoor"],
+        "description": "Children and teenagers participate in games, music, crafts, boating, creek activities and hikes with counselors.",
+        "camp_page_url": "https://montreat.org/clubs",
+        "registration_url": "https://montreat.org/clubs",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://montreat.org/tsim26",
+          "https://montreat.org/a-week-in-the-world-of-clubs",
+          "https://montreat.org/day-in-life-of-clubbie",
+          "https://montreat.org/clubs-corner-reflections",
+          "https://montreat.org/events/wm27-wk1"
+        ],
+        "confidence": "low",
+        "review_notes": "The primary page https://montreat.org/clubs returned no readable content. Check that page or its registration platform for dates, separate age bands, prices, hours and actual drop-off addresses. The published age range of two years through graduated high school seniors combines Clubs and Childcare, so it was not assigned to Clubs alone. The 2027 Worship & Music page mentions continued availability but does not post the Clubs season dates."
+      },
+      {
+        "name": "Childcare",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Summer daytime childcare for children ages two and three.",
+        "camp_page_url": "https://montreat.org/clubs",
+        "registration_url": "https://montreat.org/clubs",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": 3
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://montreat.org/tsim26",
+          "https://montreat.org/y-ya-events/myc-guidebook",
+          "https://montreat.org/events/wm27-wk1"
+        ],
+        "confidence": "low",
+        "review_notes": "Daytime ages two and three are stated in the official MYC Guidebook search result, which is not explicitly year-dated. The primary Clubs page could not be read. Check the registration platform for the childcare season, hours, prices and drop-off location. Official materials also mention evening childcare for conference participants, but no finite evening schedule was readable, so no separate evening card was created."
+      }
+    ]
+  }
+}

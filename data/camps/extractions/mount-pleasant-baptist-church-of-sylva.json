@@ -1,0 +1,59 @@
+{
+  "provider": {
+    "key": "mount-pleasant-baptist-church-of-sylva",
+    "name": "Mount Pleasant Baptist Church of Sylva",
+    "urls": ["https://jaddensmiith.wixsite.com/mount-pleasant-bapti"],
+    "area": "Sylva, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:30:56.640Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "dcdb80169f9526cee47619a6661770f906313cbae6c86b9543ce3a5f9b2011af",
+  "response": {
+    "searches": [
+      "Mount Pleasant Baptist Church Sylva vacation bible school 2026 89",
+      "open https://jaddensmiith.wixsite.com/mount-pleasant-bapti/events",
+      "\"Mount Pleasant Baptist Church\" \"Sylva\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 17850,
+      "cachedInputTokens": 8845,
+      "outputTokens": 404,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 22753,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://jaddensmiith.wixsite.com/mount-pleasant-bapti",
+      "chars": 877,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jaddensmiith.wixsite.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error: Page Not Found | Wix.com\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Pleasant Baptist Church of Sylva",
+    "website_url": "https://jaddensmiith.wixsite.com/mount-pleasant-bapti",
+    "notes": "No qualifying summer camp or Vacation Bible School announcement for this Sylva church was found for 2026 or 2027. The supplied homepage lists recurring church services only. Web searches found the church's official About and Posts pages but no summer program details. The /events page returned no readable content, and searches did not locate a readable official social-media summer announcement. No cards were created without evidence of a program.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious instruction, not a finite summer camp."
+      },
+      {
+        "name": "Sunday Night Choir Practice",
+        "reason": "Recurring year-round choir practice, not a finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

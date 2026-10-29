@@ -1,0 +1,82 @@
+{
+  "provider": {
+    "key": "greeneville-city-schools",
+    "name": "Greeneville City Schools",
+    "urls": ["https://www4.gcschools.net/article/2795720"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:27.590Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "13b7a676fdf12c70819423c9eeba186bcebaad91dd8c7535325188207622b3a4",
+  "response": {
+    "searches": [
+      "site.gcschools.net \"summer\" \"2026\" camp",
+      "\"Greeneville City Schools\" \"summer camp\" 2026"
+    ],
+    "usage": {
+      "inputTokens": 27658,
+      "cachedInputTokens": 8845,
+      "outputTokens": 618,
+      "reasoningTokens": 129
+    },
+    "status": "completed",
+    "ms": 22043,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www4.gcschools.net/article/2795720",
+      "chars": 2024,
+      "method": "browser"
+    },
+    {
+      "url": "https://www4.gcschools.net/page/online-registration",
+      "chars": 2501,
+      "method": "browser"
+    },
+    {
+      "url": "https://www4.gcschools.net/",
+      "chars": 4309,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greeneville City Schools",
+    "website_url": "https://www4.gcschools.net/",
+    "notes": "No summer 2027 program information was found. The March 31, 2026 announcement gives an April 20 registration opening but no camp eligibility details. The official Hal Henard Summer Learning Camp page describes the district's academic intervention program and registration through returning-student enrollment; its details are explicitly for 2022. Summer Learning Camp is excluded under the district-only learning-program rule. The high school's enrichment page also lists outside providers rather than camps operated by Greeneville City Schools.",
+    "excluded": [
+      {
+        "name": "Summer Learning Camp",
+        "reason": "District learning and academic intervention program for its own students, excluded under the school-district-only learning-program rule. The official historical page assigns participating students to sites according to their GCS school and registers them through returning-student enrollment."
+      },
+      {
+        "name": "Summer ACCESS 21st Century Learning Program",
+        "reason": "Found only in the official 2022 materials as an enrichment program for district students; no 2026 or 2027 offering was found."
+      },
+      {
+        "name": "Tennessee Tech University College of Engineering summer camps",
+        "reason": "Outside-provider residential camps in Cookeville, TN, plainly beyond the directory's drive-time area."
+      },
+      {
+        "name": "Tennessee American Legion Boys State",
+        "reason": "Outside-provider program at Tennessee Tech University in Cookeville, TN, plainly beyond the directory's drive-time area."
+      },
+      {
+        "name": "Vanderbilt Summer Academy",
+        "reason": "Outside-provider residential program in Nashville, TN, plainly beyond the directory's drive-time area."
+      },
+      {
+        "name": "Mentor Immersion: A Virtual Research Experience",
+        "reason": "Outside-provider virtual research program, not a local camp meeting within the directory's geographic area."
+      },
+      {
+        "name": "Hugh O'Brian Youth Leadership (HOBY) Seminar",
+        "reason": "Leadership seminar rather than a camp, held by an outside provider in Pulaski, TN, beyond the directory's drive-time area."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "provider": {
+    "key": "pisgah-climbing-school",
+    "name": "Pisgah Climbing School",
+    "urls": ["https://www.pisgahclimbingschool.com/"],
+    "area": "Pisgah Forest, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:29:16.396Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9950ee1a31b8ac729e2c4b8a72587e0ccb89af991cce9ef5305facd021c6b391",
+  "response": {
+    "searches": ["site:pisgahclimbingschool.com summer camp youth 2026 2027"],
+    "usage": {
+      "inputTokens": 15766,
+      "cachedInputTokens": 8845,
+      "outputTokens": 434,
+      "reasoningTokens": 64
+    },
+    "status": "completed",
+    "ms": 13715,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pisgahclimbingschool.com/",
+      "chars": 3131,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pisgahclimbingschool.com/faq",
+      "chars": 9014,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pisgah Climbing School",
+    "website_url": "https://www.pisgahclimbingschool.com/",
+    "notes": "No qualifying supervised youth summer camp or youth summer clinic was found in the official pages or search results. The provider offers privately booked guided climbing, climbing instruction and professional certification courses. No 2027 youth summer program information was found.",
+    "excluded": [
+      {
+        "name": "Beginner & Family Climbing",
+        "reason": "Privately booked guided climbing for beginners and families, not a finite supervised youth summer camp or youth clinic."
+      },
+      {
+        "name": "Private Instruction",
+        "reason": "Custom climbing instruction booked as instruction, not a youth summer camp."
+      },
+      {
+        "name": "Advanced Climbing",
+        "reason": "Guided climbing experiences, not a designated youth summer program."
+      },
+      {
+        "name": "Climbing Programs",
+        "reason": "General rock and ice climbing skill courses; no designated youth summer camp or youth clinic was identified."
+      },
+      {
+        "name": "AMGA Programs",
+        "reason": "Professional climbing instructor and guide certification courses, not youth summer camps."
+      },
+      {
+        "name": "Ice & Alpine Climbing",
+        "reason": "Guided climbing trips, not a designated youth summer camp; listed New Hampshire ice climbing is also outside the local area."
+      },
+      {
+        "name": "Professional Services",
+        "reason": "Professional services rather than supervised youth summer programming."
+      },
+      {
+        "name": "Military Training",
+        "reason": "Military training rather than supervised youth summer programming."
+      }
+    ],
+    "cards": []
+  }
+}

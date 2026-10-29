@@ -1,0 +1,530 @@
+{
+  "provider": {
+    "key": "valley-forest-school",
+    "name": "Valley Forest School",
+    "urls": ["https://www.valleyforestschool.com/trsummercamps"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:36.887Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2879d7737b68a0f547719b0ecc0bded1ab5a3d6c71545ba396add510b7da4ae7",
+  "response": {
+    "searches": ["site.valleyforestschool.com 2027 summer", "\"Broken Oak Organics\" \"280\""],
+    "usage": {
+      "inputTokens": 26399,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2547,
+      "reasoningTokens": 175
+    },
+    "status": "completed",
+    "ms": 50937,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.valleyforestschool.com/trsummercamps",
+      "chars": 5850,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/catawbafees",
+      "chars": 1003,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/farmfees",
+      "chars": 975,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/palmyrafees",
+      "chars": 981,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/trfees",
+      "chars": 1002,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/enrollment",
+      "chars": 2565,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/faq",
+      "chars": 6214,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.valleyforestschool.com/summercamps",
+      "chars": 860,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Valley Forest School",
+    "website_url": "https://www.valleyforestschool.com/",
+    "notes": "No 2027 camp information or registration milestones were found. The supplied 2026 camp page remains the basis for dates and prices. The official pages returned empty content when reopened. A search result for the apparent parent portal showed an unrelated business, so no registration-platform URL is supplied.",
+    "excluded": [
+      {
+        "name": "Catawba, VA Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
+        "name": "Fincastle, VA Farm Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
+        "name": "Palmyra, VA Summer Camps",
+        "reason": "Virginia location outside the Asheville-area drive range."
+      },
+      {
+        "name": "School-year Forest School programs",
+        "reason": "September–May classes rather than summer camps."
+      },
+      {
+        "name": "Sprouts",
+        "reason": "Parent-and-child introductory class series, not a supervised summer drop-off camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Forest Day Camps",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Children participate in outdoor activities including fishing, handcrafts, survival skills, water adventures, forest games, plant identification, and nature journaling.",
+        "camp_page_url": "https://www.valleyforestschool.com/trsummercamps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pleasant Ridge County Park",
+            "address": "4232 Hwy 11",
+            "town": "Marietta",
+            "state": "SC"
+          },
+          {
+            "name": "Broken Oaks Organic Farm",
+            "address": null,
+            "town": null,
+            "state": null
+          },
+          {
+            "name": "Paris Mountain State Park",
+            "address": "2401 State Park RD",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:30",
+          "text": "Camps are from 9-2:30 (exception for Fishing Camp). Ages 3-5 may pick up at 1:00 for a partial refund of $25."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Fishing Camp",
+            "start": "2026-06-01",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:30"
+            },
+            "price": {
+              "amount": 395,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fishing Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:30"
+            },
+            "price": {
+              "amount": 395,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Wildcraft Camp — ages 6-12",
+            "start": "2026-06-08",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": "Pleasant Ridge County Park",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Wildcraft Camp — June 8 and 10 only",
+            "start": "2026-06-08",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": "Pleasant Ridge County Park",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 175,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Survival Camp — ages 6-12",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": "Broken Oaks Organic Farm",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 280,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Survival Camp — June 15 and 17 only",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "Broken Oaks Organic Farm",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Water Adventure Camp — ages 6-12",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 280,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Water Adventure Camp — June 22 and 24 only",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Games of the Forest Camp — ages 6-12",
+            "start": "2026-06-29",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 210,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Games of the Forest Camp — June 29 and July 1 only",
+            "start": "2026-06-29",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Herbalist Camp — ages 6-12",
+            "start": "2026-07-06",
+            "end": "2026-07-08",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 230,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Herbalist Camp — July 6 and 8 only",
+            "start": "2026-07-06",
+            "end": "2026-07-08",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 175,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Water Adventure Camp — ages 6-12",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 280,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Water Adventure Camp — July 13 and 15 only",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Survival Camp — ages 6-12",
+            "start": "2026-07-20",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": "Broken Oaks Organic Farm",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 280,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Survival Camp — July 20 and 22 only",
+            "start": "2026-07-20",
+            "end": "2026-07-22",
+            "year": 2026,
+            "site": "Broken Oaks Organic Farm",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Forest School Camp — ages 6-12",
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 250,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Forest School Camp — July 27 and 29 only",
+            "start": "2026-07-27",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": "Paris Mountain State Park",
+            "ages": {
+              "min": 3,
+              "max": 5
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 140,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If a child has needs that require one on one assistance, the child may still come with a caregiver to accompany them."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.valleyforestschool.com/trsummercamps",
+          "https://www.valleyforestschool.com/faq",
+          "https://greenvillerec.com/parks/pleasant-ridge-park/",
+          "https://southcarolinaparks.com/paris-mountain"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the address and identity of Broken Oaks Organic Farm: searches found Broken Oak Organics at 280 River Rd, Marietta, SC, but no venue-published address confirming it is the camp venue; another listing gives 280 N River Rd, Cleveland. Fishing and Water Adventure drop-off locations are sent to enrolled families, so no specific sites are assigned to those rows. Fishing examples are not treated as confirmed drop-off venues. Park addresses were available through official search results. The general FAQ's caregiver accommodation wording is not summer-camp-specific. Theme weeks are grouped under the existing Forest Day Camps program name."
+      }
+    ]
+  }
+}

@@ -29,7 +29,7 @@ import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isAshevilleZip } from '@/lib/config/zipNames';
 import { parsePrice, isFreeEvent } from '@/lib/utils/eventFilterMatch';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
-import { liveEvent } from '@/lib/db/liveEvent';
+import { campOptIn, liveEvent, notCampEvent } from '@/lib/db/liveEvent';
 
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
@@ -155,8 +155,11 @@ function getWeekendBoundaries(): { start: Date; end: Date } {
   return { start, end };
 }
 
-/** WHERE conditions every listed event meets, before any user filter. */
-function listedEventConditions(startOfToday: Date): SQL[] {
+/**
+ * WHERE conditions every listed event meets, before any user filter. Camps are listed only
+ * while the Summer Camp tag is selected (campOptIn).
+ */
+function listedEventConditions(startOfToday: Date, tagsInclude?: string[]): SQL[] {
   return [
     // Future events only
     gte(events.startDate, startOfToday),
@@ -166,6 +169,7 @@ function listedEventConditions(startOfToday: Date): SQL[] {
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     )!,
     liveEvent,
+    ...campOptIn(tagsInclude),
   ];
 }
 
@@ -208,7 +212,7 @@ export async function queryFilteredEvents(params: EventFilterParams): Promise<Ev
   }
 
   // Build WHERE conditions
-  const conditions: SQL[] = listedEventConditions(startOfToday);
+  const conditions: SQL[] = listedEventConditions(startOfToday, params.tagsInclude);
 
   // NOTE: Cursor-based pagination is handled in the iterative fetch loop below,
   // not here, to allow multiple batches with updated cursors.
@@ -807,7 +811,9 @@ function buildTop30BaseWhere() {
       and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
     ),
     // Exclude LaZoom events (repetitive tourist-oriented tours)
-    notIlike(events.title, '%LaZoom%')
+    notIlike(events.title, '%LaZoom%'),
+    // Camps never rank: they score like other events, and the query has no minimum
+    notCampEvent
   );
 }
 

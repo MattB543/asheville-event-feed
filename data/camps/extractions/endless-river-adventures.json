@@ -1,0 +1,527 @@
+{
+  "provider": {
+    "key": "endless-river-adventures",
+    "name": "Endless River Adventures",
+    "urls": [
+      "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
+      "https://www.endlessriveradventures.com/kid-kayaking-instruction/"
+    ],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:06.837Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bf750a3121b8f9ba40ff1704c8f701bc706888c546927ab02e4d0b8e9b82e3f5",
+  "response": {
+    "searches": [
+      "site:endlessriveradventures.com kids camp 2027",
+      "open https://www.endlessriveradventures.com/contact/"
+    ],
+    "usage": {
+      "inputTokens": 41096,
+      "cachedInputTokens": 8845,
+      "outputTokens": 3563,
+      "reasoningTokens": 137
+    },
+    "status": "completed",
+    "ms": 64202,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
+      "chars": 6005,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+      "chars": 14665,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/ecuador-whitewater-kayak-trip-dates/",
+      "chars": 15365,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt27-eco-splash",
+      "chars": 2164,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt25-kids-kayak-camp",
+      "chars": 2164,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt26-kids-camps-2-days",
+      "chars": 2164,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/faq/",
+      "chars": 20502,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.endlessriveradventures.com/wp-content/uploads/2020/02/ecosplash-kids-camp-get-outside.jpg",
+      "chars": 16971,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Endless River Adventures",
+    "website_url": "https://www.endlessriveradventures.com/",
+    "notes": "No 2027 summer camp dates or registration milestones found. Booking pages expose no readable session availability. The official contact search result publishes 14157 Highway 19 W, Bryson City, NC 28713, but opening the contact and directions pages returned no readable text. Ocoee paddling destinations are not listed as drop-off sites because camp transportation is included and the FAQ identifies the Nantahala outpost as the activity base.",
+    "excluded": [
+      {
+        "name": "Private Kayaking Instruction",
+        "reason": "Year-round instruction booked as lessons, rather than a finite summer camp."
+      },
+      {
+        "name": "Ecuador Whitewater Kayak Trips",
+        "reason": "Trips take place in Ecuador, outside the directory's geographic area; published trips also fall outside summer."
+      },
+      {
+        "name": "Custom days for the whole family",
+        "reason": "Family-only activities rather than supervised youth camps."
+      },
+      {
+        "name": "Paddle It Forward Kids Program",
+        "reason": "Equipment purchase and exchange program, not a supervised camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "EcoSplash Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers raft or paddle inflatable kayaks, swim, and explore stream ecosystems with a biologist using snorkels, goggles and nets.",
+        "camp_page_url": "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
+        "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt27-eco-splash",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-23",
+          "end": "2026-08-30",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Endless River Adventures Nantahala Outpost",
+            "address": "14157 Highway 19 W",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "2-day camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-05-23",
+            "end": "2026-05-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-13",
+            "end": "2026-06-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-02",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-18",
+            "end": "2026-07-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-01",
+            "end": "2026-08-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-29",
+            "end": "2026-08-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Explore Scholarships Available Through Our NonProfit, Need More Outdoors"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "This includes equipment, instructors, lunch and transportation."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "This includes equipment, instructors, lunch and transportation."
+        },
+        "sources": [
+          "https://www.endlessriveradventures.com/ecosplash-kids-camp/",
+          "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+          "https://www.endlessriveradventures.com/our-trips/",
+          "https://www.endlessriveradventures.com/faq/",
+          "https://www.endlessriveradventures.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The dedicated EcoSplash page gives $300 and ages 6–12; the kayaking page's EcoSplash summary gives $200, and the official Our trips search result gives ages 8–12 and $150/day. Used the dedicated program page. Outpost drop-off is inferred from the FAQ's activity-base statement and included transportation; address was available only in the official contact search snippet. Custom EcoSplash dates and durations are also offered, without a published schedule."
+      },
+      {
+        "name": "Kids Kayak Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers learn and practice whitewater kayaking, including wet exits, strokes, rolling and river maneuvers. More advanced sessions cover river rescue, decision-making and paddling harder whitewater.",
+        "camp_page_url": "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+        "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt25-kids-kayak-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-06",
+          "end": "2026-08-09",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Endless River Adventures Nantahala Outpost",
+            "address": "14157 Highway 19 W",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 130,
+            "unit": "day",
+            "label": "4th of July camp, three or more days",
+            "year": 2026
+          },
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "2-day weekend camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Learn to Kayak Weekend",
+            "start": "2026-06-06",
+            "end": "2026-06-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner Session",
+            "start": "2026-06-27",
+            "end": "2026-06-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Beginner",
+            "start": "2026-06-30",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Intermediate Session",
+            "start": "2026-06-30",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Strong Intermediate 2 Session",
+            "start": "2026-07-03",
+            "end": "2026-07-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Session",
+            "start": "2026-07-03",
+            "end": "2026-07-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learn to Kayak Weekend",
+            "start": "2026-07-18",
+            "end": "2026-07-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learn More Skills Intermediate Weekend",
+            "start": "2026-07-18",
+            "end": "2026-07-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ocoee Boot Camp Weekend",
+            "start": "2026-07-25",
+            "end": "2026-07-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learn to Kayak Weekend",
+            "start": "2026-08-01",
+            "end": "2026-08-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learn More Skills Intermediate Weekend",
+            "start": "2026-08-01",
+            "end": "2026-08-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ocoee Boot Camp Weekend",
+            "start": "2026-08-08",
+            "end": "2026-08-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are also available through our partner non-profit Need More Outdoors."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "KIDS CAMP LUNCH is provided, along with snacks to keep energy levels up. We can accommodate special dietary needs for health reasons."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "TRANSPORTATION: of the kids, their equipment and the instructors is included."
+        },
+        "sources": [
+          "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+          "https://www.endlessriveradventures.com/our-trips/",
+          "https://www.endlessriveradventures.com/faq/",
+          "https://www.endlessriveradventures.com/contact/",
+          "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt26-kids-camps-2-days"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program section retains a SUMMER 2025 heading, but its overall June 27–July 5 range, advanced session and weekend dates explicitly say 2026; used 2026 for the nested July sessions. Ages 8–14 are recommended rather than strict eligibility; the official Our trips search result instead lists ages 6–16. Outpost drop-off is inferred from the FAQ and included transportation; its address was available only in the official contact search snippet. Weekend camps use a separate booking link listed in sources."
+      },
+      {
+        "name": "3-Day Leadership Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Young paddlers practice rolling and whitewater moves alongside leadership and team-building activities. Advanced paddlers work on leadership through hands-on instructor training.",
+        "camp_page_url": "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+        "registration_url": "https://www.endlessriveradventures.com/booking/?%2Freserve%2Ftt25-kids-kayak-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-09-05",
+          "end": "2026-09-07",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Endless River Adventures Nantahala Outpost",
+            "address": "14157 Highway 19 W",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 130,
+            "unit": "day",
+            "label": "3 days",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "day",
+            "label": "2 days",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are also available through our partner non-profit Need More Outdoors."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes your instructors, all necessary kayaking equipment, lunch and transportation."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Includes your instructors, all necessary kayaking equipment, lunch and transportation."
+        },
+        "sources": [
+          "https://www.endlessriveradventures.com/kid-kayaking-instruction/",
+          "https://www.endlessriveradventures.com/faq/",
+          "https://www.endlessriveradventures.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Included the September 5–7 camp because the provider explicitly describes it as finishing summer. Ages 8–14 are the youth page's general recommendation, not separate leadership-camp eligibility. Leadership camp hours are not separately stated. Outpost drop-off is inferred from the FAQ and included transportation; its address was available only in the official contact search snippet."
+      }
+    ]
+  }
+}

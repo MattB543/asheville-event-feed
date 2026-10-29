@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "key": "piney-mountain-baptist-church-of-whittier",
+    "name": "Piney Mountain Baptist Church of Whittier",
+    "urls": ["https://www.facebook.com/PineyMtnBaptistChurchNC/"],
+    "area": "Whittier, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:16:09.073Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Piney Mountain Baptist Church Whittier VBS 2026",
+      "site:facebook.com/PineyMtnBaptistChurchNC \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 18196,
+      "cachedInputTokens": 8845,
+      "outputTokens": 458,
+      "reasoningTokens": 250
+    },
+    "status": "completed",
+    "ms": 20369,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/PineyMtnBaptistChurchNC/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Piney Mountain Baptist Church of Whittier",
+    "website_url": null,
+    "notes": "No standalone official website was found. The supplied Facebook page opened without readable content, and searches did not locate an official summer 2026 or 2027 camp announcement. Third-party event listings show Vacation Bible School on June 10, 2026, from 6:30–8:30 p.m. at 344 Piney Mountain Road, but do not establish whether it met on multiple days. No card was created because a qualifying camp could not be confirmed. A reviewer should check the church's Facebook posts or contact the church for the full VBS schedule.",
+    "excluded": [
+      {
+        "name": "Camp Fusion",
+        "reason": "Offered by the separate Piney Mountain Baptist Church in Weaverville, not this Whittier provider."
+      }
+    ],
+    "cards": []
+  }
+}

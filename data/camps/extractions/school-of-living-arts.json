@@ -1,0 +1,204 @@
+{
+  "provider": {
+    "key": "school-of-living-arts",
+    "name": "School of Living Arts (SOLA)",
+    "urls": ["https://www.sanctuaryoflivingarts.org/summer-camp"],
+    "area": null,
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:17.985Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "600612c2544ad8a0cdc338ca415b833ee2a514ebed7eb54eb9236388587f59b0",
+  "response": {
+    "searches": [
+      "site:sanctuaryoflivingarts.org summer 2027 camp",
+      "\"Sacred Mountain Sanctuary\" \"address\"",
+      "\"Sacred Mountain Sanctuary\" Candler"
+    ],
+    "usage": {
+      "inputTokens": 24479,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1509,
+      "reasoningTokens": 228
+    },
+    "status": "completed",
+    "ms": 42979,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sanctuaryoflivingarts.org/summer-camp",
+      "chars": 3650,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sanctuaryoflivingarts.org/enrollment-and-admissions",
+      "chars": 3679,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sanctuaryoflivingarts.org/",
+      "chars": 9925,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "School of Living Arts (SOLA)",
+    "website_url": "https://www.sanctuaryoflivingarts.org/",
+    "notes": "No summer 2027 information or registration milestones were found. Cards retain the supplied official 2026 camp information. Web opens of the camp and contact pages returned no readable text. The official contact information gives only a PO Box, not a camp drop-off address; third-party listings give Sacred Mountain Sanctuary as 96 Rocky Cove Rd, Candler, NC, but this was not confirmed as the camp location. A separate registration destination could not be established.",
+    "excluded": [
+      {
+        "name": "Kinderforest",
+        "reason": "School-year preschool program, not a finite summer camp."
+      },
+      {
+        "name": "Walking With the Light",
+        "reason": "Parent-child family program, not a supervised youth summer camp."
+      },
+      {
+        "name": "Lower School",
+        "reason": "School-year educational program."
+      },
+      {
+        "name": "LORE-School",
+        "reason": "School-year educational program."
+      },
+      {
+        "name": "Living Arts Discovery Days",
+        "reason": "Seasonal workshops for students, families and adults; no specific supervised youth summer offering was established."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SOLA Summer Camp",
+        "type": "day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers explore the forest, study pond life, hear stories, and make nature-based crafts. Weekly themes include midsummer traditions, fairies and frogs, and equine-inspired art and activities.",
+        "camp_page_url": "https://www.sanctuaryoflivingarts.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9am-3pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 333,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Mid Summer Night Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Fairies & Frogs",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week of the Fire Horse",
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sanctuaryoflivingarts.org/summer-camp",
+          "https://www.sanctuaryoflivingarts.org/contact-resources"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Teen Waterfall Backpacking Trip",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Teens take a guided backpacking journey with hiking, swimming near waterfalls, and campfire reflection.",
+        "camp_page_url": "https://www.sanctuaryoflivingarts.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-05",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 222,
+            "unit": "program",
+            "label": "Backpacking Trip",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.sanctuaryoflivingarts.org/summer-camp"],
+        "confidence": "medium",
+        "review_notes": "Overnight format is inferred from the three-day backpacking journey and campfire activities; the page does not explicitly state sleeping arrangements. Confirm the drop-off location and trip location, which are not specified. The general 9am-3pm camp hours were not applied to this trip."
+      }
+    ]
+  }
+}

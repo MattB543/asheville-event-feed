@@ -1,0 +1,132 @@
+{
+  "provider": {
+    "key": "clearview-baptist-church-of-travelers-rest",
+    "name": "Clearview Baptist Church of Travelers Rest",
+    "urls": ["https://www.clearviewbc.com/vbs2026", "https://www.clearviewbc.com/"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:19.451Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "25e7ddd33371af91c3d5954c13e3c38453c4d2ee72e7b45281542e54eea17f94",
+  "response": {
+    "searches": [
+      "site:clearviewbc.com \"2027\" \"VBS\"",
+      "site:clearviewbc.com \"Manhood Camp\" date"
+    ],
+    "usage": {
+      "inputTokens": 18676,
+      "cachedInputTokens": 8845,
+      "outputTokens": 985,
+      "reasoningTokens": 164
+    },
+    "status": "completed",
+    "ms": 38958,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.clearviewbc.com/vbs2026",
+      "chars": 4299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clearviewbc.com/",
+      "chars": 229,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Clearview Baptist Church of Travelers Rest",
+    "website_url": "https://www.clearviewbc.com/",
+    "notes": "No summer 2027 announcement was found. The VBS card uses the supplied official 2026 event text. Direct browsing of clearviewbc.com was blocked by robots.txt, but official search results were available. Older search results describe Youth Camp at MFUGE in 2022; no 2026 or 2027 offering was found. An older Manhood Camp page describes activities but provides no readable dates establishing a summer 2026 or 2027 offering.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "School-year program meeting August through May."
+      },
+      {
+        "name": "Preschool and Children's Choir",
+        "reason": "Recurring year-round ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Children's Camp",
+        "reason": "The older 2023 offering meets at Shocco Springs in Talladega, Alabama, outside the directory's geographic range."
+      },
+      {
+        "name": "The Mountain Experience",
+        "reason": "Winter camp held in January, outside summer."
+      },
+      {
+        "name": "New York City Mission Trip",
+        "reason": "Mission trip, not an eligible camp."
+      },
+      {
+        "name": "Youth Outing - NGU football game",
+        "reason": "Youth-group outing, not an eligible camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children ages 3 through fifth grade, with daily lessons and small-group crews.",
+        "camp_page_url": "https://www.clearviewbc.com/vbs2026",
+        "registration_url": "https://rock.clearviewbc.com/page/414?EventOccurrenceId=331",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Clearview Baptist Church Family Life Center",
+            "address": "5611 State Park Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00pm till 8:30pm, with optional free supper from 5:15-5:45pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026",
+          "text": "Registration for VBS Children 2026 closed on Thursday, June 4, 2026"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.clearviewbc.com/vbs2026",
+          "https://rock.clearviewbc.com/page/414?EventOccurrenceId=331",
+          "https://www.clearviewbc.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

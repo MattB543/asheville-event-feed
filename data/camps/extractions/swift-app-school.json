@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "swift-app-school",
+    "name": "Swift App School",
+    "urls": ["https://www.swiftappschool.com/appcamp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "beyond_school", "news828"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:07.665Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "03133372f15942038eb49a87fd8756d00c9850f239ae87780f490ff64712e29f",
+  "response": {
+    "searches": [
+      "site:swiftappschool.com App Camp 2026 2027",
+      "Hatch Innovation Hub official address Asheville 45 South French Broad"
+    ],
+    "usage": {
+      "inputTokens": 21043,
+      "cachedInputTokens": 8845,
+      "outputTokens": 623,
+      "reasoningTokens": 153
+    },
+    "status": "completed",
+    "ms": 20595,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.swiftappschool.com/appcamp",
+      "chars": 1561,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.swiftappschool.com/",
+      "chars": 1470,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Swift App School",
+    "website_url": "https://www.swiftappschool.com/",
+    "notes": "No 2027 camp dates or registration announcements found. The official registration page remains labeled Summer 2026. Additional provider pages were accessible through search-index text, but direct access was blocked by robots.txt. The 2023 press release's ages and hours were not carried forward to 2026.",
+    "excluded": [
+      {
+        "name": "Online Cohort Courses",
+        "reason": "Online lesson series offered in Fall, Winter and Spring, rather than summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "App Camp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Teens learn to code apps in Swift through instructor-led lessons using Swift Playgrounds, SwiftUI and the SpriteKit game engine. Beginners are welcome, and Macs are provided to students.",
+        "camp_page_url": "https://www.swiftappschool.com/appcamp",
+        "registration_url": "https://www.swiftappschool.com/registration",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hatch Innovation Hub",
+            "address": "45 S French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer scholarships to interested teens from underserved communities."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.swiftappschool.com/appcamp",
+          "https://www.swiftappschool.com/registration",
+          "https://www.swiftappschool.com/scholarship",
+          "https://hatchinnovationhub.org/venue/hatch-innovation-hub/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 dates and camp venue were read from the official registration page's search-index text because direct access was blocked. Check that page and its registration form for numeric age limits, hours and prices. The camp page describes participants only as teens; numeric ages and hours in the 2023 press release were not reused."
+      }
+    ]
+  }
+}

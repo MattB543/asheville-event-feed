@@ -1,0 +1,141 @@
+{
+  "provider": {
+    "key": "trinity-presbyterian-church-of-hendersonville",
+    "name": "Trinity Presbyterian Church of Hendersonville",
+    "urls": [
+      "https://www.trinitypresnc.org/",
+      "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:40.175Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0a92987e756e2ba0e5c48499c0e8957b062c63d3b1449750fbedf81f90204877",
+  "response": {
+    "searches": [
+      "site:trinitypresnc.org \"VBS\" \"2026\"",
+      "open https://www.trinitypresnc.org/post/tidings-newsletter-may-2026",
+      "site:trinitypresnc.org/post/tidings-newsletter-may-2026 \"VBS\" \"register\""
+    ],
+    "usage": {
+      "inputTokens": 24951,
+      "cachedInputTokens": 8845,
+      "outputTokens": 741,
+      "reasoningTokens": 195
+    },
+    "status": "completed",
+    "ms": 25160,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.trinitypresnc.org/",
+      "chars": 4483,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+      "chars": 22562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trinitypresnc.org/post/fear-not-summer-lecture-series",
+      "chars": 3353,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Presbyterian Church of Hendersonville",
+    "website_url": "https://www.trinitypresnc.org/",
+    "notes": "No summer 2027 VBS information found. The May newsletter's full VBS section was not accessible in the web reader; search results exposed some of its text, but no registration destination was recovered. The 2026 registration announcement specifies only May, so no exact opening date is recorded.",
+    "excluded": [
+      {
+        "name": "Fear Not! Summer Lecture Series",
+        "reason": "Lecture series, not a finite supervised youth camp."
+      },
+      {
+        "name": "Youth Mission Retreat",
+        "reason": "Mission retreat held March 6–7, outside summer."
+      },
+      {
+        "name": "Combined Mills River/Trinity Youth bowling trip",
+        "reason": "Youth-group outing, not a camp."
+      },
+      {
+        "name": "Cub Scouts Pack 620 council campout",
+        "reason": "April campout, outside summer."
+      },
+      {
+        "name": "Joy of Jazz Festival",
+        "reason": "March 28 festival and clinic, outside summer."
+      },
+      {
+        "name": "Summer student marketing internship",
+        "reason": "Employment program, not a camp."
+      },
+      {
+        "name": "2026 Women’s Retreat at Montreat",
+        "reason": "Adult retreat held in March, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Community VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children connect Bible stories with actions focused on feeding, healing, forgiving and praying. The 2026 theme is Operation Restoration.",
+        "camp_page_url": "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Trinity Presbyterian Church",
+            "address": "900 Blythe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am to noon each day"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.trinitypresnc.org/",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-june-2026"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

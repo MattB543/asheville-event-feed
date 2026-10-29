@@ -1,0 +1,299 @@
+{
+  "provider": {
+    "key": "asheville-sailing-club",
+    "name": "Asheville Sailing Club",
+    "urls": [
+      "https://www.ashevillesailing.org/youth-sailing",
+      "https://www.ashevillesailing.org/summer-sailing",
+      "https://ashevillesailing.org/register/camp/UtrglcPyx5/class",
+      "https://www.ashevillesailing.org/",
+      "https://ashevilleyouthsailing.org/"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["macaroni_kid", "news828", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:12.114Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e68206fb868468fa296d71bed2003aa3515261e214cf30662f23ac72722b9295",
+  "response": {
+    "searches": ["site:ashevillesailing.org 2027 youth summer"],
+    "usage": {
+      "inputTokens": 17670,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1872,
+      "reasoningTokens": 149
+    },
+    "status": "completed",
+    "ms": 38079,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillesailing.org/youth-sailing",
+      "chars": 10148,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.ashevillesailing.org/summer-sailing",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found\")"
+    },
+    {
+      "url": "https://ashevillesailing.org/register/camp/UtrglcPyx5/class",
+      "chars": 2122,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesailing.org/",
+      "chars": 3054,
+      "method": "browser"
+    },
+    {
+      "url": "https://ashevillesailing.org/register/camp/gr6BtKymt3/class",
+      "chars": 2116,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesailing.org/register/regatta/mkq6J28PNx/class",
+      "chars": 1508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesailing.org/faqs",
+      "chars": 3518,
+      "method": "browser"
+    },
+    {
+      "url": "https://ashevillesailing.org/",
+      "chars": 3054,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Sailing Club",
+    "website_url": "https://www.ashevillesailing.org/",
+    "notes": "No 2027 program dates or registration announcements were found. The summer-sailing page returned no readable content, and ashevilleyouthsailing.org was blocked by robots.txt. The weekly Youth Learn-to-Sail offering is included as a camp because the official registration system identifies it as a camp; its age bands are grouped under the existing program name. Availability messages on the youth page still describe past 2026 sessions.",
+    "excluded": [
+      {
+        "name": "Junior Open Sailing",
+        "reason": "The official youth page says this program was cancelled for 2026; no 2027 offering was found."
+      },
+      {
+        "name": "Adult Sailing",
+        "reason": "Adult sailing lessons, not a supervised youth summer camp."
+      },
+      {
+        "name": "Junior Racing Team",
+        "reason": "A racing team rather than a finite summer camp."
+      },
+      {
+        "name": "RC 2026 Spring Series",
+        "reason": "A racing series outside summer, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Learn-to-Sail",
+        "type": "half_day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers learn sailing and boat-handling skills on Lake Julian. Younger sailors use Optimist dinghies, while junior classes adapt instruction to sailing ability and interest and offer the opportunity to earn US Sailing's Level One Small Boat Sailing certification.",
+        "camp_page_url": "https://www.ashevillesailing.org/youth-sailing",
+        "registration_url": "https://ashevillesailing.org/register/camp/UtrglcPyx5/class",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Sailing Club at Lake Julian sailing marina",
+            "address": "37 Lake Julian Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 60,
+            "unit": "other",
+            "label": "Required family membership, one per family",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Beginning Sailing — Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "available"
+          },
+          {
+            "label": "Beginning Sailing — Session 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Beginning Sailing — Session 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "available"
+          },
+          {
+            "label": "Junior Sailing Classes — Session 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 500,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "available"
+          },
+          {
+            "label": "Junior Sailing Classes — Session 2",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 500,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": "full"
+          },
+          {
+            "label": "Junior Sailing Classes — Session 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 500,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 sessions",
+          "text": "Beginning Sailing Session 1: ONE place left. Beginning Sailing Session 3: Three places left. Junior Sailing Session 1: Two places left. Junior Sailing Session 2: This class is FULL."
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "AYS programs are open to all area youth. (Scholarships are available!)"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillesailing.org/youth-sailing",
+          "https://www.ashevillesailing.org/",
+          "https://www.ashevillesailing.org/contact",
+          "https://www.ashevillesailing.org/login?next=https%3A%2F%2Fwww.ashevillesailing.org%2Fregister%2Fcamp%2FUtrglcPyx5%2Fclass&success_button_copy=Register%20Now"
+        ],
+        "confidence": "medium",
+        "review_notes": "The youth page explicitly labels dates and fees as 2026. Its availability messages remain posted even though all sessions ended before October 29, 2026; check these before displaying availability. The page mentions discounts for multiple sessions but gives no discounted amounts. Enrollment requires Clubspot enrollment, separate Zeffy payment, a $60 family membership, and signed waivers."
+      }
+    ]
+  }
+}

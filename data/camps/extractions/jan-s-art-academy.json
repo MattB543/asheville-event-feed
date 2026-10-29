@@ -1,0 +1,230 @@
+{
+  "provider": {
+    "key": "jan-s-art-academy",
+    "name": "Jan's Art Academy",
+    "urls": ["https://www.jansartacademy.com/summer-camps-2026.html"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:40.569Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "10744dd1706a5e69e09a4759f25380288f7d16e2a243d2389958f688f3eae882",
+  "response": {
+    "searches": ["site:jansartacademy.com \"2027\""],
+    "usage": {
+      "inputTokens": 15009,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1414,
+      "reasoningTokens": 47
+    },
+    "status": "completed",
+    "ms": 26366,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jansartacademy.com/summer-camps-2026.html",
+      "chars": 2429,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jansartacademy.com/schedule--tuition-2026.html",
+      "chars": 1073,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jansartacademy.com/enrollment-forms.html",
+      "chars": 1789,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jansartacademy.com/",
+      "chars": 2118,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jan's Art Academy",
+    "website_url": "https://www.jansartacademy.com/",
+    "notes": "No 2027 summer information found. The Events and Notes page says registration for 2026 camps was in March, but gives no exact opening date; last_year_registration_opened is therefore null.",
+    "excluded": [
+      {
+        "name": "After school classes",
+        "reason": "School-year art classes, not a finite summer camp."
+      },
+      {
+        "name": "Annual Spring ART Show",
+        "reason": "An art show outside summer, not a supervised camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer art Camps",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers draw, paint, work with clay and create mixed-media art. Weekly themes include drawing, journals and wall hangings, and three-dimensional construction.",
+        "camp_page_url": "https://www.jansartacademy.com/summer-camps-2026.html",
+        "registration_url": "https://www.jansartacademy.com/enrollment-forms.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jan's Art Academy",
+            "address": "3 Homewood Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:30",
+          "text": "9:30am - 12:30 pm (Monday-Fiday)"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 225,
+            "unit": "session",
+            "label": "$50 deposit due at time of registration; balance of $175 due first day of camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "MIX-MATCH #1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BEGINNING DRAWING",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MIX-MATCH #2",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Girls' Construction",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MIX-MATCH #3",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "GIRL'S CONSTRUCTION CAMP",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 15
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "GENERAL CONSTRUCTION",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jansartacademy.com/summer-camps-2026.html",
+          "https://www.jansartacademy.com/enrollment-forms.html",
+          "https://www.jansartacademy.com/",
+          "https://www.jansartacademy.com/contact-us.html",
+          "https://www.jansartacademy.com/events-and-notes.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page's general age statement says 8–14, but Beginning Drawing and both Girls' Construction weeks explicitly say 9–15. The card spans the session-specific ages. Dates use the page's Summer art Camps 2026 heading. Availability is null because the page only asks parents to call, without specifying a status."
+      }
+    ]
+  }
+}

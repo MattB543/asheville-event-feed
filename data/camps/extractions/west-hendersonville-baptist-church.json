@@ -1,0 +1,62 @@
+{
+  "provider": {
+    "key": "west-hendersonville-baptist-church",
+    "name": "West Hendersonville Baptist Church",
+    "urls": ["https://whvl.org/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://whvl.org/"
+  },
+  "extractedAt": "2026-10-29T17:14:58.103Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": ["site:whvl.org VBS 2026", "\"West Hendersonville\" \"VBS\" \"2026\""],
+    "usage": {
+      "inputTokens": 24984,
+      "cachedInputTokens": 8845,
+      "outputTokens": 443,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 21397,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://whvl.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://whvl.org/\nCall log:\n\u001b[2m  - navigating to \"https://whvl.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West Hendersonville Baptist Church",
+    "website_url": "https://whvl.org/",
+    "notes": "No summer 2027 or 2026 camp announcement was found in the indexed official homepage, news/events, children's ministry or youth ministry pages. Direct access to whvl.org was blocked by robots.txt; official page text was available through search results. A WHKP article describes Superheroes of the Bible VBS on June 8–11, apparently in 2025, but no corresponding 2026 or 2027 official announcement was found, so no current camp card was created. The church's Facebook link could not be resolved from the readable website text. Review the church's social media or contact the office for current VBS plans.",
+    "excluded": [
+      {
+        "name": "Sunday School and Worship Service Child Care",
+        "reason": "Recurring year-round religious classes and worship childcare, not a finite summer camp."
+      },
+      {
+        "name": "Craft Ministry",
+        "reason": "Recurring twice-monthly ministry meetings, not a finite youth summer camp."
+      },
+      {
+        "name": "Youth & Young Adults Ministry mission and fellowship opportunities",
+        "reason": "General youth ministry opportunities and outings, not a named finite summer camp."
+      },
+      {
+        "name": "4 Seasons Jubilee",
+        "reason": "November event outside summer."
+      },
+      {
+        "name": "Vacation Bible School at First Baptist Hendersonville",
+        "reason": "Search results included programs belonging to different churches, including First Baptist Hendersonville in Tennessee; these are not this provider."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "provider": {
+    "key": "trinity-episcopal-vbs",
+    "name": "Trinity Episcopal Church Asheville (Vacation Bible School)",
+    "urls": ["https://www.trinityasheville.org/vbs"],
+    "covers": ["vbs", "own_page"]
+  },
+  "extractedAt": "2026-10-28T20:59:33.921Z",
+  "run": {
+    "mode": "bundle",
+    "extraction": {
+      "provider_name": "Trinity Episcopal Church Asheville",
+      "website_url": "https://www.trinityasheville.org/",
+      "notes": "No summer 2027 VBS information found. The VBS page still lists June 22–25, 2026. No registration opening date or explicit current availability status was found. The supplied page text includes a Child Registration button, but its destination URL could not be verified. Eligibility starts at age 3, potty trained, and extends through completed fifth grade; no maximum age or minimum grade is stated.",
+      "excluded": [
+        {
+          "name": "Nursery and regular children's formation classes",
+          "reason": "Recurring church childcare and religious classes, not finite summer camp programs."
+        },
+        {
+          "name": "Come Join the Circle",
+          "reason": "A recurring Sunday worship offering during the summer, rather than a separately organized camp."
+        },
+        {
+          "name": "Celtic Saints of Ireland Pilgrimage",
+          "reason": "An October pilgrimage outside summer, not a youth summer camp."
+        },
+        {
+          "name": "Sunday Supper Club",
+          "reason": "A recurring community gathering, not a supervised youth summer program."
+        }
+      ],
+      "cards": [
+        {
+          "name": "Vacation Bible School",
+          "variant": null,
+          "type": "vbs",
+          "categories": ["faith_based"],
+          "camp_page_url": "https://www.trinityasheville.org/vbs",
+          "registration_url": null,
+          "description": "Children explore God's love through music, movement, crafts, science, yoga, and snacks. The fourth day includes water play.",
+          "season_dates": {
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "June 22-25, 2026",
+            "source_kind": "official_site"
+          },
+          "ages": {
+            "min": 3,
+            "max": null,
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "Ages 3 years old (potty trained) through 5th Grade (completed).",
+            "source_kind": "official_site"
+          },
+          "grades": {
+            "min": null,
+            "max": 5,
+            "basis": "completed",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "Ages 3 years old (potty trained) through 5th Grade (completed).",
+            "source_kind": "official_site"
+          },
+          "hours": {
+            "start": "09:00",
+            "end": "12:00",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "9:00 - 12:00",
+            "source_kind": "official_site"
+          },
+          "extended_care": null,
+          "prices": [
+            {
+              "amount": 45,
+              "unit": "program",
+              "tier": "Standard per child",
+              "year": 2026,
+              "url": "https://www.trinityasheville.org/vbs",
+              "quote": "Cost per child: $45 with a discounted fee for children of adult volunteers ($25 per child)",
+              "source_kind": "official_site"
+            },
+            {
+              "amount": 25,
+              "unit": "program",
+              "tier": "Children of adult volunteers",
+              "year": 2026,
+              "url": "https://www.trinityasheville.org/vbs",
+              "quote": "Cost per child: $45 with a discounted fee for children of adult volunteers ($25 per child)",
+              "source_kind": "official_site"
+            }
+          ],
+          "fees": [],
+          "locations": [
+            {
+              "name": "Trinity Episcopal Church",
+              "address": "60 Church Street",
+              "town": "Asheville",
+              "state": "NC",
+              "year": 2026,
+              "url": "https://www.trinityasheville.org/vbs",
+              "quote": "60 Church Street, Asheville, NC 28801 | info@trinityasheville.org | Tel: 828-253-9361",
+              "source_kind": "official_site"
+            }
+          ],
+          "financial_aid": {
+            "available": true,
+            "details": "Scholarships are available if needed; contact Nanette Popa at Nanette@trinityasheville.org.",
+            "year": 2026,
+            "url": "https://www.trinityasheville.org/vbs",
+            "quote": "Scholarships are always available if needed. Contact Nanette Popa Nanette@trinityasheville.org",
+            "source_kind": "official_site"
+          },
+          "special_needs": null,
+          "lunch": null,
+          "transportation": null,
+          "registration_milestones": [],
+          "availability": null,
+          "last_year_registration_opened": null,
+          "sessions": [
+            {
+              "label": null,
+              "start": "2026-06-22",
+              "end": "2026-06-25",
+              "year": 2026
+            }
+          ]
+        }
+      ]
+    },
+    "response": {
+      "citations": [],
+      "searches": ["site.trinityasheville.org VBS 2027"],
+      "usage": {
+        "inputTokens": 15294,
+        "cachedInputTokens": 8411,
+        "outputTokens": 1283,
+        "reasoningTokens": 94
+      },
+      "status": "completed",
+      "ms": 26001,
+      "model": "gpt-6.1-sol"
+    },
+    "attempts": 1,
+    "bundle": [
+      {
+        "url": "https://www.trinityasheville.org/vbs",
+        "chars": 1904,
+        "method": "fetch"
+      },
+      {
+        "url": "https://www.trinityasheville.org/registrations",
+        "chars": 1378,
+        "method": "fetch"
+      },
+      {
+        "url": "https://www.trinityasheville.org/worship-schedule",
+        "chars": 6698,
+        "method": "fetch"
+      }
+    ]
+  }
+}

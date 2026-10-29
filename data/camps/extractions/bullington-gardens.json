@@ -1,0 +1,151 @@
+{
+  "provider": {
+    "key": "bullington-gardens",
+    "name": "Bullington Gardens",
+    "urls": [
+      "https://www.bullingtongardens.org/nature-camp-enrollment",
+      "https://www.bullingtongardens.org/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:15:24.126Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c25d4fc185eaec3e36afb2198d372faf7879df19fa659934eb761203b2e798df",
+  "response": {
+    "searches": [
+      "site:bullingtongardens.org \"camp\" \"2026\"",
+      "\"Bullington\" \"Nature Explorers\" \"2026\" camp",
+      "site:bullingtongardens.org \"Nature\" \"Camp\" \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 32486,
+      "cachedInputTokens": 8845,
+      "outputTokens": 979,
+      "reasoningTokens": 262
+    },
+    "status": "completed",
+    "ms": 32131,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bullingtongardens.org/nature-camp-enrollment",
+      "chars": 1349,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bullingtongardens.org/",
+      "chars": 3474,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bullingtongardens.org/eventsandclasses/blood-drive",
+      "chars": 1738,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bullingtongardens.org/eventsandclasses/invasive-plants",
+      "chars": 2846,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bullingtongardens.org/eventsandclasses/trees-for-the-mountain-landscape",
+      "chars": 2638,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bullington Gardens",
+    "website_url": "https://www.bullingtongardens.org/",
+    "notes": "No 2027 camp details or registration milestones were found. The current enrollment page contains only the program heading and site footer. Searches did not locate a 2026 camp schedule or enrollment PDF. Historical newsletter search results describe a week-long camp, but their camp details could not be assigned reliably to 2026.",
+    "excluded": [
+      {
+        "name": "BOOST",
+        "reason": "School-based occupational skills training, not a finite summer camp."
+      },
+      {
+        "name": "Elementary School",
+        "reason": "Year-round curriculum programs for school students, not a summer camp."
+      },
+      {
+        "name": "Horticultural Therapy",
+        "reason": "Ongoing therapy programs, not a separately listed finite summer youth camp."
+      },
+      {
+        "name": "Fairy Trail & Village",
+        "reason": "Seasonal visitor attraction, not a supervised camp."
+      },
+      {
+        "name": "Fairy Tea Party",
+        "reason": "Social event, not a camp."
+      },
+      {
+        "name": "Blood Drive",
+        "reason": "Blood donation event outside summer, not a youth camp."
+      },
+      {
+        "name": "Invasive Plants",
+        "reason": "November gardening class outside summer, not a youth camp."
+      },
+      {
+        "name": "Trees for the Mountain Landscape",
+        "reason": "November gardening class outside summer, not a youth camp."
+      },
+      {
+        "name": "WITS Workout",
+        "reason": "Fall class series, not a summer youth camp."
+      },
+      {
+        "name": "The Joy of Propagation",
+        "reason": "Gardening lesson series, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nature Explorers Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Nature camp at Bullington Gardens.",
+        "camp_page_url": "https://www.bullingtongardens.org/nature-camp-enrollment",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bullington Gardens",
+            "address": "95 Upper Red Oak Trail",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.bullingtongardens.org/nature-camp-enrollment",
+          "https://www.bullingtongardens.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The enrollment page currently gives only the camp name. Confirm the day format and drop-off location when enrollment details return; the location uses the provider's published address. Historical official newsletter snippets describe a week-long camp and a special-needs Nature Camp, but do not reliably establish the current program's eligibility or 2026 details, so those facts were omitted."
+      }
+    ]
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "mcdowell-arts-council-association",
+    "name": "McDowell Arts Council Association",
+    "urls": ["https://www.mcdowellarts.org/mct.html", "https://www.mcdowellarts.org/"],
+    "area": "Marion, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:34.310Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9e9205af8c07cf37a00c9d26f19eeab25ccac5f83df2fc869e7498e7f615ba68",
+  "response": {
+    "searches": [
+      "site:mcdowellarts.org \"2027\" \"summer\"",
+      "site:mcdowellarts.org \"Shrek\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 24653,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1668,
+      "reasoningTokens": 287
+    },
+    "status": "completed",
+    "ms": 40816,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mcdowellarts.org/mct.html",
+      "chars": 9144,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mcdowellarts.org/",
+      "chars": 3056,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "McDowell Arts Council Association",
+    "website_url": "https://www.mcdowellarts.org/",
+    "notes": "The theatre page includes a Summer 2027 heading, but no readable 2027 camp dates or registration milestones were found. The embedded audition documents and show graphics could not be inspected through the browser. Retained the two existing theatre programs using the explicitly identified 2026 season. Search also found undated Summer Art Camp policies and a volunteer listing for Summer Art Camp Assistants; these did not establish a 2026 or 2027 offering, so no additional card was created.",
+    "excluded": [
+      {
+        "name": "Sweeney Todd (School Edition)",
+        "reason": "Spring production, outside summer."
+      },
+      {
+        "name": "Mary Poppins Jr.",
+        "reason": "Fall production, outside summer."
+      },
+      {
+        "name": "Mountain Arts Program",
+        "reason": "School-based arts residencies, including summer enrichment for McDowell County Schools students, rather than an independently enrollable public camp."
+      },
+      {
+        "name": "crescendo! Piano in the Classroom",
+        "reason": "School-based music education rather than a finite summer camp."
+      },
+      {
+        "name": "Theatre Kid Karaoke Night",
+        "reason": "Single evening social event."
+      },
+      {
+        "name": "Art Club for Adults with Intellectual Disabilities",
+        "reason": "Adult-only recurring program."
+      },
+      {
+        "name": "Chapters Scrapbooking Club",
+        "reason": "Recurring club meetings rather than a finite supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Participants rehearse a JR or KIDS musical adaptation and work on performance or technical theatre tasks such as props, sets, costumes, lights and sound. Camps typically include two weeks of rehearsals followed by a weekend of performances.",
+        "camp_page_url": "https://www.mcdowellarts.org/mct.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "McDowell Arts Council Association",
+            "address": "50 S Main St",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "No enrollment, participation, or materials fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mcdowellarts.org/mct.html",
+          "https://www.mcdowellarts.org/programs.html",
+          "https://www.mcdowellarts.org/uploads/1/0/1/9/101973652/mct_about___policies.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official policies PDF identifies Shrek the Musical KIDS as the 2026 summer camp; the theatre FAQ gives Shrek KIDS eligibility as K–12th grade. No readable session dates were found. The day format is inferred from the rehearsal-based camp description; daily hours are unknown. The programs directory places McDowell Children's Theatre on site at MACA. Check embedded audition documents and the Summer 2027 graphic for updated offerings and dates."
+      },
+      {
+        "name": "Page to Stage",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Participants attend guest workshops and write, direct, handle technical work, costume and produce their own short plays. The one-week program ends with four performances over a weekend.",
+        "camp_page_url": "https://www.mcdowellarts.org/mct.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "McDowell Arts Council Association",
+            "address": "50 S Main St",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "No enrollment, participation, or materials fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mcdowellarts.org/mct.html",
+          "https://www.mcdowellarts.org/programs.html",
+          "https://www.mcdowellarts.org/uploads/1/0/1/9/101973652/mct_about___policies.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official policies PDF explicitly includes Page to Stage in the 2026 season. No readable session dates were found. The day format is inferred from the workshop and production description; daily hours are unknown. The programs directory places McDowell Children's Theatre on site at MACA. The Summer 2027 heading alone does not establish whether Page to Stage returns; check the unreadable embedded audition documents and show graphics."
+      }
+    ]
+  }
+}

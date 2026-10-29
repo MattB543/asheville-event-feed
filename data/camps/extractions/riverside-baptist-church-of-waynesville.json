@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "riverside-baptist-church-of-waynesville",
+    "name": "Riverside Baptist Church of Waynesville",
+    "urls": ["https://riversideworship.net/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:13:36.103Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "6ced389d4553ecdecc602b63d410bee2454459a90a0bb87cbe25548f0acff51b",
+  "response": {
+    "searches": [
+      "site:riversideworship.net \"VBS\"",
+      "site:facebook.com \"Riverside\" \"Lake Logan\" \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 17090,
+      "cachedInputTokens": 8845,
+      "outputTokens": 975,
+      "reasoningTokens": 215
+    },
+    "status": "completed",
+    "ms": 33108,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://riversideworship.net/",
+      "chars": 1555,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Riverside Baptist Church of Waynesville",
+    "website_url": "https://riversideworship.net/",
+    "notes": "No 2027 VBS announcement was found. The official student ministries page confirms an annual Vacation Bible School but provides no readable dates, registration details or VBS-specific age range. Search results for third-party event listings show June 14, 2026 at 6 p.m.; those details were not included because an official announcement could not be verified. The student ministries and church calendar pages returned empty content when opened, although their official search-indexed text was readable.",
+    "excluded": [
+      {
+        "name": "AWANA Ministry",
+        "reason": "School-year ministry rather than a summer camp."
+      },
+      {
+        "name": "Fun in the Son",
+        "reason": "Described as separate summer social events, including movie nights and water balloon fights, rather than a finite multi-day camp."
+      },
+      {
+        "name": "Sunday Morning Bible Study Groups and Discipleship Training",
+        "reason": "Recurring church discipleship classes rather than finite summer camps."
+      },
+      {
+        "name": "West Virginia Vacation Bible School",
+        "reason": "Held in McDowell County, West Virginia, outside the directory's geographic range."
+      },
+      {
+        "name": "Vacation Bible School at Riverside Baptist Church in Kendall, Florida",
+        "reason": "A different church with a similar name, outside the directory's geographic range."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School teaches children about Jesus and the gospel.",
+        "camp_page_url": "https://riversideworship.net/student-ministries/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Riverside Baptist Church",
+            "address": "2171 Lake Logan Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://riversideworship.net/",
+          "https://riversideworship.net/student-ministries/",
+          "https://riversideworship.net/missions/",
+          "https://riversideworship.net/church-calendar/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program description was available only in official search-indexed text; opening the student ministries page returned empty content. The church address is explicitly published on its homepage, and the VBS description refers to children entering the church. Check the church calendar or church social media for a dated VBS announcement. The overall student ministry's pre-K through 12th-grade range was not applied to VBS because the page does not specify VBS eligibility."
+      }
+    ]
+  }
+}

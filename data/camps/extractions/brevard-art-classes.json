@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "brevard-art-classes",
+    "name": "Brevard Art Classes",
+    "urls": [
+      "https://sites.google.com/view/lafunkieartclasses/schedule/summer-programs-2026",
+      "https://www.lafunkie.com/schedule/summer-programs-2026"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:33.393Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bc8c03c81e04f6b4af3a139a7a92ab7658e6123e064b0588ece2857a492fb8b2",
+  "response": {
+    "searches": ["site:lafunkie.com Lafunkie Melbourne summer 2027"],
+    "usage": {
+      "inputTokens": 20918,
+      "cachedInputTokens": 8845,
+      "outputTokens": 369,
+      "reasoningTokens": 67
+    },
+    "status": "completed",
+    "ms": 12988,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/view/lafunkieartclasses/schedule/summer-programs-2026",
+      "chars": 5501,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lafunkie.com/schedule/summer-programs-2026",
+      "chars": 5501,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/drf12srR9MGYx5K58",
+      "chars": 3892,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/view/lafunkieartclasses/schedule",
+      "chars": 2669,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/view/lafunkieartclasses/schedule/school-year-lafunkie-creative-studio",
+      "chars": 5087,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lafunkie.com/schedule",
+      "chars": 2669,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lafunkie.com/schedule/school-year-lafunkie-creative-studio",
+      "chars": 5087,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/",
+      "chars": 1253,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard Art Classes",
+    "website_url": "https://www.lafunkie.com/",
+    "notes": "Provider/location mismatch: these official pages belong to Lafunkie in Brevard County, Florida, not Brevard, North Carolina. The schedule identifies The Arts for All Studio Annex, 24 Silver Palm Ave, Melbourne, FL, and the school-year page explicitly describes classes in Melbourne, Florida. No Asheville-area site or 2027 summer information was found. The supplied pages disagree on the Florida ZIP code (32901 versus 32935), but both place the provider outside AVLGO's coverage area.",
+    "excluded": [
+      {
+        "name": "Lafunkie Summer Art Camps",
+        "reason": "The official pages locate this provider in Melbourne, Florida, not Brevard, NC, well outside the Asheville-area drive limit. This includes the Design & Build Studio, The Abstract Adventure, and Creative Fantasy Worlds camp themes."
+      },
+      {
+        "name": "Lafunkie Creative Studio",
+        "reason": "School-year weekly after-school art classes, not a finite summer camp; also located in Melbourne, Florida."
+      },
+      {
+        "name": "Yarn Painting Art Parties",
+        "reason": "Private social art parties rather than a supervised summer camp; also offered by the Florida provider."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "provider": {
+    "key": "croley-s-premier-martial-arts-of-asheville",
+    "name": "Croley's Premier Martial Arts of Asheville",
+    "urls": ["https://premiermartialarts.com/north-carolina-asheville/camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:09:38.114Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b2551d7dfd8e8709b02b3e85c1499fe1043223e886257097e4dd75acb3970aea",
+  "response": {
+    "searches": ["Croley Premier Martial Arts Asheville summer camp 2027 2026"],
+    "usage": {
+      "inputTokens": 21838,
+      "cachedInputTokens": 8845,
+      "outputTokens": 531,
+      "reasoningTokens": 58
+    },
+    "status": "completed",
+    "ms": 18593,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://premiermartialarts.com/north-carolina-asheville/camps/",
+      "chars": 6084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/student-registration/",
+      "chars": 8120,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/north-carolina-asheville/",
+      "chars": 10864,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/",
+      "chars": 9999,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Croley's Premier Martial Arts of Asheville",
+    "website_url": "https://premiermartialarts.com/north-carolina-asheville/",
+    "notes": "No official 2027 dates or registration milestones found. The camp page's calendar contains no readable camp sessions. Third-party listings give 2026 sessions and prices, but these were not included because official confirmation was not found. The student-registration page is a general martial arts intake form, not confirmed camp registration.",
+    "excluded": [
+      {
+        "name": "Kids' Karate & Martial Arts",
+        "reason": "Year-round martial arts classes, not a finite summer camp."
+      },
+      {
+        "name": "Adult Martial Arts",
+        "reason": "Adult-only ongoing classes."
+      },
+      {
+        "name": "Kids' Birthday Parties",
+        "reason": "Private social events, not summer camps."
+      },
+      {
+        "name": "Parents' Night Out",
+        "reason": "Single-evening social event."
+      },
+      {
+        "name": "Parent Orientation",
+        "reason": "Parent orientation, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Martial Arts and Karate Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice martial arts and participate in games, obstacle courses, and team-based challenges. Weekly themes and morning, afternoon, or full-day options are offered for beginners and experienced students.",
+        "camp_page_url": "https://premiermartialarts.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Premier Martial Arts Asheville",
+            "address": "239 S Liberty St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Camps run Monday to Friday"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://premiermartialarts.com/north-carolina-asheville/camps/",
+          "https://premiermartialarts.com/north-carolina-asheville/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

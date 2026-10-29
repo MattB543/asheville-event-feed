@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "new-hope-brethren-church-of-jonesborough",
+    "name": "New Hope Brethren Church of Jonesborough",
+    "urls": ["https://www.facebook.com/New-Hope-Brethren-Church-769930793143205/"],
+    "area": "Jonesborough, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:21:16.725Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"New Hope Brethren\" Jonesborough VBS 2026",
+      "site:facebook.com \"New Hope Brethren\" \"2026\" \"VBS\"",
+      "\"New Hope Brethren\" \"Under Construction\""
+    ],
+    "usage": {
+      "inputTokens": 22449,
+      "cachedInputTokens": 8845,
+      "outputTokens": 776,
+      "reasoningTokens": 265
+    },
+    "status": "completed",
+    "ms": 25444,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/New-Hope-Brethren-Church-769930793143205/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "New Hope Brethren Church of Jonesborough",
+    "website_url": null,
+    "notes": "No standalone website for the Jonesborough church was found. Its supplied Facebook page returned no readable content. A third-party event listing identifies a 2026 VBS titled Under Construction: Building on Gods True Foundation, beginning May 25, 2026, but official dates and details could not be verified. No 2027 information was found. newhopebrethren.org belongs to a different church in Dunmore, WV.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/New-Hope-Brethren-Church-769930793143205/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "New Hope Brethren Church",
+            "address": "352 New Hope Road",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The official Facebook page could not be read. VBS existence and the venue address are supported only by third-party search results at https://allevents.in/jonesborough/vbs-2026-under-construction-building-on-gods-true-foundation/200030136557441 and https://www.findglocal.com/US/Jonesborough/769930793143205/New-Hope-Brethren-Church. Confirm the address directly with the church and obtain official dates, hours, ages, and registration information before publishing detailed scheduling."
+      }
+    ]
+  }
+}

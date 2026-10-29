@@ -1,0 +1,148 @@
+{
+  "provider": {
+    "key": "camp-living-water",
+    "name": "Camp Living Water",
+    "urls": ["https://www.camplivingwater.com/summer-camp", "https://www.camplivingwater.com/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:16:30.127Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "cf858a895fc2b6774f98c45ae569b8a419be61b160c02048763f42593df55fc3",
+  "response": {
+    "searches": [
+      "site:camplivingwater.com \"summer\" \"2026\"",
+      "\"site:camplivingwater.com\" \"camp\" \"week\""
+    ],
+    "usage": {
+      "inputTokens": 27832,
+      "cachedInputTokens": 8845,
+      "outputTokens": 974,
+      "reasoningTokens": 167
+    },
+    "status": "completed",
+    "ms": 27488,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.camplivingwater.com/summer-camp",
+      "chars": 864,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/",
+      "chars": 881,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/road-rally2026",
+      "chars": 1332,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/praise-fest-1",
+      "chars": 1696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/reservations",
+      "chars": 1067,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/facilities",
+      "chars": 2168,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camplivingwater.com/partner-with-us-1",
+      "chars": 888,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Living Water",
+    "website_url": "https://www.camplivingwater.com/",
+    "notes": "The official summer camp page announces registration for summer 2027 but does not give camp dates, ages, prices, activities or a registration link. Searches did not locate additional official 2026 or 2027 summer schedules or PDFs. December 1 is interpreted as December 1, 2026, the upcoming registration opening for summer 2027.",
+    "excluded": [
+      {
+        "name": "Smoky Mountain Road Rally",
+        "reason": "October 29–November 1, 2026 event for couples, families and singles; outside summer and not a supervised youth camp."
+      },
+      {
+        "name": "Praise Fest",
+        "reason": "Single-evening fall community festival on October 31, 2026."
+      },
+      {
+        "name": "Group Reservations",
+        "reason": "Facility reservations for groups, not a named provider-run summer youth program."
+      },
+      {
+        "name": "Kids Camp and Teen Camp at camp-livingwater.com",
+        "reason": "Different organization operating in British Columbia and Alberta, Canada."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Summer camp at an inter-denominational Christian camp in Bryson City.",
+        "camp_page_url": "https://www.camplivingwater.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Registration for Summer Camp 2027 starts December 1st!!!!"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Living Water",
+            "address": "1510 W Deep Creek Rd",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer Camp 2027 starts December 1st!!!!",
+            "url": "https://www.camplivingwater.com/summer-camp",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camplivingwater.com/summer-camp",
+          "https://www.camplivingwater.com/",
+          "https://www.camplivingwater.com/contact",
+          "https://www.camplivingwater.com/facilities"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current official page does not specify day versus overnight format. Overnight classification is provisional, supported by historical 2025 Junior Overnight Camp listings at this address and the site's lodging facilities; confirm the 2027 format. The registration announcement omits the calendar year for December 1; interpreted as 2026 based on the upcoming summer 2027 season. Camp dates are not posted, despite the 2027 registration announcement."
+      }
+    ]
+  }
+}

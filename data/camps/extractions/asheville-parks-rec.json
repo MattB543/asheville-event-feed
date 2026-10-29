@@ -1,0 +1,2178 @@
+{
+  "provider": {
+    "key": "asheville-parks-rec",
+    "name": "Asheville Parks & Recreation (City of Asheville summer camps)",
+    "urls": ["https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/"],
+    "area": "Asheville, NC (city community centers)",
+    "hint": "Registration runs through the city's WebTrac site (ncashevilleweb.myvscloud.com); a separate deterministic parser reads that catalog.",
+    "webtrac": true,
+    "discovered_by": [
+      "pilot",
+      "seed_sheet",
+      "macaroni_kid",
+      "beyond_school",
+      "news828",
+      "grid",
+      "aggregator",
+      "gap_fill"
+    ],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-28T21:09:52.539Z",
+  "fingerprint": "webtrac:2026-10-28T21:09:52.539Z",
+  "sourceHash": "1e387ff45c81e1466f6f279c93007483e90d0428965f16c76f536d03fc36e2d2",
+  "response": null,
+  "bundle": null,
+  "extraction": {
+    "provider_name": "Asheville Parks & Recreation (City of Asheville summer camps)",
+    "website_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+    "notes": "Read from the city's WebTrac catalog on 2026-10-28: 113 camp rows.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Table Top Gaming Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Roll the dice, build your deck, strategize, create and break alliances, and snatch victory from the jaws of defeat as you spend the week playing a variety of tabletop games!",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029378",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burton Street Community Center",
+            "address": "134 Burton Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029378"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Future Innovators",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Future Innovators, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029511",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burton Street Community Center",
+            "address": "134 Burton Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029511"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Ultimate Sports Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Ultimate Sports Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028958",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burton Street Community Center",
+            "address": "134 Burton Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028958"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Youth Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Youth Day Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=126976240",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Dr. Wesley Grant Sr. Southside Community Center",
+            "address": "285 Livingston Street",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Tempie Avery Montford Community Center",
+            "address": "34 Pearson Drive",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Linwood Crump Shiloh Community Center",
+            "address": "121 Shiloh Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Stephens-Lee Community Center",
+            "address": "30 George Washington Carver Ave",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "text": "8:30 am - 6:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=126976240"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Teen Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Teen Day Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127026502",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Dr. Wesley Grant Sr. Southside Community Center",
+            "address": "285 Livingston Street",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Tempie Avery Montford Community Center",
+            "address": "34 Pearson Drive",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Linwood Crump Shiloh Community Center",
+            "address": "121 Shiloh Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Stephens-Lee Community Center",
+            "address": "30 George Washington Carver Ave",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "18:00",
+          "text": "8:30 am - 6:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Dr. Wesley Grant Sr. Southside Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Tempie Avery Montford Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Linwood Crump Shiloh Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": "Stephens-Lee Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127026502"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Therapeutic Recreation Day Camp",
+        "type": "day",
+        "categories": ["special_needs", "general"],
+        "description": "Therapeutic Recreation Day Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127025970",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 21
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Murphy-Oakley Community Center",
+            "address": "749 Fairview Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "week",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "week",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 10",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 21
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "A Therapeutic Recreation program (adaptive recreation for people with disabilities)."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127025970"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "1st Sunday Football Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "1st Sunday Football Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=133895366",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-08-02",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Linwood Crump Shiloh Community Center",
+            "address": "121 Shiloh Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "15:00",
+          "end": "16:00",
+          "text": "3:00 pm - 4:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-07",
+            "end": "2026-06-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2026-07-05",
+            "end": "2026-07-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2026-08-02",
+            "end": "2026-08-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=133895366"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Teenventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Teenventure Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028650",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-07",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Murphy-Oakley Park",
+            "address": "715 Fairview Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 170,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 180,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-07",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028650"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wrestling Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Wrestling Camp, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029146",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127029146"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Nature Nuts",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Nature Nuts, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028234",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Murphy-Oakley Park",
+            "address": "715 Fairview Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 110,
+            "unit": "session",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 120,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028234"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Venture Bound",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Venture Bound, a City of Asheville Parks & Recreation summer camp.",
+        "camp_page_url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+        "registration_url": "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028339",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Murphy-Oakley Park",
+            "address": "715 Fairview Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 am - 5:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 210,
+            "unit": "week",
+            "label": "City of Asheville resident",
+            "year": 2026
+          },
+          {
+            "amount": 220,
+            "unit": "week",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Session 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+          "https://ncashevilleweb.myvscloud.com/webtrac/web/iteminfo.html?Module=AR&FMID=127028339"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

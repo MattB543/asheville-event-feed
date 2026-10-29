@@ -1,0 +1,89 @@
+{
+  "method": "grid",
+  "id": "north-buncombe-madison--general",
+  "input": "Find general day camps, Parks & Recreation camps, summer childcare, YMCA and Boys & Girls Club summer camps and summer programs for kids and teens in or near Weaverville, Woodfin, Leicester, Candler, Barnardsville, Marshall, Mars Hill and Hot Springs, NC. Search the web thoroughly (several searches with different wording and town names) and list every organization you find.",
+  "at": "2026-10-29T03:27:33.192Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 64253,
+    "cachedInputTokens": 5164,
+    "outputTokens": 1508,
+    "reasoningTokens": 775
+  },
+  "searches": [
+    "Weaverville Woodfin summer camp 2026 YMCA parks recreation",
+    "\"Madison County\" \"summer camp\" \"2026\" NC",
+    "\"Madison\" \"summer camps\" site:madison.ces.ncsu.edu 2025",
+    "site:ymcawnc.org \"2026\" \"camp\"",
+    "\"summer camp\" \"2025\" \"Hominy\"",
+    "site:ymcawnc.org \"Discovery\" \"Weaverville\"",
+    "\"summer camp\" \"Weaverville\" \"2025\" -site:tcrcd.net -site:youngfamilyranch.org -baseball -younglife -windy"
+  ],
+  "ms": 78624,
+  "candidates": [
+    {
+      "name": "YMCA of Western North Carolina",
+      "url": "https://ymcawnc.org/programs/camps/summer-day-camp",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor", "arts", "sports"],
+      "note": "2026 Discovery camps in Enka and Erwin districts; outdoor Adventure camps for ages 9–15 and Explorer camp at Beaverdam."
+    },
+    {
+      "name": "Asheville Parks & Recreation",
+      "url": "https://www.ashevillenc.gov/service/register-for-asheville-summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "arts", "nature_outdoor", "sports", "stem"],
+      "note": "2026 summer day camps for rising grades 1–9; 2027 schedules will be published February 1, 2027."
+    },
+    {
+      "name": "Madison County Cooperative Extension / 4-H",
+      "url": "https://madison.ces.ncsu.edu/4-h-summer-programs/",
+      "town": "Marshall",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "academic", "cooking", "nature_outdoor", "stem"],
+      "note": "Summer Fun day camps for ages 5–18, with local summer programs documented for 2025 and 2026."
+    },
+    {
+      "name": "Childcare Network",
+      "url": "https://childcarenetwork.com/summer-camp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "academic", "nature_outdoor"],
+      "note": "Full-day summer childcare for ages 5–12; local centers on Weaverville Highway and Sardis Road."
+    },
+    {
+      "name": "Hominy Baptist Church of Candler",
+      "url": "https://www.hominybaptist.com/child-care",
+      "town": "Candler",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "faith_based"],
+      "note": "Hominy Child Care offers a school-age summer camp; its childcare programs serve children through age 12."
+    },
+    {
+      "name": "Corylace Cove",
+      "url": "https://www.corylacecove.com/summer-camps",
+      "town": "Mars Hill",
+      "state": "NC",
+      "kinds": ["day", "half_day"],
+      "categories": ["nature_outdoor", "arts"],
+      "note": "2026 nature-play and forest camps for younger children, plus craft and metalworking camps for ages 11–16."
+    },
+    {
+      "name": "Weaverville United Methodist Church",
+      "url": "https://www.weavervilleumc.org/vbs/",
+      "town": "Weaverville",
+      "state": "NC",
+      "kinds": ["vbs", "half_day"],
+      "categories": ["faith_based", "general"],
+      "note": "Free morning VBS ran June 22–25, 2026, for ages 3 through rising fifth graders."
+    }
+  ]
+}

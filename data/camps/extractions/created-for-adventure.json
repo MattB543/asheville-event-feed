@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "created-for-adventure",
+    "name": "Created for Adventure",
+    "urls": ["https://createdforadventure.com/trips"],
+    "area": "Western North Carolina, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:29:12.986Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "7269426b2278d971e0459a1773734d51159dc847851be64fc7b9dd692a8d2728",
+  "response": {
+    "searches": [
+      "site:createdforadventure.com \"Western North Carolina Explorer\"",
+      "site:createdforadventure.com/trips \"Hawaii Teen Adventure - Kauai\" \"Check-In\""
+    ],
+    "usage": {
+      "inputTokens": 21560,
+      "cachedInputTokens": 8845,
+      "outputTokens": 676,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 22292,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://createdforadventure.com/trips",
+      "chars": 2351,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/register-now",
+      "chars": 4783,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/custom-trips",
+      "chars": 5575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/faq",
+      "chars": 12688,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/",
+      "chars": 5817,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Created for Adventure",
+    "website_url": "https://createdforadventure.com/",
+    "notes": "The posted 2027 individual teen programs take place in Hawaii and Alaska, outside AVLGO's geographic area. Western North Carolina Explorer is now listed only as a custom group trip, not an individually bookable summer camp; custom youth-group and school trips are excluded. Older FAQ links and search results reference past individual programs that are not in the current 2027 teen program list. No qualifying local summer camp cards were found.",
+    "excluded": [
+      {
+        "name": "Hawaii Teen Adventure - Kauai",
+        "reason": "The 2027 program takes place in Kauai, Hawaii, outside approximately 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Ultimate Adventure: Alaska to Hawaii",
+        "reason": "The 2027 program takes place in Alaska and Kauai, Hawaii, outside approximately 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Western North Carolina Explorer",
+        "reason": "Currently offered only as a custom group adventure for camps, youth groups or schools, rather than a scheduled individual summer camp; youth-group outings and trips are excluded."
+      },
+      {
+        "name": "Alaska Teen Expedition",
+        "reason": "Custom group trip in Alaska, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Pacific Northwest Expedition",
+        "reason": "Custom group trip in the Pacific Northwest, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Colorado Explorer",
+        "reason": "Custom group trip in Colorado, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Grand Teton Explorer",
+        "reason": "Custom group trip in the Grand Teton and Yellowstone region, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Hawaii Adventure - Oahu",
+        "reason": "Custom group trip in Hawaii, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Hawaii Adventure - Kauai",
+        "reason": "Custom group trip in Hawaii, outside AVLGO's geographic area."
+      },
+      {
+        "name": "Coastal Beach Adventure",
+        "reason": "Custom group trip rather than a scheduled individual summer camp; youth-group outings and trips are excluded."
+      },
+      {
+        "name": "Ski Adventure",
+        "reason": "Custom winter ski trip in Colorado; outside summer and outside AVLGO's geographic area."
+      }
+    ],
+    "cards": []
+  }
+}

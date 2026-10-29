@@ -1,0 +1,77 @@
+{
+  "provider": {
+    "key": "asheville-school",
+    "name": "Asheville School (summer programs)",
+    "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:51:42.858Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0e2de250f28703d9d2485ab0f5c1980db8ffd683ef4a1a9f312f45f14c29f57e",
+  "response": {
+    "searches": [
+      "site:ashevilleschool.org summer camp 2026 2027",
+      "site:ashevilleschool.org \"camp\" \"summer\"",
+      "site:ashevilleschool.org \"camp\" \"2026\" \"summer\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 27912,
+      "cachedInputTokens": 8845,
+      "outputTokens": 489,
+      "reasoningTokens": 190
+    },
+    "status": "completed",
+    "ms": 20482,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevilleschool.org/academics-summer-reading/",
+      "chars": 7416,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/admissions/tuition-financial-aid/",
+      "chars": 6007,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/explore/campus/",
+      "chars": 6918,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/admissions/visit-the-campus/",
+      "chars": 3804,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ashevilleschool.org/",
+      "chars": 5170,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville School (summer programs)",
+    "website_url": "https://www.ashevilleschool.org/",
+    "notes": "No summer 2026 or 2027 camp offerings were found on official pages or in official search results. The supplied Summer Reading page describes independent reading assignments for enrolled students, not a supervised camp. Official news archives describe Camp Good Trouble and App Development Camp in summer 2019, but no 2026 or 2027 continuation was found; these historical programs were not made into current cards. Historical pages: https://www.ashevilleschool.org/news/asheville-school-students-work-to-empower-local-elementary-school-students-during-camp-good-trouble/ and https://www.ashevilleschool.org/news/app-development-camp-introduces-teens-to-computer-science-coding-and-app-design/.",
+    "excluded": [
+      {
+        "name": "2026 Summer Reading",
+        "reason": "Independent required reading assignments for Asheville School students; not a finite, supervised summer camp."
+      },
+      {
+        "name": "Winterim",
+        "reason": "School-year enrichment program held outside summer."
+      },
+      {
+        "name": "Mountaineering",
+        "reason": "School extracurricular activities and competitive teams, not a separately listed finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

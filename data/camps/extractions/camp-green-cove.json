@@ -1,0 +1,274 @@
+{
+  "provider": {
+    "key": "camp-green-cove",
+    "name": "Camp Green Cove",
+    "urls": [
+      "https://www.greencove.com/program/activities",
+      "https://www.greencove.com/2026-dates-and-rates",
+      "https://www.greencove.com/2027-dates-and-rates"
+    ],
+    "area": "Tuxedo, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:06:12.656Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a6ef4f6aeac515ea672d9bc86453259258a36a333d6f482082c0a6411996ed28",
+  "response": {
+    "searches": [
+      "site.greencove.com \"address\" \"Green Cove\"",
+      "open https://www.greencove.com/contact-us"
+    ],
+    "usage": {
+      "inputTokens": 19923,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1738,
+      "reasoningTokens": 114
+    },
+    "status": "completed",
+    "ms": 37112,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.greencove.com/program/activities",
+      "chars": 6957,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greencove.com/2026-dates-and-rates",
+      "chars": 5898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greencove.com/2027-dates-and-rates",
+      "chars": 6603,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greencove.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.greencove.com/2026-dates-rates",
+      "chars": 1015,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.greencove.com/2027-dates-rates",
+      "chars": 1015,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.greencove.com/program/daily-schedule",
+      "chars": 3519,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greencove.com/program/camp-video",
+      "chars": 1031,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Green Cove",
+    "website_url": "https://www.greencove.com/",
+    "notes": "2027 dates and rates are posted. The 2027 page contains conflicting August-session ages and early-registration discounts; see card review notes. The contact page's official search result supplies the Shipping & GPS address; direct opening returned no readable text. The URLs ending /2026-dates-rates and /2027-dates-rates are not found.",
+    "excluded": [
+      {
+        "name": "Friends and Family Weekend",
+        "reason": "Family-only camp weekend, not a supervised youth camp."
+      },
+      {
+        "name": "Summer Jobs",
+        "reason": "Employment program, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Green Cove",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "horses", "arts"],
+        "description": "Girls participate in swimming, canoeing, kayaking, sailing, mountain biking, horseback riding, rock climbing, tennis, nature activities and crafts. Camp activities build toward overnight wilderness trips.",
+        "camp_page_url": "https://www.greencove.com/2027-dates-and-rates",
+        "registration_url": "https://greencove.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-04",
+          "end": "2027-08-11",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 16
+        },
+        "grades": {
+          "min": 1,
+          "max": 10,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Green Cove",
+            "address": "617 Green Cove Rd",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2027-06-04",
+            "end": "2027-06-22",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 13
+            },
+            "grades": {
+              "min": 1,
+              "max": 7,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6700,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-25",
+            "end": "2027-07-27",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": {
+              "min": 2,
+              "max": 10,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August Camp",
+            "start": "2027-07-30",
+            "end": "2027-08-11",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 12
+            },
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5100,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August Junior Camp",
+            "start": "2027-07-30",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 11
+            },
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will begin accepting new families as space allows on Sep. 1st.",
+            "url": "https://www.greencove.com/2027-dates-and-rates",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-12-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Register by December 1st for an early registration discount: $100 off for June Camp or $250 off for Main Camp.",
+            "url": "https://www.greencove.com/2027-dates-and-rates",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited financial assistance is available. Please contact us for a scholarship application."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are eaten family style."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "The camp fee includes almost everything: Laundry, sheets and blankets, all activities (riding, etc.), all trips, ordinary supplies (crafts, ammunition on the rifle range, etc.), airport pickup/return, medical care in the infirmary."
+        },
+        "sources": [
+          "https://www.greencove.com/2027-dates-and-rates",
+          "https://www.greencove.com/program/activities",
+          "https://www.greencove.com/program/daily-schedule",
+          "https://www.greencove.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages follow the 2027 session summary: August Camp 7–12 and August Junior Camp 7–11. Their detailed descriptions instead both say 6–12; confirm eligibility. Main Camp allows returning campers through completed grade 10, but new campers only through completed grade 8. Early prices were omitted because the payment schedules give June $6,500, Main $8,900 and August $4,950, while the footer advertises $100 off June and $250 off Main and omits August. The deadline wording also alternates between 'by December 1st' and 'Before December 1 only.' Registration milestone calendar years are inferred from the 2027 enrollment context: September and December 2026. No specific returning-family opening date is supplied. Site address comes from the official contact-page search snippet."
+      }
+    ]
+  }
+}

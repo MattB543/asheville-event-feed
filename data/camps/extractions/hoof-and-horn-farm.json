@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "hoof-and-horn-farm",
+    "name": "Hoof and Horn Farm",
+    "urls": ["https://app.acuityscheduling.com/catalog/9a8264b1"],
+    "area": "Barnardsville, NC",
+    "discovered_by": ["news828"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:01:29.105Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "110a0bdf8a72c4708c076968bf24481d3e4d9fec77aa8788098a1ed1ad5712be",
+  "response": {
+    "searches": [
+      "Hoof and Horn Farm Barnardsville summer camp 2027",
+      "open https://www.hoofandhornfarm.com/"
+    ],
+    "usage": {
+      "inputTokens": 20833,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1283,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 30739,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://app.acuityscheduling.com/catalog/9a8264b1",
+      "chars": 30000,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.acuityscheduling.com/?utm_campaign=acuity&utm_medium=referral&utm_source=scheduling",
+      "chars": 6011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.acuityscheduling.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Not Found\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hoof and Horn Farm",
+    "website_url": "https://www.hoofandhornfarm.com/",
+    "notes": "No official 2027 camp dates or registration announcements were found. The two 2026 horse day camp offerings are grouped as sessions of Summer Horse Camp because they share the same format and activities, with a medieval theme for the younger session.",
+    "excluded": [
+      {
+        "name": "Intro Lesson",
+        "reason": "An introductory riding lesson, not a camp."
+      },
+      {
+        "name": "Bronze Program",
+        "reason": "Year-round monthly riding lesson membership."
+      },
+      {
+        "name": "Silver Package",
+        "reason": "Year-round monthly riding lesson membership."
+      },
+      {
+        "name": "Gold Level (Half-Lease: This is My Sport)",
+        "reason": "Year-round riding lessons and horse half-lease program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Horse Camp",
+        "type": "day",
+        "categories": ["horses", "arts"],
+        "description": "Campers take daily riding lessons, learn grooming, tacking, safety and horse care, play mounted games, and make horse-themed crafts. Each week ends with a showcase ride for families; the younger session includes medieval-themed games and crafts.",
+        "camp_page_url": "https://app.acuityscheduling.com/catalog/9a8264b1",
+        "registration_url": "https://app.acuityscheduling.com/catalog/9a8264b1",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hoof and Horn Farm",
+            "address": "389 Dillingham Rd",
+            "town": "Barnardsville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "9 AM–2 PM"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "Early/late drop-off available for an additional fee"
+        },
+        "prices": [
+          {
+            "amount": 525,
+            "unit": "week",
+            "label": "June camp: Black Friday Deal",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Summer Horse Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 550,
+              "unit": "week",
+              "label": "Regular price",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fantasy Medieval Horse Day Camp!",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 547,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers must bring their own lunch. Two snacks are provided daily."
+        },
+        "transportation": null,
+        "sources": [
+          "https://app.acuityscheduling.com/catalog/9a8264b1",
+          "https://www.hoofandhornfarm.com/",
+          "https://www.hoofandhornfarm.com/resume"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Acuity product headings give ages 8–12 for June and 5–9 for August; their descriptions instead give 9–12 and 5–8. Ages here follow the product headings. June regular tuition is $550, but one passage says after March 1st and another says after January 1st; no price-change deadline was extracted. The $525 Black Friday price is stated only for June. Confirm the conflicting age ranges and discount terms with the provider. The official website and address page were available through search text, but opening the homepage returned no readable text."
+      }
+    ]
+  }
+}

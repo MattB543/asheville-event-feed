@@ -1,0 +1,218 @@
+{
+  "provider": {
+    "key": "piedmont-council-scouting-america",
+    "name": "Piedmont Council, Scouting America",
+    "urls": [
+      "https://www.campbudschiele.org/campbudschiele/",
+      "https://www.campbudschiele.org/",
+      "https://www.campbudschiele.org/index.cfm",
+      "https://www.campbudschiele.org/content/100568/Homepage"
+    ],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:07:26.583Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "751df18b0516dde0a79b97ffe428ed8b1de56c024f6b2b6ab05f2beee1daa8e3",
+  "response": {
+    "searches": [
+      "site.campbudschiele.org 2027",
+      "open https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide-1.pdf",
+      "site.campbudschiele.org \"2027\" \"Week\"",
+      "open https://www.campbudschiele.org/scouts-bsa-summer-camp-registration/"
+    ],
+    "usage": {
+      "inputTokens": 27956,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1697,
+      "reasoningTokens": 371
+    },
+    "status": "completed",
+    "ms": 39144,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campbudschiele.org/campbudschiele/",
+      "chars": 3296,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/",
+      "chars": 2434,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/index.cfm",
+      "chars": 2414,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/content/100568/Homepage",
+      "chars": 2414,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/cubresidentcamp/",
+      "chars": 2741,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/07/Check-In-Instructions.pdf",
+      "chars": 3193,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/07/Pre-Health-Screening-Information.pdf",
+      "chars": 2586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/07/Week-2-Dining-Hall-Menu.pdf",
+      "chars": 1447,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Piedmont Council, Scouting America",
+    "website_url": "https://www.campbudschiele.org/",
+    "notes": "2027 Scouts BSA materials have been published, but the accessible text of the 2027 Leader's Guide stopped before the dates and fees. Scouts BSA dates below therefore retain the explicitly listed 2026 weeks and may not represent the complete season. An official index.cfm search result announces Cub Scout Resident Camp July 7–10, 2027, while the main homepage still displays its 2026 dates. Registration pages and Cub Scout guide pages returned no readable text.",
+    "excluded": [
+      {
+        "name": "Summer Camp Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Off-Season Rentals",
+        "reason": "Facility rentals, not a finite supervised summer youth program."
+      },
+      {
+        "name": "Freaky Fall Festival",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Cub Scout Odyssey",
+        "reason": "May 1–3, 2026 program outside summer."
+      },
+      {
+        "name": "Broad River District Freezoree",
+        "reason": "January program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Scouts BSA Summer Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Scouts participate in merit badge instruction, high-adventure activities, campfires and camp-wide events.",
+        "camp_page_url": "https://www.campbudschiele.org/campbudschiele/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-05",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Bud Schiele",
+            "address": "668 Boy Scout Road",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 3",
+            "start": "2026-07-05",
+            "end": "2026-07-11",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-07-12",
+            "end": "2026-07-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campbudschiele.org/campbudschiele/",
+          "https://www.campbudschiele.org/",
+          "https://www.campbudschiele.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide-1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Read pages 7–9 of the 2027 Leader's Guide for current dates, fees and registration procedures; the web extraction only exposed its introductory text. The season status reflects that 2027 dates were not accessible, not that 2027 materials are absent. Only Weeks 3 and 4 were listed in the supplied 2026 camp page. The March 15, 2026 milestone is merit badge selection, not camp registration opening."
+      },
+      {
+        "name": "Cub Scout Resident Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Resident summer camp for Cub Scouts.",
+        "camp_page_url": "https://www.campbudschiele.org/cubresidentcamp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-07",
+          "end": "2027-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Bud Schiele",
+            "address": "668 Boy Scout Road",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campbudschiele.org/index.cfm",
+          "https://www.campbudschiele.org/cubresidentcamp/",
+          "https://www.piedmontcouncilbsa.org/content/129834/Cub-Scout-Resident-Camp--June-28th--2026---July-1st--2026-"
+        ],
+        "confidence": "medium",
+        "review_notes": "July 7–10, 2027 is explicitly stated in the official index.cfm search result; opening that page returned no readable text. The main homepage still advertises June 28–July 1, 2026. Confirm the 2027 dates against the registration platform or updated Cub Scout Leader's Guide."
+      }
+    ]
+  }
+}

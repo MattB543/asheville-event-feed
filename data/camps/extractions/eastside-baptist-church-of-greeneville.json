@@ -1,0 +1,163 @@
+{
+  "provider": {
+    "key": "eastside-baptist-church-of-greeneville",
+    "name": "Eastside Baptist Church of Greeneville",
+    "urls": [
+      "https://eastsidebaptist.info/event/vbs-family-reunion/",
+      "https://eastsidebaptist.info/"
+    ],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:54.445Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "1c52347504e60f6daf8f626217768830d9891afc6a5cec586312786cfe0727b8",
+  "response": {
+    "searches": [
+      "site:eastsidebaptist.info \"Vacation Bible School\"",
+      "site:wilds.org \"1000\" \"Brevard\""
+    ],
+    "usage": {
+      "inputTokens": 22357,
+      "cachedInputTokens": 8845,
+      "outputTokens": 908,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 27614,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastsidebaptist.info/event/vbs-family-reunion/",
+      "chars": 1383,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastsidebaptist.info/",
+      "chars": 2113,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastsidebaptist.info/event/bibm-summer-meeting-2/",
+      "chars": 1340,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Eastside Baptist Church of Greeneville",
+    "website_url": "https://eastsidebaptist.info/",
+    "notes": "No church-specific summer 2027 camp information or registration dates found. Older VBS pages describe different years and were not used for 2026 ages or activities. The Wilds' general 2027 offerings do not establish this church group's 2027 dates.",
+    "excluded": [
+      {
+        "name": "Junkyard Jamboree VBS Family Reunion",
+        "reason": "Single-evening family reunion event, not a multi-day youth camp."
+      },
+      {
+        "name": "BIBM Summer Meeting",
+        "reason": "Mission organization meeting, not a supervised youth camp."
+      },
+      {
+        "name": "Kids4Truth and Ignite Youth Group",
+        "reason": "Year-round church programs, not finite summer camps."
+      },
+      {
+        "name": "Teen Extreme Camp at PCC",
+        "reason": "Camp in Pensacola, Florida, outside the local drive area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Eastside Baptist Church.",
+        "camp_page_url": "https://eastsidebaptist.info/event/vacation-bible-school-5/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Eastside Baptist Church",
+            "address": "195 Serral Drive",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastsidebaptist.info/event/vacation-bible-school-5/",
+          "https://eastsidebaptist.info/discover/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event page lists July 13–17 without an explicit year beside the dates; 2026 is taken from the current event-page context. Confirm the year and nightly hours; the calendar gives only the overall start and end times."
+      },
+      {
+        "name": "Teen and Junior Camp at The Wilds",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Teen and junior camp at The Wilds in Brevard, North Carolina.",
+        "camp_page_url": "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Rd",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
+          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/?ical=1",
+          "https://wilds.org/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

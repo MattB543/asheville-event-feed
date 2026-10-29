@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "dance-and-karate-express",
+    "name": "Dance and Karate Express",
+    "urls": ["https://www.danceandkarateexpress.com/summer-camp"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:13.893Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "51891e6dbcf7db0d74202512dd94d7bdcb89071c52eb2cd6884a959349da7f29",
+  "response": {
+    "searches": ["site:danceandkarateexpress.com summer camp 2027 2026"],
+    "usage": {
+      "inputTokens": 15315,
+      "cachedInputTokens": 8845,
+      "outputTokens": 592,
+      "reasoningTokens": 52
+    },
+    "status": "completed",
+    "ms": 16902,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.danceandkarateexpress.com/summer-camp",
+      "chars": 1142,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.danceandkarateexpress.com/blank-4",
+      "chars": 1824,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.danceandkarateexpress.com/blank-6",
+      "chars": 1567,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.danceandkarateexpress.com/",
+      "chars": 5492,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Dance and Karate Express",
+    "website_url": "https://www.danceandkarateexpress.com/",
+    "notes": "No dated 2026 or 2027 camp details were found. The camp page invites parents to call to reserve a spot; the general registration page describes class enrollment rather than camp registration.",
+    "excluded": [
+      {
+        "name": "Dance Classes",
+        "reason": "Ongoing dance classes, not a finite summer camp."
+      },
+      {
+        "name": "Karate Classes",
+        "reason": "Ongoing karate classes, not a finite summer camp."
+      },
+      {
+        "name": "Recital",
+        "reason": "A single performance event, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fairy Princess - Spiderman - Ninja Turtle Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A themed children's summer camp with activities and lessons.",
+        "camp_page_url": "https://www.danceandkarateexpress.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Dance and Karate Express",
+            "address": "605 W US Hwy 19 E",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.danceandkarateexpress.com/summer-camp",
+          "https://www.danceandkarateexpress.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated camp page does not specify the daily format or explicitly identify the drop-off site. Day-camp classification and use of the studio's published address should be confirmed with the provider. Activities are described only generally, so dance and karate categories have not been assumed."
+      }
+    ]
+  }
+}

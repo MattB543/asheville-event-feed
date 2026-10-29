@@ -1,0 +1,78 @@
+{
+  "provider": {
+    "key": "lake-junaluska-first-baptist-church-of-clyde",
+    "name": "Lake Junaluska First Baptist Church of Clyde",
+    "urls": ["https://www.ljfbc.org/vbs"],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:45.627Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "51f01a2787e9a4fdd1e3ea3e5f745937a5d29a29b24262ee0e23632c5abff832",
+  "response": {
+    "searches": ["\"Lake Junaluska First Baptist\" \"VBS\" \"2026\"", "\"ljfbc\" \"VBS\""],
+    "usage": {
+      "inputTokens": 16699,
+      "cachedInputTokens": 8845,
+      "outputTokens": 465,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 13867,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ljfbc.org/vbs",
+      "chars": 512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ljfbc.org/",
+      "chars": 846,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lake Junaluska First Baptist Church of Clyde",
+    "website_url": "https://www.ljfbc.org/",
+    "notes": "No 2027 announcement or dated 2026 VBS details were found. The supplied VBS page contains a CLICK TO REGISTER button, but its destination was not available in the readable page. Live opens of the VBS and contact pages returned no readable text.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Lake Junaluska First Baptist Church.",
+        "camp_page_url": "https://www.ljfbc.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.ljfbc.org/vbs", "https://www.ljfbc.org/"],
+        "confidence": "medium",
+        "review_notes": "The official VBS page confirms the offering but provides no dated schedule or eligibility details in the supplied text. Check the registration button destination for program details and venue. The church publishes its address as 154 Sunset Ridge Rd, Clyde, NC 28721, but the readable VBS page does not explicitly identify the camp location."
+      }
+    ]
+  }
+}

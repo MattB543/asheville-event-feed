@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "landrum-high-school-baseball",
+    "name": "Landrum High School Baseball",
+    "urls": ["https://landrumbaseball.com/camp-1"],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:14.912Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "42bfb1da09cc42cdbab0b2ef158deef411aaa9e86d163decfa6a60afc7c98004",
+  "response": {
+    "searches": [
+      "Landrum baseball camp 2026 2027 June",
+      "\"Landrum\" \"baseball camp\" \"2026\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 18894,
+      "cachedInputTokens": 8845,
+      "outputTokens": 641,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 19019,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://landrumbaseball.com/camp-1",
+      "chars": 1162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/spreadsheets/d/1IP4c06yVhANT7TIBkPR2LlLwIzSfGxrQdVJk3t3qBpk/edit?usp=sharing",
+      "chars": 2348,
+      "method": "fetch"
+    },
+    {
+      "url": "https://landrumbaseball.com/",
+      "chars": 1621,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Landrum High School Baseball",
+    "website_url": "https://landrumbaseball.com/",
+    "notes": "No 2027 camp information found. The official page advertises the 2026 camp, but its embedded registration and medical-release forms were not accessible in the readable page. Dates, eligibility, hours, prices and camp location could not be established.",
+    "excluded": [
+      {
+        "name": "2026 Baseball Schedules",
+        "reason": "School baseball team seasons and game schedules, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Landrum Baseball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Baseball camp offered by Landrum High School Baseball.",
+        "camp_page_url": "https://landrumbaseball.com/camp-1",
+        "registration_url": "https://landrumbaseball.com/camp-1",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://landrumbaseball.com/camp-1", "https://landrumbaseball.com/"],
+        "confidence": "low",
+        "review_notes": "The camp page confirms a 2026 offering but does not expose the embedded forms' contents. Check those forms for dates, ages, hours, price and drop-off venue, and confirm the day-camp format. The school's address was found on its official athletics page, but no readable camp source establishes that camp meets there, so no site was assigned."
+      }
+    ]
+  }
+}

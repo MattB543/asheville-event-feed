@@ -1,0 +1,758 @@
+{
+  "provider": {
+    "key": "model-united-nations-institute",
+    "name": "Model United Nations Institute",
+    "urls": ["https://muninstitute.com/pages/virtual-model-un-institute-summer-camp"],
+    "area": null,
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:58:15.050Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "087f4bd8569e8da54fe4b0c166c98cdff9069533b6ee0e447616cc098ad2ce1f",
+  "response": {
+    "searches": ["site:muninstitute.com \"2027\" \"Virtual\""],
+    "usage": {
+      "inputTokens": 30588,
+      "cachedInputTokens": 8845,
+      "outputTokens": 4890,
+      "reasoningTokens": 87
+    },
+    "status": "completed",
+    "ms": 81929,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://muninstitute.com/pages/virtual-model-un-institute-summer-camp",
+      "chars": 23165,
+      "method": "fetch"
+    },
+    {
+      "url": "https://muninstitute.com/products/virtual-model-un-institute-2026-registration-form-enroll-now",
+      "chars": 7599,
+      "method": "fetch"
+    },
+    {
+      "url": "https://muninstitute.com/pages/virtual-model-un-institute-2024-savings-code",
+      "chars": 3835,
+      "method": "fetch"
+    },
+    {
+      "url": "https://muninstitute.com/pages/mun-institute-summer-camp-dallas-texas",
+      "chars": 21089,
+      "method": "fetch"
+    },
+    {
+      "url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+      "chars": 24312,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Model United Nations Institute",
+    "website_url": "https://muninstitute.com/",
+    "notes": "Virtual camps are retained because Asheville families can participate from home; there are no local drop-off sites. No 2027 camp dates or registration opening dates were found. The savings page says to check back December 1 for Summer 2027 discount codes; this is not a registration opening announcement. Navigation says SOLD OUT while camp-page body text says camps are still enrolling, so availability is left null.",
+    "excluded": [
+      {
+        "name": "On Campus Model UN Institute",
+        "reason": "All listed campuses are outside the Asheville-area drive limit: Georgetown, Columbia, Boston University, UCLA, UC Berkeley, UC Irvine, Rutgers, and SMU."
+      },
+      {
+        "name": "Virtual MUN Advisor Institute",
+        "reason": "Training for teachers and parents, not a youth camp."
+      },
+      {
+        "name": "Tutoring",
+        "reason": "Individual lesson packages, not camps."
+      },
+      {
+        "name": "MUN Leadership Training",
+        "reason": "School-year training rather than a finite summer youth camp."
+      },
+      {
+        "name": "Best Delegate MUN Club",
+        "reason": "School-year programming."
+      },
+      {
+        "name": "Private Model UN Teams",
+        "reason": "After-school program running October 2026 through April 2027."
+      },
+      {
+        "name": "MUN Conferences",
+        "reason": "Conferences are excluded under the camp rule."
+      },
+      {
+        "name": "Club Accelerator",
+        "reason": "School club support and training, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Virtual Model United Nations Institute",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "Campers participate online in Model UN simulations, public speaking games, debates, and resolution writing. Beginner and experienced groups practice representing countries or leaders and negotiating solutions to global issues.",
+        "camp_page_url": "https://muninstitute.com/pages/virtual-model-un-institute-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "text": "Check Back December 1 for Summer 2027 Discount Codes!"
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Monday - Friday from 1-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 449,
+            "unit": "week",
+            "label": "Mini Diplomat, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 399,
+            "unit": "week",
+            "label": "Mini Diplomat, discounted, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 598,
+            "unit": "week",
+            "label": "Mini Diplomat, with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 548,
+            "unit": "week",
+            "label": "Mini Diplomat, discounted, with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 599,
+            "unit": "week",
+            "label": "Ages 11-18, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 549,
+            "unit": "week",
+            "label": "Ages 11-18, discounted, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 748,
+            "unit": "week",
+            "label": "Ages 11-18, with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 698,
+            "unit": "week",
+            "label": "Ages 11-18, discounted, with tutoring",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Beginner - Mini Diplomat",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Mini Diplomat",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Mini Diplomat",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Mini Diplomat",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Junior Diplomat",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Junior Diplomat",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Junior Diplomat",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Junior Diplomat",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Junior Diplomat",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Intermediate - Junior Ambassador",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Intermediate - Junior Ambassador",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Diplomat",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Diplomat",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Diplomat",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beginner - Diplomat",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced - Crisis",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced - Crisis",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced - Crisis",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://muninstitute.com/pages/virtual-model-un-institute-summer-camp",
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
+          "https://muninstitute.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Beginner Diplomat ages conflict: the overview and tuition table say 13-18, while the detailed description says 14-18; rows use the detailed description. The page labels Eastern hours EST during summer; 13:00-16:00 is treated as local Eastern time because its parallel Pacific and Central hours agree. SOLD OUT navigation conflicts with still-enrolling body text. The 2027 announcement concerns discount codes only, not dates or registration."
+      },
+      {
+        "name": "Public Speaking Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "Campers practice storytelling, speech structure, respectful debate, and speaking to an audience online. Activities include preparing a leadership campaign speech and practicing a job interview.",
+        "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-22",
+          "end": "2026-07-10",
+          "text": "Check Back December 1 for Summer 2027 Discount Codes!"
+        },
+        "ages": {
+          "min": 11,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Monday - Friday from 1-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 599,
+            "unit": "week",
+            "label": "without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 549,
+            "unit": "week",
+            "label": "first 5 students per class, with savings code, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 748,
+            "unit": "week",
+            "label": "with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 698,
+            "unit": "week",
+            "label": "discounted, with tutoring",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Middle School Public Speaking Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle School Public Speaking Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code",
+          "https://muninstitute.com/blogs/news/public-speaking-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. The official Public Speaking blog additionally lists July 20-24 and ages 11-17, conflicting with the detailed camp page, which lists only two middle-school weeks; rows follow the detailed camp page. SOLD OUT navigation conflicts with still-enrolling text. EST is treated as local Eastern time. The 2027 announcement is for discount codes only."
+      },
+      {
+        "name": "Social Skills Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "Campers practice starting conversations, building friendships, listening, and managing disagreements through online games, role-plays, and team activities.",
+        "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": "Check Back December 1 for Summer 2027 Discount Codes!"
+        },
+        "ages": {
+          "min": 11,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Monday - Friday from 1-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 599,
+            "unit": "week",
+            "label": "without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 549,
+            "unit": "week",
+            "label": "first 5 students per class, with savings code, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 748,
+            "unit": "week",
+            "label": "with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 698,
+            "unit": "week",
+            "label": "discounted, with tutoring",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Middle School Social Skills Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "High School Social Skills Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code"
+        ],
+        "confidence": "medium",
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. Introductory text says ages 11-17, while detailed bands and tuition table say 11-13 and 14-18; rows use the detailed bands. SOLD OUT navigation conflicts with still-enrolling body text. EST is treated as local Eastern time. The 2027 announcement concerns discount codes only."
+      },
+      {
+        "name": "U.S. Politics Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "Campers explore Congress, elections, lobbying, and campaign funding through online lessons, discussions, and political simulations. Activities include writing bills, creating campaigns, and studying U.S. immigration.",
+        "camp_page_url": "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": "Check Back December 1 for Summer 2027 Discount Codes!"
+        },
+        "ages": {
+          "min": 11,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Monday - Friday from 1-4pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 599,
+            "unit": "week",
+            "label": "without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 549,
+            "unit": "week",
+            "label": "first 5 students per class, with savings code, without tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 748,
+            "unit": "week",
+            "label": "with tutoring",
+            "year": 2026
+          },
+          {
+            "amount": 698,
+            "unit": "week",
+            "label": "discounted, with tutoring",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Middle School U.S. Politics Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "High School U.S. Politics Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial aid is available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://muninstitute.com/pages/virtual-public-speaking-us-politics-and-social-skills-summer-camp",
+          "https://muninstitute.com/pages/virtual-model-un-institute-savings-code"
+        ],
+        "confidence": "medium",
+        "review_notes": "The combined camp page does not explicitly print a season year; 2026 is inferred from the site's current summer materials. Introductory text says ages 11-17, while detailed bands and tuition table say 11-13 and 14-18; rows use the detailed bands. SOLD OUT navigation conflicts with still-enrolling body text. EST is treated as local Eastern time. The 2027 announcement concerns discount codes only."
+      }
+    ]
+  }
+}

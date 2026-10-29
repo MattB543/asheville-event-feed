@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "miller-eventing",
+    "name": "Miller Eventing",
+    "urls": [
+      "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+      "https://www.millereventing.com/"
+    ],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:43.124Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f3850ecf52936ed3a5dfc68408c37e9f343a2fc57029b6ec596b45a0009056c0",
+  "response": {
+    "searches": ["site.millereventing.com \"camp\" \"overnight\""],
+    "usage": {
+      "inputTokens": 16265,
+      "cachedInputTokens": 8845,
+      "outputTokens": 883,
+      "reasoningTokens": 85
+    },
+    "status": "completed",
+    "ms": 23355,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+      "chars": 1433,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/",
+      "chars": 3710,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp",
+      "chars": 1450,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/post/master-eventing-skills-at-our-summer-camp",
+      "chars": 6582,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Miller Eventing",
+    "website_url": "https://www.millereventing.com/",
+    "notes": "The 2027 event is posted at FENCE in Tryon; the provider's Clayton business address is not the camp venue. The homepage still promotes the 2026 event. No additional camp-specific pricing, youth age limits, registration opening date or lodging information was found.",
+    "excluded": [
+      {
+        "name": "Lessons",
+        "reason": "Individually booked riding lessons, not a finite summer camp."
+      },
+      {
+        "name": "Online Equine Coaching",
+        "reason": "Ongoing coaching service, not a finite supervised summer youth program."
+      },
+      {
+        "name": "Clinics",
+        "reason": "General bookable service with no specific local summer youth clinic dates or offering described."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Miller Eventing Summer Camp",
+        "type": "clinic",
+        "categories": ["horses"],
+        "description": "Riders practice dressage, cross-country and stadium jumping. Camp activities include riding lessons, group activities and a trail ride.",
+        "camp_page_url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+        "registration_url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-07",
+          "end": "2027-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Foothills Equestrian Nature Center",
+            "address": "3381 Hunting Country Rd",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Jul 07, 2027, 5:00 PM – Jul 11, 2027, 1:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+          "https://www.millereventing.com/",
+          "https://www.millereventing.com/post/master-eventing-skills-at-our-summer-camp",
+          "https://www.millereventing.com/event-list",
+          "https://www.fence.org/nature-center/nature-education-program-catalog/at_download/file"
+        ],
+        "confidence": "medium",
+        "review_notes": "Classified provisionally as a multi-day riding clinic: the official pages do not establish overnight accommodation or daily drop-off hours. Confirm the camp format and supervision of minors; the event says all ages, and the blog includes a 16-year-old testimonial alongside adult testimonials but gives no youth eligibility limits. The displayed start and end times are the overall event window, not daily camp hours. The blog mentions a lunch break but does not establish that lunch is provided."
+      }
+    ]
+  }
+}

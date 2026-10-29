@@ -1,0 +1,189 @@
+{
+  "provider": {
+    "key": "black-mountain-summer-camp",
+    "name": "Town of Black Mountain Recreation & Parks Summer Camp",
+    "urls": ["https://www.townofblackmountain.org/2540/Summer-Camp"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["pilot", "seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:52:56.281Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9f5b9a6f9e1dd6c0e9183d27f78b58eab2c0cd6b61ad3c346ec0791c21ada5b8",
+  "response": {
+    "searches": [
+      "site.townofblackmountain.org summer camp 2027 2026 registration",
+      "site:townofblackmountain.org \"camp\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 21268,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1219,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 28246,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+      "chars": 2816,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofblackmountain.org/AlertCenter.aspx",
+      "chars": 5202,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofblackmountain.org/AlertCenter.aspx?AID=102826-400-PM-Updates-to-Water-Line-Repa-228",
+      "chars": 4971,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bmrp.recdesk.com/Community/Program",
+      "chars": 1436,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.townofblackmountain.org/",
+      "chars": 2602,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Town of Black Mountain Recreation & Parks Summer Camp",
+    "website_url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+    "notes": "No summer 2027 camp dates or registration milestones were found. The registration platform's fetched program list did not expose camp details.",
+    "excluded": [
+      {
+        "name": "2026- 2027 Youth Indoor Soccer League",
+        "reason": "Winter sports league, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Black Mountain Summer Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts", "stem"],
+        "description": "Campers explore local pools, parks, walking trails, creeks and attractions, create arts and crafts, and experiment with STEM projects. They also play group games and participate in individual activities at the Grey Eagle Arena.",
+        "camp_page_url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+        "registration_url": "https://bmrp.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Grey Eagle Arena",
+            "address": "17 White Pine Drive",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 190,
+            "unit": "week",
+            "label": "Black Mtn Resident",
+            "year": 2026
+          },
+          {
+            "amount": 210,
+            "unit": "week",
+            "label": "Non – Resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.townofblackmountain.org/2540/Summer-Camp",
+          "https://bmrp.recdesk.com/Community/Program"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp weeks and fees have no explicit summer year; 2026 is taken from the page's reference to the 2025-2026 school year. The page requires a $50 deposit per camper per week, included in the weekly total, with the remaining balance due the Friday before that week. Camp is closed July 3."
+      }
+    ]
+  }
+}

@@ -1,0 +1,912 @@
+{
+  "provider": {
+    "key": "east-tennessee-state-university",
+    "name": "East Tennessee State University",
+    "urls": [
+      "https://news.etsu.edu/articles/2026-summer-camps",
+      "https://www.etsu.edu/coe/summer-camp/",
+      "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+      "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+      "https://www.etsu.edu/pharmacycamp",
+      "https://www.etsu.edu/coe/summer-camp/applied-stem/"
+    ],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:05.658Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "38188b2bb2f383dcb371e9146465e003dff8c136d7c406f3b51348bdbecaa6a1",
+  "response": {
+    "searches": [
+      "site.etsu.edu \"Future Nurse Explorers\" 2026",
+      "open https://etsubucs.com/sports/2023/7/24/_133347007970534047.aspx",
+      "site.coachmockbasketballcamps.com 2026",
+      "ETSU \"Mock\" \"camp\" \"2026\" \"June 22\""
+    ],
+    "usage": {
+      "inputTokens": 43064,
+      "cachedInputTokens": 8845,
+      "outputTokens": 5629,
+      "reasoningTokens": 370
+    },
+    "status": "completed",
+    "ms": 112590,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://news.etsu.edu/articles/2026-summer-camps",
+      "chars": 5633,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/",
+      "chars": 4168,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+      "chars": 4237,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+      "chars": 4897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+      "chars": 2187,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/enrichment.php",
+      "chars": 2582,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/applied-stem/default.php",
+      "chars": 4357,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/cas/das/bluegrass/areas-of-study/summer-offering.php",
+      "chars": 2681,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Tennessee State University",
+    "website_url": "https://www.etsu.edu/",
+    "notes": "2027 dates are posted for Bluegrass, GattonRx and Applied STEM; other cards retain 2026 information. The duplicate existing Bluegrass names have been separated into overnight and day cards. The athletics directory also links football, baseball, men's soccer, softball and volleyball camps, but specific summer offerings were not recovered in this research. Several registration pages returned no readable body. No university-wide 2027 program list was found.",
+    "excluded": [
+      {
+        "name": "Mixed Media & Crafting Camp",
+        "reason": "March 15–19 spring enrichment camp, outside summer."
+      },
+      {
+        "name": "Fall, Winter, and Spring Enrichment",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Summer Courses",
+        "reason": "University course offerings, not a finite supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Renaissance Child Camps",
+        "type": "day",
+        "categories": ["stem", "arts", "general"],
+        "description": "Campers rotate through science, art, technology and team-building activities, with field trips and cooking activities during selected weeks.",
+        "camp_page_url": "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+        "registration_url": "https://etsuaw.etsu.edu/wconnect/CourseStatus.awp?Publish=ANYWAY&course=262-9005A-8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "We cannot wait to see everyone for camp in 2027."
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Warf-Pickel Hall",
+            "address": "128 David Collins Way",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:30",
+          "text": "Drop-off takes place from 7:45–8:10 AM, and pick-up is from 4:30–5:00 PM."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Discoverers",
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Explorers",
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Adventurers",
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Voyagers",
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "A packed lunch (no microwavable food stuffs — we do not have access to one)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.etsu.edu/coe/summer-camp/",
+          "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+          "https://etsuaw.etsu.edu/wconnect/CourseStatus.awp?Publish=ANYWAY&course=262-9005A-8",
+          "https://www.etsuhealth.org/locations/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration lists Adventurers as rising grades 3–4; the home page lists rising grade 4 only. Registration gives 8 AM–5 PM, while the home page distinguishes instruction ending at 4:30 from pickup ending at 5. Weekly themes and fees were not recoverable; the registration's $0 appears to be a container price and was omitted. ETSU Health publishes 128 David Collins Way; the continuing-education location listing uses 128 North Dossett Drive."
+      },
+      {
+        "name": "ETSU Bluegrass Summer Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Young musicians take instrumental and vocal lessons, receive band coaching, explore a recording laboratory and learn bluegrass history. Activities include jams, square dances, concerts and campus tours.",
+        "camp_page_url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-09",
+          "text": "ETSU BLUEGRASS SUMMER CAMP JULY 5-9, 2027!"
+        },
+        "ages": {
+          "min": 12,
+          "max": 19
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University main campus",
+            "address": "1276 Gilbreath Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "program",
+            "label": "on-site, room and board",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for 2027 will begin on January 15th, 2027.",
+            "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have a limited number of scholarships available for students with financial need."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are included in the camp fee."
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/cas/das/bluegrass/summer-camp.php"],
+        "confidence": "medium",
+        "review_notes": "The page mixes its 2027 heading and registration date with a 2026 schedule reference and a January 2025 payment paragraph. Pricing is retained as 2026 pending confirmation of 2027 fees. The scholarship deadline lacks a year and was not extracted. Overnight lodging is Governor's Hall; a specific check-in location is not given."
+      },
+      {
+        "name": "ETSU Bluegrass Summer Camp (day)",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Off-site participants join instrumental and vocal instruction, band coaching, jams, concerts and other Bluegrass Summer Camp activities.",
+        "camp_page_url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-09",
+          "text": "ETSU BLUEGRASS SUMMER CAMP JULY 5-9, 2027!"
+        },
+        "ages": {
+          "min": 12,
+          "max": 19
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University main campus",
+            "address": "1276 Gilbreath Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "program",
+            "label": "off-site",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for 2027 will begin on January 15th, 2027.",
+            "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have a limited number of scholarships available for students with financial need."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are included in the camp fee."
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/cas/das/bluegrass/summer-camp.php"],
+        "confidence": "medium",
+        "review_notes": "Added the day suffix to distinguish the off-site option from overnight despite duplicate existing names. The page mixes 2027 information with older schedule and payment text; confirm 2027 pricing. No current day-participant hours are given."
+      },
+      {
+        "name": "GattonRx Summer Camp",
+        "type": "overnight",
+        "categories": ["academic", "stem"],
+        "description": "High school students explore the pharmacy profession through hands-on activities, interaction with Gatton students and faculty, and campus tours.",
+        "camp_page_url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-06-11",
+          "text": "June 6-11, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "program",
+            "label": "double occupancy room",
+            "year": 2027
+          },
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": "single occupancy room",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Applications open February 1, 2027.",
+            "url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for those who qualify."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+          "https://news.etsu.edu/articles/2026-summer-camps"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Applied STEM Foundations Summer Institution",
+        "type": "pre_college",
+        "categories": ["stem", "academic"],
+        "description": "Students explore STEM majors and careers through lectures, hands-on activities, field trips and speaker presentations. Technology and Health Experience tracks cover different academic fields.",
+        "camp_page_url": "https://www.etsu.edu/coe/summer-camp/applied-stem/default.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-06-18",
+          "text": "Applied STEM Institute May 31 - June 18, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Applied STEM Technology track",
+            "start": "2027-05-31",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Applied STEM Health Experience track",
+            "start": "2027-05-31",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost $75 - Lunch provided"
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/coe/summer-camp/applied-stem/default.php"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Future Nurse Explorers Camp",
+        "type": "day",
+        "categories": ["stem", "academic"],
+        "description": "Campers learn CPR and basic first aid and explore health-care careers. Activities also include a ropes course and other summer activities.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": "https://epay.goldlink.etsu.edu/C20071_ustores/web/product_detail.jsp?PRODUCTID=1140",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The full week costs $200, which includes lunch each day and a T-shirt."
+        },
+        "transportation": null,
+        "sources": [
+          "https://news.etsu.edu/articles/2026-summer-camps",
+          "https://epay.goldlink.etsu.edu/C20071_ustores/web/product_detail.jsp?PRODUCTID=1140"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Youth Skills Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Boys practice basketball fundamentals, compete in contests and play three-on-three and five-on-five games with instruction from ETSU staff and players.",
+        "camp_page_url": "https://www.coachsavagehoops.com/",
+        "registration_url": "https://register.ryzer.com/camp.cfm?id=324548",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Gordon Ball Practice Gym (MiniDome)",
+            "address": null,
+            "town": "Johnson City",
+            "state": "TN"
+          },
+          {
+            "name": "Brooks Gymnasium",
+            "address": null,
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "K–2nd grade",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 137,
+              "unit": "program",
+              "label": "including fees",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "3rd–7th grade",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 269,
+              "unit": "program",
+              "label": "including fees",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers will need to bring their own lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://register.ryzer.com/camp.cfm?id=324548",
+          "https://etsubucs.com/news/2026/5/8/mens-basketball-brooks-savage-youth-skills-camp-set-for-june-15-18.aspx"
+        ],
+        "confidence": "medium",
+        "review_notes": "Both gyms are listed as camp locations, without assigning grade bands to a particular gym or identifying a single drop-off site. Official street addresses were not recovered; Brooks Gym's third-party address is 1127 John Robert Bell Drive."
+      },
+      {
+        "name": "Women's Soccer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn soccer fundamentals and game strategies with ETSU women's soccer players and coaches.",
+        "camp_page_url": "https://www.etsusoccer.com/day-camps.cfm",
+        "registration_url": "https://www.etsusoccer.com/camps_clinics.cfm",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "ETSU Soccer Complex",
+            "address": null,
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and a camp T-shirt are provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://news.etsu.edu/articles/2026-summer-camps",
+          "https://www.etsusoccer.com/day-camps.cfm",
+          "https://register.ryzer.com/camp.cfm?id=325604"
+        ],
+        "confidence": "medium",
+        "review_notes": "The news article says ages 5 and up with a half-day option for children under 5, but supplies no minimum age for that option; overall ages left null. End dates follow the article's four-day session lengths. Camp pages returned empty bodies; venue and lunch details were visible in official search snippets. An official venue street address was not recovered."
+      },
+      {
+        "name": "Elite ID Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Soccer players take part in collegiate-style training and match play, including separate goalkeeper training.",
+        "camp_page_url": "https://www.etsusoccer.com/etsu-elite-id-camp.cfm",
+        "registration_url": "https://register.ryzer.com/camp.cfm?id=332786",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-11",
+          "end": "2026-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Summer Taylor Soccer Complex",
+            "address": null,
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "9:00 AM - 11:00 AM, 2:00 PM - 4:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 164,
+            "unit": "program",
+            "label": "including fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://register.ryzer.com/camp.cfm?id=332786",
+          "https://news.etsu.edu/articles/2026-summer-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price and split hours were read through the official registration search result. The registration also admits college players. An official venue street address was not recovered."
+      },
+      {
+        "name": "Women's Basketball Day Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Girls work on basketball game skills and teamwork with the ETSU women's basketball coach and team.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and a T-shirt are provided, and half-day options are available."
+        },
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "medium",
+        "review_notes": "The official news article calls this a two-day program but gives June 22–24, a three-day span. Confirm dates and location with the camp organizer; the specific camp registration page was not recovered."
+      },
+      {
+        "name": "Women's Basketball Elite Camps",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players work on basketball game skills and teamwork with the ETSU women's basketball coach and team.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-13",
+            "end": "2026-06-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-08",
+            "end": "2026-08-08",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and a T-shirt are provided"
+        },
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

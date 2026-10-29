@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "first-presbyterian-church-of-spruce-pine",
+    "name": "First Presbyterian Church of Spruce Pine",
+    "urls": [
+      "https://www.firstpressprucepine.org/vbs-2025-more-info",
+      "https://www.firstpressprucepine.org/home"
+    ],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:45.207Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4d75d8cd6b18e5521547d6f0df9ed589bb7e4e75d21280c59ec5fa566e304ef0",
+  "response": {
+    "searches": [
+      "site:firstpressprucepine.org VBS 2026 2027",
+      "site:firstpressprucepine.org \"2026\" \"July\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 18939,
+      "cachedInputTokens": 8845,
+      "outputTokens": 643,
+      "reasoningTokens": 144
+    },
+    "status": "completed",
+    "ms": 26089,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstpressprucepine.org/vbs-2025-more-info",
+      "chars": 2401,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstpressprucepine.org/home",
+      "chars": 1522,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstpressprucepine.org/",
+      "chars": 2136,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Presbyterian Church of Spruce Pine",
+    "website_url": "https://www.firstpressprucepine.org/",
+    "notes": "No 2027 camp information found. The official VBS page confirms that VBS ran in 2026 but provides only its theme and participating churches. The detailed page is explicitly for 2025; its dates, eligibility, hours, dinner and host venue have not been carried forward. Web access to the provider domain was blocked by robots.txt; supplied page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "Youth Group",
+        "reason": "Regular youth-group gatherings, outings, lock-ins and mission trips are not summer camps."
+      },
+      {
+        "name": "Pet Blessing",
+        "reason": "Single community worship event, not a supervised summer youth program."
+      },
+      {
+        "name": "Living Nativity",
+        "reason": "Christmas event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with the 2026 theme God's Good Creation (Genesis 1:1-2:3), organized with Central Baptist, First Presbyterian of Spruce Pine, Spruce Pine United Methodist and Trinity Episcopal churches.",
+        "camp_page_url": "https://www.firstpressprucepine.org/home",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.firstpressprucepine.org/home"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

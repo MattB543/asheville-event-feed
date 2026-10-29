@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "mtb-skills-factory",
+    "name": "MTB Skills Factory",
+    "urls": ["https://www.mtbskillsfactory.com/youth-camps"],
+    "area": "Cedar Mountain, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:09.358Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "544af0ca9d109a6372b7e4e1a04b69fbcca0fcc1e5a0644397c8308b54d214fc",
+  "response": {
+    "searches": [
+      "site:mtbskillsfactory.com \"2027\" camp",
+      "Guion Farm access area site:dupontstaterecreationalforest.com address",
+      "site:ncagr.gov \"Guion\" \"3045\""
+    ],
+    "usage": {
+      "inputTokens": 25963,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1403,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 35073,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mtbskillsfactory.com/youth-camps",
+      "chars": 14433,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mtbskillsfactory.com/",
+      "chars": 6381,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "MTB Skills Factory",
+    "website_url": "https://www.mtbskillsfactory.com/",
+    "notes": "No 2027 camp information or registration milestones found. The official youth-camps page lists the 2026 lineup. Beech Mountain and Rocky Knob are plainly outside the approximately 75-minute Asheville service area. Booking content on the skills-lessons-clinics-camps page could not be read.",
+    "excluded": [
+      {
+        "name": "Gravity Camp at Beech Mountain Bike Park",
+        "reason": "Held at Beech Mountain Resort, outside the approximately 75-minute drive area from Asheville."
+      },
+      {
+        "name": "Rocky Knob youth mountain bike camp",
+        "reason": "Rocky Knob Bike Park near Boone is outside the approximately 75-minute drive area; no session dates appear in the 2026 lineup."
+      },
+      {
+        "name": "Mountain Bike Private Lessons",
+        "reason": "Booked as private lessons, not a finite summer camp."
+      },
+      {
+        "name": "Strength Training + Skills Coaching Packages",
+        "reason": "Ongoing monthly training rather than a finite summer youth program."
+      },
+      {
+        "name": "Mountain Bike Skills Instructor Training",
+        "reason": "Professional certification and staff development rather than a youth summer camp."
+      },
+      {
+        "name": "Blacksburg VA Skills Clinic Weekend",
+        "reason": "Outside summer and outside the Asheville service area."
+      },
+      {
+        "name": "DuPont Forest Fest",
+        "reason": "Festival outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Day Camps for Youth Mountain Bikers",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice mountain bike skills on trails and skills features, with morning and afternoon rides, bike games, and off-bike activities. Riders must already be able to ride, brake, shift gears, and have some trail experience.",
+        "camp_page_url": "https://www.mtbskillsfactory.com/youth-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Guion Farm Trailhead",
+            "address": "3015 Sky Valley Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "15:30",
+          "text": "Camp runs 9:30am-3:30pm each day. DropOff is from 9-9:30am and PickUp is from 3:30-4pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 449,
+            "unit": "session",
+            "label": "Early bird through March 31; 5-day camp",
+            "year": 2026
+          },
+          {
+            "amount": 495,
+            "unit": "session",
+            "label": "After March 31; 5-day camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "DuPont State Forest",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "DuPont State Forest",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mtbskillsfactory.com/youth-camps",
+          "https://www.mtbskillsfactory.com/group-clinics/dupont-forest-fest-2025",
+          "https://www.mtbskillsfactory.com/group-clinics/womens-fundamentals-dupont",
+          "https://www.dupontforest.com/access-parking/guion-farm/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guion Farm street addresses conflict: the provider's 2025 DuPont Forest Fest listing gives 3015 Sky Valley Road, while its 2024 Women's Fundamentals clinic gives 3045 Sky Valley Road. Used the more recent provider listing; the forest's access-area page supplies directions but no street number. Confirm the camp drop-off street number. Dates and prices are stated under the official 2026 camp lineup."
+      }
+    ]
+  }
+}

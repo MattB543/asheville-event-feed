@@ -1,0 +1,210 @@
+{
+  "provider": {
+    "key": "asheville-jewish-community-center",
+    "name": "Asheville Jewish Community Center",
+    "urls": [
+      "https://www.jcc-asheville.org/camp-ruach/",
+      "https://www.jcc-asheville.org/youth/camp-ruach/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:54:48.866Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a637056c9039b9d546282fa02e822507f7f97cc1298e52d3dc8e57c7e16a70c4",
+  "response": {
+    "searches": [
+      "site:jcc-asheville.org \"2027\" \"camp\"",
+      "open https://www.jcc-asheville.org/camp-ruach/",
+      "site:jcc-asheville.org \"Camp Ruach\" \"8:30\""
+    ],
+    "usage": {
+      "inputTokens": 30019,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1455,
+      "reasoningTokens": 211
+    },
+    "status": "completed",
+    "ms": 36729,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jcc-asheville.org/camp-ruach/",
+      "chars": 8709,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/youth/camp-ruach/",
+      "chars": 8709,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/tuition-financial-aid/",
+      "chars": 4051,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/wp-content/uploads/2026/06/2026-2027-Shalom-HH-Tuition-Rates.docx-1.pdf",
+      "chars": 712,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/wp-content/uploads/2026/09/JCC-Fall-Pool-Schedule-2026.pdf-5.pdf",
+      "chars": 167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/summer-series/",
+      "chars": 2650,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcc-asheville.org/",
+      "chars": 4753,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Jewish Community Center",
+    "website_url": "https://www.jcc-asheville.org/",
+    "notes": "2027 Camp Ruach start date and registration opening are posted, but no ending date or weekly schedule was found. The linked 2026 handbook was only partially readable through the web tool. Tikvah appears in a standing scholarship policy but not in the posted 2027 program list, so no Tikvah card is included. Direct registration and LIT application destinations could not be recovered.",
+    "excluded": [
+      {
+        "name": "JCC Kids After-School",
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Shalom Children’s Center and Hilde’s House",
+        "reason": "Year-round early education and childcare."
+      },
+      {
+        "name": "AJCC Swim Team",
+        "reason": "Sports team seasons, not camp."
+      },
+      {
+        "name": "Swim and Dive Lessons",
+        "reason": "Lessons booked as lessons."
+      },
+      {
+        "name": "Camp Ruach Winter Session",
+        "reason": "Winter-break program outside summer."
+      },
+      {
+        "name": "Summer Series",
+        "reason": "Fundraising gatherings and arts events, not supervised youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Ruach",
+        "type": "day",
+        "categories": ["general", "faith_based"],
+        "description": "Campers participate in weekly themed activities, games, and special events rooted in Jewish values. The program celebrates Shabbat on Fridays with challah and blessings.",
+        "camp_page_url": "https://www.jcc-asheville.org/camp-ruach/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": null,
+          "text": "The fun begins on June 14, 2027!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Jewish Community Center",
+            "address": "236 Charlotte Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-15",
+            "time": "08:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Register for Summer 2027 beginning Mon., Feb. 15 at 8am!",
+            "url": "https://www.jcc-asheville.org/camp-ruach/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available through the Esther and Hyman Burstein Scholarship."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jcc-asheville.org/camp-ruach/",
+          "https://www.jcc-asheville.org/",
+          "https://www.jcc-asheville.org/tuition-financial-aid/",
+          "https://www.jcc-asheville.org/wp-content/uploads/2026/04/JCC-Youth-Programs-2026-Handbook-1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page lists rising grades 1–7 for campers and grades 8–10 for LITs, while the homepage describes Camp Ruach as rising grades 1–9; the program-specific page was used. The camp page's $375 weekly tuition and April 1 payment deadline lack an explicit season year and sit below a 2026 handbook link, so they were not assigned to either year. Age-band rows cannot be created without a season ending date. The standing March 1 annual scholarship deadline was not projected into 2027."
+      },
+      {
+        "name": "Leaders in Training Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Teens help plan and run camp activities and support senior staff. They receive training, activities, and discussions focused on communication, work ethic, and leadership.",
+        "camp_page_url": "https://www.jcc-asheville.org/camp-ruach/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Apply today to become a Summer 2027 LIT"
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Jewish Community Center",
+            "address": "236 Charlotte Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jcc-asheville.org/camp-ruach/", "https://www.jcc-asheville.org/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

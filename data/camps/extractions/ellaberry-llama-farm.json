@@ -1,0 +1,138 @@
+{
+  "provider": {
+    "key": "ellaberry-llama-farm",
+    "name": "Ellaberry Llama Farm",
+    "urls": ["https://ellaberryllamafarm.com/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:15:29.887Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f5d3bdc32896a773f14a59a4c313b4f99e583cee4e0c2d3811532dfdd90772e9",
+  "response": {
+    "searches": [
+      "site:ellaberryllamafarm.com camp",
+      "\"Ellaberry\" \"camp\" \"2026\"",
+      "\"Ellaberry\" \"camp\" site:simpletix.com"
+    ],
+    "usage": {
+      "inputTokens": 30070,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1033,
+      "reasoningTokens": 184
+    },
+    "status": "completed",
+    "ms": 31465,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ellaberryllamafarm.com/",
+      "chars": 3696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ellaberryllamafarm.com/faq/",
+      "chars": 3247,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ellaberry Llama Farm",
+    "website_url": "https://ellaberryllamafarm.com/",
+    "notes": "No 2027 summer camp information was found on the official website or its SimpleTix calendar. The existing summer camp is retained using a 2026 third-party listing; its dates, ages, activities, hours and price could not be confirmed on a current official camp page. No official registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Farm Tours",
+        "reason": "Year-round family agritourism tours, not a supervised youth camp."
+      },
+      {
+        "name": "Orchard Trek",
+        "reason": "Family guided hikes, not a supervised youth camp."
+      },
+      {
+        "name": "Adult Day Camp",
+        "reason": "Marketed as an adult-tailored experience rather than a youth program."
+      },
+      {
+        "name": "Homeschool Day",
+        "reason": "An educational farm tour outside summer."
+      },
+      {
+        "name": "Toddler Day",
+        "reason": "A farm visit event outside summer."
+      },
+      {
+        "name": "Cookies & Canvas",
+        "reason": "Listed dates are outside summer."
+      },
+      {
+        "name": "Needle Felting Class",
+        "reason": "Listed dates are outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ellaberry Llama Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Campers learn to care for and groom llamas and hike with them. Activities include llama showing, creek activities, painting, needle felting and crafts.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ellaberry Llama Farm",
+            "address": "4198 Old Clear Creek Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 425,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ellaberryllamafarm.com/",
+          "https://ellaberryllamafarm.com/contact-us/",
+          "https://ellaberryllamafarm.com/events/",
+          "https://ellaberryllamafarm.simpletix.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, ages, hours, price and activities come from https://kiddingaroundgreenville.com/listing/summer-camp-ellaberry-llama-farm, which explicitly labels June 8–12 as 2026 and states a $150 deposit. Confirm these facts with the provider before publication; no current official summer camp page was found. The farm address is confirmed by its official contact page, but a camp-specific drop-off location was not separately stated."
+      }
+    ]
+  }
+}

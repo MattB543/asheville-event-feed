@@ -1,0 +1,134 @@
+{
+  "provider": {
+    "key": "dutch-cove-baptist-church-of-canton",
+    "name": "Dutch Cove Baptist Church of Canton",
+    "urls": [
+      "https://dutchcove.org/vbs-parent-handbook",
+      "https://dutchcove.org/vbs-amp-summer-summit",
+      "https://dutchcove.org/"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:48.362Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e30f2e11e69d7d7d9062dac4f70673d02cf8331a89ae40617c6a2a39bd2beb6c",
+  "response": {
+    "searches": [
+      "site:dutchcove.org \"2027\" \"VBS\"",
+      "open https://dutchcove.org/vbs-registration"
+    ],
+    "usage": {
+      "inputTokens": 15677,
+      "cachedInputTokens": 8845,
+      "outputTokens": 853,
+      "reasoningTokens": 116
+    },
+    "status": "completed",
+    "ms": 28041,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://dutchcove.org/vbs-parent-handbook",
+      "chars": 7508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dutchcove.org/vbs-amp-summer-summit",
+      "chars": 756,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dutchcove.org/",
+      "chars": 1563,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn",
+      "chars": 1297,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register",
+      "chars": 630,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Dutch Cove Baptist Church of Canton",
+    "website_url": "https://dutchcove.org/",
+    "notes": "No 2027 information was found. Summer Summit has an official registration page, but no readable program details were available there or on the VBS & Summer Summit page; no separate card could be established.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Emerald Crossing Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Psalm 23 through Bible teaching, songs, crafts and games with an Ireland theme. Each evening includes dinner.",
+        "camp_page_url": "https://dutchcove.org/vbs-parent-handbook",
+        "registration_url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Dutch Cove Baptist Church",
+            "address": "4161 Dutch Cove Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00 pm to 8:30 pm - Every Night!"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "For transportation needs, call (828) 648-0406"
+        },
+        "sources": [
+          "https://dutchcove.org/vbs-parent-handbook",
+          "https://dutchcove.org/",
+          "https://dutchcove.org/vbs-registration",
+          "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn",
+          "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official VBS registration search snippet states ages 4 through fifth grade, but prints Sunday, June 13th–Thursday, June 18th without a year. The handbook and Subsplash event explicitly state June 14–18, 2026; those dates are used here. The registration page returned no readable body when opened. Its 5:30 pm nightly registration time is not treated as a seasonal registration opening or extended care."
+      }
+    ]
+  }
+}

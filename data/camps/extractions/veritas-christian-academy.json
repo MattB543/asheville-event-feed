@@ -1,0 +1,927 @@
+{
+  "provider": {
+    "key": "veritas-christian-academy",
+    "name": "Veritas Christian Academy",
+    "urls": ["https://www.veritasnc.org/camp-veritas"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:07:02.385Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "04baf4f42e03a665588e3cec905b6a71cd4cbf56e1d26300ff70ade44a1bc1da",
+  "response": {
+    "searches": ["site:veritasnc.org \"camp\" \"2027\""],
+    "usage": {
+      "inputTokens": 19100,
+      "cachedInputTokens": 8845,
+      "outputTokens": 6655,
+      "reasoningTokens": 78
+    },
+    "status": "completed",
+    "ms": 110032,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.veritasnc.org/camp-veritas",
+      "chars": 1093,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/copy-of-apply-now-1",
+      "chars": 3039,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/copy-of-tuition-assistance",
+      "chars": 2569,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+      "chars": 3388,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/questions",
+      "chars": 8892,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/event-info/camp-veritas-week1",
+      "chars": 1355,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/event-info/camp-veritas-week2",
+      "chars": 1355,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.veritasnc.org/",
+      "chars": 2781,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Veritas Christian Academy",
+    "website_url": "https://www.veritasnc.org/",
+    "notes": "No summer 2027 camp information was found. Cards use the 2026 camp guide and event pages. The guide's dates do not print a year; the camp page labels it the 2026 CAMP GUIDE and the event pages confirm 2026. The 2026 early-bird discount required registration before May 22; this is not a 2027 registration milestone. Camp Early Bird and Aftercare are included as extended care rather than separate programs. School tuition assistance is not evidence of camp financial aid.",
+    "excluded": [
+      {
+        "name": "School AfterCare",
+        "reason": "School-year childcare offered on days school is in session, not a summer camp."
+      },
+      {
+        "name": "Veritas athletic teams",
+        "reason": "School sports teams and seasons, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Basketball",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice basketball fundamentals through competitive skill-building games and Biblical teamwork principles. Includes a game ball.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6–10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13–17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. The guide does not explain supervision between morning camp ending at noon and Aftercare starting at 3:30 p.m."
+      },
+      {
+        "name": "Bible Adventure",
+        "type": "half_day",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible study, praise, crafts including tie dye, outdoor recreation, and splash day.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 135,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6–10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13–17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Eligibility is stated as 4 years–Rising 3rd. The guide does not explain supervision between morning camp and afternoon Aftercare."
+      },
+      {
+        "name": "Common Arts",
+        "type": "half_day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers do woodworking, fabric arts, gardening, and archery activities. The older group's Common Arts & Bushcraft week also includes advanced camping skills.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Common Arts",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Common Arts & Bushcraft",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Common Arts & Bushcraft is grouped as the older-age session of Common Arts. Guide dates are assigned to 2026 using the camp-page heading and event pages. The guide does not explain supervision between morning camp and afternoon Aftercare."
+      },
+      {
+        "name": "Soccer Skills",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice foundational soccer skills including dribbling, passing, receiving, and defending. The older group's week includes team-building.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6–10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13–17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. The guide does not explain supervision between morning camp and afternoon Aftercare."
+      },
+      {
+        "name": "Book Adventures",
+        "type": "half_day",
+        "categories": ["academic", "arts"],
+        "description": "Campers bring books to life through games, crafts, and themed snacks.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 135,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6–10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13–17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
+      },
+      {
+        "name": "Dart Camp",
+        "type": "half_day",
+        "categories": ["sports", "general"],
+        "description": "Campers play Nerf-style dart games and participate in daily water activities.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/event-info/camp-veritas-week1",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 session",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
+      },
+      {
+        "name": "Spanish Fun",
+        "type": "half_day",
+        "categories": ["academic", "faith_based"],
+        "description": "Campers learn Spanish through songs, conversation, books, crafts, dance, and games. Activities include outdoor play, piñatas, and Friday water games.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "July 6–10: 12:30 p.m. – 3:30 p.m.; July 13–17: 9:00 a.m. – Noon"
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 135,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "July 6–10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "12:30",
+              "end": "15:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13–17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 sessions",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week1",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event pages. Eligibility is stated as 4 years–Rising 3rd. Extended-care supervision outside the stated care periods and camp hours is not explained."
+      },
+      {
+        "name": "Game On! Variety Camp",
+        "type": "half_day",
+        "categories": ["general"],
+        "description": "Campers play indoor and outdoor creative games with new surprise activities daily.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/event-info/camp-veritas-week2",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 session",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
+      },
+      {
+        "name": "Sign Language & Movement",
+        "type": "half_day",
+        "categories": ["academic", "dance"],
+        "description": "Campers learn sign language phrases and songs paired with creative movement.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/event-info/camp-veritas-week2",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:30",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 135,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 session",
+          "text": "Tickets are not on sale"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf",
+          "https://www.veritasnc.org/event-info/camp-veritas-week2"
+        ],
+        "confidence": "medium",
+        "review_notes": "Guide dates are assigned to 2026 using the camp-page heading and dated event page. Eligibility is stated as 4's–Rising 3rd. Early Bird is available to any enrolled child, but supervision between 8:45 a.m. and afternoon camp is not explained."
+      },
+      {
+        "name": "Girls Volleyball Academy",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Girls receive serving, passing, and setting instruction for all skill levels with Coaches Donna Russell and Mrs. Pritz.",
+        "camp_page_url": "https://www.veritasnc.org/camp-veritas",
+        "registration_url": "https://www.veritasnc.org/camp-veritas",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Veritas Christian Academy",
+            "address": "17 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "15:30",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Early Bird (8:00–8:45 a.m.) - $50/week; Aftercare (3:30–5:00 p.m.) – $75/week"
+        },
+        "prices": [
+          {
+            "amount": 110,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.veritasnc.org/camp-veritas",
+          "https://www.veritasnc.org/_files/ugd/a794af_a78d40633aec491388b79be047be8c2d.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 guide lists Volleyball Academy separately from the dated weekly schedules and does not explicitly specify which week or weeks it meets; dates and sessions are left empty. Rising Juniors is interpreted as rising grade 11. Early Bird and Aftercare are stated as available to any child enrolled in Camp Veritas, but Early Bird does not provide documented supervision through this clinic's afternoon start."
+      }
+    ]
+  }
+}

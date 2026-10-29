@@ -1,0 +1,89 @@
+{
+  "provider": {
+    "key": "carson-s-chapel-of-marion",
+    "name": "Carson’s Chapel of Marion",
+    "urls": ["https://www.facebook.com/Carson-Chapel-139524459420270"],
+    "area": "Marion, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:22:43.068Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Carson Chapel Marion vacation bible school 2026",
+      "site:facebook.com \"Carson\" \"Chapel\" \"July 31\""
+    ],
+    "usage": {
+      "inputTokens": 20294,
+      "cachedInputTokens": 8845,
+      "outputTokens": 789,
+      "reasoningTokens": 219
+    },
+    "status": "completed",
+    "ms": 23044,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/Carson-Chapel-139524459420270",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carson’s Chapel of Marion",
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 camp information was found. The supplied Facebook page returned no readable content. A 2026 VBS listing was found on AllEvents and HappeningNext, but could not be confirmed on readable official pages.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A two-day Vacation Bible School with songs and games.",
+        "camp_page_url": "https://www.facebook.com/Carson-Chapel-139524459420270",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-31",
+          "end": "2026-08-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carson's Chapel",
+            "address": "2561 Toms Creek Rd",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "19:00",
+          "text": "5-7 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Confirm dates, hours, activities and drop-off address with the church. These details came only from third-party listings: https://allevents.in/marion/vacation-bible-school-july-31-aug-1-5-7-pm/200030382166427 and https://happeningnext.com/event/vacation-bible-school-july-31-aug-1-5-7-pm-eid3a0dwt9cd4. AllEvents explicitly labels the event July 31, 2026; HappeningNext describes a two-day event July 31-August 1. The church's Facebook page could not be read, and no venue-published address was accessible. Multiple business directories corroborate 2561 Toms Creek Rd."
+      }
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "shiloh-baptist-church-of-rutherfordton",
+    "name": "Shiloh Baptist Church of Rutherfordton",
+    "urls": ["https://shilohbaptistrutherfordton.myanswers.com/vbs2026/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:34.018Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "669323f637ca9204502f0fd18b0a61caf3a606fe4528ac44fc49a32ccfa64044",
+  "response": {
+    "searches": [
+      "Shiloh Baptist Church Rutherfordton address",
+      "\"Shiloh\" \"Rutherfordton\" \"church\" \"1850\" official"
+    ],
+    "usage": {
+      "inputTokens": 17805,
+      "cachedInputTokens": 8845,
+      "outputTokens": 904,
+      "reasoningTokens": 125
+    },
+    "status": "completed",
+    "ms": 25660,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+      "chars": 1240,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/",
+      "chars": 2609,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/",
+      "chars": 828,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shiloh Baptist Church of Rutherfordton",
+    "website_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+    "notes": "No official 2027 program or registration information was found. An independent church website could not be identified confidently.",
+    "excluded": [
+      {
+        "name": "Youth VBS at Shiloh Baptist Church in Shiloh, NC",
+        "reason": "A different church in eastern North Carolina, outside the service area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in games, music, crafts and Bible lessons about Psalm 23.",
+        "camp_page_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+        "registration_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Shiloh Baptist Church",
+            "address": "1850 Poors Ford Rd",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:15",
+          "text": "Food will be served from 5 to 5:45 PM each night. VBS will run from 6 to 8:15 pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Event has ended"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Food will be served from 5 to 5:45 PM each night."
+        },
+        "transportation": null,
+        "sources": [
+          "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+          "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The year is taken from the official vbs2026 page URL; the registration form prints June 7–12 without a year. The form lists Toddlers in addition to grades 1–6, without toddler ages, so the numeric grade range does not represent all participants. The registration heading gives 5–8:15 p.m.; the descriptive text distinguishes food at 5–5:45 p.m. from VBS at 6–8:15 p.m. The street address is supported by multiple third-party listings, including MapQuest and Church Finder, but no venue-published address was found; other third-party datasets give 1810 Poors Ford Road. Confirm the church's physical drop-off address. The lunch field represents the stated evening food service, not a midday meal."
+      }
+    ]
+  }
+}

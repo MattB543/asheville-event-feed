@@ -1,0 +1,396 @@
+{
+  "provider": {
+    "key": "toe-river-arts",
+    "name": "Toe River Arts",
+    "urls": ["https://toeriverarts.org/artists/education-outreach/summer-art-camps/"],
+    "area": "Spruce Pine and Burnsville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:05.531Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5cfd6345fe106dd4e139768294657ee1dbe99372fdb582cef16c2412be637a4c",
+  "response": {
+    "searches": [
+      "site:toeriverarts.org \"2027\" \"camp\"",
+      "\"Toe River Arts\" \"2026\" \"camps\" \"269\""
+    ],
+    "usage": {
+      "inputTokens": 24499,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2496,
+      "reasoningTokens": 185
+    },
+    "status": "completed",
+    "ms": 42641,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://toeriverarts.org/artists/education-outreach/summer-art-camps/",
+      "chars": 3655,
+      "method": "fetch"
+    },
+    {
+      "url": "https://toeriverarts.org/friends-of-toe-river/new-burnsville-project/",
+      "chars": 2309,
+      "method": "fetch"
+    },
+    {
+      "url": "https://toeriverarts.org/artists/exhibitions/",
+      "chars": 3125,
+      "method": "fetch"
+    },
+    {
+      "url": "https://toeriverarts.org/",
+      "chars": 1794,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Toe River Arts",
+    "website_url": "https://toeriverarts.org/",
+    "notes": "No summer 2027 camp information was found. The linked registration form and archived Textiles Camp event page returned no readable text. The camp page does not explicitly identify a drop-off venue; its gallery footer alone was not used as a camp location.",
+    "excluded": [
+      {
+        "name": "Traditional Arts Program for Students (TAPS)",
+        "reason": "School-year instrumental instruction, not a finite summer camp."
+      },
+      {
+        "name": "Mayland Community College Small Business Center workshops",
+        "reason": "Professional arts-business classes, not supervised youth summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Camps",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers explore drawing, painting, sculpture, collage, printmaking and mask making. Sessions include portraits, miniature buildings, animal masks and collaborative zines.",
+        "camp_page_url": "https://toeriverarts.org/artists/education-outreach/summer-art-camps/",
+        "registration_url": "https://secure.lglforms.com/form_engine/s/ceBEt3wGniGO6O_6AQs_iA?t=1776382882",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-02",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Held every Tuesday & Thursday from June through July. 10am – 1pm – Ages 8 -12; 2pm – 5pm – Ages 13 – 16"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Making Faces! Painting and Sculpting",
+            "start": "2026-06-02",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Making Faces! Painting and Sculpting",
+            "start": "2026-06-02",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Making Faces! Painting Emotion",
+            "start": "2026-06-09",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Making Faces! Painting Emotion",
+            "start": "2026-06-09",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Making Faces! Painting with Texture",
+            "start": "2026-06-16",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Making Faces! Painting with Texture",
+            "start": "2026-06-16",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Extra! Extra! Zines & Newsletters",
+            "start": "2026-06-23",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Extra! Extra! Zines & Newsletters",
+            "start": "2026-06-23",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learning to See: Drawing with Pastels",
+            "start": "2026-07-07",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Learning to See: Drawing with Pastels",
+            "start": "2026-07-07",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "No Place Like Home: 3D Sculpture",
+            "start": "2026-07-14",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "No Place Like Home: 3D Sculpture",
+            "start": "2026-07-14",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cardboard Critters: Mask Making",
+            "start": "2026-07-21",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cardboard Critters: Mask Making",
+            "start": "2026-07-21",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Extra! Extra! Zines & Newsletters",
+            "start": "2026-07-28",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Extra! Extra! Zines & Newsletters",
+            "start": "2026-07-28",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "14:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://toeriverarts.org/artists/education-outreach/summer-art-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

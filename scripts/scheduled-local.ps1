@@ -4,7 +4,9 @@
     news    scripts/news/run-local.ts --loop   every 6h at 1:10 / 7:10 / 13:10 / 19:10,
             clear of the prod news crons (:40/:55 UTC)
     events  scripts/run-local-events.ts        nightly at 23:30 (only the local-only scrapers:
-            MountainX, NC Stage, Parks & Rec, Facebook; Vercel does the rest + AI)
+            MountainX, NC Stage, Parks & Rec, Facebook; Vercel does the rest + AI),
+            then the camps refresh in what's left of the hour (browser-only camp pages,
+            the weekly WebTrac catalog: scripts/camps/refresh.ts --webtrac)
 
     pwsh scripts/scheduled-local.ps1 -Job news              # one run (what the task calls)
     pwsh scripts/scheduled-local.ps1 -Job news -Install     # register / update its task
@@ -17,7 +19,8 @@
   launch through `conhost --headless` so no console window appears, which also
   means Task Scheduler's "Last Run Result" is always 0 - the real exit code is the
   last line of the log. The events job's Facebook scraper still opens a visible
-  browser window. Both run whatever branch this checkout is on.
+  browser window. Both run whatever branch this checkout is on. The events job's
+  1-hour limit is also in scripts/run-local-events.ts (TASK_LIMIT_MINUTES).
 #>
 param(
   [Parameter(Mandatory)][ValidateSet('news', 'events')][string]$Job,

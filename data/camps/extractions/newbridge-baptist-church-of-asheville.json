@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "newbridge-baptist-church-of-asheville",
+    "name": "Newbridge Baptist Church of Asheville",
+    "urls": ["https://newbridgebaptist.org/children/", "https://newbridgebaptist.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:24.458Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "87ab67f243cf2f5b592f5536200ec1d88700588af5d620b78137b0b0bb94c708",
+  "response": {
+    "searches": [
+      "site:newbridgebaptist.org \"2026\" \"Bible\"",
+      "site:facebook.com \"Newbridge\" \"July 19\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 16077,
+      "cachedInputTokens": 8845,
+      "outputTokens": 834,
+      "reasoningTokens": 140
+    },
+    "status": "completed",
+    "ms": 21785,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://newbridgebaptist.org/children/",
+      "chars": 2696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://newbridgebaptist.org/",
+      "chars": 2338,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newbridge Baptist Church of Asheville",
+    "website_url": "https://newbridgebaptist.org/",
+    "notes": "No 2027 camp dates or registration announcements found. Third-party listings give July 19–22, 2026 for VBS, while an indexed official children’s page describes a recurring schedule after July 4; dates are omitted rather than choosing between these. The youth page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Summer Mission Trip",
+        "reason": "Mission trips are excluded under the camp rule."
+      },
+      {
+        "name": "Children's Ministry",
+        "reason": "Recurring Sunday ministry activities are year-round programs, not finite summer camps."
+      },
+      {
+        "name": "Newbridge Basketball Clinic",
+        "reason": "The listing found dates this clinic to October 20, 2026, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about the gospel through themed messages, songs, games, crafts, and fellowship. A meal is provided each night.",
+        "camp_page_url": "https://newbridgebaptist.org/children/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Newbridge Baptist Church",
+            "address": "199 Elkwood Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A meal is provided each night."
+        },
+        "transportation": null,
+        "sources": ["https://newbridgebaptist.org/children/", "https://newbridgebaptist.org/"],
+        "confidence": "medium",
+        "review_notes": "The supplied children’s page has no VBS dates or hours. Its search-indexed version states an annual first-Sunday-through-Wednesday schedule after July 4 and 6:00–8:30pm, whereas third-party 2026 event listings give July 19–22. Confirm the dated announcement with the church; dates and hours were left null. The age 4 through sixth-grade range describes the overall children’s ministry, not explicitly VBS, so VBS eligibility is left null. The free price is from the undated current page, retained as a 2026 fallback."
+      }
+    ]
+  }
+}

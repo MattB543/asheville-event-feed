@@ -1,0 +1,256 @@
+{
+  "provider": {
+    "key": "biltmore-church-of-arden",
+    "name": "Biltmore Church of Arden",
+    "urls": ["https://biltmorechurch.com/adventure"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:25:45.705Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "5422f5cab3c6c56995bd9119e3c8aba6c9a9965c596d80d7d8ab361d4eafb412",
+  "response": {
+    "searches": [
+      "site:biltmorechurch.com adventure \"2026\"",
+      "open https://biltmorechurch.com/adventure",
+      "site:biltmorechurch.com/adventure \"cost\""
+    ],
+    "usage": {
+      "inputTokens": 18729,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1863,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 43582,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://biltmorechurch.com/adventure",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page Not Found | Biltmore Church\")"
+    },
+    {
+      "url": "https://biltmorechurch.com/",
+      "chars": 4179,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Biltmore Church of Arden",
+    "website_url": "https://biltmorechurch.com/",
+    "notes": "No summer 2027 camp information was found. Adventure Week details are from the official 2026 page's search-indexed text; opening that page returned no readable text. Camp Week is held at Anderson University in Anderson, SC, outside the directory's drive-time area. Adventure Week's Thursday family nights are excluded from session dates because they are family social events rather than additional supervised camp days.",
+    "excluded": [
+      {
+        "name": "Camp Week",
+        "reason": "The 2026 overnight program is held at Anderson University in Anderson, SC, plainly outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "Adventure Week Family Night",
+        "reason": "Single-evening family events on June 18 and June 25, rather than supervised youth camp sessions."
+      },
+      {
+        "name": "Biltmore Kids",
+        "reason": "Year-round Sunday children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Biltmore Students",
+        "reason": "Year-round Sunday and Wednesday student ministry gatherings, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Adventure Week",
+        "type": "vbs",
+        "categories": ["faith_based", "general"],
+        "description": "Children participate in worship, Bible teaching, games, interactive lessons, and hands-on activities. The 2026 theme is Deep Sea Discovery.",
+        "camp_page_url": "https://biltmorechurch.com/adventure",
+        "registration_url": "https://biltmorechurch.com/adventure",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Arden Campus",
+            "address": "35 Clayton Rd",
+            "town": "Arden",
+            "state": "NC"
+          },
+          {
+            "name": "Franklin Campus",
+            "address": "691 Sloan St",
+            "town": "Franklin",
+            "state": "NC"
+          },
+          {
+            "name": "West Asheville Campus",
+            "address": "509 Smoky Park Hwy",
+            "town": "Candler",
+            "state": "NC"
+          },
+          {
+            "name": "Brevard Campus",
+            "address": "417 Morris Rd",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "East Asheville Campus",
+            "address": "801 Fairview Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Hendersonville Campus",
+            "address": "103A Education Dr",
+            "town": "East Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Waynesville Campus",
+            "address": "1700 Asheville Rd",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "Arden Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "Franklin Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "West Asheville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Brevard Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "East Asheville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Hendersonville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Waynesville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "Online pre-registration for both 2026 weeks",
+          "text": "Pre-Registration Closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://biltmorechurch.com/adventure"],
+        "confidence": "medium",
+        "review_notes": "Details and site addresses were available only in the official page's search-indexed text; the page returned no readable content when opened. The page labels Week 2's registration deadline 'Thursday, June 19,' but June 19, 2026 is Friday; no deadline was extracted. The page also offers in-person Monday registration despite closed online pre-registration, so availability is scoped to online pre-registration."
+      }
+    ]
+  }
+}

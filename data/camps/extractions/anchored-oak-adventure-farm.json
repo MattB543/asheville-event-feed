@@ -1,0 +1,216 @@
+{
+  "provider": {
+    "key": "anchored-oak-adventure-farm",
+    "name": "Anchored Oak Adventure Farm",
+    "urls": ["https://www.anchoredoakfarm.com/shop/events/XJEZNPVMCX34UD2FANLFLOZE"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:17.222Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f2d585c677c0d3457ce8225cd0eef4032467a91a9eaaf68a937ee27ab2401c08",
+  "response": {
+    "searches": ["site:anchoredoakfarm.com \"2027\""],
+    "usage": {
+      "inputTokens": 16379,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1052,
+      "reasoningTokens": 55
+    },
+    "status": "completed",
+    "ms": 24368,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.anchoredoakfarm.com/shop/events/XJEZNPVMCX34UD2FANLFLOZE",
+      "chars": 1250,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.anchoredoakfarm.com/currentfamilies",
+      "chars": 139,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.anchoredoakfarm.com/summer-camp",
+      "chars": 3970,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T?cp=true&sa=false&sbp=false&q=false&category_id=XJEZNPVMCX34UD2FANLFLOZE",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.anchoredoakfarm.com/",
+      "chars": 2812,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Anchored Oak Adventure Farm",
+    "website_url": "https://www.anchoredoakfarm.com/",
+    "notes": "No summer 2027 information or registration opening date found. The 2026 camp page says Tuesdays meet off-campus at a local horse farm but does not name or locate that drop-off venue. Restricted enrolled-family page requires access.",
+    "excluded": [
+      {
+        "name": "Anchored Oak Farm Microschool",
+        "reason": "School-year academic program, not a summer camp."
+      },
+      {
+        "name": "Anchored Oak Explorers",
+        "reason": "Ongoing afternoon homeschool enrichment program, not a finite summer camp."
+      },
+      {
+        "name": "Homeschool Enrichment Clubs",
+        "reason": "School-year enrichment classes outside summer."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private social events, not camps."
+      },
+      {
+        "name": "Petting Farm",
+        "reason": "Group visits by appointment, not a supervised summer camp program."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "Group outings booked by schools or organizations, not camp offerings."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Anchored Oak Farm Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "horses"],
+        "description": "Campers participate in animal care, farm chores, crafts, outdoor games and nature exploration on a working regenerative farm. Tuesdays include activities and riding at a local horse farm.",
+        "camp_page_url": "https://www.anchoredoakfarm.com/summer-camp",
+        "registration_url": "https://www.anchoredoakfarm.com/summer-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-25",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Anchored Oak Adventure Farm",
+            "address": "5693 Locust Hill Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "Monday-Friday | 9am-2pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "May 25–29",
+            "start": "2026-05-25",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 1–5",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 8–12",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 15–19",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 22–26",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "no",
+          "text": "We are not equipped to provide individualized accommodations for participants with any specialized needs."
+        },
+        "lunch": {
+          "value": "no",
+          "text": "Packed lunch (no refrigeration or heating available)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.anchoredoakfarm.com/summer-camp",
+          "https://www.anchoredoakfarm.com/shop/events/XJEZNPVMCX34UD2FANLFLOZE",
+          "https://www.anchoredoakfarm.com/product/anchored-oak-farm-summer-camp-2026/R73ICW2LPWZT5RSKGI7EBN6T",
+          "https://www.anchoredoakfarm.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Final week conflicts: summer-camp page and shop date filters list June 22–26, while the 2026 product description lists July 22–26. Rows use June from the camp page and shop filters. Camp-page dates omit the year; 2026 is taken from the linked product title and Summer Camp 2026 navigation. Camp-page metadata says eight weeks, but the page and product list five. Tuesday horse-farm meeting location is unnamed and needs an address."
+      }
+    ]
+  }
+}

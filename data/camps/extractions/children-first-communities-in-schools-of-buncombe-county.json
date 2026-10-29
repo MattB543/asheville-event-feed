@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "children-first-communities-in-schools-of-buncombe-county",
+    "name": "Children First/Communities In Schools of Buncombe County",
+    "urls": ["https://www.childrenfirstcisbc.org/after-school-summer-enrichment"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:57:59.464Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a8b11fdf518ff91ba908dc2d259afcff6375271d14a42f70d2e2ff34e88c9031",
+  "response": {
+    "searches": ["site:childrenfirstcisbc.org \"summer\" \"2026\""],
+    "usage": {
+      "inputTokens": 14897,
+      "cachedInputTokens": 8845,
+      "outputTokens": 609,
+      "reasoningTokens": 90
+    },
+    "status": "completed",
+    "ms": 15685,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.childrenfirstcisbc.org/after-school-summer-enrichment",
+      "chars": 3282,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childrenfirstcisbc.org/",
+      "chars": 3926,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Children First/Communities In Schools of Buncombe County",
+    "website_url": "https://www.childrenfirstcisbc.org/",
+    "notes": "No 2027 camp announcement or dated 2026 schedule was found. The official camp description is undated and describes a recurring six-week summer program. The published office address is not identified as a camp drop-off location, so sites are left empty.",
+    "excluded": [
+      {
+        "name": "Learning Centers",
+        "reason": "School-year after-school care, not a finite summer camp."
+      },
+      {
+        "name": "Project POWER/AmeriCorps",
+        "reason": "An 11-month service and professional-development program, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A six-week summer camp for rising kindergarten through sixth graders. Activities include swimming, crafts, and local field trips.",
+        "camp_page_url": "https://www.childrenfirstcisbc.org/after-school-summer-enrichment",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.childrenfirstcisbc.org/after-school-summer-enrichment"],
+        "confidence": "medium",
+        "review_notes": "The program description is undated; season.year is a fallback with no dates assigned. Confirm the current summer schedule, eligibility, and drop-off location with the provider. The free-program wording applies to the after-school Learning Centers, not explicitly to Summer Camp, so no camp price is assigned."
+      }
+    ]
+  }
+}

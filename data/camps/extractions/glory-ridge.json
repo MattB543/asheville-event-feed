@@ -1,0 +1,71 @@
+{
+  "provider": {
+    "key": "glory-ridge",
+    "name": "Glory Ridge",
+    "urls": ["https://www.gloryridge.org/summer-ministry", "https://www.gloryridge.org/"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:21:59.300Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c719578740a11af1c4b1a291ebb7f9fc7950a8dc803cdc5d56e03e8dbe372cf2",
+  "response": {
+    "searches": ["site:gloryridge.org 2027 camp"],
+    "usage": {
+      "inputTokens": 16104,
+      "cachedInputTokens": 8845,
+      "outputTokens": 341,
+      "reasoningTokens": 49
+    },
+    "status": "completed",
+    "ms": 15356,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gloryridge.org/summer-ministry",
+      "chars": 5026,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gloryridge.org/",
+      "chars": 5287,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gloryridge.org/blog/register-for-homecoming-week-2026",
+      "chars": 2030,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Glory Ridge",
+    "website_url": "https://www.gloryridge.org/",
+    "notes": "No qualifying summer camp programs found. The previously listed Summer Ministry is explicitly described as church youth-group mission trips and is excluded under the camp rule. No 2027 program information was found on official pages or in official-site search results.",
+    "excluded": [
+      {
+        "name": "Summer Ministry",
+        "reason": "Hosts church youth groups on weeklong mission trips to perform home repairs for Madison County residents; mission trips are excluded."
+      },
+      {
+        "name": "Homecoming Week",
+        "reason": "Service, fellowship and worship gathering for former staff, friends and returning community members, rather than a supervised youth camp."
+      },
+      {
+        "name": "Sabbath Ministry",
+        "reason": "Individual and group retreats during non-summer months, rather than a summer youth camp."
+      },
+      {
+        "name": "Friends & Family Weekend",
+        "reason": "Friends-and-family service and fellowship gathering, rather than a supervised youth camp."
+      },
+      {
+        "name": "365 Day Prayer Presence",
+        "reason": "Year-round invitation for individuals to visit, pray and rest on the grounds, rather than a finite supervised youth program."
+      }
+    ],
+    "cards": []
+  }
+}

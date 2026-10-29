@@ -1,0 +1,272 @@
+{
+  "provider": {
+    "key": "asheville-sun-soo-martial-arts",
+    "name": "Asheville Sun Soo Martial Arts",
+    "urls": [
+      "https://martialartsasheville.com/summer-camps/",
+      "https://martialartsasheville.com/events/summer-camp-2026-week-7-arts-drama-rama/",
+      "https://martialartsasheville.com/events/summer-camp-2026-week-1-outdoor-adventures/",
+      "https://martialartsasheville.com/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:25.523Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8f7432e6d213d2940e4984b12bff0cbe80dbb5af679fc2f191b3450cc2f06015",
+  "response": {
+    "searches": [
+      "site:martialartsasheville.com \"Summer Camp 2026\"",
+      "open https://martialartsasheville.com/event-type/summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 30786,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1752,
+      "reasoningTokens": 89
+    },
+    "status": "completed",
+    "ms": 39334,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://martialartsasheville.com/summer-camps/",
+      "chars": 22270,
+      "method": "fetch"
+    },
+    {
+      "url": "https://martialartsasheville.com/events/summer-camp-2026-week-7-arts-drama-rama/",
+      "chars": 4931,
+      "method": "fetch"
+    },
+    {
+      "url": "https://martialartsasheville.com/events/summer-camp-2026-week-1-outdoor-adventures/",
+      "chars": 4726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://martialartsasheville.com/",
+      "chars": 9543,
+      "method": "fetch"
+    },
+    {
+      "url": "https://martialartsasheville.com/sun-soo-class-schedule/",
+      "chars": 4823,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.martialartsasheville.com/?utm_source=GBP&utm_medium=organic&utm_campaign=office",
+      "chars": 9543,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Sun Soo Martial Arts",
+    "website_url": "https://martialartsasheville.com/",
+    "notes": "No 2027 camp dates or registration milestones were found. The official summer-camp archive lists nine 2026 weeks. No registration platform URL could be recovered from the readable event pages.",
+    "excluded": [
+      {
+        "name": "After School Program",
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Martial Arts Classes",
+        "reason": "Year-round classes rather than finite summer camps."
+      },
+      {
+        "name": "Kids Night Out",
+        "reason": "Single-evening social events."
+      },
+      {
+        "name": "Spring Break Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Social events rather than summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor", "arts", "stem", "general"],
+        "description": "Campers participate in martial arts instruction, outdoor adventures, arts and crafts, science experiments, and team-building activities. Weekly themes include field trips and activities focused on nature, science, transportation, and performing arts.",
+        "camp_page_url": "https://martialartsasheville.com/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Asheville Sun Soo Martial Arts",
+            "address": "75 River Ridge Drive #195",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "18:00",
+          "cost_text": "for a nominal additional fee"
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "per camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1 - Outdoor Adventures",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2 - Shark Week",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3 - Dinosaurs",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4 - Superheroes/Villains",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5 - Space Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6 - Planes/Trains/Automobiles",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7 - Arts/Drama-Rama",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8 - Super Science",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9 - Water Fun",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Kids need to bring a bag-lunch and one snack, sunscreen, bathing suit and a change of clothes each day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://martialartsasheville.com/summer-camps/",
+          "https://martialartsasheville.com/event-type/summer-camp/",
+          "https://martialartsasheville.com/events/summer-camp-2026-week-1-outdoor-adventures/",
+          "https://martialartsasheville.com/events/summer-camp-2026-week-2-shark-week/",
+          "https://martialartsasheville.com/events/summer-camp-2026-week-7-arts-drama-rama/",
+          "https://martialartsasheville.com/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The general summer-camps page states the $375 weekly price, K–5 eligibility, hours, and extended care without an explicit season year; these are retained as 2026 context alongside the explicitly dated 2026 event listings. That page also lists January–March early-registration discounts, a $20 sibling discount per week, a buy-four-weeks/get-fifth-free offer, and a $25 uniform for new campers, but does not identify a year for those offers. Check updated season-specific pricing before publishing them."
+      }
+    ]
+  }
+}

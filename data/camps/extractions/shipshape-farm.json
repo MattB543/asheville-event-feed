@@ -1,0 +1,289 @@
+{
+  "provider": {
+    "key": "shipshape-farm",
+    "name": "Shipshape Farm",
+    "urls": ["https://www.shipshapefarm.com/summer-camp"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:27.738Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "de7beed67cb7086a13d42073a62dc0c9ef9794c1622b5576ab570a9985a4cc66",
+  "response": {
+    "searches": ["site:shipshapefarm.com summer camp 2027 registration"],
+    "usage": {
+      "inputTokens": 16578,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2099,
+      "reasoningTokens": 113
+    },
+    "status": "completed",
+    "ms": 38189,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.shipshapefarm.com/summer-camp",
+      "chars": 8667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.shipshapefarm.com/",
+      "chars": 5186,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shipshape Farm",
+    "website_url": "https://www.shipshapefarm.com/",
+    "notes": "2027 early registration is expected in late January or early February, with the date still to be determined. Camp dates and pricing remain labeled 2026. The undated social-media feed embedded in the footer describes older themes and different capacities; these were not used.",
+    "excluded": [
+      {
+        "name": "Preschool Program",
+        "reason": "Weekly preschool classes in fall, winter and spring, rather than a summer camp."
+      },
+      {
+        "name": "Homeschool Farm School",
+        "reason": "School-year homeschool classes, rather than a summer camp."
+      },
+      {
+        "name": "Field Trips",
+        "reason": "Group-booked educational visits, not a summer camp program."
+      },
+      {
+        "name": "Parties and shindigs",
+        "reason": "Private parties and social events, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers explore the farm, care for animals, dig in the garden, play outdoor games and make crafts. Activities include collecting eggs, farm chores and water play.",
+        "camp_page_url": "https://www.shipshapefarm.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shipshape Farm",
+            "address": "1650 Tigerville Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Ages 8–11: 9:00 AM–4:00 PM. Ages 4–7: Morning: 9:00 AM–12:00 PM; Afternoon: 1:00–4:00 PM; Full Day: 9:00 AM–4:00 PM."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:30",
+          "cost_text": "Early Drop-Off: 8:00–9:00 AM — $15/day; Late Stay: 4:00–5:30 PM — $20/day"
+        },
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": "Half day, January 31–February 6, Earliest Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 345,
+            "unit": "week",
+            "label": "Full day, January 31–February 6, Earliest Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 185,
+            "unit": "week",
+            "label": "Half day, February 7–March 6, Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 355,
+            "unit": "week",
+            "label": "Full day, February 7–March 6, Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 195,
+            "unit": "week",
+            "label": "Half day, March 7–April 3, Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 365,
+            "unit": "week",
+            "label": "Full day, March 7–April 3, Early Bird",
+            "year": 2026
+          },
+          {
+            "amount": 205,
+            "unit": "week",
+            "label": "Half day, April 4–Camp Sellout, Full Price",
+            "year": 2026
+          },
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Full day, April 4–Camp Sellout, Full Price",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Ages 8–11",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 4–7",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 8–11",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 4–7",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 8–11",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 4–7",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 4–7",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "expected",
+            "text": "Get on our newsletter email list to have early registration access! Early registration opens in late January/early February 2027. ***Date still to be determined",
+            "url": "https://www.shipshapefarm.com/summer-camp",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-02-07",
+          "time": "09:00",
+          "text": "General registration opened February 7, 2026 at 9:00 AM.",
+          "url": "https://www.shipshapefarm.com/summer-camp"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Full-day campers should also bring a packed lunch."
+        },
+        "transportation": null,
+        "sources": ["https://www.shipshapefarm.com/summer-camp", "https://www.shipshapefarm.com/"],
+        "confidence": "medium",
+        "review_notes": "The expected newsletter opening spans late January/early February 2027; the month-precision January record represents the beginning of that window, not a committed January opening. Check the camp page for the final date. Hours and extended-care details accompany the 2026 schedule and have no separate 2027 confirmation. Ignore the undated embedded social post's older themes and capacities."
+      }
+    ]
+  }
+}

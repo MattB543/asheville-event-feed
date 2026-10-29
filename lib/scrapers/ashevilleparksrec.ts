@@ -44,6 +44,8 @@ const ORGANIZER = 'Asheville Parks & Recreation';
 
 const REQUEST_DELAY_MS = 250;
 const MAX_SEARCH_PAGES = 10; // WebTrac pages at 200 rows; the biggest search is ~350
+// WebTrac's "Your search did not return any matching results" message
+const NO_RESULTS = /id="arwebsearch_noresultsmessage"/;
 const MAX_DAYS_AHEAD = 120;
 const LISTED_SESSION_LIMIT = 12; // longer schedules are summarised by count
 // Placeholder for a session with no listed time (flagged timeUnknown). Midday,
@@ -95,7 +97,7 @@ const DROPPED_STATUSES = new Set([
  * (AVL Today, Mountain Xpress) already use, so cross-source dedup can match -
  * plus a fallback address for when a detail page fails to load.
  */
-const FACILITIES: Record<string, { name: string; street: string; zip: string }> = {
+export const FACILITIES: Record<string, { name: string; street: string; zip: string }> = {
   'Grant Center': {
     name: 'Dr. Wesley Grant Sr. Southside Community Center',
     street: '285 Livingston Street',
@@ -150,7 +152,7 @@ interface SearchOption {
   label: string;
 }
 
-interface ActivityRow {
+export interface ActivityRow {
   fmid: string;
   title: string;
   status: string;
@@ -167,14 +169,14 @@ interface ActivityRow {
   category?: string;
 }
 
-interface ActivityDetail {
+export interface ActivityDetail {
   description?: string;
   facility?: string;
   street?: string;
   zip?: string;
 }
 
-interface PageFetcher {
+export interface PageFetcher {
   get(url: string): Promise<string>;
   close(): Promise<void>;
 }
@@ -252,11 +254,25 @@ async function scrapeActivity(
  * because a context that has been challenged keeps its Cloudflare cookie and
  * is challenged again (see mountainx.ts). Any other failure (timeout, 404,
  * 5xx) is thrown to the caller, which skips just that page.
+ *
+ * Aborting `signal` (the camps catalog read's time limit) ends the requests and
+ * navigations in flight, and every later get() fails with its reason.
  */
-async function createPageFetcher(): Promise<PageFetcher> {
+export async function createPageFetcher(
+  options: { signal?: AbortSignal } = {}
+): Promise<PageFetcher> {
+  const { signal } = options;
   const dispatcher = await createChromeDispatcher();
   let browserPromise: Promise<Browser> | null = null;
   let useBrowser = false;
+  signal?.addEventListener(
+    'abort',
+    () => {
+      dispatcher.destroy().catch(() => {});
+      void browserPromise?.then((browser) => browser.close()).catch(() => {});
+    },
+    { once: true }
+  );
 
   async function getWithBrowser(url: string): Promise<string> {
     browserPromise ??= launchBrowser();
@@ -292,23 +308,32 @@ async function createPageFetcher(): Promise<PageFetcher> {
     }
   }
 
+  async function get(url: string): Promise<string> {
+    if (!useBrowser) {
+      try {
+        return await fetchHtml(url, dispatcher);
+      } catch (error) {
+        if (!(error instanceof CloudflareChallengeError)) throw error;
+        console.warn(`[${LABEL}] ${error.message}; switching to a browser for the rest of the run`);
+        useBrowser = true;
+      }
+    }
+    return getWithBrowser(url);
+  }
+
   return {
     async get(url: string): Promise<string> {
-      if (!useBrowser) {
-        try {
-          return await fetchHtml(url, dispatcher);
-        } catch (error) {
-          if (!(error instanceof CloudflareChallengeError)) throw error;
-          console.warn(
-            `[${LABEL}] ${error.message}; switching to a browser for the rest of the run`
-          );
-          useBrowser = true;
-        }
+      signal?.throwIfAborted();
+      try {
+        return await get(url);
+      } catch (error) {
+        signal?.throwIfAborted();
+        throw error;
       }
-      return getWithBrowser(url);
     },
     async close(): Promise<void> {
-      await dispatcher.close();
+      // Already destroyed when `signal` aborted
+      await dispatcher.close().catch(() => {});
       if (browserPromise) {
         await (await browserPromise).close().catch(() => {});
       }
@@ -375,8 +400,16 @@ async function launchBrowser(): Promise<Browser> {
  * options are read off the search form itself so a new center or category is
  * picked up without a code change. A failed search (or later page) is skipped;
  * the two search kinds overlap heavily, so the rest usually cover for it.
+ * `strict` throws instead (the camps catalog: a missed category search drops
+ * rows from a camp's card, which must not replace a complete one), and also
+ * when a page answered 200 but isn't a results page (a maintenance or error
+ * page would otherwise read as an empty search) or a search's pages run out
+ * before its results do.
  */
-async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> {
+export async function fetchAllActivities(
+  fetcher: PageFetcher,
+  { strict = false }: { strict?: boolean } = {}
+): Promise<ActivityRow[]> {
   const formHtml = await fetcher.get(SEARCH_URL);
   const options = [
     ...parseSelectOptions(formHtml, 'location'),
@@ -398,6 +431,7 @@ async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> 
       try {
         html = await fetcher.get(url);
       } catch (error) {
+        if (strict) throw error;
         failedSearches++;
         console.warn(
           `[${LABEL}] Search ${option.param}=${option.value} page ${page} failed: ${describeError(error)}`
@@ -410,7 +444,8 @@ async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> 
         await debugSave(name, html, { label: LABEL });
       }
 
-      for (const row of parseSearchRows(html)) {
+      const rows = parseSearchRows(html);
+      for (const row of rows) {
         const existing = byFmid.get(row.fmid);
         if (existing) {
           if (option.param === 'category') existing.category ??= option.label;
@@ -421,7 +456,18 @@ async function fetchAllActivities(fetcher: PageFetcher): Promise<ActivityRow[]> 
       }
 
       const paging = html.match(/Showing results \d+-(\d+) of (\d+)/);
+      // A results page has its paging line and rows; only a first page may be "no matching results"
+      if (strict && !(paging ? rows.length > 0 : page === 1 && NO_RESULTS.test(html))) {
+        throw new Error(
+          `Search ${option.param}=${option.value} page ${page} is not a WebTrac results page`
+        );
+      }
       if (!paging || Number(paging[1]) >= Number(paging[2])) break;
+      if (strict && page === MAX_SEARCH_PAGES) {
+        throw new Error(
+          `Search ${option.param}=${option.value} has more than ${MAX_SEARCH_PAGES} pages of results`
+        );
+      }
     }
   }
 
@@ -555,12 +601,24 @@ function parseFees(text: string): [number | null, number | null] {
   return [resident ?? null, nonResident ?? null];
 }
 
-function parseDetailPage(html: string): ActivityDetail {
+/**
+ * `strict` (the camps catalog) throws on a page with no activity markup, such
+ * as the 200 "Cannot find ARSection record" page or a maintenance page, which
+ * would otherwise read as an activity with no description or address.
+ */
+export function parseDetailPage(
+  html: string,
+  { strict = false }: { strict?: boolean } = {}
+): ActivityDetail {
   const detail: ActivityDetail = {};
 
   // The description is the main column's only details block outside the Fees
   // section. Greedy, so markup inside the description can't end it early.
   const main = html.match(/<section class="item-info-main-content">([\s\S]*?)<\/section>/)?.[1];
+  if (strict && main === undefined) {
+    const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1].trim();
+    throw new Error(`Not a WebTrac activity page${title ? ` ("${title}")` : ''}`);
+  }
   const descriptionHtml = main
     ?.split('<div class="item-info-additional"')[0]
     .match(/<div class="item-info__details-text">([\s\S]*)<\/div>\s*<\/div>/)?.[1];
@@ -868,7 +926,7 @@ function formatSessionDate(date: string, options: Intl.DateTimeFormatOptions): s
   return formatDateEastern(parseAsEastern(date, '12:00:00'), options);
 }
 
-function activityUrl(fmid: string): string {
+export function activityUrl(fmid: string): string {
   return `${WEBTRAC_BASE}/iteminfo.html?Module=AR&FMID=${fmid}`;
 }
 

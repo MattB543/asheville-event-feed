@@ -1,0 +1,135 @@
+{
+  "provider": {
+    "key": "lakeshore-christian-fellowship",
+    "name": "Lakeshore Christian Fellowship",
+    "urls": ["https://lakeshorecf.com/event/lycsummercamp2025/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:14.255Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e61b3e8e5a2d6ba264a2d4820352a37e885e21cbd5bf0dd6e97b9c57d92f3a4e",
+  "response": {
+    "searches": ["site:lakeshorecf.com \"camp\" \"2026\"", "site:lakeshorecf.com \"2026\" \"VBS\""],
+    "usage": {
+      "inputTokens": 26879,
+      "cachedInputTokens": 8631,
+      "outputTokens": 937,
+      "reasoningTokens": 144
+    },
+    "status": "completed",
+    "ms": 26427,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lakeshorecf.com/event/lycsummercamp2025/",
+      "chars": 3095,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://lakeshorecf.com/venue/ridge-haven-camp/",
+      "chars": 1102,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lakeshorecf.com/",
+      "chars": 1516,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lakeshore Christian Fellowship",
+    "website_url": "https://lakeshorecf.com/",
+    "notes": "No summer 2027 information found. The church is based in Tega Cay, SC, but its 2026 youth camp is held at Ridge Haven in Brevard. The 2026 page does not identify the bus departure or parent drop-off location; confirm whether local families can arrive directly at Ridge Haven. Older ages, transportation logistics and prices were not carried forward.",
+    "excluded": [
+      {
+        "name": "Lakeshore Youth Fall Retreat",
+        "reason": "Held October 23–25, 2026, outside summer."
+      },
+      {
+        "name": "Lakeshore Christian Preschool",
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Kid’s Summer Camp (1st – 5th Grade)",
+        "reason": "The older offering meets at Crowders Ridge in Gastonia, outside the directory's drive area."
+      },
+      {
+        "name": "Lkids Summer Camp",
+        "reason": "The 2024 offering meets at Crowders Springs in Kings Mountain, outside the directory's drive area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Christian overnight summer camp for students at Ridge Haven.",
+        "camp_page_url": "https://lakeshorecf.com/event/youth-summer-camp-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-15",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ridge Haven Camp",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "program",
+            "label": "Camp",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "other",
+            "label": "Transportation",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Transportation costs will be sent separately from camp registration. This year we will be traveling by a 52-passenger bus."
+        },
+        "sources": [
+          "https://lakeshorecf.com/event/youth-summer-camp-2026/",
+          "https://www.ridgehaven.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ridge Haven is the published camp venue, but the 2026 page does not state the parent drop-off or bus departure site. Confirm direct arrival eligibility for Asheville-area families before treating Ridge Haven as a drop-off site. Dates take their year from the page heading, Youth Summer Camp 2026."
+      }
+    ]
+  }
+}

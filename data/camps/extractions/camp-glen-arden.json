@@ -1,0 +1,267 @@
+{
+  "provider": {
+    "key": "camp-glen-arden",
+    "name": "Camp Glen Arden",
+    "urls": [
+      "https://campglenarden.com/dates-rates/",
+      "https://campglenarden.com/",
+      "https://campglenarden.com/activities/arts/"
+    ],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:07:14.886Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "eef2c0f535a18ec0e08975712adb648800caabeddbdfedffb5cc025c69ae9c55",
+  "response": {
+    "searches": [
+      "site:campglenarden.com scholarship transportation 2027 enrollment",
+      "site:campglenarden.com \"2027\" \"September\""
+    ],
+    "usage": {
+      "inputTokens": 23996,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1564,
+      "reasoningTokens": 166
+    },
+    "status": "completed",
+    "ms": 33500,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campglenarden.com/dates-rates/",
+      "chars": 4484,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/",
+      "chars": 2476,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/activities/arts/",
+      "chars": 2693,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/dates-rates",
+      "chars": 4484,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/dates-rates/session-descriptions",
+      "chars": 1485,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/parents/enroll-policies",
+      "chars": 14331,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/request-information",
+      "chars": 947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://glenarden.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Glen Arden",
+    "website_url": "https://campglenarden.com/",
+    "notes": "2027 dates and rates are posted, and enrollment is open, but no dated registration opening announcement was found. The homepage still references Summer 2026. Activity offerings are components of the overnight camp, not separate programs.",
+    "excluded": [
+      {
+        "name": "Mother Daughter",
+        "reason": "Family-only weekend attended by mothers and daughters, rather than a supervised youth-only camp."
+      },
+      {
+        "name": "Summer Camp Jobs",
+        "reason": "Employment opportunities, not youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Glen Arden",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "nature_outdoor",
+          "arts",
+          "sports",
+          "horses",
+          "music",
+          "theater",
+          "dance"
+        ],
+        "description": "Girls choose activities including arts and crafts, music, drama, dance, horseback riding, sports and waterfront activities. Campers also participate in camp traditions and outdoor outings.",
+        "camp_page_url": "https://campglenarden.com/dates-rates/",
+        "registration_url": "https://glenarden.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": "Enrollment for 2027 is now open."
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Glen Arden",
+            "address": "1261 Cabin Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Session",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9050,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session I",
+            "start": "2027-06-06",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session II",
+            "start": "2027-06-27",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "August Session",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Mini Session II",
+          "text": "Enroll (Limited Availability)"
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If there is a prior history of these kinds of needs or concerns in a particular situation, please call Erin in the Camp Office."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "During breakfast, lunch, and dinner, six campers and two counselors gather around a table to enjoy family-style meals."
+        },
+        "transportation": null,
+        "sources": [
+          "https://campglenarden.com/dates-rates/",
+          "https://campglenarden.com/",
+          "https://campglenarden.com/activities/arts/",
+          "https://campglenarden.com/parents/enroll-policies",
+          "https://campglenarden.com/about-us/farm-to-table-food",
+          "https://campglenarden.com/activities/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 rate table specifies grades 3–11 for June and July, while their descriptive paragraphs on the same page say girls entering grades 1–11. Used the year-specific table for those rows; rising basis comes from the session descriptions. Special-needs contact wording concerns eating disorders and psychological conditions and does not establish broad accommodation capability. Enrollment policies contain conflicting payment due dates, which were not extracted as registration deadlines."
+      }
+    ]
+  }
+}

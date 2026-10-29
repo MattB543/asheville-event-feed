@@ -1,0 +1,186 @@
+{
+  "provider": {
+    "key": "goodwill-industries-of-northwest-north-carolina",
+    "name": "Goodwill Industries of Northwest North Carolina",
+    "urls": [
+      "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:08:51.879Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a4d360b8c0f56fe19d26b1b13dbc443d0e8e1a8ec18e4ce0c592ce126521d0d8",
+  "response": {
+    "searches": [
+      "site:goodwillnwnc.org Asheville summer camp 2027",
+      "site:goodwillnwnc.org \"Career Exploration\" \"Register\""
+    ],
+    "usage": {
+      "inputTokens": 21941,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1471,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 32393,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/",
+      "chars": 6798,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goodwillnwnc.org/10-resume-mistakes-that-keep-qualified-candidates-from-getting-interviews/",
+      "chars": 8519,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.goodwillnwnc.org/",
+      "chars": 6770,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Goodwill Industries of Northwest North Carolina",
+    "website_url": "https://www.goodwillnwnc.org/",
+    "notes": "No official 2027 camp information or registration milestones found. Cards retain the dated June 16, 2026 announcement. The announcement returned no readable text in the browser; its supplied crawler text was used. Eventbrite identifies the Asheville Workforce Development Center as the camp venue.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Career Exploration Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Participants explore healthcare, entrepreneurship, culinary arts, hospitality, skilled trades and outdoor recreation through interactive activities and local business tours.",
+        "camp_page_url": "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/",
+        "registration_url": "https://www.eventbrite.com/e/career-camp-by-goodwill-tickets-1989377523726",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": 22
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Goodwill Workforce Development Center",
+            "address": "1616 Patton Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "15:00",
+          "text": "9:30 a.m. – 3 p.m. daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Goodwill is providing lunch and transportation for both camps at no cost."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Goodwill is providing lunch and transportation for both camps at no cost."
+        },
+        "sources": [
+          "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/",
+          "https://www.eventbrite.com/e/career-camp-by-goodwill-tickets-1989377523726",
+          "https://www.goodwillnwnc.org/locations/goodwill-workforce-development-center-buncombe-county/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 22 outside 2-19."
+      },
+      {
+        "name": "Healthcare Career Camp",
+        "type": "day",
+        "categories": ["academic", "stem"],
+        "description": "Participants explore nursing, clinical technology and hospital and laboratory careers through simulation labs and college campus tours. The camp includes a field trip to the Bodies Museum in Gatlinburg, Tennessee.",
+        "camp_page_url": "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/",
+        "registration_url": "https://www.eventbrite.com/e/healthcare-career-camp-by-goodwill-tickets-1990097552351",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": 22
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Goodwill Workforce Development Center",
+            "address": "1616 Patton Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "15:30",
+          "text": "9:30 a.m. – 3:30 p.m. daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Sales ended"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Goodwill is providing lunch and transportation for both camps at no cost."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Goodwill is providing lunch and transportation for both camps at no cost."
+        },
+        "sources": [
+          "https://www.goodwillnwnc.org/goodwill-career-center-in-asheville-launches-dual-youth-summer-camps-for-medical-and-career-exploration/",
+          "https://www.eventbrite.com/e/healthcare-career-camp-by-goodwill-tickets-1990097552351",
+          "https://www.goodwillnwnc.org/locations/goodwill-workforce-development-center-buncombe-county/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 22 outside 2-19."
+      }
+    ]
+  }
+}

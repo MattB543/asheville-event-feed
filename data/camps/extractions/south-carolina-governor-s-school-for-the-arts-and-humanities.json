@@ -1,0 +1,1486 @@
+{
+  "provider": {
+    "key": "south-carolina-governor-s-school-for-the-arts-and-humanities",
+    "name": "South Carolina Governor's School for the Arts and Humanities",
+    "urls": ["https://www.scgsah.org/summer-programs"],
+    "area": "Greenville, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:06.784Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a83edbea3d36498d7b153ec7fc988a1d06e7eff9c5b01383d393785787348a97",
+  "response": {
+    "searches": [
+      "site:scgsah.org summer 2027 deadline applications September",
+      "site:scgsah.org \"2027\" \"June\"",
+      "open https://www.scgsah.org/summer-programs/music",
+      "site:scgsah.org/summer-programs/music",
+      "site:scgsah.org \"Piano\" \"Dates:\" \"2027\"",
+      "site:scgsah.org \"music\" \"Piano Solo and Chamber\" \"2027\" \"Dates\"",
+      "site:scgsah.org/summer-programs/music \"Composition and Songwriting\" \"Dates:\"",
+      "site:scgsah.org \"Strings Solo\" \"Dates\""
+    ],
+    "usage": {
+      "inputTokens": 49179,
+      "cachedInputTokens": 8845,
+      "outputTokens": 11601,
+      "reasoningTokens": 880
+    },
+    "status": "completed",
+    "ms": 217726,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.scgsah.org/summer-programs",
+      "chars": 5314,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.scgsah.org/admissions/fees-payments",
+      "chars": 10287,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.scgsah.org/admissions/rhs-registration",
+      "chars": 13812,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.scgsah.org/admissions/summer-registration",
+      "chars": 21624,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.scgsah.org/admissions/apply-summer",
+      "chars": 25988,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.scgsah.org/residential-high-school/campus-life",
+      "chars": 2975,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "South Carolina Governor's School for the Arts and Humanities",
+    "website_url": "https://www.scgsah.org/",
+    "notes": "2027 programs and application deadlines are published. Applicants must be South Carolina residents; these programs are not restricted to students already enrolled at the school. Direct opens of the department pages returned no readable text, so department facts were recovered from official search-index excerpts. Several programs' dates could not be recovered safely. The summer onboarding page still describes 2026; its dates were not treated as 2027 application dates.",
+    "excluded": [
+      {
+        "name": "Residential High School",
+        "reason": "School-year residential education, not a finite summer camp."
+      },
+      {
+        "name": "Grand Jeté",
+        "reason": "Dance competition and celebration outside summer."
+      },
+      {
+        "name": "Century Cycle Continues",
+        "reason": "February monologue competition, outside summer."
+      },
+      {
+        "name": "Go Govie! Day",
+        "reason": "Admissions information event outside summer."
+      },
+      {
+        "name": "Coastal Creatives",
+        "reason": "Coastal outreach program outside the Asheville-area drive range."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Creative Writing",
+        "type": "overnight",
+        "categories": ["arts"],
+        "description": "Students develop poetry and fiction through workshops, critique, reading contemporary writers, and presenting their work in a reading.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/creative-writing",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1600,
+            "unit": "session",
+            "label": "Includes enrollment fee, room, board, and materials",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/creative-writing",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments",
+          "https://www.scgsah.org/summer-programs"
+        ],
+        "confidence": "medium",
+        "review_notes": "Department and admissions facts were recovered from official search excerpts because direct opens returned no text. Grades refer to the 2026-2027 school year. Financial assistance is limited to South Carolina residents."
+      },
+      {
+        "name": "Dance Immersion Program",
+        "type": "overnight",
+        "categories": ["dance"],
+        "description": "Students explore ballet, modern and contemporary dance, jazz, hip hop, African dance, acting, yoga, and Pilates.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1600,
+            "unit": "session",
+            "label": "Includes enrollment fee, room, board, and materials",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/dance",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search excerpts supplied department facts. Students must be 12 by June 1; grades refer to the 2026-2027 school year. The early-decision Summer Dance deadline was not assigned to Immersion because its applicability is unclear."
+      },
+      {
+        "name": "Summer Dance Ballet Intensive",
+        "type": "overnight",
+        "categories": ["dance"],
+        "description": "Students take daily classical ballet classes complemented by variations, men's technique, partnering, historical dance, modern dance, and acting for dancers.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3000,
+            "unit": "session",
+            "label": "5-week session, includes non-refundable fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2026-10-23",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Decision Dance: Residential High School Dance & Summer Dance — October 23, 2026 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/dance",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 offering is listed, but exact dates and any minimum-age condition could not be recovered from official search excerpts. Season status does not establish that dates are absent from the full page. Price uses the explicit five-week format and 2027 five-week tuition."
+      },
+      {
+        "name": "Summer Dance Modern Intensive",
+        "type": "overnight",
+        "categories": ["dance"],
+        "description": "A two-week pre-professional modern and contemporary dance intensive.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/dance",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1600,
+            "unit": "session",
+            "label": "2-week session, includes non-refundable fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "deadline",
+            "date": "2026-10-23",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Decision Dance: Residential High School Dance & Summer Dance — October 23, 2026 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/dance",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Exact dates and any minimum-age condition could not be recovered from official search excerpts. Season status does not establish that dates are absent from the full page. Price uses the stated two-week format and 2027 two-week tuition."
+      },
+      {
+        "name": "Drama",
+        "type": "overnight",
+        "categories": ["theater"],
+        "description": "Students study acting, voice, speech, movement, and ensemble work and demonstrate their work in a showcase.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/drama",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1600,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/drama",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year. The department states fees are subject to change."
+      },
+      {
+        "name": "Introduction to Filmmaking",
+        "type": "overnight",
+        "categories": ["arts"],
+        "description": "Students produce short films from original scripts, working with actors, cameras, lighting, sound, and editing.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/film",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1600,
+            "unit": "session",
+            "label": "Includes enrollment fee, room, board, and materials",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "9th Graders",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/film",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year."
+      },
+      {
+        "name": "Visual Arts",
+        "type": "overnight",
+        "categories": ["arts"],
+        "description": "Students explore two- and three-dimensional art through drawing, printmaking, graphic design, photography, ceramics, and sketchbook work.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/visual-arts",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "7th & 8th Graders",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 8,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1000,
+              "unit": "session",
+              "label": "Includes enrollment fee, room, board, and materials",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/visual-arts",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 9th-grade offering is listed, but its dates and price could not be recovered. Season bounds cover only recovered 7th-8th-grade rows and may not span the entire program. Department facts came from official search excerpts."
+      },
+      {
+        "name": "Orchestra",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students participate in ensembles, seminars, and master classes on their instruments.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1000,
+            "unit": "session",
+            "label": "Includes enrollment fee, room, board, and materials",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Fees include room, board, and materials."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Facts recovered from official search excerpts. Grades refer to the 2026-2027 school year."
+      },
+      {
+        "name": "Band",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students work in ensembles, seminars, and instrumental master classes. Audition videos may also be used to select a woodwind quartet or brass quintet.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1000,
+            "unit": "session",
+            "label": "1-week session, includes non-refundable fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Band dates could not be recovered from official search excerpts; Orchestra dates were not copied to Band. Season status does not establish that dates are absent from the full page. Price uses the stated one-week format and 2027 tuition."
+      },
+      {
+        "name": "Composition and Songwriting",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students choose a composition or songwriting track and spend time in classes and working individually on new compositions or songs.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Offering and description recovered from official search excerpts, but program-specific dates and fees were not recovered. Season status does not establish that dates are absent from the full page."
+      },
+      {
+        "name": "Jazz",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "An overnight jazz summer program for students in grades 7-9.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Listed in the official indexed program list, but program-specific dates, fees, and detailed activities could not be recovered. Season status does not establish that dates are absent from the full page."
+      },
+      {
+        "name": "Piano",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "An overnight piano summer program for students in grades 7-9.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Listed separately from the Piano Solo and Chamber Music Intensive in the official indexed program list. Program-specific dates and fees were not recovered; season status does not establish their absence from the full page."
+      },
+      {
+        "name": "Piano Solo and Chamber Music Intensive",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "An overnight piano solo and chamber music intensive for students in grades 7-9.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official indexed program list confirms this offering. A July 11-16 date excerpt could not be tied safely to this subsection, so dates and fees remain empty. Season status does not establish that dates are absent from the full page."
+      },
+      {
+        "name": "Strings Solo and Chamber Music Intensive",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "An overnight strings solo and chamber music intensive for students in grades 7-9.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official indexed program list confirms this offering, but its dates and fees could not be recovered. Season status does not establish that dates are absent from the full page."
+      },
+      {
+        "name": "Voice",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "An overnight voice summer program with offerings for grades 7-8 and grade 9.",
+        "camp_page_url": "https://www.scgsah.org/summer-programs/music",
+        "registration_url": "https://www.scgsah.org/admissions/apply-summer",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "South Carolina Governor's School for the Arts and Humanities",
+            "address": "15 University Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Priority Application Deadline",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-21",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "We will continue to accept applications on an \"as space is available\" basis until May 21, 2027, for Summer Program applications and June 18, 2027, for Residential High School applications",
+            "url": "https://www.scgsah.org/admissions",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for all programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.scgsah.org/summer-programs/music",
+          "https://www.scgsah.org/admissions",
+          "https://www.scgsah.org/admissions/fees-payments"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official indexed program list confirms separate 7th-8th and 9th-grade bands. Their dates and fees could not be recovered, so dated band rows could not be created. Season status does not establish that dates are absent from the full page."
+      }
+    ]
+  }
+}

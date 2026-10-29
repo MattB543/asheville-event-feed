@@ -1,0 +1,234 @@
+{
+  "method": "our_db",
+  "id": "events",
+  "input": "Below are event listings from AVLGO's own event feed (summers 2025-2026) whose titles look camp-like. Do not search the web. Many are noise (a brewery taproom named \"Forestry Camp\", adult boot camps, vaccine or plant clinics, bands with \"camp\" in their name, adult-only events). Return one row per organization that runs a kids' or teens' summer program by the rule above. url: the listing's URL only when it is on the organization's own website, or for a church's VBS its Facebook event; never an AVL Today, Explore Asheville, Mountain Xpress or Eventbrite listing (use null). Take the town from \"where\".\n\n- \"Summer Camp: Kpop demon hunters! - June 15-19\" | organizer: 174 Bradley Branch Road | where: 174 Bradley Branch Road, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/summer-camp-kpop-demon-hunters-june-15-19 | 1 listing(s)\n- \"Kids Yoga + Art Summer Camp (Week One)\" | organizer: 587 Haywood Road | where: 587 Haywood Road, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/kids-yoga-art-summer-camp-week-one | 1 listing(s)\n- \"AHOPE Clinic Outreach\" | organizer: AHOPE Clinic | where: AHOPE Clinic, 19 North Ann Street, Asheville | source: MOUNTAIN_X | url: https://mountainx.com/event/ahope-clinic-outreach/ | 1 listing(s)\n- \"Summer Art Camp | Appalachian Arts & Crafts (Rising 9th - 12th grade)\" | organizer: Asheville Art Museum | where: Asheville Art Museum, 2 S. Pack Square, Asheville, NC | source: AVL_TODAY | url: https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts/2026-07-14/ | 4 listing(s)\n- \"Summer Art Camp | Art & Our Environment (Rising 3rd - 5th grade)\" | organizer: Asheville Art Museum | where: Asheville Art Museum, 2 S. Pack Square, Asheville, NC | source: AVL_TODAY | url: https://www.ashevilleart.org/event/summer-art-camp-art-our-environment-rising-3rd-5th-grade/2026-07-27/ | 11 listing(s)\n- \"Summer Art Camp | Art Around the World (Rising 3rd - 5th grade)\" | organizer: Asheville Art Museum | where: Asheville Art Museum, 2 S. Pack Square, Asheville, NC | source: AVL_TODAY | url: https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade/2026-06-25/ | 1 listing(s)\n- \"Summer Art Camp | Paper and Book Making (Rising 3rd - 5th grade)\" | organizer: Asheville Art Museum | where: Asheville Art Museum, 2 S. Pack Square, Asheville, NC | source: AVL_TODAY | url: https://www.ashevilleart.org/event/summer-art-camp-art-around-the-world-rising-3rd-5th-grade-2/2026-06-24/ | 1 listing(s)\n- \"Forestry Camp\" | organizer: Asheville Beer Drinkers, Happy Hours & Bar Hoppers | where: Burial Beer Co. Forestry Camp Taproom, 10 Shady Oak Dr, Asheville, NC | source: MEETUP | url: https://www.meetup.com/asheville-beer-drinkers/events/315803159/ | 1 listing(s)\n- \"Downtown Asheville Plant Clinic\" | organizer: Asheville City Market | where: Asheville City Market, 52 N. Market St, Asheville, NC | source: MOUNTAIN_X | url: https://mountainx.com/event/downtown-asheville-plant-clinic-2/ | 1 listing(s)\n- \"Burial Beer Co. Forestry Camp Taproom\" | organizer: Asheville Fika - where a cup of coffee creates community. | where: Burial Beer Co. Forestry Camp Taproom, 10 Shady Oak Dr, Asheville, NC | source: MEETUP | url: https://www.meetup.com/asheville-fika/events/315216947/ | 1 listing(s)\n- \"Emma Community Vaccine Clinic\" | organizer: Asheville Humane Society | where: El Porvenir Cultural and Event Center 17 Westside Drive, Asheville, NC 28806 | source: FACEBOOK | url: https://www.facebook.com/events/1542468260617086/ | 1 listing(s)\n- \"CAMP: Kpop demon hunters! - Aug 17-21\" | organizer: Asheville Junior Theater | where: Asheville Junior Theater, 174 Bradley Branch Road units 4 & 5, Arden, NC | source: AVL_TODAY | url: https://ashevillejuniortheater.com/summer-camps/ | 1 listing(s)\n- \"Dance Camp Intensive - August 3-7\" | organizer: Asheville Junior Theater | where: Asheville Junior Theater, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/dance-camp-intensive-august-3-7 | 1 listing(s)\n- \"High School Ultimate Frisbee Summer Camp\" | organizer: Asheville Middle School | where: Asheville Middle School, 221 S. French Broad, Asheville, NC | source: AVL_TODAY | url: https://docs.google.com/forms/d/1Tz0ui3dRhFa-HTH_w7J9DqfwAkvICotxsTAGJvg-964/edit | 1 listing(s)\n- \"AMOS Summer Camp\" | organizer: Asheville Museum of Science | where: Asheville Museum of Science, 43 Patton Ave, Asheville, NC | source: AVL_TODAY | url: https://ashevillescience.org/event/summer-science-camps/ | 2 listing(s)\n- \"Harry Potter themed Suzuki Strings Camp - Registration\" | organizer: Asheville Music School | where: Asheville Music School, 10 Ridgelawn Rd., Asheville, NC | source: AVL_TODAY | url: https://www.ashevillemusicschool.org/summer-camps/ | 1 listing(s)\n- \"AoB - Bike Valet @ Burial Forestry Camp\" | organizer: Asheville on Bikes | where: Burial Beer Co. Forestry Camp Taproom, 10 Shady Oak Dr, Asheville, NC 28803, USA | source: ASHEVILLE_ON_BIKES | url: https://ashevilleonbikes.com/events#1rk6euhpo48i3ej3fl1lrcv701@google.com-2026-05-16-1778965200000 | 1 listing(s)\n- \"Dirt Skrrts - Bikes, Beers, and Women, Too… a Tire Change Clinic\" | organizer: Asheville on Bikes | where: New Belgium Brewing Company, 21 Craven St, Asheville, NC 28806, USA | source: ASHEVILLE_ON_BIKES | url: https://ashevilleonbikes.com/events#0fqrdu0tfui7lesvp54ja74djd@google.com-2026-06-02-1780432200000 | 1 listing(s)\n- \"The Recyclery - Fix-A-Flat Clinic\" | organizer: Asheville on Bikes | where: 271 W Haywood St, Asheville, NC 28801, USA | source: ASHEVILLE_ON_BIKES | url: https://ashevilleonbikes.com/events#0s0b1q79142r6si2idnhno8a1d@google.com-2026-05-21-1779400800000 | 1 listing(s)\n- \"Drupal Camp Asheville 2026\" | organizer: Asheville Tech Events | where: UNC Asheville Highsmith Student Union, 700 Founders Drive, Asheville, NC | source: MEETUP | url: https://www.meetup.com/avltech/events/314281932/ | 1 listing(s)\n- \"Skill Swap Supper at Burial Forestry Camp — Teach Something in 10 Minutes\" | organizer: Asheville Transplants | where: 10 Shady Oak Dr. Biltmore Village, Forestry Camp, Asheville, NC | source: MEETUP | url: https://www.meetup.com/asheville-transplants-20s-50s/events/314949568/ | 1 listing(s)\n- \"Kids Maker's Camp\" | organizer: AVL clay | where: AVL clay, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/kids-makers-camp | 1 listing(s)\n- \"🎨 Book & a Brush Summer Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/book-brush-summer-camp | 1 listing(s)\n- \"🐉 Dungeons & Dragonslayers Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/dungeons-dragonslayers-camp | 1 listing(s)\n- \"Adventure Awaits | Preschool Movement & Storytelling Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/adventure-awaits-preschool-movement-storytelling-camp | 1 listing(s)\n- \"Broadway Beats | Elementary Musical Theater Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/broadway-beats-elementary-musical-theater-camp | 1 listing(s)\n- \"Dance Mode | Preschool Music & Creative Play Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/dance-mode-preschool-music-creative-play-camp | 1 listing(s)\n- \"Groove & Glow | Elementary Neon Dance & Performance Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/groove-glow-elementary-neon-dance-performance-camp | 1 listing(s)\n- \"Level-Up | Elementary Rhythm & Creative Skills Camp\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/level-elementary-rhythm-creative-skills-camp | 1 listing(s)\n- \"Super Squad | Superhero Dance Camp for Preschoolers\" | organizer: Black Mountain Center for the Arts | where: Black Mountain Center for the Arts, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/super-squad-superhero-dance-camp-preschoolers | 1 listing(s)\n- \"Broken Social Scene w/ Fust at Burial Forestry Camp\" | organizer: Burial Beer Co. - Forestry Camp | where: Burial Beer Co. - Forestry Camp, 10 Shady Oak Drive, Asheville, NC | source: AVL_TODAY | url: https://link.dice.fm/A843c3e10d55 | 1 listing(s)\n- \"Costumes & Cosplay Summer Camp 2026 (Ages 11-14)\" | organizer: Carol Belk Theatre | where: Carol Belk Theatre, 300 Theatre Lane, Asheville, NC | source: AVL_TODAY | url: https://www.eventbrite.com/e/costumes-cosplay-summer-camp-2026-ages-11-14-registration-1983387205523 | 1 listing(s)\n- \"Paint Night at Burial Beer- Forestry Camp-Beach Dunes\" | organizer: Cork and Craft Asheville | where: Burial Beer Co. Forestry Camp Taproom, 10 Shady Oak Drive, Asheville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/paint-night-at-burial-beer-forestry-camp-beach-dunes-tickets-1989934804568 | 3 listing(s)\n- \"BENT w/ boys_camp\" | organizer: DSSOLVR | where: DSSOLVR, 63 N Lexington Ave, Asheville, NC | source: AVL_TODAY | url: https://dssolvr.com/event-detail/bent-w-boys_camp/ | 1 listing(s)\n- \"BENT w/ boys_camp + em trails\" | organizer: DSSOLVR | where: DSSOLVR, 63 N Lexington Ave, Asheville, NC | source: AVL_TODAY | url: https://dssolvr.com/event-detail/bent-w-boys_camp-em-trails/ | 1 listing(s)\n- \"UV Sessions w/ boys_camp + DJ Lil Meow Meow\" | organizer: DSSOLVR | where: DSSOLVR, 63 N. Lexington Ave, Asheville, NC | source: AVL_TODAY | url: https://dssolvr.com/event-detail/uv-sessions-w-boys_camp-dj-lil-meow-meow/ | 1 listing(s)\n- \"East Asheville Plant Clinic\" | organizer: East Asheville Tailgate Market | where: East Asheville Tailgate Market, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/east-asheville-plant-clinic-0 | 2 listing(s)\n- \"Affordable Vaccine Clinic 8/18\" | organizer: El Porvenir Cultural and Event Center | where: El Porvenir Cultural and Event Center, 17 Westside Drive, Asheville, NC | source: AVL_TODAY | url: https://www.ashevillehumane.org/event-calendar/vaccine-clinic-537-428-885-880-788-950-618-158-648-883-917-217-379-834-490-879-793-364-587/?occurrence=2026-08-18 | 1 listing(s)\n- \"Camp Bangin' & Sangin'!\" | organizer: Evergreen Community Charter School | where: Evergreen Community Charter School, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/camp-bangin-sangin | 1 listing(s)\n- \"Summer Camp Asheville 6/22/26-6/26/26\" | organizer: Fired Up Creative Lounge | where: Fired Up Creative Lounge, 26 Wall Street, Asheville, NC | source: AVL_TODAY | url: https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/ | 2 listing(s)\n- \"Career Camp by Goodwill\" | organizer: Goodwill Industries of Northwest NC | where: Goodwill Workforce Development Center, 1616 Patton Avenue, Asheville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/career-camp-by-goodwill-tickets-1989377523726 | 1 listing(s)\n- \"Healthcare Career Camp by Goodwill\" | organizer: Goodwill Industries of Northwest NC | where: Goodwill Workforce Development Center, 1616 Patton Avenue, Asheville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/healthcare-career-camp-by-goodwill-tickets-1990097552351 | 1 listing(s)\n- \"Wonder Junction VBS\" | organizer: Grassy Branch Baptist Church | where: 499 Riceville Rd., Asheville, NC | source: FACEBOOK | url: https://www.facebook.com/events/1549971726466764/ | 1 listing(s)\n- \"Summer Music Camp\" | organizer: Groce United Methodist Church, Asheville, NC | where: 954 Tunnel Rd, Asheville, NC, United States, North Carolina 28805 | source: FACEBOOK | url: https://www.facebook.com/events/26421060130896948/ | 1 listing(s)\n- \"JOSH JOHNSON'S COMEDY BAND CAMP\" | organizer: Harrah's Cherokee Center Asheville | where: Harrah's Cherokee Center Asheville, 87 Haywood St, Asheville, NC | source: HARRAHS | url: https://www.ticketmaster.com/josh-johnsons-comedy-band-camp-asheville-north-carolina-06-19-2026/event/2D00645AD23FC82E | 1 listing(s)\n- \"Asheville Youth Beach Volleyball Camp\" | organizer: Highland Brewing Company | where: Highland Brewing Company, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/asheville-youth-beach-volleyball-camp | 1 listing(s)\n- \"Summer Youth Volleyball Camps\" | organizer: Highland Brewing Company | where: 12 Old Charlotte Hwy, Ste 200, Asheville, NC, United States, North Carolina 28803 | source: FACEBOOK | url: https://www.facebook.com/events/26326399100375098/ | 3 listing(s)\n- \"Boob Camp, Breastfeeding Class\" | organizer: Kooshlie Care Doula Services | where: Kooshlie Care Doula Services, 59 Green Valley Road, Asheville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/boob-camp-breastfeeding-class-tickets-1992917374515 | 3 listing(s)\n- \"Childbirth Boot Camp\" | organizer: Kooshlie Care Doula Services | where: Kooshlie Care Doula Services, 59 Green Valley Road, Asheville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/childbirth-boot-camp-tickets-1571997479779 | 4 listing(s)\n- \"Farm to Fabric Kids Summer Camp\" | organizer: Local Cloth | where: Local Cloth, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/farm-to-fabric-kids-summer-camp | 2 listing(s)\n- \"Teen Sewing Summer Camp\" | organizer: Local Cloth | where: Local Cloth, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/teen-sewing-summer-camp-0 | 2 listing(s)\n- \"4-H Archery Clinic\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/4-h-archery-clinic-tickets-1990204324710 | 1 listing(s)\n- \"4-H Crochet Camp\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/4-h-crochet-camp-tickets-1990204737946 | 1 listing(s)\n- \"4-H Sewing Camp: Beginner Level\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/4-h-sewing-camp-beginner-level-tickets-1990204747976 | 1 listing(s)\n- \"4-H Sewing Camp: Intermediate Level\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/4-h-sewing-camp-intermediate-level-tickets-1990204753994 | 1 listing(s)\n- \"4-H STEM Camp - 'All About Electricity'\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/4-h-stem-camp-all-about-electricity-tickets-1990204392914 | 1 listing(s)\n- \"Farm to Fork Camp: Cooking Edition\" | organizer: N.C. Cooperative Extension, Haywood County | where: N.C. Cooperative Extension, Haywood County Center, 589 Raccoon Road, Waynesville, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/farm-to-fork-camp-cooking-edition-tickets-1990204775057 | 1 listing(s)\n- \"Summer Camp\" | organizer: NiNJAVILLE | where: NiNJAVILLE, 1078 Tunnel Rd, Asheville, NC | source: AVL_TODAY | url: https://avltoday.6amcity.com/events#260617o9TjJaq0j0iXbwmZQ8ysGA | 44 listing(s)\n- \"Adult Summer Camp @ Oak and Grist Distilling Co.\" | organizer: Oak and Grist Distilling Company LLC | where: Oak and Grist Distilling Company LLC, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/adult-summer-camp-oak-and-grist-distilling-co | 1 listing(s)\n- \"Study Hall w/ Jason McDougald of Camp Grier\" | organizer: Oak and Grist Distilling Company LLC | where: Oak and Grist Distilling Company LLC, Black Mountain, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/black-mountain/events/study-hall-w-jason-mcdougald-camp-grier | 1 listing(s)\n- \"Summer Kids Camps at Odyssey ClayWorks\" | organizer: Odyssey ClayWorks | where: Odyssey ClayWorks, 236 Clingman ave extension, Asheville, NC | source: AVL_TODAY | url: https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D | 1 listing(s)\n- \"VBS- Illumination Station\" | organizer: Reynolds Baptist Church, Asheville, NC | where: 520  Rose Hill Rd., Asheville, NC | source: FACEBOOK | url: https://www.facebook.com/events/1420847309803781/ | 1 listing(s)\n- \"Shine Camp for Teen Girls- June 15-18, 9am-4pm Daily\" | organizer: SHINE Camp & Conferences- a 501(c)3 non-profit | where: Christmount Christian Assembly, 222 Fern Way, Black Mountain, NC | source: EVENTBRITE | url: https://www.eventbrite.com/e/shine-camp-for-teen-girls-june-15-18-9am-4pm-daily-tickets-1984244548860 | 1 listing(s)\n- \"Conor Donahue / Zeb Camp Wright / Julie Odell\" | organizer: Static Age Records | where: Static Age Records, 713 Haywood Rd, Asheville, NC | source: STATIC_AGE | url: https://www.staticagenc.com/events/conor-donahue-zeb-camp-wright-julie-odell | 1 listing(s)\n- \"Adventure Center of Asheville Summer Day Camps\" | organizer: The Adventure Center of Asheville | where: The Adventure Center of Asheville, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/adventure-center-asheville-summer-day-camps#2026-08-03 | 10 listing(s)\n- \"Fix-A-Flat Bicycle Clinic\" | organizer: The Asheville Recyclery | where: The Asheville Recyclery, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/fix-flat-bicycle-clinic | 1 listing(s)\n- \"Strength In Motion: Tai Chi & Chi Kung Clinic\" | organizer: The Hub | where: The Hub, 216 Whitson Ave., Swannanoa, NC | source: AVL_TODAY | url: https://www.facebook.com/events/1453805056150942/1453805076150940/?active_tab=about | 5 listing(s)\n- \"Summer Camp Tournament of Games\" | organizer: The Mule | where: The Mule, 131 Sweeten Creek Road, St. 10, Asheville, NC | source: AVL_TODAY | url: https://devilsfootbrew.com/event-detail/summer-camp-tournament-of-games-more/ | 1 listing(s)\n- \"Teen Art + Metals Summer Camp\" | organizer: Torched | where: Torched , 1056 Haywood Rd. Ste A, Asheville, NC | source: AVL_TODAY | url: https://torched.as.me/kids-classes-asheville | 1 listing(s)\n- \"Ages 9-13 June Art + Metalsmithing Summer Camp\" | organizer: Torched AVL | where: Torched AVL, 1056 Haywood Rd. Suite A, Asheville, NC | source: AVL_TODAY | url: https://torched.as.me/kids-camp-june2026 | 1 listing(s)\n- \"ages 9-13 Summer Camp - July Art + Metalsmithing\" | organizer: Torched AVL | where: Torched AVL, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/ages-9-13-summer-camp-july-art-metalsmithing | 1 listing(s)\n- \"Teen Art + Metalsmithing Camp for ages 9-13! (Aug2026)\" | organizer: Torched AVL | where: Torched AVL, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/teen-art-metalsmithing-camp-ages-9-13-aug2026 | 1 listing(s)\n- \"Kids Yoga + Art Summer Camp (Week 2-- Afternoon Session)\" | organizer: Trinity United Methodist Church | where: Trinity United Methodist Church, 587 Haywood Rd, Asheville, NC | source: AVL_TODAY | url: https://momence.com/l/0eh18goD | 3 listing(s)\n- \"Make Your Own Custom Electric Guitar Summer Camp 2026 (Ages 13-17)\" | organizer: UNC Asheville STEAM Studio | where: UNC Asheville STEAM Studio, 821 Riverside Drive, Asheville, NC | source: AVL_TODAY | url: https://www.eventbrite.com/e/make-your-own-custom-electric-guitar-summer-camp-2026-ages-13-17-registration-1983389038004 | 1 listing(s)\n- \"Night People w/ DJ Lil Meow + boys_camp\" | organizer: VOWL Bar at Dssolvr | where: VOWL Bar at Dssolvr, 63 N Lexington Ave, Asheville, NC | source: MOUNTAIN_X | url: https://mountainx.com/event/night-people-w-dj-lil-meow-boys_camp/ | 1 listing(s)\n- \"Disc Golf Clinics\" | organizer: Western North Carolina Disc Golf Association | where: Buncombe County Sports Park, 58 Apac Circle, Candler, NC | source: MEETUP | url: https://www.meetup.com/wncdga/events/314647799/ | 1 listing(s)\n- \"Fabulous Fables Creative Arts Camp / Rising 1st-2nd Graders\" | organizer: Wortham Center for the Performing Arts | where: Wortham Center for the Performing Arts, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/fabulous-fables-creative-arts-camp-rising-1st-2nd-graders | 1 listing(s)\n- \"Spin Me a Tale Creative Arts Camp / Rising 3rd-5th Graders\" | organizer: Wortham Center for the Performing Arts | where: Wortham Center for the Performing Arts, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/spin-me-tale-creative-arts-camp-rising-3rd-5th-graders | 1 listing(s)\n- \"Under the Sea Creative Arts Camp / Rising 3rd-5th Graders\" | organizer: Wortham Center for the Performing Arts | where: Wortham Center for the Performing Arts, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/under-sea-creative-arts-camp-rising-3rd-5th-graders | 1 listing(s)\n- \"WNC Animals Creative Arts Camp / Rising 1st-2nd Graders\" | organizer: Wortham Center for the Performing Arts | where: Wortham Center for the Performing Arts, Asheville, NC | source: EXPLORE_ASHEVILLE | url: https://www.exploreasheville.com/asheville/events/wnc-animals-creative-arts-camp-rising-1st-2nd-graders | 1 listing(s)",
+  "at": "2026-10-29T03:11:16.328Z",
+  "webSearch": false,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 7481,
+    "cachedInputTokens": 0,
+    "outputTokens": 1994,
+    "reasoningTokens": 110
+  },
+  "searches": [],
+  "ms": 32400,
+  "candidates": [
+    {
+      "name": "Asheville Art Museum",
+      "url": "https://www.ashevilleart.org/event/summer-art-camp-appalachian-arts-crafts/2026-07-14/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Summer art camps with sessions for rising grades 3–5 and 9–12."
+    },
+    {
+      "name": "Asheville Junior Theater",
+      "url": "https://ashevillejuniortheater.com/summer-camps/",
+      "town": "Arden",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["theater", "dance"],
+      "note": "Themed summer theater camps and a dance intensive."
+    },
+    {
+      "name": "Asheville Middle School",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "High school ultimate frisbee summer camp."
+    },
+    {
+      "name": "Asheville Museum of Science",
+      "url": "https://ashevillescience.org/event/summer-science-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem"],
+      "note": "Summer science camps for children."
+    },
+    {
+      "name": "Asheville Music School",
+      "url": "https://www.ashevillemusicschool.org/summer-camps/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Summer music camps, including a Harry Potter-themed Suzuki strings camp."
+    },
+    {
+      "name": "AVL clay",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Kids Maker's Camp."
+    },
+    {
+      "name": "Black Mountain Center for the Arts",
+      "url": null,
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "music", "theater", "dance"],
+      "note": "Preschool and elementary camps in art, storytelling, musical theater, dance and creative play."
+    },
+    {
+      "name": "Carol Belk Theatre",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "theater"],
+      "note": "Costumes and cosplay summer camp for ages 11–14."
+    },
+    {
+      "name": "Evergreen Community Charter School",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Camp Bangin' & Sangin' summer program."
+    },
+    {
+      "name": "Fired Up Creative Lounge",
+      "url": "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Weeklong summer art camp."
+    },
+    {
+      "name": "Grassy Branch Baptist Church of Asheville",
+      "url": "https://www.facebook.com/events/1549971726466764/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Wonder Junction Vacation Bible School."
+    },
+    {
+      "name": "Groce United Methodist Church of Asheville",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["music"],
+      "note": "Summer music camp."
+    },
+    {
+      "name": "Highland Brewing Company",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Youth beach volleyball summer camps."
+    },
+    {
+      "name": "Local Cloth",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Farm to Fabric kids camp and teen sewing summer camp."
+    },
+    {
+      "name": "N.C. Cooperative Extension, Haywood County",
+      "url": null,
+      "town": "Waynesville",
+      "state": "NC",
+      "kinds": ["day", "clinic"],
+      "categories": ["sports", "arts", "stem", "cooking"],
+      "note": "4-H archery clinic and camps in crochet, sewing, electricity and cooking."
+    },
+    {
+      "name": "NiNJAVILLE",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["sports"],
+      "note": "Summer camp at its Tunnel Road location."
+    },
+    {
+      "name": "Odyssey ClayWorks",
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Summer clay camps for children."
+    },
+    {
+      "name": "Reynolds Baptist Church of Asheville",
+      "url": "https://www.facebook.com/events/1420847309803781/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["vbs"],
+      "categories": ["faith_based"],
+      "note": "Illumination Station Vacation Bible School."
+    },
+    {
+      "name": "SHINE Camp & Conferences",
+      "url": null,
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "Four-day camp for teen girls, 9 a.m.–4 p.m., at Christmount Christian Assembly."
+    },
+    {
+      "name": "The Adventure Center of Asheville",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["nature_outdoor"],
+      "note": "Summer adventure day camps."
+    },
+    {
+      "name": "Torched AVL",
+      "url": "https://torched.as.me/kids-camp-june2026",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts"],
+      "note": "Art and metalsmithing summer camps for ages 9–13 and teens."
+    },
+    {
+      "name": "Trinity United Methodist Church of Asheville",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["half_day"],
+      "categories": ["arts", "sports"],
+      "note": "Kids yoga and art summer camp, including afternoon sessions."
+    },
+    {
+      "name": "UNC Asheville STEAM Studio",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["stem", "arts", "music"],
+      "note": "Custom electric guitar-building summer camp for ages 13–17."
+    },
+    {
+      "name": "Wortham Center for the Performing Arts",
+      "url": null,
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["arts", "theater"],
+      "note": "Themed creative arts camps for rising grades 1–2 and 3–5."
+    }
+  ]
+}

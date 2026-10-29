@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "asheville-school",
+    "name": "Asheville School (summer programs)",
+    "urls": ["https://www.ashevilleschool.org/academics-summer-reading/"],
+    "covers": ["blocked_plain_fetch", "weak_seed_url"]
+  },
+  "verifiedAt": "2026-10-28T23:07:40.825Z",
+  "verifyMs": 5,
+  "extraction": {
+    "provider_name": "Asheville School",
+    "website_url": "https://www.ashevilleschool.org/",
+    "notes": "No official summer 2027 or 2026 camp offerings could be verified. The supplied page is titled 2026 Summer Reading and describes independent school reading assignments, not a supervised camp. The official site has a July 16, 2019 news article about App Development Camp, but no current-season information was found. Third-party directories list App Development Camp and Nike Boys Basketball Camp at Asheville School without verified official 2026 or 2027 offerings; these were not made into cards. Direct opens of the supplied page and homepage returned no readable content; indexed official-page text was available through search.",
+    "excluded": [
+      {
+        "name": "2026 Summer Reading",
+        "reason": "Independent reading assignments for enrolled students, not a finite supervised summer program. The official page instructs students to read and annotate books before returning to campus in the fall."
+      },
+      {
+        "name": "Mountaineering",
+        "reason": "Regular school extracurricular programming, not an identified summer camp."
+      }
+    ],
+    "cards": []
+  },
+  "report": {
+    "ownDomains": ["ashevilleschool.org"],
+    "platformTenants": [],
+    "byField": {},
+    "totals": {
+      "total": 0,
+      "verified": 0,
+      "review": 0,
+      "dropped": 0
+    },
+    "pages": [
+      {
+        "url": "https://www.ashevilleschool.org/academics-summer-reading/",
+        "ok": true,
+        "method": "chrome-tls",
+        "kind": "html"
+      }
+    ]
+  }
+}

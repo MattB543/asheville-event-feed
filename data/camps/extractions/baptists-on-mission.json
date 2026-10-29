@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "baptists-on-mission",
+    "name": "Baptists on Mission",
+    "urls": ["https://baptistsonmission.org/camps/deep-impact/"],
+    "area": "Marion; Spruce Pine, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:55.329Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "168a9a2c75df6b2a39e3446c9b6569041c80d630cb7b58857a017561de2bf50b",
+  "response": {
+    "searches": ["site:baptistsonmission.org \"DI Kids\" \"2027\""],
+    "usage": {
+      "inputTokens": 25794,
+      "cachedInputTokens": 8845,
+      "outputTokens": 468,
+      "reasoningTokens": 38
+    },
+    "status": "completed",
+    "ms": 17054,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://baptistsonmission.org/camps/deep-impact/",
+      "chars": 10151,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/wp-content/uploads/2026/09/2027-DI-Week-Mission-Schedule.pdf",
+      "chars": 704,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/",
+      "chars": 7881,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/charity-mission-camp/",
+      "chars": 9092,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/red-springs-mission-camp/",
+      "chars": 9454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/shelby-mission-camp/",
+      "chars": 9373,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/",
+      "chars": 12213,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Baptists on Mission",
+    "website_url": "https://baptistsonmission.org/",
+    "notes": "No qualifying camp cards found under the mission-trip exclusion. The official Deep Impact page has posted 2027 mission weeks, including Marion, Black Mountain and Spruce Pine, but describes church groups serving at mission centers and rebuild sites, primarily on construction and community-service projects. The existing Deep Impact program is therefore excluded rather than carried forward as a camp. DI Kids was checked on the official page at https://baptistsonmission.org/missions/di-kids/; it describes group mission events rather than a separate qualifying summer camp.",
+    "excluded": [
+      {
+        "name": "Deep Impact",
+        "reason": "Pre-packaged mission trips for students and adult church leaders. The 2027 format centers on construction and community service at mission centers and rebuild sites; mission trips are excluded even when called camps."
+      },
+      {
+        "name": "DI Kids",
+        "reason": "Pre-packaged mission experiences for children's ministry groups; excluded as mission trips or youth-group service outings. The current official listing is an October 24, 2026 Forest City mission event marked cancelled, also outside summer."
+      },
+      {
+        "name": "Charity Mission Camp",
+        "reason": "Lodging and pre-arranged service projects for volunteer mission teams, not a separate supervised summer youth camp. Also located in Rose Hill, outside the Asheville-area drive range."
+      },
+      {
+        "name": "Red Springs Mission Camp",
+        "reason": "Lodging and service projects for volunteer mission teams, excluded as mission trips. Also located in Red Springs, outside the Asheville-area drive range."
+      },
+      {
+        "name": "Shelby Mission Camp",
+        "reason": "Lodging and pre-arranged construction and community-service projects for church mission teams, excluded as mission trips rather than a supervised summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

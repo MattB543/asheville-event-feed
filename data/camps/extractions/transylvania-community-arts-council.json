@@ -1,0 +1,349 @@
+{
+  "provider": {
+    "key": "transylvania-community-arts-council",
+    "name": "Transylvania Community Arts Council",
+    "urls": ["https://www.tcarts.org/summer-arts-academy"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:27:00.404Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2b121e7201ed34f402c06c63b6acb0c7626a945363cca0da163ca757210153e4",
+  "response": {
+    "searches": [
+      "site:tcarts.org \"2027\" \"Summer\"",
+      "open https://static1.squarespace.com/static/671f8f170e5ae71ad55c6482/t/69b1a787d91e7e78270af1c4/1773250439338/2026_Summer%2BArts%2BAcademy_Registration%2BForm_FINAL_03.11.2026.docx"
+    ],
+    "usage": {
+      "inputTokens": 36143,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2314,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 42347,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.tcarts.org/summer-arts-academy",
+      "chars": 11733,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tcarts.org/exhibits-registration",
+      "chars": 1967,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tcarts.org/s/2026_Summer-Arts-Academy_Registration-Form_FINAL_03112026.docx",
+      "chars": 21827,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tcarts.org/summer-arts-academy/p/2026-summer-arts-academy",
+      "chars": 4176,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tcarts.org/",
+      "chars": 5399,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Transylvania Community Arts Council",
+    "website_url": "https://www.tcarts.org/",
+    "notes": "No 2027 summer program information or registration dates were found. The linked 2026 registration form is a DOCX file that could not be read; additional price tiers or support policies may appear there.",
+    "excluded": [
+      {
+        "name": "Teens Wheel Throwing Pottery Class (Ages 14-17)",
+        "reason": "A four-Thursday pottery lesson series, not a camp."
+      },
+      {
+        "name": "The Great Pumpkin Contest!",
+        "reason": "An autumn contest, not a supervised summer camp."
+      },
+      {
+        "name": "The Great Pumpkin Party!",
+        "reason": "A single autumn social event, not a summer camp."
+      },
+      {
+        "name": "Collage! - A Workshop with Mary Alice Braukman",
+        "reason": "Held September 21–25, outside summer."
+      },
+      {
+        "name": "TC Arts 20th Annual Duck Race",
+        "reason": "A community fundraising event, not a supervised youth camp."
+      },
+      {
+        "name": "Transylvania Art Guild Summer Showcase",
+        "reason": "An art exhibition, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Arts Academy",
+        "type": "half_day",
+        "categories": ["arts", "music", "dance", "stem"],
+        "description": "Students study drawing, painting, clay, photography, animation, songwriting, dance, and video game design. Younger students select two morning classes; tweens and teens can select specialized afternoon classes.",
+        "camp_page_url": "https://www.tcarts.org/summer-arts-academy",
+        "registration_url": "https://www.tcarts.org/summer-arts-academy/p/2026-summer-arts-academy",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Transylvania Community Arts Council",
+            "address": "349 S. Caldwell Street",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Morning (9.15am-12.30pm); Afternoon (1.00-2.30pm)"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "session",
+            "label": "from",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1 MORNINGS: Ages 6-11",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 1 MORNINGS: Drawing with Billy Smith",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 17
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 1 AFTERNOONS",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 MORNINGS: Ages 6-11",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 MORNINGS: Drawing with Billy Smith",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 17
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 AFTERNOONS",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 MORNINGS: Ages 6-11",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 MORNINGS: Drawing with Billy Smith",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 17
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 AFTERNOONS",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4 MORNINGS",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:15",
+              "end": "12:30"
+            },
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Session 4 AFTERNOONS",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 16
+            },
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Session 4 mornings",
+          "text": "Week 4 Mornings are Full!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.tcarts.org/summer-arts-academy",
+          "https://www.tcarts.org/summer-arts-academy/p/2026-summer-arts-academy",
+          "https://www.tcarts.org/all-upcoming-events/summer-arts-academy-session-1-thru-june-19-cgjne-e3ljd-wzeey"
+        ],
+        "confidence": "medium",
+        "review_notes": "The session schedule gives afternoon ages 11–16, but the wheel-throwing class description gives ages 11–15; rows use the scheduled afternoon band. Several teen classes also allow participation with instructor permission. The product lists a starting price of $150 without exposing variant prices. The linked DOCX registration form could not be read. The full notice applies to past 2026 Session 4 mornings, not 2027 availability."
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "chestoa-baptist-church-of-erwin",
+    "name": "Chestoa Baptist Church of Erwin",
+    "urls": ["https://www.facebook.com/ChestoaBaptist/"],
+    "area": "Erwin, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:20:53.635Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Chestoa Baptist Church Erwin Vacation Bible School 2026",
+      "site:facebook.com/ChestoaBaptist \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 22371,
+      "cachedInputTokens": 8845,
+      "outputTokens": 792,
+      "reasoningTokens": 178
+    },
+    "status": "completed",
+    "ms": 20237,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/ChestoaBaptist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Chestoa Baptist Church of Erwin",
+    "website_url": null,
+    "notes": "No readable standalone church website was found. The Facebook page and the legacy website https://www.chestoa.bapt-church.com returned no readable content. No 2027 announcement was found. A 2026 VBS listing was found on AllEvents and HappeningNext, but its details could not be verified on the church's own pages.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/ChestoaBaptist/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Chestoa Baptist Church",
+            "address": "2170 Chestoa Pike",
+            "town": "Erwin",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/ChestoaBaptist/posts/another-great-night-at-a-bible-school-has-grown-every-night-wonderful-children-p/290627476809848/"
+        ],
+        "confidence": "medium",
+        "review_notes": "An indexed church Facebook post confirms a historical Bible School, but no official 2026 announcement was readable. June 27, 2026, 1–5 p.m., and 2170 Chestoa Pike come from https://allevents.in/erwin/vacation-bible-school-chestoa-baptist-church/200029887150159 and https://happeningnext.com/event/vacation-bible-school-chestoa-baptist-church-eid3a0dji0ewn. Confirm these details and the youth-program format with the church. The church's published location could not be read; third-party directories also list 2178 and 2180 Chestoa Pike."
+      }
+    ]
+  }
+}

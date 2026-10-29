@@ -1,0 +1,235 @@
+{
+  "provider": {
+    "key": "first-united-methodist-church-of-waynesville",
+    "name": "First United Methodist Church of Waynesville",
+    "urls": [
+      "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
+      "https://www.fumc-waynesville.com/events/bibletimes/"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:31.505Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b65bc1ab73511130fd01dd6b7aca09a008eae3063aedfba485e2d445ef30a92f",
+  "response": {
+    "searches": [
+      "site:fumc-waynesville.com 2027 camp Bibletimes",
+      "open https://www.fumc-waynesville.com/youthtrips/",
+      "site:fumc-waynesville.com/youthtrips/ \"trip\""
+    ],
+    "usage": {
+      "inputTokens": 24324,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1652,
+      "reasoningTokens": 260
+    },
+    "status": "completed",
+    "ms": 44387,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
+      "chars": 4391,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumc-waynesville.com/events/bibletimes/",
+      "chars": 1570,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975",
+      "chars": 1102,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumc-waynesville.com/capital-campaign/",
+      "chars": 11072,
+      "method": "fetch"
+    },
+    {
+      "url": "https://afterschoolhq.com/",
+      "chars": 8253,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumc-waynesville.com/",
+      "chars": 2284,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First United Methodist Church of Waynesville",
+    "website_url": "https://www.fumc-waynesville.com/",
+    "notes": "No 2027 information found for Creation Care Camp or Bibletimes. The provider has posted 2027 youth trips, which are excluded under the camp rule; this is not a replacement list for its children's camps. Youth Summer Camp has an indexed event page but no readable program details; its current offering status could not be established. Several church pages returned empty content when opened, though official search snippets were readable.",
+    "excluded": [
+      {
+        "name": "High School Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
+      },
+      {
+        "name": "Middle School Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
+      },
+      {
+        "name": "Local Mission Trip",
+        "reason": "Mission trip; excluded under the camp rule."
+      },
+      {
+        "name": "Wilderness Trail",
+        "reason": "Youth-group backpacking trip in Troutdale, VA, outside the directory's geographic area."
+      },
+      {
+        "name": "Winter Retreat",
+        "reason": "March retreat outside summer."
+      },
+      {
+        "name": "Music Makers",
+        "reason": "School-year music education classes, not a summer camp."
+      },
+      {
+        "name": "JAM",
+        "reason": "School-year Appalachian music lessons, not a summer camp."
+      },
+      {
+        "name": "Jounce 6th",
+        "reason": "School-year after-school care."
+      },
+      {
+        "name": "Jounce Middle",
+        "reason": "School-year after-school care."
+      },
+      {
+        "name": "Child Development Center",
+        "reason": "Year-round preschool, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Creation Care Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers learn about caring for the environment through hands-on activities, field trips, and play.",
+        "camp_page_url": "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
+        "registration_url": "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "First United Methodist Church",
+            "address": "566 S Haywood St",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "11:30",
+          "end": "17:00",
+          "text": "Monday - Friday 11:30am - 5pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration is now closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be served daily upon arrival to camp."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Transportation assistance will be available to families to help children get to and from camp each day."
+        },
+        "sources": [
+          "https://afterschoolhq.com/FUMCWaynesville/activity/creationcarecamp2026",
+          "https://www.fumc-waynesville.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The English description and schedule end at 5pm, while the Spanish description ends at 5:30pm. Used the English description and structured schedule. Grades are explicitly for the 2025-2026 school year, recorded as completed for summer 2026."
+      },
+      {
+        "name": "Bibletimes",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about God through interactive skits, crafts, games, and music.",
+        "camp_page_url": "https://www.fumc-waynesville.com/events/bibletimes/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-10",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "First United Methodist Church Gym/Christian Growth Center",
+            "address": "566 S Haywood St",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "19:30",
+          "text": "5:00PM - 7:30PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fumc-waynesville.com/events/bibletimes/",
+          "https://docs.google.com/forms/d/e/1FAIpQLSdrkbQV6DTZxURAK4GAcBs3oEGMKQ5y6RwyTvr5IK25Wt-qlw/viewform?usp=sharing&ouid=109074652801964319975",
+          "https://www.fumc-waynesville.com/children/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

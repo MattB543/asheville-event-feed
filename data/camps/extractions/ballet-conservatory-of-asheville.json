@@ -1,0 +1,394 @@
+{
+  "provider": {
+    "key": "ballet-conservatory-of-asheville",
+    "name": "Ballet Conservatory of Asheville",
+    "urls": ["https://balletconservatoryofasheville.com/summer-schedules/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:53.518Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "015c854959dfc1c7d3a3109285ed3f54c01e708fd9206f37867e11a94482f5f2",
+  "response": {
+    "searches": [
+      "site:balletconservatoryofasheville.com summer 2027",
+      "open https://balletconservatoryofasheville.com/summer-intensive-registration/",
+      "site:balletconservatoryofasheville.com \"2026\" \"Tuition\" \"Intensive\"",
+      "open https://balletconservatoryofasheville.com/wp-content/uploads/2026/03/balletconservatoryofasheville_summer_intensive_2026_registration_pack-1.pdf"
+    ],
+    "usage": {
+      "inputTokens": 30862,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2840,
+      "reasoningTokens": 266
+    },
+    "status": "completed",
+    "ms": 64081,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://balletconservatoryofasheville.com/summer-schedules/",
+      "chars": 2791,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/schedules/",
+      "chars": 2116,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/wp-content/uploads/2026/09/BCA-FALL-2026-27-Childrens-schedule-v1.pdf",
+      "chars": 3293,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/wp-content/uploads/2026/08/BCA-Fall-2026-27-Pre-pro-schedule-v1.pdf",
+      "chars": 2882,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/summer-intensive/",
+      "chars": 2871,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/wp-content/uploads/2022/01/bca-summer-intensive-2022-video-audition-application-form.pdf",
+      "chars": 3147,
+      "method": "fetch"
+    },
+    {
+      "url": "https://balletconservatoryofasheville.com/wp-content/uploads/2022/02/balletconservatoryofasheville_summer_intensive_audition_guide.pdf",
+      "chars": 2470,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/5iT6GXHuyhzdFr8AA",
+      "chars": 7008,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ballet Conservatory of Asheville",
+    "website_url": "https://balletconservatoryofasheville.com/",
+    "notes": "No program-specific 2027 camp dates or registration milestones found. The class schedules page says summer schedules begin May 25, 2027, and the pre-professional handbook describes a general summer training period June 7–August 14, 2027; neither establishes individual camp dates. Retained 2026 programs. The 2026 intensive registration packet was readable only in part; the newer second-audition packet returned no readable body text. Housing is an optional host-family arrangement, not a separately described overnight camp.",
+    "excluded": [
+      {
+        "name": "Summer Classes",
+        "reason": "Ballet and tap lesson series purchased as five-week class sessions, rather than camps."
+      },
+      {
+        "name": "Summer Open Classes",
+        "reason": "Individually selected dance classes with drop-in and prepaid class pricing, rather than a camp."
+      },
+      {
+        "name": "Children/Adults Classes",
+        "reason": "School-year dance classes."
+      },
+      {
+        "name": "Pre-Professional Division",
+        "reason": "School-year training program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Workshops",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Children take ballet and contemporary dance classes, with jazz or tap during selected themed weeks. Workshops include a few outdoor activities and a Friday showcase.",
+        "camp_page_url": "https://balletconservatoryofasheville.com/summer-schedules/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "5 Points Studios",
+            "address": "6 E. Chestnut St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:30",
+          "text": "9:30am-12:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 195,
+            "unit": "week",
+            "label": "workshop",
+            "year": 2026
+          },
+          {
+            "amount": 180,
+            "unit": "week",
+            "label": "additional weeks or siblings ($15 off)",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "COPPELIA WEEK",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BROADWAY WEEK (+Jazz, +Tap)",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "THE LITTLE MERMAID WEEK (+Jazz)",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MIDSUMMER Night’s Dream WEEK (+Jazz)",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "SUMMER NUTCRACKER WEEK",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WIZARD OF OZ WEEK (+Jazz)",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://balletconservatoryofasheville.com/summer-schedules/",
+          "https://balletconservatoryofasheville.com/contact/",
+          "https://balletconservatoryofasheville.com/wp-content/uploads/2026/09/BCA-FALL-2026-27-Childrens-schedule-v1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The provider lists ages 5–7 and 8–11 but does not explicitly assign separate bands to each theme; retained one row per theme rather than duplicating assumed groups. The studio location comes from the provider's contact page and schedule, not an explicit workshop drop-off statement. Full-day options are mentioned without hours or prices. The registration form link could not be recovered."
+      },
+      {
+        "name": "Petite Summer Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "A two-week dance intensive for children ages 8–13.",
+        "camp_page_url": "https://balletconservatoryofasheville.com/summer-schedules/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "5 Points Studios",
+            "address": "6 E. Chestnut St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "14:00",
+          "text": "9:30-2pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 280,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 510,
+            "unit": "session",
+            "label": "both weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://balletconservatoryofasheville.com/summer-schedules/",
+          "https://balletconservatoryofasheville.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The studio location is the provider's published contact location; the summer page does not explicitly identify Petite Intensive drop-off. The registration form link could not be recovered."
+      },
+      {
+        "name": "Summer Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Dancers train in ballet technique, pointe, variations, partnering, modern, jazz, Pilates and yoga. The four-week course includes rehearsals and a final showcase.",
+        "camp_page_url": "https://balletconservatoryofasheville.com/summer-intensive/",
+        "registration_url": "https://balletconservatoryofasheville.com/summer-intensive-registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "BCA Studios",
+            "address": "6 E. Chestnut St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Levels A & B: Monday through Friday 9:30am to 4pm and Saturdays 9:30-11am. Levels C, D, & E: Monday through Friday 9:30am to 5pm and Saturdays 11am-12:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1800,
+            "unit": "program",
+            "label": "Beginner Program",
+            "year": 2026
+          },
+          {
+            "amount": 1920,
+            "unit": "program",
+            "label": "Intermediate and Advanced Programs",
+            "year": 2026
+          },
+          {
+            "amount": 1500,
+            "unit": "session",
+            "label": "optional host-family room and board, four weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Housing & scholarships available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Dancers selecting Room & Board will be matched with a BCA host family. Each host family will house, feed, and transport their out-of-town guest dancer."
+        },
+        "sources": [
+          "https://balletconservatoryofasheville.com/summer-intensive/",
+          "https://balletconservatoryofasheville.com/summer-intensive-registration/",
+          "https://balletconservatoryofasheville.com/wp-content/uploads/2026/03/balletconservatoryofasheville_summer_intensive_2026_registration_pack-1.pdf",
+          "https://balletconservatoryofasheville.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Hours and prices come from the 2026 registration packet version dated January 26, 2026. A newer second-audition packet exists but returned no readable body text. The older packet incorrectly labels its showcase July 10, 2025; the current intensive page and packet's opening paragraph agree on June 15–July 10, 2026. Saturday July 4 classes are TBD. No current age limits found; did not reuse the 2022 minimum age. Admission is by audition and accepted dancers receive registration materials."
+      }
+    ]
+  }
+}

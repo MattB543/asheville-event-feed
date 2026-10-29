@@ -1,0 +1,73 @@
+{
+  "provider": {
+    "key": "carolina-outdoor-recreation-and-education",
+    "name": "Carolina Outdoor Recreation & Education (CORE)",
+    "urls": ["https://www.morgantoncore.com/our-program"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:18:15.994Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ceac9272beb3aa785f7ae93706119c5539a280359181ad5a762beea06bb99c20",
+  "response": {
+    "searches": [
+      "site:morgantoncore.com summer camp 2027 expeditions",
+      "open https://www.morgantoncore.com/communitycourses"
+    ],
+    "usage": {
+      "inputTokens": 12338,
+      "cachedInputTokens": 8845,
+      "outputTokens": 479,
+      "reasoningTokens": 113
+    },
+    "status": "completed",
+    "ms": 19562,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.morgantoncore.com/our-program",
+      "chars": 6179,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.morgantoncore.com/",
+      "chars": 3245,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolina Outdoor Recreation & Education (CORE)",
+    "website_url": "https://www.morgantoncore.com/",
+    "notes": "No qualifying standalone summer camp or 2027 camp announcement was found. The previously listed Wilderness Expeditions are trips within CORE's ongoing youth-group program and are excluded under the youth-group trip rule. The Community Courses and Member Resources pages returned no readable body text when opened; search results describe community courses aimed at adult outdoor skills and member resources for the ongoing program.",
+    "excluded": [
+      {
+        "name": "Wilderness Expeditions",
+        "reason": "Summer expeditions are youth-group trips within CORE's ongoing membership program, rather than standalone camps. Spring-break expeditions are also outside summer. The teen expeditions described in California, Northern Canada, Wyoming and Idaho are outside the directory's geographic range."
+      },
+      {
+        "name": "Weekly Meetings",
+        "reason": "Ongoing youth-group meetings and outdoor-skills instruction, not a finite summer camp."
+      },
+      {
+        "name": "Weekend Adventures",
+        "reason": "Youth-group outings and trips held September through May, outside summer."
+      },
+      {
+        "name": "Community Service Projects",
+        "reason": "Service outings integrated into ongoing youth-group meetings and trips, not a standalone summer camp."
+      },
+      {
+        "name": "Community Courses",
+        "reason": "The official search result describes outdoor-skills courses focused on adults; no qualifying youth summer camp was identified."
+      },
+      {
+        "name": "2026 Celebration & Raffle",
+        "reason": "Fundraising social event, not a camp."
+      }
+    ],
+    "cards": []
+  }
+}

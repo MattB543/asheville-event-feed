@@ -1,0 +1,337 @@
+{
+  "provider": {
+    "key": "ic-imagine-public-charter-school",
+    "name": "IC Imagine Public Charter School",
+    "urls": ["https://www.icimagine.org/page/summer-at-ic-imagine"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:50.031Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "87c7f6c8c4ab76beb006d9c6448723a0bd6b3e594f657f8526c6615590dd36a0",
+  "response": {
+    "searches": [
+      "site:icimagine.org summer camp 2026 ASCEND 2027",
+      "site:icimagine.org \"2026\" \"Camp\" \"June\"",
+      "site:icimagine.org \"Cheer\" \"Camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 37073,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2529,
+      "reasoningTokens": 275
+    },
+    "status": "completed",
+    "ms": 56284,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+      "chars": 3004,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/our-campus",
+      "chars": 3900,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/bell-schedules",
+      "chars": 3520,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/dual-enrollment",
+      "chars": 5561,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/o/ic-imagine/page/infinite-campus",
+      "chars": 4035,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/campus-tours",
+      "chars": 2778,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/enrollment-events",
+      "chars": 2746,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.icimagine.org/page/enrollment-faqs",
+      "chars": 3256,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "IC Imagine Public Charter School",
+    "website_url": "https://www.icimagine.org/",
+    "notes": "No summer 2027 camp information was found. The summer page still lists 2026 offerings. Its registration links were not exposed in the readable page or search results, so program-specific registration destinations could not be recovered. No readable summer brochure or PDF was found. The page's undated registration-open and limited-spots wording appears to refer to the past 2026 season and has not been treated as 2027 availability. Baseball was mentioned only as a possible camp in the March 12 newsletter, not as a confirmed offering.",
+    "excluded": [
+      {
+        "name": "High School Summer School",
+        "reason": "Academic credit-recovery summer school for the school's students, not a public youth camp."
+      },
+      {
+        "name": "ASCEND After School Care",
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Dual Enrollment | AB Tech",
+        "reason": "School academic dual-enrollment courses, not a finite summer camp."
+      },
+      {
+        "name": "Campus Tours and Enrollment Events",
+        "reason": "Admissions visits and social or information events, not supervised summer camps."
+      },
+      {
+        "name": "Interscholastic Athletics and Tryouts",
+        "reason": "Sports team seasons and tryouts, not camps."
+      },
+      {
+        "name": "After School Programs",
+        "reason": "School-year extracurricular classes and clubs, including fall programs, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "A summer basketball camp for youth.",
+        "camp_page_url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.icimagine.org/page/summer-at-ic-imagine"],
+        "confidence": "medium",
+        "review_notes": "The 2026 offering is confirmed, but its linked registration details could not be read. Check dates, hours, eligibility, price and drop-off venue; the school's footer address alone does not establish the camp location."
+      },
+      {
+        "name": "Girls Basketball",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "A summer basketball camp for girls.",
+        "camp_page_url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.icimagine.org/page/summer-at-ic-imagine"],
+        "confidence": "medium",
+        "review_notes": "The 2026 offering is confirmed, but its linked registration details could not be read. Check dates, hours, eligibility, price and drop-off venue."
+      },
+      {
+        "name": "Cheer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "A summer cheerleading camp for youth.",
+        "camp_page_url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.icimagine.org/page/summer-at-ic-imagine"],
+        "confidence": "medium",
+        "review_notes": "The 2026 offering is confirmed, but its linked registration details could not be read. Check dates, hours, eligibility, price and drop-off venue."
+      },
+      {
+        "name": "ASCEND Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in activities organized around a different theme each week.",
+        "camp_page_url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.icimagine.org/page/summer-at-ic-imagine",
+          "https://www.icimagine.org/article/2640108",
+          "https://www.icimagine.org/article/2652734"
+        ],
+        "confidence": "medium",
+        "review_notes": "The January 16, 2026 newsletter says registration is now open but does not state the actual opening date. Weekly themes are mentioned without a readable schedule. Check the linked camp registration for dates, eligibility, hours, prices and venue. K–5 eligibility and $115/week on the ASCEND after-school page apply to school-year care and were not carried over."
+      },
+      {
+        "name": "Volleyball Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A summer volleyball camp with separate elementary, middle school and upper school sessions.",
+        "camp_page_url": "https://www.icimagine.org/page/summer-at-ic-imagine",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "1st-5th Grade Volleyball Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 100,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "M.S Camp",
+            "start": "2026-07-16",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 70,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "U.S Camp",
+            "start": "2026-07-16",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 70,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.icimagine.org/page/summer-at-ic-imagine",
+          "https://www.icimagine.org/page/girls-volleyball"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp dates, hours and costs were read through the official Girls Volleyball page's search result. The dates do not print a year alongside them; 2026 is taken from that page's Fall 26 tryouts and 2026 team headings and the summer page's 2026 heading. Middle and upper school grade ranges are not explicitly listed. Confirm the drop-off venue and registration destination."
+      }
+    ]
+  }
+}

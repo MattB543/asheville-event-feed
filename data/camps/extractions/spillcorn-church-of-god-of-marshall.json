@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "spillcorn-church-of-god-of-marshall",
+    "name": "Spillcorn Church of God of Marshall",
+    "urls": [
+      "https://www.facebook.com/Spillcorn-Church-of-God-2047155955527228/",
+      "https://www.facebook.com/2047155955527228/"
+    ],
+    "area": "Marshall, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:22:17.904Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Spillcorn Church of God Marshall vacation bible school 2026",
+      "site:facebook.com \"Spillcorn\" \"Bible\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22877,
+      "cachedInputTokens": 8845,
+      "outputTokens": 824,
+      "reasoningTokens": 226
+    },
+    "status": "completed",
+    "ms": 24075,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/Spillcorn-Church-of-God-2047155955527228/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/2047155955527228/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spillcorn Church of God of Marshall",
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 camp information was found. Both supplied Facebook URLs returned no readable content. Third-party event search results identify a 2026 Vacation Bible School beginning July 27, with another listing mentioning July 28–30, but the complete schedule could not be confirmed on an official page. Dates and hours have therefore been left null. The church's official YouTube search result publishes 525 Bakers Creek Rd, Marshall, NC.",
+    "excluded": [
+      {
+        "name": "Homecoming",
+        "reason": "A church gathering, not a finite supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School at Spillcorn Church of God.",
+        "camp_page_url": "https://www.facebook.com/Spillcorn-Church-of-God-2047155955527228/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spillcorn Church of God",
+            "address": "525 Bakers Creek Rd",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.youtube.com/@spillcornchurchofgod525"],
+        "confidence": "low",
+        "review_notes": "The Facebook pages could not be read, so the VBS offering is supported only by third-party event search results and the existing program record. Confirm the schedule, youth eligibility, activities and registration details directly with the church. AllEvents lists July 27, 2026 at 7 p.m.; HappeningNext has separate listings for July 27 and July 28–30. These dates and hours were not entered because no official announcement was accessible. The site address comes from the church's official YouTube search snippet; confirm that VBS meets there. A third-party business directory incorrectly or inconsistently places the same street address in Burnsville."
+      }
+    ]
+  }
+}

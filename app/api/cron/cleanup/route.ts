@@ -130,6 +130,8 @@ export async function GET(request: Request) {
     // seen in the last day was just fetched successfully by a scraper, so its
     // URL is alive and checking it again only burns requests. This is what
     // makes checking every source affordable: ~56 candidates instead of ~844.
+    // Camp events link to our own /camps pages, and syncCampEvents (lib/camps/feedEvents.ts)
+    // soft-deletes them (deadAt) when their camp goes, so they are never checked.
     const queryStart = Date.now();
     const staleCutoff = new Date(Date.now() - DEAD_CHECK_STALE_HOURS * 60 * 60 * 1000);
     const candidates = await db
@@ -145,6 +147,7 @@ export async function GET(request: Request) {
         AND ${events.lastSeenAt} < ${staleCutoff.toISOString()}
         AND ${events.deadAt} IS NULL
         AND ${events.dedupedAt} IS NULL
+        AND ${events.source} <> 'CAMPS'
       `);
     console.log(
       `[Cleanup] Queried ${candidates.length} unconfirmed events (not seen in ${DEAD_CHECK_STALE_HOURS}h) in ${formatDuration(Date.now() - queryStart)} (${label})`
@@ -304,6 +307,7 @@ export async function GET(request: Request) {
         id: events.id,
         title: events.title,
         location: events.location,
+        source: events.source,
       })
       .from(events);
     console.log(
@@ -316,6 +320,9 @@ export async function GET(request: Request) {
     const nonNCExamples: { title: string; location: string | null; reason: string | null }[] = [];
 
     for (const event of allEvents) {
+      // Camp events passed the camps' drive-time radius, which takes in Greenville SC and
+      // Johnson City TN
+      if (event.source === 'CAMPS') continue;
       if (isNonNCEvent(event.title, event.location)) {
         nonNCEventIds.push(event.id);
         nonNCEventTitles.push(event.title);

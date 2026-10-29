@@ -1,0 +1,252 @@
+{
+  "provider": {
+    "key": "ralph-lundy-soccer-academy",
+    "name": "Ralph Lundy Soccer Academy",
+    "urls": ["https://ralphlundysoccer.com/"],
+    "area": "Spartanburg, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:28:17.564Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e48a6d63920f18467fd7813de05f34ab68a1986c380909cf1812d102eef7c8fd",
+  "response": {
+    "searches": [
+      "site.ralphlundysoccer.com 2027",
+      "open https://ralphlundysoccer.com/camps/residential-camp-at-usc-upstate-2026-june-21-24",
+      "site:ralphlundysoccer.com/camps \"June 14\""
+    ],
+    "usage": {
+      "inputTokens": 23975,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2104,
+      "reasoningTokens": 293
+    },
+    "status": "completed",
+    "ms": 47632,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ralphlundysoccer.com/",
+      "chars": 1052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/camps",
+      "chars": 681,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/faq",
+      "chars": 1052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/facts",
+      "chars": 10749,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ralph Lundy Soccer Academy",
+    "website_url": "https://ralphlundysoccer.com/",
+    "notes": "No 2027 camp information or registration milestones found. The camps index reports no events, but individual 2026 event pages remain indexed. All standalone Day Camps sites are outside the directory's drive area. The locations page and ralphlundy.com returned no readable text.",
+    "excluded": [
+      {
+        "name": "Day Camps",
+        "reason": "All listed 2026 sites are outside approximately 75 minutes' drive of Asheville: Trussville, AL; Summerville, SC; Knoxville, TN; Kingsport, TN; and Awendaw, SC."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Residential Camps",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers practice soccer techniques and tactics and play small-sided and full-sided games. Specialized goalkeeper training is offered.",
+        "camp_page_url": "https://ralphlundysoccer.com/",
+        "registration_url": "https://ralphlundysoccer.com/camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "USC Upstate",
+            "address": "800 University Way",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Ages 8-12",
+            "start": "2026-06-14",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 620,
+              "unit": "session",
+              "label": "Regular Residential Camper",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 13-18",
+            "start": "2026-06-21",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 755,
+              "unit": "session",
+              "label": "Elite Residential Camper",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:30PM - Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ralphlundysoccer.com/",
+          "https://ralphlundysoccer.com/facts",
+          "https://ralphlundysoccer.com/camps/residential-camp-at-usc-upstate-2026-june-14-17",
+          "https://ralphlundysoccer.com/camps/residential-camp-at-usc-upstate-2026-june-21-24",
+          "https://www.uscupstate.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The June 14-17 event title, location field, homepage and FAQ identify USC Upstate, but its descriptive paragraph says Presbyterian College. Used USC Upstate; confirm the younger session venue. The younger event details were available through official search results. Event metadata lists Sunday 07:00 through Wednesday 21:00, inconsistent with the sample schedule and FAQ; hours omitted. FAQ gives Wednesday closing ceremonies at 12:45, while event sample schedules say 13:00. The older event lists only the Elite Residential Camper overnight price; no regular overnight price was filled from 2025. Exact campus check-in location is sent to registered families."
+      },
+      {
+        "name": "Residential Camps (day)",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Commuter campers join soccer training sessions and games without staying overnight. Specialized goalkeeper training is offered.",
+        "camp_page_url": "https://ralphlundysoccer.com/",
+        "registration_url": "https://ralphlundysoccer.com/camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "USC Upstate",
+            "address": "800 University Way",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 570,
+            "unit": "session",
+            "label": "Regular Residential (Commuter)",
+            "year": 2026
+          },
+          {
+            "amount": 705,
+            "unit": "session",
+            "label": "Elite Residential (Commuter), ages 13-18",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Ages 8-12",
+            "start": "2026-06-14",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 13-18",
+            "start": "2026-06-21",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:30PM - Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ralphlundysoccer.com/",
+          "https://ralphlundysoccer.com/facts",
+          "https://ralphlundysoccer.com/camps/residential-camp-at-usc-upstate-2026-june-14-17",
+          "https://ralphlundysoccer.com/camps/residential-camp-at-usc-upstate-2026-june-21-24",
+          "https://www.uscupstate.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Commuter options are explicitly listed on both 2026 residential event pages. The younger page was read through official search results and conflicts internally on venue: title and location say USC Upstate, while the description says Presbyterian College. Used USC Upstate, consistent with the homepage and FAQ. Sample commuter arrival times differ by day; the day 2/3 05:45 arrival precedes the listed 06:30 wake-up, so hours were left null. Closing ceremonies also differ between the FAQ (12:45) and event schedule (13:00). Confirm commuter drop-off details directly with the provider."
+      }
+    ]
+  }
+}

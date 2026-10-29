@@ -1,0 +1,299 @@
+{
+  "provider": {
+    "key": "lisa-smith-teaches",
+    "name": "Lisa Smith Teaches",
+    "urls": ["https://lisasmithteaches.com/summer-camps-1"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:17.028Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "51ed18f66ec707c5521a4791444b8a58e67739a96a43135f94ad9da4ce2a5b54",
+  "response": {
+    "searches": [
+      "site:lisasmithteaches.com \"Pinehurst\"",
+      "open https://lisasmithteaches.com/summer-camps-1"
+    ],
+    "usage": {
+      "inputTokens": 15517,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2507,
+      "reasoningTokens": 210
+    },
+    "status": "completed",
+    "ms": 51028,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lisasmithteaches.com/summer-camps-1",
+      "chars": 3443,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform?usp=sharing&ouid=117520609794536639764",
+      "chars": 2761,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lisasmithteaches.com/",
+      "chars": 3759,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lisa Smith Teaches",
+    "website_url": "https://lisasmithteaches.com/",
+    "notes": "2027 dates are promised by January 31, 2027, but are not yet posted. The registration form lists Advanced Movie Making, which is absent from the camp page; it is included as a session of Movie Making. The form's 1 Pinehurst Road address is explicitly a check-payment address, not a confirmed camper drop-off address. Searches found no official street address for camp.",
+    "excluded": [
+      {
+        "name": "Tutoring",
+        "reason": "Private and group lessons, not a finite summer camp."
+      },
+      {
+        "name": "Homeschool Classes",
+        "reason": "School-year classes, not summer camps."
+      },
+      {
+        "name": "After-School Filmmaking",
+        "reason": "After-school lesson series outside summer."
+      },
+      {
+        "name": "Academic Learning POD",
+        "reason": "School-year learning and childcare program."
+      },
+      {
+        "name": "Winter Ski/Board Days",
+        "reason": "Winter outings outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Baking Adventures",
+        "type": "day",
+        "categories": ["cooking"],
+        "description": "Children bake sweet and savory foods from scratch and take home treats. Activities also include fruit and vegetable sampling, camp games and outdoor activities.",
+        "camp_page_url": "https://lisasmithteaches.com/summer-camps-1",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": "summer 2027 dates will be announced by 1-31-2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Asheville off Tunnel Road",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "10 am - 3 pm, Monday-Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "09:30",
+          "late_pickup_end": "15:30",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 495,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": null,
+          "text": "this camp is full"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarship assistance available. Please inquire if finances are the reason your child could not attend."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://lisasmithteaches.com/summer-camps-1",
+          "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Stop-Motion Animation",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Children create stop-motion movies using clay characters, cut paper, whiteboards, Legos or toys, then plan, shoot and edit their work. Materials are provided, and activities include camp games and outdoor activities.",
+        "camp_page_url": "https://lisasmithteaches.com/summer-camps-1",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": "summer 2027 dates will be announced by 1-31-2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Asheville off Tunnel Road",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "10 am - 3 pm, Monday-Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "09:30",
+          "late_pickup_end": "15:30",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 495,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarship assistance available. Please inquire if finances are the reason your child could not attend."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://lisasmithteaches.com/summer-camps-1",
+          "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page states ages 6-14; the 2026 registration form states ages 6-15. The card uses the camp page's age range."
+      },
+      {
+        "name": "Movie Making",
+        "type": "day",
+        "categories": ["arts", "theater"],
+        "description": "Students collaborate to script, storyboard, act in, direct, build a soundtrack and edit a movie. Camp games and outdoor activities are also included.",
+        "camp_page_url": "https://lisasmithteaches.com/summer-camps-1",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-13",
+          "end": "2026-07-24",
+          "text": "summer 2027 dates will be announced by 1-31-2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Asheville off Tunnel Road",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "10 am - 3 pm, Monday-Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "09:30",
+          "late_pickup_end": "15:30",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 495,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Movie Making",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced Movie Making",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarship assistance available. Please inquire if finances are the reason your child could not attend."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://lisasmithteaches.com/summer-camps-1",
+          "https://docs.google.com/forms/d/e/1FAIpQLScNoedcAxWST8AVyKOyY9Gqi3TD7aW5ywaGGe9gcwrmBueWaA/viewform"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page states ages 6-14 for Movie Making; the registration form states ages 6-15. The July 13 session uses the camp page's age range. Advanced Movie Making appears only in the 2026 form and is grouped here as an advanced session; confirm whether it is a distinct program and whether the general camp hours, location and flexible drop-off/pickup apply to it."
+      }
+    ]
+  }
+}

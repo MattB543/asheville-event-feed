@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "montessori-country-day",
+    "name": "Montessori Country Day",
+    "urls": ["https://montessoricountryday.com/classrooms-and-programs/summer-camp/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:30:10.384Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d60cf398704f89498c21fcac351457871cb27cebdfdbb88ca05dec51e5b0628d",
+  "response": {
+    "searches": [
+      "site:montessoricountryday.com \"summer\" \"2026\"",
+      "open https://montessoricountryday.com/admissions/calendar/"
+    ],
+    "usage": {
+      "inputTokens": 18919,
+      "cachedInputTokens": 8845,
+      "outputTokens": 859,
+      "reasoningTokens": 134
+    },
+    "status": "completed",
+    "ms": 26134,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://montessoricountryday.com/classrooms-and-programs/summer-camp/",
+      "chars": 2480,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montessoricountryday.com/admissions/tuition/",
+      "chars": 3650,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montessoricountryday.com/classrooms-and-programs/daily-schedules/",
+      "chars": 8566,
+      "method": "fetch"
+    },
+    {
+      "url": "https://montessoricountryday.com/classrooms-and-programs/summer-camp/?share=twitter",
+      "chars": 0,
+      "error": "fetch: thin page (26 chars); browser: HTTP 403"
+    },
+    {
+      "url": "https://montessoricountryday.com/classrooms-and-programs/summer-camp/?share=facebook",
+      "chars": 664,
+      "method": "browser"
+    },
+    {
+      "url": "https://montessoricountryday.com/",
+      "chars": 4052,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Montessori Country Day",
+    "website_url": "https://montessoricountryday.com/",
+    "notes": "No 2027 summer information found. The calendar explicitly states that summer camp begins May 28, 2026; no 2026 end date or session schedule was found. The Summer Camp page still describes summer 2025 and its two sessions, which have not been carried forward. School-year tuition and daily schedules were not applied to camp.",
+    "excluded": [
+      {
+        "name": "Toddler Classroom, Pre-Primary Classroom and Primary Classrooms",
+        "reason": "Year-round or school-year preschool and classroom programs, rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Campers participate in arts, crafts, music, dance, gardening, picnics, splash days and theme-based activities using movement and imagination.",
+        "camp_page_url": "https://montessoricountryday.com/classrooms-and-programs/summer-camp/",
+        "registration_url": "https://montessoricountryday.com/admissions/forms/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-28",
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 1.25,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montessori Country Day",
+            "address": "1521 Haywood Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Parents may also opt to buy a pizza lunch on Friday which will be supplemented with a side of fruit and milk or lemonade."
+        },
+        "transportation": null,
+        "sources": [
+          "https://montessoricountryday.com/classrooms-and-programs/summer-camp/",
+          "https://montessoricountryday.com/admissions/calendar/",
+          "https://montessoricountryday.com/admissions/handbook/",
+          "https://montessoricountryday.com/admissions/forms/",
+          "https://montessoricountryday.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2025-2026 calendar explicitly labels May 28 as the 2026 camp opening, but does not give the rest of that summer's schedule. The camp page's description and Friday pizza option remain under its 2025 introduction; check whether these continue in 2026 or 2027. Camp ages of 15 months through eight years are stated in the official handbook search snippet, but that passage was not returned in the opened page. The forms page offers general enrollment forms rather than a camp-specific registration form. Format check: ages 1.25 outside 2-19."
+      }
+    ]
+  }
+}

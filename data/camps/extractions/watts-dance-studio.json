@@ -1,0 +1,139 @@
+{
+  "provider": {
+    "key": "watts-dance-studio",
+    "name": "Watts Dance Studio",
+    "urls": ["https://www.wattsdancestudio.com/schedule-n-calendar"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:19:22.944Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "d325b11c070b82573010c74f8fb5602fd699763d4af440c947ded0f2eac8faaa",
+  "response": {
+    "searches": [
+      "site:wattsdancestudio.com summer 2027 camp",
+      "\"Watts\" \"2026\" \"summer camp\" dance"
+    ],
+    "usage": {
+      "inputTokens": 19550,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1094,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 27581,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+      "chars": 4162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.wattsdancestudio.com/register",
+      "chars": 1575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.wattsdancestudio.com/",
+      "chars": 2751,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Watts Dance Studio",
+    "website_url": "https://www.wattsdancestudio.com/",
+    "notes": "No summer 2027 information was found. The schedule page's summer schedule links could not be retrieved through the browser; its readable calendar provides only the Intensive's 2026 dates and a general mention of summer camp. Program-specific locations, hours, eligibility and prices remain unconfirmed. Bristol sites are omitted because they are plainly beyond the directory's approximate drive radius; the pages do not establish which programs meet at Elizabethton.",
+    "excluded": [
+      {
+        "name": "5 week Class program",
+        "reason": "A summer lesson series, not identified as a camp; begins June 15, 2026."
+      },
+      {
+        "name": "Fall to Spring Dance Program",
+        "reason": "School-year dance classes rather than a finite summer camp."
+      },
+      {
+        "name": "Showcase Show and Recital",
+        "reason": "Performances outside summer, not supervised summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "A summer dance intensive.",
+        "camp_page_url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+        "registration_url": "https://www.wattsdancestudio.com/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wattsdancestudio.com/schedule-n-calendar",
+          "https://www.wattsdancestudio.com/register",
+          "https://www.wattsdancestudio.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar explicitly gives June 1–5, 2026, but does not give the Intensive's hours, youth eligibility or location. Day format is provisional. Check the unavailable city summer schedules to establish whether it meets at Elizabethton Studio, 601 Race St, Elizabethton, TN, before mapping it."
+      },
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "A summer dance camp.",
+        "camp_page_url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+        "registration_url": "https://www.wattsdancestudio.com/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wattsdancestudio.com/schedule-n-calendar",
+          "https://www.wattsdancestudio.com/register",
+          "https://www.wattsdancestudio.com/contact-us"
+        ],
+        "confidence": "low",
+        "review_notes": "The calendar mentions summer camp but does not establish its dates, eligibility, format or location, or whether it is distinct from the Intensive. Retained the existing program name pending review of the unavailable city summer schedules. Confirm an Elizabethton offering before publication; the venue's official address is 601 Race St, Elizabethton, TN."
+      }
+    ]
+  }
+}

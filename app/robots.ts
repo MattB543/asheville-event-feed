@@ -2,7 +2,13 @@ import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seo/site';
 
 // The documented public exports; the longer path wins over the /api/ disallow
-const allow = ['/', '/api/export/json', '/api/export/markdown'];
+const allow = [
+  '/',
+  '/api/export/json',
+  '/api/export/markdown',
+  '/api/camps/export/json',
+  '/api/camps/export/markdown',
+];
 const disallow = ['/api/', '/api/cron/', '/api/cron/cleanup/'];
 
 export default function robots(): MetadataRoute.Robots {

@@ -1,0 +1,326 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-madison-county-4-h",
+    "name": "N.C. Cooperative Extension — Madison County 4-H",
+    "urls": [
+      "https://madison.ces.ncsu.edu/4-h-summer-programs/",
+      "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/",
+      "https://madison.ces.ncsu.edu/event/109156/"
+    ],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:22:12.698Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ea1ba417c2fa97c77e41fe08ecb8be95b88341ea19d4283cbf3d8fc459921297",
+  "response": {
+    "searches": [
+      "site.madison.ces.ncsu.edu \"2027\" \"camp\"",
+      "site.madison.ces.ncsu.edu \"2027\" \"Summer Fun\""
+    ],
+    "usage": {
+      "inputTokens": 31163,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2063,
+      "reasoningTokens": 145
+    },
+    "status": "completed",
+    "ms": 40240,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://madison.ces.ncsu.edu/4-h-summer-programs/",
+      "chars": 4510,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/",
+      "chars": 5585,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madison.ces.ncsu.edu/event/109156/",
+      "chars": 4611,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madison.ces.ncsu.edu/documents/4143/2026_4-H_Summer_Fun.pdf",
+      "chars": 10671,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madison.ces.ncsu.edu/2025/03/2025-4-h-summer-fun-3/",
+      "chars": 6664,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madison.ces.ncsu.edu/documents/1064105/2025-4-H-Summer-Fun-2.pdf",
+      "chars": 13317,
+      "method": "fetch"
+    },
+    {
+      "url": "https://nc4h.ces.ncsu.edu/camps-centers/",
+      "chars": 6015,
+      "method": "fetch"
+    },
+    {
+      "url": "http://go.ncsu.edu/madison-campership",
+      "chars": 4152,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Madison County 4-H",
+    "website_url": "https://madison.ces.ncsu.edu/",
+    "notes": "No Madison County summer 2027 information was found. The card uses the 2026 Summer Fun brochure and schedule. Residential camp is excluded because the statewide centers are outside the directory's area. Older 2025 Summer Fun themes are not carried forward into the 2026 schedule.",
+    "excluded": [
+      {
+        "name": "4-H Residential Summer Camp",
+        "reason": "The referenced statewide residential centers, Betsy-Jeff Penn, Millstone and Eastern 4-H Center, are in central or eastern North Carolina, outside about 75 minutes' drive of Asheville."
+      },
+      {
+        "name": "4-H Presentation Program",
+        "reason": "Presentation preparation by appointment and county, district and state competitions, rather than a finite supervised summer camp."
+      },
+      {
+        "name": "Livestock Judging, Skillathon & Quiz Bowl",
+        "reason": "A competitive team training season running May through July with a state contest, rather than a finite summer camp."
+      },
+      {
+        "name": "NC 4-H Congress",
+        "reason": "Youth conference; excluded under the camp rule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun",
+        "type": "day",
+        "categories": ["nature_outdoor", "cooking", "horses", "arts"],
+        "description": "Youth participate in hands-on activities in creek ecology, cooking, horseback riding, sewing and animal science. Cooking participants practice food and knife safety and follow recipes; sewing campers make teddy bears.",
+        "camp_page_url": "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/",
+        "registration_url": "https://v2.4honline.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-02",
+          "end": "2026-07-15",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Madison County Cooperative Extension Center",
+            "address": "258 Carolina Lane",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Creek Ecology - Juniors",
+            "start": "2026-06-02",
+            "end": "2026-06-02",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 10
+            },
+            "grades": null,
+            "hours": {
+              "start": "12:30",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Creek Ecology - Intermediates +",
+            "start": "2026-06-09",
+            "end": "2026-06-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "12:30",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Horseback Riding @ Sandy Bottom Trail Rides",
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 40,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Cloverbud Chefs",
+            "start": "2026-06-16",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 60,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Kids as Chefs",
+            "start": "2026-06-23",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 60,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Sewing Camp",
+            "start": "2026-07-07",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 40,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Cloverbud Animal Science Camp",
+            "start": "2026-07-15",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-29",
+          "time": "17:00",
+          "text": "Registration opens in 4-H Online on April 29th at 5:00 p.m.",
+          "url": "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "We do our best to fulfill all requests so that cost is never a barrier to participation. However, depending on our funding availability, financial assistance is not guaranteed."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities."
+        },
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Kids as Chefs: Participants will learn to read and follow recipes while preparing their own lunch each day."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "All 4-H Summer Fun Programs will meet at the Madison County Cooperative Extension Center at 258 Carolina Lane, Marshall AND transportation will be provided for trips, unless otherwise noted."
+        },
+        "sources": [
+          "https://madison.ces.ncsu.edu/news/4-h-summer-fun-2026/",
+          "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_4-H_Summer_Fun.pdf",
+          "https://madison.ces.ncsu.edu/event/109156/",
+          "https://docs.google.com/forms/d/e/1FAIpQLSdrrQ4PMdUFN3AB0h9A_WjpaqXgzxeRJGkWWK1p5tSwFcpaLw/viewform?usp=sf_link"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

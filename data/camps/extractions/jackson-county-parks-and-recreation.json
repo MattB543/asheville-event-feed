@@ -1,0 +1,266 @@
+{
+  "provider": {
+    "key": "jackson-county-parks-and-recreation",
+    "name": "Jackson County Parks & Recreation",
+    "urls": [
+      "https://www.jacksonnc.org/273/Youth-Athletics",
+      "https://www.jacksonnc.org/163/Parks-Recreation"
+    ],
+    "area": "Cullowhee, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:08:20.507Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8fc009dccc25fd6a67058dab3f8f449b09753ee5c251f6bea8119a114473e32b",
+  "response": {
+    "searches": [
+      "site.jacksonnc.org \"2026\" \"camp\"",
+      "site.jcprd.recdesk.com \"Fish\" \"2026\"",
+      "\"site:jcprd.recdesk.com/Community/Program\" \"Kids Learn\"",
+      "site:jcprd.recdesk.com/Community/Program/Detail fishing",
+      "Jackson County recreation \"Kids Learn to Fish Day\""
+    ],
+    "usage": {
+      "inputTokens": 47085,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2379,
+      "reasoningTokens": 514
+    },
+    "status": "completed",
+    "ms": 65147,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jacksonnc.org/273/Youth-Athletics",
+      "chars": 5819,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/163/Parks-Recreation",
+      "chars": 2115,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jcprd.recdesk.com/Community/Home",
+      "chars": 1304,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/486/RJA-Campground",
+      "chars": 3516,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/",
+      "chars": 2231,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jackson County Parks & Recreation",
+    "website_url": "https://www.jacksonnc.org/163/Parks-Recreation",
+    "notes": "No summer 2027 dates or registration announcements were found. Several RecDesk detail pages returned no readable body; their official search snippets provided limited information. General program pages do not identify a season year, so undated prices are labeled 2026 as current fallback information, not confirmed 2026 schedules. Kids Learn to Fish Day remains listed on the official Special Events page. Historical PDFs found were mostly 2023 or earlier and were not used for summer dates.",
+    "excluded": [
+      {
+        "name": "Youth Tennis Lessons",
+        "reason": "Six-week tennis lesson series booked as lessons, not a camp."
+      },
+      {
+        "name": "Spring & Fall Soccer",
+        "reason": "Sports leagues, not finite camp or clinic offerings."
+      },
+      {
+        "name": "Basketball",
+        "reason": "Winter sports league."
+      },
+      {
+        "name": "Volleyball League",
+        "reason": "Sports league."
+      },
+      {
+        "name": "Youth Flag Football League",
+        "reason": "Summer sports league, not a camp or clinic."
+      },
+      {
+        "name": "Homeschool PE",
+        "reason": "Spring and fall recurring PE classes."
+      },
+      {
+        "name": "Tiny Tumblers",
+        "reason": "Recurring gymnastics and tumbling classes offered throughout the year."
+      },
+      {
+        "name": "Little Dribblers",
+        "reason": "Basketball instruction program held in October, outside summer."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Swimming lesson series, not a camp."
+      },
+      {
+        "name": "Cashiers Youth Volleyball Clinics - 6th-8th",
+        "reason": "The listed clinic runs September 8–29, outside summer."
+      },
+      {
+        "name": "Ralph J. Andrews Campground",
+        "reason": "Public campground reservations, not a supervised youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Volleyball Clinics",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Girls and boys practice and improve volleyball skills in a skill-development clinic.",
+        "camp_page_url": "https://www.jacksonnc.org/273/Youth-Athletics",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jacksonnc.org/273/Youth-Athletics"],
+        "confidence": "medium",
+        "review_notes": "The general Youth Athletics page lists summer clinics, grades 3–8 and $50, but does not print a year or a summer clinic venue. RecDesk also contains fall clinics and older spring clinics; their dates and hours were not transferred to the summer offering. Confirm that the undated $50 fee applies to summer 2026."
+      },
+      {
+        "name": "Sandlot",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Children practice basic t-ball fielding, hitting and game-like scenario skills. The program meets once a week for four weeks.",
+        "camp_page_url": "https://www.jacksonnc.org/273/Youth-Athletics",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mark Watson Park",
+            "address": "86 Mark Watson Park",
+            "town": "Sylva",
+            "state": "NC"
+          },
+          {
+            "name": "Cullowhee Recreation Park",
+            "address": "88 Cullowhee Mountain Road",
+            "town": "Cullowhee",
+            "state": "NC"
+          },
+          {
+            "name": "Cashiers/Glenville Recreation",
+            "address": "355 Frank Allen Road",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 25,
+            "unit": "program",
+            "label": "Cullowhee and Mark Watson Park",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jacksonnc.org/273/Youth-Athletics",
+          "https://jcprd.recdesk.com/Community/Program/Detail?programId=3808",
+          "https://jcprd.recdesk.com/Community/Program/Detail?programId=3960",
+          "https://www.jacksonnc.org/DocumentCenter/View/665/2025-Senior-Games-Registration-Packet-Jackson-PDF"
+        ],
+        "confidence": "medium",
+        "review_notes": "The general page does not identify a year and has contradictory capacity wording; capacity was omitted. RecDesk's Cashiers Sandlot snippet states July 8, Wednesdays in July, 5:30–6:30 p.m., but no explicit year was readable, so those dates and hours were omitted. RecDesk detail pages opened with no readable body. Mark Watson Park's address is published in the county's 2025 Senior Games packet. Site rows could not be constructed because season dates were unconfirmed. The $25 fee comes from the undated general page and was not applied to Cashiers."
+      },
+      {
+        "name": "Kids Learn to Fish Day",
+        "type": "clinic",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Children participate in casting and big-fish contests and have an opportunity to catch trout from Cullowhee Creek.",
+        "camp_page_url": "https://www.jacksonnc.org/274/Special-Events",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jacksonnc.org/274/Special-Events"],
+        "confidence": "medium",
+        "review_notes": "The official Special Events search result states the first Saturday in June and registration in May, without a year. No calendar dates or registration milestone were inferred from that recurring pattern. The page names Cullowhee Creek as the fishing location but does not establish a drop-off venue or street address. The free price is undated current fallback information."
+      }
+    ]
+  }
+}

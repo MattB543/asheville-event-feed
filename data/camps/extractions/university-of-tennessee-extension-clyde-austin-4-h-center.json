@@ -1,0 +1,253 @@
+{
+  "provider": {
+    "key": "university-of-tennessee-extension-clyde-austin-4-h-center",
+    "name": "University of Tennessee Extension — Clyde Austin 4-H Center",
+    "urls": ["https://eastern.tennessee.edu/4-h-camps/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:29.126Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c2802263a9ed968bdd72d7c3c2ec6bf7ee0cba64a6dc986d6bb1988df52f52c6",
+  "response": {
+    "searches": [
+      "site.clydeaustin4hcenter.tennessee.edu camp junior address",
+      "open https://clydeaustin4hcenter.tennessee.edu/",
+      "site.clydeaustin4hcenter.tennessee.edu \"214\""
+    ],
+    "usage": {
+      "inputTokens": 23532,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2014,
+      "reasoningTokens": 175
+    },
+    "status": "completed",
+    "ms": 43791,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastern.tennessee.edu/4-h-camps/",
+      "chars": 2148,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+      "chars": 1437,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/01/2026-Junior-High-Brochure.pdf",
+      "chars": 5827,
+      "method": "fetch"
+    },
+    {
+      "url": "https://giveutia.tennessee.edu/campaigns/42952/donations/new",
+      "chars": 5560,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/",
+      "chars": 3849,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "University of Tennessee Extension — Clyde Austin 4-H Center",
+    "website_url": "https://clydeaustin4hcenter.tennessee.edu/",
+    "notes": "The Eastern Region's 2027 schedule posts both Junior and Junior High dates for Greeneville. Registration is handled through county Extension offices; no 2027 opening dates were found. County-specific fees and eligibility may differ.",
+    "excluded": [
+      {
+        "name": "Camp Explore",
+        "reason": "School environmental education program; no finite summer youth offering was found."
+      },
+      {
+        "name": "Junior Camp — Clyde York 4-H Center",
+        "reason": "Crossville sites are outside the directory's driving area and belong to a different center."
+      },
+      {
+        "name": "4-H Target Smart Camp",
+        "reason": "The official camping page places this program at Clyde York 4-H Center in Crossville, outside the driving area; the 2027 regional schedule does not identify a Greeneville venue."
+      },
+      {
+        "name": "Fashion and Design Conference",
+        "reason": "Conference, not a camp."
+      },
+      {
+        "name": "Academic Conference",
+        "reason": "Conference, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior 4-H Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in swimming, fishing, canoeing, kayaking, crafts, woodworking, shooting sports, and nature activities. Campers stay in dormitories with attached bathrooms.",
+        "camp_page_url": "https://clydeaustin4hcenter.tennessee.edu/junior-4-h-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Clyde Austin 4-H Center",
+            "address": "214 4-H Lane",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Claiborne, Johnson, McMinn, Monroe, Sullivan",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Blount, Bradley, Cocke, Loudon, Meigs, Roane",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Carter, Hamilton, Jefferson, Sevier, Union",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Campbell, Greene, Hamblen, Hancock, Washington",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Anderson, Hawkins, Knox, Grainger, Unicoi",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers eat home cooked meals"
+        },
+        "transportation": null,
+        "sources": [
+          "https://eastern.tennessee.edu/4-h-camps/",
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+          "https://clydeaustin4hcenter.tennessee.edu/junior-4-h-camp/",
+          "https://clydeaustin4hcenter.tennessee.edu/about/",
+          "https://hamilton.tennessee.edu/4-h-junior-camp/",
+          "https://roane.tennessee.edu/4-h-junior-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Hamilton's 2027 page specifies completed grades 4–6, while Roane's 2027 page specifies grades 4–6 as of January 1, 2027. The card uses completed grades; families should check their county's eligibility basis. No uniform 2027 fee was found."
+      },
+      {
+        "name": "Junior High 4-H Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in team challenges, service-learning projects, offsite adventures, and hands-on classes such as fishing and outdoor cooking.",
+        "camp_page_url": "https://clydeaustin4hcenter.tennessee.edu/junior-high-4-h-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Clyde Austin 4-H Center",
+            "address": "214 4-H Lane",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost includes all meals, lodging, a t-shirt, and activities while at camp"
+        },
+        "transportation": null,
+        "sources": [
+          "https://eastern.tennessee.edu/4-h-camps/",
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/01/2026-Junior-High-Brochure.pdf",
+          "https://clydeaustin4hcenter.tennessee.edu/junior-high-4-h-camp/",
+          "https://clydeaustin4hcenter.tennessee.edu/about/",
+          "https://greene.tennessee.edu/4-h-junior-high-camp-6th-8th-grades/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The center specifies completed grades 6–8, while Greene County specifies grades 6–8 as of January 1 of the current year. Check county-specific eligibility. Meal inclusion is from the 2026 brochure; no 2027 brochure or fee was found."
+      }
+    ]
+  }
+}

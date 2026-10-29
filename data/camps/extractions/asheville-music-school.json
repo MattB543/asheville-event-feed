@@ -1,0 +1,814 @@
+{
+  "provider": {
+    "key": "asheville-music-school",
+    "name": "Asheville Music School",
+    "urls": [
+      "https://www.ashevillemusicschool.org/summer-camps/",
+      "https://ashevillemusicschool.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": [
+      "seed_sheet",
+      "macaroni_kid",
+      "news828",
+      "our_db",
+      "grid",
+      "aggregator",
+      "gap_fill"
+    ],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:02.393Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "ca7da599b2507da6953ba0c97e3c2c329cf1303507d7db3d1c5957931a633ec1",
+  "response": {
+    "searches": [
+      "site.ashevillemusicschool.org summer 2027 camps",
+      "site:programs.ashevillemusicschool.org \"Jazz\" \"2026\"",
+      "open https://programs.ashevillemusicschool.org/camp-offerings/14324"
+    ],
+    "usage": {
+      "inputTokens": 22135,
+      "cachedInputTokens": 8845,
+      "outputTokens": 6434,
+      "reasoningTokens": 306
+    },
+    "status": "completed",
+    "ms": 107384,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillemusicschool.org/summer-camps/",
+      "chars": 4444,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemusicschool.org/",
+      "chars": 3251,
+      "method": "fetch"
+    },
+    {
+      "url": "https://programs.ashevillemusicschool.org/camp-offerings/",
+      "chars": 2125,
+      "method": "fetch"
+    },
+    {
+      "url": "https://programs.ashevillemusicschool.org/admin/uploads/file/summer-camp-scholarship-application-2024.pdf",
+      "chars": 3630,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillemusicschool.org/enroll",
+      "chars": 2667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillemusicschool.org/faqs/",
+      "chars": 6055,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Music School",
+    "website_url": "https://www.ashevillemusicschool.org/",
+    "notes": "No official 2027 dates or registration milestones found. The registration platform currently lists no offerings. The 2026 camp page gives only a provider-wide $210–$385 price range, so individual program prices are left empty. Jazz Camp appears in the general camp list but not the dated 2026 schedule. The linked scholarship application is for 2024; its deadline was not carried forward. Official news identifies January 2, 2026 as the early-bird enrollment opening. The camp page and registration platform differ in their sibling/multiple-camper discount wording.",
+    "excluded": [
+      {
+        "name": "Private Music Lessons",
+        "reason": "Lessons booked as lessons, including summer lessons, rather than finite camp programs."
+      },
+      {
+        "name": "Student Bands & Ensembles",
+        "reason": "Ongoing ensembles rather than finite summer camps."
+      },
+      {
+        "name": "Appalachian Music",
+        "reason": "The listed October 20–December 15, 2026 class is outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ukulele Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Ukulele camp for children ages 7–10. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trinity United Methodist Church",
+            "address": "587 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list",
+          "https://trinitywavl.org/about/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Rock Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Campers learn music in groups. The pre-teen pop rock session welcomes beginners; some experience is helpful for the Rock Camp session.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Pre-Teen Pop Rock Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rock Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used for sessions without an explicitly named venue; confirm these meet at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Music Explorations",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Music camp for children ages 4–6, with group music learning and outdoor time when weather permits.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trinity United Methodist Church",
+            "address": "587 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://trinitywavl.org/about/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Video Game Music Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Video game music camp for children ages 8–14.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Song Circle Voice Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Voice camp for children ages 8–11.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Song Studio Voice Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Voice camp for children ages 12–14.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Harry Potter-themed Suzuki Strings Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Harry Potter-themed Suzuki strings camp with beginner half-day and full-day sessions. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Beginner Harry Potter-themed Suzuki Strings Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 8
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Harry Potter-themed Suzuki Strings Camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm both sessions meet at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Appalachian Music Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Appalachian music camp for acoustic string instruments, for children ages 8–15.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Jazz Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Instrumentalists and singers explore jazz repertoire, music theory, improvisation, rhythms, phrasing, and song forms.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list",
+          "https://programs.ashevillemusicschool.org/camp-offerings/14324"
+        ],
+        "confidence": "medium",
+        "review_notes": "Jazz Camp is named in the 2026 overview but absent from the dated schedule. Its description was accessible only in an official search result; the individual page returned no readable text. Confirm whether it ran in 2026 and its day/half-day format."
+      },
+      {
+        "name": "Open Jam Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Open Jam Camp for children ages 9–16. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      },
+      {
+        "name": "Audio Architects: Intro to Recording & Production",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "An introductory recording and production camp for teens ages 14–18.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Music School",
+            "address": "10 Ridgelawn Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "1pm-4pm (except Wed. Aug 12: 1-7pm)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-02",
+          "time": null,
+          "text": "Asheville Music School Summer Camp Early Bird VIP Enrollment, January 2 – January 31",
+          "url": "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/faqs/",
+          "https://www.ashevillemusicschool.org/news-events/page/2/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/early-bird-summer-camp-enrollment-now-open/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The school's published location is used because no separate venue is named; confirm camp meets at 10 Ridgelawn Rd."
+      }
+    ]
+  }
+}

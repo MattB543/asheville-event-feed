@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "long-s-chapel-of-waynesville",
+    "name": "Long's Chapel of Waynesville",
+    "urls": ["https://longschapel.com/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:13:30.012Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "37091ab8e0e9ab099036adf65583e4bc3f1208c2bde9a15b0a159eaa5b03ad09",
+  "response": {
+    "searches": [
+      "site.longschapel.com summer 2026 vacation bible school",
+      "site:longschapel.com \"summer\" camp",
+      "site:longschapel.com \"Summer\" \"CEC\"",
+      "\"Long's Chapel\" \"VBS\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 39396,
+      "cachedInputTokens": 0,
+      "outputTokens": 925,
+      "reasoningTokens": 375
+    },
+    "status": "completed",
+    "ms": 39691,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://longschapel.com/",
+      "chars": 3175,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.longschapel.com/events",
+      "chars": 1559,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Long's Chapel of Waynesville",
+    "website_url": "https://www.longschapel.com/",
+    "notes": "No 2027 summer information was found. The official kids page and Church Center registrations returned no readable text. The official timer page names Emerald Crossing but provides no dates or eligibility. A third-party AllEvents listing reports Vacation Bible School June 22–25, 2026; those dates are retained with medium confidence. The existing Summer offering is excluded because the current CEC page describes continuation of its year-long childcare, not a separate finite summer program.",
+    "excluded": [
+      {
+        "name": "Summer",
+        "reason": "The Child Enrichment Center describes this as continued attendance after NC PreK graduation within its year-long childcare program, not a separate finite summer camp."
+      },
+      {
+        "name": "Child Enrichment Center full-time care and NC PreK Program",
+        "reason": "Year-round childcare and preschool, not summer camps."
+      },
+      {
+        "name": "LCKids and LCStudents",
+        "reason": "Ongoing church ministries rather than finite summer programs."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Seasonal festival outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children.",
+        "camp_page_url": "https://www.longschapel.com/timer",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Long's Chapel",
+            "address": "133 Old Clyde Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.longschapel.com/", "https://www.longschapel.com/timer"],
+        "confidence": "medium",
+        "review_notes": "June 22–25, 2026 and the camp venue come from the third-party listing https://allevents.in/clyde/longs-chapel-vacation-bible-school/200030075947654, not readable official camp details. Confirm dates and location with the church. Its official homepage confirms the venue address. The official timer only says Countdown to Emerald Crossing and This event has ended! The listing gives overall event endpoints of 5:30 pm and 8:30 pm, which were not treated as daily hours. Eligibility, pricing and registration dates could not be established."
+      }
+    ]
+  }
+}

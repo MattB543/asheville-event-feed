@@ -1,0 +1,195 @@
+{
+  "provider": {
+    "key": "odyssey-community-school",
+    "name": "Odyssey Community School",
+    "urls": [
+      "https://odysseycommunity.org/events/summer-pool-registrations-open",
+      "https://odysseycommunity.org/summer",
+      "https://odysseycommunity.org/summer-camp"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:56:17.348Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "e6bbd6b8c139669d33e6c2caba728a2603a139709c52d5ac1a843123ce9d893a",
+  "response": {
+    "searches": [
+      "site:odysseycommunity.org summer 2027 camp",
+      "site:odysseycommunity.org/summer-camp \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25979,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1413,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 38262,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://odysseycommunity.org/events/summer-pool-registrations-open",
+      "chars": 2509,
+      "method": "fetch"
+    },
+    {
+      "url": "https://odysseycommunity.org/summer",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 — Odyssey Community School in Asheville, NC\")"
+    },
+    {
+      "url": "https://odysseycommunity.org/summer-camp",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 — Odyssey Community School in Asheville, NC\")"
+    },
+    {
+      "url": "https://odysseycommunity.org/events/summer-pool-registrations-open?format=ical",
+      "chars": 0,
+      "error": "fetch: thin page (270 chars); browser: Invalid PDF structure."
+    },
+    {
+      "url": "https://odysseycommunity.org/campus-and-history",
+      "chars": 10275,
+      "method": "fetch"
+    },
+    {
+      "url": "https://odysseycommunity.org/events?tag=summer",
+      "chars": 3226,
+      "method": "fetch"
+    },
+    {
+      "url": "https://odysseycommunity.org/",
+      "chars": 5724,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Odyssey Community School",
+    "website_url": "https://odysseycommunity.org/",
+    "notes": "No official summer 2027 information was found. The /summer and /summer-camp pages returned no readable content. Cards retain the existing program names and use the official 2026 announcements; session dates, prices and registration forms could not be recovered.",
+    "excluded": [
+      {
+        "name": "Community Pool Pass",
+        "reason": "Pool access passes are not a finite supervised youth camp."
+      },
+      {
+        "name": "Before & After Care",
+        "reason": "Year-round before- and after-school childcare, not a distinct summer camp."
+      },
+      {
+        "name": "Odyssey Charter School Summer Camp",
+        "reason": "A different provider in Delaware, not Odyssey Community School in Asheville."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Black Bears & Bobcats Day Camps",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers take part in free play, outdoor adventures, daily swimming, group games and community circles on the school campus.",
+        "camp_page_url": "https://odysseycommunity.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Odyssey Community School",
+            "address": "90 Zillicoa St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-10",
+          "time": "10:00",
+          "text": "Summer camp registration opens February 10.",
+          "url": "https://odysseycommunity.org/events/summer-pool-registrations-open"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://odysseycommunity.org/news/k7yji0639fhh2lybh6cselq4ualtrp",
+          "https://odysseycommunity.org/events/summer-pool-registrations-open",
+          "https://odysseycommunity.org/campus-and-history"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program name, activities and rising grades were readable only in the official news page's search result. That announcement is indexed as February 2026, but its displayed text says only February 11. The detailed camp pages returned no readable content; check them for dates, age bands, prices and registration links."
+      },
+      {
+        "name": "Themed Camps",
+        "type": "day",
+        "categories": ["arts", "music", "stem"],
+        "description": "Themes include fiber arts, documentary film, jewelry making, storybook creation, indie rock band, hip hop rhyme writing, roleplaying game design and film.",
+        "camp_page_url": "https://odysseycommunity.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Odyssey Community School",
+            "address": "90 Zillicoa St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-10",
+          "time": "10:00",
+          "text": "Summer camp registration opens February 10.",
+          "url": "https://odysseycommunity.org/events/summer-pool-registrations-open"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://odysseycommunity.org/news/k7yji0639fhh2lybh6cselq4ualtrp",
+          "https://odysseycommunity.org/events/summer-pool-registrations-open",
+          "https://odysseycommunity.org/campus-and-history"
+        ],
+        "confidence": "medium",
+        "review_notes": "The theme list and rising fourth-grade minimum were readable only in the official news page's search result. That announcement is indexed as February 2026, but its displayed text says only February 11. The detailed camp pages returned no readable content. Themes are retained as one program; no session rows were created because their dates could not be recovered. Check the detailed lineup for each theme's grade range, hours, prices and dates."
+      }
+    ]
+  }
+}

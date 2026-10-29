@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "arteries-fashion-sewing-school",
+    "name": "ARTeries Fashion Sewing School",
+    "urls": ["https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:03:43.253Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "c3e13b46f684876d1b25ccd239fc633c3455f18033551d18358f1352e96acdb6",
+  "response": {
+    "searches": [
+      "site:arteriesbystina.com summer camp 2027",
+      "open https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp"
+    ],
+    "usage": {
+      "inputTokens": 16818,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1098,
+      "reasoningTokens": 103
+    },
+    "status": "completed",
+    "ms": 25678,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp",
+      "chars": 2770,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arteriesbystina.com/collections/sewing-classes",
+      "chars": 2764,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arteriesbystina.com/account/register",
+      "chars": 229,
+      "method": "browser"
+    },
+    {
+      "url": "https://arteriesbystina.com/products/summer-sewing-camp?variant=39798263447638",
+      "chars": 2766,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arteriesbystina.com/products/summer-sewing-camp",
+      "chars": 2766,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arteriesbystina.com/pages/schedule",
+      "chars": 1060,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "ARTeries Fashion Sewing School",
+    "website_url": "https://arteriesbystina.com/",
+    "notes": "No summer 2027 information or registration milestones were found. The homepage's 2027 announcements concern winter classes and boutique scheduling, not summer camp. The camp page's REGISTER NOW destination could not be resolved; the account sign-in page is not a verified camp registration destination.",
+    "excluded": [
+      {
+        "name": "Kids, Tweens, Teens Sewing Workshop",
+        "reason": "School-year sewing lesson series, not a summer camp."
+      },
+      {
+        "name": "Group Sewing Classes and Private Sewing Lesson",
+        "reason": "Regular sewing classes and lessons rather than finite summer camp programs."
+      },
+      {
+        "name": "ARTeries Fashion Sewing School Retreat",
+        "reason": "Adult-oriented sewing retreat, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Fashion Sewing Creative Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers learn sewing techniques and design, cut, sew and fit one garment per week. They also make daily crafts or accessory projects and participate in fashion sketching and outdoor activities when weather permits.",
+        "camp_page_url": "https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "ARTeries Fashion Sewing School",
+            "address": "3765 Sweeten Creek Rd",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9am-1pm Daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 260,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "WEEK 1",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 2",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 3",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://arteriesbystina.com/pages/summer-fashion-sewing-creative-camp",
+          "https://arteriesbystina.com/pages/fashion-sewing-school",
+          "https://arteriesbystina.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page body lists ages 8–15 and three weeks, while its search-description text lists ages 7–15 and four weeks; the card follows the detailed body. Dates omit a year in the body and are assigned 2026 from the page title. The page states COST: $260 without explicitly naming the billing unit; week is inferred from the separately listed weekly registrations. Check the price unit and age discrepancy with the provider."
+      }
+    ]
+  }
+}

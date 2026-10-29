@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "kiddie-academy-of-asheville",
+    "name": "Kiddie Academy of Asheville",
+    "urls": ["https://kiddieacademy.com/academies/asheville/programs/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:11.712Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "875ef47fc37b48e733fe2f6777d9cef981321eb81789e62a800efcbf4fdea58d",
+  "response": {
+    "searches": ["site:kiddieacademy.com/academies/asheville CampVentures 2027 2026 summer dates"],
+    "usage": {
+      "inputTokens": 22410,
+      "cachedInputTokens": 8845,
+      "outputTokens": 645,
+      "reasoningTokens": 64
+    },
+    "status": "completed",
+    "ms": 16537,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+      "chars": 7910,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/enrollment-and-tuition/",
+      "chars": 8387,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/visit/",
+      "chars": 4809,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/resources/",
+      "chars": 3260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/",
+      "chars": 6606,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/faq/",
+      "chars": 3354,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/",
+      "chars": 5749,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Kiddie Academy of Asheville",
+    "website_url": "https://kiddieacademy.com/academies/asheville/",
+    "notes": "No summer 2027 dates or registration milestones were found. The CampVentures page is undated and does not publish session dates or prices. Academy hours of 7:30am–5:30pm are not explicitly identified as camp hours, so camp hours are left null. Age-band rows cannot be created without published season dates.",
+    "excluded": [
+      {
+        "name": "Infant, Toddler, Early Preschool, Preschool, Pre-Kindergarten and Kindergarten",
+        "reason": "Regular year-round childcare and educational programs, rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "CampVentures",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in summer-themed hands-on activities, creative arts, stories, outdoor play and experiments. Older children take local field trips, while younger children have on-site enrichment activities.",
+        "camp_page_url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kiddie Academy of Asheville",
+            "address": "22 Walden Ridge Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide an assortment of healthy, nutritious meals and snacks for children every day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+          "https://kiddieacademy.com/academies/asheville/enrollment-and-tuition/",
+          "https://kiddieacademy.com/academies/asheville/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

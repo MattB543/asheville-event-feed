@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "highland-brewing-company",
+    "name": "Highland Brewing Company",
+    "urls": ["https://highlandbrewing.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:02:37.757Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "86e1d75bc5c1d2febaba236b991603479b914b2497f4ec9d9f11b4cdee9a9d4a",
+  "response": {
+    "searches": [
+      "site:highlandbrewing.com \"2026\" \"camp\" volleyball",
+      "site:highlandbrewing.com \"camp\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23262,
+      "cachedInputTokens": 8845,
+      "outputTokens": 669,
+      "reasoningTokens": 143
+    },
+    "status": "completed",
+    "ms": 24728,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://highlandbrewing.com/",
+      "chars": 951,
+      "method": "fetch"
+    },
+    {
+      "url": "https://highlandbrewing.com/faq/",
+      "chars": 7055,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Highland Brewing Company",
+    "website_url": "https://highlandbrewing.com/",
+    "notes": "The official volleyball page says the 2026 camps are all full and expresses hope that camps will return in 2027, but does not announce 2027 dates or registration. No dated camp schedule, ages, hours or prices were found.",
+    "excluded": [
+      {
+        "name": "Volleyball leagues",
+        "reason": "Sports leagues, restricted to adults ages 21+, rather than youth camps."
+      },
+      {
+        "name": "Pick-up Volleyball",
+        "reason": "Adult drop-in recreation for ages 21+, not a finite supervised youth program."
+      },
+      {
+        "name": "Corn Hole League",
+        "reason": "Year-round sports league, not a summer camp."
+      },
+      {
+        "name": "Crokinole League",
+        "reason": "Ongoing league, not a finite summer youth program."
+      },
+      {
+        "name": "Run Club",
+        "reason": "Recurring recreational runs, not a supervised summer youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Youth Volleyball Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Summer volleyball camps for youth.",
+        "camp_page_url": "https://highlandbrewing.com/volleyball/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "We’re hopeful that youth volleyball camps will return in 2027."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Highland Brewing Volleyball Courts",
+            "address": "12 Old Charlotte Highway",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 camps",
+          "text": "Our 2026 Youth Volleyball Camps are underway, and all camps are now full."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://highlandbrewing.com/volleyball/",
+          "https://highlandbrewing.com/",
+          "https://highlandbrewing.com/calendar/vb-hbc-league/2026-09-08/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current volleyball page retains an 'underway' notice for summer 2026 despite the October research date. Day format and the volleyball-court drop-off venue are inferred from the offering's context; the page does not provide a camp-specific schedule or drop-off instructions. The statement about 2027 is tentative return language, not an announcement that dates are coming."
+      }
+    ]
+  }
+}

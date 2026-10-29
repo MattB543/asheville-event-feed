@@ -1,9 +1,10 @@
 /**
  * Hand-written OpenAPI 3.1 description of the public read API, served at
  * /openapi.json. It describes app/api/export/json and app/api/export/markdown as
- * implemented (see lib/api/publicEvents.ts and lib/api/publicEventsContract.ts):
- * when a parameter, field or error changes there, change it here too. Imports
- * only DB-free modules.
+ * implemented (see lib/api/publicEvents.ts and lib/api/publicEventsContract.ts),
+ * and the camp exports app/api/camps/export/* (lib/camps/export.ts): when a
+ * parameter, field or error changes there, change it here too. Imports only DB-free
+ * modules.
  */
 
 import { TAG_CATEGORIES } from '@/lib/config/tagCategories';
@@ -19,6 +20,7 @@ import {
   encodeCursor,
 } from '@/lib/api/publicEventsContract';
 import { SITE_URL } from '@/lib/seo/site';
+import { CAMP_EXPORT_PATHS, CAMP_EXPORT_SUCCESS_HEADERS } from '@/lib/camps/export';
 
 // Illustrative example events (not real listings); url and nextCursor come from the
 // real helpers so their format can't drift.
@@ -62,6 +64,27 @@ function queryParameter(name: string, description: string, schema: object = { ty
 
 const corsHeader = { $ref: '#/components/headers/AccessControlAllowOrigin' };
 
+/** A camp export's 200 and 500 headers: cached an hour by shared caches, sent as a download. */
+const campExportHeaders = {
+  'Cache-Control': {
+    description:
+      'Browsers may reuse the file for 5 minutes; shared caches for an hour, plus up to an hour while they refresh it.',
+    schema: { type: 'string', const: CAMP_EXPORT_SUCCESS_HEADERS['Cache-Control'] },
+  },
+  'Content-Disposition': {
+    description:
+      'Sent as a download named by the Eastern date, e.g. `avlgo-summer-camps-2026-10-29.md`.',
+    schema: { type: 'string' },
+  },
+  'Access-Control-Allow-Origin': corsHeader,
+};
+const campExportErrorHeaders = {
+  'Cache-Control': { $ref: '#/components/headers/NoStoreCacheControl' },
+  'Access-Control-Allow-Origin': corsHeader,
+};
+const CAMP_EXPORT_DESCRIPTION =
+  "Every kids' summer camp listed at /camps (within about an hour's drive of Asheville), sorted by provider then camp name, in one file meant for comparing camps in an AI assistant. Each camp has its type, categories, a one-sentence summary, ages and grades, the summer its facts describe (2027, or 2026 when 2027 isn't posted), season and session dates, prices, hours, extended care, sites with drive times from downtown, registration dates (marked expected or unconfirmed), last year's opening, availability, financial aid, special needs, lunch and transportation, and its AVL GO page. Read from each camp's site by AI: confirm with the camp before booking. No parameters and no pagination.";
+
 const legacyFilterRefs = [
   'dateFilter',
   'dateStart',
@@ -92,6 +115,8 @@ export const openApiDocument = {
       '',
       `**For AI assistants and agents, call \`GET /api/export/json?format=compact\`** with filters such as \`dateFilter=today\`, \`locations=asheville\` or \`priceFilter=free\`. Compact responses are small pages (${COMPACT_DEFAULT_LIMIT} events by default) containing only the fields needed to answer "what's on?", and each event's \`url\` is its page on avlgo.com.`,
       '',
+      `**Summer camps:** \`GET ${CAMP_EXPORT_PATHS.markdown}\` (or \`${CAMP_EXPORT_PATHS.json}\`) returns every listed kids' summer camp near Asheville in one file.`,
+      '',
       'Responses are cached at several layers: shared caches keep a response for 5 minutes (and may serve it up to a minute longer while refreshing), browsers for 1 minute, and compact results also pass through a server data cache that refreshes every 5 minutes or when the feed updates. These are refresh intervals, not a maximum age, so check `generated` (when the data was read) to see how fresh a response is. Listings are refreshed from their sources on a schedule and can be incomplete or out of date, so confirm details on the event page before attending.',
     ].join('\n'),
   },
@@ -101,7 +126,10 @@ export const openApiDocument = {
     description: 'Developer guide with example requests and responses',
     url: `${SITE_URL}/developers`,
   },
-  tags: [{ name: 'Events', description: 'Upcoming events in and around Asheville, NC.' }],
+  tags: [
+    { name: 'Events', description: 'Upcoming events in and around Asheville, NC.' },
+    { name: 'Camps', description: "Kids' summer camps near Asheville (the /camps directory)." },
+  ],
   paths: {
     '/api/export/json': {
       get: {
@@ -264,6 +292,79 @@ export const openApiDocument = {
         },
       },
     },
+    [CAMP_EXPORT_PATHS.json]: {
+      get: {
+        operationId: 'getCamps',
+        tags: ['Camps'],
+        summary: 'Every listed summer camp as one JSON file',
+        description: `${CAMP_EXPORT_DESCRIPTION} The JSON also has street addresses, every session's label, the camp's own wording and its website and registration links. The response's \`fields\` object explains each camp key; absent keys mean the camp doesn't say, and dates are ISO (\`YYYY-MM\` when only the month is known).`,
+        responses: {
+          '200': {
+            description: 'The camp directory.',
+            headers: campExportHeaders,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['generated', 'notice', 'count', 'fields', 'camps'],
+                  properties: {
+                    generated: { type: 'string', format: 'date-time' },
+                    notice: { type: 'string' },
+                    count: { type: 'integer', minimum: 0 },
+                    fields: {
+                      type: 'object',
+                      additionalProperties: { type: 'string' },
+                      description: 'What each camp key means.',
+                    },
+                    camps: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        required: ['name', 'provider', 'type', 'season', 'url'],
+                        description: 'One camp; see `fields` for every key.',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          '500': {
+            description: 'The export could not be generated. Not cached; retry later.',
+            headers: campExportErrorHeaders,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['error'],
+                  properties: { error: { type: 'string' } },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    [CAMP_EXPORT_PATHS.markdown]: {
+      get: {
+        operationId: 'getCampsMarkdown',
+        tags: ['Camps'],
+        summary: 'Every listed summer camp as one Markdown file',
+        description: `${CAMP_EXPORT_DESCRIPTION} Compact enough for a chat app's file limit (about 110k tokens): a header explains how to read it, then each camp is a heading linked to its AVL GO page with one line per fact, grouped under its provider when it has several, and a schedule of more than 6 sessions is summarized. Street addresses, session themes, the camp's own wording and its website are left to the JSON and the AVL GO page.`,
+        responses: {
+          '200': {
+            description: 'The camp directory as Markdown.',
+            headers: campExportHeaders,
+            content: { 'text/markdown': { schema: { type: 'string' } } },
+          },
+          '500': {
+            description: 'The export could not be generated. Not cached; retry later.',
+            headers: campExportErrorHeaders,
+            content: { 'text/markdown': { schema: { type: 'string' } } },
+          },
+        },
+      },
+    },
   },
   components: {
     parameters: {
@@ -322,7 +423,7 @@ export const openApiDocument = {
       ),
       tagsInclude: csvParameter(
         'tagsInclude',
-        `Keep events that have at least ONE of these tags. Tag names are exact and case-sensitive and are not trimmed, so put no spaces after the commas and URL-encode spaces and ampersands (\`tagsInclude=Live%20Music,Comedy\`). Official tags: ${OFFICIAL_TAGS}. Events can also carry additional free-form tags.`
+        `Keep events that have at least ONE of these tags. Tag names are exact and case-sensitive and are not trimmed, so put no spaces after the commas and URL-encode spaces and ampersands (\`tagsInclude=Live%20Music,Comedy\`). Official tags: ${OFFICIAL_TAGS}. Events can also carry additional free-form tags. Summer camps (one event per camp, dated at its first 2027 session) are left out unless \`Summer Camp\` is one of these tags.`
       ),
       tagsExclude: csvParameter(
         'tagsExclude',

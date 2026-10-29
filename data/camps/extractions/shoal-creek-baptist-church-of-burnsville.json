@@ -1,0 +1,65 @@
+{
+  "provider": {
+    "key": "shoal-creek-baptist-church-of-burnsville",
+    "name": "Shoal Creek Baptist Church of Burnsville",
+    "urls": ["https://www.shoalcreekbc.org/"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:31:40.506Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4aaef6e190bb86ca56e8471f1ae6a4a1e8711e5a40ecb7d33c952f98fc40d6fa",
+  "response": {
+    "searches": [
+      "site:shoalcreekbc.org VBS 2026",
+      "\"Shoal Creek Baptist Church\" \"Burnsville\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 18612,
+      "cachedInputTokens": 8845,
+      "outputTokens": 526,
+      "reasoningTokens": 195
+    },
+    "status": "completed",
+    "ms": 18734,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.shoalcreekbc.org/",
+      "chars": 2595,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shoal-creek-baptist-church-530436.churchcenter.com/registrations/events/3785477?fbclid=IwY2xjawTt6aNwZG9mAWV4dG4DYWVtAjExAGJyaWQRMVpFZmFveFZXYWVOaXpJd2FzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeauOQOXMZ5FemyrLeeYJSdxz8Psq7U12C77JitLvAi_uR5yk1LV7z9h1lLac_aem_hfT8z9Lq5cyr-3LUgYdupg",
+      "chars": 1464,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shoal Creek Baptist Church of Burnsville",
+    "website_url": "https://www.shoalcreekbc.org/",
+    "notes": "No 2026 or 2027 summer camp or Vacation Bible School offering could be confirmed on official sources. Older church Facebook posts document past Vacation Bible School programs, but do not establish a current offering. The events, ministries and bulletin pages returned no readable text. Search results for 2027 Kids Camp and Generate High School Camp use a different Church Center account and describe Alabama locations; they were not attributed to the Burnsville provider.",
+    "excluded": [
+      {
+        "name": "Awana Wednesdays",
+        "reason": "School-year weekly religious classes, September 2, 2026–May 2, 2027, rather than a finite summer camp."
+      },
+      {
+        "name": "Wednesday youth program",
+        "reason": "Recurring school-year youth ministry for grades 7–12, not a finite summer camp."
+      },
+      {
+        "name": "Kids Camp 2027",
+        "reason": "Search result belongs to a different Shoal Creek Church Center account and places camp in Talladega, Alabama, outside the directory's geographic range."
+      },
+      {
+        "name": "Generate High School Camp 2027",
+        "reason": "Search result belongs to a different Shoal Creek Church Center account and places camp in Orange Beach, Alabama, outside the directory's geographic range."
+      }
+    ],
+    "cards": []
+  }
+}

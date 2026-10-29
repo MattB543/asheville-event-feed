@@ -1,0 +1,342 @@
+{
+  "provider": {
+    "key": "music-academy-asheville-rock-academy",
+    "name": "Music Academy Asheville / Rock Academy",
+    "urls": ["https://musicacademyasheville.com/programs/summer-camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:55:57.429Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "bda359cba9d11b4c387c170a6318b79f6921eedf36ac6e5821927f8dd653fe76",
+  "response": {
+    "searches": ["site:musicacademyasheville.com \"2027\" camp"],
+    "usage": {
+      "inputTokens": 16536,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2225,
+      "reasoningTokens": 69
+    },
+    "status": "completed",
+    "ms": 46295,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://musicacademyasheville.com/programs/summer-camps/",
+      "chars": 4399,
+      "method": "fetch"
+    },
+    {
+      "url": "https://musicacademyasheville.com/wp-content/uploads/2025/04/Summer-Camp-Registration-Form.pdf",
+      "chars": 1044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://musicacademyasheville.com/summer-camp-sign-up/",
+      "chars": 1459,
+      "method": "fetch"
+    },
+    {
+      "url": "https://musicacademyasheville.com/faqs/",
+      "chars": 4117,
+      "method": "fetch"
+    },
+    {
+      "url": "https://musicacademyasheville.com/",
+      "chars": 4402,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Music Academy Asheville / Rock Academy",
+    "website_url": "https://musicacademyasheville.com/",
+    "notes": "No 2027 camp information or registration milestones found. The summer camp page lists dates without an explicit season year; dates are recorded as 2026 using the page's 2026 context. The page gives conflicting cancellation policies: no refunds after June 1 versus refunds based on days before camp. The online registration form requires JavaScript.",
+    "excluded": [
+      {
+        "name": "Private Lessons",
+        "reason": "Ongoing individual music lessons, not a finite summer camp."
+      },
+      {
+        "name": "Rock Academy",
+        "reason": "Year-round rock band performance classes."
+      },
+      {
+        "name": "Opening Act",
+        "reason": "Year-round beginner band classes; the separate summer camp is included."
+      },
+      {
+        "name": "Rock Academy Special Projects 2026!",
+        "reason": "September–December program outside summer."
+      },
+      {
+        "name": "Violin and Drum camps",
+        "reason": "Mentioned only as past offerings; no current camp details listed."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rock Academy Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers play rock and pop music in a band, learn music theory and composition, and jam together. The week ends with a Friday performance for friends and family.",
+        "camp_page_url": "https://musicacademyasheville.com/programs/summer-camps/",
+        "registration_url": "https://musicacademyasheville.com/summer-camp-sign-up/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rock Academy rehearsal space",
+            "address": "1408 Patton Ave, Lower Level Suite F",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "All Camps are from 9am to 12pm with 8:30 am early drop off."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://musicacademyasheville.com/programs/summer-camps/",
+          "https://musicacademyasheville.com/summer-camp-sign-up/",
+          "https://musicacademyasheville.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page does not print a year beside the summer dates; 2026 is inferred from its current page context. Confirm the season year. The same page contains conflicting refund policies."
+      },
+      {
+        "name": "Opening Act Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers explore guitar, piano, drums and voice while learning the fundamentals of playing in a pop/rock band. No experience is required, and camp ends with a Friday performance for friends and family.",
+        "camp_page_url": "https://musicacademyasheville.com/programs/summer-camps/",
+        "registration_url": "https://musicacademyasheville.com/summer-camp-sign-up/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Rock Academy rehearsal space",
+            "address": "1408 Patton Ave, Lower Level Suite F",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "All Camps are from 9am to 12pm with 8:30 am early drop off."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://musicacademyasheville.com/programs/summer-camps/",
+          "https://musicacademyasheville.com/summer-camp-sign-up/",
+          "https://musicacademyasheville.com/",
+          "https://musicacademyasheville.com/event/opening-act-camp-rising-4th-6th-grades/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page does not print a year beside the summer dates; 2026 is inferred from its current page context. Confirm the season year. The same page contains conflicting refund policies."
+      },
+      {
+        "name": "Bluegrass Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers learn to improvise and play with other musicians in a bluegrass jam setting, ending with a Friday performance. Students must have some experience playing guitar, mandolin, banjo, bass or fiddle/violin.",
+        "camp_page_url": "https://musicacademyasheville.com/programs/summer-camps/",
+        "registration_url": "https://musicacademyasheville.com/summer-camp-sign-up/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rock Academy rehearsal space",
+            "address": "1408 Patton Ave, Lower Level Suite F",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "All Camps are from 9am to 12pm with 8:30 am early drop off."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://musicacademyasheville.com/programs/summer-camps/",
+          "https://musicacademyasheville.com/summer-camp-sign-up/",
+          "https://musicacademyasheville.com/",
+          "https://musicacademyasheville.com/event/bluegrass-camp-ages-8-to-17/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page does not print a year beside the summer dates; 2026 is inferred from its current page context. Confirm the season year. The same page contains conflicting refund policies."
+      }
+    ]
+  }
+}

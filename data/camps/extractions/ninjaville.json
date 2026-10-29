@@ -1,0 +1,164 @@
+{
+  "provider": {
+    "key": "ninjaville",
+    "name": "Ninjaville (ninja warrior camp for kids)",
+    "urls": ["https://ninjaville.org/ninja-warrior-camp-for-kids/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["pilot", "seed_sheet", "our_db", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:52:52.014Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "afe9aad2176eeb72bd04702bd47a645874ae6787ad693a4d1446742945867bb4",
+  "response": {
+    "searches": ["site:ninjaville.org summer camp 2026 2027"],
+    "usage": {
+      "inputTokens": 15303,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1097,
+      "reasoningTokens": 95
+    },
+    "status": "completed",
+    "ms": 26228,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+      "chars": 2219,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ninjaville.org/camp-registration/",
+      "chars": 708,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ninjaville.org/winter-camp/",
+      "chars": 1724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ninjaville.org/",
+      "chars": 4117,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ninjaville",
+    "website_url": "https://ninjaville.org/",
+    "notes": "No official 2027 summer information or registration milestones were found. The summer camp page does not print a year with its dates or prices; the site navigation says Ninjaville 2025-2026 Season. Dates were left unset because the summer dates cannot reliably be assigned to 2026.",
+    "excluded": [
+      {
+        "name": "Winter Camp",
+        "reason": "Held during winter break, outside summer."
+      },
+      {
+        "name": "Spring camp",
+        "reason": "Spring-break camps are outside summer."
+      },
+      {
+        "name": "Ninja Classes",
+        "reason": "Ongoing weekly classes, not a finite summer camp."
+      },
+      {
+        "name": "Gymnastics",
+        "reason": "Ongoing classes with monthly tuition, not a finite summer camp."
+      },
+      {
+        "name": "Home School Program",
+        "reason": "Ongoing weekly classes beginning in September, not a summer camp."
+      },
+      {
+        "name": "Fall After-School Program",
+        "reason": "School-year after-school childcare."
+      },
+      {
+        "name": "Mom, Dad & Me Program",
+        "reason": "Parent-child classes, not a supervised youth summer camp."
+      },
+      {
+        "name": "Parent’s Night Out",
+        "reason": "Single-evening social or childcare event rather than a multi-day summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ninja Warrior Camp for kids",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers run, jump, climb, swing and flip on matted obstacle courses. Full-day campers also take afternoon field trips.",
+        "camp_page_url": "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+        "registration_url": "https://ninjaville.org/camp-registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ninjaville",
+            "address": "1078 Tunnel Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:00",
+          "text": "Half day is 8:00-12:00 and full day is 8:00-4:00"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 380,
+            "unit": "week",
+            "label": "full day",
+            "year": 2026
+          },
+          {
+            "amount": 280,
+            "unit": "week",
+            "label": "half day",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "day",
+            "label": "half day",
+            "year": 2026
+          },
+          {
+            "amount": 80,
+            "unit": "day",
+            "label": "full day",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide lunch and snack for full day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ninjaville.org/ninja-warrior-camp-for-kids/",
+          "https://ninjaville.org/camp-registration/",
+          "https://ninjaville.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer camp page says camp starts the week of June 10th and runs until August 29th, without a year. These dates were omitted rather than assigned to 2026. Prices are provisionally labeled 2026 based on the site's 2025-2026 Season navigation, but the camp page does not explicitly date the rates. Confirm the summer year, rates and hours with the provider. No individual weeks or camper age limits are listed. Generic requests to register while spaces remain were not treated as a current session availability statement."
+      }
+    ]
+  }
+}

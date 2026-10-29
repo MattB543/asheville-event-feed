@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "asheville-christian-academy",
+    "name": "Asheville Christian Academy",
+    "urls": ["https://www.ashevillechristian.org/summer-camp"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:15.017Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f3f5d2152cd62dca80f4e9781ff052e45fa0e9a715cdc0ed2481c28c3e0e6f43",
+  "response": {
+    "searches": [
+      "site:ashevillechristian.org summer camp 2027",
+      "site:ashevillechristian.org \"2026\" \"Camp\" \"brochure\"",
+      "site:ashevillechristian.org \"College App Camp\""
+    ],
+    "usage": {
+      "inputTokens": 31063,
+      "cachedInputTokens": 8845,
+      "outputTokens": 943,
+      "reasoningTokens": 229
+    },
+    "status": "completed",
+    "ms": 26190,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillechristian.org/summer-camp",
+      "chars": 5420,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillechristian.org/tuition",
+      "chars": 6454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillechristian.org/",
+      "chars": 5209,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Christian Academy",
+    "website_url": "https://www.ashevillechristian.org/",
+    "notes": "The summer-camp page still advertises a 2026 Camp Brochure. Browser opens returned empty pages, so the brochure and Register Now link targets could not be recovered. Searches did not locate the brochure PDF. This extraction is incomplete for the 2026 camp list. The October 28, 2026 newsletter's official search result announces upcoming College App Camp dates; no broader 2027 program list was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "College App Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "A camp focused on college applications.",
+        "camp_page_url": "https://www.ashevillechristian.org/between-the-lions",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-15",
+          "text": "Also save the date for College App Camp, Monday–Thursday from 9 AM to 1 PM, June 7–10 or July 12–15."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday–Thursday from 9 AM to 1 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.ashevillechristian.org/between-the-lions"],
+        "confidence": "medium",
+        "review_notes": "Dates and hours were available only in the official newsletter's search result; direct opens returned no readable content. The year is inferred from the October 28, 2026 newsletter discussing upcoming summer and the stated Monday–Thursday dates, which align with 2027. Confirm the year and camp venue in the newsletter or registration materials. The school's published address is 74 Riverwood Road, Swannanoa, NC, but the readable camp announcement does not explicitly identify its drop-off venue."
+      }
+    ]
+  }
+}

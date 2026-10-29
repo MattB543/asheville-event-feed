@@ -1,0 +1,304 @@
+{
+  "provider": {
+    "key": "isothermal-community-college",
+    "name": "Isothermal Community College",
+    "urls": [
+      "https://www.isothermal.edu/camps/index.html",
+      "https://www.isothermal.edu/camps/engineeringcamp/index.html"
+    ],
+    "area": "Spindale, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:09:17.416Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "94e73e1dbadbf7410ba27d074a147e53e55aebdf332adf73c8950f4e5acfebe3",
+  "response": {
+    "searches": [
+      "site.isothermal.edu camps 2027 TechSpire",
+      "site:isothermal.edu/camps/patriotcamp \"register\""
+    ],
+    "usage": {
+      "inputTokens": 28152,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2121,
+      "reasoningTokens": 229
+    },
+    "status": "completed",
+    "ms": 50234,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.isothermal.edu/camps/index.html",
+      "chars": 2195,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/camps/engineeringcamp/index.html",
+      "chars": 3713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/newscenter/index.html",
+      "chars": 9381,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/camps/journey/index.html",
+      "chars": 6564,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/camps/patriotcamp/index.html",
+      "chars": 4201,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/about/locations/assets/campus-map.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/camps/techspire/index.html",
+      "chars": 2720,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.isothermal.edu/camps/childcare/index.html",
+      "chars": 2066,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Isothermal Community College",
+    "website_url": "https://www.isothermal.edu/",
+    "notes": "No summer 2027 camp information was found. The supplied 2026 pages are used for prior-season facts. Discovery Engineering Camp's detail page announces cancellation despite the summer camps index retaining its dates; it is excluded. Some official pages returned empty text when opened, so supplied crawler text was used. The Careers Electric academy news page yielded only its introductory paragraph.",
+    "excluded": [
+      {
+        "name": "Discovery Engineering Camp",
+        "reason": "The official detail page states that Engineering Camp will not be offered this summer, overriding the retained July 6–10, 2026 listing."
+      },
+      {
+        "name": "Childcare Academy",
+        "reason": "Employment credential training for high school graduates, including pre-employment support, rather than a youth summer camp."
+      },
+      {
+        "name": "Careers Electric Summer Electrical Academy",
+        "reason": "Paid pre-apprenticeship learning and employment preparation, rather than a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Patriot Basketball Youth Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Students develop basketball skills through drills and team-building activities led by Coach Kenneth Hines. Prior basketball experience is not required.",
+        "camp_page_url": "https://www.isothermal.edu/camps/patriotcamp/index.html",
+        "registration_url": "https://www.isothermal.edu/camps/patriotcamp/register.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Isothermal Community College Student Center Building, Gymnasium",
+            "address": "286 ICC Loop Road",
+            "town": "Spindale",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "first participant",
+            "year": 2026
+          },
+          {
+            "amount": 55,
+            "unit": "session",
+            "label": "additional children in the same household",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rising 3rd - 5th grade students",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rising 6th - 8th grade students",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Participants should pack their lunch with a meal that will give them energy for the day. If this is a financial strain on a family, please reach out, and we will ensure each participant has access to a nutritious meal."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.isothermal.edu/camps/patriotcamp/index.html",
+          "https://www.isothermal.edu/camps/patriotcamp/register.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration page search result still labels the form 2025 Patriot Basketball Camp, while the supplied program page explicitly lists 2026. Check that the application has been updated before directing families to register. The program also states current grades 2–7, corresponding to rising grades 3–8."
+      },
+      {
+        "name": "TechSpire Summer Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers select five tracks and rotate daily through sessions covering technology and career fields, including artificial intelligence, augmented reality, cybersecurity, filmmaking, healthcare, and agriculture.",
+        "camp_page_url": "https://www.isothermal.edu/camps/techspire/index.html",
+        "registration_url": "https://www.isothermal.edu/camps/techspire/register.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Isothermal Community College Rutherford Campus",
+            "address": "286 ICC Loop Road",
+            "town": "Spindale",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "12:00",
+          "text": "8 a.m. - noon daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.isothermal.edu/camps/techspire/index.html",
+          "https://www.isothermal.edu/camps/techspire/register.html",
+          "https://www.isothermal.edu/camps/index.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The TechSpire page gives Monday June 1–Friday June 5 without printing a year. These dates were assigned to 2026 from the surrounding 2026 camp listings and matching weekdays; confirm the year. Eligibility is limited to students from Polk and Rutherford Counties. Tracks are daily rotations, not separately dated sessions."
+      },
+      {
+        "name": "Patriot's Journey Summer Bridge Program",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Newly graduated high school seniors and adults starting college complete college-level writing, math, and college-transfer courses in an eight-week summer semester. Field trips and visits from special guests are included.",
+        "camp_page_url": "https://www.isothermal.edu/camps/journey/index.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-07-21",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "8 weeks, Monday - Thursday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and Snacks"
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Transportation, if needed"
+        },
+        "sources": [
+          "https://www.isothermal.edu/camps/journey/index.html",
+          "https://www.isothermal.edu/camps/index.html"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

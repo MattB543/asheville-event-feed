@@ -1,0 +1,120 @@
+{
+  "provider": {
+    "key": "pinecrest-arp-church-of-flat-rock",
+    "name": "Pinecrest ARP Church of Flat Rock",
+    "urls": ["https://pinecrestarpchurch.org/vbs/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:51.679Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "a4e1cc442acdcfe456ef11234a91145d50a6f19756c1fd2b9caeb26348de8aab",
+  "response": {
+    "searches": [
+      "site:pinecrestarpchurch.org VBS 2027",
+      "open https://pinecrestarpchurch.org/ministries/youth-2/"
+    ],
+    "usage": {
+      "inputTokens": 14463,
+      "cachedInputTokens": 8631,
+      "outputTokens": 773,
+      "reasoningTokens": 120
+    },
+    "status": "completed",
+    "ms": 22325,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pinecrestarpchurch.org/vbs/",
+      "chars": 3516,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pinecrestarpchurch.org/",
+      "chars": 1802,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pinecrest ARP Church of Flat Rock",
+    "website_url": "https://pinecrestarpchurch.org/",
+    "notes": "No 2027 VBS dates or registration milestones were found. The VBS page still lists July 14–17, 2026. The church publishes Hendersonville as its mailing/location city despite the provider's Flat Rock name. Youth and kids ministry pages returned no readable text when opened; the youth search result mentions additional activities but does not identify a summer camp.",
+    "excluded": [
+      {
+        "name": "Weekly Youth Group",
+        "reason": "Year-round youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Monthly Fellowship Events",
+        "reason": "Recurring fellowship events, not a named finite summer camp."
+      },
+      {
+        "name": "Annual Mission Trips",
+        "reason": "Mission trips are excluded."
+      },
+      {
+        "name": "Independence Day barbecue",
+        "reason": "A social event rather than a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children who completed Pre-K4 through fifth grade.",
+        "camp_page_url": "https://pinecrestarpchurch.org/vbs/",
+        "registration_url": "https://pinecrestarpchurch.org/vbs/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Pinecrest ARP Church",
+            "address": "1790 Greenville Highway",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9AM-NOON"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free of charge",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://pinecrestarpchurch.org/vbs/", "https://pinecrestarpchurch.org/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "provider": {
+    "key": "passport",
+    "name": "PASSPORT",
+    "urls": [
+      "https://passportcamps.org/project/montreat/",
+      "https://passportcamps.org/project/converse/"
+    ],
+    "area": "Montreat, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:12:41.862Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "f0d5e3981ab011934b7b3fe443508243389b8c2599f0778897c6b1689abedf26",
+  "response": {
+    "searches": [
+      "site.passportcamps.org 2027 registration October 1",
+      "open https://passportcamps.org/passportkids/"
+    ],
+    "usage": {
+      "inputTokens": 24644,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2066,
+      "reasoningTokens": 155
+    },
+    "status": "completed",
+    "ms": 43712,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://passportcamps.org/project/montreat/",
+      "chars": 3539,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/project/converse/",
+      "chars": 3364,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/dates/",
+      "chars": 3413,
+      "method": "fetch"
+    },
+    {
+      "url": "https://registration.passportcamps.org/",
+      "chars": 199,
+      "method": "browser"
+    },
+    {
+      "url": "https://passportcamps.org/how-to-register/",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/registration-policies/",
+      "chars": 7279,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/wp-content/uploads/2024/09/2025-Youth-Registration-Policies.pdf",
+      "chars": 5299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/wp-content/uploads/2024/09/2025-Kids-Registration-Policies.pdf",
+      "chars": 5379,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "PASSPORT",
+    "website_url": "https://passportcamps.org/",
+    "notes": "The official dates page posts summer 2027 programs. Registration is through church group leaders, not individual families. The how-to-register page states October 1 at 8:00 am CDT but does not identify a calendar year; no year-specific opening milestone was recorded. Only Montreat and Converse sites were retained.",
+    "excluded": [
+      {
+        "name": "PASSPORTmissions",
+        "reason": "All listed 2027 sites are outside the approximately 75-minute drive area around Asheville."
+      },
+      {
+        "name": "PASSPORT to Puerto Rico",
+        "reason": "Held in Cidra, Puerto Rico, outside the directory's geographic area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "PASSPORTkids",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Overnight church camp for children who have completed grades 3–6. At Montreat, campers can swim, canoe or paddle boat during free time.",
+        "camp_page_url": "https://passportcamps.org/project/montreat/",
+        "registration_url": "https://registration.passportcamps.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Montreat Conference Center",
+            "address": "401 Assembly Drive",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-In is from 12-2pm. Churches depart after Closing Worship ends at 11:15 am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 413,
+            "unit": "session",
+            "label": "Lodges",
+            "year": 2027
+          },
+          {
+            "amount": 433,
+            "unit": "session",
+            "label": "Assembly Inn",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "WAIT LIST ONLY"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "The goal of the Camp Scholarship Program is to partner with churches to make camp a reality for students in their congregation who demonstrate significant financial need."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Campus is wheelchair accessible, though there are hills and uneven terrain."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Breakfast, lunch and dinner are served buffet-style in Montreat's Galax Dining Room. Lunch is not provided on the last day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://passportcamps.org/project/montreat/",
+          "https://passportcamps.org/dates/",
+          "https://passportcamps.org/how-to-register/",
+          "https://passportcamps.org/registration-policies/",
+          "https://montreat.org/about/contact",
+          "https://montreat.org/what-to-expect"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "PASSPORTchoices",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible study, worship, choice groups and recreation. The schedule includes free time, a volleyball tournament and a variety show.",
+        "camp_page_url": "https://passportcamps.org/project/converse/",
+        "registration_url": "https://registration.passportcamps.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Converse University",
+            "address": "580 E. Main St",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Camp Check-In traditionally begins at 2pm and ends at 4pm. Churches depart after Closing Celebration at 11:00 am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 523,
+            "unit": "session",
+            "label": "Dorms",
+            "year": 2027
+          },
+          {
+            "amount": 553,
+            "unit": "session",
+            "label": "Apartments",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June 13 - 18",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "June 20 - 25",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "June 27 - July 2",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "July 4 - 9",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 11 - 16",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Converse University sessions",
+          "text": "June 13 - 18 (Apartments: Wait List; Dorms: Almost Full); June 20 - 25 (Apartments: Almost Full; Dorms: Almost Full); June 27 - July 2 (Dorms: Almost Full; Apartments: Available); July 11 - 16 (Wait List Only)"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "The goal of the Camp Scholarship Program is to partner with churches to make camp a reality for students in their congregation who demonstrate significant financial need."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Campus is wheelchair accessible."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "11:30 am Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://passportcamps.org/project/converse/",
+          "https://passportcamps.org/dates/",
+          "https://passportcamps.org/youth-daily-schedules/",
+          "https://passportcamps.org/how-to-register/",
+          "https://passportcamps.org/registration-policies/",
+          "https://www.converse.edu/about/contact-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

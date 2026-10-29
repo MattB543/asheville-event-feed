@@ -1,0 +1,114 @@
+{
+  "provider": {
+    "key": "faith-hope-and-love-family-church-of-newport",
+    "name": "Faith, Hope & Love Family Church of Newport",
+    "urls": ["https://www.facebook.com/FaithHopeLoveFC/"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T17:26:32.085Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Faith Hope Love\" \"Newport\" church VBS 2026",
+      "open https://faithhopelovefcchurchtraccom.myanswers.com/emerald-crossing/",
+      "site:faithhopelovefcchurchtraccom.myanswers.com"
+    ],
+    "usage": {
+      "inputTokens": 24864,
+      "cachedInputTokens": 8845,
+      "outputTokens": 993,
+      "reasoningTokens": 221
+    },
+    "status": "completed",
+    "ms": 26933,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/FaithHopeLoveFC/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Faith, Hope & Love Family Church of Newport",
+    "website_url": "https://faithhopelovefc.churchtrac.com/",
+    "notes": "Found the church's own ChurchTrac website, which publishes its Newport location and upcoming events. No summer 2027 information was found. The Facebook page, faithhopelovefc.com and the Emerald Crossing registration page returned no readable text. A 2026 VBS was found through third-party listings; its dates and hours require official confirmation.",
+    "excluded": [
+      {
+        "name": "Youth Group",
+        "reason": "Recurring year-round youth group, not a finite summer camp."
+      },
+      {
+        "name": "Children’s classes",
+        "reason": "Weekly worship-service classes, not a summer camp."
+      },
+      {
+        "name": "MFuge mission trip",
+        "reason": "Youth mission trip to Charleston, South Carolina; also outside the directory's geographic area."
+      },
+      {
+        "name": "Back-to-School Bash",
+        "reason": "Single social/community event, not a camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS - Emerald Crossing",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School exploring Psalm 23 and David’s story through Bible teaching and hands-on activities.",
+        "camp_page_url": "https://faithhopelovefcchurchtraccom.myanswers.com/emerald-crossing/",
+        "registration_url": "https://faithhopelovefcchurchtraccom.myanswers.com/emerald-crossing/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Faith, Hope & Love Family Church",
+            "address": "466 E. Plaza Shopping Center",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "6p-8p nightly"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://faithhopelovefc.churchtrac.com/"],
+        "confidence": "low",
+        "review_notes": "The official ChurchTrac site confirms the church address, but the VBS registration page and Facebook page returned no readable text. Dates June 15–19, 2026, hours 6–8 p.m. and free admission come from https://smokies.live/event/emerald-crossing/. The program name, activity description and registration URL appear in https://stayhappening.com/e/vbs-emerald-crossing-E2ISYHCPDK0. Confirm these facts with the church's official VBS announcement; eligibility was not found."
+      }
+    ]
+  }
+}

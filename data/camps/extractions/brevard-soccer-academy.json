@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "brevard-soccer-academy",
+    "name": "Brevard Soccer Academy",
+    "urls": ["https://www.brevardsoccer.org/bsa-summer-camps2026"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:49.185Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "10f07bda564bf8fe808af1507c0d4a66a195bd1224e64de5699e35fdcc952a00",
+  "response": {
+    "searches": ["site:brevardsoccer.org \"Flutie\""],
+    "usage": {
+      "inputTokens": 16069,
+      "cachedInputTokens": 8845,
+      "outputTokens": 611,
+      "reasoningTokens": 53
+    },
+    "status": "completed",
+    "ms": 15771,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.brevardsoccer.org/bsa-summer-camps2026",
+      "chars": 2207,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/camps",
+      "chars": 923,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/copy-of-winter-camps",
+      "chars": 1905,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/futsalfallcamps",
+      "chars": 1531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/",
+      "chars": 3492,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard Soccer Academy",
+    "website_url": "https://www.brevardsoccer.org/",
+    "notes": "Provider mismatch: this website belongs to Brevard Soccer Academy in Brevard County, Florida, not Brevard, North Carolina. Its official homepage identifies Florida, and its field pages list Melbourne, Melbourne Beach, Palm Bay and Malabar locations. No cards retained because these locations are outside AVLGO's service area.",
+    "excluded": [
+      {
+        "name": "Brevard Soccer Summer Camps",
+        "reason": "Held at Flutie Fields in Melbourne Beach, Florida; this is a Florida provider, not a Brevard, NC provider, and is outside the service area."
+      },
+      {
+        "name": "BSA Shooting Camp",
+        "reason": "Offered by the Brevard County, Florida organization, outside the service area."
+      },
+      {
+        "name": "BSA GOALKEEPER SUMMER CAMP",
+        "reason": "Listed by the Brevard County, Florida organization, outside the service area."
+      },
+      {
+        "name": "FUTSAL SPRING & SUMMER CAMPS",
+        "reason": "Offered by the Brevard County, Florida organization, outside the service area."
+      },
+      {
+        "name": "BSA FALL CAMP",
+        "reason": "December 17–20, 2026 is outside summer; the provider is also in Florida, outside the service area."
+      },
+      {
+        "name": "FUTSAL FALL CAMPS",
+        "reason": "November 23–25, 2026 is outside summer, and Max Rodes Park in West Melbourne, Florida is outside the service area."
+      },
+      {
+        "name": "Competitive Soccer",
+        "reason": "Sports leagues and team seasons, not a finite summer camp; also a Florida provider."
+      },
+      {
+        "name": "Recreational Soccer",
+        "reason": "Sports leagues and team seasons, not a finite summer camp; also a Florida provider."
+      },
+      {
+        "name": "Bridge Academy",
+        "reason": "Supplemental weekly training during the fall season, not a summer camp; also a Florida provider."
+      },
+      {
+        "name": "Futsal",
+        "reason": "Regular soccer program rather than a separately identified finite summer camp; also a Florida provider."
+      },
+      {
+        "name": "BSA Phoenix Cup 2027",
+        "reason": "Team soccer tournament, not a supervised summer camp; also a Florida provider."
+      }
+    ],
+    "cards": []
+  }
+}

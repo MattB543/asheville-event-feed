@@ -1,0 +1,69 @@
+{
+  "provider": {
+    "key": "presbyterian-association-of-musicians",
+    "name": "Presbyterian Association of Musicians",
+    "urls": ["https://www.presbymusic.org/conference"],
+    "area": "Montreat, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T17:06:05.370Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "4ccb3ac44befdca971c7d34c36763edf784c2f3b7f8d4fd128a325b9ea34d8c0",
+  "response": {
+    "searches": ["site.presbymusic.org summer camp 2027 Worship Music conference"],
+    "usage": {
+      "inputTokens": 17281,
+      "cachedInputTokens": 8845,
+      "outputTokens": 301,
+      "reasoningTokens": 76
+    },
+    "status": "completed",
+    "ms": 11568,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.presbymusic.org/conference",
+      "chars": 3377,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.presbymusic.org/conference-registration",
+      "chars": 7478,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.presbymusic.org/conference-schedule",
+      "chars": 5471,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.presbymusic.org/",
+      "chars": 2599,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Presbyterian Association of Musicians",
+    "website_url": "https://www.presbymusic.org/",
+    "notes": "The existing Worship & Music Conference program is excluded under the explicit conference rule, despite its children's and youth programming. Montreat's Clubs & Childcare, referenced on the registration page, is operated and registered separately by Montreat Conference Center, not this provider. No qualifying summer camp programs were identified for this provider.",
+    "excluded": [
+      {
+        "name": "Worship & Music Conference",
+        "reason": "Intergenerational conference for children, youth, and adults; conferences and conventions are excluded under the camp rule."
+      },
+      {
+        "name": "Rooted and Renewed: Intergenerational Worship through Liturgy and Music",
+        "reason": "January conference outside summer, held in Lakeland, Florida, outside the geographic coverage area."
+      },
+      {
+        "name": "Dashing Through the Snow with Favorites We Know: A Hymn Festival",
+        "reason": "Hymn festival outside summer, held in Buffalo, New York; festivals are excluded and the venue is outside the geographic coverage area."
+      }
+    ],
+    "cards": []
+  }
+}

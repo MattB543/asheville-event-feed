@@ -1,0 +1,160 @@
+{
+  "provider": {
+    "key": "summer-funshine-day-camp",
+    "name": "Summer Funshine Day Camp",
+    "urls": ["https://www.summerfunshine.org/"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:39.492Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "9e70a39231187eb9f627f4bd02391f9279f8cf4b0bdea41173860e41f04b3386",
+  "response": {
+    "searches": [
+      "site:summerfunshine.org 2027 camp",
+      "\"Funshine\" \"2026\" \"camp\" Burnsville location"
+    ],
+    "usage": {
+      "inputTokens": 18491,
+      "cachedInputTokens": 8845,
+      "outputTokens": 919,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 22007,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.summerfunshine.org/",
+      "chars": 3930,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/home",
+      "chars": 3930,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/purpose",
+      "chars": 1311,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/camp-activities",
+      "chars": 2057,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/news-and-events",
+      "chars": 1713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/statement-of-faith",
+      "chars": 1694,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/volunteer",
+      "chars": 2200,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.summerfunshine.org/sponsors",
+      "chars": 2819,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Summer Funshine Day Camp",
+    "website_url": "https://www.summerfunshine.org/",
+    "notes": "No 2027 information found. Applications are requested by email or telephone; no public downloadable application was found. The provider says its former campground was lost after Hurricane Helene and does not identify a current summer camp site. Higgins Methodist's volunteer notice identifies West Yancey Volunteer Fire Department Training Center as the camp location; this remains a third-party location claim.",
+    "excluded": [
+      {
+        "name": "SPRING FUNSHINE PARTY",
+        "reason": "Single social event outside summer."
+      },
+      {
+        "name": "FALL FUNSHINE Festival",
+        "reason": "Fall festival outside summer."
+      },
+      {
+        "name": "CHRISTMAS FUNSHINE PARTY",
+        "reason": "Single social event outside summer."
+      },
+      {
+        "name": "Summer Funshine Program",
+        "reason": "Unrelated provider in Farmers Branch, Texas."
+      },
+      {
+        "name": "Camp Funshine",
+        "reason": "Unrelated provider in Valley Stream, New York."
+      },
+      {
+        "name": "Funshine Day Camp",
+        "reason": "Unrelated Girl Scout provider serving Eugene and Springfield, Oregon."
+      },
+      {
+        "name": "FUNSHINE CAMP",
+        "reason": "Unrelated Cross Lanes YMCA provider outside the Asheville area."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Funshine Day Camp",
+        "type": "day",
+        "categories": ["general", "special_needs", "faith_based"],
+        "description": "Campers with developmental disabilities participate in games, arts and crafts, dancing, performances, and recreational activities. Each camper is accompanied by an adult family member or assistant.",
+        "camp_page_url": "https://www.summerfunshine.org/",
+        "registration_url": "https://www.summerfunshine.org/contact",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday-Wednesday 9:00-3:00; Thursday 3:00-10:00"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "There is no cost to campers!",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Funshine Camp was created with one heartfelt mission: to offer meaningful recreational and educational experiences to individuals of all ages with developmental disabilities."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.summerfunshine.org/",
+          "https://www.summerfunshine.org/camp-activities",
+          "https://www.summerfunshine.org/contact",
+          "https://www.summerfunshine.org/volunteer",
+          "https://www.summerfunshine.org/statement-of-faith"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

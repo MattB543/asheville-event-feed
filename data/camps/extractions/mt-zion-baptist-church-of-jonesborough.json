@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "mt-zion-baptist-church-of-jonesborough",
+    "name": "Mt. Zion Baptist Church of Jonesborough",
+    "urls": ["https://subsplash.com/mtzionbaptistchurchjones/lb/ev/%2B8my5xzq"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:20:59.762Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "8cd30f80034565e75cff682371d2d27ee7f4bb21df2e5d8148d4f39b6624bd51",
+  "response": {
+    "searches": [
+      "Mt Zion Baptist Church Jonesborough official VBS 2027 284",
+      "site:mzionbc.com 2027 VBS summer"
+    ],
+    "usage": {
+      "inputTokens": 17098,
+      "cachedInputTokens": 8845,
+      "outputTokens": 748,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 19962,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/%2B8my5xzq",
+      "chars": 725,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/+8my5xzq/register",
+      "chars": 645,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mt. Zion Baptist Church of Jonesborough",
+    "website_url": "https://mzionbc.com/",
+    "notes": "No summer 2027 program dates or registration announcements were found. The card retains the official 2026 offering.",
+    "excluded": [
+      {
+        "name": "MZBC Students",
+        "reason": "Recurring Wednesday youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Children's Classes + Nursery",
+        "reason": "Recurring church classes and nursery care, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Illumination Station VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Evening Vacation Bible School for children in grades K-8.",
+        "camp_page_url": "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/%2B8my5xzq",
+        "registration_url": "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/+8my5xzq/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mt. Zion Baptist Church",
+            "address": "284 Mount Zion Church Rd.",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": "Drop off: No sooner than 6:00pm. Pick up: Begins at 8:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/%2B8my5xzq",
+          "https://subsplash.com/mtzionbaptistchurchjones/lb/ev/+8my5xzq/register",
+          "https://mzionbc.com/location"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

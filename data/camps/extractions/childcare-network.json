@@ -1,0 +1,167 @@
+{
+  "provider": {
+    "key": "childcare-network",
+    "name": "Childcare Network",
+    "urls": [
+      "https://childcarenetwork.com/summer-camp/",
+      "https://schools.childcarenetwork.com/nc/asheville",
+      "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:04:30.725Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "826d141b06c0cb2038bfe0f7286f0651521c08c1c56c943af93f9adad4b64f91",
+  "response": {
+    "searches": [
+      "site:childcarenetwork.com \"summer\" \"2027\"",
+      "site:schools.childcarenetwork.com/nc \"Hendersonville\""
+    ],
+    "usage": {
+      "inputTokens": 31958,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1144,
+      "reasoningTokens": 187
+    },
+    "status": "completed",
+    "ms": 28545,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://childcarenetwork.com/summer-camp/",
+      "chars": 6852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.childcarenetwork.com/nc/asheville",
+      "chars": 1778,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://childcarenetwork.com/es/summer-camp/",
+      "chars": 7150,
+      "method": "fetch"
+    },
+    {
+      "url": "https://childcarenetwork.com/about/how-to-enroll/",
+      "chars": 5944,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/financial-assistance/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=financial-assistance",
+      "chars": 5231,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/health-and-safety/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=health-safety",
+      "chars": 5293,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/meals/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=meals",
+      "chars": 4267,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Childcare Network",
+    "website_url": "https://childcarenetwork.com/",
+    "notes": "No 2027 dates or registration milestones were found. The summer page is undated and directs families to local schools for dates and tuition. Its 13 weekly themes have no dates, so sessions are empty. A separate official Infinity Explorers Adventure Summer Camp page appeared in search, but could not be read; it is treated as another description of the same summer program rather than a separate card. The Sardis Road detail page also returned no readable content. Fairview is an additional nearby location found on the official school directory.",
+    "excluded": [
+      {
+        "name": "Infants, Toddlers, Twos, Threes and Pre-K",
+        "reason": "Year-round childcare and preschool programs, not finite summer camps."
+      },
+      {
+        "name": "School-Age - Young Achievers Club",
+        "reason": "Year-round before- and after-school care; the summer offering is included separately as Summer Camp."
+      },
+      {
+        "name": "School Break Care outside summer",
+        "reason": "Programs outside the summer season."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in weekly themed hands-on activities, indoor and outdoor play, and teamwork activities. Special events and field trips vary by location.",
+        "camp_page_url": "https://childcarenetwork.com/summer-camp/",
+        "registration_url": "https://childcarenetwork.com/about/how-to-enroll/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Childcare Network Asheville Weaverville Highway",
+            "address": "443 Weaverville Hwy",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Childcare Network Asheville Sardis Road",
+            "address": "330 Sardis Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Childcare Network Fairview Fairview Hills Drive",
+            "address": "6 Fairview Hills Drive",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "full-day"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer a variety of options to make school break care affordable, including childcare scholarships, military and sibling discounts, and employee benefits."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Enjoy daily snacks and meals"
+        },
+        "transportation": null,
+        "sources": [
+          "https://childcarenetwork.com/summer-camp/",
+          "https://schools.childcarenetwork.com/nc/asheville",
+          "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy",
+          "https://schools.childcarenetwork.com/nc/fairview/6-fairview-hills-drive",
+          "https://childcarenetwork.com/about/how-to-enroll/",
+          "https://childcarenetwork.com/about/financial-assistance/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page does not label a season year; 2026 is used as the fallback season with no dates. Confirm local summer participation, dates, tuition and camp hours with each school, especially Sardis Road, whose detail page could not be read. Fairview's summer offering and address were found in an official search result. School operating hours and school-age availability were not treated as summer camp hours or availability. The undated 'Enrollment is now open!' message was not assigned to 2027."
+      }
+    ]
+  }
+}

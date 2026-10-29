@@ -1,0 +1,221 @@
+{
+  "provider": {
+    "key": "asheville-football-club",
+    "name": "Asheville Football Club",
+    "urls": ["https://avlfootballclub.com/summer-camp-2026"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T16:53:53.846Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "85b08452694a7a0dd13a7ba42a4f96d77da916b54f23c433518c7bd6f87463be",
+  "response": {
+    "searches": [
+      "site:avlfootballclub.com camp goalkeeper 2026 2027",
+      "open https://avlfootballclub.com/development-camp",
+      "site:avlfootballclub.com/development-camp \"Week\""
+    ],
+    "usage": {
+      "inputTokens": 21671,
+      "cachedInputTokens": 8845,
+      "outputTokens": 1831,
+      "reasoningTokens": 286
+    },
+    "status": "completed",
+    "ms": 45524,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://avlfootballclub.com/summer-camp-2026",
+      "chars": 1585,
+      "method": "fetch"
+    },
+    {
+      "url": "https://avlfootballclub.com/",
+      "chars": 2176,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Football Club",
+    "website_url": "https://avlfootballclub.com/",
+    "notes": "No summer 2027 information or camp registration milestones were found. The 2027 announcements concern spring team tryouts, not summer camps. Product pages returned no readable body when opened; their indexed official search text supplied additional details. Performance Camp is treated as the older-player band of Summer Camp, rather than a duplicate general soccer camp card. Development Camp is separately retained because its official description explicitly calls it residential, which conflicts with the general summer camp's daytime format.",
+    "excluded": [
+      {
+        "name": "MLS Go League",
+        "reason": "Recreational soccer league and team season, not a finite summer camp."
+      },
+      {
+        "name": "Asheville F.C. Academy",
+        "reason": "Ongoing competitive training and team programs, not summer camps."
+      },
+      {
+        "name": "UPSL",
+        "reason": "Semi-professional team season, not a youth summer camp."
+      },
+      {
+        "name": "Spring Season 2027 Tryouts",
+        "reason": "Team-selection tryouts outside summer, not a summer clinic or camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Players practice soccer techniques and skills with Asheville FC coaches and receive individual feedback. The older-player Performance Camp focuses on tactical, technical, physical and mental skills and ends with a tournament.",
+        "camp_page_url": "https://avlfootballclub.com/summer-camp-2026",
+        "registration_url": "https://avlfootballclub.com/performance-camp-",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Warren Wilson Soccer Field",
+            "address": "104 Northwest Ln",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "Monday to Thursday from 9am - 2pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-22",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Performance Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 315,
+              "unit": "week",
+              "label": "Performance Camp",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://avlfootballclub.com/summer-camp-2026",
+          "https://avlfootballclub.com/performance-camp-",
+          "https://menssoccer.warrenwilsonsportscamps.com/content/training-facilities"
+        ],
+        "confidence": "medium",
+        "review_notes": "Performance Camp's age range, price and July session are available only in indexed official search text. Check whether it is exclusively the Week 2 older-player band or also runs other weeks. The general camp page does not state an overall age range, so card ages remain null. Snacks are included, but lunch is not addressed."
+      },
+      {
+        "name": "Goalskeeper Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Goalkeepers work with specialized coaches on technical and positional skills, including distribution and reaction drills. They join outfield players for competitive game training and finish with a tournament.",
+        "camp_page_url": "https://avlfootballclub.com/goalskeeper-camp",
+        "registration_url": "https://avlfootballclub.com/goalskeeper-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 315,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://avlfootballclub.com/goalskeeper-camp"],
+        "confidence": "medium",
+        "review_notes": "The official product's indexed text states Summer Camp 2026 and $315 per week, but opening the page yielded no readable body. Session options, ages, hours and location could not be established for this specific offering; the general camp's details have not been copied."
+      },
+      {
+        "name": "Development Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players ages 8-13 learn Asheville FC's style of soccer in a residential camp that ends with a tournament.",
+        "camp_page_url": "https://avlfootballclub.com/development-camp",
+        "registration_url": "https://avlfootballclub.com/development-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://avlfootballclub.com/development-camp"],
+        "confidence": "low",
+        "review_notes": "Only indexed official description text was readable. It explicitly says residential and ages 8-13, but no year, dates, overnight venue or price was visible. The 2026 season association is provisional based on the provider's current summer camp materials. Check whether residential is accurate or stale wording, and establish its local venue before publication."
+      }
+    ]
+  }
+}

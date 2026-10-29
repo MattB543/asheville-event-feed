@@ -1,0 +1,76 @@
+{
+  "provider": {
+    "key": "earthshine-lodge",
+    "name": "Earthshine Lodge",
+    "urls": ["https://earthshinenc.com/product/activities/"],
+    "area": "Lake Toxaway, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:26:50.162Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "2d77932816faeafd0c00b8545dc1c8a12ca061a3e25c6c39a170fab98dab13b3",
+  "response": {
+    "searches": ["site:earthshinenc.com summer camp 2027 2026"],
+    "usage": {
+      "inputTokens": 18221,
+      "cachedInputTokens": 8845,
+      "outputTokens": 351,
+      "reasoningTokens": 52
+    },
+    "status": "completed",
+    "ms": 15249,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://earthshinenc.com/product/activities/",
+      "chars": 3508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/wp-content/uploads/2026/06/Summer-Guest-Pass-2026.pdf",
+      "chars": 4571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/program_questions/",
+      "chars": 3988,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/",
+      "chars": 9829,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Earthshine Lodge",
+    "website_url": "https://earthshinenc.com/",
+    "notes": "No qualifying supervised youth summer camp was found. The Summer Day Pass requires all participants under 18 to have active supervision from a chaperone or guardian throughout every activity. The all-inclusive getaway page announces 2027 dates and says \"Summer Family Camp: Dates Coming Soon!\", but this is a family getaway rather than a youth camp.",
+    "excluded": [
+      {
+        "name": "Summer Day Pass",
+        "reason": "Family and general-public day activities, not a supervised youth camp: participants under 18 must have active supervision from their own chaperone or guardian during all activities."
+      },
+      {
+        "name": "Summer Family Camp",
+        "reason": "All-inclusive family vacation stay, rather than a supervised youth camp; family-only retreats are excluded."
+      },
+      {
+        "name": "Grown-Up Camp Weekend",
+        "reason": "Adult-only weekend."
+      },
+      {
+        "name": "Firefly Weekend",
+        "reason": "All-inclusive family getaway rather than a supervised youth camp."
+      },
+      {
+        "name": "Book an All-Inclusive Summer Vacation Stay",
+        "reason": "All-ages vacation lodging with optional activities, rather than a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

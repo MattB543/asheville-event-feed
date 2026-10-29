@@ -3,14 +3,14 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Ghost, ScrollText, type LucideIcon } from 'lucide-react';
+import { Ghost, ScrollText, Tent, type LucideIcon } from 'lucide-react';
 import { Bat, Pumpkin } from '@/components/halloween/Decor';
 import type { SeasonKey } from '@/lib/seasons';
 import { useSeason } from './useSeason';
 
 // Each season's look: the badge beside the logo, the banner's mark and the menu icon. All
 // still: their animations live in the season page's stylesheet, and these show on every page.
-// A season with no badge or icon shows only its banner
+// The badge and the menu icon are each optional; a season with neither shows only its banner
 const LOOK: Record<
   SeasonKey,
   { badge?: ReactNode; mark: ReactNode; endMark: ReactNode; icon?: LucideIcon; bar: string }
@@ -27,6 +27,13 @@ const LOOK: Record<
     mark: <ScrollText size={16} aria-hidden="true" className="shrink-0" />,
     endMark: <span aria-hidden="true">→</span>,
     bar: 'bg-gray-800 text-white',
+  },
+  // No logo badge (cut from the launch scope)
+  camps: {
+    mark: <Tent size={16} aria-hidden="true" className="shrink-0" />,
+    endMark: <span aria-hidden="true">→</span>,
+    icon: Tent,
+    bar: 'bg-emerald-800 text-white',
   },
 };
 
@@ -52,8 +59,10 @@ export function SeasonalBadge() {
 export function SeasonalBanner() {
   const current = useSeason();
   const pathname = usePathname();
-  if (!current || pathname === current.season.href) return null;
+  if (!current) return null;
   const { season, banner } = current;
+  // Not on the season's own pages (a camp's page sits under /camps)
+  if (pathname === season.href || pathname.startsWith(`${season.href}/`)) return null;
   const look = LOOK[season.key];
   return (
     <Link

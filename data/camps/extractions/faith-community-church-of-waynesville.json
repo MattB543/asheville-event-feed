@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "faith-community-church-of-waynesville",
+    "name": "Faith Community Church of Waynesville",
+    "urls": [
+      "https://vbspro.events/p/events/553ef3/details",
+      "https://www.faithcommunitychurch.cc/"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:14:30.552Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "777c94bd89c56694543885860120cc5121694a45cbbacd9df3432ed1fe839a27",
+  "response": {
+    "searches": [
+      "\"Faith Community Church\" \"Waynesville\" \"VBS\" \"2027\"",
+      "site:facebook.com \"Faith Community Church\" \"Rainforest\" \"Waynesville\""
+    ],
+    "usage": {
+      "inputTokens": 18865,
+      "cachedInputTokens": 8845,
+      "outputTokens": 824,
+      "reasoningTokens": 221
+    },
+    "status": "completed",
+    "ms": 23127,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/553ef3/details",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faithcommunitychurch.cc/",
+      "chars": 1152,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Faith Community Church of Waynesville",
+    "website_url": "https://www.faithcommunitychurch.cc/",
+    "notes": "No 2027 program information or registration dates were found. The VBS Pro event landing page and participant registration form returned no readable text. A third-party AllEvents listing supplies the 2026 dates, hours and ages; these require official confirmation.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Rainforest Falls VBS @ Faith Community Church",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and what it means to have a relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "camp_page_url": "https://vbspro.events/p/events/553ef3/details",
+        "registration_url": "https://vbspro.events/p/events/553ef3/sessions/106162/participants/new?is_early=true",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Faith Community Church",
+            "address": "289 Industrial Park Drive",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/553ef3/details",
+          "https://www.faithcommunitychurch.cc/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates July 20–24, 2026, hours 5:30–8:30 pm and ages 3–11 come only from https://allevents.in/waynesville/rainforest-falls-vbs/200030231811544, not from readable official pages. Confirm these with the church. The official VBS details page confirms the program and location but provides no dates or ages. The participant registration URL was found in official search results, but its form could not be read."
+      }
+    ]
+  }
+}

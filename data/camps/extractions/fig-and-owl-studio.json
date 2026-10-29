@@ -1,0 +1,325 @@
+{
+  "provider": {
+    "key": "fig-and-owl-studio",
+    "name": "Fig & Owl Studio",
+    "urls": ["https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026"],
+    "area": "Old Fort, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:17:24.207Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "15ec5b906d173dcf9d994b4465daeb29a352675eb23974600f873c7ae88ba89e",
+  "response": {
+    "searches": [
+      "site:figandowlstudio.com \"Coil Bowl\"",
+      "open https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026",
+      "site:figandowlstudio.com \"Tea Candle House\" \"Age\""
+    ],
+    "usage": {
+      "inputTokens": 23697,
+      "cachedInputTokens": 8845,
+      "outputTokens": 2161,
+      "reasoningTokens": 220
+    },
+    "status": "completed",
+    "ms": 44503,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026",
+      "chars": 1603,
+      "method": "fetch"
+    },
+    {
+      "url": "https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026?format=ical",
+      "chars": 399,
+      "method": "fetch"
+    },
+    {
+      "url": "https://figandowlstudio.com/",
+      "chars": 2939,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fig & Owl Studio",
+    "website_url": "https://figandowlstudio.com/",
+    "notes": "No summer 2027 dates or registration announcements found. Registration links were present as text, but their destinations were not exposed in the readable pages. The artist CV also mentions Summer Clay Camp at Burke Arts Council in 2026 without program details; this may merit separate research under that host provider.",
+    "excluded": [
+      {
+        "name": "Slab Building Sampler",
+        "reason": "Four-week pottery lesson series, not advertised as a camp."
+      },
+      {
+        "name": "Pinch Me!",
+        "reason": "Four-week pottery lesson series outside summer."
+      },
+      {
+        "name": "Introduction to Hand Building",
+        "reason": "Six-week lesson series beginning January 2027, outside summer."
+      },
+      {
+        "name": "Christmas Tree Luminaries",
+        "reason": "November workshops, outside summer."
+      },
+      {
+        "name": "Boo! Ghost Workshop",
+        "reason": "September workshop, outside summer."
+      },
+      {
+        "name": "Boo! Ghost Workshop at Burke Arts Council",
+        "reason": "October workshop, outside summer."
+      },
+      {
+        "name": "Decorative Wall Hangings",
+        "reason": "May workshop, outside summer."
+      },
+      {
+        "name": "Tiny Tea Light House",
+        "reason": "May workshop, outside summer."
+      },
+      {
+        "name": "Fairy houses, gnome domes & toad abodes!",
+        "reason": "February workshop, outside summer."
+      },
+      {
+        "name": "Puffy Ceramic Hearts",
+        "reason": "January workshops, outside summer."
+      },
+      {
+        "name": "Private Classes",
+        "reason": "Individually arranged pottery lessons, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Clay Summer Camp for Kids",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Children create fairy houses or animals using pinch techniques, animal wall hangings using slabs, and treasure boxes using the Japanese Kurinuki method.",
+        "camp_page_url": "https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Arrowhead Gallery & Studios",
+            "address": "77 Catawba Avenue",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "July 13, 14, 16, & 17; 1:00 - 4:00pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "20% discount for siblings with promo code SIBLINGS",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://figandowlstudio.com/workshops-classes/clay-summer-camp-for-kids-7132026",
+          "https://arrowheadart.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Coil Bowl Workshop",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Students use an extruder to make coils and arrange them inside or over a plaster mold to create a bowl. They select a glaze, and the instructor glazes the finished work.",
+        "camp_page_url": "https://figandowlstudio.com/workshops-classes/coil-bowl-workshop",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-09",
+          "end": "2026-08-09",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Arrowhead Gallery & Studios",
+            "address": "77 Catawba Avenue",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://figandowlstudio.com/workshops-classes/coil-bowl-workshop",
+          "https://arrowheadart.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Sassy Vase Workshop",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Students create a vase with a three-prong base and stretch its body to shape it. They choose a glaze, which the instructor applies after bisque firing.",
+        "camp_page_url": "https://figandowlstudio.com/workshops-classes/sassy-vase-workshop",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-13",
+          "end": "2026-08-13",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Arrowhead Gallery & Studios",
+            "address": "77 Catawba Avenue",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://figandowlstudio.com/workshops-classes/sassy-vase-workshop",
+          "https://arrowheadart.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Tea Candle House",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Students assemble a tiny house candle holder and decorate it with textures and underglazes. The studio fires the pieces and applies clear glaze.",
+        "camp_page_url": "https://figandowlstudio.com/workshops-classes/tea-candle-house",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-16",
+          "end": "2026-08-16",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Arrowhead Gallery & Studios",
+            "address": "77 Catawba Avenue",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://figandowlstudio.com/workshops-classes/tea-candle-house",
+          "https://figandowlstudio.com/workshops-classes",
+          "https://arrowheadart.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page returned no text when opened directly; dates, ages, hours and price came from the official page's search result. The workshops index independently lists August 16, 2026."
+      }
+    ]
+  }
+}

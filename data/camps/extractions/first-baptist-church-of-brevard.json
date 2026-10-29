@@ -1,0 +1,121 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-brevard",
+    "name": "First Baptist Church of Brevard",
+    "urls": ["https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:24:59.839Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "b6edf287f51c608ec9ded72e733f19cafed3ca5c9b8b27eb95aac5e417f4177b",
+  "response": {
+    "searches": [
+      "site:fbcbrevard.org VBS 2027 2026",
+      "open https://fbcbrevard.org/contact",
+      "\"fbcbrevard.org\" \"Gaston\"",
+      "First Baptist Church Brevard address 94 Gaston"
+    ],
+    "usage": {
+      "inputTokens": 17444,
+      "cachedInputTokens": 8845,
+      "outputTokens": 740,
+      "reasoningTokens": 218
+    },
+    "status": "completed",
+    "ms": 25343,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv",
+      "chars": 553,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register",
+      "chars": 598,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Brevard",
+    "website_url": "https://fbcbrevard.org/",
+    "notes": "No 2027 summer camp information found. The official homepage was readable through search results; direct opens of the homepage, contact, children and W.E.E. School pages returned no readable text.",
+    "excluded": [
+      {
+        "name": "W.E.E. School",
+        "reason": "Preschool, not a finite summer camp."
+      },
+      {
+        "name": "Youth Mini Golf",
+        "reason": "Youth-group outing, not a camp."
+      },
+      {
+        "name": "Truth N' Treat",
+        "reason": "Single seasonal event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS-Illumination Station",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School for children and teens ages 3 to 18.",
+        "camp_page_url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv",
+        "registration_url": "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Brevard",
+            "address": "94 S. Gaston St.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/%2Btt23xmv",
+          "https://subsplash.com/firstbaptistchurch-ncvyp/lb/ev/+tt23xmv/register",
+          "https://fbcbrevard.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event lists June 14 at 5:30pm through June 18, 2026 at 8:00pm; daily evening hours are inferred from these event endpoints rather than a separate daily schedule. The full street address comes from the official homepage's search result."
+      }
+    ]
+  }
+}

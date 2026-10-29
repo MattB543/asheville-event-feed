@@ -1,0 +1,75 @@
+{
+  "provider": {
+    "key": "hendersonville-music-academy",
+    "name": "Hendersonville Music Academy",
+    "urls": ["https://www.hendersonvillemusic.com/summer"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T17:05:55.527Z",
+  "fingerprint": "e4ca47c8bea7effb7ddea726e1a2a5f9d03a729f4ac471cbc32d3d22ac05b33c",
+  "sourceHash": "0bf8df4bc112c22be43e0cd273d2b2b4c51571ebc7b4131b4e90c2ba2d2e16cd",
+  "response": {
+    "searches": ["site:hendersonvillemusic.com contact address Hendersonville Music Academy"],
+    "usage": {
+      "inputTokens": 14528,
+      "cachedInputTokens": 8845,
+      "outputTokens": 474,
+      "reasoningTokens": 50
+    },
+    "status": "completed",
+    "ms": 11898,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersonvillemusic.com/summer",
+      "chars": 2694,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSc4ulmayzSWxLClgBmUDGVE1Toiw5vu99axjvDr95J0RSZUiA/viewform?usp=dialog",
+      "chars": 513,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillemusic.com/",
+      "chars": 1867,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Music Academy",
+    "website_url": "https://www.hendersonvillemusic.com/",
+    "notes": "The supplied website belongs to Hendersonville Music Academy in Hendersonville, Tennessee, not Hendersonville, North Carolina. Its official contact page publishes 119 Old Shackle Island Road, Hendersonville, TN 37075 (https://www.hendersonvillemusic.com/new-page). All supplied summer offerings are outside AVLGO's geographic area and are described as summer classes rather than camps. No 2027 summer information was found.",
+    "excluded": [
+      {
+        "name": "Bucket Drum Line",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; described as a weekly summer music class, not a camp."
+      },
+      {
+        "name": "Beginning Clarinet",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; a summer music lesson series rather than a camp."
+      },
+      {
+        "name": "Beginning Trumpet",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; a summer music lesson series rather than a camp."
+      },
+      {
+        "name": "Beginning Violin, Viola, Cello",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; a summer music lesson series rather than a camp."
+      },
+      {
+        "name": "String Orchestra",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; a weekly summer ensemble class rather than a camp."
+      },
+      {
+        "name": "Piano Ensembles",
+        "reason": "Offered by the academy in Hendersonville, TN, outside the Asheville-area drive radius; drop-in music classes rather than a camp."
+      }
+    ],
+    "cards": []
+  }
+}

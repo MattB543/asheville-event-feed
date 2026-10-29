@@ -1,0 +1,79 @@
+{
+  "method": "grid",
+  "id": "east-buncombe--general",
+  "input": "Find general day camps, Parks & Recreation camps, summer childcare, YMCA and Boys & Girls Club summer camps and summer programs for kids and teens in or near Black Mountain, Swannanoa, Montreat and Old Fort, NC. Search the web thoroughly (several searches with different wording and town names) and list every organization you find.",
+  "at": "2026-10-29T03:25:17.635Z",
+  "webSearch": true,
+  "calls": 1,
+  "usage": {
+    "inputTokens": 55696,
+    "cachedInputTokens": 5164,
+    "outputTokens": 1231,
+    "reasoningTokens": 619
+  },
+  "searches": [
+    "Black Mountain Swannanoa summer day camp 2026 parks recreation YMCA",
+    "\"Swannanoa\" \"summer camp\" \"2026\"",
+    "\"Old Fort\" \"summer camp\" day",
+    "site:montreat.org \"2026\" \"Clubs\" \"age\"",
+    "\"Rockmont\" \"Day Camp\" \"2026\"",
+    "site:bmtmont.org \"2026\" \"camp\""
+  ],
+  "ms": 52468,
+  "candidates": [
+    {
+      "name": "Black Mountain Recreation & Parks",
+      "url": "https://www.townofblackmountain.org/2540/Summer-Camp",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "nature_outdoor", "arts", "stem"],
+      "note": "2026 day camp for rising grades 1–6 at Grey Eagle Arena; swimming, field trips, games and crafts."
+    },
+    {
+      "name": "YMCA of Western North Carolina",
+      "url": "https://ymcawnc.org/programs/camp/summer-day-camp/discovery",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general", "arts", "nature_outdoor"],
+      "note": "2026 Discovery Camp at Black Mountain Primary School for rising first graders through age 12; games, crafts and field trips."
+    },
+    {
+      "name": "Black Mountain Montessori",
+      "url": "https://www.bmtmont.org/summer-camps",
+      "town": "Black Mountain",
+      "state": "NC",
+      "kinds": ["day"],
+      "categories": ["general"],
+      "note": "July 2026 weeklong camps for ages 3–6, with optional before- and after-camp childcare."
+    },
+    {
+      "name": "Montreat Conference Center",
+      "url": "https://montreat.org/tsim26",
+      "town": "Montreat",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["general", "nature_outdoor", "faith_based"],
+      "note": "Summer Clubs day programming for children and teens operated in 2026; also runs summer youth conferences."
+    },
+    {
+      "name": "Camp Grier",
+      "url": "https://www.campgrier.org/summer-camps",
+      "town": "Old Fort",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["general", "nature_outdoor", "horses", "sports"],
+      "note": "2027 general day camp and specialty day camps; coed overnight programs for rising grades 2–12."
+    },
+    {
+      "name": "Camp Cedar Cliff",
+      "url": "https://campcedarcliff.org/daycamp/",
+      "town": "Asheville",
+      "state": "NC",
+      "kinds": ["day", "overnight"],
+      "categories": ["general", "nature_outdoor", "faith_based"],
+      "note": "East Asheville camp near Swannanoa; 2026 day and overnight programs with swimming, games, archery and Bible activities."
+    }
+  ]
+}

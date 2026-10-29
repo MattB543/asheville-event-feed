@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import AiNotice from '@/components/camps/AiNotice';
 import CampDirectory from '@/components/camps/CampDirectory';
-import CampFeedback from '@/components/camps/CampFeedback';
+import CampExportLinks from '@/components/camps/CampExportLinks';
 import { toCardData, type CampCardData } from '@/lib/camps/display';
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
 import { campsLastChecked, listLiveCamps } from '@/lib/db/queries/camps';
@@ -88,6 +88,7 @@ export default async function CampsPage() {
               {checked && ` · last checked ${checked}`}
             </p>
           )}
+          {cards.length > 0 && <CampExportLinks className="mt-1" />}
 
           <AiNotice className="mt-4" />
 
@@ -105,10 +106,6 @@ export default async function CampsPage() {
                 <CampDirectory camps={cards} />
               </Suspense>
             )}
-          </div>
-
-          <div className="mt-10 max-w-2xl">
-            <CampFeedback />
           </div>
 
           <p className="mt-8 text-xs text-gray-500 dark:text-gray-400">

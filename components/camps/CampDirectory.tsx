@@ -1,6 +1,6 @@
 'use client';
 
-import { useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useMemo, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Search, SlidersHorizontal, Star, X } from 'lucide-react';
 import {
@@ -371,13 +371,13 @@ const URL_KEYS = [
 ];
 
 const selectClasses =
-  'h-9 w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+  'h-9 w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2 text-sm text-gray-900 dark:text-gray-100 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const textButtonClasses =
-  'font-medium text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+  'font-medium text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 rounded cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelClasses = 'text-xs text-gray-500 dark:text-gray-400';
 
 function chipClasses(active: boolean): string {
-  return `inline-flex items-center gap-1 rounded-full border px-3 py-1.5 sm:py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+  return `inline-flex items-center gap-1 rounded-full border px-3 py-1.5 sm:py-1 text-sm transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
     active
       ? 'bg-brand-600 border-brand-600 text-white'
       : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-brand-400 dark:hover:border-brand-500'
@@ -451,18 +451,9 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   const [showUnknown, setShowUnknown] = useState<UnknownKind[]>(() =>
     param('unknown') === '1' ? UNKNOWN_VALUES : listParam('unknown', UNKNOWN_VALUES)
   );
-  const [moreOpen, setMoreOpen] = useState(
-    () =>
-      !!(
-        param('type') ||
-        param('cat') ||
-        param('price') ||
-        param('reg') ||
-        param('need') ||
-        param('town') ||
-        param('hours')
-      )
-  );
+  // Everything past the search box and the kids sits behind "Filters", so the list starts high
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filtersId = useId();
 
   // The view as URL parameters: the URL follows it, and "Show more" starts over when it changes.
   const listKey = new URLSearchParams(
@@ -673,12 +664,19 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     return visible;
   }, [grouped, shown, limit]);
 
-  const moreCount =
-    [type !== 'all', category !== 'all', price, registration, filters.rows.town, hours].filter(
-      Boolean
-    ).length + needs.length;
-  const filtered =
-    moreCount > 0 || !!query.trim() || kids.length > 0 || !!drive || !!week || savedOnly;
+  // The filters behind the "Filters" button that are on
+  const filterCount =
+    [
+      week,
+      drive,
+      type !== 'all',
+      category !== 'all',
+      filters.rows.town,
+      hours,
+      price,
+      registration,
+    ].filter(Boolean).length + needs.length;
+  const filtered = filterCount > 0 || !!query.trim() || kids.length > 0 || savedOnly;
 
   function clearFilters() {
     setQuery('');
@@ -716,248 +714,259 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     );
   };
 
-  // Below sm these sit behind "More filters", so the list starts higher on a phone
-  const extraField = `${moreOpen ? 'flex' : 'hidden'} sm:flex flex-col gap-1`;
+  const field = 'flex flex-col gap-1';
 
   return (
     <div>
-      <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-3 sm:p-4 space-y-3">
-        <label className="relative block">
-          <span className="sr-only">Search camps</span>
-          <Search
-            size={16}
-            aria-hidden="true"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search camps, activities, towns"
-            className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-          />
-        </label>
+      <div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-3 sm:p-4">
+        {/* The search box, then the kids and "Filters": one row from lg, two on a phone */}
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-4">
+          <label className="relative block lg:min-w-72 lg:flex-1">
+            <span className="sr-only">Search camps</span>
+            <Search
+              size={16}
+              aria-hidden="true"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search camps, activities, towns"
+              className="w-full h-10 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 pl-9 pr-3 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            />
+          </label>
 
-        <div>
-          <p className={labelClasses}>Your kids (kept in this browser)</p>
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            {kids.map((token) => (
-              <button
-                key={token}
-                type="button"
-                onClick={() => updateKids(kids.filter((kid) => kid !== token))}
-                aria-label={`Remove ${kidName(token)}`}
-                className={chipClasses(true)}
-              >
-                {kidName(token).replace(/^./, (letter) => letter.toUpperCase())}
-                <X size={14} aria-hidden="true" />
-              </button>
-            ))}
-            {kids.length < MAX_KIDS && (
-              <label className="w-44">
-                <span className="sr-only">Add a kid by age or grade</span>
-                <select
-                  value=""
-                  onChange={(event) => {
-                    const token = event.target.value;
-                    if (token && !kids.includes(token)) updateKids([...kids, token]);
-                  }}
-                  className={selectClasses}
+          <div className="flex items-start gap-2">
+            <div
+              role="group"
+              aria-label="Your kids (kept in this browser)"
+              className="flex min-w-0 flex-1 flex-wrap items-center gap-2"
+            >
+              {kids.map((token) => (
+                <button
+                  key={token}
+                  type="button"
+                  onClick={() => updateKids(kids.filter((kid) => kid !== token))}
+                  aria-label={`Remove ${kidName(token)}`}
+                  className={chipClasses(true)}
                 >
-                  <option value="">{kids.length ? 'Add another kid…' : 'Add a kid…'}</option>
-                  <optgroup label="Age next summer">
-                    {AGE_OPTIONS.map((age) => (
-                      <option key={age} value={String(age)}>
-                        Age {age}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="Grade in fall 2027">
-                    {GRADE_OPTIONS.map((grade) => (
-                      <option key={grade} value={`g${grade}`}>
-                        {grade === -1
-                          ? 'Pre-K'
-                          : grade === 0
-                            ? 'Kindergarten'
-                            : `${gradeLabel(grade)} grade`}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </label>
-            )}
-            {kids.length > 1 && (
-              <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                Camps for
-                <select
-                  value={kidsMode}
-                  onChange={(event) => setKidsMode(event.target.value as KidsMode)}
-                  className={`${selectClasses} w-auto`}
-                >
-                  <option value="any">any of them</option>
-                  <option value="all">all of them (by age/grade)</option>
-                  <option value="same">all of them, same session</option>
-                </select>
-              </label>
-            )}
+                  {kidName(token).replace(/^./, (letter) => letter.toUpperCase())}
+                  <X size={14} aria-hidden="true" />
+                </button>
+              ))}
+              {kids.length < MAX_KIDS && (
+                <label className="w-40" title="Kept in this browser">
+                  <span className="sr-only">Add a kid by age or grade</span>
+                  <select
+                    value=""
+                    onChange={(event) => {
+                      const token = event.target.value;
+                      if (token && !kids.includes(token)) updateKids([...kids, token]);
+                    }}
+                    className={selectClasses}
+                  >
+                    <option value="">Add kid details</option>
+                    <optgroup label="Age next summer">
+                      {AGE_OPTIONS.map((age) => (
+                        <option key={age} value={String(age)}>
+                          Age {age}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Grade in fall 2027">
+                      {GRADE_OPTIONS.map((grade) => (
+                        <option key={grade} value={`g${grade}`}>
+                          {grade === -1
+                            ? 'Pre-K'
+                            : grade === 0
+                              ? 'Kindergarten'
+                              : `${gradeLabel(grade)} grade`}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                </label>
+              )}
+              {kids.length > 1 && (
+                <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                  Camps for
+                  <select
+                    value={kidsMode}
+                    onChange={(event) => setKidsMode(event.target.value as KidsMode)}
+                    className={`${selectClasses} w-auto`}
+                  >
+                    <option value="any">any of them</option>
+                    <option value="all">all of them (by age/grade)</option>
+                    <option value="same">all of them, same session</option>
+                  </select>
+                </label>
+              )}
+            </div>
+            <button
+              type="button"
+              aria-expanded={filtersOpen}
+              aria-controls={filtersId}
+              onClick={() => setFiltersOpen((open) => !open)}
+              className={`inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                filterCount > 0 || filtersOpen
+                  ? 'border-brand-500 bg-brand-50 text-brand-700 dark:border-brand-500 dark:bg-brand-950/50 dark:text-brand-300'
+                  : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-brand-400 dark:hover:border-brand-500'
+              }`}
+            >
+              <SlidersHorizontal size={15} aria-hidden="true" />
+              Filters{filterCount > 0 && ` (${filterCount})`}
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
-          <label className="flex flex-col gap-1">
-            <span className={labelClasses}>Week</span>
-            <select
-              value={week}
-              onChange={(event) => setWeek(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="">Any week</option>
-              {SUMMER_WEEKS.map((option) => (
-                <option key={option.start} value={option.start}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className={labelClasses}>Drive from downtown</span>
-            <select
-              value={drive}
-              onChange={(event) => setDrive(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="">Any distance</option>
-              {DRIVE_LIMITS.map((minutes) => (
-                <option key={minutes} value={minutes}>
-                  Up to {minutes} min
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Type</span>
-            <select
-              value={type}
-              onChange={(event) => setType(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="all">All types</option>
-              {types.map((value) => (
-                <option key={value} value={value}>
-                  {TYPE_LABELS[value] ?? value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Category</span>
-            <select
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="all">All categories</option>
-              {categories.map((value) => (
-                <option key={value} value={value}>
-                  {CATEGORY_LABELS[value] ?? value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Town</span>
-            <select
-              value={filters.rows.town ?? ''}
-              onChange={(event) => setTown(event.target.value)}
-              className={selectClasses}
-            >
-              <option value="">Any town</option>
-              {towns.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Hours</span>
-            <select
-              value={hours}
-              onChange={(event) => setHours(event.target.value as HoursFilter | '')}
-              className={selectClasses}
-            >
-              <option value="">Any hours</option>
-              {HOURS_FILTERS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Price</span>
-            <select
-              value={price}
-              onChange={(event) => setPrice(event.target.value as PriceBand | '')}
-              className={selectClasses}
-            >
-              <option value="">Any price</option>
-              {PRICE_BANDS.map((band) => (
-                <option key={band.value} value={band.value}>
-                  {band.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={extraField}>
-            <span className={labelClasses}>Registration</span>
-            <select
-              value={registration}
-              onChange={(event) => setRegistration(event.target.value as RegistrationStatus | '')}
-              className={selectClasses}
-            >
-              <option value="">Any</option>
-              {REGISTRATION_FILTERS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
         <div
-          className={`${moreOpen ? 'flex' : 'hidden'} sm:flex flex-wrap gap-2`}
-          role="group"
-          aria-label="Must offer"
+          id={filtersId}
+          hidden={!filtersOpen}
+          className="mt-3 space-y-3 border-t border-gray-100 dark:border-gray-800 pt-3"
         >
-          {SUPPORT_KEYS.map((key) => {
-            const active = needs.includes(key);
-            return (
-              <button
-                key={key}
-                type="button"
-                aria-pressed={active}
-                onClick={() =>
-                  setNeeds(active ? needs.filter((need) => need !== key) : [...needs, key])
-                }
-                className={chipClasses(active)}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+            <label className={field}>
+              <span className={labelClasses}>Week</span>
+              <select
+                value={week}
+                onChange={(event) => setWeek(event.target.value)}
+                className={selectClasses}
               >
-                {SUPPORT_LABELS[key]}
-              </button>
-            );
-          })}
-        </div>
+                <option value="">Any week</option>
+                {SUMMER_WEEKS.map((option) => (
+                  <option key={option.start} value={option.start}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Drive from downtown</span>
+              <select
+                value={drive}
+                onChange={(event) => setDrive(event.target.value)}
+                className={selectClasses}
+              >
+                <option value="">Any distance</option>
+                {DRIVE_LIMITS.map((minutes) => (
+                  <option key={minutes} value={minutes}>
+                    Up to {minutes} min
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Type</span>
+              <select
+                value={type}
+                onChange={(event) => setType(event.target.value)}
+                className={selectClasses}
+              >
+                <option value="all">All types</option>
+                {types.map((value) => (
+                  <option key={value} value={value}>
+                    {TYPE_LABELS[value] ?? value}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Category</span>
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                className={selectClasses}
+              >
+                <option value="all">All categories</option>
+                {categories.map((value) => (
+                  <option key={value} value={value}>
+                    {CATEGORY_LABELS[value] ?? value}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Town</span>
+              <select
+                value={filters.rows.town ?? ''}
+                onChange={(event) => setTown(event.target.value)}
+                className={selectClasses}
+              >
+                <option value="">Any town</option>
+                {towns.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Hours</span>
+              <select
+                value={hours}
+                onChange={(event) => setHours(event.target.value as HoursFilter | '')}
+                className={selectClasses}
+              >
+                <option value="">Any hours</option>
+                {HOURS_FILTERS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Price</span>
+              <select
+                value={price}
+                onChange={(event) => setPrice(event.target.value as PriceBand | '')}
+                className={selectClasses}
+              >
+                <option value="">Any price</option>
+                {PRICE_BANDS.map((band) => (
+                  <option key={band.value} value={band.value}>
+                    {band.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={field}>
+              <span className={labelClasses}>Registration</span>
+              <select
+                value={registration}
+                onChange={(event) => setRegistration(event.target.value as RegistrationStatus | '')}
+                className={selectClasses}
+              >
+                <option value="">Any</option>
+                {REGISTRATION_FILTERS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
 
-        <button
-          type="button"
-          aria-expanded={moreOpen}
-          onClick={() => setMoreOpen((open) => !open)}
-          className={`sm:hidden inline-flex min-h-9 items-center gap-1.5 text-sm ${textButtonClasses}`}
-        >
-          <SlidersHorizontal size={15} aria-hidden="true" />
-          {moreOpen ? 'Fewer filters' : `More filters${moreCount ? ` (${moreCount} on)` : ''}`}
-        </button>
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Must offer">
+            {SUPPORT_KEYS.map((key) => {
+              const active = needs.includes(key);
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() =>
+                    setNeeds(active ? needs.filter((need) => need !== key) : [...needs, key])
+                  }
+                  className={chipClasses(active)}
+                >
+                  {SUPPORT_LABELS[key]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {(savedIds.length > 0 || savedOnly) && (
@@ -1033,12 +1042,12 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
               ))}
             </select>
           </label>
-          <label className="inline-flex min-h-9 items-center gap-2">
+          <label className="inline-flex min-h-9 items-center gap-2 cursor-pointer">
             <input
               type="checkbox"
               checked={grouped}
               onChange={(event) => setGrouped(event.target.checked)}
-              className="h-4 w-4"
+              className="h-4 w-4 cursor-pointer"
             />
             Group by provider
           </label>
@@ -1079,7 +1088,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
           <button
             type="button"
             onClick={() => setMore({ view: listKey, count: limit + PAGE_SIZE })}
-            className="min-h-11 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-5 text-sm font-medium text-gray-800 dark:text-gray-200 hover:border-brand-400 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="min-h-11 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-5 text-sm font-medium cursor-pointer text-gray-800 dark:text-gray-200 hover:border-brand-400 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           >
             Show {Math.min(PAGE_SIZE, shown.length - limit)} more
           </button>

@@ -22,7 +22,7 @@ export default function SaveCampButton({
       aria-label={withLabel ? undefined : saved ? `Unsave ${campName}` : `Save ${campName}`}
       title={saved ? 'Saved in this browser' : 'Save this camp'}
       onClick={() => toggleSavedCamp(campId)}
-      className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg ${
+      className={`inline-flex shrink-0 items-center gap-1.5 rounded-lg cursor-pointer ${
         withLabel
           ? 'min-h-9 px-3 py-1.5 text-sm font-medium border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
           : // A 40px tap target, pulled into the card's padding so the star sits where it did

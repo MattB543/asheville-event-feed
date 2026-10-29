@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Header from '@/components/Header';
+import { CAMP_EXPORT_PATHS } from '@/lib/camps/export';
 import { TAG_CATEGORIES } from '@/lib/config/tagCategories';
 import { SITE_NAME, SITE_URL } from '@/lib/seo/site';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
@@ -43,6 +44,8 @@ const MARKDOWN_URL = `${SITE_URL}/api/export/markdown`;
 const QUICK_URL = `${API_URL}?format=compact&dateFilter=today&limit=20`;
 const TODAY_URL = `${API_URL}?format=compact&dateFilter=today&locations=asheville&limit=3`;
 const FILTERS_FOR_FULL = 'dateFilter=today&locations=asheville&tagsInclude=Live%20Music';
+const CAMPS_JSON_URL = `${SITE_URL}${CAMP_EXPORT_PATHS.json}`;
+const CAMPS_MARKDOWN_URL = `${SITE_URL}${CAMP_EXPORT_PATHS.markdown}`;
 
 /** Tomorrow and the day after next in Eastern time, as YYYY-MM-DD */
 function upcomingRange(): [string, string] {
@@ -187,6 +190,35 @@ const MARKDOWN_RESPONSE = `# Asheville Events
 ${SOURCE_DESCRIPTION}
 
 ---`;
+
+const CAMP = json({
+  name: 'Creek Explorers',
+  provider: 'Example Nature Center',
+  type: 'day',
+  categories: ['nature_outdoor', 'stem'],
+  summary: 'Campers wade creeks, catch salamanders and learn how a mountain stream works.',
+  ages: { min: 6, max: 10 },
+  season: { summer: 2027, status: 'posted', start: '2027-06-14', end: '2027-07-30' },
+  hours: { start: '09:00', end: '15:00' },
+  prices: [{ amount: 325, per: 'week', label: 'member', summer: 2027 }],
+  sites: [
+    {
+      name: 'Example Nature Center',
+      address: '100 Example Rd',
+      town: 'Asheville',
+      state: 'NC',
+      driveMinutes: 15,
+    },
+  ],
+  sessions: [{ start: '2027-06-14', end: '2027-06-18', label: 'Week 1: Salamanders' }],
+  registration: [
+    { audience: 'member', kind: 'opens', date: '2027-01-10', time: '09:00', summer: 2027 },
+    { audience: 'public', kind: 'opens', date: '2027-01-17', summer: 2027, unconfirmed: true },
+  ],
+  financialAid: { value: 'yes', text: 'Need-based scholarships are available.' },
+  website: 'https://example.org/camps',
+  url: `${SITE_URL}/camps/example-nature-center-creek-explorers`,
+});
 
 const PAGING_LOOP = `const base = '${API_URL}?format=compact&dateFilter=weekend&limit=20';
 const events = [];
@@ -615,6 +647,25 @@ export default function DevelopersPage() {
           <Collapsed>
             <CodeSample label="Example response (text/markdown)" body={MARKDOWN_RESPONSE} />
           </Collapsed>
+        </>
+      ),
+    },
+    {
+      id: 'summer-camps',
+      title: 'Can I get the summer camp directory?',
+      intro:
+        'Yes, in one file: every kids’ summer camp listed at [avlgo.com/camps](/camps), with ages and grades, the summer its facts describe (2027, or 2026 when 2027 isn’t posted), season and session dates, prices, hours, sites with drive times from downtown, registration dates and its AVL GO page. It is made for handing to an AI assistant to compare camps. There are no parameters or pages; `fields` in the response explains every key, and shared caches keep it an hour. The facts are read from each camp’s site by AI, so confirm with the camp before booking.',
+      request: CAMPS_JSON_URL,
+      response: CAMP,
+      responseLabel: 'One camp from the response',
+      collapsed: true,
+      more: (
+        <>
+          <p>
+            The same camps as compact Markdown, about 370 KB, small enough for a chat app (street
+            addresses, session themes and the camp’s own wording stay in the JSON):
+          </p>
+          <RequestUrl url={CAMPS_MARKDOWN_URL} />
         </>
       ),
     },

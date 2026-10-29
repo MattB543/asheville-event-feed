@@ -2,21 +2,30 @@ import { NextResponse } from 'next/server';
 import { AUDIENCES, type Audience } from '@/lib/camps/contract';
 import { reminderMilestones } from '@/lib/camps/display';
 import { getCampById } from '@/lib/db/queries/camps';
-import { calendarFile, milestoneEvents } from '../../ics';
+import { calendarFile, googleCalendarUrl, milestoneEvents } from '../../ics';
 
 interface RouteParams {
   params: Promise<{ id: string }>;
 }
+
+const HEADERS = {
+  'Cache-Control': 'public, max-age=300, s-maxage=900',
+  'X-Robots-Tag': 'noindex',
+};
 
 /**
  * GET /api/camps/[id]/reminder[?audience=member]: a .ics file with the camp's 2027 registration
  * dates still ahead for one audience (01 §4.4, N10), for "Add reminder": the public dates unless
  * `audience` names another (member, returning, lottery ...), and only dates announced to the day
  * (isRemindable). 404 when the camp has none.
+ *
+ * With `calendar=google&kind=opens&date=2027-01-10`, a redirect to Google Calendar's new-event
+ * page for that one date instead (the first date when none matches): a link holds one event.
  */
 export async function GET(request: Request, { params }: RouteParams) {
   const { id } = await params;
-  const audience = new URL(request.url).searchParams.get('audience') ?? 'public';
+  const search = new URL(request.url).searchParams;
+  const audience = search.get('audience') ?? 'public';
   if (!(AUDIENCES as readonly string[]).includes(audience)) {
     return NextResponse.json({ error: 'Unknown audience' }, { status: 404 });
   }
@@ -31,13 +40,24 @@ export async function GET(request: Request, { params }: RouteParams) {
       return NextResponse.json({ error: 'Registration date not posted yet' }, { status: 404 });
     }
 
+    if (search.get('calendar') === 'google') {
+      const milestone =
+        milestones.find(
+          (candidate) =>
+            candidate.date === search.get('date') && candidate.kind === search.get('kind')
+        ) ?? milestones[0];
+      return NextResponse.redirect(googleCalendarUrl(camp, milestone), {
+        status: 302,
+        headers: HEADERS,
+      });
+    }
+
     const who = audience === 'public' ? '' : `${audience.replace('_', '-')}-`;
     return new NextResponse(calendarFile(`${camp.card.name} registration`, events), {
       headers: {
         'Content-Type': 'text/calendar; charset=utf-8',
         'Content-Disposition': `attachment; filename="${camp.slug}-${who}registration.ics"`,
-        'Cache-Control': 'public, max-age=300, s-maxage=900',
-        'X-Robots-Tag': 'noindex',
+        ...HEADERS,
       },
     });
   } catch (error) {

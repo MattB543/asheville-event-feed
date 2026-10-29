@@ -1,6 +1,6 @@
 /**
  * Registration reminders as iCalendar (01 §4.4), for one camp's download and for the saved-camps
- * feed. Not lib/utils/icsGenerator.ts: that one has random UIDs, a 2-hour default and no date-only
+ * feed, and as a Google Calendar link. Not lib/utils/icsGenerator.ts: that one has random UIDs, a 2-hour default and no date-only
  * events. Rules:
  *
  * - Only dates the camp has announced to the day (isRemindable): "expected mid-December" or a
@@ -88,6 +88,48 @@ function campUrl(camp: CampListing): string {
   return `${SITE_URL}/camps/${camp.slug}`;
 }
 
+/** A registration date's event: its title, its text, and whether it has a time. */
+function milestoneText(camp: CampListing, milestone: Milestone) {
+  const { card } = camp;
+  // A date for 'other' families is the camp's own words, kept as written
+  const label =
+    milestone.audience === 'other'
+      ? milestoneLabel(milestone)
+      : milestoneLabel(milestone).toLowerCase();
+  const timed = milestone.precision === 'datetime' && !!milestone.time;
+  const summary = `${campWithProvider(card.name, camp.providerName)}: ${label}${timed ? '' : ' (time not stated)'}`;
+  const description = [
+    `“${milestone.text}”`,
+    isUnconfirmed(milestone, camp.confirmed) ? 'This date is not confirmed yet.' : null,
+    `Registration: ${card.registration_url ?? milestone.url}`,
+    `Camp on AVL GO: ${campUrl(camp)}`,
+    AI_NOTICE,
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+  return { summary, description, timed };
+}
+
+/**
+ * "Add to Google Calendar" for one registration date: the event its .ics has (same title and
+ * text, timed in UTC or all-day), without the alarms, which the link can't carry.
+ */
+export function googleCalendarUrl(camp: CampListing, milestone: Milestone): string {
+  const { summary, description, timed } = milestoneText(camp, milestone);
+  const start = timed ? parseAsEastern(milestone.date, `${milestone.time}:00`) : null;
+  const dates = start
+    ? `${utcStamp(start)}/${utcStamp(new Date(start.getTime() + 30 * 60 * 1000))}`
+    : `${dayValue(milestone.date)}/${dayValue(milestone.date, 1)}`;
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: summary,
+    dates,
+    details: description,
+    ctz: 'America/New_York',
+  });
+  return `https://calendar.google.com/calendar/render?${params}`;
+}
+
 /**
  * One VEVENT per remindable registration date of a camp, out of `milestones` (the caller picks
  * which: one audience's still ahead for a download, every public one for the feed).
@@ -109,22 +151,7 @@ export function milestoneEvents(camp: CampListing, milestones: Milestone[], now:
     const uid = uidOf(milestone);
     if (emitted.has(uid)) return [];
     emitted.add(uid);
-    // A date for 'other' families is the camp's own words, kept as written
-    const label =
-      milestone.audience === 'other'
-        ? milestoneLabel(milestone)
-        : milestoneLabel(milestone).toLowerCase();
-    const timed = milestone.precision === 'datetime' && !!milestone.time;
-    const summary = `${campWithProvider(card.name, camp.providerName)}: ${label}${timed ? '' : ' (time not stated)'}`;
-    const description = [
-      `“${milestone.text}”`,
-      isUnconfirmed(milestone, camp.confirmed) ? 'This date is not confirmed yet.' : null,
-      `Registration: ${card.registration_url ?? milestone.url}`,
-      `Camp on AVL GO: ${campUrl(camp)}`,
-      AI_NOTICE,
-    ]
-      .filter(Boolean)
-      .join('\n\n');
+    const { summary, description, timed } = milestoneText(camp, milestone);
 
     const when = timed
       ? (() => {

@@ -250,7 +250,10 @@ export function reviewTier(card: CampCard): number {
   return card.season.year >= 2027 ? 2 : 3;
 }
 
-/** Unconfirmed camps short of high confidence that parents can see (in the D3 radius), by tier. */
+/**
+ * Unconfirmed camps short of high confidence that parents can see (queryCamps: in the D3 radius,
+ * not dropped as a duplicate), by tier.
+ */
 export async function adminReviewQueue(): Promise<AdminCamp[]> {
   const shown = new Set((await queryCamps()).map((camp) => camp.id));
   return (await adminCamps(liveCamp))

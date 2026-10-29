@@ -15,6 +15,7 @@ Use `format=compact` for small, paginated results: each event has an id, title, 
 - [Today's events, compact JSON](https://www.avlgo.com/api/export/json?format=compact&dateFilter=today&limit=20): Events on today's date in Asheville
 - [Full JSON export](https://www.avlgo.com/api/export/json): Every upcoming event with all fields in one large, unpaginated response
 - [Markdown export](https://www.avlgo.com/api/export/markdown): Every upcoming event as a readable Markdown list, also large and unpaginated
+- [Summer camps, Markdown](https://www.avlgo.com/api/camps/export/markdown): Every kids' summer camp near Asheville in one file (ages, dates, sessions, prices, sites, drive times, registration dates), compact for comparing camps in a chat; about 370 KB. Full detail as JSON: https://www.avlgo.com/api/camps/export/json
 
 ## Optional
 

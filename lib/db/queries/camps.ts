@@ -31,6 +31,7 @@ import {
 } from '@/lib/camps/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 import townPointsFile from '@/data/camps/town-points.json';
+import duplicatesFile from '@/data/camps/duplicates.json';
 
 /**
  * Summer camp reads and writes (/camps, /camps/[slug], /admin/camps). docs/camps/04-v2-plan.md §4.
@@ -435,7 +436,7 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       updatedAt: row.updatedAt.toISOString(),
     };
   });
-  return listings.filter(withinRadius);
+  return listings.filter((camp) => withinRadius(camp) && !DUPLICATE_OF.has(camp.campKey));
 }
 
 /** data/camps/town-points.json (scripts/camps/town-points.ts) by lower-cased townKey. */
@@ -500,6 +501,31 @@ function withinRadius(camp: CampListing): boolean {
       ? siteMayBeNear(site)
       : site.driveMinutes <= limit + (site.driveFromTown ? NEAR_CUTOFF_MINUTES : 0)
   );
+}
+
+/**
+ * Camps listed twice (one program under the provider that runs it and under its host, say), by
+ * dropped camp_key to the kept one: data/camps/duplicates.json, reviewed pairs from
+ * scripts/camps/find-duplicates.ts. queryCamps leaves the dropped camp out, so every page, export,
+ * calendar and feed event follows, and its page redirects to the kept camp's (keptCampSlug).
+ */
+const DUPLICATE_OF = new Map(
+  (duplicatesFile as { duplicates: Array<{ drop: string; keep: string }> }).duplicates.map(
+    ({ drop, keep }) => [drop, keep]
+  )
+);
+
+/** The kept camp's slug when `slug` is a camp dropped as a duplicate, else null. */
+export async function keptCampSlug(slug: string): Promise<string | null> {
+  if (!SLUG_PATTERN.test(slug) || DUPLICATE_OF.size === 0) return null;
+  const [dropped] = await db
+    .select({ campKey: camps.campKey })
+    .from(camps)
+    .where(eq(camps.slug, slug));
+  const keep = dropped && DUPLICATE_OF.get(dropped.campKey);
+  if (!keep) return null;
+  const [kept] = await db.select({ slug: camps.slug }).from(camps).where(eq(camps.campKey, keep));
+  return kept?.slug ?? null;
 }
 
 /**

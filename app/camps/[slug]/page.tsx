@@ -1,15 +1,15 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { connection } from 'next/server';
 import Link from 'next/link';
-import { ArrowLeft, BellPlus, ExternalLink, Eye, MapPin } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Eye, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import AiNotice from '@/components/camps/AiNotice';
-import CampFeedback from '@/components/camps/CampFeedback';
 import { CampViewBeacon, CampWebsiteLink } from '@/components/camps/CampLinks';
 import CampReminderOffer from '@/components/camps/CampReminderOffer';
+import ReminderMenu from '@/components/camps/ReminderMenu';
 import { TONE_CLASSES } from '@/components/camps/tones';
 import SaveCampButton from '@/components/camps/SaveCampButton';
 import { RegistrationDetails, UnconfirmedTag, YearTag } from '@/components/camps/YearTag';
@@ -22,7 +22,9 @@ import {
   TARGET_SEASON,
   TYPE_LABELS,
   byMilestoneDate,
+  campWithProvider,
   driveLabel,
+  firstSentence,
   formatDate,
   formatDateRange,
   formatExtendedCare,
@@ -37,6 +39,7 @@ import {
   milestoneWhen,
   providerLabel,
   registrationLine,
+  reminderDates,
   reminderMilestones,
   siteTown,
   toCardData,
@@ -44,7 +47,12 @@ import {
   type RegistrationStatus,
 } from '@/lib/camps/display';
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
-import { getCampBySlug, relatedCamps, type CampListItem } from '@/lib/db/queries/camps';
+import {
+  getCampBySlug,
+  keptCampSlug,
+  relatedCamps,
+  type CampListItem,
+} from '@/lib/db/queries/camps';
 import { mapsSearchUrl } from '@/lib/utils/maps';
 import { getDateStringEastern } from '@/lib/utils/timezone';
 import { SITE_URL } from '@/lib/seo/site';
@@ -77,7 +85,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // "Overnight camp in Cleveland, SC for rising 5th–12th grade. <first sentence>. Dates, ..."
   const description = [
     `${META_TYPES[card.type] ?? 'Summer camp'}${towns ? ` in ${towns}` : ' near Asheville'}${who ? ` for ${who.toLowerCase()}` : ''}.`,
-    card.description.split(/(?<=\.)\s/)[0],
+    firstSentence(card.description),
     'Dates, prices and when 2027 registration opens.',
   ].join(' ');
   const url = `${SITE_URL}/camps/${camp.slug}`;
@@ -90,10 +98,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const buttonClasses =
-  'inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-brand-400 hover:text-brand-600 dark:hover:border-brand-500 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+  'inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg cursor-pointer border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-brand-400 hover:text-brand-600 dark:hover:border-brand-500 dark:hover:text-brand-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const linkClasses =
   'text-brand-600 dark:text-brand-400 underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300';
 const sectionHeading = 'text-lg font-semibold text-gray-900 dark:text-gray-100';
+
+/** Parts as sentences: a period after each but the last, unless it ends in one ("5 p.m."). */
+function sentences(parts: Array<string | null | undefined>): string | null {
+  const kept = parts.filter((part): part is string => !!part);
+  return (
+    kept
+      .map((part, index) => (index < kept.length - 1 && !/[.!?]$/.test(part) ? `${part}.` : part))
+      .join(' ') || null
+  );
+}
 
 function SourceLink({ url }: { url: string }) {
   return (
@@ -209,7 +227,7 @@ function RelatedCamp({ camp, now }: { camp: CampListItem; now: Date }) {
         {data.name}
       </Link>
       <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-        {[data.who, data.place].filter(Boolean).join(' · ')}
+        {[data.who, data.location, data.drive].filter(Boolean).join(' · ')}
       </p>
       <p className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-200">
         {data.registration.text}
@@ -223,7 +241,12 @@ export default async function CampPage({ params }: PageProps) {
   // Per request, like /camps: registration status depends on the clock.
   await connection();
   const camp = await getCampBySlug(slug);
-  if (!camp) notFound();
+  if (!camp) {
+    // A camp dropped as a duplicate (data/camps/duplicates.json) lives on as the kept one
+    const kept = await keptCampSlug(slug);
+    if (kept) permanentRedirect(`/camps/${kept}`);
+    notFound();
+  }
 
   const now = new Date();
   const { card } = camp;
@@ -265,10 +288,7 @@ export default async function CampPage({ params }: PageProps) {
     },
     {
       label: 'Season',
-      value:
-        [formatDateRange(card.season.start, card.season.end), card.season.text]
-          .filter(Boolean)
-          .join('. ') || null,
+      value: sentences([formatDateRange(card.season.start, card.season.end), card.season.text]),
       year: card.season.year,
     },
     {
@@ -281,9 +301,7 @@ export default async function CampPage({ params }: PageProps) {
     {
       label: 'Extended care',
       value: card.extended_care
-        ? [formatExtendedCare(card.extended_care), card.extended_care.cost_text]
-            .filter(Boolean)
-            .join('. ')
+        ? sentences([formatExtendedCare(card.extended_care), card.extended_care.cost_text])
         : null,
       year: null,
     },
@@ -314,7 +332,11 @@ export default async function CampPage({ params }: PageProps) {
             All camps
           </Link>
 
-          <AiNotice className="mt-4" />
+          <AiNotice
+            className="mt-4"
+            campId={camp.id}
+            campName={campWithProvider(card.name, camp.providerName)}
+          />
 
           <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400">
             {providerLabel(camp.providerName)}
@@ -343,7 +365,7 @@ export default async function CampPage({ params }: PageProps) {
             <SaveCampButton campId={camp.id} campName={card.name} withLabel />
             {website && (
               <CampWebsiteLink campId={camp.id} href={website} className={buttonClasses}>
-                Camp website <ExternalLink size={14} aria-hidden="true" />
+                Website <ExternalLink size={14} aria-hidden="true" />
               </CampWebsiteLink>
             )}
             {card.registration_url && card.registration_url !== website && (
@@ -356,15 +378,14 @@ export default async function CampPage({ params }: PageProps) {
               </CampWebsiteLink>
             )}
             {reminders.map((audience) => (
-              <a
+              <ReminderMenu
                 key={audience}
-                href={`/api/camps/${camp.id}/reminder${audience === 'public' ? '' : `?audience=${audience}`}`}
-                rel="nofollow"
+                campId={camp.id}
+                audience={audience}
+                label={reminderLabel(card.registration, audience, now)}
+                dates={reminderDates(card, now, audience)}
                 className={buttonClasses}
-              >
-                <BellPlus size={14} aria-hidden="true" />
-                {reminderLabel(card.registration, audience, now)}
-              </a>
+              />
             ))}
           </div>
 
@@ -691,10 +712,6 @@ export default async function CampPage({ params }: PageProps) {
               </ul>
             </section>
           )}
-
-          <div className="mt-8">
-            <CampFeedback campId={camp.id} campName={card.name} />
-          </div>
         </div>
       </div>
 

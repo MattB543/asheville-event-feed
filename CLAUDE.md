@@ -345,7 +345,7 @@ goes to Matt's queue at `/admin/camps`. `reviewed_hash` is `cardHash` of the car
 `camp_sites` are drop-off sites (Census geocoder; ORS only with a street address; `geocode_source
 = 'hand'` is a pin Matt pasted, which imports never overwrite). The D3 radius (55 min day, 75
 overnight from Pack Square) is applied in `queryCamps`; unplaced sites stay in unless their state is
-far away. A site without a point takes its town's drive time from `data/camps/town-points.json` (`scripts/camps/town-points.ts`; shown as "~N min", `driveFromTown`), and a camp with no sites takes its provider's area town. Imports (`scripts/camps/import.ts` → `lib/camps/importCamps.ts`) never delete a camp, never change a slug, and skip extraction files older than the stored one. A camp is live only while its `last_extracted_at` equals its provider's `extracted_at`: a card the newest extraction no longer contains is retired (kept, not shown), never deleted.
+far away. A site without a point takes its town's drive time from `data/camps/town-points.json` (`scripts/camps/town-points.ts`; shown as "~N min", `driveFromTown`), and a camp with no sites takes its provider's area town. Imports (`scripts/camps/import.ts` → `lib/camps/importCamps.ts`) never delete a camp, never change a slug, and skip extraction files older than the stored one. A camp is live only while its `last_extracted_at` equals its provider's `extracted_at`: a card the newest extraction no longer contains is retired (kept, not shown), never deleted. Cross-provider duplicates (the same camp listed by two providers) are dropped by `data/camps/duplicates.json`, reviewed decisions from `scripts/camps/find-duplicates.ts` candidates (fuzzy score >= 4, each pair reviewed by an Opus agent); `queryCamps` excludes them and a dropped camp's page redirects to the kept one.
 
 ### Row Level Security (RLS)
 
@@ -493,26 +493,28 @@ missing data. Policy, as of 2026-10-14:
 
 ### Public APIs
 
-| Route                       | Method   | Purpose                                                    |
-| --------------------------- | -------- | ---------------------------------------------------------- |
-| `/api/health`               | GET      | Health check (DB status, event count)                      |
-| `/api/chat`                 | POST     | AI conversational event discovery (rate limited)           |
-| `/api/export/json`          | GET      | Public events API (`format=compact` for AI agents)         |
-| `/api/export/markdown`      | GET      | Markdown export (same filters as the JSON export)          |
-| `/openapi.json`             | GET      | OpenAPI 3.1 spec for the two exports                       |
-| `/api/events/submit`        | POST     | Submit event via form                                      |
-| `/api/events/submit-url`    | POST     | Submit event via URL                                       |
-| `/api/events/report`        | POST     | Report an event                                            |
-| `/api/events/top30`         | GET      | Deep Top 30 pool for one category (cached)                 |
-| `/api/curator/[slug]`       | GET      | Public curator profile data                                |
-| `/api/events/favorites`     | POST     | Fetch public event data for a list of event IDs            |
-| `/api/events/[id]/favorite` | POST     | Increment/decrement an event's favorite count              |
-| `/api/events/[id]/track`    | GET      | Spotify track for a music event (matched once, then saved) |
-| `/api/city-status`          | GET      | Live garage spaces + active water notices (header badges)  |
-| `/api/camps/[id]/reminder`  | GET      | Registration reminder .ics (`?audience=`, public default)  |
-| `/api/camps/[id]/view`      | POST     | Camp view beacon (popularity, 14 days)                     |
-| `/api/camps/feedback`       | POST     | Camp feedback to Slack (stores nothing)                    |
-| `/api/camps/calendar`       | POST/GET | Saved-camps calendar: create/update token, `.ics` feed     |
+| Route                        | Method   | Purpose                                                                    |
+| ---------------------------- | -------- | -------------------------------------------------------------------------- |
+| `/api/health`                | GET      | Health check (DB status, event count)                                      |
+| `/api/chat`                  | POST     | AI conversational event discovery (rate limited)                           |
+| `/api/export/json`           | GET      | Public events API (`format=compact` for AI agents)                         |
+| `/api/export/markdown`       | GET      | Markdown export (same filters as the JSON export)                          |
+| `/openapi.json`              | GET      | OpenAPI 3.1 spec for the two exports                                       |
+| `/api/events/submit`         | POST     | Submit event via form                                                      |
+| `/api/events/submit-url`     | POST     | Submit event via URL                                                       |
+| `/api/events/report`         | POST     | Report an event                                                            |
+| `/api/events/top30`          | GET      | Deep Top 30 pool for one category (cached)                                 |
+| `/api/curator/[slug]`        | GET      | Public curator profile data                                                |
+| `/api/events/favorites`      | POST     | Fetch public event data for a list of event IDs                            |
+| `/api/events/[id]/favorite`  | POST     | Increment/decrement an event's favorite count                              |
+| `/api/events/[id]/track`     | GET      | Spotify track for a music event (matched once, then saved)                 |
+| `/api/city-status`           | GET      | Live garage spaces + active water notices (header badges)                  |
+| `/api/camps/[id]/reminder`   | GET      | Registration reminder .ics (`?audience=`, public default)                  |
+| `/api/camps/[id]/view`       | POST     | Camp view beacon (popularity, 14 days)                                     |
+| `/api/camps/feedback`        | POST     | Camp feedback to Slack (stores nothing)                                    |
+| `/api/camps/calendar`        | POST/GET | Saved-camps calendar: create/update token, `.ics` feed                     |
+| `/api/camps/export/markdown` | GET      | Every listed camp as compact Markdown for a parent's own AI (~106k tokens) |
+| `/api/camps/export/json`     | GET      | Every listed camp as minified JSON (full detail)                           |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes

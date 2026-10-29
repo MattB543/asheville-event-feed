@@ -322,7 +322,7 @@ export const openApiDocument = {
       ),
       tagsInclude: csvParameter(
         'tagsInclude',
-        `Keep events that have at least ONE of these tags. Tag names are exact and case-sensitive and are not trimmed, so put no spaces after the commas and URL-encode spaces and ampersands (\`tagsInclude=Live%20Music,Comedy\`). Official tags: ${OFFICIAL_TAGS}. Events can also carry additional free-form tags.`
+        `Keep events that have at least ONE of these tags. Tag names are exact and case-sensitive and are not trimmed, so put no spaces after the commas and URL-encode spaces and ampersands (\`tagsInclude=Live%20Music,Comedy\`). Official tags: ${OFFICIAL_TAGS}. Events can also carry additional free-form tags. Summer camps (one event per camp, dated at its first 2027 session) are left out unless \`Summer Camp\` is one of these tags.`
       ),
       tagsExclude: csvParameter(
         'tagsExclude',

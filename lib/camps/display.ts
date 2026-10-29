@@ -407,17 +407,29 @@ export function byMilestoneDate(a: CampListMilestone, b: CampListMilestone): num
   return `${a.date} ${a.time ?? ''}`.localeCompare(`${b.date} ${b.time ?? ''}`);
 }
 
-/** The directory's registration filter. */
-export type RegistrationStatus = 'open' | 'soon' | 'later' | 'not_announced' | 'full';
+/**
+ * The directory's registration filter. 'opened' (a public opening has passed, and the camp hasn't
+ * said it's still open) is matched by "Open or opened": the card itself says which. 'later' (opens
+ * in more than 14 days) has no filter of its own.
+ */
+export type RegistrationStatus = 'open' | 'opened' | 'soon' | 'later' | 'not_announced' | 'full';
 
 export const REGISTRATION_FILTERS: Array<{ value: RegistrationStatus; label: string }> = [
-  { value: 'open', label: 'Open now' },
+  { value: 'open', label: 'Open or opened' },
   { value: 'soon', label: 'Opens within 14 days' },
   { value: 'not_announced', label: 'Not announced' },
   { value: 'full', label: 'Waitlist, full or closed' },
 ];
 
 /** One line of text, with its own "unconfirmed" label when it names a date that is. */
+/** Whether a camp's status passes the registration filter. */
+export function matchesRegistration(
+  status: RegistrationStatus,
+  filter: RegistrationStatus
+): boolean {
+  return status === filter || (filter === 'open' && status === 'opened');
+}
+
 export interface RegistrationNote {
   text: string;
   unconfirmed: boolean;
@@ -450,10 +462,12 @@ const SOON_DAYS = 14;
 const MAX_DETAILS = 3;
 
 /**
- * The registration line. The 2027 dates are split by kind and audience: the public opening and
- * public close or deadline set the status; lottery results, and dates for members or returning
- * campers, are only details. "Open now" needs evidence: a public opening that has passed (with no
- * public close passed and no word the camp is full), or the camp saying it's open.
+ * The registration line. The 2027 dates are split by kind and audience: the public dates, in
+ * order, say where registration stands today (each opening starts a window, each close or deadline
+ * ends one, and a later opening reopens it); lottery results, and dates for members or returning
+ * campers, are only details. What the camp says about the whole camp now (open, waitlist, full,
+ * closed) wins over the dates. "Open now" needs the camp saying it's open: an opening that has
+ * passed, with nothing said since, is history ("Registration opened Jan 10").
  */
 export function registrationLine(
   card: CampListCard,
@@ -465,19 +479,19 @@ export function registrationLine(
     .sort(byMilestoneDate);
   const past = (milestone: CampListMilestone) => now >= upcomingUntil(milestone);
   const isPublic = (milestone: CampListMilestone) => PUBLIC_AUDIENCES.has(milestone.audience);
+  const isEnd = (milestone: CampListMilestone) =>
+    milestone.kind === 'closes' || milestone.kind === 'deadline';
   const announced = current.filter((milestone) => milestone.certainty === 'announced');
   const ahead = announced.filter((milestone) => !past(milestone));
-  const publicOpens = announced.filter(
-    (milestone) => isPublic(milestone) && milestone.kind === 'opens'
+  const publicDates = announced.filter(
+    (milestone) => isPublic(milestone) && milestone.kind !== 'lottery_results'
   );
-  const publicEnds = announced.filter(
-    (milestone) =>
-      isPublic(milestone) && (milestone.kind === 'closes' || milestone.kind === 'deadline')
-  );
-  const nextOpen = publicOpens.find((milestone) => !past(milestone));
-  const lastOpened = publicOpens.filter(past).at(-1);
-  const nextEnd = publicEnds.find((milestone) => !past(milestone));
-  const lastEnd = publicEnds.at(-1);
+  const lastPassed = publicDates.filter(past).at(-1);
+  const lastOpened = publicDates
+    .filter((milestone) => milestone.kind === 'opens' && past(milestone))
+    .at(-1);
+  const nextOpen = publicDates.find((milestone) => milestone.kind === 'opens' && !past(milestone));
+  const nextEnd = publicDates.find((milestone) => isEnd(milestone) && !past(milestone));
 
   // A card still on 2026 describes 2026's availability, which says nothing about 2027.
   const availability = card.season.year === TARGET_SEASON ? card.availability : null;
@@ -510,19 +524,14 @@ export function registrationLine(
       .filter((note): note is RegistrationNote => !!note)
       .slice(0, MAX_DETAILS);
 
-  // The last public close or deadline has passed, and no public opening is ahead
-  if (lastEnd && past(lastEnd) && !nextOpen) {
-    return {
-      tone: 'closed',
-      text: `2027 registration ${lastEnd.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(lastEnd.date, true)}`,
-      unconfirmed: isUnconfirmed(lastEnd, confirmed),
-      details: details([]),
-      sortDate: null,
-      status: 'full',
-    };
-  }
-
-  if (campWide && ['full', 'waitlist', 'closed'].includes(campWide.status)) {
+  // The camp says it's full or waitlisted, or closed with no opening ahead (closed before an
+  // opening is just "not open yet", and the opening leads below)
+  if (
+    campWide &&
+    (campWide.status === 'full' ||
+      campWide.status === 'waitlist' ||
+      (campWide.status === 'closed' && !nextOpen))
+  ) {
     return {
       tone: 'closed',
       text: `2027: ${AVAILABILITY_LABELS[campWide.status].toLowerCase()}`,
@@ -533,7 +542,23 @@ export function registrationLine(
     };
   }
 
-  // The public opening still ahead leads; members-first, deadline and lottery dates go underneath.
+  // Open: the camp says so. A deadline still ahead leads, being what a parent acts on.
+  if (campWide && (campWide.status === 'available' || campWide.status === 'mixed')) {
+    const status = plain(
+      campWide.status === 'mixed' ? '2027: open, some sessions full' : '2027 registration open'
+    );
+    const lead = nextEnd ? say(nextEnd) : status;
+    return {
+      tone: 'open',
+      ...headline(lead),
+      details: details([nextEnd], [lead !== status && status, lastOpened && say(lastOpened)]),
+      sortDate: nextEnd?.date ?? null,
+      status: 'open',
+    };
+  }
+
+  // A public opening still ahead (or a reopening) leads; members-first, deadline and lottery dates
+  // go underneath.
   if (nextOpen) {
     const days = (upcomingUntil(nextOpen).getTime() - now.getTime()) / 86400000;
     return {
@@ -545,23 +570,27 @@ export function registrationLine(
     };
   }
 
-  // Open: a public opening has passed, or the camp says it's open. A deadline still ahead leads,
-  // being what a parent acts on.
-  if (lastOpened || campWide) {
-    const status =
-      campWide?.status === 'mixed'
-        ? plain('2027: open, some sessions full')
-        : campWide
-          ? plain('2027 registration open')
-          : null;
-    const opened = lastOpened ? say(lastOpened) : null;
-    const lead = nextEnd ? say(nextEnd) : (status ?? opened!);
+  // The last public date passed was a close or deadline, with none ahead: closed
+  if (lastPassed && isEnd(lastPassed) && !nextEnd) {
     return {
-      tone: 'open',
-      ...headline(lead),
-      details: details([nextEnd], [lead !== status && status, lead !== opened && opened]),
+      tone: 'closed',
+      text: `2027 registration ${lastPassed.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(lastPassed.date, true)}`,
+      unconfirmed: isUnconfirmed(lastPassed, confirmed),
+      details: details([]),
+      sortDate: null,
+      status: 'full',
+    };
+  }
+
+  // A public opening has passed and its window hasn't closed, but the camp doesn't say it's still
+  // open: history, never "Open now". A deadline still ahead goes underneath.
+  if (lastOpened) {
+    return {
+      tone: 'tentative',
+      ...headline(say(lastOpened)),
+      details: details([]),
       sortDate: nextEnd?.date ?? null,
-      status: 'open',
+      status: 'opened',
     };
   }
 
@@ -639,17 +668,33 @@ export function isRemindable(
 }
 
 /**
- * The remindable dates not yet passed. Empty when the camp hasn't posted one (no "Add reminder"
- * button then).
+ * The remindable dates for one audience not yet passed (N10: the public dates by default; members',
+ * returning families' or lottery dates are their own reminders). Empty when the camp hasn't posted
+ * one (no button then).
  */
 export function reminderMilestones<M extends CampListMilestone>(
   card: { registration: M[] },
-  now: Date
+  now: Date,
+  audience: Audience = 'public'
 ): M[] {
   return card.registration
-    .filter((milestone) => isRemindable(milestone) && now < upcomingUntil(milestone))
+    .filter(
+      (milestone) =>
+        milestone.audience === audience && isRemindable(milestone) && now < upcomingUntil(milestone)
+    )
     .sort(byMilestoneDate);
 }
+
+/** The reminder buttons: "Add reminder" for the public dates, one per other audience. */
+export const REMINDER_LABELS: Record<Audience, string> = {
+  public: 'Add reminder',
+  member: 'Add member reminder',
+  returning: 'Add returning-camper reminder',
+  lottery: 'Add lottery reminder',
+  resident: 'Add resident reminder',
+  early_bird: 'Add early-bird reminder',
+  other: 'Add reminder for some families',
+};
 
 // ---------------------------------------------------------------------------
 // Eligibility. The pilot's UX review found the age filter useless without converting between ages
@@ -664,25 +709,30 @@ export function fitsAge(ages: AgeRange | null, age: number): boolean | null {
 }
 
 /**
+ * 'fits' when the camp states the thing the parent gave (an age, or a grade) and the kid is in
+ * range; 'may_fit' when it only fits by converting (a rising 2nd grader is 7 or 8 next summer, a
+ * 7-year-old a rising 1st or 2nd grader), by one reading of grades that don't say rising or
+ * completed, or the camp states neither; 'no' otherwise.
+ */
+export type KidFit = 'fits' | 'may_fit' | 'no';
+
+/**
  * Does a camp take a kid entering this grade in fall 2027 ("rising" grade)? "Completed 2nd" and
  * "current 2nd" (this school year) are both rising 3rd. "3rd-9th" alone could be either, so it
- * fits when either reading does. Null when the camp states no grades.
+ * fits when both readings do and may fit when one does. Null when the camp states no grades.
  */
-export function fitsGrade(grades: GradeRange | null, risingGrade: number): boolean | null {
+export function fitsGrade(grades: GradeRange | null, risingGrade: number): KidFit | null {
   if (!grades || (grades.min === null && grades.max === null)) return null;
   const within = (grade: number) =>
     (grades.min === null || grade >= grades.min) && (grades.max === null || grade <= grades.max);
-  if (grades.basis === 'rising') return within(risingGrade);
-  if (grades.basis === 'completed' || grades.basis === 'current') return within(risingGrade - 1);
-  return within(risingGrade) || within(risingGrade - 1);
+  const readings =
+    grades.basis === 'rising'
+      ? [within(risingGrade)]
+      : grades.basis === 'completed' || grades.basis === 'current'
+        ? [within(risingGrade - 1)]
+        : [within(risingGrade), within(risingGrade - 1)];
+  return readings.every(Boolean) ? 'fits' : readings.some(Boolean) ? 'may_fit' : 'no';
 }
-
-/**
- * 'fits' when the camp states the thing the parent gave (an age, or a grade) and the kid is in
- * range; 'may_fit' when it only fits by converting (a rising 2nd grader is 7 or 8 next summer, a
- * 7-year-old a rising 1st or 2nd grader) or the camp states neither; 'no' otherwise.
- */
-export type KidFit = 'fits' | 'may_fit' | 'no';
 
 export function kidFit(
   camp: { ages: AgeRange | null; grades: GradeRange | null },
@@ -690,15 +740,19 @@ export function kidFit(
 ): KidFit {
   const direct = kid.age !== null ? fitsAge(camp.ages, kid.age) : null;
   const directGrade = kid.grade !== null ? fitsGrade(camp.grades, kid.grade) : null;
-  if (direct !== null || directGrade !== null)
-    return direct === false || directGrade === false ? 'no' : 'fits';
+  if (direct !== null || directGrade !== null) {
+    if (direct === false || directGrade === 'no') return 'no';
+    return directGrade === 'may_fit' ? 'may_fit' : 'fits';
+  }
   const converted =
     kid.age !== null
-      ? fitsGrade(camp.grades, kid.age - 5) || fitsGrade(camp.grades, kid.age - 6)
+      ? [fitsGrade(camp.grades, kid.age - 5), fitsGrade(camp.grades, kid.age - 6)]
       : kid.grade !== null
-        ? fitsAge(camp.ages, kid.grade + 5) || fitsAge(camp.ages, kid.grade + 6)
-        : null;
-  return converted === false ? 'no' : 'may_fit';
+        ? [fitsAge(camp.ages, kid.grade + 5), fitsAge(camp.ages, kid.grade + 6)]
+        : [];
+  return converted.length > 0 && converted.every((fit) => fit === false || fit === 'no')
+    ? 'no'
+    : 'may_fit';
 }
 
 // ---------------------------------------------------------------------------
@@ -845,7 +899,10 @@ export interface CampRow {
   grades: GradeRange | null;
   /** Dollars a week for each price that applies; empty when unknown. */
   weekly: number[];
-  /** The sites it may run at (indexes into CampCardData.sites); empty when the camp names none. */
+  /**
+   * The sites it may run at (indexes into CampCardData.sites); empty when unknown: the camp names
+   * none, or the row names one the card doesn't list.
+   */
   sites: number[];
   length: 'full' | 'half' | null;
   workday: boolean | null;
@@ -887,7 +944,7 @@ export interface CampCardData {
   rowNoun: 'week' | 'session';
   views: number;
   websiteUrl: string | null;
-  /** A remindable 2027 date still ahead, so "Add reminder" has something to add. */
+  /** A remindable public 2027 date still ahead, so "Add reminder" has something to add. */
   hasReminder: boolean;
 }
 
@@ -908,11 +965,13 @@ function campRows(card: CampListCard, sites: CampSiteInfo[]): CampRow[] {
       .filter(counts)
       .map((price) => weeklyPrice(price, days))
       .filter((week): week is number => week !== null);
-  // A row names its site when the camp has several; a row that doesn't may run at any of them
+  // A row names its site when the camp has several; a row that doesn't may run at any of them. A
+  // name that matches none of the card's sites is an unknown site, not every site.
   const everySite = sites.map((_, index) => index);
   const rowSites = (name: string | null) => {
-    const index = name ? sites.findIndex((site) => site.name === name) : -1;
-    return index >= 0 ? [index] : everySite;
+    if (!name) return everySite;
+    const index = sites.findIndex((site) => site.name === name);
+    return index >= 0 ? [index] : [];
   };
   const withHours = (hours: Hours | null) => {
     const merged = {
@@ -956,10 +1015,11 @@ function campRows(card: CampListCard, sites: CampSiteInfo[]): CampRow[] {
           },
         ];
   // The same week at four sites is one row at those four sites: a row matches on any of its
-  // sites, so this changes no verdict, and "3 of 9 weeks" counts weeks, not weeks times sites.
+  // sites, so this changes no verdict, and "3 of 9 weeks" counts weeks, not weeks times sites. A
+  // row at an unknown site stays apart, so it stays unknown.
   const merged = new Map<string, CampRow>();
   for (const row of rows) {
-    const key = JSON.stringify({ ...row, sites: null });
+    const key = JSON.stringify({ ...row, sites: row.sites.length === 0 });
     const seen = merged.get(key);
     if (seen) seen.sites = [...new Set([...seen.sites, ...row.sites])].sort((a, b) => a - b);
     else merged.set(key, row);

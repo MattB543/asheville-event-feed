@@ -18,7 +18,7 @@ import {
   type SupportFact,
   type SupportValue,
 } from '@/lib/camps/contract';
-import { cleanCard } from '@/lib/camps/display';
+import { cleanCard, validDate } from '@/lib/camps/display';
 import {
   DRIVE_LIMIT_MINUTES,
   PACK_SQUARE,
@@ -94,10 +94,6 @@ export function cardHash(card: CampCard): string {
     .digest('hex');
 }
 
-function isoDateOrNull(value: string | null | undefined): string | null {
-  return value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : null;
-}
-
 function wholeOrNull(
   value: number | null | undefined,
   round: (n: number) => number
@@ -107,7 +103,9 @@ function wholeOrNull(
 
 /**
  * The columns copied from the effective card for filtering. Fractional ages and grades round
- * outward, so a filter never drops a camp a child might fit (a 4.5 minimum is stored as 4).
+ * outward, so a filter never drops a camp a child might fit (a 4.5 minimum is stored as 4). A
+ * season date that isn't a real day ("2027-13-10") is null here, so it can't abort the import;
+ * the card keeps it as extracted, for review.
  */
 export function campColumns(card: CampCard) {
   return {
@@ -121,8 +119,8 @@ export function campColumns(card: CampCard) {
     gradeMin: wholeOrNull(card.grades?.min, Math.floor),
     gradeMax: wholeOrNull(card.grades?.max, Math.ceil),
     seasonYear: card.season.year,
-    seasonStart: isoDateOrNull(card.season.start),
-    seasonEnd: isoDateOrNull(card.season.end),
+    seasonStart: validDate(card.season.start),
+    seasonEnd: validDate(card.season.end),
   };
 }
 
@@ -175,7 +173,10 @@ export interface CampListing {
    * "unconfirmed".
    */
   confirmed: boolean;
-  /** When the provider's pages were last read (ISO), or null. */
+  /**
+   * When the provider's pages were last read (ISO), or null: the later of its last extraction and
+   * its last successful refresh check (which finds them unchanged).
+   */
   checkedAt: string | null;
   firstSeenAt: string;
   updatedAt: string;
@@ -321,6 +322,7 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       providerName: campProviders.name,
       providerUrl: campProviders.websiteUrl,
       extractedAt: campProviders.extractedAt,
+      checkedAt: campProviders.checkedAt,
       card: camps.card,
       override: camps.override,
       reviewedHash: camps.reviewedHash,
@@ -365,6 +367,11 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
   const listings: CampListing[] = rows.map((row) => {
     const effective = effectiveCard(row);
     const card = cleanCard(effective);
+    // The pages were last read by an extraction or by a refresh check that found them unchanged
+    const checkedAt =
+      row.checkedAt && (!row.extractedAt || row.checkedAt > row.extractedAt)
+        ? row.checkedAt
+        : row.extractedAt;
     return {
       id: row.id,
       slug: row.slug,
@@ -385,7 +392,7 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       }),
       views: viewsById.get(row.id) ?? 0,
       confirmed: row.reviewedHash === cardHash(effective),
-      checkedAt: row.extractedAt?.toISOString() ?? null,
+      checkedAt: checkedAt?.toISOString() ?? null,
       firstSeenAt: row.firstSeenAt.toISOString(),
       updatedAt: row.updatedAt.toISOString(),
     };
@@ -520,15 +527,17 @@ export async function relatedCamps(camp: CampListItem, limit = 4): Promise<CampL
 }
 
 /**
- * When camps' own pages were last read: the newest extraction among live camps' providers (ISO).
- * Not an admin edit, which changes a card without checking the camp's site.
+ * When camps' own pages were last read: the newest extraction or successful refresh check among
+ * live camps' providers (ISO). Not an admin edit, which changes a card without checking the
+ * camp's site.
  */
 export function campsLastChecked(): Promise<string | null> {
   return unstable_cache(
     async () => {
       const [row] = await db
         .select({
-          at: sql<Date | null>`max(${campProviders.extractedAt})`.mapWith(
+          // greatest() skips a null: a provider never checked since its extraction
+          at: sql<Date | null>`max(greatest(${campProviders.checkedAt}, ${campProviders.extractedAt}))`.mapWith(
             campProviders.extractedAt
           ),
         })

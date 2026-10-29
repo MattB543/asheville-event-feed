@@ -23,6 +23,8 @@ export interface ResponsesRequest {
   jsonSchema?: { name: string; schema: Record<string, unknown> };
   maxOutputTokens?: number;
   timeoutMs?: number;
+  /** Aborting it ends the call, its retries and the waits between them, with the signal's reason. */
+  signal?: AbortSignal;
 }
 
 export interface UrlCitation {
@@ -95,30 +97,33 @@ export async function createResponse(request: ResponsesRequest): Promise<Respons
     };
   }
 
+  const { signal } = request;
   const started = Date.now();
   let lastError = '';
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     let response: Response;
     let raw: string;
     try {
+      const timeout = AbortSignal.timeout(request.timeoutMs ?? DEFAULT_TIMEOUT_MS);
       response = await fetch(`${baseUrl}/responses`, {
         method: 'POST',
         headers: { 'api-key': apiKey, 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
-        signal: AbortSignal.timeout(request.timeoutMs ?? DEFAULT_TIMEOUT_MS),
+        signal: signal ? AbortSignal.any([timeout, signal]) : timeout,
       });
       // Reading the body can time out or disconnect too; that's a transport error, so retry.
       raw = await response.text();
     } catch (error) {
+      if (signal?.aborted) throw signal.reason;
       lastError = error instanceof Error ? error.message : String(error);
-      if (attempt < ATTEMPTS) await sleep(5000 * attempt);
+      if (attempt < ATTEMPTS) await sleep(5000 * attempt, signal);
       continue;
     }
 
     if (!response.ok) {
       lastError = `HTTP ${response.status}: ${raw.slice(0, 500)}`;
       if (RETRY_STATUSES.has(response.status) && attempt < ATTEMPTS) {
-        await sleep(retryDelayMs(response, attempt));
+        await sleep(retryDelayMs(response, attempt), signal);
         continue;
       }
       throw new Error(`Responses API ${lastError}`);
@@ -176,6 +181,17 @@ function retryDelayMs(response: Response, attempt: number): number {
   return 10000 * attempt;
 }
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+/** Throws the signal's reason as soon as it aborts. */
+async function sleep(ms: number, signal?: AbortSignal): Promise<void> {
+  signal?.throwIfAborted();
+  await new Promise<void>((resolve) => {
+    const done = () => {
+      clearTimeout(timer);
+      signal?.removeEventListener('abort', done);
+      resolve();
+    };
+    const timer = setTimeout(done, ms);
+    signal?.addEventListener('abort', done, { once: true });
+  });
+  signal?.throwIfAborted();
 }

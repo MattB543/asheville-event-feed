@@ -1,6 +1,6 @@
 /**
  * Summer camps in the event feed: show what syncCampEvents (lib/camps/feedEvents.ts) would create,
- * update and hide in the events table, or do it.
+ * update and remove (soft-delete with dead_at) in the events table, or do it.
  *
  * DATABASE_URL is the live database. Scripts can't expire Next's cache, so after --apply the feed
  * shows the change within the hour (the "[Cache] Failed to invalidate" line is expected here).
@@ -37,8 +37,8 @@ async function main() {
     `Season ${plan.season}: ${plan.camps} live in-radius camps, ${plan.dated} with a ${plan.season} date.`
   );
   console.log(
-    `Would create ${plan.create.length}, update ${plan.update.length}, hide ${plan.remove.length}; ` +
-      `${plan.unchanged.length} unchanged.`
+    `Would create ${plan.create.length}, update ${plan.update.length}, remove ${plan.remove.length};` +
+      ` ${plan.unchanged.length} unchanged.`
   );
 
   if (plan.create.length > 0) {
@@ -57,7 +57,7 @@ async function main() {
     show(plan.update, ({ values, changed }) => `${values.title}: ${changed.join(', ')}`);
   }
   if (plan.remove.length > 0) {
-    console.log('\nHide:');
+    console.log('\nRemove:');
     show(plan.remove, ({ title, reason }) => `${title} (${reason})`);
   }
 
@@ -67,7 +67,7 @@ async function main() {
   }
   const result = await syncCampEvents();
   console.log(
-    `\nWrote: ${result.created} created, ${result.updated} updated, ${result.removed} hidden.`
+    `\nWrote: ${result.created} created, ${result.updated} updated, ${result.removed} removed.`
   );
 }
 

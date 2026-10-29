@@ -8,6 +8,7 @@ import {
   HOURS_FILTERS,
   PRICE_BANDS,
   REGISTRATION_FILTERS,
+  matchesRegistration,
   SUMMER_WEEKS,
   SUPPORT_LABELS,
   TARGET_SEASON,
@@ -490,7 +491,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       if (savedOnly && !saved.has(camp.id)) return [];
       if (type !== 'all' && camp.type !== type) return [];
       if (category !== 'all' && !camp.categories.includes(category)) return [];
-      if (registration && camp.registration.status !== registration) return [];
+      if (registration && !matchesRegistration(camp.registration.status, registration)) return [];
       if (!needs.every((need) => camp.support.includes(need))) return [];
       if (!filters.terms.every((term) => camp.search.includes(term))) return [];
       const result = judgeCamp(camp, filters.kids, filters.kidsMode, filters.rows);

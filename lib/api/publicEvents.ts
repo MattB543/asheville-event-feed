@@ -5,7 +5,7 @@
  *
  * Filtering runs in two layers. `buildExportConditions` pushes the filters SQL can
  * reproduce exactly (date window, day of week, time of day, the comma-OR search,
- * tags, zips, daily events) into the WHERE clause, so a compact scan rarely hits its
+ * tags, the camp opt-in, zips, daily events) into the WHERE clause, so a compact scan rarely hits its
  * cap. `matchesExportFilters` then checks every filter again in JS and stays the
  * source of truth: each SQL condition only removes rows the JS predicate rejects
  * anyway, so full and compact select exactly the same events.
@@ -45,7 +45,7 @@ import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isRecord, isString } from '@/lib/utils/validation';
 import { formatEventStartDate } from '@/lib/utils/eventStartDate';
 import { parsePublicOfferPrice } from '@/lib/utils/publicEventPrice';
-import { isFreeEvent, parsePrice } from '@/lib/utils/eventFilterMatch';
+import { campsRequested, isCampEvent, isFreeEvent, parsePrice } from '@/lib/utils/eventFilterMatch';
 import { generateEventUrl } from '@/lib/utils/slugify';
 import type { TimeOfDay } from '@/lib/types/filters';
 import {
@@ -54,7 +54,7 @@ import {
   encodeCursor,
   type ExportCursor,
 } from '@/lib/api/publicEventsContract';
-import { liveEvent } from '@/lib/db/liveEvent';
+import { campOptIn, liveEvent } from '@/lib/db/liveEvent';
 
 // ---------------------------------------------------------------------------
 // Request parsing
@@ -214,6 +214,7 @@ type EventRow = typeof events.$inferSelect;
 /** The columns the filter predicate reads. */
 type FilterableEvent = Pick<
   EventRow,
+  | 'source'
   | 'title'
   | 'description'
   | 'startDate'
@@ -329,6 +330,9 @@ function matchesExportFilters(event: FilterableEvent, prepared: PreparedExport):
     }
   }
 
+  // Camps only when the Summer Camp tag is requested, as on All events
+  if (isCampEvent(event) && !campsRequested(filters.tagsInclude)) return false;
+
   // Tags: exclude if any excluded tag, require one included tag when set
   const eventTags = event.tags || [];
   if (filters.tagsExclude.length > 0) {
@@ -380,7 +384,11 @@ function escapeLike(value: string): string {
 function buildExportConditions(prepared: PreparedExport): SQL[] {
   const { filters, dateRange } = prepared;
 
-  const conditions: SQL[] = [gte(events.startDate, prepared.startOfToday), liveEvent];
+  const conditions: SQL[] = [
+    gte(events.startDate, prepared.startOfToday),
+    liveEvent,
+    ...campOptIn(filters.tagsInclude),
+  ];
 
   if (dateRange === null) {
     conditions.push(sql`false`);
@@ -533,6 +541,7 @@ export async function queryFullExport(filters: ExportFilters) {
 /** What a compact page returns plus what the predicate reads - no images, scores or embeddings. */
 const compactColumns = {
   id: events.id,
+  source: events.source,
   title: events.title,
   description: events.description,
   startDate: events.startDate,
@@ -669,8 +678,8 @@ async function queryCompactPage(
   };
 }
 
-// Bump when the compact response shape changes, or cached entries keep serving the old one
-const COMPACT_CACHE_SHAPE = 'compact-v4';
+// Bump when the compact response shape or filters change, or cached entries keep serving the old one
+const COMPACT_CACHE_SHAPE = 'compact-v5';
 
 /**
  * A compact page through the data cache, invalidated with the feed by the `events`

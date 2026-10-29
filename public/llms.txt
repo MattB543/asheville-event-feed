@@ -2,7 +2,7 @@
 
 > AVL GO collects upcoming events in Asheville, NC and nearby Western North Carolina towns from dozens of local sources and serves them through a free, read-only JSON API. No API key is needed. All times are Eastern (America/New_York).
 
-Use `format=compact` for small, paginated results: each event has an id, title, startDate, location, price, aiSummary and url (its AVL GO page). Add `priceFilter=confirmedFree` for events listed as free. A date-only startDate means no start time was listed. While `hasMore` is true, repeat the request with `cursor` set to `nextCursor`. Listings come from third-party sources, so confirm details with the organizer before attending.
+Use `format=compact` for small, paginated results: each event has an id, title, startDate, location, price, aiSummary and url (its AVL GO page). Add `priceFilter=confirmedFree` for events listed as free. A date-only startDate means no start time was listed. While `hasMore` is true, repeat the request with `cursor` set to `nextCursor`. Listings come from third-party sources, so confirm details with the organizer before attending. Kids' summer camps are left out unless you add `tagsInclude=Summer%20Camp`; the full camp directory is at https://www.avlgo.com/camps.
 
 ## Docs
 

@@ -89,7 +89,7 @@ function campUrl(camp: CampListing): string {
 
 /**
  * One VEVENT per remindable registration date of a camp, out of `milestones` (the caller picks
- * which: those still ahead for a download, all of them for the feed).
+ * which: one audience's still ahead for a download, every public one for the feed).
  */
 export function milestoneEvents(camp: CampListing, milestones: Milestone[], now: Date): string[][] {
   const { card } = camp;

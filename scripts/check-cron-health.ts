@@ -439,9 +439,11 @@ async function campsRefresh() {
     from cron_job_runs
     where job_name = 'camps-refresh' and started_at > now() - make_interval(days => ${DAYS})
     order by started_at desc`;
-  if (runs.length === 0 || runs[0].age_hours > CAMPS_RUN_MAX_AGE_HOURS) {
-    const last = runs.length ? `${fmtAge(runs[0].age_hours)} ago` : `not in ${DAYS} days`;
-    problems.push(`camps-refresh: last run ${last} (runs daily).`);
+  // The nightly local run (result.local) must not hide a Vercel cron that stopped running
+  const lastVercel = runs.find((run) => !run.result?.local);
+  if (!lastVercel || lastVercel.age_hours > CAMPS_RUN_MAX_AGE_HOURS) {
+    const last = lastVercel ? `${fmtAge(lastVercel.age_hours)} ago` : `not in ${DAYS} days`;
+    problems.push(`camps-refresh: last Vercel run ${last} (runs daily).`);
   }
 
   const total = (field: string) => runs.reduce((n, run) => n + Number(run.result?.[field] ?? 0), 0);

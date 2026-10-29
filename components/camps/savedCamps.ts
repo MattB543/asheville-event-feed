@@ -75,6 +75,8 @@ export function useSavedCamps(): SavedState {
 
 /** Saves to the calendar row go one at a time, each sending the list as it is then. */
 let calendarWrite: Promise<unknown> = Promise.resolve();
+/** Writes queued or in flight. While the first one is creating the calendar there's no token yet. */
+let queuedWrites = 0;
 
 async function writeCalendar(): Promise<string> {
   const ids = state.ids;
@@ -93,11 +95,16 @@ async function writeCalendar(): Promise<string> {
 }
 
 function queueCalendarWrite(): Promise<string> {
+  queuedWrites += 1;
   const write = calendarWrite.catch(() => undefined).then(writeCalendar);
   calendarWrite = write;
-  write.catch(() => {
-    if (state.token) setState({ ...state, sync: 'failed' });
-  });
+  write
+    .catch(() => {
+      if (state.token) setState({ ...state, sync: 'failed' });
+    })
+    .finally(() => {
+      queuedWrites -= 1;
+    });
   return write;
 }
 
@@ -122,8 +129,10 @@ export function toggleSavedCamp(campId: string): void {
   const ids = state.ids.includes(campId)
     ? state.ids.filter((id) => id !== campId)
     : [...state.ids, campId];
-  setState({ ...state, ids, sync: state.token ? 'pending' : 'synced' });
-  if (state.token) {
+  // A calendar that is still being created gets the change too, written once its token is back
+  const hasCalendar = !!state.token || queuedWrites > 0;
+  setState({ ...state, ids, sync: hasCalendar ? 'pending' : 'synced' });
+  if (hasCalendar) {
     queueCalendarWrite().catch((error) => console.error('[Camps] Calendar update failed:', error));
   }
 }

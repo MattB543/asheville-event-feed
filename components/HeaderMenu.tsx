@@ -21,9 +21,11 @@ const hovers = () => window.matchMedia(HOVER_QUERY).matches;
 /**
  * A header tab with a menu of links underneath. At lg+ with a mouse the menu opens on hover (or
  * keyboard focus) and a label with an `href` is a plain link; on touch the label toggles the menu,
- * since there is no hover to reveal it. A label with no `href` only ever opens the menu. Every way
- * of opening goes through `isOpen`, so aria-expanded is always true while the menu shows and
- * Escape or a press outside always closes it.
+ * since there is no hover to reveal it. A label with no `href` is a button that only ever opens
+ * the menu: Enter or Space toggles it everywhere (so it reopens after Escape), and a mouse click
+ * on a menu hovering already opened keeps it open. Every way of opening goes through `isOpen`, so
+ * aria-expanded is always true while the menu shows and Escape or a press outside always closes
+ * it.
  */
 export default function HeaderMenu({
   label,
@@ -51,9 +53,11 @@ export default function HeaderMenu({
     'aria-expanded': isOpen,
     'aria-controls': menuId,
     onClick: (event: MouseEvent<HTMLElement>) => {
-      if (hovers()) return;
+      if (href && hovers()) return;
       event.preventDefault();
-      setIsOpen((open) => !open);
+      // Enter or Space (detail 0) toggles; a desktop mouse click lands on a menu hovering already
+      // opened, so it keeps it open
+      setIsOpen((open) => (hovers() && event.detail > 0 ? true : !open));
     },
     className: `${className} gap-1`,
   };

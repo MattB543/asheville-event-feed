@@ -11,7 +11,10 @@
  *   provider since the file was written) is skipped, so a file import never undoes a refresh.
  * - Sites are keyed by (provider_key, name), from the effective cards. New, changed and unplaced
  *   sites are geocoded (geocodeSite, cached by the caller, misses included); placed sites without
- *   drive minutes get them on apply. A 'hand' pin is never overwritten.
+ *   drive minutes get them on apply. A 'hand' pin is never overwritten. Sites an earlier import
+ *   left unplaced or unrouted are retried too, whichever provider they belong to, since the refresh
+ *   job imports only the providers it re-extracted. With `placeBy` (the refresh job's time limit),
+ *   a lookup that might not finish in time isn't started and its site waits for the next import.
  * - The refresh columns (checked_at, check_error) belong to the refresh job and are never written
  *   here.
  *
@@ -43,6 +46,8 @@ type CampValues = typeof camps.$inferInsert;
 type SiteValues = typeof campSites.$inferInsert;
 
 const SHOW = 15;
+// The longest one placement call can take: Census then ORS, two 20s attempts each (geo.ts)
+const PLACE_CALL_MS = 90_000;
 
 export interface ImportOptions {
   /** Printed after APPLY / DRY RUN, e.g. "742 providers from data/camps/providers.json; ..." */
@@ -54,6 +59,12 @@ export interface ImportOptions {
   /** Geocoder results by geocodeText, misses included (null). New lookups are added to it. */
   geocodeCache: Record<string, SiteGeo | null>;
   apply: boolean;
+  /**
+   * Epoch ms the import must be done placing sites by. A geocoder lookup or drive-minutes call that
+   * might not finish by then isn't started; the rows are still written, the site unplaced or
+   * without minutes, and the next import places it.
+   */
+  placeBy?: number;
 }
 
 export interface ImportSummary {
@@ -143,7 +154,8 @@ function inReviewQueue(
 }
 
 export async function importCamps(options: ImportOptions): Promise<ImportSummary> {
-  const { apply, providers: listed, geocodeCache: cache } = options;
+  const { apply, providers: listed, geocodeCache: cache, placeBy } = options;
+  const timeToPlace = () => placeBy === undefined || Date.now() + PLACE_CALL_MS <= placeBy;
   const existing = await readExisting();
 
   console.log(`${apply ? 'APPLY' : 'DRY RUN'}: ${options.source}`);
@@ -299,8 +311,31 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       });
     }
   }
+  // Sites an earlier import couldn't place (out of time, a geocoder error) or route, as they stand.
+  // Known misses are in the cache, so they aren't looked up again.
+  for (const row of existing.sites) {
+    const key = siteKey(row.providerKey, row.name);
+    const unplaced = row.lat == null && row.geocodeSource !== 'hand' && !!row.address?.trim();
+    const unrouted = row.lat != null && row.driveMinutes == null;
+    if (!wanted.has(key) && (unplaced || unrouted)) {
+      wanted.set(key, {
+        providerKey: row.providerKey,
+        name: row.name,
+        address: row.address,
+        town: row.town,
+        state: row.state,
+      });
+      // So the check under lock skips it if the provider is re-extracted meanwhile
+      if (!plannedExtractedAt.has(row.providerKey))
+        plannedExtractedAt.set(
+          row.providerKey,
+          existingProvider.get(row.providerKey)?.extractedAt ?? null
+        );
+    }
+  }
 
   let lookups = 0;
+  let outOfTime = 0;
   const geocodeErrors: string[] = [];
   const sitePlan = {
     write: [] as Array<{ values: SiteValues; isNew: boolean }>,
@@ -337,7 +372,9 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         );
     } else if (textChanged || current?.lat == null) {
       const text = geocodeText(site);
-      if (!(text in cache)) {
+      if (!(text in cache) && !timeToPlace()) {
+        outOfTime += 1;
+      } else if (!(text in cache)) {
         try {
           lookups += 1;
           cache[text] = await geocodeSite(site);
@@ -421,6 +458,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     );
   for (const line of sitePlan.handKept) console.log(`  hand pin kept, address now ${line}`);
   for (const line of geocodeErrors) console.log(`  geocode failed (retried next run): ${line}`);
+  if (outOfTime) console.log(`  ${outOfTime} sites not looked up: out of time (next run)`);
 
   console.log(`\nReview queue after import: ${reviewCount} camps`);
 
@@ -458,7 +496,9 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
   }
 
   // --- Write. Drive minutes first: they're API calls, and a failure only leaves them for next time.
-  if (toDrive.length) {
+  if (toDrive.length && !timeToPlace()) {
+    console.log(`  drive minutes left for the next run: out of time`);
+  } else if (toDrive.length) {
     try {
       const minutes = await driveMinutesFromDowntown(
         toDrive.map((w) => ({ lat: w.values.lat!, lng: w.values.lng! }))

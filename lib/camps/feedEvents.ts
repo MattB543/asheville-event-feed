@@ -1,4 +1,4 @@
-import { and, eq, inArray, like } from 'drizzle-orm';
+import { and, eq, inArray, like, sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import {
@@ -22,19 +22,25 @@ import { TARGET_SEASON, toCardData, type CampCardData, type Labeled } from './di
  * - Identity: sourceId `camp:<camp id>:<summer>` and url `https://www.avlgo.com/camps/<slug>?season=
  *   <summer>`, so each summer is its own row (events.url is unique). The url is our camp page, never
  *   the camp's site, which an AVL Today row may already use.
- * - A camp gets an event once it has a date in that summer. The event is hidden (never deleted) when
- *   the camp is hidden, leaves the radius or loses that date, and shown again when it qualifies, so
- *   the sync owns `hidden` on these rows: to take one down, hide the camp.
+ * - A camp gets an event once it has a date in that summer. The event is soft-deleted (`deadAt`,
+ *   never a hard delete) when the camp is hidden, leaves the radius or loses that date, and restored
+ *   (deadAt cleared) when it qualifies again, so the sync owns `deadAt` on these rows. It never
+ *   writes `hidden`: that stays moderation, and an event hidden by hand stays hidden.
+ * - Dated at its first session, and placed at that session's site.
  * - Tags are written complete, since the AI cron only tags untagged events (it still writes the
  *   summary, embedding and scores).
  * - `dedup_skip` keeps rule-based and AI dedup away from them. The feed lists camps only while the
  *   Summer Camp tag is selected, Top 30 never does (isCampEvent), and the cleanup cron skips them.
  *
- * planCampEvents() only reads; syncCampEvents() writes its plan. Running either twice changes nothing.
+ * planCampEvents() only reads; syncCampEvents() writes its plan. Running either twice changes nothing,
+ * and two syncs at once run one after the other (SYNC_LOCK).
  */
 
 /** Canonical host, not SITE_URL: the url is the row's identity and must not change with the env. */
 const CAMP_PAGES = 'https://www.avlgo.com/camps/';
+
+/** pg_advisory_xact_lock key ("camps" in ASCII) held while a sync plans and writes. */
+const SYNC_LOCK = 0x63616d7073;
 
 /** Stored with timeUnknown when the camp gives no start time, as the Parks & Rec scraper does. */
 const UNKNOWN_TIME = '12:00';
@@ -106,11 +112,16 @@ export interface CampEventPlan {
   camps: number;
   dated: number;
   create: CampEventValues[];
+  /** `changed` lists `deadAt` when the row comes back. */
   update: Array<{ id: string; values: CampEventValues; changed: string[] }>;
+  /** Rows to soft-delete (deadAt). */
   remove: Array<{ id: string; title: string; reason: string }>;
   /** Rows already as they should be: the sync only marks them seen. */
   unchanged: string[];
 }
+
+/** db, or the sync's transaction. */
+type Reader = Pick<typeof db, 'select'>;
 
 function campSourceId(campId: string): string {
   return `camp:${campId}:${TARGET_SEASON}`;
@@ -124,21 +135,24 @@ function inSeason(date: string | null | undefined): date is string {
 }
 
 /**
- * The first session start in the season (with that session's hours, else the card's), else the
- * season start; null when the camp hasn't posted a date in that summer.
+ * The first session start in the season (with that session's hours, else the card's, and its
+ * site), else the season start; null when the camp hasn't posted a date in that summer.
  */
-function seasonStart(card: CampCard): { date: string; time: string | null } | null {
+function seasonStart(
+  card: CampCard
+): { date: string; time: string | null; site: string | null } | null {
   const [first] = card.sessions
     .filter((session) => inSeason(session.start))
     .map((session) => ({
       date: session.start,
       time: session.hours?.start ?? card.hours?.start ?? null,
+      site: session.site,
     }))
     // Known start times sort before unknown ones on the same day ('~' follows the digits)
     .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '~').localeCompare(b.time ?? '~'));
   if (first) return first;
   return inSeason(card.season.start)
-    ? { date: card.season.start, time: card.hours?.start ?? null }
+    ? { date: card.season.start, time: card.hours?.start ?? null, site: null }
     : null;
 }
 
@@ -156,17 +170,21 @@ function siteLocation(site: CampSiteInfo): string {
 
 /** The camp's own description, then the facts parents filter on, as /camps shows them. */
 function describe(camp: CampListing, data: CampCardData): string {
-  // A label that isn't for the coming summer says which one it is: "Price (2026): ..."
-  const line = (label: string, value: Labeled | string | null) => {
-    if (!value) return null;
-    const { text, year } = typeof value === 'string' ? { text: value, year: TARGET_SEASON } : value;
-    return `${label}${year === TARGET_SEASON ? '' : ` (${year})`}: ${text}${text.endsWith('.') ? '' : '.'}`;
+  // A label that isn't for the coming summer says which one it is: "Price (2026): ...". A note is
+  // the camp's own words on the fact, which /camps shows under it: "Price: $175/week (Half day)."
+  const line = (label: string, value: Labeled | string | null, note: string | null = null) => {
+    const fact = typeof value === 'string' ? { text: value, year: TARGET_SEASON } : value;
+    const said = note?.trim().replace(/\.$/, '') || null;
+    const text = fact?.text && said ? `${fact.text} (${said})` : fact?.text || said;
+    if (!text) return null;
+    const year = fact && fact.year !== TARGET_SEASON ? ` (${fact.year})` : '';
+    return `${label}${year}: ${text}${text.endsWith('.') ? '' : '.'}`;
   };
   const facts = [
     line('When', data.season),
     line('Who', data.who),
-    line('Hours', data.hours),
-    line('Price', data.price),
+    line('Hours', data.hours, data.hoursNote),
+    line('Price', data.price, data.priceNote),
     camp.sites.length > 1 ? line('Sites', camp.sites.map((site) => site.name).join('; ')) : null,
   ].filter((fact): fact is string => !!fact);
   return [camp.card.description.trim(), facts.join('\n')].filter(Boolean).join('\n\n');
@@ -177,7 +195,12 @@ function campEventValues(camp: CampListing, now: Date): CampEventValues | null {
   if (!start) return null;
   const time = start.time && HH_MM.test(start.time) ? start.time : null;
   const data = toCardData(camp, now);
-  const site = camp.sites.find((s) => s.lat !== null && s.lng !== null) ?? camp.sites[0];
+  // Where that first session is; else (no site named, or one the card doesn't list) the first
+  // placed site
+  const site =
+    (start.site ? camp.sites.find((s) => s.name === start.site) : undefined) ??
+    camp.sites.find((s) => s.lat !== null && s.lng !== null) ??
+    camp.sites[0];
   return {
     sourceId: campSourceId(camp.id),
     url: `${CAMP_PAGES}${camp.slug}?season=${TARGET_SEASON}`,
@@ -195,10 +218,10 @@ function campEventValues(camp: CampListing, now: Date): CampEventValues | null {
 }
 
 /** What syncCampEvents would write. Reads only. */
-export async function planCampEvents(): Promise<CampEventPlan> {
+export async function planCampEvents(reader: Reader = db): Promise<CampEventPlan> {
   const [camps, rows] = await Promise.all([
     queryCamps(),
-    db
+    reader
       .select({
         id: events.id,
         sourceId: events.sourceId,
@@ -212,7 +235,7 @@ export async function planCampEvents(): Promise<CampEventPlan> {
         organizer: events.organizer,
         price: events.price,
         tags: events.tags,
-        hidden: events.hidden,
+        deadAt: events.deadAt,
       })
       .from(events)
       .where(
@@ -240,7 +263,7 @@ export async function planCampEvents(): Promise<CampEventPlan> {
   for (const row of rows) {
     const values = wanted.get(row.sourceId);
     if (!values) {
-      if (!row.hidden) {
+      if (!row.deadAt) {
         plan.remove.push({
           id: row.id,
           title: row.title,
@@ -251,12 +274,12 @@ export async function planCampEvents(): Promise<CampEventPlan> {
       }
       continue;
     }
-    // Claimed, so a second row with the same sourceId is hidden rather than updated too
+    // Claimed, so a second row with the same sourceId is removed rather than updated too
     wanted.delete(row.sourceId);
     const changed: string[] = (Object.keys(values) as Array<keyof CampEventValues>).filter(
       (key) => stableJson(row[key] ?? null) !== stableJson(values[key])
     );
-    if (row.hidden) changed.push('hidden');
+    if (row.deadAt) changed.push('deadAt');
     if (changed.length > 0) plan.update.push({ id: row.id, values, changed });
     else plan.unchanged.push(row.id);
   }
@@ -265,18 +288,21 @@ export async function planCampEvents(): Promise<CampEventPlan> {
 }
 
 /**
- * Bring the CAMPS events in line with the live camps: create, update, or hide (never delete).
+ * Bring the CAMPS events in line with the live camps: create, update, or soft-delete (deadAt).
  * Callable from scripts and route handlers; it expires the feed's cache when it changed anything.
+ * It plans and writes holding SYNC_LOCK, so a second sync at the same time waits, then plans from
+ * what the first wrote: no duplicate insert, no update planned from rows that have since changed.
  */
 export async function syncCampEvents(): Promise<{
   created: number;
   updated: number;
   removed: number;
 }> {
-  const plan = await planCampEvents();
   const now = new Date();
 
-  await db.transaction(async (tx) => {
+  const plan = await db.transaction(async (tx) => {
+    await tx.execute(sql`SELECT pg_advisory_xact_lock(${SYNC_LOCK}::bigint)`);
+    const plan = await planCampEvents(tx);
     if (plan.create.length > 0) {
       await tx.insert(events).values(
         plan.create.map((values) => ({
@@ -293,7 +319,7 @@ export async function syncCampEvents(): Promise<{
         .set({
           ...values,
           ...(changed.includes('title') ? AI_RESET : {}),
-          hidden: false,
+          deadAt: null,
           dedupSkip: true,
           updatedAt: now,
           lastSeenAt: now,
@@ -303,7 +329,7 @@ export async function syncCampEvents(): Promise<{
     if (plan.remove.length > 0) {
       await tx
         .update(events)
-        .set({ hidden: true })
+        .set({ deadAt: now })
         .where(
           inArray(
             events.id,
@@ -315,6 +341,7 @@ export async function syncCampEvents(): Promise<{
     if (plan.unchanged.length > 0) {
       await tx.update(events).set({ lastSeenAt: now }).where(inArray(events.id, plan.unchanged));
     }
+    return plan;
   });
 
   const result = {
@@ -323,7 +350,7 @@ export async function syncCampEvents(): Promise<{
     removed: plan.remove.length,
   };
   console.log(
-    `[Camps] Feed events: ${result.created} created, ${result.updated} updated, ${result.removed} hidden, ${plan.unchanged.length} unchanged`
+    `[Camps] Feed events: ${result.created} created, ${result.updated} updated, ${result.removed} removed, ${plan.unchanged.length} unchanged`
   );
   if (result.created + result.updated + result.removed > 0) invalidateEventsCache();
   return result;

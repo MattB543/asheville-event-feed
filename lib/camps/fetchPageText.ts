@@ -82,6 +82,11 @@ export interface PageTextFetcherOptions {
   cacheTtlMs?: number;
   /** Allow the headless browser rung (default true). */
   browser?: boolean;
+  /**
+   * Aborting it stops every read: plain fetches take the signal, the Chrome dispatcher is destroyed
+   * and the browser closed, and reads fail with the signal's reason from then on.
+   */
+  signal?: AbortSignal;
 }
 
 export interface PageTextFetcher {
@@ -96,11 +101,23 @@ export interface PageTextFetcher {
 export function createPageTextFetcher(options: PageTextFetcherOptions = {}): PageTextFetcher {
   const cacheTtlMs = options.cacheTtlMs ?? DEFAULT_CACHE_TTL_MS;
   const allowBrowser = options.browser ?? true;
+  const { signal } = options;
   const memory = new Map<string, Promise<PageText>>();
   let dispatcherPromise: Promise<Dispatcher> | null = null;
   let browserPromise: Promise<Browser> | null = null;
 
+  // fetchAsChrome and patchright take no signal: shutting them down ends their requests.
+  signal?.addEventListener(
+    'abort',
+    () => {
+      void dispatcherPromise?.then((dispatcher) => dispatcher.destroy()).catch(() => {});
+      void browserPromise?.then((browser) => browser.close()).catch(() => {});
+    },
+    { once: true }
+  );
+
   async function read(url: string): Promise<PageText> {
+    signal?.throwIfAborted();
     const cached = cacheTtlMs > 0 ? await readCache(url, cacheTtlMs) : null;
     if (cached) return cached;
 
@@ -124,7 +141,7 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
     // 1. plain fetch
     let skipChromeTls = false;
     try {
-      const raw = await plainFetch(url);
+      const raw = await plainFetch(url, signal);
       const content = await readContent(raw);
       if (typeof content !== 'string') return await finish(raw, content, 'fetch');
       attempts.push(`fetch: ${content}`);
@@ -134,13 +151,14 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
     }
 
     // 2. Chrome TLS fingerprint
+    signal?.throwIfAborted();
     if (!skipChromeTls) {
       try {
         // One dispatcher per fetcher, shared by concurrent reads (assigned before the await).
         dispatcherPromise ??= createChromeDispatcher();
         const dispatcher = await dispatcherPromise;
         const raw = isPdfUrl(url)
-          ? await chromeTlsBytes(url, dispatcher)
+          ? await chromeTlsBytes(url, dispatcher, signal)
           : await chromeTlsHtml(url, dispatcher);
         const content = await readContent(raw);
         if (typeof content !== 'string') return await finish(raw, content, 'chrome-tls');
@@ -151,6 +169,7 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
     }
 
     // 3. headless browser
+    signal?.throwIfAborted();
     if (allowBrowser) {
       try {
         browserPromise ??= launchBrowser();
@@ -163,6 +182,7 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
       }
     }
 
+    signal?.throwIfAborted();
     throw new FetchPageError(url, attempts);
   }
 
@@ -200,7 +220,13 @@ export async function fetchPageText(
 // Rungs
 // ---------------------------------------------------------------------------
 
-async function plainFetch(url: string): Promise<RawPage> {
+/** The per-request timeout, ended early by the fetcher's signal. */
+function requestSignal(signal: AbortSignal | undefined): AbortSignal {
+  const timeout = AbortSignal.timeout(FETCH_TIMEOUT_MS);
+  return signal ? AbortSignal.any([timeout, signal]) : timeout;
+}
+
+async function plainFetch(url: string, signal: AbortSignal | undefined): Promise<RawPage> {
   const response = await fetch(url, {
     headers: {
       'User-Agent': MODERN_CHROME_UA,
@@ -208,7 +234,7 @@ async function plainFetch(url: string): Promise<RawPage> {
       'Accept-Language': 'en-US,en;q=0.9',
     },
     redirect: 'follow',
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    signal: requestSignal(signal),
   });
   return {
     status: response.status,
@@ -225,12 +251,16 @@ async function chromeTlsHtml(url: string, dispatcher: Dispatcher): Promise<RawPa
   return { status: 200, finalUrl: url, contentType: 'text/html', bytes };
 }
 
-async function chromeTlsBytes(url: string, dispatcher: Dispatcher): Promise<RawPage> {
+async function chromeTlsBytes(
+  url: string,
+  dispatcher: Dispatcher,
+  signal: AbortSignal | undefined
+): Promise<RawPage> {
   const { fetch: undiciFetch } = await import('undici');
   const response = await undiciFetch(url, {
     headers: { 'User-Agent': MODERN_CHROME_UA, Accept: 'application/pdf,*/*' },
     dispatcher,
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    signal: requestSignal(signal),
   });
   return {
     status: response.status,

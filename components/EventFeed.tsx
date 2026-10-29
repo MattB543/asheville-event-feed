@@ -60,7 +60,12 @@ import {
   getStartOfTomorrowEastern,
   getTodayStringEastern,
 } from '@/lib/utils/timezone';
-import { firstMatchingOccurrence, matchesEventFilters } from '@/lib/utils/eventFilterMatch';
+import {
+  campsRequested,
+  firstMatchingOccurrence,
+  isCampEvent,
+  matchesEventFilters,
+} from '@/lib/utils/eventFilterMatch';
 import {
   getEventOccurrences,
   mergeTop30CategoryEvents,
@@ -861,7 +866,13 @@ export default function EventFeed({
   // The server already applied every filter, and session-hidden events are greyed
   // out in render (via sessionHiddenKeys) rather than removed here.
   // Score tier filtering is done per-day in the rendering logic.
-  const filteredEvents = events;
+  // The one exception: camps go the moment the Summer Camp tag is cleared, rather
+  // than after the debounced query returns.
+  const campsShown = campsRequested(tagFilters.include);
+  const filteredEvents = useMemo(
+    () => (campsShown ? events : events.filter((event) => !isCampEvent(event))),
+    [events, campsShown]
+  );
 
   // Whether we should show the per-day toggle (hide during search/tags/locations)
   const showDayToggle = useMemo(() => {
@@ -2697,7 +2708,8 @@ export default function EventFeed({
               })}
           </div>
 
-          {filteredEvents.length === 0 && !isFetching && (
+          {/* events, not filteredEvents: camps dropped above mean a new query is on its way */}
+          {events.length === 0 && !isFetching && (
             <div className="text-center py-20 text-gray-500 dark:text-gray-400">
               No events found matching your criteria.
             </div>

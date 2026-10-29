@@ -34,10 +34,18 @@ export const CAMPS_SOURCE = 'CAMPS';
 /**
  * A summer camp: one of our camp events, or a scraped listing the AI tagged as a camp. Listed only
  * while the Summer Camp tag is selected (100+ camps share the same June start dates) and never in
- * Top 30. The server's twin is `notCampEvent` in lib/db/queries/events.ts.
+ * Top 30. The server's twin is `notCampEvent` in lib/db/liveEvent.ts.
  */
 export function isCampEvent(event: { source?: string | null; tags?: string[] | null }): boolean {
   return event.source === CAMPS_SOURCE || !!event.tags?.includes(SUMMER_CAMP_TAG);
+}
+
+/**
+ * Whether a tag filter asks for camps. Everywhere events are listed (the feed, Top 30's filters,
+ * the public exports) camps are left out unless it does; `campOptIn` is the SQL side.
+ */
+export function campsRequested(tagsInclude: readonly string[] | null | undefined): boolean {
+  return !!tagsInclude?.includes(SUMMER_CAMP_TAG);
 }
 
 /** Parse a price string ("$20", "Free", "$15-25") to a number; free/donation/unknown are 0. */
@@ -205,7 +213,7 @@ export function matchesEventFilters(
     }
   }
 
-  if (isCampEvent(event) && !filters.tagsInclude.includes(SUMMER_CAMP_TAG)) return false;
+  if (isCampEvent(event) && !campsRequested(filters.tagsInclude)) return false;
 
   const tags = event.tags ?? [];
   if (filters.tagsInclude.length > 0 && !filters.tagsInclude.some((tag) => tags.includes(tag))) {

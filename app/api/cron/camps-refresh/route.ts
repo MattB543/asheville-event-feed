@@ -8,7 +8,10 @@ import { refreshCamps, type RefreshOutcome } from '@/lib/camps/refresh';
 
 export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 
-/** Kept after the last provider for the import, the feed-event sync and the run record. */
+/**
+ * Kept after the last provider for the import (placing new sites gets the first minute of it),
+ * the feed-event sync and the run record.
+ */
 const FINISH_MS = 120_000;
 
 /**
@@ -17,8 +20,8 @@ const FINISH_MS = 120_000;
  * the ones whose pages or prompt changed, imports those, and syncs the camps' feed events.
  *
  * Runs daily. Each provider's outcome is in the run's cron_job_runs.result.outcomes. Pages only a
- * browser can read fail here (no browser on Vercel) and keep their facts; scripts/camps/refresh.ts
- * --apply on Matt's PC can refresh them.
+ * browser can read fail here (no browser on Vercel) and keep their facts; the nightly local task
+ * (scripts/run-local-events.ts -> scripts/camps/refresh.ts) refreshes them, and the WebTrac catalog.
  */
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');

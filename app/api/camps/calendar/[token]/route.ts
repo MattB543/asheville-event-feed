@@ -17,8 +17,9 @@ const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
 /**
  * GET /api/camps/calendar/<token>.ics: the saved-camps feed calendar apps subscribe to (01 §4.4).
  * Built from current data on every request, so a date a camp posts later reaches the parent's
- * calendar on the app's next poll. Every remindable 2027 registration date of each saved camp
- * (past ones too, so they don't vanish), plus each camp's first day once posted. A malformed token
+ * calendar on the app's next poll. Every remindable public 2027 registration date of each saved
+ * camp (past ones too, so they don't vanish; members', returning families' and lottery dates are
+ * the camp page's own reminders, N10), plus each camp's first day once posted. A malformed token
  * and an over-limit IP are turned away before the database is touched.
  */
 export async function GET(request: Request, { params }: RouteParams) {
@@ -37,7 +38,10 @@ export async function GET(request: Request, { params }: RouteParams) {
     const now = new Date();
     const events = camps.flatMap((camp) => {
       const start = seasonStartEvent(camp, now);
-      return [...milestoneEvents(camp, camp.card.registration, now), ...(start ? [start] : [])];
+      const publicDates = camp.card.registration.filter(
+        (milestone) => milestone.audience === 'public'
+      );
+      return [...milestoneEvents(camp, publicDates, now), ...(start ? [start] : [])];
     });
 
     return new NextResponse(calendarFile('Summer camps (AVL GO)', events, 'PT6H'), {

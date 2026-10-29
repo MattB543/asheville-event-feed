@@ -241,7 +241,7 @@ const PARAMETERS: [string, string, string][] = [
   ['times', 'Comma list of `morning`, `afternoon`, `evening`', 'Eastern start time: morning 5:00 to 11:59 AM, afternoon noon to 4:59 PM, evening 5:00 PM to 2:59 AM. Events with no listed start time always pass.'],
   ['priceFilter', '`any`, `confirmedFree`, `free`, `under20`, `under100`, `custom`', '`confirmedFree`: events the source lists as free. `free`: those plus events with no listed price. See [prices](#prices).'],
   ['maxPrice', 'Number, like `20`', 'With `priceFilter=custom`: the highest price to keep, inclusive. See [prices](#prices).'],
-  ['tagsInclude', 'Comma list of tags', 'Keep events that have at least one of these tags. Exact and case-sensitive.'],
+  ['tagsInclude', 'Comma list of tags', 'Keep events that have at least one of these tags. Exact and case-sensitive. Summer camps are included only when `Summer Camp` is one of them.'],
   ['tagsExclude', 'Comma list of tags', 'Drop events that have any of these tags.'],
   ['search', 'Text; commas separate alternatives', 'Case-insensitive substring match on title, description, organizer and location; an event matching any one term is kept. Tags and AI summaries are not searched. In the Markdown export the whole value is one phrase.'],
   ['locations', 'Comma list: `asheville`, `Online`, or a town such as `Black Mountain`', '`asheville` keeps Asheville and known Asheville venues. A town name must match the town AVL GO reads from the location text, capitalized as shown.'],

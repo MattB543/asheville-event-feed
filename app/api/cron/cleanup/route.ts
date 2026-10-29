@@ -131,7 +131,7 @@ export async function GET(request: Request) {
     // URL is alive and checking it again only burns requests. This is what
     // makes checking every source affordable: ~56 candidates instead of ~844.
     // Camp events link to our own /camps pages, and syncCampEvents (lib/camps/feedEvents.ts)
-    // hides them when their camp goes, so they are never checked.
+    // soft-deletes them (deadAt) when their camp goes, so they are never checked.
     const queryStart = Date.now();
     const staleCutoff = new Date(Date.now() - DEAD_CHECK_STALE_HOURS * 60 * 60 * 1000);
     const candidates = await db

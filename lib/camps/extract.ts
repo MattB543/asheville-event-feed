@@ -58,6 +58,8 @@ const BUNDLE_MAX_PAGES = 8;
 // Seed pages run to ~27k characters (Lutheridge's brochure, the Arboretum's camp page; 2026-10-28).
 const BUNDLE_PAGE_CHARS = 30000;
 const BUNDLE_TOTAL_CHARS = 80000;
+// Pages the caller adds beyond the crawl's limits (a refresh: registration pages its cards cite).
+const EVIDENCE_PAGES = 4;
 const RELEVANT_LINK =
   /camp|summer|dates|rates|tuition|fees|register|registration|enroll|faq|schedule|\.pdf(?:$|\?)/i;
 const PREFERRED_LINK = /dates|rates|tuition|fees|register|registration|2027/i;
@@ -72,10 +74,14 @@ const SKIP_LINK =
  * platform) links from them, best first: PDFs and pages about dates, rates, tuition or registration
  * ahead of other camp pages, then the site's home page. Pages found that way are read for PDF links
  * once more, since a rates page often links the brochure. Web search covers everything else.
+ *
+ * `evidence` pages the crawl didn't reach are read after it, up to EVIDENCE_PAGES on top of its
+ * limits, without following their links. Pass them sorted, so the same list reads the same pages.
  */
 export async function buildSourceBundle(
   provider: Provider,
-  fetcher: PageTextFetcher
+  fetcher: PageTextFetcher,
+  evidence: string[] = []
 ): Promise<SourceBundle> {
   const pages: BundlePage[] = [];
   const log: BundleLogEntry[] = [];
@@ -84,8 +90,9 @@ export async function buildSourceBundle(
   const queue: Array<{ url: string; hop: number; score: number }> = [];
   let total = 0;
 
-  const read = async (url: string, hop: number) => {
-    if (seen.has(url) || pages.length >= BUNDLE_MAX_PAGES || total >= BUNDLE_TOTAL_CHARS) return;
+  const read = async (url: string, hop: number, extra = false) => {
+    if (seen.has(url)) return;
+    if (!extra && (pages.length >= BUNDLE_MAX_PAGES || total >= BUNDLE_TOTAL_CHARS)) return;
     seen.add(url);
     if (isSocialUrl(url)) {
       log.push({ url, chars: 0, error: 'social page: not fetched (login wall)' });
@@ -93,8 +100,13 @@ export async function buildSourceBundle(
     }
     try {
       const page = await fetcher.get(url);
+      // An evidence link that redirects to a page the crawl already has adds nothing
+      if (extra && page.finalUrl !== url && seen.has(page.finalUrl)) return;
       seen.add(page.finalUrl);
-      const text = page.text.slice(0, Math.min(BUNDLE_PAGE_CHARS, BUNDLE_TOTAL_CHARS - total));
+      const room = extra
+        ? BUNDLE_PAGE_CHARS
+        : Math.min(BUNDLE_PAGE_CHARS, BUNDLE_TOTAL_CHARS - total);
+      const text = page.text.slice(0, room);
       pages.push({ url: page.finalUrl, text });
       total += text.length;
       log.push({ url, chars: text.length, method: page.method });
@@ -139,38 +151,24 @@ export async function buildSourceBundle(
     const next = queue.shift()!;
     await read(next.url, next.hop);
   }
+  for (const url of evidence.filter((url) => !seen.has(url)).slice(0, EVIDENCE_PAGES)) {
+    await read(url, 2, true);
+  }
   return { pages, log, sourceHash: hashPages(pages) };
 }
 
-/** Prefix of hashes made by `hashPages`; a stored hash without it predates the boilerplate rule. */
-export const SOURCE_HASH_VERSION = 'v2:';
-
 /**
- * The bundle's text minus lines that repeat on two or more of its pages (header, menu, footer, a
- * site-wide alert banner), so a new banner doesn't count as the camp's pages changing. A refresh
- * re-extracts on every hash change, and each re-extraction can send a confirmed camp back to review.
+ * Every page's full text, banners and menus included: a site-wide change re-extracts the provider,
+ * but the confirmation hash (cardHash) ignores confidence, notes and sources, so a confirmed camp
+ * goes back to review only when its facts change.
  */
 function hashPages(pages: BundlePage[]): string | null {
   if (pages.length === 0) return null;
-  const linesOf = (text: string) =>
-    text
-      .split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean);
-  const pagesWithLine = new Map<string, number>();
-  for (const page of pages) {
-    for (const line of new Set(linesOf(page.text))) {
-      pagesWithLine.set(line, (pagesWithLine.get(line) ?? 0) + 1);
-    }
-  }
   const hash = createHash('sha256');
   for (const page of [...pages].sort((a, b) => a.url.localeCompare(b.url))) {
-    const own = linesOf(page.text).filter(
-      (line) => pages.length === 1 || pagesWithLine.get(line) === 1
-    );
-    hash.update(`${page.url}\n${own.join('\n')}\n`);
+    hash.update(`${page.url}\n${page.text}\n`);
   }
-  return SOURCE_HASH_VERSION + hash.digest('hex');
+  return hash.digest('hex');
 }
 
 /** The camp rule, card rule, year and registration rules and the confidence scale, for every call. */
@@ -244,9 +242,16 @@ export function extractionInput(
 export async function extractProvider(
   provider: Provider,
   today: string,
-  options: { fetcher: PageTextFetcher; existingPrograms?: string[] }
+  options: {
+    fetcher: PageTextFetcher;
+    existingPrograms?: string[];
+    /** Extra pages for the bundle (buildSourceBundle). */
+    evidence?: string[];
+    /** Stops the model calls and their retries (the fetcher takes its own). */
+    signal?: AbortSignal;
+  }
 ): Promise<ExtractionRun> {
-  const bundle = await buildSourceBundle(provider, options.fetcher);
+  const bundle = await buildSourceBundle(provider, options.fetcher, options.evidence);
   const input = extractionInput(provider, bundle.pages, options.existingPrograms ?? []);
 
   let lastError: unknown;
@@ -258,6 +263,7 @@ export async function extractProvider(
       effort: 'low',
       jsonSchema: { name: 'camp_extraction', schema: EXTRACTION_SCHEMA },
       maxOutputTokens: 50000,
+      signal: options.signal,
     });
     try {
       if (result.status !== 'completed') throw new Error(`response status ${result.status}`);

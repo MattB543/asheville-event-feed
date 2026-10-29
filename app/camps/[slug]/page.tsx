@@ -11,10 +11,11 @@ import { CampViewBeacon, CampWebsiteLink } from '@/components/camps/CampLinks';
 import { TONE_CLASSES } from '@/components/camps/tones';
 import SaveCampButton from '@/components/camps/SaveCampButton';
 import { RegistrationDetails, UnconfirmedTag, YearTag } from '@/components/camps/YearTag';
-import type { Milestone, SupportFact } from '@/lib/camps/contract';
+import { AUDIENCES, type Milestone, type SupportFact } from '@/lib/camps/contract';
 import {
   AVAILABILITY_LABELS,
   CATEGORY_LABELS,
+  REMINDER_LABELS,
   SUPPORT_VALUE_LABELS,
   TARGET_SEASON,
   TYPE_LABELS,
@@ -175,7 +176,10 @@ export default async function CampPage({ params }: PageProps) {
   const { card } = camp;
   const line = registrationLine(card, camp.confirmed, now);
   const milestones = [...card.registration].sort(byMilestoneDate);
-  const hasReminder = reminderMilestones(card, now).length > 0;
+  // One "Add reminder" per audience with a date ahead, public first (N10)
+  const reminders = AUDIENCES.filter(
+    (audience) => reminderMilestones(card, now, audience).length > 0
+  );
   const related = await relatedCamps(camp).catch((error) => {
     console.error('[Camps] Related camps failed:', error);
     return [];
@@ -288,12 +292,17 @@ export default async function CampPage({ params }: PageProps) {
                 Registration page <ExternalLink size={14} aria-hidden="true" />
               </CampWebsiteLink>
             )}
-            {hasReminder && (
-              <a href={`/api/camps/${camp.id}/reminder`} rel="nofollow" className={buttonClasses}>
+            {reminders.map((audience) => (
+              <a
+                key={audience}
+                href={`/api/camps/${camp.id}/reminder${audience === 'public' ? '' : `?audience=${audience}`}`}
+                rel="nofollow"
+                className={buttonClasses}
+              >
                 <BellPlus size={14} aria-hidden="true" />
-                Add reminder
+                {REMINDER_LABELS[audience]}
               </a>
-            )}
+            ))}
           </div>
 
           <section

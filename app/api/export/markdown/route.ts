@@ -14,7 +14,7 @@ import {
 import { matchesDefaultFilter } from '@/lib/config/defaultFilters';
 import { extractCity, isAshevilleArea } from '@/lib/utils/geo';
 import { isRecord, isString } from '@/lib/utils/validation';
-import { isFreeEvent, parsePrice } from '@/lib/utils/eventFilterMatch';
+import { campsRequested, isCampEvent, isFreeEvent, parsePrice } from '@/lib/utils/eventFilterMatch';
 import { parsePublicOfferPrice } from '@/lib/utils/publicEventPrice';
 import { isInDateRange, resolveCustomDateRange } from '@/lib/api/publicEvents';
 import {
@@ -22,7 +22,7 @@ import {
   PUBLIC_EXPORT_SUCCESS_HEADERS,
   publicApiPreflight,
 } from '@/lib/api/publicEventsContract';
-import { liveEvent } from '@/lib/db/liveEvent';
+import { campOptIn, liveEvent } from '@/lib/db/liveEvent';
 
 export const dynamic = 'force-dynamic';
 
@@ -168,7 +168,7 @@ export async function GET(request: Request) {
     let allEvents = await db
       .select(publicEventColumns)
       .from(events)
-      .where(and(gte(events.startDate, startOfToday), liveEvent))
+      .where(and(gte(events.startDate, startOfToday), liveEvent, ...campOptIn(includeTags)))
       .orderBy(asc(events.startDate));
 
     // Apply filters
@@ -240,7 +240,9 @@ export async function GET(request: Request) {
         if (priceFilter === 'custom' && maxPrice && price > parseFloat(maxPrice)) return false;
       }
 
-      // 9. Tag filter (include AND exclude)
+      // 9. Tag filter (include AND exclude). Camps only when the Summer Camp tag is requested,
+      // as on All events and in the JSON export.
+      if (isCampEvent(event) && !campsRequested(includeTags)) return false;
       const eventTags = event.tags || [];
 
       // Exclude logic: If event has ANY excluded tag, filter it out

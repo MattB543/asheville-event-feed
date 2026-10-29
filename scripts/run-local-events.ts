@@ -10,6 +10,12 @@
  * invalidation is try/caught), so no dev server is needed. The run is recorded
  * in cron_job_runs as a 'scrape' run with result.onlyLocal = true.
  *
+ * Then the summer camps refresh (scripts/camps/refresh.ts --apply --webtrac):
+ * the camp pages only a browser can read, whatever the daily Vercel run left
+ * due, and the weekly WebTrac catalog re-read. It gets what's left of the
+ * task's hour and records its own 'camps-refresh' run (result.local = true). It
+ * saves no files, so the checkout stays clean.
+ *
  * Usage: npx tsx scripts/run-local-events.ts
  */
 
@@ -22,6 +28,11 @@ import { GET as scrapeCron } from '../app/api/cron/scrape/route';
 
 // A healthy in-scrape Facebook pass keeps ~150-200; a stalled one keeps a dozen.
 const FB_RERUN_BELOW = 100;
+// scheduled-local.ps1 stops the task after an hour. The camps refresh gets the rest, less time
+// for its import, feed sync and run record, and is skipped when that leaves too little.
+const TASK_LIMIT_MINUTES = 60;
+const CAMPS_FINISH_MINUTES = 8;
+const CAMPS_MIN_MINUTES = 15;
 
 type ScrapeStats = {
   inserted?: number;
@@ -80,7 +91,36 @@ async function main() {
     console.log(`[run-local-events] Standalone Facebook exited ${rerun.status}`);
   }
 
-  process.exit(scrapers.some((s) => !s.ok) ? 1 : 0);
+  const campsOk = runCampsRefresh(started);
+  process.exit(scrapers.some((s) => !s.ok) || !campsOk ? 1 : 0);
+}
+
+/** False when the camps refresh failed; its own cron_job_runs row has the detail. */
+function runCampsRefresh(taskStarted: number): boolean {
+  const minutes = Math.floor(
+    TASK_LIMIT_MINUTES - CAMPS_FINISH_MINUTES - (Date.now() - taskStarted) / 60_000
+  );
+  if (minutes < CAMPS_MIN_MINUTES) {
+    console.log(`[run-local-events] Camps refresh skipped: only ${minutes} min left tonight`);
+    return true;
+  }
+  console.log(`[run-local-events] Camps refresh, ${minutes} min`);
+  const tsx = path.resolve('node_modules/tsx/dist/cli.mjs');
+  const camps = spawnSync(
+    process.execPath,
+    [
+      tsx,
+      'scripts/camps/refresh.ts',
+      '--apply',
+      '--webtrac',
+      '--no-save',
+      '--minutes',
+      String(minutes),
+    ],
+    { stdio: 'inherit' }
+  );
+  console.log(`[run-local-events] Camps refresh exited ${camps.status}`);
+  return camps.status === 0;
 }
 
 main().catch((err) => {

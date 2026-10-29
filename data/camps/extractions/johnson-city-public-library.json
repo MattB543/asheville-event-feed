@@ -1,0 +1,127 @@
+{
+  "provider": {
+    "key": "johnson-city-public-library",
+    "name": "Johnson City Public Library",
+    "urls": ["https://www.jcpl.org/summer-reading/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:28.236Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "54c2c2117b5664994d313ab474183fac89278a0ad42de6d52ea9c7588910c2bb",
+  "response": {
+    "searches": [
+      "site:jcpl.org summer 2026 camp theater lab",
+      "site:jcpl.org \"Theater\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23551,
+      "cachedInputTokens": 8223,
+      "outputTokens": 883,
+      "reasoningTokens": 166
+    },
+    "status": "completed",
+    "ms": 28983,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jcpl.org/summer-reading/",
+      "chars": 4856,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcpl.org/monthly-calendar/",
+      "chars": 1885,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcpl.org/",
+      "chars": 5263,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Johnson City Public Library",
+    "website_url": "https://www.jcpl.org/",
+    "notes": "No summer 2027 information was found. ETSU Day qualifies as a finite youth college-exploration program. The summer-reading page mentions teen theater labs and writing groups but does not provide enough detail to establish separate finite summer programs; their schedules could not be recovered from the current calendar.",
+    "excluded": [
+      {
+        "name": "Summer Reading: Unearth a Story",
+        "reason": "Self-directed reading and tracking challenge with optional library events, not a supervised camp or finite instructional youth program."
+      },
+      {
+        "name": "Read & Romp",
+        "reason": "Ongoing year-round storytime attended with caregivers."
+      },
+      {
+        "name": "Art Explorers",
+        "reason": "Ongoing year-round art program, rather than a summer-only offering."
+      },
+      {
+        "name": "Teen Volunteer Program",
+        "reason": "Ongoing volunteer placements, not a finite summer camp."
+      },
+      {
+        "name": "Summer Storytellers",
+        "reason": "Public storytelling performances, including adult and family audiences, rather than supervised youth camp instruction."
+      }
+    ],
+    "cards": [
+      {
+        "name": "ETSU Day",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Teens explore ETSU academic programs, admissions, student life, and university library resources through presentations, activities, and games. Participants also create custom t-shirts and meet the university mascot.",
+        "camp_page_url": "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-06-10",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Public Library Jones Meeting Center",
+            "address": "100 West Millard Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "They’ll enjoy a free lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.jcpl.org/news/2026/05/teens-imagine-future-possibilities-at-etsu-day/",
+          "https://www.jcpl.org/about-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

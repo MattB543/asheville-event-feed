@@ -1,0 +1,67 @@
+{
+  "provider": {
+    "key": "meadowbrook-free-will-baptist-church-of-black-mountain",
+    "name": "Meadowbrook Free Will Baptist Church of Black Mountain",
+    "urls": ["https://www.meadowbrookchurch.info/", "https://www.meadowbrookchurch.info/contact"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:13:55.190Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0e913082f167c4a7cc5921ac03d3b75a51a4d497025e391ba40defa1d684fa42",
+  "response": {
+    "searches": [
+      "Meadowbrook Free Will Baptist Black Mountain VBS 2026 2027",
+      "\"Meadowbrook\" \"Black Mountain\" \"VBS\" \"2026\"",
+      "\"Meadowbrook FWB\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 21682,
+      "cachedInputTokens": 8223,
+      "outputTokens": 502,
+      "reasoningTokens": 214
+    },
+    "status": "completed",
+    "ms": 28191,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.meadowbrookchurch.info/",
+      "chars": 2234,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.meadowbrookchurch.info/contact",
+      "chars": 989,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Meadowbrook Free Will Baptist Church of Black Mountain",
+    "website_url": "https://www.meadowbrookchurch.info/",
+    "notes": "No qualifying summer camp or Vacation Bible School could be verified for 2026 or 2027 from the supplied official pages or web searches. The official ChurchTrac upcoming-events listing showed fall 2026 church activities, not summer programs. Attempts to read /kids-ministry and /special-events returned no readable text. Search results for VBS at other Meadowbrook churches were not used because they refer to different providers. This does not establish that this church offers no summer programs; its special-event announcements should be checked directly with the church.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "Recurring Wednesday children's ministry, not identified as a finite summer-only program."
+      },
+      {
+        "name": "Sunday Morning Children's Classes",
+        "reason": "Recurring Sunday classes rather than a finite summer camp."
+      },
+      {
+        "name": "Teen Bible Study",
+        "reason": "Recurring Wednesday teen ministry rather than a finite summer program."
+      },
+      {
+        "name": "Nursery Care",
+        "reason": "Childcare during regular church services, not summer-only childcare."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "provider": {
+    "key": "locust-field-baptist-church-of-sylva",
+    "name": "Locust Field Baptist Church of Sylva",
+    "urls": ["https://www.myvbs.org/LFBC2026", "https://locustfield.churchtrac.com/"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:55.398Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b206969c27b092f0c2a0a9360fcc46156a154318b35868a16624b3f3dbfae303",
+  "response": {
+    "searches": ["\"Locust Field Baptist\" \"2027\" VBS"],
+    "usage": {
+      "inputTokens": 14716,
+      "cachedInputTokens": 8223,
+      "outputTokens": 439,
+      "reasoningTokens": 53
+    },
+    "status": "completed",
+    "ms": 12483,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.myvbs.org/LFBC2026",
+      "chars": 1096,
+      "method": "browser"
+    },
+    {
+      "url": "https://locustfield.churchtrac.com/",
+      "chars": 815,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.myvbs.org/lfbc2026/child-register",
+      "chars": 2305,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.myvbs.org/",
+      "chars": 5769,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Locust Field Baptist Church of Sylva",
+    "website_url": "https://locustfield.churchtrac.com/",
+    "notes": "No official summer 2027 information found. The card retains the published 2026 VBS details; ages, prices and registration opening dates were not stated in the supplied official pages.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Illumination Station",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible stories, games and crafts. The program explores how light reveals who Jesus is.",
+        "camp_page_url": "https://www.myvbs.org/lfbc2026",
+        "registration_url": "https://www.myvbs.org/lfbc2026/child-register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Locust Field Baptist Church",
+            "address": "326 Macktown Gap Road",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:15",
+          "end": "20:30",
+          "text": "Jul 12–Jul 16: 5:15 PM – 8:30 PM; Jul 17: 6:00 PM – 9:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.myvbs.org/lfbc2026",
+          "https://www.myvbs.org/lfbc2026/child-register",
+          "https://locustfield.churchtrac.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

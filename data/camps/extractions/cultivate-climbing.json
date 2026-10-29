@@ -1,0 +1,215 @@
+{
+  "provider": {
+    "key": "cultivate-climbing",
+    "name": "Cultivate Climbing",
+    "urls": ["https://cultivateclimbing.com/summer-camp/", "https://cultivateclimbing.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:00.867Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0e522f566e379c11b014bdf7b166ae22412dad4099b506841e9ecd350d04086a",
+  "response": {
+    "searches": [
+      "site:cultivateclimbing.com camp 2027",
+      "open https://cultivateclimbing.com/summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 24628,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1397,
+      "reasoningTokens": 104
+    },
+    "status": "completed",
+    "ms": 34669,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cultivateclimbing.com/summer-camp/",
+      "chars": 13724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cultivateclimbing.com/",
+      "chars": 15643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cultivateclimbing.com/rates-specials/",
+      "chars": 13456,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cultivateclimbing.com/about-us/faq/",
+      "chars": 12345,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cultivate Climbing",
+    "website_url": "https://cultivateclimbing.com/",
+    "notes": "No summer 2027 camp information or registration milestones were found. The camp page lists dates without an explicit season year; they are recorded as 2026 from the page's 2026 context and require confirmation. Registration buttons were present in the supplied text, but their destination could not be retrieved.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp",
+        "reason": "April 6–10 is outside summer."
+      },
+      {
+        "name": "Youth Climbing Teams",
+        "reason": "Ongoing youth team training, not a finite summer camp offering."
+      },
+      {
+        "name": "Yoga and Pilates Classes",
+        "reason": "Ongoing classes, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult-only classes."
+      },
+      {
+        "name": "Community Programs",
+        "reason": "Recurring community and affinity-group activities rather than finite supervised youth summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice indoor climbing with coaches and take part in interactive games and creative activities. Each week includes a midweek outing when weather allows.",
+        "camp_page_url": "https://cultivateclimbing.com/summer-camp/",
+        "registration_url": "https://cultivateclimbing.com/summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Foundy Street",
+            "address": "37 Foundy Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:30",
+          "text": "8:30 AM – 3:30 PM (full-day). Drop-off: 8:30–8:45 AM. Pick-up: 3:30–3:45 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "members",
+            "year": 2026
+          },
+          {
+            "amount": 425,
+            "unit": "week",
+            "label": "non-members",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June 8-12",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 15-19",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 22-26",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 6-10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 13-17",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 20-24",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "families pack lunch"
+        },
+        "transportation": null,
+        "sources": ["https://cultivateclimbing.com/summer-camp/", "https://cultivateclimbing.com/"],
+        "confidence": "medium",
+        "review_notes": "Confirm the season year for dates and prices on the summer camp page: its camp details do not explicitly print a year, and 2026 was assigned from the page context, including its footer. Resolve the registration button destination. The page also states a sibling discount of $25 off each additional sibling."
+      }
+    ]
+  }
+}

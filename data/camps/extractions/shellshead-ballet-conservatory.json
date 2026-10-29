@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "shellshead-ballet-conservatory",
+    "name": "Shellshead Ballet Conservatory",
+    "urls": ["https://shellshead.com/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:16.851Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "04313a183e1afdfa4b497f69b6ae785d0c895dd5770011289c39dc4e1c1999f9",
+  "response": {
+    "searches": [
+      "site:shellshead.com summer intensive 2026 2027",
+      "open https://shellshead.com/class-information"
+    ],
+    "usage": {
+      "inputTokens": 14092,
+      "cachedInputTokens": 8223,
+      "outputTokens": 795,
+      "reasoningTokens": 94
+    },
+    "status": "completed",
+    "ms": 23061,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://shellshead.com/",
+      "chars": 4699,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shellshead.com/class-schedule-1",
+      "chars": 1959,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shellshead Ballet Conservatory",
+    "website_url": "https://shellshead.com/",
+    "notes": "No 2027 summer information or dated 2026 intensive schedule was found. The homepage describes an undated Summer Ballet Intensive. The class-information and contact pages returned no readable text when opened; the official contact page's search result confirmed the studio address. Homepage header and footer disagree on ZIP code, but agree on street, town and state.",
+    "excluded": [
+      {
+        "name": "Beginner Ballet Classes",
+        "reason": "Regular classes, not a finite summer program."
+      },
+      {
+        "name": "Intermediate Ballet Classes",
+        "reason": "Regular classes, not a finite summer program."
+      },
+      {
+        "name": "Advanced Ballet Classes",
+        "reason": "Regular classes, not a finite summer program."
+      },
+      {
+        "name": "Private Ballet Lessons",
+        "reason": "Ongoing individualized lessons, not a finite summer program."
+      },
+      {
+        "name": "FALL 2026 Schedule",
+        "reason": "Fall semester classes are outside summer; adult classes are also not youth camps."
+      },
+      {
+        "name": "Ballet Performances",
+        "reason": "Annual performances, not a supervised summer camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Ballet Intensive",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Students train in ballet technique, pointe work, variations and contemporary dance. Admission is by audition only.",
+        "camp_page_url": "https://shellshead.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shellshead Ballet Conservatory",
+            "address": "907 Buffalo Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://shellshead.com/", "https://shellshead.com/contact-us/"],
+        "confidence": "medium",
+        "review_notes": "The intensive description is undated; 2026 is a fallback year, not a confirmed intensive season. Confirm whether the program will run in 2027, its schedule and day format, and whether drop-off is at the published studio address. The homepage lists ZIP 37601 in the header and 37604 in the footer; the official contact search result lists 37601. July open-studio registration and current registration announcements concern regular or fall classes, not the summer intensive."
+      }
+    ]
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-buncombe-county-center",
+    "name": "N.C. Cooperative Extension — Buncombe County Center",
+    "urls": ["https://buncombe.ces.ncsu.edu/news/2026-4-h-summer-fun-day-camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:53:45.044Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a0d76d4fa0f3a678a3f4abdaa500402511b144fdd8fcb4a32e3072387eb74c3d",
+  "response": {
+    "searches": [
+      "site:buncombe.ces.ncsu.edu \"2027\" \"summer\"",
+      "open https://docs.google.com/document/d/1LfufQlKyP2ikMZdEO_MLjJiH8yp7HaI50fnL51pfkIs/mobilebasic",
+      "site:buncombe.ces.ncsu.edu \"2026\" \"Overnight Camp\"",
+      "site.bjpenn4h.org address"
+    ],
+    "usage": {
+      "inputTokens": 36382,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2548,
+      "reasoningTokens": 445
+    },
+    "status": "completed",
+    "ms": 60519,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-summer-fun-day-camps/",
+      "chars": 5895,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/document/d/1LfufQlKyP2ikMZdEO_MLjJiH8yp7HaI50fnL51pfkIs/edit?usp=sharing",
+      "chars": 448,
+      "method": "fetch"
+    },
+    {
+      "url": "https://buncombe.ces.ncsu.edu/",
+      "chars": 6811,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Buncombe County Center",
+    "website_url": "https://buncombe.ces.ncsu.edu/",
+    "notes": "No Buncombe County 2027 camp dates or registration milestones were found. The Summer Fun registration Google Doc could not be read beyond the supplied preview; export, mobile and published views returned no text, so day-camp sessions, ages, fees and locations remain unverified. Betsy-Jeff Penn's own homepage announces 2027 registration in late December/January, but this does not establish registration timing for Buncombe County's delegation.",
+    "excluded": [
+      {
+        "name": "4-H Clubs",
+        "reason": "Ongoing club activities rather than finite summer camps."
+      },
+      {
+        "name": "4-H School Programs",
+        "reason": "School-year classroom enrichment rather than summer camps."
+      },
+      {
+        "name": "North Carolina State University Summer Internship Program",
+        "reason": "Employment/internship program, not a youth camp."
+      },
+      {
+        "name": "Food Preservation and Sourdough Classes",
+        "reason": "Fall classes outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun Day Camps",
+        "type": "day",
+        "categories": ["cooking", "nature_outdoor", "arts", "academic"],
+        "description": "Youth participate in summer learning activities covering cooking, agriculture, world cultures and art.",
+        "camp_page_url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-summer-fun-day-camps/",
+        "registration_url": "https://docs.google.com/document/d/1LfufQlKyP2ikMZdEO_MLjJiH8yp7HaI50fnL51pfkIs/edit?usp=sharing",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": "09:00",
+          "text": "Registration will open on Monday, March 2nd at 9:00am.",
+          "url": "https://docs.google.com/document/d/1LfufQlKyP2ikMZdEO_MLjJiH8yp7HaI50fnL51pfkIs/edit?usp=sharing"
+        },
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 day camps; statement retained on the page after summer",
+          "text": "The Canning Camp is now full. All other day camps still have availability!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://buncombe.ces.ncsu.edu/news/2026-4-h-summer-fun-day-camps/",
+          "https://docs.google.com/document/d/1LfufQlKyP2ikMZdEO_MLjJiH8yp7HaI50fnL51pfkIs/edit?usp=sharing"
+        ],
+        "confidence": "medium",
+        "review_notes": "Read the full registration document to recover session names, dates, eligibility, prices and drop-off sites. The opening time is visible only in the supplied document preview. The Extension office is stated as the registration location, not explicitly as the camp drop-off location. Availability wording is from a page updated July 29, 2026 and should not be treated as future availability."
+      },
+      {
+        "name": "4-H Overnight Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers swim, canoe, practice archery and climb, with cabin stays and campfires. Older age bands include outdoor-skills campouts and off-site adventures.",
+        "camp_page_url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+        "registration_url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Betsy Jeff Penn 4-H Camp",
+            "address": "804 Cedar Lane",
+            "town": "Reidsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 555,
+            "unit": "session",
+            "label": "Traditional and Adventure campers",
+            "year": 2026
+          },
+          {
+            "amount": 605,
+            "unit": "session",
+            "label": "Trekker program",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Traditional Campers",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Adventurer Campers",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Trekker Campers",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "FULL AND PARTIAL SCHOLARSHIPS ARE AVAILABLE FOR 2026!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+          "https://bjpenn4h.org/about/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The introductory eligibility text says limited spaces are available for 13–14-year-olds in Adventure and Trekker programs, while the detailed Adventurer band says ages 12–13; detailed bands are used here. Confirm delegation drop-off arrangements: the published camp venue is in Reidsville, but no Buncombe departure site is stated."
+      },
+      {
+        "name": "LIT's (Leaders in Training)",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Teens work with a staff mentor on camp setup and behind-the-scenes tasks, with leadership training and team-building activities.",
+        "camp_page_url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+        "registration_url": "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 15,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Betsy Jeff Penn 4-H Camp",
+            "address": "804 Cedar Lane",
+            "town": "Reidsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://buncombe.ces.ncsu.edu/news/2026-4-h-overnight-camp/",
+          "https://bjpenn4h.org/about/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and venue are taken from the county overnight-camp page's overall trip; the LIT section does not separately repeat them. Confirm LIT participation in that county week and its tuition. An application is required before acceptance."
+      }
+    ]
+  }
+}

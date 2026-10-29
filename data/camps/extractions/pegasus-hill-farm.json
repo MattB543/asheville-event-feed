@@ -1,0 +1,157 @@
+{
+  "provider": {
+    "key": "pegasus-hill-farm",
+    "name": "Pegasus Hill Farm",
+    "urls": ["https://pegasushillfarm.com/services/"],
+    "area": "Alexander, NC",
+    "discovered_by": ["seed_sheet", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:20.270Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "28a5d668d2bdec1c7a0f4cc6f60eda5c367b35228618669ae7b14bc59e6bd791",
+  "response": {
+    "searches": [
+      "site:pegasushillfarm.com camp Fledgling Wings",
+      "site:pegasushillfarm.com \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 19198,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1307,
+      "reasoningTokens": 226
+    },
+    "status": "completed",
+    "ms": 36343,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pegasushillfarm.com/services/",
+      "chars": 2032,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.pegasushillfarm.com/riding-camps",
+      "chars": 1846,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pegasushillfarm.com/",
+      "chars": 1846,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pegasus Hill Farm",
+    "website_url": "https://pegasushillfarm.com/",
+    "notes": "No dated 2026 or 2027 camp information was found. The undated Services page still lists Fledgling at $350/week and Wings at $450/week; these prices are omitted because their season cannot be established. The newest camp registration PDF found is from 2018, so its dates, ages, hours and care arrangements were not carried forward. Several official URLs returned empty text when opened; their indexed official-page text was available in search results.",
+    "excluded": [
+      {
+        "name": "Riding Lessons",
+        "reason": "Year-round private, duet and group lessons, rather than a finite summer program."
+      },
+      {
+        "name": "Horse show coaching and local show season",
+        "reason": "Ongoing show participation and coaching across spring, summer and fall, rather than a summer camp or finite youth clinic."
+      },
+      {
+        "name": "Birthday parties",
+        "reason": "Private parties, not a scheduled summer youth program."
+      },
+      {
+        "name": "Amy Jones clinic",
+        "reason": "The historical flyer describes an October clinic, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fledgling",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "A youth horseback riding camp at Pegasus Hill Farm.",
+        "camp_page_url": "https://pegasushillfarm.com/services/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pegasus Hill Farm",
+            "address": "217 Flint Hill Road",
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pegasushillfarm.com/services/",
+          "https://pegasushillfarm.com/how-to-contact-the-best-place-to-ride/",
+          "https://pegasushillfarm.com/wp-content/uploads/2018/06/PHF_CampRegistration_2018.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that Fledgling is still offered for 2027. The Services page is undated; day-camp format is supported only by the historical 2018 registration PDF. No dated 2026 season was found; season.year is a fallback with no dates asserted. Address was verified through indexed text of the official Contact Us page."
+      },
+      {
+        "name": "Wings",
+        "type": "clinic",
+        "categories": ["horses"],
+        "description": "A youth horseback riding clinic historically described as an intermediate/advanced offering.",
+        "camp_page_url": "https://pegasushillfarm.com/services/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pegasus Hill Farm",
+            "address": "217 Flint Hill Road",
+            "town": "Alexander",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pegasushillfarm.com/services/",
+          "https://pegasushillfarm.com/how-to-contact-the-best-place-to-ride/",
+          "https://pegasushillfarm.com/wp-content/uploads/2018/06/PHF_CampRegistration_2018.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that Wings is still offered for 2027 and retains its intermediate/advanced clinic format. The Services page is undated; the clinic classification and skill level come from the historical 2018 registration PDF, available through official search snippets. No dated 2026 season was found; season.year is a fallback with no dates asserted. Address was verified through indexed text of the official Contact Us page."
+      }
+    ]
+  }
+}

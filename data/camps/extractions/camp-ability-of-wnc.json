@@ -1,0 +1,123 @@
+{
+  "provider": {
+    "key": "camp-ability-of-wnc",
+    "name": "Camp Ability of WNC",
+    "urls": ["https://www.campabilitywnc.org/", "https://www.campabilitywnc.org/services"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:00.058Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0277a7c5c6f466d0bf8ec914c4a1e86645ec72b37a57538f9a5815ae2dfc543e",
+  "response": {
+    "searches": ["site:campabilitywnc.org 2027 camp", "\"campabilitywnc.org\""],
+    "usage": {
+      "inputTokens": 21596,
+      "cachedInputTokens": 8223,
+      "outputTokens": 978,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 24737,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campabilitywnc.org/",
+      "chars": 1231,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campabilitywnc.org/services",
+      "chars": 1222,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSfxbKpwFEhkKvKy8d57zlqbeGUpoW6SnMhQfN8knIN6Dxd_3A/viewform?usp=header",
+      "chars": 505,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Ability of WNC",
+    "website_url": "https://www.campabilitywnc.org/",
+    "notes": "No 2027 information found. The official services page announces 2026 but retains a 2025 page title and links to a closed 2025 registration form. No current camper drop-off location was confirmed; the Canton address is explicitly a mailing address. An older Weebly site names New Covenant Church, but its dates are not current and that venue was not carried forward.",
+    "excluded": [
+      {
+        "name": "Buddies",
+        "reason": "Volunteer recruitment and required training, not a camper program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Ability",
+        "type": "day",
+        "categories": ["general", "special_needs"],
+        "description": "Youth with special needs participate in therapeutic activities and are paired with a buddy who supports their needs and serves as a companion.",
+        "camp_page_url": "https://www.campabilitywnc.org/services",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfxbKpwFEhkKvKy8d57zlqbeGUpoW6SnMhQfN8knIN6Dxd_3A/closedform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Support will be provided to meet the needs of all children, including any physical or medical needs."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campabilitywnc.org/",
+          "https://www.campabilitywnc.org/services",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfxbKpwFEhkKvKy8d57zlqbeGUpoW6SnMhQfN8knIN6Dxd_3A/closedform"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm Week 1's end date: the services page says 'Friday, July 16', but July 16, 2026 is Thursday. The numeric date is preserved rather than changed to July 17. Dates use the explicit 2026 heading despite the stale 2025 page title. The linked form says Camp Ability 2025 is full; this was not treated as 2026 or 2027 availability. Confirm a current registration link and camper drop-off venue."
+      }
+    ]
+  }
+}

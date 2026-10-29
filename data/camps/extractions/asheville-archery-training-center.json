@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "asheville-archery-training-center",
+    "name": "Asheville Archery Training Center",
+    "urls": ["https://www.ashevillearchery.org/summer-camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:27.764Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e7d069fede78d58043be76de63e83607708b7bf2541b8f8c45655140172eb07e",
+  "response": {
+    "searches": [
+      "site:ashevillearchery.org \"2027\"",
+      "\"Asheville Archery\" \"summer\" \"2026\" registration"
+    ],
+    "usage": {
+      "inputTokens": 18701,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1114,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 29025,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillearchery.org/summer-camp",
+      "chars": 5240,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillearchery.org/",
+      "chars": 2143,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Archery Training Center",
+    "website_url": "https://www.ashevillearchery.org/",
+    "notes": "No official 2027 summer camp information or registration opening date was found. The card uses the explicitly labeled 2026 camp information supplied from the official page. Live opens of the camp and programs pages returned no readable text; official search results corroborated the supplied camp details. The destinations of the camp page's two CLICK HERE registration links could not be resolved.",
+    "excluded": [
+      {
+        "name": "Intro to archery (adult)",
+        "reason": "Recurring class, not a summer-specific youth camp."
+      },
+      {
+        "name": "Intro to archery (kids)",
+        "reason": "Recurring four-week class, not a summer-specific camp."
+      },
+      {
+        "name": "Intro to Compound archery",
+        "reason": "Recurring class, not a summer-specific camp."
+      },
+      {
+        "name": "intermediate",
+        "reason": "Ongoing archery training with weekly practices."
+      },
+      {
+        "name": "AATC TEAM",
+        "reason": "Ongoing competition team and practice program."
+      },
+      {
+        "name": "AATC COMPOUND TEAM",
+        "reason": "Ongoing competition team and practice program."
+      },
+      {
+        "name": "Assistant Archery Coach",
+        "reason": "Employment opportunity, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers learn Olympic recurve archery, including range safety, equipment setup and shooting technique, with equipment provided. Each five-day session concludes with an in-house tournament.",
+        "camp_page_url": "https://www.ashevillearchery.org/summer-camp",
+        "registration_url": "https://www.ashevillearchery.org/summer-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Archery Training Center",
+            "address": "1426 Brevard Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am-12pm Monday to Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.ashevillearchery.org/summer-camp"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

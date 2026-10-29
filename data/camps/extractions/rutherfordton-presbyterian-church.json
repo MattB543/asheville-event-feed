@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "rutherfordton-presbyterian-church",
+    "name": "Rutherfordton Presbyterian Church",
+    "urls": ["https://www.rpcnc.org/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:28:19.940Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "542e156678d38b1af60034bb6581f9e00920f151f942fe29684bb9da67894483",
+  "response": {
+    "searches": ["site:rpcnc.org \"Bible\"", "\"Rutherfordton Presbyterian\" \"vacation\""],
+    "usage": {
+      "inputTokens": 20302,
+      "cachedInputTokens": 8223,
+      "outputTokens": 558,
+      "reasoningTokens": 109
+    },
+    "status": "completed",
+    "ms": 25439,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.rpcnc.org/",
+      "chars": 1109,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rutherfordton Presbyterian Church",
+    "website_url": "https://www.rpcnc.org/",
+    "notes": "No 2027 summer information found. The church's Rpcnc.org YouTube channel confirms Vacation Bible School with the Rainforest Falls theme in June 2026, but exact dates, ages, hours, prices and registration details were not found.",
+    "excluded": [
+      {
+        "name": "Music Makers",
+        "reason": "Recurring Sunday program for grades K–5, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring church education, not a finite summer camp."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Ongoing church nursery, not summer-only childcare."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Vacation Bible School with the Rainforest Falls theme. The 2026 lessons included God as creator and God as a safe place.",
+        "camp_page_url": "https://www.youtube.com/watch?v=BLZ6jfpuh-Y",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.youtube.com/watch?v=BLZ6jfpuh-Y",
+          "https://www.youtube.com/watch?v=fwzLtgsJSMM",
+          "https://www.youtube.com/watch?v=hVK9f9BJKfE",
+          "https://www.rpcnc.org/what-we-do/childrens-ministry",
+          "https://www.rpcnc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The church's YouTube search results explicitly identify June 2026, but provide no exact dates or enrollment details. Confirm the drop-off venue; the church publishes 252 North Washington Street, Rutherfordton, NC, but the VBS descriptions do not explicitly identify the meeting site."
+      }
+    ]
+  }
+}

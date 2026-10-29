@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "yellow-hill-baptist-church-of-cherokee",
+    "name": "Yellow Hill Baptist Church of Cherokee",
+    "urls": ["https://www.facebook.com/yhbaptistcherokee/"],
+    "area": "Cherokee, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:38:26.256Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Yellow Hill Baptist Church Cherokee VBS 2026",
+      "site:facebook.com/yhbaptistcherokee \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 21201,
+      "cachedInputTokens": 8223,
+      "outputTokens": 303,
+      "reasoningTokens": 152
+    },
+    "status": "completed",
+    "ms": 12890,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/yhbaptistcherokee/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Yellow Hill Baptist Church of Cherokee",
+    "website_url": null,
+    "notes": "No standalone official website was found. The supplied Facebook page returned no readable text. Search results surfaced older official Vacation Bible School posts, but no verifiable 2026 or 2027 summer program information. A third-party AllEvents listing advertises a 2025 Vacation Bible School beginning July 7, 2025; this was not used to populate a 2026 or 2027 card. No cards are returned because current summer offerings could not be verified; this does not establish that the church has stopped offering VBS. Review the church's Facebook page directly for newer announcements.",
+    "excluded": [],
+    "cards": []
+  }
+}

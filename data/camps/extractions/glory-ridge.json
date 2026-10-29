@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "glory-ridge",
+    "name": "Glory Ridge",
+    "urls": ["https://www.gloryridge.org/summer-ministry", "https://www.gloryridge.org/"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:20.118Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c719578740a11af1c4b1a291ebb7f9fc7950a8dc803cdc5d56e03e8dbe372cf2",
+  "response": {
+    "searches": [
+      "site:gloryridge.org 2027 summer",
+      "site:gloryridge.org \"address\" \"Road\"",
+      "\"Glory Ridge\" \"548\"",
+      "\"Glory Ridge\" \"Marshall\" \"address\" camp",
+      "open https://static1.squarespace.com/static/67a2a521088a5514f0bd32c4/t/6a0cf3d6427dea4a4502b66d/1779233751122/Glory%2BRidge%2BSpring%2B2026%2BNewsletter%2BEMAIL%2B%28small%29.pdf"
+    ],
+    "usage": {
+      "inputTokens": 28599,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1271,
+      "reasoningTokens": 390
+    },
+    "status": "completed",
+    "ms": 42594,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gloryridge.org/summer-ministry",
+      "chars": 5026,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gloryridge.org/",
+      "chars": 5287,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gloryridge.org/blog/register-for-homecoming-week-2026",
+      "chars": 2030,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Glory Ridge",
+    "website_url": "https://www.gloryridge.org/",
+    "notes": "No 2027 camper dates or registration milestones found. The official site advertises 2027 summer staff applications, which are employment rather than camper registration. The Spring 2026 newsletter was readable only as partial extracted text; it lists weekly arrival dates but not departure dates. The official contact page publishes only a PO Box, not a physical camp address.",
+    "excluded": [
+      {
+        "name": "Homecoming Week",
+        "reason": "A reunion/service gathering for former staff and friends; not presented as a supervised youth camp."
+      },
+      {
+        "name": "Sabbath Ministry",
+        "reason": "Retreat ministry offered during non-summer months."
+      },
+      {
+        "name": "365 Day Prayer Presence",
+        "reason": "Year-round prayer visits for individuals and groups, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Seasonal employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Ministry",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Church youth groups stay for weeklong mission trips and help Madison County residents with home repairs. Camp life includes shared meals, chores, recreation, devotions and evening worship.",
+        "camp_page_url": "https://www.gloryridge.org/summer-ministry",
+        "registration_url": "https://www.gloryridge.org/contact",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Glory Ridge",
+            "address": null,
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We do not charge a set fee per group or per camper and do not want cost to be a barrier for any group or person wanting to come experience Glory Ridge."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:30 Work teams break for lunch at the sites"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.gloryridge.org/summer-ministry",
+          "https://www.gloryridge.org/about",
+          "https://www.gloryridge.org/contact",
+          "https://www.gloryridge.org/blog/the-grapevine-spring-2026",
+          "https://static1.squarespace.com/static/67a2a521088a5514f0bd32c4/t/6a0cf3d6427dea4a4502b66d/1779233751122/Glory%2BRidge%2BSpring%2B2026%2BNewsletter%2BEMAIL%2B%28small%29.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the physical drop-off address and weekly departure dates with the provider. The Spring 2026 newsletter lists arrivals May 31, June 7, June 14, June 28, July 5, July 12, July 19, July 26 and August 2; June 21 is Homecoming Week. Sessions are omitted because departure dates are not stated, and no dates were projected from the weeklong description. Registration is by group inquiry through the contact page, not an individual camper registration form. Meals are prepared by adults from visiting groups; the lunch statement is from the sample daily schedule."
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "west-burnsville-baptist-church-of-burnsville",
+    "name": "West Burnsville Baptist Church of Burnsville",
+    "urls": ["https://westbbchurch.org/outreach"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:43.293Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "36e80f66eed5d14b201d83ca90ad59670b81276cd2c0a1f99cd6d2223ec9bdb5",
+  "response": {
+    "searches": [
+      "\"West Burnsville Baptist\" \"VBS\" \"2026\"",
+      "\"West Burnsville\" \"Vacation Bible\"",
+      "site:facebook.com/wburnsvillebc \"2026\" \"Illumination\""
+    ],
+    "usage": {
+      "inputTokens": 19778,
+      "cachedInputTokens": 8223,
+      "outputTokens": 805,
+      "reasoningTokens": 239
+    },
+    "status": "completed",
+    "ms": 26159,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://westbbchurch.org/outreach",
+      "chars": 935,
+      "method": "fetch"
+    },
+    {
+      "url": "https://westbbchurch.org/",
+      "chars": 1009,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West Burnsville Baptist Church of Burnsville",
+    "website_url": "https://westbbchurch.org/",
+    "notes": "No 2027 summer details were found. The official outreach page lists Vacation Bible School without dates, ages, hours or prices. A third-party search result mentions Illumination Station VBS starting June 7, 2026, but complete details could not be verified on an official page, so those dates are omitted. The Church Center registration page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Christmas Pageant",
+        "reason": "Outside the summer."
+      },
+      {
+        "name": "TeamKID",
+        "reason": "Recurring Wednesday-night youth program, not a finite summer camp."
+      },
+      {
+        "name": "Youth Bible Study",
+        "reason": "Recurring church program, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School Grow Groups",
+        "reason": "Recurring classes, not summer camp programs."
+      },
+      {
+        "name": "Evangelism Training",
+        "reason": "No finite summer youth camp offering is stated."
+      },
+      {
+        "name": "C.A.R.E. (Christians Actively Reaching Everyone)",
+        "reason": "Outreach ministry, not a stated summer youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "V.B.S. (Vacation Bible School)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School as an outreach program. Specific camper activities are not described on its outreach page.",
+        "camp_page_url": "https://westbbchurch.org/outreach",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://westbbchurch.org/outreach", "https://westbbchurch.org/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

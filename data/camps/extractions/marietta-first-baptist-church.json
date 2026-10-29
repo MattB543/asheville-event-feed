@@ -1,0 +1,89 @@
+{
+  "provider": {
+    "key": "marietta-first-baptist-church",
+    "name": "Marietta First Baptist Church",
+    "urls": ["https://www.mfbc-sc.org/event/vbs-2"],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:18.074Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f4ac0688c5b82b727818fe64a1738de3432a86c94c4f8db28dcd24df21a96cd2",
+  "response": {
+    "searches": ["site:mfbc-sc.org VBS 2027 2026"],
+    "usage": {
+      "inputTokens": 13394,
+      "cachedInputTokens": 8223,
+      "outputTokens": 445,
+      "reasoningTokens": 54
+    },
+    "status": "completed",
+    "ms": 16051,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mfbc-sc.org/event/vbs-2",
+      "chars": 570,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mfbc-sc.org/",
+      "chars": 2564,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Marietta First Baptist Church",
+    "website_url": "https://www.mfbc-sc.org/",
+    "notes": "No 2027 summer information found. The 2026 VBS event page provides dates and event boundary times but no ages, activities, pricing or registration information. Search results for mariettafbc.org refer to a different church and were not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A Vacation Bible School program offered by Marietta First Baptist Church.",
+        "camp_page_url": "https://www.mfbc-sc.org/event/vbs-2",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Marietta First Baptist Church",
+            "address": "2936 Geer Hwy",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "The event listing starts June 7 at 5:30 PM and ends June 11 at 8:30 PM; daily hours are not explicitly stated."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.mfbc-sc.org/event/vbs-2", "https://www.mfbc-sc.org/"],
+        "confidence": "medium",
+        "review_notes": "The church address is published in the footer, but the VBS listing does not explicitly identify its meeting location. Confirm that camp meets at the church and whether 5:30–8:30 PM applies each evening."
+      }
+    ]
+  }
+}

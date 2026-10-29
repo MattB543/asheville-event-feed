@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "newfound-baptist-church-of-leicester",
+    "name": "Newfound Baptist Church of Leicester",
+    "urls": ["https://www.newfoundbaptist.com/vbs", "https://www.newfoundbaptist.com/"],
+    "area": "Leicester, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:06.397Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a155c9e02478f15d76994f88a3f7d956dcd26ebc993ce879fd5464440a8c67bc",
+  "response": {
+    "searches": [
+      "site.newfoundbaptist.com \"VBS\" \"2026\"",
+      "\"Newfound Baptist\" \"July 26\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 17748,
+      "cachedInputTokens": 8223,
+      "outputTokens": 922,
+      "reasoningTokens": 151
+    },
+    "status": "completed",
+    "ms": 27225,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.newfoundbaptist.com/vbs",
+      "chars": 2184,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newfoundbaptist.com/",
+      "chars": 1577,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newfound Baptist Church of Leicester",
+    "website_url": "https://www.newfoundbaptist.com/",
+    "notes": "No summer 2027 information was found. The VBS page does not print a year; its dates are provisionally recorded as 2026 because July 31 falls on Friday in 2026, matching the stated Friday family night.",
+    "excluded": [
+      {
+        "name": "Family Night",
+        "reason": "Family-only VBS celebration on July 31, not a separate supervised youth camp."
+      },
+      {
+        "name": "Awana Clubs",
+        "reason": "Recurring school-year ministry, not a finite summer program."
+      },
+      {
+        "name": "Children's Bible Study",
+        "reason": "Recurring ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "October event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in music, Bible stories, crafts, and recreation. The Emerald Crossing theme explores Psalm 23 and David's story.",
+        "camp_page_url": "https://www.newfoundbaptist.com/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Newfound Baptist Church",
+            "address": "2605 New Leicester Hwy",
+            "town": "Leicester",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:45",
+          "end": "20:45",
+          "text": "5:45-8:45 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Please contact the church office if you need transportation assistance at 683-3178."
+        },
+        "sources": ["https://www.newfoundbaptist.com/vbs", "https://www.newfoundbaptist.com/"],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of July 26-30 with the church: the VBS page omits it, and 2026 is inferred from the stated Friday family night on July 31. Eligibility includes preschoolers aged 4 and 5 who are at least 4 and potty trained at the beginning of VBS, plus children who have completed kindergarten through eighth grade; no overall maximum age is stated. The page says online registration has ended and directs families to register in person at the Welcome Center, so it does not establish that the program itself is closed. July 19 is a prize-drawing eligibility deadline, not a stated registration closing date."
+      }
+    ]
+  }
+}

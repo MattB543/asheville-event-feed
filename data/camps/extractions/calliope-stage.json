@@ -1,0 +1,209 @@
+{
+  "provider": {
+    "key": "calliope-stage",
+    "name": "Calliope Stage",
+    "urls": ["https://www.calliopestage.com/camp2026"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:42.723Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4a30a80a9679f36e73b161b5359b71160a0a7bb88b9d1e0204ae357273700c8f",
+  "response": {
+    "searches": [
+      "site.calliopestage.com camp 2027",
+      "open https://www.calliopestage.com/upcoming/teen-playwriting-summer-intensive",
+      "site:calliopestagecompany.ticketspice.com \"2026\" \"playwriting\""
+    ],
+    "usage": {
+      "inputTokens": 22958,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1682,
+      "reasoningTokens": 305
+    },
+    "status": "completed",
+    "ms": 39398,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.calliopestage.com/camp2026",
+      "chars": 7646,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.calliopestage.com/",
+      "chars": 1508,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Calliope Stage",
+    "website_url": "https://www.calliopestage.com/",
+    "notes": "No summer 2027 information found. Cards retain 2026 facts. Youth camp weeks are grouped under the provider's Summer Youth Theatre Camps offering. Registration platforms were located but returned no readable page content; availability and registration opening dates could not be verified.",
+    "excluded": [
+      {
+        "name": "Fall 2026 Youth Arts Classes",
+        "reason": "Weekly fall classes outside summer."
+      },
+      {
+        "name": "Fall 2026 Pop-Up Workshops",
+        "reason": "Workshops outside summer."
+      },
+      {
+        "name": "POP UP WORKSHOP w/Toby: Acting!",
+        "reason": "March 28 workshops outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Teen Playwriting Intensive",
+        "type": "evening",
+        "categories": ["theater"],
+        "description": "Participants learn playwriting fundamentals through writing exercises and improvisation and collaboratively create two short scripts for the youth camps to produce. Participants may also serve as production assistants during the subsequent youth camps.",
+        "camp_page_url": "https://www.calliopestage.com/camp2026",
+        "registration_url": "https://calliopestagecompany.ticketspice.com/calliope-stage-teen-playwriting-camp-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-05-30",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Calliope Stage",
+            "address": "513 Mill Street",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:30",
+          "end": "18:30",
+          "text": "May 26-29 from 4:30-6:30pm; May 30 from 2:30-6:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available until funds are used."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.calliopestage.com/camp2026",
+          "https://www.calliopestage.com/upcoming/teen-playwriting-summer-intensive",
+          "https://www.calliopestage.com/booking"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Youth Theatre Camps",
+        "type": "day",
+        "categories": ["theater", "arts", "music", "dance"],
+        "description": "The design and production week teaches set, prop, costume, lighting and sound design using scripts written by teen participants. The performance week teaches acting, music, improvisation and movement and culminates in a staged performance.",
+        "camp_page_url": "https://www.calliopestage.com/camp2026",
+        "registration_url": "https://calliopestagecompany.ticketspice.com/calliope-stage-youth-camps-2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cullowhee Baptist Church",
+            "address": "148 Central Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9am-3pm each day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 180,
+            "unit": "week",
+            "label": "10% discount if your child registers for both weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Design & Production Tech Camp",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Youth Theatre Performance Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available until funds are used."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.calliopestage.com/camp2026",
+          "https://www.calliopestage.com/upcoming/teen-playwriting-summer-intensive-8s2a2",
+          "https://www.calliopestage.com/upcoming/teen-playwriting-summer-intensive-8s2a2-xprn7",
+          "https://cullowheebaptist.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The FAQ schedule says performance camp June 8-12, but the registration icon caption says June 8-10. The official performance event confirms June 8-12. Both youth event calendar headers show 8am-4pm, conflicting with the FAQ's explicit 9am-3pm daily schedule; this card uses the FAQ hours. Verify these conflicts with the provider."
+      }
+    ]
+  }
+}

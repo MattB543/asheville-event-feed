@@ -1,0 +1,161 @@
+{
+  "provider": {
+    "key": "fired-up-creative-lounge",
+    "name": "Fired Up Creative Lounge",
+    "urls": ["https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:38.571Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "157f467b8f1e7cfc3b876deff05b59e460805969cb2f3e80c67ad118c4f4a0d3",
+  "response": {
+    "searches": [
+      "site:fireduplounge.com \"Summer Camp\" \"2026\"",
+      "site:fireduplounge.com/event/ \"Summer Camp Asheville\" \"26\" \"July\""
+    ],
+    "usage": {
+      "inputTokens": 40857,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1019,
+      "reasoningTokens": 147
+    },
+    "status": "completed",
+    "ms": 25921,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
+      "chars": 2970,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fireduplounge.com/wp-content/uploads/RainbowBox.jpg",
+      "chars": 12668,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fireduplounge.com/wp-content/uploads/download-1.jpg",
+      "chars": 4942,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fireduplounge.com/events/category/summer-camp/",
+      "chars": 1745,
+      "method": "fetch"
+    },
+    {
+      "url": "https://squareup.com/customer-programs/enroll/UWY18CjXj9bt",
+      "chars": 447,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fireduplounge.com/",
+      "chars": 3004,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fired Up Creative Lounge",
+    "website_url": "https://fireduplounge.com/",
+    "notes": "No summer 2027 information or registration announcement was found. Only one 2026 camp session could be verified; older camp listings were not used to fill 2026 details. The upcoming Summer Camp calendar lists no events.",
+    "excluded": [
+      {
+        "name": "“Try-It-Out” Wheel Lessons",
+        "reason": "Year-round pottery lessons for general audiences, not a summer youth program."
+      },
+      {
+        "name": "Paint Your Own Pottery, Glass Fusing, and Canvas Painting",
+        "reason": "Year-round walk-in studio activities, not finite supervised summer youth programs."
+      },
+      {
+        "name": "Holiday Painting Party",
+        "reason": "November event outside summer."
+      },
+      {
+        "name": "Parties & Groups",
+        "reason": "Year-round private parties and group bookings, not scheduled summer youth programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fired Up Art Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers work on pottery wheel projects, clay hand building, pottery painting, glass fusing, and canvas painting.",
+        "camp_page_url": "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
+        "registration_url": "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fired Up! Asheville",
+            "address": "26 Wall Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "12:30",
+          "text": "Monday – Friday, 9:30 am – 12:30 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 245,
+            "unit": "week",
+            "label": "5-Day Camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Summer Camp Asheville 6/22/26-6/26/26",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "June 22–26, 2026 session",
+          "text": "Tickets are no longer available"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fireduplounge.com/event/summer-camp-asheville-6-22-26-6-26-26-52641/",
+          "https://fireduplounge.com/",
+          "https://fireduplounge.com/events/category/summer-camp/",
+          "https://fireduplounge.com/studio/fired-up-asheville/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

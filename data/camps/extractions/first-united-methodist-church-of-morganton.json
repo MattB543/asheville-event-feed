@@ -1,0 +1,95 @@
+{
+  "provider": {
+    "key": "first-united-methodist-church-of-morganton",
+    "name": "First United Methodist Church of Morganton",
+    "urls": ["https://www.firstumcmorganton.org/music-arts-camp-2025"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:07:12.773Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "090be80c42a4e61238c01ddb67fe32ffa8e99c1f52112825260ca56571ce671b",
+  "response": {
+    "searches": [
+      "site:firstumcmorganton.org \"camp\" \"2026\"",
+      "open https://www.firstumcmorganton.org/programs/childrens-ministries-birth-5th-grade",
+      "\"First United Methodist\" \"Morganton\" \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20171,
+      "cachedInputTokens": 8223,
+      "outputTokens": 840,
+      "reasoningTokens": 240
+    },
+    "status": "completed",
+    "ms": 33045,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstumcmorganton.org/music-arts-camp-2025",
+      "chars": 1047,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstumcmorganton.org/",
+      "chars": 1005,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First United Methodist Church of Morganton",
+    "website_url": "https://www.firstumcmorganton.org/",
+    "notes": "No 2027 or 2026 camp information was found. The only identifiable camp page is explicitly titled Music & Arts Camp 2025; its historical eligibility information is retained without projecting it forward. The camp and children's ministry pages returned no readable content when opened, and embedded files and registration forms could not be inspected. The church's denominational directory lists 200 N. King Street, Morganton, NC 28655, but the readable camp text does not establish the drop-off location.",
+    "excluded": [
+      {
+        "name": "Student Ministries",
+        "reason": "Weekly, year-round youth ministry meetings rather than a finite summer camp."
+      },
+      {
+        "name": "Christmas Cookies, Cocoa, & Crafts!",
+        "reason": "Christmas program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Music & Arts Camp",
+        "type": "day",
+        "categories": ["music", "arts"],
+        "description": "A children's music and arts camp with separate registration groups for pre-K and rising kindergarten, and rising first grade and up.",
+        "camp_page_url": "https://www.firstumcmorganton.org/music-arts-camp-2025",
+        "registration_url": null,
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.firstumcmorganton.org/music-arts-camp-2025"],
+        "confidence": "low",
+        "review_notes": "Only the 2025 page title and registration-group labels were readable. Confirm whether the camp returns in 2027, its day-camp format, activities, location, dates, hours, fees and eligibility. The page says 'Registration for Rising 1st Grade and Up' and 'Registration for Pre-K and Rising Kindergarten'; no upper grade is stated, and pre-K itself is not explicitly described as rising. No session rows were created because dates are unavailable."
+      }
+    ]
+  }
+}

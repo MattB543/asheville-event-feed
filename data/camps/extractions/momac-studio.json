@@ -1,0 +1,191 @@
+{
+  "provider": {
+    "key": "momac-studio",
+    "name": "MOMAC Studio",
+    "urls": ["https://momacstudio.com/summer-camps/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:28.328Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0702b3df49a10ef311182d1df82d8e8e1268aa74d6f6333e56ab711f442b6d73",
+  "response": {
+    "searches": ["site:momacstudio.com summer camp 2027", "\"MOMAC\" \"2026\" \"camp\""],
+    "usage": {
+      "inputTokens": 20230,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1468,
+      "reasoningTokens": 177
+    },
+    "status": "completed",
+    "ms": 35562,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://momacstudio.com/summer-camps/",
+      "chars": 833,
+      "method": "fetch"
+    },
+    {
+      "url": "https://momacstudio.com/httpswww-facebook-comnotesmomac-studiofall-2016-art-class-schedule513250325496356sample-page/",
+      "chars": 559,
+      "method": "fetch"
+    },
+    {
+      "url": "https://momacstudio.com/",
+      "chars": 1155,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "MOMAC Studio",
+    "website_url": "https://momacstudio.com/",
+    "notes": "No summer 2027 information was found. The summer page lists 2026 dates but does not expose ages, hours, prices or a usable registration destination in the readable text. Direct web opens returned no readable content; the supplied page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "K-12 Classes",
+        "reason": "School-year art classes advertised for 2026–2027, not a finite summer camp."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult-only art classes."
+      },
+      {
+        "name": "Art Parties",
+        "reason": "Private party bookings, not an advertised supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Camps",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers participate in art activities at MOMAC Studio.",
+        "camp_page_url": "https://momacstudio.com/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "MOMAC Studio",
+            "address": "2203 McKinley Road, Suite 230",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June 8th – 12th",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 15 – 19th",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 22nd – 26th",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 6th – 10th",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://momacstudio.com/summer-camps/", "https://momacstudio.com/contact-us/"],
+        "confidence": "medium",
+        "review_notes": "The 2026 heading establishes the year of the dates. The page also lists June 8th – July 10th without explaining whether this is an overall span or a separate enrollment option; it was treated as the overall span, not an additional session. Confirm daytime format and studio drop-off location, which are not explicitly detailed in the readable camp text. The official contact page warns that GPS takes visitors to the back of the building."
+      },
+      {
+        "name": "Writing Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "A three-day camp focused on writing.",
+        "camp_page_url": "https://momacstudio.com/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-15",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "MOMAC Studio",
+            "address": "2203 McKinley Road, Suite 230",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://momacstudio.com/summer-camps/", "https://momacstudio.com/contact-us/"],
+        "confidence": "medium",
+        "review_notes": "The 2026 heading establishes the year of July 15–17. Only the camp name and dates are readable; confirm youth eligibility, daytime format and studio drop-off location. The official contact page warns that GPS takes visitors to the back of the building."
+      }
+    ]
+  }
+}

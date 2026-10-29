@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "foothills-baptist-church-of-travelers-rest",
+    "name": "Foothills Baptist Church of Travelers Rest",
+    "urls": ["https://www.foothillsbc.org/"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:32:32.587Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "178a96b1eba63a3bfeff2cbb63a5bff4ca764fdff10e63cd5bc2dd469533bec6",
+  "response": {
+    "searches": [
+      "site:foothillsbc.org VBS 2026 2027",
+      "open https://happeningnext.com/event/vbs-2026-illuminations-eid3a0dp85tig",
+      "\"\" \"Foothills Baptist\" \"Illuminations\"",
+      "\"Foothills Baptist Church\" \"VBS 2026 Illuminations\""
+    ],
+    "usage": {
+      "inputTokens": 31670,
+      "cachedInputTokens": 8223,
+      "outputTokens": 973,
+      "reasoningTokens": 288
+    },
+    "status": "completed",
+    "ms": 38721,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.foothillsbc.org/",
+      "chars": 620,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Foothills Baptist Church of Travelers Rest",
+    "website_url": "https://www.foothillsbc.org/",
+    "notes": "No 2027 summer information found. The official About page mentions VBS but does not publish dates, ages, hours, activities or registration details. A search result for a third-party event titled VBS 2026 Illuminations identifies this church's address, but the page could not be read. Official events, calendar and children's ministry search results supplied no additional summer details. Search results for foothillsbaptistchurch.com concern a different church in Loveland, Colorado and were not used.",
+    "excluded": [
+      {
+        "name": "Student Zone",
+        "reason": "Weekly Sunday and Wednesday student ministry, not a finite summer program."
+      },
+      {
+        "name": "Children's Ministry",
+        "reason": "Recurring Sunday and Wednesday classes and childcare, not summer-only programming."
+      },
+      {
+        "name": "Girls in Action (GA's), Royal Ambassadors (RA's), and Mission Friends",
+        "reason": "Recurring Sunday evening ministry programs, not finite summer camps."
+      },
+      {
+        "name": "Apple picking",
+        "reason": "October outing outside summer."
+      },
+      {
+        "name": "YOUTH-Bonfire",
+        "reason": "October event outside summer."
+      },
+      {
+        "name": "YOUTH Revival @ LHBC",
+        "reason": "October event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School, with youth participating in serving the program.",
+        "camp_page_url": "https://www.foothillsbc.org/gallery",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.foothillsbc.org/gallery",
+          "https://www.foothillsbc.org/",
+          "https://www.foothillsbc.org/event-forms",
+          "https://www.foothillsbc.org/events"
+        ],
+        "confidence": "low",
+        "review_notes": "The official About page confirms VBS only in a general ministry description. Verify that a summer 2027 program will run and obtain its dates, participant eligibility, activities and drop-off location. The unreadable third-party listing VBS 2026 Illuminations names 1204 N Highway 25, but an official summer announcement was not found to confirm the camp venue."
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "carr-s-hill-baptist-church-of-brevard",
+    "name": "Carr’s Hill Baptist Church of Brevard",
+    "urls": ["https://carrshillbaptist.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:29:30.892Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d256ea03725321b32436db43491d9c1cac2978e6c9a50ba99e5d597611f2c82a",
+  "response": {
+    "searches": [
+      "site:carrshillbaptist.com \"Vacation\"",
+      "\"Carr's Hill Baptist\" \"Vacation Bible\"",
+      "site:facebook.com/carrshillbaptist \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 25589,
+      "cachedInputTokens": 8223,
+      "outputTokens": 704,
+      "reasoningTokens": 267
+    },
+    "status": "completed",
+    "ms": 24741,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://carrshillbaptist.com/",
+      "chars": 11857,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carrshillbaptist.com/updates/",
+      "chars": 10410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carrshillbaptist.com/updates/welcome-to-carr-s-hill-baptist-church-website/",
+      "chars": 12261,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carr’s Hill Baptist Church of Brevard",
+    "website_url": "https://carrshillbaptist.com/",
+    "notes": "No 2027 summer information was found. The church's official YouTube search result identifies a video titled VBS 2026 with the description Launching Kids on a Mission of God’s Love, but the video page could not be read and no camp dates or enrollment details were found. The website directs visitors to Friends Who Like Carr's Hill Baptist Church on Facebook for announcements; searches did not uncover a current VBS announcement. Events and Children's Ministry pages returned no readable text when opened, although the Children's Ministry search result described weekly services.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Weekly, year-round religious classes, not a finite summer camp."
+      },
+      {
+        "name": "Children's Church",
+        "reason": "Weekly programming during Sunday worship, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A children's Vacation Bible School program focused on God's love.",
+        "camp_page_url": "https://www.youtube.com/live/pocsYOBi6eo",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.youtube.com/live/pocsYOBi6eo"],
+        "confidence": "low",
+        "review_notes": "Program existence and year are supported only by the church's official YouTube search result titled VBS 2026. The video could not be opened. Verify summer dates, ages, hours, registration and drop-off location with the church; its published church address is 2719 Greenville Highway, Brevard, NC, but no current camp source explicitly confirms the meeting site."
+      }
+    ]
+  }
+}

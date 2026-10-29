@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "east-fork-baptist-church-of-rosman",
+    "name": "East Fork Baptist Church of Rosman",
+    "urls": ["https://eastforkchurch.com/ministries"],
+    "area": "Rosman, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:29.877Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "36b6337e37384c2976a3177215ac348bebf9eb48f11385860b9bbb1ff61e67d9",
+  "response": {
+    "searches": [
+      "site:eastforkchurch.com VBS 2026 2027",
+      "\"East Fork Baptist Church\" \"VBS\" \"Rosman\""
+    ],
+    "usage": {
+      "inputTokens": 15619,
+      "cachedInputTokens": 8223,
+      "outputTokens": 594,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 17301,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastforkchurch.com/ministries",
+      "chars": 1555,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastforkchurch.com/",
+      "chars": 3149,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Fork Baptist Church of Rosman",
+    "website_url": "https://eastforkchurch.com/",
+    "notes": "The ministries page confirms a VBS week each summer, but no dated 2026 or 2027 VBS announcement or registration information was found. The calendar-of-events page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Children's Ministry Sunday and Wednesday programs",
+        "reason": "Recurring year-round church programs, not finite summer camps."
+      },
+      {
+        "name": "Bible Studies and Classes",
+        "reason": "General church Bible studies, not identified as summer youth camps."
+      },
+      {
+        "name": "Women's Ministry",
+        "reason": "Women's Bible studies and luncheons, not summer youth camps."
+      },
+      {
+        "name": "Men's Ministry",
+        "reason": "Quarterly men's breakfasts and community service, not summer youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers a week of Vacation Bible School each summer through its children's ministry.",
+        "camp_page_url": "https://eastforkchurch.com/ministries",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://eastforkchurch.com/ministries", "https://eastforkchurch.com/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

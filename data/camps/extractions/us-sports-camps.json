@@ -1,0 +1,543 @@
+{
+  "provider": {
+    "key": "us-sports-camps",
+    "name": "US Sports Camps",
+    "urls": [
+      "https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp",
+      "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+      "https://www.ussportscamps.com/basketball/nike/nike-basketball-camp-warren-wilson-college",
+      "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+      "https://www.ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college",
+      "https://www.ussportscamps.com/welcome/furman-university"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:50.895Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "dc2710d109c7ca49b06374b13a1886b79b7fc36f09762b964b39b207b88aae67",
+  "response": {
+    "searches": [
+      "open https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp",
+      "site:ussportscamps.com \"Smoky\" \"2027\" \"July\"",
+      "site:ussportscamps.com \"Nike Boys Lacrosse Camp at Montreat\" \"2026\"",
+      "site:ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp \"2027\" \"July\" \"Middle\"",
+      "Furman University address 3300 Poinsett official"
+    ],
+    "usage": {
+      "inputTokens": 52367,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4973,
+      "reasoningTokens": 613
+    },
+    "status": "completed",
+    "ms": 107387,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+      "chars": 27105,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ussportscamps.com/basketball/nike/nike-basketball-camp-warren-wilson-college",
+      "chars": 11852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+      "chars": 11043,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "US Sports Camps",
+    "website_url": "https://www.ussportscamps.com/",
+    "notes": "2027 dates were found for Smoky Mountain Running Camp and Furman soccer. Other retained programs use available 2026 information. Several official pages returned only truncated text, including search-indexed versions. Smoky Mountain advertises four 2027 sessions, but only one session's complete details could be recovered. Montreat boys lacrosse and Furman boys lacrosse and youth tennis were found, but their formats and session details could not be recovered sufficiently to create reliable cards; reviewers should revisit their official pages. No registration opening dates were found. The Furman landing page is a collection of programs, not a separate camp. This extraction is incomplete.",
+    "excluded": [
+      {
+        "name": "Nike Adult Tennis Camp at Furman University",
+        "reason": "Adult-only tennis camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nike Smoky Mountain Running Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers participate in cross-country running workouts and instruction on running form, pacing, and training.",
+        "camp_page_url": "https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp",
+        "registration_url": "https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Nike Smoky Mountain Running Camp",
+            "address": "One University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "(High School / Entering Grades 9 to 12) Overnight Camp",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 17
+            },
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1149,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "July 4–9 high-school session",
+          "text": "Limited"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/cross-country/nike/nike-smoky-mountain-running-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official page advertises four sessions and ages 11–17, but the supplied text ends during the first session. Dates span only the recovered row, not necessarily the full season. Recover the other three sessions, their age and grade bands, and the specific campus check-in venue."
+      },
+      {
+        "name": "Nike Baseball Camp Montreat College",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Boys practice hitting, fielding, base running, and game situations through drills and team play.",
+        "camp_page_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College — Anderson Hall",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Day Camper Schedule: Monday 3:00pm-8:00pm | Tuesday-Thursday 9:00am-4:30pm | Friday 9:00am-12:00pm. Extended Day: Monday 3:00pm-9:00pm | Tuesday-Thursday 9:00am-9:00pm | Friday 9:00am-12:00pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "THIS CAMP HAS CONCLUDED."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Extended Day Campers- lunch & dinner are provided. Day Campers- Dinner is provided on Monday. Lunch is provided Tuesday-Thursday."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Nike Baseball Camps does not provide transportation from airports, train stations or bus depots."
+        },
+        "sources": ["https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college"],
+        "confidence": "medium",
+        "review_notes": "The camp-times section states Tuesday–Thursday dismissal at 4:30pm, while the sample schedule says 3:00pm. The page identifies Anderson Hall for check-in but publishes only the campus street address. Boys is stated in program details; the generic FAQ says coed. No dated sessions or tuition remain posted."
+      },
+      {
+        "name": "Nike Baseball Camp Montreat College",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Boys practice hitting, fielding, base running, and game situations. Overnight campers stay in Anderson Hall and participate in evening activities.",
+        "camp_page_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College — Anderson Hall",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday check-in: ages 14–17, 2:00pm–2:45pm; ages 8–13, 2:45pm–3:30pm. Friday graduation at 11:30am, with check-out immediately after."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "THIS CAMP HAS CONCLUDED."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All meals are provided for overnight campers."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Nike Baseball Camps does not provide transportation from airports, train stations or bus depots."
+        },
+        "sources": ["https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college"],
+        "confidence": "medium",
+        "review_notes": "Anderson Hall is the stated check-in venue, but only a campus address is published. Program details say boys; the generic FAQ says coed. No dated sessions or tuition remain posted."
+      },
+      {
+        "name": "Nike Boys Basketball Camp at Warren Wilson College",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice fundamental basketball skills and positional work for post, wing, and guard play through individual development and games.",
+        "camp_page_url": "https://www.ussportscamps.com/basketball/nike/nike-basketball-camp-warren-wilson-college",
+        "registration_url": "https://www.ussportscamps.com/basketball/nike/nike-basketball-camp-warren-wilson-college",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Join the Priority List for 2027 Camp Updates"
+        },
+        "ages": {
+          "min": 8,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Warren Wilson College",
+            "address": "701 Warren Wilson Rd",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "MON-THURS 9AM-3PM FRI 9AM-12PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "This camp currently has no active sessions."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Lunch is not provided. Please bring a packed lunch."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Transportation is not provided by the camp to or from any airports."
+        },
+        "sources": [
+          "https://www.ussportscamps.com/basketball/nike/nike-basketball-camp-warren-wilson-college"
+        ],
+        "confidence": "medium",
+        "review_notes": "The name and page summary identify a boys camp, while the generic FAQ says coed. Hours are retained from the 2026 page; no 2027 dates or prices are posted."
+      },
+      {
+        "name": "Nike Tennis Camp at Tusculum University",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers develop tennis fundamentals, technique, and point-play strategies through instruction and matches, with groups organized by ability and age.",
+        "camp_page_url": "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+        "registration_url": "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-19",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Roger M Nichols Tennis Complex",
+            "address": "209 Shiloh Rd.",
+            "town": "Tusculum",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday 2:00pm-4:15pm, Monday-Wednesday 9:00am-4:15pm, & Thursday 9:00am-12:00pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "This camp currently has no active sessions."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Day Campers: Lunch is provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates are explicitly printed in the daily schedule as July 19–23, 2026, but the 2026 CAMP DATES section says N/A. Confirm whether this schedule describes an actual offered session."
+      },
+      {
+        "name": "Nike Tennis Camp at Tusculum University",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers practice tennis skills, technique, and match strategies. Overnight campers stay in university dormitories and participate in evening activities.",
+        "camp_page_url": "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+        "registration_url": "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-19",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Roger M Nichols Tennis Complex",
+            "address": "209 Shiloh Rd.",
+            "town": "Tusculum",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday check-in at 2:00pm; Thursday check-out at 12:00pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "This camp currently has no active sessions."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Overnight Campers: All meals provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/tennis/nike/nike-tennis-camp-at-tusculum-university"
+        ],
+        "confidence": "medium",
+        "review_notes": "The daily schedule explicitly dates July 19–23, 2026, but 2026 CAMP DATES says N/A. Dormitory and dormitory address remain TBD. Confirm the session and overnight check-in location."
+      },
+      {
+        "name": "Nike Girls Lacrosse Camp at Furman University",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers work on individual lacrosse skills and strategic concepts through position-focused instruction and daily scrimmages. Overnight campers stay in student dormitories.",
+        "camp_page_url": "https://www.ussportscamps.com/lacrosse/nike/furman-university-girls-lacrosse-camp",
+        "registration_url": "https://www.ussportscamps.com/lacrosse/nike/furman-university-girls-lacrosse-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/lacrosse/nike/furman-university-girls-lacrosse-camp",
+          "https://www.furman.edu/about/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only truncated official page text and search results could be read. Overnight format is explicit, but dates, prices, any commuter option, and specific check-in building could not be recovered. The FAQ says coed despite the girls program name."
+      },
+      {
+        "name": "Nike Soccer Camp at Furman University",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers receive youth soccer training from Furman coaching staff.",
+        "camp_page_url": "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+        "registration_url": "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Eugene Stone Soccer Stadium",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Daily hours: 9:00am-12:00pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Day Camp",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 309,
+              "unit": "session",
+              "label": "Half Day",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "June 21–25 half-day session",
+          "text": "Limited"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+          "https://www.furman.edu/about/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search-indexed text explicitly lists 2027 dates despite a 2026 page title. The page could only be read in truncated form; check for additional sessions and full-day or overnight options before publishing. The stadium uses the university's published campus address."
+      }
+    ]
+  }
+}

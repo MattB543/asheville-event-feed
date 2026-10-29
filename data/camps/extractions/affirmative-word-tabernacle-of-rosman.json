@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "affirmative-word-tabernacle-of-rosman",
+    "name": "Affirmative Word Tabernacle of Rosman",
+    "urls": ["https://www.facebook.com/AffirmativeWordTabernacle/"],
+    "area": "Rosman, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:29:38.858Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Affirmative Word Tabernacle Rosman VBS 2026",
+      "site:facebook.com/AffirmativeWordTabernacle \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 20681,
+      "cachedInputTokens": 8223,
+      "outputTokens": 381,
+      "reasoningTokens": 188
+    },
+    "status": "completed",
+    "ms": 15968,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/AffirmativeWordTabernacle/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Affirmative Word Tabernacle of Rosman",
+    "website_url": null,
+    "notes": "No standalone provider website or summer 2027 announcement was found. The church's Facebook page at https://www.facebook.com/AffirmativeWordTabernacle/ returned no readable content. A third-party AllEvents listing identifies Northern Lights VBS on July 24–26, 2026, at 226 Calvert Rd, but no official announcement could be located to verify the program details. AllEvents also gives conflicting start times of 6:00 PM and 6:30 PM, and third-party sources disagree on whether the address is in Rosman or Brevard. No card was created from this unverified lead; a reviewer should check the church's Facebook posts or contact the church.",
+    "excluded": [],
+    "cards": []
+  }
+}

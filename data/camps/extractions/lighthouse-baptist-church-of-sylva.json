@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "lighthouse-baptist-church-of-sylva",
+    "name": "Lighthouse Baptist Church of Sylva",
+    "urls": ["https://www.lighthousesylva.com/", "https://www.facebook.com/LighthouseBCSylva/"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:19:48.576Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "aaf5aab268afc3809e343afcefb4b5b527ef008774eab4a21a27575f3d0758d1",
+  "response": {
+    "searches": [
+      "site:lighthousesylva.com \"VBS\"",
+      "site:facebook.com/LighthouseBCSylva \"VBS\" \"2026\"",
+      "site:facebook.com \"Lighthouse Sylva\" \"Emerald\""
+    ],
+    "usage": {
+      "inputTokens": 26887,
+      "cachedInputTokens": 8223,
+      "outputTokens": 999,
+      "reasoningTokens": 289
+    },
+    "status": "completed",
+    "ms": 36847,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lighthousesylva.com/",
+      "chars": 1871,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/LighthouseBCSylva/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lighthouse Baptist Church of Sylva",
+    "website_url": "https://www.lighthousesylva.com/",
+    "notes": "No 2027 summer information found. The official Facebook page could not be read directly, and the official events page exposes no camp details. A 2026 Vacation Bible School listing was found on third-party event sites and is included with medium confidence; its dates and hours need official confirmation. Older official Facebook posts confirm that the church has offered Vacation Bible School.",
+    "excluded": [
+      {
+        "name": "Sunday School, Children’s Church and Nursery",
+        "reason": "Recurring year-round church programs, not finite summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in games, Bible lessons and missions activities using the Emerald Crossing theme.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lighthouse Sylva",
+            "address": "2577 US-441S",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:00",
+          "text": "VBS: 6:00–9:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lighthousesylva.com/",
+          "https://www.lighthousesylva.com/visit",
+          "https://www.lighthousesylva.com/events",
+          "https://www.facebook.com/LighthouseBCSylva/posts/we-are-extremely-excited-to-announce-a-one-day-vacation-bible-school-at-lighthou/2866374107006745/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the 2026 dates June 15–19, hours 6–9 PM, Emerald Crossing theme and activities against the church’s original announcement. These details appear in third-party listings at https://happeningnext.com/event/vacation-bible-school-2026-eid3a0de5o7mv and https://stayhappening.com/e/vacation-bible-school-2026-E2ISYBK1GY3, not readable current official materials. The year is explicit in the listings’ titles. Older official Facebook VBS posts describe earlier summers and were not used for dates, hours or eligibility. The third-party listing mentions dinner before VBS, but meal support is left null pending official confirmation."
+      }
+    ]
+  }
+}

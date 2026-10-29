@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "hendersonville-presbyterian-church",
+    "name": "Hendersonville Presbyterian Church",
+    "urls": ["https://www.hendersonvillepc.org/preschool/summer-program.cfm"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:36.272Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6894cb382bb5d855820f120db037bccf5d0827165a2150a03faf8410a6f5defd",
+  "response": {
+    "searches": ["site:hendersonvillepc.org \"2027\" \"Summer\""],
+    "usage": {
+      "inputTokens": 20655,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1068,
+      "reasoningTokens": 92
+    },
+    "status": "completed",
+    "ms": 28829,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+      "chars": 1830,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/2026-27%20registration%20packet%20English.pdf",
+      "chars": 16554,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf",
+      "chars": 13033,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/preschool/tuition-rates.cfm",
+      "chars": 1507,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/editoruploads/files/Preschool/tuition%20sch%202026-2027.pdf",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersonvillepc.org/",
+      "chars": 3205,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Presbyterian Church",
+    "website_url": "https://www.hendersonvillepc.org/",
+    "notes": "Summer Art Program dates and age bands are posted for 2027. The available summer registration packet is for 2026; its prices and exact morning hours are retained as prior-year information. Searches found no 2027 registration opening announcement. The website blocks direct browser access, so supplied official-page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "Creative Beginnings Christian Preschool",
+        "reason": "School-year preschool classes, rather than a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Art Program",
+        "type": "half_day",
+        "categories": ["arts", "music"],
+        "description": "Children explore drawing, painting, sculpting, classical music, and poetry in a two-week morning program.",
+        "camp_page_url": "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-23",
+          "text": "July 12-23rd, 2027"
+        },
+        "ages": {
+          "min": 2,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hendersonville Presbyterian Church",
+            "address": "699 N. Grove St",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "11:45",
+          "text": "2026 registration packet: Monday through Friday 8:45am -11:45am. The 2027 page states Monday-Friday mornings."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Tuition for two-week program",
+            "year": 2026
+          },
+          {
+            "amount": 75,
+            "unit": "other",
+            "label": "Non-refundable registration and materials fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Younger group",
+            "start": "2027-07-12",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 2,
+              "max": 3
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Older group",
+            "start": "2027-07-12",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Given the size and scope of Creative Beginnings Christian Preschool, the school is unable to accommodate certain special needs of children and their behavioral problems."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersonvillepc.org/preschool/summer-program.cfm",
+          "https://www.hendersonvillepc.org/editoruploads/files/Preschool/Summer%20Art%202026%20registration%20packet%20English.pdf",
+          "https://www.hendersonvillepc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2027 exact hours, fees, registration procedure, and special-needs policy. Exact hours and special-needs wording come from the 2026 summer packet, not a 2027 packet. The 2027 page says classes run with sufficient enrollment. The two age-band rows span the published two-week program; separate weekly enrollment is not stated."
+      }
+    ]
+  }
+}

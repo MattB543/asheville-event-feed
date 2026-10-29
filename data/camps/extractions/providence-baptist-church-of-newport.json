@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "providence-baptist-church-of-newport",
+    "name": "Providence Baptist Church of Newport",
+    "urls": ["https://www.pbcnewport.org/events"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:27.300Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ec03bb7b83d2c15be4f92a3fdddf8542ba5ca6f0e1bbad8860c9617d24e4759f",
+  "response": {
+    "searches": ["site:pbcnewport.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 17424,
+      "cachedInputTokens": 8223,
+      "outputTokens": 791,
+      "reasoningTokens": 128
+    },
+    "status": "completed",
+    "ms": 25137,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pbcnewport.org/events",
+      "chars": 1137,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pbcnewport.org/",
+      "chars": 1483,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Providence Baptist Church of Newport",
+    "website_url": "https://www.pbcnewport.org/",
+    "notes": "No 2027 or 2026 summer program information was found. The undated Events page still advertises Wonder Junction VBS on Sunday–Wednesday, July 6–9; that weekday/date combination matches 2025, and a third-party event listing identifies it as 2025. Historical dates have not been relabeled as 2026 or 2027. The linked Breeze registration form returned no readable content.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer camp."
+      },
+      {
+        "name": "Wednesday Night Youth Group",
+        "reason": "Recurring year-round youth ministry, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Wonder Junction Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in songs, skits, Bible lessons, crafts and games. The historical listing also states that each child receives a meal each night.",
+        "camp_page_url": "https://www.pbcnewport.org/events",
+        "registration_url": "https://pbcnewport.breezechms.com/form/e6929c",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Providence Baptist Church",
+            "address": "2263 Cosby Hwy",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.pbcnewport.org/events",
+          "https://www.pbcnewport.org/",
+          "https://www.pbcnewport.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that this program will return in 2027 and verify eligibility. Pre-K through 6th grade and the activities come from an undated historical listing apparently describing 2025, not confirmed 2026 or 2027 information. That listing gives July 6–9, Sunday–Wednesday, 5:30–7:30 PM and a nightly meal; those historical dates, hours and meal provision were not entered as current-season facts. The Breeze form could not be read."
+      }
+    ]
+  }
+}

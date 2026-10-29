@@ -1,0 +1,313 @@
+{
+  "provider": {
+    "key": "passport",
+    "name": "PASSPORT",
+    "urls": [
+      "https://passportcamps.org/project/montreat/",
+      "https://passportcamps.org/project/converse/"
+    ],
+    "area": "Montreat, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:59.048Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f0d5e3981ab011934b7b3fe443508243389b8c2599f0778897c6b1689abedf26",
+  "response": {
+    "searches": [
+      "site.passportcamps.org 2027 registration October 1",
+      "open https://passportcamps.org/"
+    ],
+    "usage": {
+      "inputTokens": 24337,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2239,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 47183,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://passportcamps.org/project/montreat/",
+      "chars": 3539,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/project/converse/",
+      "chars": 3364,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/dates/",
+      "chars": 3413,
+      "method": "fetch"
+    },
+    {
+      "url": "https://registration.passportcamps.org/",
+      "chars": 199,
+      "method": "browser"
+    },
+    {
+      "url": "https://passportcamps.org/how-to-register/",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/registration-policies/",
+      "chars": 7279,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/wp-content/uploads/2024/09/2025-Youth-Registration-Policies.pdf",
+      "chars": 5299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://passportcamps.org/wp-content/uploads/2024/09/2025-Kids-Registration-Policies.pdf",
+      "chars": 5379,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "PASSPORT",
+    "website_url": "https://passportcamps.org/",
+    "notes": "2027 dates and rates are posted. Cards cover the two supplied regional locations, Montreat and Converse; the national dates page also lists camps outside this directory's region. Registration is through church group leaders, not individual parent registration. The undated How To Register page says registration begins October 1st at 8:00 am CDT, but does not explicitly identify a calendar year; no dated opening milestone was assigned. Linked registration-policy PDFs are labeled 2025 and were not used for 2027 facts.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "PASSPORTkids",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Children participate in Bible studies, hands-on missions education, recreation, and worship during a four-day, three-night camp with their church groups.",
+        "camp_page_url": "https://passportcamps.org/project/montreat/",
+        "registration_url": "https://registration.passportcamps.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Montreat Conference Center",
+            "address": "401 Assembly Drive",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in is from 12–2 pm. Churches depart after Closing Worship ends at 11:15 am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 413,
+            "unit": "session",
+            "label": "Lodges",
+            "year": 2027
+          },
+          {
+            "amount": 433,
+            "unit": "session",
+            "label": "Assembly Inn",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Mon - Thurs, July 5 - 8",
+            "start": "2027-07-05",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Montreat session",
+          "text": "Mon - Thurs, July 5 - 8 (WAIT LIST ONLY)"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "The goal of the Camp Scholarship Program is to partner with churches to make camp a reality for students in their congregation who demonstrate significant financial need."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "In the registration system on the “Group Information” page, please indicate any requests to which you would like the PASSPORT team to pay special attention such as: Specific student or adult needs (dietary, mobility, etc.)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Breakfast, lunch and dinner are served buffet-style in Montreat's Galax Dining Room. Churches depart after Closing Worship ends at 11:15 am (lunch is not provided on the last day)."
+        },
+        "transportation": null,
+        "sources": [
+          "https://passportcamps.org/project/montreat/",
+          "https://passportcamps.org/dates/",
+          "https://passportcamps.org/kids-camps/",
+          "https://passportcamps.org/how-to-register/",
+          "https://passportcamps.org/registration-policies/",
+          "https://montreat.org/about/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "PASSPORTchoices",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students attend small-group Bible studies and choose afternoon activities that explore their interests and faith during a six-day, five-night camp.",
+        "camp_page_url": "https://passportcamps.org/project/converse/",
+        "registration_url": "https://registration.passportcamps.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Converse University",
+            "address": "580 E. Main St",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Camp Check-In traditionally begins at 2pm and ends at 4pm. Churches depart after Closing Celebration at 11:00 am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 523,
+            "unit": "session",
+            "label": "Dorms",
+            "year": 2027
+          },
+          {
+            "amount": 553,
+            "unit": "session",
+            "label": "Apartments",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June 13 - 18 (Apartments: Wait List; Dorms: Almost Full)",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          },
+          {
+            "label": "June 20 - 25 (Apartments: Almost Full; Dorms: Almost Full)",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "June 27 - July 2 (Dorms: Almost Full; Apartments: Available)",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "July 4 -9",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 11 - 16 (Wait List Only)",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Converse sessions and housing options",
+          "text": "June 13 - 18 (Apartments: Wait List; Dorms: Almost Full); June 20 - 25 (Apartments: Almost Full; Dorms: Almost Full); June 27 - July 2 (Dorms: Almost Full; Apartments: Available); July 11 - 16 (Wait List Only)"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "The goal of the Camp Scholarship Program is to partner with churches to make camp a reality for students in their congregation who demonstrate significant financial need."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "In the registration system on the “Group Information” page, please indicate any requests to which you would like the PASSPORT team to pay special attention such as: Specific student or adult needs (dietary, mobility, etc.)"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://passportcamps.org/project/converse/",
+          "https://passportcamps.org/dates/",
+          "https://passportcamps.org/passport-choices/",
+          "https://passportcamps.org/how-to-register/",
+          "https://passportcamps.org/registration-policies/",
+          "https://www.converse.edu/about/contact-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "provider": {
+    "key": "sequoyah-council-scouting-america",
+    "name": "Sequoyah Council, Scouting America",
+    "urls": ["https://scoutingevent.com/713-CubDayCamps26"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:59.162Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d43943f953cd4b5f7cfbbb25079ab6d4651e6a26b5059afc32fa5b09cd85de1d",
+  "response": {
+    "searches": [
+      "site.scbsa.org 2027 summer camp day camp",
+      "site.sequoyahcouncil.org 2027 camp",
+      "Camp Davy Crockett 2026 summer camp price leaders guide",
+      "open https://campdavycrockett.org/scouts-bsa-summer-camp/"
+    ],
+    "usage": {
+      "inputTokens": 34514,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2827,
+      "reasoningTokens": 369
+    },
+    "status": "completed",
+    "ms": 67834,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://scoutingevent.com/713-CubDayCamps26",
+      "chars": 2779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://scoutingevent.com/",
+      "chars": 454,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sequoyah Council, Scouting America",
+    "website_url": "https://sequoyahcouncil.org/",
+    "notes": "No 2027 summer camp dates or registration milestones were found. The Cub camp page has a stale 2025 title, but its theme and dated session listings explicitly describe 2026. Twilight locations remain TBD and have no dated sessions. Council and Camp Davy Crockett pages returned empty bodies when opened; official search-indexed text supplied some overnight camp information. Pricing panels and the official 2026 overnight camp guide attachments could not be read.",
+    "excluded": [
+      {
+        "name": "Winter Camp at CDC",
+        "reason": "January program outside summer."
+      },
+      {
+        "name": "Cub Scout Haunted Adventure Weekends",
+        "reason": "October program outside summer."
+      },
+      {
+        "name": "Sequoyah Council Klondike Derby",
+        "reason": "February program outside summer."
+      },
+      {
+        "name": "Camp Davy Crockett NRA Youth Day",
+        "reason": "October program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Cub Scout Day Camp",
+        "type": "day",
+        "categories": ["arts", "stem", "nature_outdoor", "general"],
+        "description": "Registered Cub Scouts participate in crafts, games, Scoutcraft and STEM activities. Greeneville, Kingsport and Virginia locations also offer archery, BB shooting and slingshots.",
+        "camp_page_url": "https://scoutingevent.com/713-CubDayCamps26",
+        "registration_url": "https://scoutingevent.com/713-CubDayCamps26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "South View Community Center",
+            "address": "401 Rock Springs Rd",
+            "town": "Kingsport",
+            "state": "TN"
+          },
+          {
+            "name": "Kinser Park",
+            "address": "650 Kinser Park Ln",
+            "town": "Greeneville",
+            "state": "TN"
+          },
+          {
+            "name": "Spirit Truth and Worship Center",
+            "address": "4235 Powell Valley Road",
+            "town": "Big Stone Gap",
+            "state": "VA"
+          },
+          {
+            "name": "Council Community Center",
+            "address": "1125 Quinn Branch Rd",
+            "town": "Honaker",
+            "state": "VA"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "South View Community Center (Day Camp) Kingsport",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": "South View Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Kinser Park (Day only Camp) Greeneville",
+            "start": "2026-06-13",
+            "end": "2026-06-13",
+            "year": 2026,
+            "site": "Kinser Park",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "14:00"
+            },
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Breaks District (Day only Camp) Big Stone Gap",
+            "start": "2026-06-20",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": "Spirit Truth and Worship Center",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "14:00"
+            },
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Breaks District (Day only Camp) Honaker",
+            "start": "2026-06-27",
+            "end": "2026-06-27",
+            "year": 2026,
+            "site": "Council Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "14:00"
+            },
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "All four listed 2026 day camp sessions",
+          "text": "Registration Closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://scoutingevent.com/713-CubDayCamps26"],
+        "confidence": "medium",
+        "review_notes": "Page title says 2025, while the DINOS 2026 theme and all session dates explicitly say 2026. Kingsport lists an event start at 8 AM and end at 2 PM across five days rather than a separate daily schedule; confirm daily hours. Prices were not accessible."
+      },
+      {
+        "name": "Cub Scout Twilight Camp",
+        "type": "evening",
+        "categories": ["arts", "stem", "nature_outdoor", "general"],
+        "description": "Cub Scouts participate in crafts, games, Scoutcraft and STEM activities in a twilight camp format.",
+        "camp_page_url": "https://scoutingevent.com/713-CubDayCamps26",
+        "registration_url": "https://scoutingevent.com/713-CubDayCamps26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://scoutingevent.com/713-CubDayCamps26"],
+        "confidence": "medium",
+        "review_notes": "The combined day/twilight page lists Johnson City (Boone Trail) and Overmountain twilight offerings as TBD, without dates, venues or registration rows. Grade eligibility is stated for Cub Scout Day Camp on the combined page; confirm it applies to twilight offerings. The page title says 2025 but the theme says 2026."
+      },
+      {
+        "name": "Camp Davy Crockett Summer Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "general"],
+        "description": "Scouts work on merit badges and outdoor skills and participate in swimming, boating and climbing. The camp also offers Eaglebound advancement activities and an 1800s-themed Frontier Camp program.",
+        "camp_page_url": "https://campdavycrockett.org/scouts-bsa-summer-camp/",
+        "registration_url": "https://scoutingevent.com/713-CDC2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-07-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Davy Crockett",
+            "address": "142 Boy Scout Rd",
+            "town": "Whitesburg",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1 (June 7-13)",
+            "start": "2026-06-07",
+            "end": "2026-06-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 2 (June 14-20)",
+            "start": "2026-06-14",
+            "end": "2026-06-20",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 3 (June 21-27)",
+            "start": "2026-06-21",
+            "end": "2026-06-27",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 4 (June 28-July 4)",
+            "start": "2026-06-28",
+            "end": "2026-07-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "All four listed 2026 sessions",
+          "text": "Registration Closed"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Campership (Financial Assistance) Requests are due April 30th"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://scoutingevent.com/713-CDC2026",
+          "https://campdavycrockett.org/scouts-bsa-summer-camp/",
+          "https://campdavycrockett.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official pages returned empty bodies when opened; dates, venue and activities were available in official search-indexed text. The campership statement appears on an undated planning timeline; confirm current terms. Official pricing panels and leader/program guide attachments were not readable. Session check-in is listed at 1 PM Sunday and departure at 9:30 AM Saturday, not daily camp hours."
+      }
+    ]
+  }
+}

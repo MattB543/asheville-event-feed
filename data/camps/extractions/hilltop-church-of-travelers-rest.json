@@ -1,0 +1,82 @@
+{
+  "provider": {
+    "key": "hilltop-church-of-travelers-rest",
+    "name": "Hilltop Church of Travelers Rest",
+    "urls": ["https://www.hilltopchurch.org/vbs"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:32:35.295Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "37ec96a59196284362056b6b21a0295a82647b453b3cf25e94b7cc144ee0769c",
+  "response": {
+    "searches": [
+      "\"Hilltop Church\" \"Travelers Rest\"",
+      "\"Hilltop Church\" \"Travelers Rest\" facebook",
+      "site:facebook.com \"Hilltop Church\" \"Rainforest\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21394,
+      "cachedInputTokens": 8223,
+      "outputTokens": 569,
+      "reasoningTokens": 217
+    },
+    "status": "completed",
+    "ms": 30321,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hilltopchurch.org/vbs",
+      "chars": 4840,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/enrollment-forms",
+      "chars": 3655,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/summer-registration",
+      "chars": 3273,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/s/VBS-Registration-form-2026.pdf",
+      "chars": 1952,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/summer-volunteers",
+      "chars": 3236,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hilltopchurch.org/",
+      "chars": 3026,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hilltop Church of Travelers Rest",
+    "website_url": null,
+    "notes": "Provider identity mismatch: the supplied hilltopchurch.org pages belong to Hilltop Church in Mendham, NJ, not Travelers Rest, SC. Their 2026 PDF explicitly lists 14 Hilltop Rd., Mendham, NJ, and June 22–26, 2026; none of those facts should be assigned to the Travelers Rest provider. Searches found a Travelers Rest Rainforest Falls: VBS 2026 listing at https://allevents.in/travelers-rest/rainforest-falls-vbs-2026/200030146611916, but only third-party information could be read. The local church's Facebook page at https://www.facebook.com/HilltopFreewillBaptistChurchSC could not be read. No verified official local summer program details or 2027 announcement were found, so no cards are returned. Reviewer should obtain the local church's official VBS announcement before publishing.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School",
+        "reason": "The supplied official pages describe a different provider in Mendham, NJ, outside the requested Travelers Rest provider."
+      },
+      {
+        "name": "Hilltop Christian Nursery School",
+        "reason": "School-year nursery school enrollment, not a finite summer camp; also belongs to the unrelated Mendham, NJ provider."
+      },
+      {
+        "name": "Summer VBS Volunteers",
+        "reason": "Volunteer recruitment rather than a supervised youth camp; also belongs to the unrelated Mendham, NJ provider."
+      }
+    ],
+    "cards": []
+  }
+}

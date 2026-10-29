@@ -1,0 +1,114 @@
+{
+  "provider": {
+    "key": "forest-hill-church",
+    "name": "Forest Hill Church",
+    "urls": ["https://foresthill.org/camprock/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:22.264Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "96e1550878a151ff51810943bee9db2856bda4ad55b9ccc6b125bbb14b0218d0",
+  "response": {
+    "searches": [
+      "site.foresthill.org \"Camp Rock\" \"2027\"",
+      "open https://foresthill.org/nextgenevents/"
+    ],
+    "usage": {
+      "inputTokens": 14458,
+      "cachedInputTokens": 8223,
+      "outputTokens": 745,
+      "reasoningTokens": 109
+    },
+    "status": "completed",
+    "ms": 22369,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://foresthill.org/camprock/",
+      "chars": 1776,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/forest-hill-church/schedules?sched_ids%5B%5D=1068849&schedule_id=camps",
+      "chars": 2798,
+      "method": "browser"
+    },
+    {
+      "url": "https://foresthill.org/",
+      "chars": 4235,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Forest Hill Church",
+    "website_url": "https://foresthill.org/",
+    "notes": "No 2027 Camp Rock information was found. The supplied Sawyer registration page lists no schedules. This extraction covers the Black Mountain offering; search results also identify Charlotte-area VBS and Middle School Camp offerings outside the requested area. An older Camp Rock PDF under a 2025 upload path describes a different four-day format and price; those details were not applied to the explicitly dated 2026 overnight camp.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp Rock",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "An overnight elementary summer camp focused on learning about Jesus and spending time with friends.",
+        "camp_page_url": "https://foresthill.org/camprock/",
+        "registration_url": "https://www.hisawyer.com/forest-hill-church/schedules?sched_ids%5B%5D=1068849&schedule_id=camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "YMCA Blue Ridge Assembly",
+            "address": "84 Blue Ridge Circle",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 425,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-23",
+          "time": "09:00",
+          "text": "Register Here starting February 23rd, 9am",
+          "url": "https://foresthill.org/camprock/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://foresthill.org/camprock/",
+          "https://foresthill.org/events/camp-rock-registration-2026/",
+          "https://www.hisawyer.com/forest-hill-church/schedules?sched_ids%5B%5D=1068849&schedule_id=camps",
+          "https://blueridgeassembly.org/financial-information/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

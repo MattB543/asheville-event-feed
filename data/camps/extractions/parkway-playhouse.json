@@ -1,0 +1,69 @@
+{
+  "provider": {
+    "key": "parkway-playhouse",
+    "name": "Parkway Playhouse",
+    "urls": ["https://parkwayplayhouse.com/"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:12.375Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "72822a9f983e92f58dc46c5759434a3ad56212a85e5ca34dedd3872a2a07bcfd",
+  "response": {
+    "searches": [
+      "site:parkwayplayhouse.com summer camp 2026 2027",
+      "\"Parkway Playhouse\" \"2026\" \"camp\"",
+      "site:parkwayplayhouse.com/classes \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 25592,
+      "cachedInputTokens": 8223,
+      "outputTokens": 572,
+      "reasoningTokens": 192
+    },
+    "status": "completed",
+    "ms": 23832,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://parkwayplayhouse.com/",
+      "chars": 3961,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Parkway Playhouse",
+    "website_url": "https://parkwayplayhouse.com/",
+    "notes": "No qualifying summer camp program or 2027 camp announcement could be verified on the public official pages. The Classes page describes year-round performing arts instruction; its direct fetch returned no readable text, although official search results supplied class descriptions. The Junior Hub is password protected. Historical blog references confirm past summer camps but do not identify a current 2026 or 2027 offering. Public junior-production listings provide shows rather than verifiable summer camp enrollment details. No cards were created from these incomplete references.",
+    "excluded": [
+      {
+        "name": "Parkway School of Performing Arts",
+        "reason": "The Classes page describes year-round dance and group voice instruction with annual tuition, not a finite summer program."
+      },
+      {
+        "name": "Reading Is Alive!",
+        "reason": "The official 2026 page describes touring public performances with a craft and book giveaway, not a supervised youth drop-off program."
+      },
+      {
+        "name": "Into the Woods JR",
+        "reason": "The listed performances are November 6–14, 2026, outside summer; no summer camp offering was verified."
+      },
+      {
+        "name": "Elf JR",
+        "reason": "The listed performances are December 17–18, 2026, outside summer; no summer camp offering was verified."
+      },
+      {
+        "name": "Employment",
+        "reason": "Usher positions are employment opportunities, not camps."
+      },
+      {
+        "name": "Appalachian Playwriting Festival",
+        "reason": "A fall staged-reading festival, not a summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

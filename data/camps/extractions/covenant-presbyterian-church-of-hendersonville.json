@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "covenant-presbyterian-church-of-hendersonville",
+    "name": "Covenant Presbyterian Church of Hendersonville",
+    "urls": ["https://www.covpca.org/vacation-bible-school-2026-2.cfm", "https://www.covpca.org/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:54.685Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f02cbbd4075de785a566e15e35fc25fff091e9453508aceaa722cecc3cf44de2",
+  "response": {
+    "searches": [
+      "site:covpca.org \"2027\" \"Bible\"",
+      "site:covpca.org \"VBS\" \"June\" \"2026\"",
+      "site:covpca.org \"Emerald\""
+    ],
+    "usage": {
+      "inputTokens": 33014,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1112,
+      "reasoningTokens": 315
+    },
+    "status": "completed",
+    "ms": 40518,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+      "chars": 1300,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.covpca.org/",
+      "chars": 1675,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Covenant Presbyterian Church of Hendersonville",
+    "website_url": "https://www.covpca.org/",
+    "notes": "No summer 2027 information found. The supplied VBS page confirms the 2026 offering but does not expose its registration destination or program details. Official calendar search results supply June 15–19, 2026 dates, morning hours and the Fellowship Hall meeting location. Direct opens of the VBS page, children's ministry page, June calendar and March 8 bulletin PDF returned no readable content.",
+    "excluded": [
+      {
+        "name": "Fellowship Meal, Youth, Bible Study",
+        "reason": "Recurring year-round church programming, not a finite summer camp."
+      },
+      {
+        "name": "Fall Bible Conference 2026",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Harvest Festival 2026",
+        "reason": "October event outside summer."
+      },
+      {
+        "name": "Covenant Church Picnic",
+        "reason": "Church-wide gathering, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend Vacation Bible School with the 2026 theme Emerald Crossing Psalm 23.",
+        "camp_page_url": "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Covenant Presbyterian Church Fellowship Hall",
+            "address": "2101 Kanuga Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.covpca.org/vacation-bible-school-2026-2.cfm",
+          "https://www.covpca.org/",
+          "https://www.covpca.org/pro/responsive/tools/includes/events/event_view.cfm?detailid=461862&event_type=main&eventid=3465&memberid=3174",
+          "https://www.covpca.org/pro/responsive/tools/includes/events/event_view.cfm?detailid=460656&event_type=main&eventid=3468&memberid=3174",
+          "https://www.covpca.org/pro/responsive/tools/includes/events/event_view.cfm?detailid=460656&event_type=main&eventid=3469&memberid=3174"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, hours, theme and Fellowship Hall location were accessible through official calendar search results rather than readable page opens. Check the VBS page's embedded registration material for age eligibility, cost and registration destination; those details were not accessible."
+      }
+    ]
+  }
+}

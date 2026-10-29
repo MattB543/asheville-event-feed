@@ -1,0 +1,192 @@
+{
+  "provider": {
+    "key": "the-bike-farm",
+    "name": "The Bike Farm",
+    "urls": [
+      "https://www.thebikefarm.com/youth-camp",
+      "https://www.thebikefarm.com/",
+      "https://www.bikereg.com/74405"
+    ],
+    "area": "Pisgah Forest, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:34.482Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "252be589d02d332b963a292eabeda387dcd0db47e7518ed0c1cdcd78f49e958f",
+  "response": {
+    "searches": ["site:thebikefarm.com \"2027\" camp", "open https://www.thebikefarm.com/contact"],
+    "usage": {
+      "inputTokens": 18683,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1144,
+      "reasoningTokens": 94
+    },
+    "status": "completed",
+    "ms": 26006,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.thebikefarm.com/youth-camp",
+      "chars": 3939,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thebikefarm.com/",
+      "chars": 3684,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bikereg.com/74405",
+      "chars": 775,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.bikereg.com/the-bike-farm-summer-camp-2026",
+      "chars": 493,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.thebikefarm.com/guided-ride-faq",
+      "chars": 3661,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thebikefarm.com/beginner-skills-camp",
+      "chars": 4061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thebikefarm.com/pro-camp-watershed",
+      "chars": 5024,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thebikefarm.com/camps",
+      "chars": 4061,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Bike Farm",
+    "website_url": "https://www.thebikefarm.com/",
+    "notes": "No 2027 summer camp information or registration milestones found. The youth camp page omits a year; BikeReg explicitly identifies the matching dates as 2026. The contact page's Getting Here address and BikeReg location are 195 Gibbs Ln, while the youth camp page footer lists 160 Sutton Creek Road.",
+    "excluded": [
+      {
+        "name": "Fundamental Skills Camp",
+        "reason": "The listed clinic is April 25, outside summer."
+      },
+      {
+        "name": "Bike Farm Pro Camp at Watershed",
+        "reason": "The posted offering is April 5–6, 2025, outside summer; future dates are unspecified."
+      },
+      {
+        "name": "Guided Mountain Biking",
+        "reason": "Ongoing private guided rides, not a finite summer youth program."
+      },
+      {
+        "name": "Skills Coaching & Lessons",
+        "reason": "Ongoing customized lessons, not a finite summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth MTB Summer Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice mountain biking skills and ride trails at The Bike Farm, DuPont State Forest, Ride Kanuga and Pisgah. Activities include bike maintenance, trail safety and team-building; previous mountain biking experience and basic fitness are required.",
+        "camp_page_url": "https://www.thebikefarm.com/youth-camp",
+        "registration_url": "https://www.bikereg.com/74405",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-30",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Bike Farm",
+            "address": "195 Gibbs Ln",
+            "town": "Pisgah Forest",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "4 day sessions, 9am to 3pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-30",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-14",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-28",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thebikefarm.com/youth-camp",
+          "https://www.bikereg.com/74405",
+          "https://www.bikereg.com/the-bike-farm-summer-camp-2026",
+          "https://www.thebikefarm.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The youth camp page lists dates without a year; 2026 is established by the matching BikeReg event. The official contact page's Getting Here section (visible in search results) and BikeReg list 195 Gibbs Ln; the youth camp footer instead lists 160 Sutton Creek Road. Confirm daily drop-off arrangements, particularly on off-site riding days; the itinerary does not specify those arrangements. BikeReg marks the event as past but does not explicitly state registration availability."
+      }
+    ]
+  }
+}

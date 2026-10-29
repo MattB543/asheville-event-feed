@@ -1,0 +1,272 @@
+{
+  "provider": {
+    "key": "camp-timberlake",
+    "name": "Camp Timberlake",
+    "urls": [
+      "https://camptimberlake.com/prospective-families/program/",
+      "https://camptimberlake.com/dates-enrollment/",
+      "https://camptimberlake.com/"
+    ],
+    "area": "Marion, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:59:22.664Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a75e35e04af1743db72390828fdd5bdd57debe11a58540fcbc7ba984cbc33f48",
+  "response": {
+    "searches": [
+      "site.camptimberlake.com 2027 registration",
+      "site:camptimberlake.com \"Family Camp\""
+    ],
+    "usage": {
+      "inputTokens": 26769,
+      "cachedInputTokens": 0,
+      "outputTokens": 1655,
+      "reasoningTokens": 188
+    },
+    "status": "completed",
+    "ms": 36848,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://camptimberlake.com/prospective-families/program/",
+      "chars": 6596,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptimberlake.com/dates-enrollment/",
+      "chars": 5538,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptimberlake.com/",
+      "chars": 4837,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptimberlake.campintouch.com/ui/forms/application/alumni/App",
+      "chars": 15465,
+      "method": "browser"
+    },
+    {
+      "url": "https://camptimberlake.com/dates-enrollment/reserve/",
+      "chars": 2559,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mmtl.campintouch.com/v2/alumni/register.aspx",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://camptimberlake.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://camptimberlake.com/prospective-families/",
+      "chars": 4785,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Timberlake",
+    "website_url": "https://camptimberlake.com/",
+    "notes": "2027 summer dates and fees are posted. No dated 2027 registration opening announcement was found. The Save a Spot page says some 2027 sessions are wait-list only but does not identify them.",
+    "excluded": [
+      {
+        "name": "Father Son Weekend",
+        "reason": "Parent-and-child family program, not a supervised youth-only camp; the posted 2027 weekends are also in spring and fall."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp or retreat."
+      },
+      {
+        "name": "Work at Timberlake",
+        "reason": "Staff employment opportunities, not a youth camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Timberlake",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based", "general"],
+        "description": "Boys participate in scheduled activities, outdoor excursions, chapel, and camp-wide evening games. Activities and trips include backpacking, canoeing, kayaking, rafting, mountain biking, fly fishing, and rock climbing.",
+        "camp_page_url": "https://camptimberlake.com/prospective-families/program/",
+        "registration_url": "https://camptimberlake.com/dates-enrollment/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-12",
+          "text": "2027 Summer Sessions"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Timberlake",
+            "address": "707 Dink Cannon Road",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9420,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1A",
+            "start": "2027-06-07",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1B",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Second Session",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Third Session",
+            "start": "2027-07-18",
+            "end": "2027-08-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9420,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3A",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3B",
+            "start": "2027-07-31",
+            "end": "2027-08-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Unspecified 2027 sessions",
+          "text": "Please note that some sessions are already wait-list only for 2027."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Two scheduled activities are held before a tasty lunch and rest time."
+        },
+        "transportation": null,
+        "sources": [
+          "https://camptimberlake.com/",
+          "https://camptimberlake.com/prospective-families/program/",
+          "https://camptimberlake.com/dates-enrollment/",
+          "https://camptimberlake.com/dates-enrollment/reserve/",
+          "https://camptimberlake.com/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

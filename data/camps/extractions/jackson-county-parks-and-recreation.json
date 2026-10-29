@@ -1,0 +1,289 @@
+{
+  "provider": {
+    "key": "jackson-county-parks-and-recreation",
+    "name": "Jackson County Parks & Recreation",
+    "urls": [
+      "https://www.jacksonnc.org/273/Youth-Athletics",
+      "https://www.jacksonnc.org/163/Parks-Recreation"
+    ],
+    "area": "Cullowhee, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:09:54.694Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8fc009dccc25fd6a67058dab3f8f449b09753ee5c251f6bea8119a114473e32b",
+  "response": {
+    "searches": [
+      "site.jacksonnc.org summer 2026 camp volleyball tennis sandlot",
+      "site.jacksonnc.org \"Mark Watson\"",
+      "site.jacksonnc.org \"Newsletter\" \"Cullowhee\"",
+      "open https://jcprd.recdesk.com/Community/Program/Detail?programId=3960"
+    ],
+    "usage": {
+      "inputTokens": 33017,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2155,
+      "reasoningTokens": 320
+    },
+    "status": "completed",
+    "ms": 69687,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jacksonnc.org/273/Youth-Athletics",
+      "chars": 5819,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/163/Parks-Recreation",
+      "chars": 2115,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jcprd.recdesk.com/Community/Home",
+      "chars": 1304,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/486/RJA-Campground",
+      "chars": 3516,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jacksonnc.org/",
+      "chars": 2231,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jackson County Parks & Recreation",
+    "website_url": "https://www.jacksonnc.org/163/Parks-Recreation",
+    "notes": "No 2027 summer information was found. Youth Athletics is an undated overview; its prices are retained as 2026 fallback information, not verified season-specific prices. RecDesk program details and the newsletter Archive Center returned no readable text when opened; some program descriptions were visible in official search snippets. Exact summer dates could not be verified.",
+    "excluded": [
+      {
+        "name": "Spring & Fall Soccer",
+        "reason": "Sports leagues, not finite summer camps or clinics."
+      },
+      {
+        "name": "Basketball",
+        "reason": "Winter sports league."
+      },
+      {
+        "name": "Volleyball League",
+        "reason": "Sports league, not a camp or clinic."
+      },
+      {
+        "name": "Youth Flag Football League",
+        "reason": "Summer team league; leagues are excluded."
+      },
+      {
+        "name": "Homeschool PE",
+        "reason": "Recurring spring and fall classes, outside summer."
+      },
+      {
+        "name": "Tiny Tumblers",
+        "reason": "Classes offered throughout the year; no distinct summer-only offering verified."
+      },
+      {
+        "name": "Little Dribblers",
+        "reason": "October program, outside summer."
+      },
+      {
+        "name": "RJA Campground",
+        "reason": "Public campsite rentals, not a supervised youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Volleyball Clinics",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants build and improve volleyball skills. The clinic is for girls and boys in grades 3 through 8.",
+        "camp_page_url": "https://www.jacksonnc.org/273/Youth-Athletics",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "program",
+            "label": "Per participant; undated overview",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jacksonnc.org/273/Youth-Athletics"],
+        "confidence": "medium",
+        "review_notes": "The overview identifies this as a summer clinic but gives no year, dates, hours or clinic venue. Verify that the undated $50 fee applies to 2026."
+      },
+      {
+        "name": "Youth Tennis Lessons",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Children learn basic tennis fundamentals in a six-week program with one session per week.",
+        "camp_page_url": "https://www.jacksonnc.org/273/Youth-Athletics",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jacksonnc.org/273/Youth-Athletics"],
+        "confidence": "medium",
+        "review_notes": "The undated overview says lessons are typically offered over summer. A season-specific 2026 or 2027 schedule and meeting location were not found."
+      },
+      {
+        "name": "Sandlot",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Children practice basic fielding, hitting and game-like scenarios in a four-week t-ball instruction program. The Cashiers offering also teaches throwing and running bases.",
+        "camp_page_url": "https://www.jacksonnc.org/273/Youth-Athletics",
+        "registration_url": "https://jcprd.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mark Watson Park",
+            "address": "86 Mark Watson Park",
+            "town": "Sylva",
+            "state": "NC"
+          },
+          {
+            "name": "Cullowhee Recreation Complex",
+            "address": "88 Cullowhee Mountain Road",
+            "town": "Cullowhee",
+            "state": "NC"
+          },
+          {
+            "name": "Cashiers/Glenville Recreation",
+            "address": "355 Frank Allen Road",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 25,
+            "unit": "program",
+            "label": "Cullowhee and Mark Watson Park; undated overview",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jacksonnc.org/273/Youth-Athletics",
+          "https://jcprd.recdesk.com/Community/Program/Detail?programId=3808",
+          "https://jcprd.recdesk.com/Community/Program/Detail?programId=3960",
+          "https://www.discoverjacksonnc.com/attractions/culture-heritage/freedom-park/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official RecDesk snippets confirm Cullowhee and Cashiers offerings, but detail pages could not be read. The Cashiers snippet states July 8, Wednesdays in July, 5:30–6:30 pm without a visible year; these dates and hours were not assigned to 2026. Site rows cannot be dated until a season schedule is verified. The overview fee is undated and is not verified for Cashiers. Capacity wording differs between the overview and RecDesk."
+      },
+      {
+        "name": "Kids Learn to Fish Day",
+        "type": "clinic",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Children participate in casting and big-fish contests and fish for trout in Cullowhee Creek.",
+        "camp_page_url": "https://www.jacksonnc.org/274/Special-Events",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free event; undated overview",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.jacksonnc.org/274/Special-Events"],
+        "confidence": "medium",
+        "review_notes": "Official search text says the event occurs on the first Saturday in June and registration is in May, but does not identify a summer year. No calendar dates were inferred. Confirm the supervised clinic format and drop-off location."
+      }
+    ]
+  }
+}

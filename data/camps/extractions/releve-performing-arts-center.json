@@ -1,0 +1,206 @@
+{
+  "provider": {
+    "key": "releve-performing-arts-center",
+    "name": "Relevé Performing Arts Center",
+    "urls": ["https://releveperformingartscenter.com/calendar"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:31.396Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "01ad29a26a831faf707653a70d0a31611f6712a7bbbabbce9d737864e2bee226",
+  "response": {
+    "searches": [
+      "site:releveperformingartscenter.com summer camp 2026 2027",
+      "site:releveperformingartscenter.com \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 23840,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1583,
+      "reasoningTokens": 245
+    },
+    "status": "completed",
+    "ms": 37346,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://releveperformingartscenter.com/calendar",
+      "chars": 1367,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=506586",
+      "chars": 23194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/tuition-and-fees",
+      "chars": 897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/2026-27-schedule",
+      "chars": 886,
+      "method": "fetch"
+    },
+    {
+      "url": "https://releveperformingartscenter.com/",
+      "chars": 4244,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Relevé Performing Arts Center",
+    "website_url": "https://releveperformingartscenter.com/",
+    "notes": "No summer 2027 or 2026 camp schedule was found. The supplied calendar lists a summer schedule anchored by June 9, 2025; its camp dates omit the year. Historical 2025 dates are retained explicitly rather than relabeled as 2026 or 2027. The three themed dance weeks are grouped as one program. The company page mentions a week-long placement intensive but does not establish summer dates.",
+    "excluded": [
+      {
+        "name": "Summer Classes Begin - Mondays & Tuesdays",
+        "reason": "Recurring dance classes, with no finite camp session or end date stated."
+      },
+      {
+        "name": "2026-27 Recreational Schedule",
+        "reason": "School-year recreational dance classes, not a summer camp."
+      },
+      {
+        "name": "Our Company",
+        "reason": "Competitive dance company is a team-season program. Its week-long placement intensive has no confirmed summer timing."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Dance Camps",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "The calendar lists morning camp weeks themed around mermaids and pirates, Disney, and Wicked.",
+        "camp_page_url": "https://releveperformingartscenter.com/calendar",
+        "registration_url": null,
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-06-09",
+          "end": "2025-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Relevé Performing Arts Center",
+            "address": "2314 Asheville Highway Unit F",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am - 12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Mermaids & Pirates Dance Camp",
+            "start": "2025-06-09",
+            "end": "2025-06-13",
+            "year": 2025,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "All Things Disney Camp",
+            "start": "2025-06-16",
+            "end": "2025-06-20",
+            "year": 2025,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wicked Camp",
+            "start": "2025-06-23",
+            "end": "2025-06-27",
+            "year": 2025,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://releveperformingartscenter.com/calendar",
+          "https://releveperformingartscenter.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp dates have no printed year; 2025 is taken from the June 9, 2025 summer-class entry in the same calendar section. Confirm current camp offerings and whether all three themes remain one dance-camp program. Dance Camps is the calendar's generic terminology, not a separately printed umbrella title. The studio address is published, but no separate camp drop-off location is specified."
+      },
+      {
+        "name": "Gymnastics Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "The calendar lists a week-long morning gymnastics camp.",
+        "camp_page_url": "https://releveperformingartscenter.com/calendar",
+        "registration_url": null,
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-07-21",
+          "end": "2025-07-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Relevé Performing Arts Center",
+            "address": "2314 Asheville Highway Unit F",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am - 12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://releveperformingartscenter.com/calendar",
+          "https://releveperformingartscenter.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "July 21-25 has no printed year; 2025 is taken from the June 9, 2025 summer-class entry in the same calendar section. No 2026 or 2027 camp information was found. The studio address is published, but no separate camp drop-off location is specified. The class registration form does not confirm camp enrollment or camp-specific fees."
+      }
+    ]
+  }
+}

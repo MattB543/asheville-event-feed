@@ -1,0 +1,136 @@
+{
+  "provider": {
+    "key": "greeneville-gymnastics-academy",
+    "name": "Greeneville Gymnastics Academy",
+    "urls": [
+      "https://app.jackrabbitclass.com/eventcalendar.asp?orgid=535753",
+      "https://app.jackrabbitclass.com/eventcalendar.asp?date=6%2F9%2F2026&orgid=535753"
+    ],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:23:56.069Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "91ee810b81ddb2d9a9ca28e496c573dc16f8fa90b1b03f3bd6cabd530399832d",
+  "response": {
+    "searches": [
+      "Greeneville Gymnastics Academy summer camp 2026",
+      "\"orgid=535753\" \"Summer Camp\"",
+      "site:app.jackrabbitclass.com \"535753\" \"Summer Camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 29438,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1238,
+      "reasoningTokens": 303
+    },
+    "status": "completed",
+    "ms": 35009,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://app.jackrabbitclass.com/eventcalendar.asp?orgid=535753",
+      "chars": 646,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/eventcalendar.asp?date=6%2F9%2F2026&orgid=535753",
+      "chars": 549,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greeneville Gymnastics Academy",
+    "website_url": "https://www.greenevillegymnastics.com/",
+    "notes": "No summer 2027 camp information was found. Official Jackrabbit search snippets retain Summer Camp entries for June and July 2026, although the supplied June calendar is now empty and calendar pages opened during research returned no readable content. Camp details could not be recovered. Search results for Greenville Gymnastics Academy in Pennsylvania and Greenville Gymnastics in South Carolina concern different providers and were not used.",
+    "excluded": [
+      {
+        "name": "Gymnastics and tumbling classes",
+        "reason": "Ongoing classes rather than finite summer camps."
+      },
+      {
+        "name": "Competitive Gymnastics",
+        "reason": "Competitive team training rather than a separately advertised summer camp."
+      },
+      {
+        "name": "Open Gym",
+        "reason": "Recurring year-round open gym, not a finite supervised summer program."
+      },
+      {
+        "name": "Birthday Party Dates & Times",
+        "reason": "Private birthday-party bookings, not summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "The academy lists Summer Camp events on its gymnastics registration calendar. A description of camp activities was not available.",
+        "camp_page_url": "https://app.jackrabbitclass.com/eventcalendar.asp?orgid=535753",
+        "registration_url": "https://app.jackrabbitclass.com/eventcalendar.asp?orgid=535753",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": null,
+          "text": "Calendar entries list a 9:00 AM start; the end time was not found."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Summer Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Summer Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://app.jackrabbitclass.com/eventcalendar.asp?date=6%2F9%2F2026&orgid=535753",
+          "https://app.jackrabbitclass.com/eventcalendar.asp?date=7%2F7%2F2026&orgid=535753",
+          "https://www.greenevillegymnastics.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and 9:00 AM starts come only from indexed official calendar snippets headed June 2026 and July 2026. Consecutive daily entries have been grouped into weeks; confirm that these were weekly sessions rather than separate daily registrations and whether additional dates existed. Day format and sports category are provisional because event details could not be read. No camp drop-off site is stated, so sites is empty. If the academy confirms camp meets at its gym, its contact page publishes Location: 1612 Industrial Rd, Greeneville, TN 37745, while the same page's footer says 1612 Industrial Blvd."
+      }
+    ]
+  }
+}

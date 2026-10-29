@@ -1,0 +1,136 @@
+{
+  "provider": {
+    "key": "renfrew-church-of-travelers-rest",
+    "name": "Renfrew Church of Travelers Rest",
+    "urls": ["https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:32:18.276Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9323ee88f88e3602840924974b580f0ba3eb3825d9af82cc459b78a7003fafbe",
+  "response": {
+    "searches": ["site:renfrewchurch.com \"2027\"", "site:renfrewchurch.com basketball camp 2026"],
+    "usage": {
+      "inputTokens": 23602,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1016,
+      "reasoningTokens": 162
+    },
+    "status": "completed",
+    "ms": 25311,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station",
+      "chars": 2529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.renfrewchurch.com/general-8-1",
+      "chars": 868,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.renfrewchurch.com/talktoacounselor",
+      "chars": 4594,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.renfrewchurch.com/",
+      "chars": 3130,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Renfrew Church of Travelers Rest",
+    "website_url": "https://www.renfrewchurch.com/",
+    "notes": "No summer 2027 information found. The ROAR Sports page mentions Basketball (Team & Camps), but no finite summer camp offering, dates or youth eligibility were found. A Family Day fundraiser mentions student ministry church camp without identifying its program, dates or location; no card created for that reference.",
+    "excluded": [
+      {
+        "name": "Renfrew Academy",
+        "reason": "School-year education and childcare; no summer-only program found."
+      },
+      {
+        "name": "ROAR SPORTS BASKETBALL SIGNUPS",
+        "reason": "Team-season registration, not a finite summer camp."
+      },
+      {
+        "name": "PICKLEBALL TUESDAYS",
+        "reason": "Recurring weekly recreation, not a finite summer youth program."
+      },
+      {
+        "name": "RENFREW Kids",
+        "reason": "Ongoing children's ministry, not a summer-only program."
+      },
+      {
+        "name": "FALL FOR JESUS 2026",
+        "reason": "Fall family event outside summer."
+      },
+      {
+        "name": "Renfrew Academy: Touch- A- Truck",
+        "reason": "Family community event and fundraiser, not a supervised youth camp."
+      },
+      {
+        "name": "RENFREW FAMILY DAY",
+        "reason": "Family fundraiser outside summer, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Illumination Station VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore light and learn biblical teachings about Jesus through lessons and activities.",
+        "camp_page_url": "https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station",
+        "registration_url": "https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Renfrew Church",
+            "address": "951 Geer Highway",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00–8:30 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station",
+          "https://www.renfrewchurch.com/event-details/2026-vbs-illumination-station-volunteers",
+          "https://www.renfrewchurch.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The participant event page ends at 8:30 PM, and the volunteer page's description explicitly states nightly hours of 6:00–8:30 PM. However, the volunteer page's Time & Location ends at 7:30 PM. Used the participant page and volunteer description; verify the conflicting volunteer event timestamp."
+      }
+    ]
+  }
+}

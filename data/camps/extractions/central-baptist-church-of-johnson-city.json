@@ -1,0 +1,115 @@
+{
+  "provider": {
+    "key": "central-baptist-church-of-johnson-city",
+    "name": "Central Baptist Church of Johnson City",
+    "urls": ["https://www.cbcjc.org/kids", "https://www.cbcjc.org/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:47.757Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "38be8693fc14e4eb2f9397c274ac404dbb7e62d07b2aa682808ad304f37a95eb",
+  "response": {
+    "searches": ["site.cbcjc.org VBS 2026 2027", "site.cbcjc.org \"VBS\""],
+    "usage": {
+      "inputTokens": 18626,
+      "cachedInputTokens": 8223,
+      "outputTokens": 835,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 33012,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cbcjc.org/kids",
+      "chars": 5534,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cbcjc.org/",
+      "chars": 2736,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Central Baptist Church of Johnson City",
+    "website_url": "https://www.cbcjc.org/",
+    "notes": "No 2027 camp dates or registration announcements were found. The kids page describes VBS without a season year, dates, hours or price. The official calendar returned no readable event details. No dated 2026 VBS listing was found. Unspecified summer activities were not sufficient to identify additional supervised youth programs.",
+    "excluded": [
+      {
+        "name": "Preschool Schedule",
+        "reason": "Recurring Sunday and Wednesday ministry and childcare, not a finite summer program."
+      },
+      {
+        "name": "COMPASS",
+        "reason": "Recurring Wednesday children's ministry, not a finite summer program."
+      },
+      {
+        "name": "KICK OFF COOK OUT",
+        "reason": "Church-wide family event, not a supervised youth camp."
+      },
+      {
+        "name": "TRUNK OR TREAT",
+        "reason": "Family festival outside summer."
+      },
+      {
+        "name": "CHRISTMAS ACTIVITIES",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "EASTER EGGTRAVAGANZA",
+        "reason": "Easter family festival outside summer."
+      },
+      {
+        "name": "END OF YEAR PICNIC",
+        "reason": "Picnic rather than a finite supervised youth camp."
+      },
+      {
+        "name": "SUMMER ACTIVITIES",
+        "reason": "General mention of family and children's activities without an identifiable supervised camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in worship music, crafts, recreation and Bible lessons during a week of Vacation Bible School.",
+        "camp_page_url": "https://www.cbcjc.org/kids",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.cbcjc.org/kids", "https://www.cbcjc.org/"],
+        "confidence": "medium",
+        "review_notes": "The kids page gives an undated recurring VBS description and rising Pre-K through 7th-grade eligibility; verify these for 2027. No dates describe the season. The church publishes 300 North Roan Street, Johnson City, TN, but the VBS description does not explicitly identify its drop-off venue, so sites is empty."
+      }
+    ]
+  }
+}

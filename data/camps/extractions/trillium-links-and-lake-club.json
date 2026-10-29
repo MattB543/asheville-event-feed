@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "trillium-links-and-lake-club",
+    "name": "Trillium Links and Lake Club",
+    "urls": ["https://trilliumnc.com/kids-programs/"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:22.933Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c802415adfae9657b2822a2213b3e34b208a2cb91ac37c16ff7061e6154af9bc",
+  "response": {
+    "searches": [
+      "site:trilliumnc.com \"camp\" \"2027\"",
+      "\"Camp Trillium\" \"2026\" \"Cashiers\""
+    ],
+    "usage": {
+      "inputTokens": 21552,
+      "cachedInputTokens": 8223,
+      "outputTokens": 784,
+      "reasoningTokens": 157
+    },
+    "status": "completed",
+    "ms": 21932,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trilliumnc.com/kids-programs/",
+      "chars": 1982,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trilliumnc.com/faq/",
+      "chars": 14979,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trilliumnc.com/",
+      "chars": 4939,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trillium Links and Lake Club",
+    "website_url": "https://trilliumnc.com/",
+    "notes": "No public 2027 dates or registration milestones found. The public camp page is undated and provides no season dates, hours or prices. The official Camp Trillium member portal requires login; its camp details could not be read.",
+    "excluded": [
+      {
+        "name": "Golf clinics and private/group lessons",
+        "reason": "The FAQ describes general ongoing instruction, not a finite summer youth program."
+      },
+      {
+        "name": "Tennis Clinics",
+        "reason": "The FAQ lists recurring clinics without a finite summer youth offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Trillium",
+        "type": "day",
+        "categories": ["general", "sports", "nature_outdoor", "arts", "horses"],
+        "description": "Campers participate in golf, tennis, swimming, hiking, whitewater rafting, horseback riding, outdoor games, crafts and lake activities. The camp serves children and grandchildren of club members.",
+        "camp_page_url": "https://trilliumnc.com/kids-programs/",
+        "registration_url": "https://memberstrilliumnc.clubhouseonline-e3.org/Camp_Trillium",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://trilliumnc.com/kids-programs/",
+          "https://memberstrilliumnc.clubhouseonline-e3.org/Camp_Trillium",
+          "https://trilliumnc.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The public camp description has no season year. It says five age groups but lists only four: 3–4, 5–6, 7–8 and 9–10; ages are determined on or before June 15. No rows were created because season dates are unknown. The club publishes 48 Links Drive, Cashiers, NC, but does not identify the camp drop-off location, so sites is empty. Confirm dates, age grouping, drop-off location and registration details through the member portal; the portal URL is camp-specific but its registration workflow could not be verified."
+      }
+    ]
+  }
+}

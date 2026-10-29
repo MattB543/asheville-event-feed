@@ -1,0 +1,577 @@
+{
+  "provider": {
+    "key": "tc-roberson-high-school",
+    "name": "T.C. Roberson High School",
+    "urls": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:56.580Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cb0f27ae6968fa165052dd6efe34176987761a7b45be8d79f9264d8fea579a41",
+  "response": {
+    "searches": [
+      "site.sites.google.com/bcsemail.org/tcrobersonathletics \"2027\" \"camp\"",
+      "\"site:sites.google.com/bcsemail.org/tcrobersonathletics\" \"Wrestling\" \"Camp\""
+    ],
+    "usage": {
+      "inputTokens": 25258,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4523,
+      "reasoningTokens": 391
+    },
+    "status": "completed",
+    "ms": 76410,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+      "chars": 4512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1mgopAO1fuHFusX7nabYf1VZxj8FGo0Zn/view?usp=drive_link",
+      "chars": 1070,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1uxB01Ip80AXM93wLUkcmRVfs4JRJ6Ck-/view?usp=sharing",
+      "chars": 1030,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1PxdztY5ZIYmGFXowPf_a0PAXmOy1zIMz/view?usp=drive_link",
+      "chars": 933,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1iuvKBSCNXMy9lWzTQ_U24DnuEJVzKEIl/view?usp=sharing",
+      "chars": 2401,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/10MluhrvXJ4NSvgmmQ3TKh363n1pXStoN/view?usp=sharing",
+      "chars": 1022,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1es6IIJr89G-6SSGjZfVVNwmzDLXWUzZP/view?usp=sharing",
+      "chars": 3143,
+      "method": "browser"
+    },
+    {
+      "url": "https://drive.google.com/file/d/1-1mwXH0Ih90X1kKU_-C1U-WtY8Gm516e/view?usp=sharing",
+      "chars": 1022,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "T.C. Roberson High School",
+    "website_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+    "notes": "No 2027 camp information was found. Dates below are from the official page's 2026 summer heading, not projected to 2027. Google Drive image flyers could not be read; football and soccer PDF text was available in the supplied material. The school publishes its address as 250 Overlook Rd., Asheville, NC. Sites are left empty where the camp materials do not explicitly identify a meeting venue. Men's Lacrosse Summer Camp is listed only as a heading with no details.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Baseball Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth baseball camp for rising first through eighth graders.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. The linked 2026 Baseball Summer Camp Flyer.png could not be read; check it for venue, price and registration details."
+      },
+      {
+        "name": "Men's Basketball Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth basketball camp for rising third through twelfth graders.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. The basketball flyer link is mistakenly labeled Baseball Camp Flyer on the page; its Basketball Camp Flyer.png contents could not be read."
+      },
+      {
+        "name": "Women's Basketball Summer Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "A one-day women's basketball summer camp.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Date uses the summer page's 2026 heading. The page says More information to come and does not state eligibility, venue or price."
+      },
+      {
+        "name": "Cheerleading Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A three-day youth cheerleading summer camp.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. Cheer 2026.jpeg could not be read; check eligibility, venue, price and registration."
+      },
+      {
+        "name": "Football Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Coaches and current and past players teach football fundamentals, game rules and principles of team play. The camp fee includes a football T-shirt and insurance.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": "https://omella.com/4eqk8",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "TCR Football Field",
+            "address": "250 Overlook Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": "Includes T-shirt and insurance",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+          "https://drive.google.com/file/d/1iuvKBSCNXMy9lWzTQ_U24DnuEJVzKEIl/view",
+          "https://tcrhs.buncombeschools.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Men's Lacrosse Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "The athletics summer camp page lists a men's lacrosse summer camp without an activity description.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "low",
+        "review_notes": "Only a heading is posted. Confirm that this camp actually ran and determine its format, dates, eligibility, venue and registration. Do not apply the women's lacrosse details to it."
+      },
+      {
+        "name": "Women's Lacrosse Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth women's lacrosse camp for ages 10 through 18.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "11:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. TCR Summer LAX Camp.png could not be read; check venue, price and registration."
+      },
+      {
+        "name": "Soccer Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Boys and girls participate in soccer skill exercises, tactical drills and team-building activities. All skill levels are welcome.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": "https://omella.com/oj0eo",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-07",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "TC Roberson High School",
+            "address": "250 Overlook Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "K-5th: 9-11 AM; 6th-12th: 5-8 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Morning: K-5th",
+            "start": "2026-07-07",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "11:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Evening: 6-12th",
+            "start": "2026-07-07",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 12,
+              "basis": "unspecified"
+            },
+            "hours": {
+              "start": "17:00",
+              "end": "20:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+          "https://drive.google.com/file/d/1es6IIJr89G-6SSGjZfVVNwmzDLXWUzZP/view",
+          "https://tcrhs.buncombeschools.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The soccer PDF gives dates without a year; 2026 comes from the linking summer camp page's heading. Morning and evening grade bands are retained as rows of the same named program."
+      },
+      {
+        "name": "Softball Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth softball camp for kindergarten through eighth graders.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. Softball Camp Flyer.png could not be read; check venue, price and registration."
+      },
+      {
+        "name": "Wrestling Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth wrestling camp for rising first through ninth graders.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. Wrestling Camp Flyer contents were not available; check venue, price and registration."
+      },
+      {
+        "name": "Volleyball Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A youth volleyball camp for rising fifth through ninth graders.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/bcsemail.org/tcrobersonathletics/menu/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Dates use the summer page's 2026 heading. Volleyball Camp Flyer contents were not available; check venue, price and registration."
+      }
+    ]
+  }
+}

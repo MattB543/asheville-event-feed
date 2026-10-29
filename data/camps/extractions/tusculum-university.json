@@ -1,0 +1,361 @@
+{
+  "provider": {
+    "key": "tusculum-university",
+    "name": "Tusculum University",
+    "urls": [
+      "https://site.tusculum.edu/camps/",
+      "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+      "https://www.tusculumpioneers.com/information/camps/index_-2019_Camps-",
+      "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps",
+      "https://tuwsoccamps.com/"
+    ],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:12.218Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "871d0624202c475c7f1a8cc7e69dbc975c225f6c6d76c07831a100736806d3ec",
+  "response": {
+    "searches": [
+      "site.tusculum.edu camps 2027",
+      "site.tusculumpioneers.com \"2026\" \"camp\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 34134,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2697,
+      "reasoningTokens": 272
+    },
+    "status": "completed",
+    "ms": 53015,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://site.tusculum.edu/camps/",
+      "chars": 2607,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+      "chars": 8972,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tusculumpioneers.com/information/camps/index_-2019_Camps-",
+      "chars": 5166,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps",
+      "chars": 4852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://apply.tusculum.edu/register/RFI",
+      "chars": 4082,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tusculumpioneers.com/information/camps/WomensVolleyballCamps2020/2020WomensVolleyballCamps",
+      "chars": 4025,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tusculumpioneers.com/sports/bsb/camps/19_BB_Camp_Brochure.pdf",
+      "chars": 3493,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tusculumpioneers.com/sports/mbkb/basketball-camps/19_MB_Camp-Brochure.pdf",
+      "chars": 3515,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tusculum University",
+    "website_url": "https://site.tusculum.edu/",
+    "notes": "No 2027 information was found for university-operated camps. Cards use explicitly dated 2026 materials. The main camps page still advertises Camps for 2025; eSports and the Business of Video Games and Historic Woodworking Camp were not included because no 2026 or 2027 offering was verified. The athletics camp index lists obsolete 2019/2020 offerings, and the volleyball page describes 2024. The supplied baseball and basketball PDF URLs returned HTML wrappers rather than readable brochures. Total Camps and the women's soccer website returned no readable page text, so current soccer offerings could not be verified. Lifeway camps and Nike tennis camps hosted on campus are separately operated providers, not included here.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Pioneer Skills Camp",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Children practice pioneer skills including fire starting, cooking, fishing and building a campsite. Activities take place on the Doak House Museum grounds and Tusculum Nature Trail.",
+        "camp_page_url": "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+        "registration_url": "https://tusculumuniversitycamps.totalcamps.com/shop/EVENT",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Doak House Museum",
+            "address": "690 Erwin Hwy",
+            "town": "Tusculum",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9 a.m.-noon daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+          "https://www.onthestage.tickets/show/tusculum-university/6aa829ddfedd803ad9129aab"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Tusculum Theatre Camp",
+        "type": "half_day",
+        "categories": ["theater"],
+        "description": "Campers write and perform an original play and help build costumes and sets while learning about acting and backstage work. Each group participates in a production for family and friends on the last day.",
+        "camp_page_url": "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+        "registration_url": "https://tusculumuniversitycamps.totalcamps.com/shop/EVENT",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Annie Hogan Byrd Fine Arts Center",
+            "address": "60 Shiloh Road",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1: Ages 5-7",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:30",
+              "end": "11:00"
+            },
+            "price": {
+              "amount": 90,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 1: Ages 8-13",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "12:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 125,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2: Ages 8-13",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "11:00",
+              "end": "14:00"
+            },
+            "price": {
+              "amount": 125,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2: Ages 14 and older",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "15:00",
+              "end": "18:00"
+            },
+            "price": {
+              "amount": 125,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www3.tusculum.edu/news/news/2026/tusculum-university-to-provide-hands-on-learning-for-children-during-pioneer-skills-camp-and-theatre-camp/",
+          "https://arts.tusculum.edu/window-tixembed-window-tixembed-inst-window-tixembed-baseurl-https-yhc-hometownticketing-com-ifwindow-tixembed-djsloaded-functionvar-s-document-getelementsby/theatres/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official performance-spaces page publishes the university address, 60 Shiloh Road, rather than a building-specific street number; a third-party listing gives 9 Shiloh Road for Annie Hogan Byrd Auditorium. Confirm the drop-off entrance. The article lists final performances at 16:00 June 26 and 18:00 July 3, outside some groups' ordinary session hours."
+      },
+      {
+        "name": "JT Burton Boys Youth Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Boys learn basketball fundamentals, compete in contests and play games with instruction from Tusculum men's basketball staff and players.",
+        "camp_page_url": "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps",
+        "registration_url": "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "9 AM - 2 PM (Check-in starts at 7:30 AM)"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "K-2nd (JT Burton Boys Youth Camp)",
+            "start": "2026-07-27",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "3rd-6th (JT Burton Boys Youth Camp)",
+            "start": "2026-07-27",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "We are asking campers to bring their own lunch daily."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.tusculumpioneers.com/information/camps/MensBasketballCamps/MensBasketballCamps"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

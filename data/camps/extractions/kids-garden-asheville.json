@@ -1,0 +1,289 @@
+{
+  "provider": {
+    "key": "kids-garden-asheville",
+    "name": "Kids Garden Asheville",
+    "urls": [
+      "https://kidsplaygarden.com/asheville/summer",
+      "https://kidsplaygarden.com/asheville/camps"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:41.841Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "139b17d4cebc156aaacb1cdaad795a7485bbaf9229f6581c636ba391df270525",
+  "response": {
+    "searches": ["site:kidsplaygarden.com/asheville \"2027\" camp"],
+    "usage": {
+      "inputTokens": 29344,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1830,
+      "reasoningTokens": 102
+    },
+    "status": "completed",
+    "ms": 43198,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kidsplaygarden.com/asheville/summer",
+      "chars": 21969,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kidsplaygarden.com/asheville/camps",
+      "chars": 17558,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kidsplaygarden.com/asheville/register-my-family",
+      "chars": 18900,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://kidsplaygarden.com/asheville/about/faqs",
+      "chars": 21573,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Kids Garden Asheville",
+    "website_url": "https://kidsplaygarden.com/asheville",
+    "notes": "No summer 2027 dates or registration milestones were found. The summer page lists Junior Explorer Camps as COMING SOON without dates, ages, or a description establishing a separate summer offering; no separate card was created. Camp booking currently directs families to call 828-417-7310 for availability. A yearly $40 per-family registration fee applies. Campers may enroll in the morning or afternoon session, but not both; siblings enrolled for the full week receive 25% off.",
+    "excluded": [
+      {
+        "name": "Drop-In Childcare",
+        "reason": "Year-round childcare, not a finite summer-only program."
+      },
+      {
+        "name": "Preschool",
+        "reason": "Year-round preschool."
+      },
+      {
+        "name": "Art Classes & After School",
+        "reason": "Ongoing classes and after-school programming, not a finite summer offering."
+      },
+      {
+        "name": "Parent's Night Out",
+        "reason": "Recurring year-round evening childcare rather than a summer program."
+      },
+      {
+        "name": "Spring Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Winter Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Federal holiday and schools-out camps",
+        "reason": "No specific summer holiday or summer session is identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "half_day",
+        "categories": ["arts", "stem", "general"],
+        "description": "Children participate in weekly themed arts and crafts, hands-on science activities, outdoor play, movement breaks, and unstructured play. Families can choose morning camp or Afternoon Art Lab & Studio Camp.",
+        "camp_page_url": "https://kidsplaygarden.com/asheville/summer",
+        "registration_url": "https://kidsplaygarden.com/asheville/book?tab=camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kids Garden Asheville",
+            "address": "579 Tunnel Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Morning Camp: 9am–1pm. Afternoon Art Lab & Studio Camp: 1:30pm–5:30pm. Campers may attend either session, but not both."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 270,
+            "unit": "week",
+            "label": "Morning Camp, member",
+            "year": 2026
+          },
+          {
+            "amount": 240,
+            "unit": "week",
+            "label": "Afternoon Art Lab & Studio Camp, member",
+            "year": 2026
+          },
+          {
+            "amount": 310,
+            "unit": "week",
+            "label": "Morning Camp, non-member",
+            "year": 2026
+          },
+          {
+            "amount": 280,
+            "unit": "week",
+            "label": "Afternoon Art Lab & Studio Camp, non-member",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Brick Builders Academy",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Dino Dig & Rock Lab",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Garden Gurus: Green Thumb",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Peace, Love & the Mountains",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "STEAM Innovators Lab",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mini Makers: Artists on Duty",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Galaxy Quest: Space Adventure",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Experimentation Station",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sea, Sand & Surf Adventures",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Maker's Studio: Creative Crafters",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Snack and lunch is included in both camps"
+        },
+        "transportation": null,
+        "sources": [
+          "https://kidsplaygarden.com/asheville/summer",
+          "https://kidsplaygarden.com/asheville/camps",
+          "https://kidsplaygarden.com/asheville/register-my-family",
+          "https://kidsplaygarden.com/asheville/about/faqs",
+          "https://kidsplaygarden.com/asheville/book?tab=camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm price-to-session mapping in the visual pricing controls on the summer or camps page: fetched text lists the morning and afternoon options followed by two prices, so their association follows displayed order. Dates use the explicit 2026 Camp Themes By Week heading. Pricing is undated and retained as the 2026 fallback. The summer page's introductory metadata says ages 1 and up, but its program body, Summer Camps listing, and seasonal-camp FAQs specify ages 3–12; the camp-specific range is used."
+      }
+    ]
+  }
+}

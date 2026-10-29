@@ -1,0 +1,161 @@
+{
+  "provider": {
+    "key": "the-rad-school-of-mural-arts",
+    "name": "The RAD School of Mural Arts",
+    "urls": [
+      "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:42.240Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d0b8920cf45f9184d42f1bf23071ffd54fd4a04ff02c58ca7570489767a33943",
+  "response": {
+    "searches": [
+      "site:radschoolofmuralarts.com summer camp 2026 2027",
+      "\"RAD\" \"Summer Mural Camp\"",
+      "open https://jgilmoreart.com/cafe/",
+      "site:jgilmoreart.com \"2026\" \"Camp\" \"Ages\""
+    ],
+    "usage": {
+      "inputTokens": 19481,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1190,
+      "reasoningTokens": 347
+    },
+    "status": "completed",
+    "ms": 37810,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+      "chars": 2157,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/the-rad-school-of-mural-arts-shop/",
+      "chars": 1741,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=facebook",
+      "chars": 664,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=twitter",
+      "chars": 0,
+      "error": "fetch: thin page (26 chars); browser: HTTP 403"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=linkedin",
+      "chars": 962,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=reddit",
+      "chars": 821,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=tumblr",
+      "chars": 421,
+      "method": "fetch"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=pinterest",
+      "chars": 533,
+      "method": "browser"
+    },
+    {
+      "url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/?share=jetpack-whatsapp",
+      "chars": 1815,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The RAD School of Mural Arts",
+    "website_url": "https://radschoolofmuralarts.com/",
+    "notes": "No summer 2027 information found. The current shop lists fall 2026 and spring 2027 classes, but no summer registration product. Several official pages opened with no readable text; 2026 camp dates and tuition were available only in an indexed search result from the provider's jgilmoreart.com website. No detailed 2026 weekly schedule was found.",
+    "excluded": [
+      {
+        "name": "2026 Fall Mural 101",
+        "reason": "Afterschool classes outside summer; monthly payment products are the same offering."
+      },
+      {
+        "name": "2027 Spring Mural 101",
+        "reason": "Spring classes outside summer."
+      },
+      {
+        "name": "Community Mural Workshop for Adults",
+        "reason": "Adult-only workshop, also scheduled outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "RAD Summer Mural Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Youth develop visual art skills in a social setting and work on mural projects.",
+        "camp_page_url": "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "RAD Rendezvous Studios",
+            "address": "87 Roberts St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 650,
+            "unit": "session",
+            "label": "2 week project",
+            "year": 2026
+          },
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "1 week",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We would love to see that fund grow so any kid that wants to participate in the classes and Summer Mural Camp can regardless of their families’ income."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://radschoolofmuralarts.com/",
+          "https://radschoolofmuralarts.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+          "https://jgilmoreart.com/support-the-scholarship-fund-for-the-1st-rad-summer-mural-camp/",
+          "https://radschoolofmuralarts.com/the-rad-school-of-mural-arts-shop/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify dates and tuition on the provider's jgilmoreart.com scholarship page: its indexed snippet states July 6 start, July 30, 2026 end, $650 for a two-week project and $350 for one week, but opening the page returned no readable text. July 6 is interpreted within that explicit 2026 season. The current radschoolofmuralarts.com scholarship page confirms the venue but no longer prints dates or tuition. Camp hours, age limits and individual sessions remain unverified."
+      }
+    ]
+  }
+}

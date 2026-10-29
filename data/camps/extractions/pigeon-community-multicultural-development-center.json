@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "pigeon-community-multicultural-development-center",
+    "name": "Pigeon Community Multicultural Development Center",
+    "urls": ["https://www.pcmdc.org/programs/summer-enrichment-program"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:57.380Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "21e7f5462f088ecdc9791d3d2571bdc90875568ad81a55f824a356b1e4cee38e",
+  "response": {
+    "searches": ["site:pcmdc.org \"2026\" \"summer\""],
+    "usage": {
+      "inputTokens": 14516,
+      "cachedInputTokens": 8223,
+      "outputTokens": 946,
+      "reasoningTokens": 158
+    },
+    "status": "completed",
+    "ms": 24813,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pcmdc.org/programs/summer-enrichment-program",
+      "chars": 8111,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pcmdc.org/",
+      "chars": 1320,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pigeon Community Multicultural Development Center",
+    "website_url": "https://www.pcmdc.org/",
+    "notes": "No official 2027 or 2026 summer program details were found. The program page still features Summer Enrichment Program 2025, and an official event page lists June 16–August 15, 2025. Those dates and the older $650 price have not been carried forward. No current registration application link was found.",
+    "excluded": [
+      {
+        "name": "Summer Classroom Counselor",
+        "reason": "Employment position for adults, not a youth camp offering."
+      },
+      {
+        "name": "After School Program",
+        "reason": "School-year after-school programming, not a summer camp."
+      },
+      {
+        "name": "Season of Light 2026",
+        "reason": "Winter community celebration, outside summer."
+      },
+      {
+        "name": "Conversations with Storytellers Series",
+        "reason": "Community performances rather than a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Enrichment Program",
+        "type": "day",
+        "categories": ["academic", "arts", "music", "stem", "general"],
+        "description": "Students participate in reading and math exercises, crafts, music, hands-on STEAM activities, and character-building activities. The program also includes field trips and guest workshops.",
+        "camp_page_url": "https://www.pcmdc.org/programs/summer-enrichment-program",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Pigeon Community Multicultural Development Center",
+            "address": "450 Pigeon Street",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Additionally, we are pleased to offer limited scholarship opportunities as they become available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes breakfast, lunch, and snack daily"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.pcmdc.org/programs/summer-enrichment-program",
+          "https://www.pcmdc.org/events/pcmdc-summer-enrichment-program",
+          "https://www.pcmdc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The general program description says K–12, but the 2025 section says kindergarten through middle school. Age bands also conflict between the counselor job description and the parent-facing text. Confirm current eligibility. Meals and scholarships are described on the page but have not been confirmed for 2026 or 2027. The 2025 or undated nine-week schedule, 8 AM–5 PM hours, $650 new-student price, May 1 application opening, and parent volunteer requirement have not been treated as current-season facts."
+      }
+    ]
+  }
+}

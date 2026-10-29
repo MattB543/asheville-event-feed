@@ -1,0 +1,415 @@
+{
+  "provider": {
+    "key": "falling-creek-camp",
+    "name": "Falling Creek Camp",
+    "urls": [
+      "https://fallingcreek.com/programs/tripping-program",
+      "https://fallingcreek.com/programs/camp-activities-progressions",
+      "https://fallingcreek.com/programs/camp-activities-progressions/sports",
+      "https://fallingcreek.com/sessions",
+      "https://fallingcreek.com/"
+    ],
+    "area": "Zirconia, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:03.884Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d6231632dec5ac2a2fcf146e7d62499e9bb2d4c010b8ea25c5cfbdef8a059f18",
+  "response": {
+    "searches": [
+      "site:fallingcreek.com camper leadership STEEL DASH 2027",
+      "open https://fallingcreek.com/programs/camper-leadership-programs",
+      "site:fallingcreek.com \"816 Falling\""
+    ],
+    "usage": {
+      "inputTokens": 33590,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3157,
+      "reasoningTokens": 296
+    },
+    "status": "completed",
+    "ms": 66577,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fallingcreek.com/programs/tripping-program",
+      "chars": 6067,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.com/programs/camp-activities-progressions",
+      "chars": 8892,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.com/programs/camp-activities-progressions/sports",
+      "chars": 9829,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.com/sessions",
+      "chars": 6574,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+      "chars": 10672,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.campintouch.com/v2/family/InquiryForm.aspx",
+      "chars": 1761,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fallingcreek.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://fallingcreek.com/",
+      "chars": 6215,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Falling Creek Camp",
+    "website_url": "https://fallingcreek.com/",
+    "notes": "2027 dates, tuition and registration policies are posted. June Camp, Main Camp, 2-Week Camp and Junior Camp are grouped as sessions of Traditional Summer Camp. Outdoor adventure trips and individual sports are included camp activities, not separately enrolled camps. The leadership page also describes FLINT, but does not publish separate 2027 dates or tuition for it. The contact page identifies 816 Falling Creek Camp Rd. as the shipping address and 2900 Green River Road as an entrance-only GPS address.",
+    "excluded": [
+      {
+        "name": "Father/Son Weekends",
+        "reason": "Family-only programs requiring attendance with a father."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only offering mentioned in the sessions page metadata; no current session details posted."
+      },
+      {
+        "name": "DASH",
+        "reason": "Staff employment opportunity, not a youth camp."
+      },
+      {
+        "name": "Summer Jobs",
+        "reason": "Staff employment programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Traditional Summer Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "arts", "horses", "faith_based"],
+        "description": "Boys participate in sports, arts, horseback riding and outdoor activities at a residential camp founded on Christian values. Longer sessions offer individually selected activities and adventure trips; Junior Camp uses a structured cabin-group schedule sampling traditional activities.",
+        "camp_page_url": "https://fallingcreek.com/sessions",
+        "registration_url": "https://fallingcreek.com/sessions/camper-application-faq",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 10,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Falling Creek Camp",
+            "address": "816 Falling Creek Camp Rd.",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 9,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7500,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 10,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9200,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "2-Week Camp",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5600,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Junior Camp",
+            "start": "2027-08-08",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 4,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2300,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 registration for returning and new campers will begin the last Wednesday of August. (9:00 AM EDT on Wednesday, August 26, 2026).",
+            "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 registration for returning and new campers will begin the last Wednesday of August. (9:00 AM EDT on Wednesday, August 26, 2026).",
+            "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "deadline",
+            "date": "2026-09-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Guaranteed Priority: 2026 returning June, Main, 2-Week, and Junior Camp campers are guaranteed a spot in the same session if age/grade requirements are met, is in good standing, and the application and deposit are received by September 15th.",
+            "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "June Camp, Main Camp and 2-Week Camp",
+          "text": "Wait List"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Request Financial Aid"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fallingcreek.com/",
+          "https://fallingcreek.com/sessions",
+          "https://fallingcreek.com/programs/camp-activities-progressions",
+          "https://fallingcreek.com/sessions/registration-enrollment-information",
+          "https://fallingcreek.com/contact-us",
+          "https://fallingcreek.com/programs/camper-leadership-programs"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 table combines Main Camp and STEEL as grades 2-11; the separate 2026 rows and leadership page distinguish Main Camp through grade 10 from STEEL for completed grade 11. Confirm the Main Camp-only 2027 grade limit. Street address was obtained from the official contact-page search result."
+      },
+      {
+        "name": "STEEL Program",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Boys develop leadership skills through mentoring and assisting younger campers in cabins and activities. Admission involves a competitive counselor-in-training selection process.",
+        "camp_page_url": "https://fallingcreek.com/programs/camper-leadership-programs",
+        "registration_url": "https://fallingcreek.com/sessions/camper-application-faq",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Falling Creek Camp",
+            "address": "816 Falling Creek Camp Rd.",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 9200,
+            "unit": "session",
+            "label": "Tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 registration for returning and new campers will begin the last Wednesday of August. (9:00 AM EDT on Wednesday, August 26, 2026).",
+            "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 registration for returning and new campers will begin the last Wednesday of August. (9:00 AM EDT on Wednesday, August 26, 2026).",
+            "url": "https://fallingcreek.com/sessions/registration-enrollment-information",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": null,
+          "text": "Wait List"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Request Financial Aid"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fallingcreek.com/sessions",
+          "https://fallingcreek.com/programs/camper-leadership-programs",
+          "https://fallingcreek.com/sessions/registration-enrollment-information",
+          "https://fallingcreek.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 dates, tuition and wait-list designation are published in a combined Main Camp/STEEL row. Grade 11 is distinguished by the leadership page and separate 2026 session row. Confirm STEEL-specific availability with the office; the contact address was read through an official search result."
+      },
+      {
+        "name": "FLINT",
+        "type": "overnight",
+        "categories": ["general", "faith_based"],
+        "description": "Boys who have completed 10th grade participate in regular camp activities while developing leadership through mentoring, service and planning special events.",
+        "camp_page_url": "https://fallingcreek.com/programs/camper-leadership-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 10,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Falling Creek Camp",
+            "address": "816 Falling Creek Camp Rd.",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fallingcreek.com/programs/camper-leadership-programs",
+          "https://fallingcreek.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "FLINT remains described on the current leadership page but is not a separate row in the 2027 session table. Confirm its 2027 session dates, tuition and enrollment route. Do not assume Main Camp dates or prices apply. Address was read through the official contact-page search result."
+      }
+    ]
+  }
+}

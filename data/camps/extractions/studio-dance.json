@@ -1,0 +1,62 @@
+{
+  "provider": {
+    "key": "studio-dance",
+    "name": "Studio Dance",
+    "urls": [
+      "https://www.studiodancejc.com/programs-offered.html",
+      "https://www.studiodancejc.com/"
+    ],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is no"
+  },
+  "extractedAt": "2026-10-29T15:37:13.076Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "open https://www.studiodancejc.com/programs-offered.html",
+      "site:studiodancejc.com summer camp",
+      "site:studiodancejc.com \"summer\""
+    ],
+    "usage": {
+      "inputTokens": 20994,
+      "cachedInputTokens": 8223,
+      "outputTokens": 461,
+      "reasoningTokens": 192
+    },
+    "status": "completed",
+    "ms": 22046,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.studiodancejc.com/programs-offered.html",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.studiodancejc.com/programs-offered.html\nCall log:\n\u001b[2m  - navigating to \"https://www.studiodancejc.com/programs-offered.html\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.studiodancejc.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.studiodancejc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.studiodancejc.com/\nCall log:\n\u001b[2m  - navigating to \"https://www.studiodancejc.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Studio Dance",
+    "website_url": "https://www.studiodancejc.com/",
+    "notes": "No qualifying summer youth camps could be verified. Direct opens of the homepage, programs page and schedule page returned no readable content; official search-indexed text was available. The schedule is labeled 2026-2027, but no summer 2027 camp dates or registration milestones were found. The only explicitly summer-only offering found requires adult participation. Review the studio's schedule directly for information embedded in images or documents that could not be read.",
+    "excluded": [
+      {
+        "name": "INTRODUCTION TO DANCE/MOMMY and ME",
+        "reason": "Summer-only class for ages 3 and 4 requiring an adult to participate with each dancer; excluded as a family-only program rather than a supervised youth drop-off offering."
+      },
+      {
+        "name": "Regular dance classes",
+        "reason": "Creative Movement 2, Intro to Dance Arts 1 and 2, ballet, pointe, jazz, tap, tumbling/acro, lyrical, and jumps/leaps/tricks/turns are presented as ongoing dance classes, not finite summer programs."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "provider": {
+    "key": "asheville-empire-lacrosse",
+    "name": "Asheville Empire Lacrosse",
+    "urls": ["https://ashevilleempire.com/programs/lacrosse-summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:19.827Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "62ed022299f61bef28bd4a5acc098688bef34ccbcc023863a173b97e9efc0fd9",
+  "response": {
+    "searches": [
+      "site.buncombecounty.org Buncombe County Sports Park 58 Apac",
+      "site.ashevilleempire.com \"sportsengine\""
+    ],
+    "usage": {
+      "inputTokens": 22118,
+      "cachedInputTokens": 8223,
+      "outputTokens": 919,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 24996,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+      "chars": 1651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleempire.com/",
+      "chars": 3337,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Empire Lacrosse",
+    "website_url": "https://ashevilleempire.com/",
+    "notes": "The camp page explicitly posts July 26–30, 2027. No prices or dated registration milestones were found. Direct browser opens returned no readable text; the supplied fetched text and official search results were used. The destination of the Register Now link could not be verified.",
+    "excluded": [
+      {
+        "name": "Fall Ball Sundays",
+        "reason": "Fall program, outside summer."
+      },
+      {
+        "name": "Winter Lacrosse",
+        "reason": "Winter program, outside summer."
+      },
+      {
+        "name": "Tournament Teams",
+        "reason": "Competitive team seasons, including summer travel, rather than a finite camp."
+      },
+      {
+        "name": "Girls Youth Lacrosse",
+        "reason": "Youth team program rather than a summer camp."
+      },
+      {
+        "name": "7U Boys / 10U Boys / 12U Boys / 14U Boys",
+        "reason": "Age-group sports teams rather than summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Lacrosse Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice lacrosse drills, work at position-specific stations, and play scrimmages and mini lacrosse. The camp also includes games and activities for boys and girls with or without lacrosse experience.",
+        "camp_page_url": "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-26",
+          "end": "2027-07-30",
+          "text": "July 26th-July 30th 2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Buncombe County Sports Park",
+            "address": "58 Apac Circle",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "9:00am – Check In/Roll Call; 12:00pm – Lunch — HALF DAY CAMPER PICKUP; 3:00-3:30pm – Clean up/Pick up"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "All Players Must Bring the Following Items: Bagged Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilleempire.com/programs/lacrosse-summer-camp/",
+          "https://www.buncombenc.gov/Facilities/Facility/Details/Buncombe-Sports-Park-1",
+          "https://www.buncombenc.gov/346/Parks-Sports-Facilities"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

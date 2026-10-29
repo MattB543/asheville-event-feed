@@ -1,0 +1,318 @@
+{
+  "provider": {
+    "key": "asheville-montessori-school",
+    "name": "Asheville Montessori School",
+    "urls": ["https://ashevillemontessorischool.com/enrollment/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:57.263Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f0f947a92bd667055898e84334bb2705b7388cc2cf533702e19bc0357365bc8d",
+  "response": {
+    "searches": [
+      "site:ashevillemontessorischool.com \"2027\" \"camp\"",
+      "open https://ashevillemontessorischool.com/wp-content/uploads/2026/08/AMS-2026-2027-Calendar.pdf",
+      "?"
+    ],
+    "usage": {
+      "inputTokens": 20094,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1927,
+      "reasoningTokens": 132
+    },
+    "status": "completed",
+    "ms": 36394,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/summer-camp/",
+      "chars": 10729,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/tuition/",
+      "chars": 4121,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/wp-content/uploads/2025/12/Tuition-Schedule-26-27.pdf",
+      "chars": 3015,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/",
+      "chars": 2681,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/entry-level-skills/",
+      "chars": 2761,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/faq/",
+      "chars": 2315,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/enrollment/summer-camp/enrollment/the-enrollment-process/",
+      "chars": 2681,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemontessorischool.com/",
+      "chars": 2191,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Montessori School",
+    "website_url": "https://ashevillemontessorischool.com/",
+    "notes": "No 2027 summer camp announcement found. The official camp page lists 2026 offerings. Camp is restricted to children enrolled in the current or next school year; children must be fully potty trained and meet the school's Entry Level Skills. Registration forms are shared with families through Brightwheel. The August-uploaded 2026-2027 calendar PDF could not be read, so a reviewer should check it for possible 2027 camp dates.",
+    "excluded": [
+      {
+        "name": "School-year Montessori programs and beforecare/aftercare",
+        "reason": "Year-round education and school-year childcare, not finite summer camp offerings."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["arts", "music", "stem", "nature_outdoor", "cooking", "general"],
+        "description": "Children participate in themed weeks featuring hands-on science, building, cooking, crafts, music, and nature exploration. Activities vary by the selected weekly theme.",
+        "camp_page_url": "https://ashevillemontessorischool.com/enrollment/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Montessori School",
+            "address": "360 Weaverville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:45",
+          "end": "15:00",
+          "text": "Monday-Friday. Morning carline is 8:45-9:00 and afternoon carline is 2:45-3:00. Friday Parent Gathering is at 2:30."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 325,
+            "unit": "week",
+            "label": "Per child; $75 non-refundable deposit applied to camp tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: STEAM Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1: Nature Navigators",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1: Snack Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Stuffie Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Fiber Arts Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Pottery Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Growing Kindness Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Building Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Weaving, Fabric, and Fun Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Merry Music Makers Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Space Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Printmaking Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Feathered Friends Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Blossom Bash",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": "11:00",
+          "text": "Once Summer Camp Registration OPENS at 11:00 AM on Monday, January 12, 2026:",
+          "url": "https://ashevillemontessorischool.com/enrollment/summer-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Nutritious snack AND lunch: We will provide organic cow’s milk (and a non-alternative milk for dairy allergies) at lunchtime. If you prefer a different lunchtime beverage, please pack it with their lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevillemontessorischool.com/enrollment/summer-camp/",
+          "https://ashevillemontessorischool.com/enrollment/entry-level-skills/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

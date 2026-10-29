@@ -1,0 +1,258 @@
+{
+  "provider": {
+    "key": "pisgah-astronomical-research-institute",
+    "name": "Pisgah Astronomical Research Institute (PARI)",
+    "urls": ["https://www.pari.edu/camps/summer-camps/"],
+    "area": "Rosman, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:01:46.582Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4cfe8967ccf490914759f0b3960c6e48cf210384d16ee2b6b1ba29b289cc4b17",
+  "response": {
+    "searches": [
+      "site:pari.edu \"2027\" camp",
+      "open https://www.pari.edu/camps/above-and-beyond/"
+    ],
+    "usage": {
+      "inputTokens": 34009,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1669,
+      "reasoningTokens": 117
+    },
+    "status": "completed",
+    "ms": 41835,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.pari.edu/camps/summer-camps/",
+      "chars": 7688,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/visit/faq/",
+      "chars": 9723,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/visit/lodging",
+      "chars": 8996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/camps/",
+      "chars": 9573,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/camps/weekend-camps/",
+      "chars": 8859,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/camps/tailored-camps/",
+      "chars": 4685,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/camps/camper-guide/",
+      "chars": 19571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pari.edu/camps/recreational-activities/",
+      "chars": 4450,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pisgah Astronomical Research Institute (PARI)",
+    "website_url": "https://www.pari.edu/",
+    "notes": "No 2027 camp dates or registration milestones were found. Cards use the programs currently listed under 2026 Summer Camps. Older indexed navigation mentions additional curricula, but these are not listed as current summer offerings. The fetched program pages display Register Now without exposing a registration destination.",
+    "excluded": [
+      {
+        "name": "Weekend Camps",
+        "reason": "Programs are described as getaways for families and friends together, rather than supervised youth summer camps."
+      },
+      {
+        "name": "Custom Camps",
+        "reason": "Year-round custom group bookings; no finite summer youth offering is posted."
+      },
+      {
+        "name": "Be a Camp Counselor",
+        "reason": "Counselor employment program."
+      },
+      {
+        "name": "Cabins, Camping, and Dorms",
+        "reason": "Lodging rentals, not supervised youth programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Above and Beyond",
+        "type": "overnight",
+        "categories": ["stem", "academic"],
+        "description": "Campers use telescopes and astronomical data archives to investigate celestial objects in teams and present their findings. They also explore astrobiology and participate in recreational activities.",
+        "camp_page_url": "https://www.pari.edu/camps/above-and-beyond/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Pisgah Astronomical Research Institute",
+            "address": "1 PARI Drive",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Registration fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "One Week Session",
+            "start": "2026-07-06",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3910,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We're proud to offer financial assistance to reduce the cost of camp for those who need it through grants, sponsors, and donations."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "PARI provides three meals a day and snacks."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We pick up on the first day of camp and drop off on the last day of camp from the Asheville Regional Airport (AVL) within specified time periods free of charge."
+        },
+        "sources": [
+          "https://www.pari.edu/camps/summer-camps/",
+          "https://www.pari.edu/camps/above-and-beyond/",
+          "https://www.pari.edu/camps/camper-guide/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page labels July 6–17, 2026 as One Week Session, although those dates span more than one week. Confirm the session duration and dates with PARI."
+      },
+      {
+        "name": "Mission Control: Secrets of a Spy Station",
+        "type": "overnight",
+        "categories": ["stem"],
+        "description": "Campers create and decipher secret messages while studying codes, ciphers, and digital encryption. They use radio communications dishes to explore how satellites send and receive data.",
+        "camp_page_url": "https://www.pari.edu/camps/secrets-of-a-spy-station/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-19",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Pisgah Astronomical Research Institute",
+            "address": "1 PARI Drive",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Registration fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "One Week Session",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1650,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We're proud to offer financial assistance to reduce the cost of camp for those who need it through grants, sponsors, and donations."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "PARI provides three meals a day and snacks."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We pick up on the first day of camp and drop off on the last day of camp from the Asheville Regional Airport (AVL) within specified time periods free of charge."
+        },
+        "sources": [
+          "https://www.pari.edu/camps/summer-camps/",
+          "https://www.pari.edu/camps/secrets-of-a-spy-station/",
+          "https://www.pari.edu/camps/camper-guide/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

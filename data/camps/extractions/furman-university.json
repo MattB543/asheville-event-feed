@@ -1,0 +1,728 @@
+{
+  "provider": {
+    "key": "furman-university",
+    "name": "Furman University",
+    "urls": [
+      "https://www.furman.edu/summer-programs/",
+      "https://www.furman.edu/summer-programs/youth-programs/academic-programs/"
+    ],
+    "area": "Greenville, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:09:17.340Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e42aa0392f414111e890969791fa2165b7dd22e2739ff0e706896f829fa311fc",
+  "response": {
+    "searches": [
+      "site.furman.edu music summer 2026 camp keyboard vocal",
+      "open https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/",
+      "site.furman.edu \"Band\" \"2026\" \"$\" camp",
+      "site.furman.edu \"Summer Foundations Residential\"",
+      "site.furman.edu \"Innovation Academy\" \"2026\" \"July\"",
+      "site.furman.edu/academics/music/camps-conferences/band-orchestra-camp \"Resident\""
+    ],
+    "usage": {
+      "inputTokens": 61803,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5208,
+      "reasoningTokens": 705
+    },
+    "status": "completed",
+    "ms": 143039,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.furman.edu/summer-programs/",
+      "chars": 4932,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+      "chars": 8476,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/admissions-aid/tuition-fees/",
+      "chars": 9843,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/youth-programs/",
+      "chars": 4345,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/adult-programs/",
+      "chars": 3781,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/intern-housing/",
+      "chars": 6301,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/request-a-new-summer-program/",
+      "chars": 3784,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.furman.edu/summer-programs/request-a-program-brochure/",
+      "chars": 3755,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Furman University",
+    "website_url": "https://www.furman.edu/summer-programs/",
+    "notes": "2027 dates were found for Top Mock and several soccer offerings; the academic index still describes summer 2026 and is not a complete 2027 program list. The athletic index currently says information on upcoming camps will be updated soon and does not enumerate programs. This extraction is not a complete inventory of independently operated athletic camps: the athletics website links additional basketball, football, golf, tennis, lacrosse, softball, volleyball, cheerleading and cross-country camp sites that require further review. Some music pages returned only partial text, so unverified fees and logistics are omitted.",
+    "excluded": [
+      {
+        "name": "Summer Intern Housing",
+        "reason": "Housing for student interns, not a supervised youth camp."
+      },
+      {
+        "name": "Adult Programs",
+        "reason": "Adult-only offerings."
+      },
+      {
+        "name": "Piano for Young People",
+        "reason": "Year-round piano instruction rather than a finite summer camp."
+      },
+      {
+        "name": "Furman University Band Day",
+        "reason": "November 14, 2026 program, outside summer."
+      },
+      {
+        "name": "Furman Soccer Winter ID Camp",
+        "reason": "January 17, 2027 program, outside summer."
+      },
+      {
+        "name": "Monthly Saturday College",
+        "reason": "August–April academic programming, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Band and Orchestra Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students perform in symphony orchestra, string orchestra or concert bands and participate in sectionals and master classes. Additional instruction covers musicianship, conducting, improvisation and music history.",
+        "camp_page_url": "https://www.furman.edu/academics/music/camps-conferences/band-orchestra-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+          "https://www.furman.edu/academics/music/camps-conferences/band-orchestra-camp/",
+          "https://www.furman.edu/academics/music/wp-content/uploads/sites/105/2026/06/BOC-2026-Schedule_v.06.04.26.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The music page was only partially readable. Verify resident and commuter formats, fees and registration details; the 2026 schedule identifies McAlister Lobby as initial registration."
+      },
+      {
+        "name": "Summer Keyboard Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Intermediate and advanced pianists and organists study a primary instrument and a secondary keyboard area. Activities include musicianship classes, master classes, recitals and recreational activities.",
+        "camp_page_url": "https://www.furman.edu/academics/music/camps-conferences/summer-keyboard-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+          "https://www.furman.edu/academics/music/camps-conferences/summer-keyboard-institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The detailed page was only partially readable. Verify overnight versus commuter options, fees and registration details before publication."
+      },
+      {
+        "name": "Young Artist Vocal Experience",
+        "type": "overnight",
+        "categories": ["music", "theater"],
+        "description": "Young singers study musical theater, opera, sacred music, art song and oratorio through voice and acting classes, master classes and recitals.",
+        "camp_page_url": "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 700,
+            "unit": "program",
+            "label": "Resident camper; shared room/bath, all meals and tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-01",
+          "time": null,
+          "text": "Registration open February 1 – June 7",
+          "url": "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Resident Camper: $700 (includes shared room/bath, all meals, tuition)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Young Artist Vocal Experience",
+        "type": "day",
+        "categories": ["music", "theater"],
+        "description": "Commuting singers participate in voice and acting classes, master classes and recitals covering musical theater, opera, sacred music, art song and oratorio.",
+        "camp_page_url": "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 580,
+            "unit": "program",
+            "label": "Commuter; lunch, dinner and tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-01",
+          "time": null,
+          "text": "Registration open February 1 – June 7",
+          "url": "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Commuter: $580 (includes lunch, dinner, tuition)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/academics/music/camps-conferences/young-artist-vocal-xp-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Brass Institutes of America",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Brass players receive ensemble coaching and participate in brass choirs, master classes and recitals. Participants choose an instructional track.",
+        "camp_page_url": "https://www.brass-usa.com/furman",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 575,
+            "unit": "program",
+            "label": "Chamber Ensemble Track; housing inclusion not verified",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+          "https://www.brass-usa.com/furman",
+          "https://www.brass-usa.com/furman-about"
+        ],
+        "confidence": "medium",
+        "review_notes": "Furman's academic index gives ages 12–18 but appears to repeat the Band and Orchestra Camp description, including string orchestras. Do not rely on that age range without checking the operator. Verify residential format, the second track and housing charges."
+      },
+      {
+        "name": "Summer Connections",
+        "type": "overnight",
+        "categories": ["academic", "general"],
+        "description": "Incoming Furman freshmen participate in a residential program guided by professors and mentors, exploring personal life stories and vocational discernment.",
+        "camp_page_url": "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.furman.edu/summer-programs/youth-programs/academic-programs/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Foundations Residential Conference",
+        "type": "pre_college",
+        "categories": ["academic", "general"],
+        "description": "Bridges Scholars participate in a two-week residential experience with college classes, college counseling, health and wellness sessions and community building.",
+        "camp_page_url": "https://www.furman.edu/bridges-to-brighter-future/programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furman.edu/summer-programs/youth-programs/academic-programs/",
+          "https://www.furman.edu/bridges-to-brighter-future/programming/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Top Mock",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Experienced high school mock trial competitors receive a week of trial advocacy training from Furman's mock trial coaches and competitors.",
+        "camp_page_url": "https://www.furman.edu/academics/mock-trial/high-school-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-19",
+          "end": "2027-06-26",
+          "text": "Top Mock Dates June 19-26, 2027"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2300,
+            "unit": "program",
+            "label": "Housing, meals and Greenville-Spartanburg Airport transportation included",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "housing, meals, and transportation to and from Greenville-Spartanburg Airport provided"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "transportation to and from Greenville-Spartanburg Airport provided"
+        },
+        "sources": [
+          "https://www.furman.edu/academics/mock-trial/high-school-programs/",
+          "https://www.furman.edu/summer-programs/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "The Innovation Academy",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "High school students participate in a one-week residential entrepreneurship program with courses and related activities.",
+        "camp_page_url": "https://admission.furman.edu/register/innovationacademy2026",
+        "registration_url": "https://admission.furman.edu/register/innovationacademy2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5250,
+            "unit": "week",
+            "label": "Housing, meals, course materials and activities included",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "At this time, there are no scholarships or financial assistance available for this program."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Total fees for one week are $5,250, which includes housing, meals and all course related materials and activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://admission.furman.edu/register/innovationacademy2026",
+          "https://www.furman.edu/summer-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The application page was partially readable; no session dates were visible. Eligibility also requires a 3.5 unweighted cumulative GPA or higher."
+      },
+      {
+        "name": "Senior ID Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "High school soccer players receive technical and tactical training, compete in college-style matches and are evaluated by Furman's men's soccer staff.",
+        "camp_page_url": "https://www.furmansoccercamp.com/senioridcamp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-10",
+          "end": "2027-07-11",
+          "text": "Senior id Camp July 10-11 2027"
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 345,
+            "unit": "program",
+            "label": "Camp tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furmansoccercamp.com/senioridcamp",
+          "https://www.furmansoccercamp.com/allcamps",
+          "https://www.furmansoccercamp.com/goalkeepercamp",
+          "https://www.furman.edu/summer-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, ages and tuition were visible in official search results, but the detailed page did not open. Boys only. Verify daily hours, overnight arrangements and check-in venue."
+      },
+      {
+        "name": "Residential/Team",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Soccer campers participate in residential training, with specialized goalkeeper instruction offered within the camp.",
+        "camp_page_url": "https://www.furmansoccercamp.com/allcamps",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-17",
+          "end": "2027-07-20",
+          "text": "Residential/Team July 17-20 2027"
+        },
+        "ages": {
+          "min": 9,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 575,
+            "unit": "program",
+            "label": "Camp tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.furmansoccercamp.com/allcamps",
+          "https://www.furmansoccercamp.com/goalkeepercamp",
+          "https://www.furman.edu/summer-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, ages and tuition were obtained from official search snippets. Verify the detailed residential program page and check-in venue. The operator also lists a $525 commuter option, whose hours and format require verification."
+      },
+      {
+        "name": "Nike Soccer Camp at Furman University",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Children receive soccer instruction from Furman coaches, grouped by age and skill level.",
+        "camp_page_url": "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+        "registration_url": "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Eugene Stone Soccer Stadium, Furman University",
+            "address": "3300 Poinsett Highway",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Daily hours: 9:00am-12:00pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 309,
+            "unit": "session",
+            "label": "All Skills Half Day; 5-day camp",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ussportscamps.com/soccer/nike/nike-soccer-camp-furman-university",
+          "https://www.furman.edu/summer-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration platform states Limited, which is not mapped to an availability enum. The site address is Furman's published campus address; confirm any stadium-specific vehicle entrance or drop-off instructions."
+      }
+    ]
+  }
+}

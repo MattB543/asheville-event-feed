@@ -1,0 +1,337 @@
+{
+  "provider": {
+    "key": "biltmore-church-of-arden",
+    "name": "Biltmore Church of Arden",
+    "urls": ["https://biltmorechurch.com/adventure"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:35.362Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fa5b90cb79b9c1123bac13cd70157e28b66f30de22ba1e251ba18734495c5067",
+  "response": {
+    "searches": [
+      "site:biltmorechurch.com \"2027\" \"camp\"",
+      "open https://my.biltmorechurch.com/Content/files/students/CAMP_WEEK_PARENT_HANDBOOK.pdf",
+      "site:biltmorechurch.com \"CHECK-IN\" \"2026\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 22264,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2200,
+      "reasoningTokens": 208
+    },
+    "status": "completed",
+    "ms": 62595,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://biltmorechurch.com/adventure",
+      "chars": 7186,
+      "method": "fetch"
+    },
+    {
+      "url": "https://biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=70",
+      "chars": 2764,
+      "method": "fetch"
+    },
+    {
+      "url": "https://biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=305",
+      "chars": 2769,
+      "method": "fetch"
+    },
+    {
+      "url": "https://biltmorechurch.com/camp",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page Not Found | Biltmore Church\")"
+    },
+    {
+      "url": "https://biltmorechurch.com/",
+      "chars": 4179,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Biltmore Church of Arden",
+    "website_url": "https://biltmorechurch.com/",
+    "notes": "No summer 2027 information found. Adventure Week includes daytime and evening campuses within one named VBS program. Family Nights are excluded from camp dates. Camp Week takes place at Anderson University in South Carolina; its local departure/drop-off locations could not be verified.",
+    "excluded": [
+      {
+        "name": "Adventure Week Family Night",
+        "reason": "Family-only celebration, not a supervised youth camp."
+      },
+      {
+        "name": "Adventure Week Volunteers - Adults",
+        "reason": "Adult volunteer registration, not a youth camp."
+      },
+      {
+        "name": "Adventure Week Volunteers - Student",
+        "reason": "Volunteer service opportunity, not a separately described youth camp or leadership program."
+      },
+      {
+        "name": "Wake Weekend",
+        "reason": "February program outside summer."
+      },
+      {
+        "name": "Biltmore College Summer Project",
+        "reason": "College-student ministry project, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Adventure Week",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in worship, skits, Bible teaching, recreation, crafts, missions, and small-group discussion.",
+        "camp_page_url": "https://biltmorechurch.com/adventure",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Arden Campus",
+            "address": "35 Clayton Rd",
+            "town": "Arden",
+            "state": "NC"
+          },
+          {
+            "name": "Franklin Campus",
+            "address": "691 Sloan St",
+            "town": "Franklin",
+            "state": "NC"
+          },
+          {
+            "name": "West Asheville Campus",
+            "address": "509 Smoky Park Hwy",
+            "town": "Candler",
+            "state": "NC"
+          },
+          {
+            "name": "Brevard Campus",
+            "address": "417 Morris Rd",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "East Asheville Campus",
+            "address": "801 Fairview Road",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Hendersonville Campus",
+            "address": "103A Education Dr",
+            "town": "East Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Waynesville Campus",
+            "address": "1700 Asheville Rd",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "Arden Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "Franklin Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": "West Asheville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Brevard Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "East Asheville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Hendersonville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "18:00",
+              "end": "20:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-22",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": "Waynesville Campus",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:15"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If you have any special requests for your child (being in a group with a friend, dietary restrictions, medical needs, or any other need) you can note that on your registration. We will contact you with any questions to help create the best experience for you and your child."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://biltmorechurch.com/adventure"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Week",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students attend worship, Bible teaching, small groups, activities, and competitions at Crossroads Summer Camp at Anderson University.",
+        "camp_page_url": "https://biltmorechurch.com/camp",
+        "registration_url": "https://rock.biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=34",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 409,
+            "unit": "session",
+            "label": "March 1–June 1 registration price",
+            "year": 2026
+          },
+          {
+            "amount": 499,
+            "unit": "session",
+            "label": "June 2–July 12 registration price",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration is Closed!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The cost of camp includes transportation, activities, room and board ( lodging and meals), camp materials, and camp T-shirt."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "All students will be transported to and from camp week on Young Bus Transportation charter buses."
+        },
+        "sources": [
+          "https://biltmorechurch.com/camp",
+          "https://rock.biltmorechurch.com/RegistrationSelector?RegistrationTemplateId=34",
+          "https://my.biltmorechurch.com/Content/files/students/CAMP_WEEK_PARENT_HANDBOOK.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp page and parent handbook were accessible through official search-index text, but opening them returned no readable content. Verify local camper drop-off/departure locations in the parent handbook. March 1 is stated as the beginning of a price tier, not explicitly as registration opening, so no opening date is recorded. The page solicits camp scholarship donations but does not state how families obtain aid."
+      }
+    ]
+  }
+}

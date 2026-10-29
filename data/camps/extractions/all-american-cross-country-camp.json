@@ -1,0 +1,262 @@
+{
+  "provider": {
+    "key": "all-american-cross-country-camp",
+    "name": "All-American Cross Country Camp",
+    "urls": ["https://www.crosscountrycamp.com/"],
+    "area": "Arden, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:50.127Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4bedff66dbe7ed21848680b9bdbc575bd06adcc5be7ad86f2c8fd98f36a02eba",
+  "response": {
+    "searches": [
+      "site:crosscountrycamp.com pricing facilities transportation FAQ",
+      "open https://www.crosscountrycamp.com/pricing",
+      "site:crosscountrycamp.com \"Pricing\" \"2027\"",
+      "open https://www.crosscountrycamp.com/new-page"
+    ],
+    "usage": {
+      "inputTokens": 19715,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2107,
+      "reasoningTokens": 267
+    },
+    "status": "completed",
+    "ms": 46156,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.crosscountrycamp.com/",
+      "chars": 216,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.crosscountrycamp.com/take-action",
+      "chars": 1280,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.crosscountrycamp.com/s/2025-Release-and-Waiver.pdf",
+      "chars": 8026,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.crosscountrycamp.com/camp",
+      "chars": 1141,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "All-American Cross Country Camp",
+    "website_url": "https://www.crosscountrycamp.com/",
+    "notes": "2027 dates and registration now open are posted. No exact registration opening date is stated. Additional official pages returned empty bodies when opened; their indexed text was readable through search. The Info page lists 2027 weekly information sheets, but their PDF links could not be retrieved. Pricing is undated on the current site; its application to 2027 should be confirmed.",
+    "excluded": [
+      {
+        "name": "Employment",
+        "reason": "Staff employment application, not a youth summer camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "All-American Cross Country Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "High school-aged runners train on campus trails and at running locations around Asheville. Camp includes instruction from collegiate and high school runners and coaches.",
+        "camp_page_url": "https://www.crosscountrycamp.com/camp",
+        "registration_url": "https://www.crosscountrycamp.com/take-action",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-23",
+          "text": "2027 Dates"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 890,
+            "unit": "session",
+            "label": "Overnight Camper; current undated pricing, plus 3.49% PayPal transaction fee if paying via PayPal",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration now open!!!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers are served three meals a day in the dining hall located on the Christ School campus."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "The All-American Cross Country Camp provides a shuttle to and from the Asheville Regional Airport. The cost is $10 each way."
+        },
+        "sources": [
+          "https://www.crosscountrycamp.com/",
+          "https://www.crosscountrycamp.com/camp",
+          "https://www.crosscountrycamp.com/take-action",
+          "https://www.crosscountrycamp.com/pricing",
+          "https://www.crosscountrycamp.com/camp-info",
+          "https://www.crosscountrycamp.com/new-page-1",
+          "https://www.crosscountrycamp.com/transportation",
+          "https://www.christschool.org/about-us/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is stated only as high school aged runners, with no numeric ages or grades. Pricing and operational details were read from official search-indexed text; pricing has no explicit year and is provisionally associated with the current 2027 offering. Confirm the $890 rate in the 2027 information sheets. Overnight check-in is Sunday 2:30–4:30 pm at the student center; camp ends Friday at 10:30 am."
+      },
+      {
+        "name": "All-American Cross Country Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "High school-aged runners participate in cross country training on campus trails and at running locations around Asheville. A day camper option is listed alongside the overnight offering.",
+        "camp_page_url": "https://www.crosscountrycamp.com/camp",
+        "registration_url": "https://www.crosscountrycamp.com/take-action",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-23",
+          "text": "2027 Dates"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 650,
+            "unit": "session",
+            "label": "Day Camper; current undated pricing, plus 3.49% PayPal transaction fee if paying via PayPal",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration now open!!!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.crosscountrycamp.com/",
+          "https://www.crosscountrycamp.com/camp",
+          "https://www.crosscountrycamp.com/pricing",
+          "https://www.crosscountrycamp.com/take-action",
+          "https://www.crosscountrycamp.com/transportation",
+          "https://www.christschool.org/about-us/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Day Camper is explicitly listed on the pricing page, but separate day-camper dates, daily hours and meal inclusions are not stated. Rows use the general 2027 camp session dates; confirm day-camper attendance days and drop-off arrangements in the 2027 information sheets. The undated $650 current price is provisionally associated with 2027 and requires confirmation. Eligibility is stated only as high school aged runners."
+      }
+    ]
+  }
+}

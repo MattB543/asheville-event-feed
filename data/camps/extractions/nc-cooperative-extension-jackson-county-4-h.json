@@ -1,0 +1,461 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-jackson-county-4-h",
+    "name": "N.C. Cooperative Extension — Jackson County 4-H",
+    "urls": ["https://jackson.ces.ncsu.edu/event/105062/"],
+    "area": "Sylva, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:40.217Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "25ac4ab922bebe30f23f937de0803842111bfaf87c1f8082579033223d5d08c5",
+  "response": {
+    "searches": [
+      "site:jackson.ces.ncsu.edu \"2026\" \"camp\" \"4-H\"",
+      "site:jackson.ces.ncsu.edu \"camp\" \"2026\" \"Penn\"",
+      "site:jackson.ces.ncsu.edu \"Cooking Nights\" \"Jun 4\"",
+      "site:jackson.ces.ncsu.edu \"Clover-buds\" \"2026\"",
+      "open https://jackson.ces.ncsu.edu/event/eb/15092/"
+    ],
+    "usage": {
+      "inputTokens": 36859,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3475,
+      "reasoningTokens": 463
+    },
+    "status": "completed",
+    "ms": 76171,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://jackson.ces.ncsu.edu/event/105062/",
+      "chars": 4798,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eventbrite.com/e/1986776207118?aff=oddtdtcreator",
+      "chars": 3032,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jackson.ces.ncsu.edu/enrollment/",
+      "chars": 6062,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jackson.ces.ncsu.edu/documents/4405/Quick_4-H_Enrollment_Guide_Members_at_Large.pdf",
+      "chars": 1458,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jackson.ces.ncsu.edu/4-h-summer-camp-jackson/",
+      "chars": 5621,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jackson.ces.ncsu.edu/",
+      "chars": 6129,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Jackson County 4-H",
+    "website_url": "https://jackson.ces.ncsu.edu/",
+    "notes": "No 2027 summer program dates or registration milestones were found. The overnight summer camp page still describes 2025; no Jackson County-specific 2026 or 2027 overnight offering was found, so its old dates and prices are not included. The Clover-buds cooking series appears incomplete in accessible materials: only sessions #2 and #4 could be verified.",
+    "excluded": [
+      {
+        "name": "4-H Cooking Night",
+        "reason": "The published February–May and August–November cooking series are not summer-only programs."
+      },
+      {
+        "name": "4-H Spring Craft Night",
+        "reason": "Spring program held May 21, 2026."
+      },
+      {
+        "name": "4-H: Resume/Interview Workshop - Career Edition",
+        "reason": "Published workshops occur in September and October, outside summer."
+      },
+      {
+        "name": "Jackson County 4-H Pumpkin Planters",
+        "reason": "October program, outside summer."
+      },
+      {
+        "name": "Fall Craft Night: Jackson County 4-H",
+        "reason": "November program, outside summer."
+      },
+      {
+        "name": "Holiday Recipe Testing: Jackson County 4-H",
+        "reason": "November program, outside summer."
+      },
+      {
+        "name": "4-H Clubs & Opportunities",
+        "reason": "Ongoing clubs rather than finite summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Jackson County 4-H STEM Nights",
+        "type": "evening",
+        "categories": ["stem"],
+        "description": "Youth explore robotics and computer science and practice coding. One registration enrolls participants in both nights; 4-H Online enrollment is required.",
+        "camp_page_url": "https://jackson.ces.ncsu.edu/event/eb/14829/",
+        "registration_url": "https://www.eventbrite.com/e/jackson-county-4-h-stem-nights-tickets-1986776207118",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-21",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jackson County Center",
+            "address": "876 Skyland Dr, Suite 6",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "19:00",
+          "text": "Extension event pages list 5–7 PM; the registration platform and its Extension listing list 5:30–7 PM for July 21."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "4-H STEM Night Part 1",
+            "start": "2026-07-21",
+            "end": "2026-07-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H STEM Night Part 2",
+            "start": "2026-07-23",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "19:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Sales ended"
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://jackson.ces.ncsu.edu/event/105062/",
+          "https://jackson.ces.ncsu.edu/event/105063/",
+          "https://jackson.ces.ncsu.edu/event/eb/14829/",
+          "https://www.eventbrite.com/e/jackson-county-4-h-stem-nights-tickets-1986776207118?aff=oddtdtcreator",
+          "https://jackson.ces.ncsu.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm July 21 start time: event/105062 lists 5 PM, while Eventbrite and event/eb/14829 list 5:30 PM. Accommodation requests should be made at least 14 days before the event."
+      },
+      {
+        "name": "4-H Craft Night!",
+        "type": "evening",
+        "categories": ["arts"],
+        "description": "Youth participate in a seasonal craft activity. All materials are provided.",
+        "camp_page_url": "https://jackson.ces.ncsu.edu/event/105061/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-06-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jackson County Center",
+            "address": "876 Skyland Dr, Suite 6",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "18:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://jackson.ces.ncsu.edu/event/105061/", "https://jackson.ces.ncsu.edu/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Cooking Nights - Senior",
+        "type": "evening",
+        "categories": ["cooking"],
+        "description": "Teens learn budgeting, meal preparation, and making healthy meals with different budgets and appliances. One registration covers both sessions; 4-H Online enrollment is required.",
+        "camp_page_url": "https://jackson.ces.ncsu.edu/event/105059/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-02",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 15,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jackson County Center",
+            "address": "876 Skyland Dr, Suite 6",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Senior Session 1",
+            "start": "2026-06-02",
+            "end": "2026-06-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "19:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior Session 2",
+            "start": "2026-06-04",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://jackson.ces.ncsu.edu/event/105059/", "https://jackson.ces.ncsu.edu/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Jackson County 4-H Baking Night (s)",
+        "type": "evening",
+        "categories": ["cooking"],
+        "description": "Youth bake cupcakes and learn frosting decoration, including piping. Registration covers the two-night event.",
+        "camp_page_url": "https://jackson.ces.ncsu.edu/event/eb/15448/",
+        "registration_url": "https://www.eventbrite.com/e/1995453943461?aff=oddtdtcreator",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-18",
+          "end": "2026-08-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jackson County Center",
+            "address": "876 Skyland Dr, Suite 6",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "4-H Baking Night pt 1",
+            "start": "2026-08-18",
+            "end": "2026-08-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Baking Night pt 2",
+            "start": "2026-08-20",
+            "end": "2026-08-20",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://jackson.ces.ncsu.edu/event/eb/15448/",
+          "https://jackson.ces.ncsu.edu/event/114716/",
+          "https://jackson.ces.ncsu.edu/event/114717/",
+          "https://jackson.ces.ncsu.edu/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Jackson County 4-H Cooking: Clover-buds",
+        "type": "half_day",
+        "categories": ["cooking"],
+        "description": "Youth ages 5–7 participate in a cooking series with Jackson County 4-H.",
+        "camp_page_url": "https://jackson.ces.ncsu.edu/event/eb/15093/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-09",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jackson County Center",
+            "address": "876 Skyland Dr, Suite 6",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "15:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "#2",
+            "start": "2026-07-09",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "#4",
+            "start": "2026-07-16",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://jackson.ces.ncsu.edu/event/eb/15093/",
+          "https://jackson.ces.ncsu.edu/event/eb/15095/",
+          "https://jackson.ces.ncsu.edu/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only sessions #2 and #4 were accessible. Confirm the full series schedule and registration link with the provider; season dates span only verified rows, not necessarily the complete program."
+      }
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "provider": {
+    "key": "asheville-christian-academy",
+    "name": "Asheville Christian Academy",
+    "urls": ["https://www.ashevillechristian.org/summer-camp"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:49.294Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f3f5d2152cd62dca80f4e9781ff052e45fa0e9a715cdc0ed2481c28c3e0e6f43",
+  "response": {
+    "searches": [
+      "site:ashevillechristian.org summer camp 2027",
+      "\"Asheville Christian\" \"2026\" \"camp\" brochure",
+      "open https://ashevillechristian.org/summer-camp",
+      "site:ashevillechristian.org \"College App Camp\"",
+      "site:ashevillechristian.org/between-the-lions \"College App\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 37257,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1227,
+      "reasoningTokens": 420
+    },
+    "status": "completed",
+    "ms": 51341,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillechristian.org/summer-camp",
+      "chars": 5420,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillechristian.org/tuition",
+      "chars": 6454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillechristian.org/",
+      "chars": 5209,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Christian Academy",
+    "website_url": "https://www.ashevillechristian.org/",
+    "notes": "The summer page advertises multiple camps and a 2026 Camp Brochure, but direct web opens returned no readable content or links. Searches did not locate the brochure or registration destination, so individual 2026 offerings could not be extracted reliably; no umbrella card was invented. The official October 2026 newsletter search result separately announces College App Camp dates without printing a summer year. Its 2027 attribution requires review. No 2027 general summer camp list or registration opening was found.",
+    "excluded": [
+      {
+        "name": "Aftercare",
+        "reason": "School-year childcare, not a summer-only program."
+      },
+      {
+        "name": "Athletic teams",
+        "reason": "Sports leagues and seasonal school teams, not finite summer camps."
+      },
+      {
+        "name": "Winterim",
+        "reason": "Outside the summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "College App Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "A college application camp offered in two Monday–Thursday sessions.",
+        "camp_page_url": "https://www.ashevillechristian.org/between-the-lions",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-15",
+          "text": "Also save the date for College App Camp, Monday–Thursday from 9 AM to 1 PM, June 7–10 or July 12–15."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday–Thursday from 9 AM to 1 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.ashevillechristian.org/between-the-lions"],
+        "confidence": "medium",
+        "review_notes": "Only the official newsletter's search-result text was readable; direct opens returned no content. The newsletter references October 26 and October 29–30, 2026, but the camp sentence does not explicitly state 2027. Dates are attributed to the following summer, 2027, from that context; verify the year, eligibility, meeting location, activities and registration details before publication. The general summer camp FAQ was not applied to this separately announced offering."
+      }
+    ]
+  }
+}

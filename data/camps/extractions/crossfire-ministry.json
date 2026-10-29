@@ -1,0 +1,205 @@
+{
+  "provider": {
+    "key": "crossfire-ministry",
+    "name": "Crossfire Ministry",
+    "urls": ["https://crossfireministry.com/crossfire-basketball-camp/"],
+    "area": "Asheville and Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:02.740Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "33957f9ba6c96024763dc44538f2b5f8a987dadcfbaf1971bffaf66dac2ab2f8",
+  "response": {
+    "searches": [
+      "site:crossfireministry.com camp 2027",
+      "site:crossfireministry.com \"2026\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 17007,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1532,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 35445,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://crossfireministry.com/crossfire-basketball-camp/",
+      "chars": 8705,
+      "method": "fetch"
+    },
+    {
+      "url": "https://crossfireministry.com/gvl-hoops-camp-2026/",
+      "chars": 4627,
+      "method": "fetch"
+    },
+    {
+      "url": "https://crossfireministry.com/",
+      "chars": 4230,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Crossfire Ministry",
+    "website_url": "https://crossfireministry.com/",
+    "notes": "No official 2027 camp information was found. The local camp page still presents preliminary 2026 plans rather than confirmed dates or venues. GVL Hoops Camp is included because it is an official provider offering, but it meets in Greenville, SC, outside the Asheville/Hendersonville area. The GVL page could not be read by the browser; its supplied official-page text was used, and the venue address was verified on the church website.",
+    "excluded": [
+      {
+        "name": "Overnight Camp",
+        "reason": "The provider explicitly discontinued overnight camps starting in 2026."
+      },
+      {
+        "name": "Basketball clinics and one-on-one training",
+        "reason": "Described as year-round offerings; no finite summer-specific clinic was identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Crossfire Basketball Camp",
+        "type": "day",
+        "categories": ["sports", "faith_based"],
+        "description": "Campers receive basketball training alongside Christian faith instruction. The provider describes half-day options and a two- or three-day full-day format.",
+        "camp_page_url": "https://crossfireministry.com/crossfire-basketball-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Half-Day Camps: Monday through Thursday, 1:00–4:30 PM. Full-Day Camp hours are not stated."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": "Half-day camp; expected cost per camper, not confirmed",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "These sessions will include lunch."
+        },
+        "transportation": null,
+        "sources": ["https://crossfireministry.com/crossfire-basketball-camp/"],
+        "confidence": "medium",
+        "review_notes": "The page describes preliminary 2026 plans: half-day camps are expected to cost $100 and will likely meet in Hendersonville and Asheville, but no venues or dates are confirmed. Lunch applies only to the full-day format. Historical ages 6–28 are not used as current eligibility."
+      },
+      {
+        "name": "GVL Hoops Camp",
+        "type": "half_day",
+        "categories": ["sports", "faith_based"],
+        "description": "Boys practice basketball skills and compete with instruction from coaches. The camp also emphasizes character development and Christian faith.",
+        "camp_page_url": "https://crossfireministry.com/gvl-hoops-camp-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "First Baptist Greenville AYMC Gym",
+            "address": "847 Cleveland Street",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rising 3rd–5th Grade Boys",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": {
+              "amount": 125,
+              "unit": "session",
+              "label": "Rising 3rd–5th Grade Boys",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Rising 6th–12th Grade Boys",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "12:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 150,
+              "unit": "session",
+              "label": "Rising 6th–12th Grade Boys",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://crossfireministry.com/gvl-hoops-camp-2026/",
+          "https://firstbaptistgreenville.com/contact/",
+          "https://firstbaptistgreenville.com/events/midweek-spring-celebration/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

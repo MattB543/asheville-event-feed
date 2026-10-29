@@ -1,0 +1,1140 @@
+{
+  "provider": {
+    "key": "appalachian-christian-camp",
+    "name": "Appalachian Christian Camp (Camp ACC)",
+    "urls": ["https://www.campacc.com/sections/summer/"],
+    "area": "Unicoi, TN",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:09.415Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a530801f8839ec112eaabc270c1aa0534861395d59f3ac21971a44a941d7e73f",
+  "response": {
+    "searches": [
+      "open https://www.campacc.com/sections/summer/journey/",
+      "site:campacc.com/sections/summer/journey \"2027\"",
+      "site:campacc.com Journey Middler",
+      "open https://campacc.com/sections/summer/journey/",
+      "site:campacc.com/sections/summer/journey/ \"Grades\"",
+      "site:campacc.com \"Core 1\"",
+      "site:campacc.com/sections/summer/journey",
+      "Camp ACC Journey Middler Junior 2027"
+    ],
+    "usage": {
+      "inputTokens": 41910,
+      "cachedInputTokens": 8223,
+      "outputTokens": 8639,
+      "reasoningTokens": 916
+    },
+    "status": "completed",
+    "ms": 170488,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campacc.com/sections/summer/",
+      "chars": 2842,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campacc.com/sections/summer/register",
+      "chars": 1884,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campacc.com/pdfs/RegistrationForm.pdf",
+      "chars": 12644,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campacc.campbrainregistration.com/",
+      "chars": 536,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.campacc.com/sections/support/assistance",
+      "chars": 1758,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campacc.com/sections/summer",
+      "chars": 2842,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campacc.com/",
+      "chars": 3423,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campacc.com/sections/summer/truthquest",
+      "chars": 3390,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Christian Camp (Camp ACC)",
+    "website_url": "https://www.campacc.com/",
+    "notes": "2027 program dates are posted, but several program pages could only be read through official search results; direct opens returned empty content. The printable registration form still describes summer 2026 and has an inconsistent Fall 2025 grade-entry field. Prices from that form remain labeled 2026 wherever 2027 prices could not be verified. The registration platform still advertises January 12 for summer 2026, while the 2027 TruthQuest, Journey, Core and Pathway pages announce January 11, 2027. TruthQuest is split into day and overnight cards because its formats differ.",
+    "excluded": [
+      {
+        "name": "Paid Summer Staff",
+        "reason": "Employment offering, not a camper program."
+      },
+      {
+        "name": "Summer Volunteers",
+        "reason": "Volunteer staffing opportunity, not a camper program."
+      },
+      {
+        "name": "Junior Counselors",
+        "reason": "Volunteer counselor staffing role; the provider distinguishes it from Pathway leadership and discipleship training."
+      },
+      {
+        "name": "Retreats",
+        "reason": "Group facility rentals during non-summer months, not a finite supervised youth summer camp."
+      },
+      {
+        "name": "Golf Scramble",
+        "reason": "October fundraising event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "TruthQuest",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible lessons, praise and worship, crafts and active games.",
+        "camp_page_url": "https://www.campacc.com/sections/summer/truthquest/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-17",
+          "end": "2027-07-17",
+          "text": "K-1st Grades Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 1,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Check in 9:00 AM; check out 4:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "session",
+            "label": "By May 1st",
+            "year": 2027
+          },
+          {
+            "amount": 45,
+            "unit": "session",
+            "label": "After May 1st",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Day Camp",
+            "start": "2027-07-17",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-11",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Opens Jan 11th 2027!",
+            "url": "https://www.campacc.com/sections/summer/truthquest/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campacc.com/sections/summer/truthquest/",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "TruthQuest",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible lessons, praise and worship, crafts and active games during a short overnight introduction to camp.",
+        "camp_page_url": "https://www.campacc.com/sections/summer/truthquest/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-10",
+          "end": "2027-07-30",
+          "text": "Grades: 1st-3rd Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Overnight sessions: check in 5:00 PM on the first day; check out 4:00 PM on the last day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 105,
+            "unit": "session",
+            "label": "By May 1st",
+            "year": 2027
+          },
+          {
+            "amount": 115,
+            "unit": "session",
+            "label": "After May 1st",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Pee Wee 1",
+            "start": "2027-06-10",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pee Wee 2",
+            "start": "2027-07-29",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-11",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Opens Jan 11th 2027!",
+            "url": "https://www.campacc.com/sections/summer/truthquest/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campacc.com/sections/summer/truthquest/",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Journey",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible classes, devotions, praise and worship, campfires and activities including the zipline and climbing wall.",
+        "camp_page_url": "https://campacc.com/sections/summer/journey/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-28",
+          "text": "Grades: 3rd-5th Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 260,
+            "unit": "session",
+            "label": "Middler, by May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 275,
+            "unit": "session",
+            "label": "Middler, after May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 395,
+            "unit": "session",
+            "label": "Junior, by May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 420,
+            "unit": "session",
+            "label": "Junior, after May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Middler 1",
+            "start": "2027-06-06",
+            "end": "2027-06-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "16:00",
+              "end": "10:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior 1",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middler 2",
+            "start": "2027-07-25",
+            "end": "2027-07-28",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "16:00",
+              "end": "10:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-11",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Opens Jan 11th 2027!",
+            "url": "https://campacc.com/sections/summer/journey/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campacc.com/sections/summer/journey/",
+          "https://www.campacc.com/sections/summer/summer_table.php",
+          "https://www.campacc.com/pdfs/RegistrationForm.pdf",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Journey could only be read through official search results. Middler dates and Fall 2027 grades are explicit there; Junior dates and grade bands come from the official sortable calendar, which omits the year. They are assigned 2027 from the current program-page context and matching Middler dates. Row hours represent first-day check-in and last-day checkout, not daily operating hours. Verify Junior details and 2027 prices on the full Journey page."
+      },
+      {
+        "name": "Core",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Junior-high campers participate in small groups, activities, worship and sessions with speakers.",
+        "camp_page_url": "https://campacc.com/sections/summer/core/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-23",
+          "text": "Grades listed are for Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check in 4:00 PM on the first day; check out 10:00 AM on the last day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 395,
+            "unit": "session",
+            "label": "By May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 420,
+            "unit": "session",
+            "label": "After May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Core 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Core 2",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Core 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-11",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Opens Jan 11th 2027!",
+            "url": "https://campacc.com/sections/summer/core/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campacc.com/sections/summer/core/",
+          "https://www.campacc.com/pdfs/RegistrationForm.pdf",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates, grades, check-in/out times and registration opening were readable only through official search results. Direct page opens returned empty content. Verify 2027 tuition; listed prices are explicitly from the 2026 registration form."
+      },
+      {
+        "name": "Summit",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "sports", "nature_outdoor"],
+        "description": "Campers participate in worship, quiet time and teaching, and choose from sports, missions and outdoor adventure tracks.",
+        "camp_page_url": "https://campacc.com/sections/summer/summit/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": "Entering Grades: 9th-13th for Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 13,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check in 4:00 PM on July 4; check out 10:00 AM on July 9."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 455,
+            "unit": "session",
+            "label": "By May 1st",
+            "year": 2027
+          },
+          {
+            "amount": 480,
+            "unit": "session",
+            "label": "After May 1st",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campacc.com/sections/summer/summit/",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates, grades and tuition were readable only through official search results; direct opens returned empty content. A Summit-specific 2027 registration opening was not visible in the retrieved excerpt. Format check: grades 13 outside -1-12."
+      },
+      {
+        "name": "Wilderness",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Campers participate in outdoor adventures including hiking, climbing, camping and whitewater rafting. Base Camp campers return to campus at night, while Outpost and Venture campers camp away from campus.",
+        "camp_page_url": "https://campacc.com/sections/summer/wilderness/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 13,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 515,
+            "unit": "session",
+            "label": "Base Camp, by May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 540,
+            "unit": "session",
+            "label": "Base Camp, after May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 550,
+            "unit": "session",
+            "label": "Outpost and Venture, by May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 575,
+            "unit": "session",
+            "label": "Outpost and Venture, after May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Base Camp 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Base Camp 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Base Camp 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Base Camp 4",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Base Camp 5",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outpost 1",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outpost 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outpost 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Outpost 4",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Venture 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 13,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Venture 2",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 13,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campacc.com/sections/summer/wilderness/",
+          "https://campacc.com/sections/summer/wilderness/basecamp/",
+          "https://campacc.com/sections/summer/wilderness/outpost/",
+          "https://campacc.com/sections/summer/wilderness/venture/",
+          "https://www.campacc.com/sections/summer/summer_table.php",
+          "https://campacc.com/pdfs/WildernessPacket.pdf",
+          "https://www.campacc.com/pdfs/RegistrationForm.pdf",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program pages could only be read through official search excerpts. Session dates come from the official sortable calendar, which does not print a year; 2027 is assigned from the current Wilderness Fall 2027 headings and matching dates on other 2027 program pages. Verify all dates and 2027 tuition on the full Wilderness pages. Prices remain labeled 2026 because the retrieved 2027 excerpts did not expose complete pricing. Format check: grades 13 outside -1-12; row 10 (Venture 1) grades 13 outside -1-12; row 11 (Venture 2) grades 13 outside -1-12."
+      },
+      {
+        "name": "Pathway",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students participate in Christian leadership and discipleship training while serving alongside summer staff in areas of camp. Each session lasts two weeks, with campers returning home for the intervening weekend.",
+        "camp_page_url": "https://campacc.com/sections/summer/pathway/",
+        "registration_url": "https://campacc.campbrainregistration.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-30",
+          "end": "2027-08-06",
+          "text": "Grades listed are for Fall 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp ACC",
+            "address": "512 Cross Circle",
+            "town": "Unicoi",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Each Pathway session lasts two weeks, with campers leaving on Friday of the first week and returning the following Sunday. Attendance is required for both weeks."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 155,
+            "unit": "session",
+            "label": "Two-week session, by May 1st",
+            "year": 2026
+          },
+          {
+            "amount": 180,
+            "unit": "session",
+            "label": "Two-week session, after May 1st",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Pathway 1 — Week 1",
+            "start": "2027-05-30",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 1 — Week 2",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "14:30",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 2 — Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 2 — Week 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 3 — Week 1",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 3 — Week 2",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 4 — Week 1",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 4 — Week 2",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 5 — Week 1",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pathway 5 — Week 2",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-12",
+          "time": null,
+          "text": "Summer 2026 Registration will open on January 12th!",
+          "url": "https://campacc.campbrainregistration.com/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of this gift goes to send children to camp."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campacc.com/sections/summer/pathway/",
+          "https://www.campacc.com/sections/summer/summer_table.php",
+          "https://www.campacc.com/pdfs/PathwayPacket.pdf",
+          "https://www.campacc.com/pdfs/RegistrationForm.pdf",
+          "https://www.campacc.com/sections/support/assistance/",
+          "https://campacc.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Pathway page was readable only through official search results. Pathway 1 dates, Fall 2027 grades and check-in/out times are explicit there. Other sessions come from the official sortable calendar, which omits the year; 2027 is assigned from the current Pathway heading and matching Pathway 1 dates. Row hours are first-day check-in and last-day checkout. Verify remaining sessions, 2027 prices and the Pathway-specific registration opening; no opening date was visible in the retrieved Pathway excerpts."
+      }
+    ]
+  }
+}

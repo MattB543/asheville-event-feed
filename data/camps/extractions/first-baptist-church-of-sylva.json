@@ -1,0 +1,130 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-sylva",
+    "name": "First Baptist Church of Sylva",
+    "urls": [
+      "https://firstbaptistsylva.com/news-events-blog/2025/4/23/1st-explorers-summer-camp",
+      "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
+      "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8",
+      "https://firstbaptistsylva.com/first-explorers",
+      "https://firstbaptistsylva.com/"
+    ],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:42.316Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e0f9399782bf325d4f9d36259e4d2f93ab7d4cd1d9b74fc3b83bb45725101af1",
+  "response": {
+    "searches": [
+      "site:firstbaptistsylva.com \"2027\" camp",
+      "site:firstbaptistsylva.com \"summer camp\" \"2026\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 27106,
+      "cachedInputTokens": 8223,
+      "outputTokens": 889,
+      "reasoningTokens": 190
+    },
+    "status": "completed",
+    "ms": 25438,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://firstbaptistsylva.com/news-events-blog/2025/4/23/1st-explorers-summer-camp",
+      "chars": 1672,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
+      "chars": 2084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8",
+      "chars": 2516,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/first-explorers",
+      "chars": 3091,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/news-events-blog/category/Summer+Events",
+      "chars": 9912,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg",
+      "chars": 2166,
+      "method": "fetch"
+    },
+    {
+      "url": "https://firstbaptistsylva.com/",
+      "chars": 2522,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Sylva",
+    "website_url": "https://firstbaptistsylva.com/",
+    "notes": "No 2027 camp information or registration dates found. The 2026 summer camp recaps confirm the program operated but do not publish exact session dates, ages, hours or tuition. Community Vacation Bible School appears in older official materials, but no 2026 or 2027 offering was found; it is not included as a current card.",
+    "excluded": [
+      {
+        "name": "1st Explorers After-School Ministry",
+        "reason": "School-year after-school childcare, not a summer program. Its tuition, transportation and capacity statements do not apply to summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "First Explorers Summer Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts", "faith_based"],
+        "description": "Campers make crafts, participate in plant and nature activities, attend chapel, and visit parks, libraries and the public pool. Other outings include movies and local museums.",
+        "camp_page_url": "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Sylva",
+            "address": "669 West Main Street",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026",
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg",
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8",
+          "https://firstbaptistsylva.com/news-events-blog/2026/6/10/first-explorers-summer-camp-recap-61026-phxcg-38xh8-alyzd-bkwlb-pww6a-wd775",
+          "https://firstbaptistsylva.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

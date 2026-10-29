@@ -1,0 +1,71 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-erwin",
+    "name": "First Baptist Church of Erwin",
+    "urls": ["https://www.erwinfirst.org/", "https://www.facebook.com/FirstBaptistErwin/"],
+    "area": "Erwin, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:30:54.900Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7efdc946b9e373d1695fc7c74d418d43ca65b3ff96c4b7f71ce80958446037e3",
+  "response": {
+    "searches": [
+      "site.erwinfirst.org \"2026\" \"Bible\"",
+      "site:facebook.com/FirstBaptistErwin \"Bible\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22845,
+      "cachedInputTokens": 8223,
+      "outputTokens": 511,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 28076,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.erwinfirst.org/",
+      "chars": 2254,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/FirstBaptistErwin/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.erwinfirst.org/lighttheway",
+      "chars": 5518,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Erwin",
+    "website_url": "https://www.erwinfirst.org/",
+    "notes": "No summer 2027 or 2026 camp program could be verified for this Erwin, Tennessee provider from readable official sources. An indexed official Facebook video confirms historical Vacation Bible School activity, but provides no usable 2026 or 2027 details. The official Facebook page and calendar returned no readable content when opened. A search result reporting June 15–17, 2026 VBS dates originates from The Daily Record in Dunn and could refer to the similarly named church in Erwin, North Carolina; those dates were not used. No cards were created because a current summer offering could not be established.",
+    "excluded": [
+      {
+        "name": "Pathlight for Kids",
+        "reason": "Recurring weekly missions-based class for children, not a finite summer program."
+      },
+      {
+        "name": "Youth Bible Study",
+        "reason": "Recurring weekly teen Bible study, not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer program."
+      },
+      {
+        "name": "Moms with Littles",
+        "reason": "Recurring gathering for mothers and their young children, not a supervised summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "provider": {
+    "key": "mount-olive-baptist-church-of-morganton",
+    "name": "Mount Olive Baptist Church of Morganton",
+    "urls": ["https://www.themombc.org/", "https://www.facebook.com/648076052227711/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.themombc.org/"
+  },
+  "extractedAt": "2026-10-29T15:22:09.146Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:themombc.org \"2026\" \"VBS\"",
+      "site:facebook.com \"Mount Olive Baptist Church of Morganton\" \"Bible\" \"2026\"",
+      "\"5388\" \"Olive\" \"VBS\"",
+      "open https://www.findglocal.com/US/Morganton/648076052227711/Mount-Olive-Baptist-Church"
+    ],
+    "usage": {
+      "inputTokens": 26601,
+      "cachedInputTokens": 8223,
+      "outputTokens": 503,
+      "reasoningTokens": 304
+    },
+    "status": "completed",
+    "ms": 25577,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.themombc.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.themombc.org/\nCall log:\n\u001b[2m  - navigating to \"https://www.themombc.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/648076052227711/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Olive Baptist Church of Morganton",
+    "website_url": null,
+    "notes": "The supplied website, https://www.themombc.org/, identifies a different Mount Olive Missionary Baptist Church at 1108 North H St with an Indiana telephone number; its programs were not attributed to the Morganton provider. The supplied Facebook page could not be read. A third-party event listing advertises Vacation Bible School at 5388 Mt. Olive Church Rd, Morganton, beginning July 13, 2026 at 6:00 PM, but the official announcement and complete program details could not be verified. No cards were created from that unverified listing. No official 2027 summer information was found. A reviewer should check the church's Facebook page directly for its VBS announcement and confirm dates, youth eligibility, hours and registration details.",
+    "excluded": [],
+    "cards": []
+  }
+}

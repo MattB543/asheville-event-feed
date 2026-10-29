@@ -1,0 +1,160 @@
+{
+  "provider": {
+    "key": "long-s-chapel-of-waynesville",
+    "name": "Long's Chapel of Waynesville",
+    "urls": ["https://longschapel.com/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:21.723Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "37091ab8e0e9ab099036adf65583e4bc3f1208c2bde9a15b0a159eaa5b03ad09",
+  "response": {
+    "searches": [
+      "site:longschapel.com summer 2026 camp VBS",
+      "site:longschapel.com \"VBS\"",
+      "\"Long's Chapel\" \"Emerald\"",
+      "\"Long's Chapel\" \"VBS\" \"June 22\""
+    ],
+    "usage": {
+      "inputTokens": 38980,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1549,
+      "reasoningTokens": 434
+    },
+    "status": "completed",
+    "ms": 51245,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://longschapel.com/",
+      "chars": 3175,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.longschapel.com/events",
+      "chars": 1559,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Long's Chapel of Waynesville",
+    "website_url": "https://www.longschapel.com/",
+    "notes": "No 2027 summer dates or registration announcements were found. Some official pages returned empty text when opened; indexed official page text was available through search. A third-party listing identifies Vacation Bible School beginning June 22, 2026 at 5:30 pm, but these details could not be confirmed on an official page and were not entered. The Child Enrichment Center explicitly offers summer continuation for its graduating NC PreK students.",
+    "excluded": [
+      {
+        "name": "Child Enrichment Center full-time care and NC PreK",
+        "reason": "Year-round childcare and school-year preschool; only the separately described summer continuation option is included."
+      },
+      {
+        "name": "LCKids",
+        "reason": "Recurring children's ministry rather than a finite summer program."
+      },
+      {
+        "name": "LCStudents LIFE Groups and Midweek",
+        "reason": "Recurring youth ministry rather than finite summer programs."
+      },
+      {
+        "name": "Parents Night Out",
+        "reason": "The listed event is November 20, 2026, outside summer."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "October family event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend Vacation Bible School at Long's Chapel. The church's remaining event countdown identifies the theme as Emerald Crossing.",
+        "camp_page_url": "https://www.longschapel.com/timer",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Long's Chapel",
+            "address": "133 Old Clyde Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.longschapel.com/timer", "https://www.longschapel.com/"],
+        "confidence": "medium",
+        "review_notes": "The official countdown says only 'Countdown to Emerald Crossing' and 'This event has ended!' It does not print a year, dates, eligibility, or activities. The connection to 2026 Vacation Bible School and its church venue is partly supported by the third-party listing https://allevents.in/clyde/longs-chapel-vacation-bible-school/200030075947654; confirm with the church before publishing dates."
+      },
+      {
+        "name": "Summer",
+        "type": "day",
+        "categories": ["general", "faith_based"],
+        "description": "Graduating students in the Child Enrichment Center's NC PreK classroom can continue attending during the summer months. The center uses classroom activities and play-based learning.",
+        "camp_page_url": "https://www.longschapel.com/child-enrichment-center",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Long's Chapel Child Enrichment Center",
+            "address": "133 Old Clyde Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 785,
+            "unit": "month",
+            "label": "Summer continuation after NC PreK graduation",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.longschapel.com/child-enrichment-center",
+          "https://www.longschapel.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated official FAQ labels this option 'Summer' and states a $785 monthly tuition. The 2026 year is a fallback for currently published undated information, not an explicit season heading. Confirm the applicable tuition year, summer dates, hours, and eligibility; hours and age limits for other CEC services were not transferred to this option."
+      }
+    ]
+  }
+}

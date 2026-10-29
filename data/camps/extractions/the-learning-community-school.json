@@ -1,0 +1,453 @@
+{
+  "provider": {
+    "key": "the-learning-community-school",
+    "name": "The Learning Community School",
+    "urls": ["https://thelearningcommunity.org/camps/"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:32.735Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b42828719771fd0d76699d050abcfc8e02c670ad9970e08020c7240cc06fe38c",
+  "response": {
+    "searches": [
+      "site:thelearningcommunity.org camps 2026 2027",
+      "site:thelearningcommunity.org \"bus\" \"stop\" \"address\""
+    ],
+    "usage": {
+      "inputTokens": 21901,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3676,
+      "reasoningTokens": 151
+    },
+    "status": "completed",
+    "ms": 78772,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://thelearningcommunity.org/camps/",
+      "chars": 8078,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thelearningcommunity.org/tuition-fees-transportation/",
+      "chars": 5195,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thelearningcommunity.org/capital-campaign/",
+      "chars": 4696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://thelearningcommunity.org/",
+      "chars": 5559,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Learning Community School",
+    "website_url": "https://thelearningcommunity.org/",
+    "notes": "Summer 2027 dates are coming in January 2027; no registration opening date is announced. The remaining prices and schedules appear to be retained from summer 2026, but the page does not explicitly label their year. No dated 2026 sessions or camp registration links were found. The downtown Asheville bus stop's street address could not be verified. School-year lunch, extended care and financial assistance policies were not applied to camps.",
+    "excluded": [
+      {
+        "name": "Enrichment Clubs",
+        "reason": "School-year after-school activities, not finite summer camps."
+      },
+      {
+        "name": "Homework/Recess Club",
+        "reason": "School-year after-school care, not summer-only childcare."
+      },
+      {
+        "name": "Extended Care",
+        "reason": "School-year early and after care; no summer offering stated."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Bee Tree",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "stem"],
+        "description": "Campers explore the creek, forests and trails, build shelters, and participate in imaginative outdoor play. Activities also include archery, maker space projects, LEGO labs and art.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Learning Community School",
+            "address": "1220 Bee Tree Rd",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "15:30",
+          "text": "Morning Carline drop-off: 8:30-9:00 am; Afternoon Carline pick-up: 3:30 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Includes $150/week deposit; $200 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus fee for all camps held at TLC (Adventure Camps are held off campus, so no bus fee): $50/week"
+        },
+        "sources": [
+          "https://thelearningcommunity.org/camps/",
+          "https://thelearningcommunity.org/contact-and-location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page does not explicitly date the retained prices, grades or schedule; 2026 is inferred from its prior-season full notice and January 2027 update announcement. Confirm 2027 details. Optional downtown Asheville bus pickup is 8:10-8:25 am and return is 3:45 pm depending on traffic; its address is not published in the sources found."
+      },
+      {
+        "name": "Theater Camp",
+        "type": "day",
+        "categories": ["theater", "music", "dance", "arts"],
+        "description": "Campers sing, dance, act, play games, and create crafts and costumes while learning a short one-act musical. The week ends with a performance for families.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Learning Community School",
+            "address": "1220 Bee Tree Rd",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "15:30",
+          "text": "Morning Carline drop-off: 8:30-9:00 am; Afternoon Carline pick-up: 3:30 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Includes $150/week deposit; $200 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus fee for all camps held at TLC (Adventure Camps are held off campus, so no bus fee): $50/week"
+        },
+        "sources": [
+          "https://thelearningcommunity.org/camps/",
+          "https://thelearningcommunity.org/contact-and-location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The retained prices, grades and schedule have no explicit year; 2026 is inferred from the prior-season full notice. Confirm 2027 details. Optional downtown Asheville bus pickup is 8:10-8:25 am and return is 3:45 pm depending on traffic; the stop address could not be verified."
+      },
+      {
+        "name": "Junior Adventure Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers participate in off-campus outdoor recreation, including waterfall hikes, swimming, indoor climbing, whitewater rafting, ropes courses and ziplining.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Downtown Asheville bus stop",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "16:00",
+          "text": "Morning Bus pick-up: 8:10-8:25 am; Afternoon Bus drop-off: 4:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "week",
+            "label": "Includes $150/week deposit; $400 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Adventure Camps* are not held on campus, so NO BUS FEE. (Required to take bus):"
+        },
+        "sources": ["https://thelearningcommunity.org/camps/"],
+        "confidence": "medium",
+        "review_notes": "The retained prices, grades and schedule have no explicit year; 2026 is inferred from the prior-season full notice. Confirm 2027 details and the downtown Asheville bus stop address. Camp meets and returns at the bus stop daily; there is no campus drop-off."
+      },
+      {
+        "name": "Summer Academy",
+        "type": "day",
+        "categories": ["academic", "stem", "nature_outdoor"],
+        "description": "Students reinforce writing, reading and math skills through hands-on academics. Activities include a daily makerspace/engineering lab and time in the creek and forest.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Learning Community School",
+            "address": "1220 Bee Tree Rd",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "15:30",
+          "text": "Morning Carline drop-off: 8:30-9:00 am; Afternoon Carline pick-up: 3:30 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Includes $150/week deposit; $200 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus fee for all camps held at TLC (Adventure Camps are held off campus, so no bus fee): $50/week"
+        },
+        "sources": [
+          "https://thelearningcommunity.org/camps/",
+          "https://thelearningcommunity.org/contact-and-location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The description says two weeks, but no session dates or enrollment-length requirements are listed. Retained prices, grades and schedule have no explicit year; 2026 is inferred from the prior-season full notice. Confirm 2027 details. Optional downtown bus pickup is 8:10-8:25 am and return is 3:45 pm depending on traffic; its address could not be verified."
+      },
+      {
+        "name": "Senior Overnight Adventure Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers spend five days and four nights traveling by foot or canoe in a national park or forest, carrying their supplies. Activities include swimming, camp craft, campfires and backcountry skills.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Downtown Asheville bus stop",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Will leave Monday and return Friday; details to come upon registration."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1400,
+            "unit": "week",
+            "label": "Includes $500/week deposit; $900 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Participants will need to provide their own gear EXCEPT for group cooking gear, tarps/ground cloths, water filtration, and food. TLC will provide those."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Adventure Camps* are not held on campus, so NO BUS FEE. (Required to take bus):"
+        },
+        "sources": ["https://thelearningcommunity.org/camps/"],
+        "confidence": "medium",
+        "review_notes": "Retained prices and grades have no explicit year; 2026 is inferred from the prior-season full notice. Confirm 2027 details and the downtown Asheville bus stop address. The shared adventure schedule lists pickup at 8:10-8:25 am and return at 4:00 pm, but the overnight-specific text says details will come upon registration."
+      },
+      {
+        "name": "Dungeons & Dragons + RPG Camp",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "description": "Campers learn tabletop role-playing games through character development and screen-free gameplay. Each weekly session includes game-related art projects and outdoor play, and campers take home dice and a dice bag.",
+        "camp_page_url": "https://thelearningcommunity.org/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back in January 2027 for Summer 2027 dates!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Learning Community School",
+            "address": "1220 Bee Tree Rd",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "15:30",
+          "text": "Morning Carline drop-off: 8:30-9:00 am; Afternoon Carline pick-up: 3:30 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Includes $150/week deposit; $200 remaining after deposit",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Retained prior-season listing, not summer 2027",
+          "text": "All camps are full, but check back in Jan 2027 for Summer 2027 dates!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Bus fee for all camps held at TLC (Adventure Camps are held off campus, so no bus fee): $50/week"
+        },
+        "sources": [
+          "https://thelearningcommunity.org/camps/",
+          "https://thelearningcommunity.org/contact-and-location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Retained prices, grades and schedule have no explicit year; 2026 is inferred from the prior-season full notice. Confirm 2027 details. Weekly campaigns are mentioned but not individually listed. Optional downtown bus pickup is 8:10-8:25 am and return is 3:45 pm depending on traffic; the stop address could not be verified."
+      }
+    ]
+  }
+}

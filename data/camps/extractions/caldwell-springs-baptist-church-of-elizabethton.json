@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "key": "caldwell-springs-baptist-church-of-elizabethton",
+    "name": "Caldwell Springs Baptist Church of Elizabethton",
+    "urls": [
+      "http://caldwellsprings.org/",
+      "https://www.facebook.com/Caldwell-Springs-Baptist-Church-1610603679236546/"
+    ],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (getaddrinfo ENOTFOUND caldwellsprings.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND caldwellsprings.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at http://caldwellsprings.org/"
+  },
+  "extractedAt": "2026-10-29T15:25:09.629Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Caldwell Springs Baptist Church Elizabethton VBS 2026",
+      "site:facebook.com \"Caldwell Springs\" \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 19632,
+      "cachedInputTokens": 8223,
+      "outputTokens": 429,
+      "reasoningTokens": 232
+    },
+    "status": "completed",
+    "ms": 16180,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "http://caldwellsprings.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (getaddrinfo ENOTFOUND caldwellsprings.org); chrome-tls: fetch failed (getaddrinfo ENOTFOUND caldwellsprings.org); browser: page.goto: net::ERR_NAME_NOT_RESOLVED at http://caldwellsprings.org/\nCall log:\n\u001b[2m  - navigating to \"http://caldwellsprings.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/Caldwell-Springs-Baptist-Church-1610603679236546/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Caldwell Springs Baptist Church of Elizabethton",
+    "website_url": "http://caldwellsprings.org/",
+    "notes": "No summer 2027 program information could be verified. The church website and supplied Facebook page returned no readable content. Search results surfaced a third-party Vacation Bible School listing for June 14–18, 2026, from 6:00–8:30 p.m. at 1509 Blue Springs Rd, Elizabethton, TN, but no readable official announcement was found to confirm it. This is an unverified lead, not a confirmed camp card. Review the church's Facebook announcements or contact the church before publishing. Third-party lead: https://happeningnext.com/event/vacation-bible-school-eid3a0dpxtxa5",
+    "excluded": [],
+    "cards": []
+  }
+}

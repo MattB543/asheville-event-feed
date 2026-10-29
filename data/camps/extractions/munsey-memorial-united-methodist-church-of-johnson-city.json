@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "munsey-memorial-united-methodist-church-of-johnson-city",
+    "name": "Munsey Memorial United Methodist Church of Johnson City",
+    "urls": ["https://www.munsey.org/vbs"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:26.499Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "58b4fb9ec955dc21fcb7e9e5a933c5766e15f6040e240a5e1207f9581ed95b58",
+  "response": {
+    "searches": ["site:munsey.org VBS 2026 2027", "\"Munsey\" \"VBS\" \"2026\""],
+    "usage": {
+      "inputTokens": 21398,
+      "cachedInputTokens": 8223,
+      "outputTokens": 771,
+      "reasoningTokens": 169
+    },
+    "status": "completed",
+    "ms": 22569,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.munsey.org/vbs",
+      "chars": 1489,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.munsey.org/",
+      "chars": 1412,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Munsey Memorial United Methodist Church of Johnson City",
+    "website_url": "https://www.munsey.org/",
+    "notes": "No clearly dated 2026 or 2027 VBS information was found. The VBS page says June 16-19 'this year' without a program year and has a 2025 footer; these dates have not been assigned to 2026 or 2027. It also says both 'We will be registering soon' and 'Registration is now closed.'",
+    "excluded": [
+      {
+        "name": "Spark",
+        "reason": "Weekly children's activities, fellowship and worship, not a finite summer program."
+      },
+      {
+        "name": "Munsey Preschool and Accredited Kindergarten",
+        "reason": "Regular preschool, kindergarten and extended childcare following the school calendar; no summer-only offering was identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Road Trip: On the Go with God",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in stories, crafts and activities at Vacation Bible School.",
+        "camp_page_url": "https://www.munsey.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Munsey Memorial United Methodist Church",
+            "address": "201 South Roan Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "The undated Road Trip VBS listing",
+          "text": "Registration is now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.munsey.org/vbs", "https://www.munsey.org/"],
+        "confidence": "medium",
+        "review_notes": "Check the VBS page's program year before using its June 16-19 dates. The page has no explicit year for those dates and a 2025 footer. Confirm whether Road Trip remains the upcoming program and reconcile the introductory registration-soon statement with the registration-closed notice. The site address is published on the VBS page."
+      }
+    ]
+  }
+}

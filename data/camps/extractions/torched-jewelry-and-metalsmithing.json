@@ -1,0 +1,172 @@
+{
+  "provider": {
+    "key": "torched-jewelry-and-metalsmithing",
+    "name": "TORCHED Jewelry and Metalsmithing",
+    "urls": [
+      "https://torchedavl.com/calendar-list/kids-camp-july2026-5",
+      "https://torchedavl.com/",
+      "https://torched.as.me/kids-camp-june2026"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:20.321Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e802db5b272d6b40a7bf1837d2a374e350df730db40b01b40eee9ed9eef19a4f",
+  "response": {
+    "searches": [
+      "site:torchedavl.com \"camp\" \"2026\"",
+      "open https://torched.as.me/kids-camp-june2026",
+      "site:torchedavl.com \"camp\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23664,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1089,
+      "reasoningTokens": 219
+    },
+    "status": "completed",
+    "ms": 33398,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://torchedavl.com/calendar-list/kids-camp-july2026-5",
+      "chars": 1731,
+      "method": "fetch"
+    },
+    {
+      "url": "https://torchedavl.com/",
+      "chars": 3687,
+      "method": "fetch"
+    },
+    {
+      "url": "https://torched.as.me/kids-camp-june2026",
+      "chars": 438,
+      "method": "browser"
+    },
+    {
+      "url": "https://torchedavl.com/faqs",
+      "chars": 3374,
+      "method": "fetch"
+    },
+    {
+      "url": "https://torchedavl.com/calendar-list/kids-camp-july2026-5?format=ical",
+      "chars": 412,
+      "method": "fetch"
+    },
+    {
+      "url": "https://torched.as.me/private-lesson-consult",
+      "chars": 850,
+      "method": "browser"
+    },
+    {
+      "url": "https://torched.as.me/",
+      "chars": 612,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "TORCHED Jewelry and Metalsmithing",
+    "website_url": "https://torchedavl.com/",
+    "notes": "No summer 2027 camp information or registration dates were found. The supplied July 2026 calendar page confirms one five-day youth camp. The June 2026 registration URL returned no readable content, so no June dates or prices could be verified. The registration platform says online scheduling is not currently available; this was not treated as a camp-specific availability statement.",
+    "excluded": [
+      {
+        "name": "Junior Sparks",
+        "reason": "Ongoing youth metalsmithing classes; no separately verified summer-only camp or clinic dates."
+      },
+      {
+        "name": "Adult 4-Day Camp",
+        "reason": "Adult-only program held in October, outside summer."
+      },
+      {
+        "name": "Adult 4-Day Workshop",
+        "reason": "Adult-only workshop held in February, outside summer."
+      },
+      {
+        "name": "Private Group Classes",
+        "reason": "Year-round custom-booked classes rather than a listed summer youth program."
+      },
+      {
+        "name": "Silver + Stone Ring! (6hrs)",
+        "reason": "Regular jewelry class, not a separately identified summer youth program."
+      },
+      {
+        "name": "Rapid Fire! 2-Day Lost Wax Casting",
+        "reason": "Regular jewelry workshop with no verified youth-specific summer offering."
+      },
+      {
+        "name": "Wax + Wine Night",
+        "reason": "Community independent work event with little to no instruction, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Camp: Art + Metalsmithing",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Students participate in art and metalsmithing during a five-day youth camp. Students must attend all five days.",
+        "camp_page_url": "https://torchedavl.com/calendar-list/kids-camp-july2026-5",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Torched AVL",
+            "address": "1056 Haywood Rd, Suites A+B",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9AM - 3PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "JULY",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://torchedavl.com/calendar-list/kids-camp-july2026-5",
+          "https://torchedavl.com/calendar-list/kids-camp-july2026-5?format=ical",
+          "https://torchedavl.com/",
+          "https://torchedavl.com/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

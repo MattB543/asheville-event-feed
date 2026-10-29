@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "empyrean-arts",
+    "name": "Empyrean Arts",
+    "urls": ["https://empyreanarts.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:35:17.389Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d2172437dff7353d171bf9d75f698d38a80093eb12082085849dd56c6f37c73c",
+  "response": {
+    "searches": [
+      "site.empyreanarts.org summer camp 2026 2027",
+      "site:empyreanarts.org \"camp\"",
+      "site:empyreanarts.org \"Kids Circus\""
+    ],
+    "usage": {
+      "inputTokens": 28064,
+      "cachedInputTokens": 8223,
+      "outputTokens": 930,
+      "reasoningTokens": 303
+    },
+    "status": "completed",
+    "ms": 29361,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://empyreanarts.org/",
+      "chars": 3899,
+      "method": "fetch"
+    },
+    {
+      "url": "https://empyreanarts.org/classes-at-empyrean-arts/workshops/",
+      "chars": 1546,
+      "method": "fetch"
+    },
+    {
+      "url": "https://empyreanarts.org/classes-at-empyrean-arts/",
+      "chars": 1822,
+      "method": "fetch"
+    },
+    {
+      "url": "https://empyreanarts.org/classes-at-empyrean-arts/faq/",
+      "chars": 6181,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Empyrean Arts",
+    "website_url": "https://empyreanarts.org/",
+    "notes": "No summer 2027 camp information was found on the official pages or in search results. A 2026 Kids Circus Summer Camp was found in third-party event listings, but its announcement could not be located on the current official website. The event listing pages returned no readable body text when opened; the card uses their search snippets and requires verification.",
+    "excluded": [
+      {
+        "name": "Regular group classes",
+        "reason": "Ongoing drop-in aerial arts, pole fitness, flexibility and movement classes, rather than finite summer youth programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids Circus Summer Camp",
+        "type": "day",
+        "categories": ["arts", "dance", "sports"],
+        "description": "Campers learn skills on aerial hoop, sling, silks and trapeze. Activities also include hula hoop dancing, hand balancing, flexibility and face painting.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Empyrean Arts",
+            "address": "32 Banks Ave, Studio 107 & 108",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://empyreanarts.org/"],
+        "confidence": "medium",
+        "review_notes": "Verify the program name, July 27–31, 2026 dates, ages 6–11 and activities with the provider. These facts appear only in third-party search snippets at https://stayhappening.com/e/empyrean-arts-kids-circus-camp-ages-6-11-E2ISYP4X71E and https://happeningnext.com/event/empyrean-arts-kids-circus-camp-ages-6-11-eid3a0dtt045u. The provider's homepage supplies the studio address, but an official camp announcement confirming drop-off location was not found."
+      }
+    ]
+  }
+}

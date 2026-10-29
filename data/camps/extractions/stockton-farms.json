@@ -1,0 +1,188 @@
+{
+  "provider": {
+    "key": "stockton-farms",
+    "name": "Stockton Farms",
+    "urls": ["https://stocktonfarmsnc.com/"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:17:05.906Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7ae4d9fef20e03697d191fba3950e55ebb15692d3dc7de8b9972b20a77a23241",
+  "response": {
+    "searches": [
+      "\"Stockton Farms\" \"camp\" Canton",
+      "\"Stockton Farms\" \"317\"",
+      "open https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf",
+      "site:campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf \"Animal\""
+    ],
+    "usage": {
+      "inputTokens": 23326,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1734,
+      "reasoningTokens": 359
+    },
+    "status": "completed",
+    "ms": 42313,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://stocktonfarmsnc.com/",
+      "chars": 2653,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.secureserver.net/set-preference?market=en-AE&pl_id=292849&target=https%3A%2F%2Fwww.secureserver.net%2F%3Fpl_id%3D292849%26isc%3DPLPPT02003%26isRedirect%3D1",
+      "chars": 923,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.secureserver.net/products/domain-registration?plid=292849",
+      "chars": 923,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.secureserver.net/domains/bulk-domain-search?plid=292849",
+      "chars": 4711,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Stockton Farms",
+    "website_url": "https://stocktonfarmsnc.com/",
+    "notes": "The supplied website redirects to an unrelated domain-services site. Camp Daniel Boone's official materials document two Stockton Farms evening merit-badge programs for Scouts attending camp, not general-public camps. A 2027 program guide was found, but its full contents could not be read; its search snippet confirms Horsemanship continues. The detailed information below comes from the explicitly labeled 2026 Stockton Farms information sheet. Exact calendar dates for the farm programs were not verified and were not inferred from Camp Daniel Boone's camp weeks. No farm-specific registration opening date was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Horsemanship Merit Badge",
+        "type": "evening",
+        "categories": ["horses"],
+        "description": "Scouts participate in a hands-on horse program to earn the Horsemanship Merit Badge. No experience is required, and participants must attend both evening sessions.",
+        "camp_page_url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Stockton Farms",
+            "address": "317 Stockton Ln",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "19:00",
+          "end": "21:00",
+          "text": "Monday and Wednesday evenings; Scouts must attend both sessions."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "program",
+            "label": "Both Monday and Wednesday sessions",
+            "year": 2026
+          },
+          {
+            "amount": 175,
+            "unit": "program",
+            "label": "Combined Horsemanship and Animal Science",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "Please plan to provide transportation (to and from the farm) for your Scouts. Troops can carpool if desired."
+        },
+        "sources": [
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf",
+          "https://www.promatcher.com/profile/STOCKTONFARMS"
+        ],
+        "confidence": "medium",
+        "review_notes": "The information sheet identifies eligibility as 'All Ages' for Scouts without numeric limits. Verify 2027 dates, fees and attendance requirements in the 2027 guide, which could only be seen through a search snippet. The address comes from a business profile linked to the farm's website, corroborated by other directories; no readable provider-owned address page was available."
+      },
+      {
+        "name": "Animal Science Merit Badge",
+        "type": "evening",
+        "categories": ["nature_outdoor"],
+        "description": "Scouts work with poultry, sheep and cattle on a working farm to earn the Animal Science Merit Badge. Activities include handling poultry and shearing sheep.",
+        "camp_page_url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Stockton Farms",
+            "address": "317 Stockton Ln",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "19:00",
+          "end": "21:00",
+          "text": "Tuesday and Thursday evenings."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "program",
+            "label": "Both Tuesday and Thursday sessions",
+            "year": 2026
+          },
+          {
+            "amount": 175,
+            "unit": "program",
+            "label": "Combined Horsemanship and Animal Science",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "Please plan to provide transportation (to and from the farm) for your Scouts."
+        },
+        "sources": [
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/05/stockton-farms-information.pdf",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/08/Prelimminary-Program-Overview-for-2027.pdf",
+          "https://www.promatcher.com/profile/STOCKTONFARMS"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 sheet says all ages are welcome but recommends more mature Scouts; no numeric age limits are given. Animal Science appears in the preliminary 2026/2027 overview, but final 2027 details and exact farm dates were not verified. The address comes from a business profile linked to the farm's website, corroborated by other directories; no readable provider-owned address page was available."
+      }
+    ]
+  }
+}

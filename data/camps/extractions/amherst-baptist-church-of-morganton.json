@@ -1,0 +1,126 @@
+{
+  "provider": {
+    "key": "amherst-baptist-church-of-morganton",
+    "name": "Amherst Baptist Church of Morganton",
+    "urls": [
+      "https://vbsmate.com/events/amherstbc/32440",
+      "https://vbsmate.com/events/amherstbaptistchurchnc/31058"
+    ],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:21:15.296Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fa98907e91695a6921ab202222c11cbf181256f794b87f48f4d65f96bb9a3c36",
+  "response": {
+    "searches": [
+      "Amherst Baptist Church Morganton official 1024 Amherst VBS 2027",
+      "\"Amherst\" \"Morganton\" \"2027\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 18678,
+      "cachedInputTokens": 8223,
+      "outputTokens": 590,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 27791,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbsmate.com/events/amherstbc/32440",
+      "chars": 1780,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/events/amherstbaptistchurchnc/31058",
+      "chars": 2247,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/students/amherstbc/32440",
+      "chars": 452,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/students/amherstbaptistchurchnc/31058",
+      "chars": 434,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbsmate.com/",
+      "chars": 1782,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Amherst Baptist Church of Morganton",
+    "website_url": null,
+    "notes": "No 2027 VBS information or registration dates were found. The listed church website, https://amherstbaptistchurch.org/, returned no readable content. The 2025 True North page is a prior-year version of the same VBS offering, not a separate program.",
+    "excluded": [
+      {
+        "name": "Adult Bible Study",
+        "reason": "Adult-only Bible study offered alongside VBS; not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Snowball Mountain Challenge VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons, music, games, snacks, and activities about finding strength in God.",
+        "camp_page_url": "https://vbsmate.com/events/amherstbc/32440",
+        "registration_url": "https://vbsmate.com/students/amherstbc/32440",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Amherst Baptist Church",
+            "address": "1024 Amherst Road",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00 PM - 8:30 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS registration",
+          "text": "Registration for Snowball Mountain Challenge VBS 2026 - Amherst Baptist Church is not currently open."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbsmate.com/events/amherstbc/32440",
+          "https://vbsmate.com/students/amherstbc/32440"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBSMate event header shows 12:00 AM - 12:00 AM, while the detailed 2026 announcement explicitly states 6:00 PM - 8:30 PM. The card uses the detailed announcement's hours; verify this discrepancy if needed."
+      }
+    ]
+  }
+}

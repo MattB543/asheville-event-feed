@@ -1,0 +1,159 @@
+{
+  "provider": {
+    "key": "cherry-springs-baptist-church-of-old-fort",
+    "name": "Cherry Springs Baptist Church of Old Fort",
+    "urls": [
+      "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+      "https://cherryspringsbaptistchurch.com/Home",
+      "https://cherryspringsbaptistchurch.com/Events"
+    ],
+    "area": "Old Fort, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:42.416Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7ee8ff7f9f055bafe9f6f5bd724feab1e3b30846f5728780640c0efb4d6eda89",
+  "response": {
+    "searches": [
+      "\"Cherry Springs Baptist\" \"VBS\" 2026",
+      "\"Cherry Springs Baptist Church\" \"VBS\" \"June\" facebook"
+    ],
+    "usage": {
+      "inputTokens": 18356,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1062,
+      "reasoningTokens": 151
+    },
+    "status": "completed",
+    "ms": 30549,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+      "chars": 1011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Home",
+      "chars": 1733,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/Events",
+      "chars": 1189,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cherryspringsbaptistchurch.com/",
+      "chars": 1733,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherry Springs Baptist Church of Old Fort",
+    "website_url": "https://cherryspringsbaptistchurch.com/Home",
+    "notes": "No 2027 summer information found. The Vacation Bible School page contains no program details. An indexed official June 2026 calendar lists Vacation Bible School on four Wednesdays at 5:30 PM; the live pages supplied show October instead. A third-party event listing gives 5:00–8:00 PM, which conflicts with the official calendar; those hours were not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church lists Vacation Bible School on four Wednesday evenings in June. Specific activities are not described on its official pages.",
+        "camp_page_url": "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-03",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cherry Springs Baptist Church",
+            "address": "6 Bull Walker Road",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": null,
+          "text": "5:30 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Vacation Bible School",
+            "start": "2026-06-03",
+            "end": "2026-06-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Vacation Bible School",
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Vacation Bible School",
+            "start": "2026-06-17",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Vacation Bible School",
+            "start": "2026-06-24",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://cherryspringsbaptistchurch.com/Vacation-Bible-School",
+          "https://cherryspringsbaptistchurch.com/site/cs/events_table.asp",
+          "https://cherryspringsbaptistchurch.com/Contact-Us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and 5:30 PM start time come from the search-indexed official calendar headed June 2026, not a currently displayed June calendar. Confirm the schedule and that campers meet at the church's published contact address. Ages, activities, ending time, prices and registration details are not posted."
+      }
+    ]
+  }
+}

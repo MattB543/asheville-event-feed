@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "first-presbyterian-church-of-spruce-pine",
+    "name": "First Presbyterian Church of Spruce Pine",
+    "urls": [
+      "https://www.firstpressprucepine.org/vbs-2025-more-info",
+      "https://www.firstpressprucepine.org/home"
+    ],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:50.649Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4d75d8cd6b18e5521547d6f0df9ed589bb7e4e75d21280c59ec5fa566e304ef0",
+  "response": {
+    "searches": ["site:firstpressprucepine.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 14114,
+      "cachedInputTokens": 8223,
+      "outputTokens": 542,
+      "reasoningTokens": 113
+    },
+    "status": "completed",
+    "ms": 30492,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstpressprucepine.org/vbs-2025-more-info",
+      "chars": 2401,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstpressprucepine.org/home",
+      "chars": 1522,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstpressprucepine.org/",
+      "chars": 2136,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Presbyterian Church of Spruce Pine",
+    "website_url": "https://www.firstpressprucepine.org/",
+    "notes": "No 2027 information was found. The current VBS page confirms a 2026 program and its theme but does not give dates, eligibility, hours, fees, or registration details. The detailed 2025 page is historical; its dates, grades, hours, dinner provision, and location were not carried forward. Additional official pages were discoverable through search, but direct access was blocked by robots.txt.",
+    "excluded": [
+      {
+        "name": "Youth Group",
+        "reason": "A recurring youth group, not a finite summer camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Vacation Bible School. The 2026 theme was God's Good Creation, based on Genesis 1:1–2:3.",
+        "camp_page_url": "https://www.firstpressprucepine.org/home",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.firstpressprucepine.org/home"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

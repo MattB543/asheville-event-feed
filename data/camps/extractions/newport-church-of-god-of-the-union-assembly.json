@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "key": "newport-church-of-god-of-the-union-assembly",
+    "name": "Newport Church of God of the Union Assembly",
+    "urls": ["https://www.facebook.com/newportcogua/"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:31:24.934Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Newport Church God Union Assembly vacation bible school 2026",
+      "site:facebook.com/newportcogua \"2026\" \"VBS\"",
+      "\"Newport\" \"site:cogua.com\""
+    ],
+    "usage": {
+      "inputTokens": 20623,
+      "cachedInputTokens": 8223,
+      "outputTokens": 429,
+      "reasoningTokens": 262
+    },
+    "status": "completed",
+    "ms": 23015,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/newportcogua/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport Church of God of the Union Assembly",
+    "website_url": "https://www.cogua.org/newport",
+    "notes": "Found an official denominational Newport page, but it and https://cogua.com/ returned no readable text. The supplied Facebook page also returned no readable text. Official Facebook search results document VBS 2019: The Incredible Race, but no 2026 or 2027 summer program details or registration dates were found. No cards created from the historical 2019 offering; current summer offerings require direct confirmation with the church.",
+    "excluded": [
+      {
+        "name": "Youth Services Wednesday Nights",
+        "reason": "Recurring youth services, not a finite summer camp."
+      },
+      {
+        "name": "Christmas Party youth 2022",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

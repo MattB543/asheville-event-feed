@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "key": "wf-stables-and-tours",
+    "name": "WF Stables & Tours",
+    "urls": ["https://www.wfstables.com/"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:26.673Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "00fba3c953ab22f096c610efa40c0fac815a5fc4bd5329d17c4b6e646f702992",
+  "response": {
+    "searches": ["site:wfstables.com camp", "\"wfstables.com\" \"camp\""],
+    "usage": {
+      "inputTokens": 20157,
+      "cachedInputTokens": 8223,
+      "outputTokens": 702,
+      "reasoningTokens": 153
+    },
+    "status": "completed",
+    "ms": 21467,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.wfstables.com/",
+      "chars": 923,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "WF Stables & Tours",
+    "website_url": "https://www.wfstables.com/",
+    "notes": "The official homepage mentions summer camps but provides no dedicated camp page, program list, dates, ages, hours, prices or registration information. No official 2027 announcement or detailed 2026 camp listing was found. Third-party listings describe named camps, but their details were not used as verified program facts.",
+    "excluded": [
+      {
+        "name": "Riding lessons",
+        "reason": "Ongoing riding lessons, not a finite summer camp."
+      },
+      {
+        "name": "Boarding",
+        "reason": "Horse boarding service, not a supervised youth summer program."
+      },
+      {
+        "name": "Parties",
+        "reason": "Private parties, not a listed summer camp program."
+      },
+      {
+        "name": "Arena Riding",
+        "reason": "General riding offering; no finite summer youth program was established."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "WF Stables lists summer camps among its equine services. The official website does not describe the camp activities.",
+        "camp_page_url": "https://www.wfstables.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.wfstables.com/"],
+        "confidence": "low",
+        "review_notes": "Only a general mention of summer camps is verified. Confirm the program name, day-camp format and all operational details directly with the provider. The homepage publishes the stable address as 165 Tommy Campbell Road, Jonesborough, TN, but does not explicitly identify it as the camp drop-off site. It also says access is from Highway 81 because Tommy Campbell Road is closed on the Cherokee Road side."
+      }
+    ]
+  }
+}

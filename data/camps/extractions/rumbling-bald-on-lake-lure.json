@@ -1,0 +1,146 @@
+{
+  "provider": {
+    "key": "rumbling-bald-on-lake-lure",
+    "name": "Rumbling Bald on Lake Lure",
+    "urls": ["https://rumblingbald.com/amenities/"],
+    "area": "Lake Lure, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:20.585Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "730a43337581e4fc9a7a12b543e937c9fd19b6cb639a84bbc5b74ae08186a50a",
+  "response": {
+    "searches": [
+      "site:rumblingbald.com \"camp\" \"2026\"",
+      "site:rumblingbald.com \"2026\" \"camp\" \"ages\"",
+      "site:rumblingbald.com \"camp\" \"drop\"",
+      "open https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf",
+      "site:rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf \"Dates\""
+    ],
+    "usage": {
+      "inputTokens": 46509,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1256,
+      "reasoningTokens": 348
+    },
+    "status": "completed",
+    "ms": 46450,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://rumblingbald.com/amenities/",
+      "chars": 21456,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rumblingbald.com/living-here/",
+      "chars": 19857,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rumblingbald.com/faqs/",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rumblingbald.com/",
+      "chars": 8687,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rumbling Bald on Lake Lure",
+    "website_url": "https://rumblingbald.com/",
+    "notes": "2027 dates will be released early next year; no 2027 registration date found. Two official 2026 camp PDFs appear to contain different prices. PDF extraction did not expose a complete dated camp calendar or an explicit drop-off venue.",
+    "excluded": [
+      {
+        "name": "Group Fitness Classes",
+        "reason": "Recurring fitness classes, not a finite supervised summer youth program."
+      },
+      {
+        "name": "Personal Training Program",
+        "reason": "Ongoing individual training, not a summer youth camp."
+      },
+      {
+        "name": "Racket Sports Open Play",
+        "reason": "Recurring social drop-in play, not a supervised youth camp."
+      },
+      {
+        "name": "The Rumble 2026",
+        "reason": "March climbing competition outside summer."
+      },
+      {
+        "name": "July 4th Celebration",
+        "reason": "Family holiday events rather than a supervised youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Adventure Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "arts"],
+        "description": "Campers participate in arts and crafts, nature exploration, field trips, swimming, tubing, and team games.",
+        "camp_page_url": "https://rumblingbald.com/amenities/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "2027 camp dates will be released early next year."
+        },
+        "ages": {
+          "min": 4,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:30",
+          "end": "16:30",
+          "text": "9:30am-4:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "day",
+            "label": "2026 Camp Week Highlights.pdf; conflicting alternate PDF pricing",
+            "year": 2026
+          },
+          {
+            "amount": 325,
+            "unit": "week",
+            "label": "2026 Camp Week Highlights.pdf; conflicting alternate PDF pricing",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 season",
+          "text": "Our 2026 Summer Adventure Camp season has come to a close, and we are grateful to everyone who took part."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Each day will include a fruit cup, a cookie, and a Gatorade. All Movie and Kitchen Bites Days will feature themed lunch options."
+        },
+        "transportation": null,
+        "sources": [
+          "https://rumblingbald.com/amenities/",
+          "https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights.pdf",
+          "https://rumblingbald.com/wp-content/uploads/2026/02/2026-Camp-Week-Highlights-1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, ages, hours and listed prices were visible in an official search snippet for 2026-Camp-Week-Highlights.pdf. The alternate 2026-Camp-Week-Highlights-1.pdf snippet states $65/day or $220/week and says the July 4th week has four days; confirm which version is authoritative. Full calendar details were not exposed by PDF text extraction, so no weekly rows were invented. Confirm the camp's drop-off venue; the provider's general address and Wellness Center address were not explicitly identified as camp drop-off locations."
+      }
+    ]
+  }
+}

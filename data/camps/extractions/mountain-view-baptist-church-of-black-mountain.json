@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "mountain-view-baptist-church-of-black-mountain",
+    "name": "Mountain View Baptist Church of Black Mountain",
+    "urls": ["https://www.mvcnc.com/news/vbs-2025"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:10.367Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d12e3d5c5652cec124390e8696ee68666b3ff14fadd39cbc814447478d1b4f5a",
+  "response": {
+    "searches": ["site:mvcnc.com VBS 2026 2027", "site:mvcnc.com \"Vacation Bible\""],
+    "usage": {
+      "inputTokens": 18091,
+      "cachedInputTokens": 8223,
+      "outputTokens": 956,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 26712,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mvcnc.com/news/vbs-2025",
+      "chars": 1135,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mvcnc.com/",
+      "chars": 1556,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain View Baptist Church of Black Mountain",
+    "website_url": "https://www.mvcnc.com/",
+    "notes": "No summer 2027 information was found. An official indexed calendar entry confirms a Vacation Bible School occurrence on June 14, 2026, but its event page and calendar download returned no readable content when opened. The supplied VBS 2025 page does not provide dates or program details.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer program."
+      },
+      {
+        "name": "Youth Group",
+        "reason": "Recurring year-round youth ministry, not a finite summer program."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "October family event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School. Activities are not described in the accessible official materials.",
+        "camp_page_url": "https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mountain View Baptist Church",
+            "address": "2221 N Fork-Right Fork Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "The June 14, 2026 calendar occurrence runs from 6:00 PM to 8:30 PM Eastern."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mvcnc.com/",
+          "https://www.mvcnc.com/news/vbs-2025",
+          "https://www.mvcnc.com/events/mountain-view-baptist-church-vacation-bible-school/2026-06-14.ics",
+          "https://www.mvcnc.com/celebrate-recovery/celebrate-recovery/events"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 date and hours come from an official search-indexed ICS entry: DTSTART 20260614T220000Z and DTEND 20260615T003000Z, converted to Eastern daylight time. Only this occurrence was found; verify the full VBS date range rather than assuming it was a one-day program. The event page and ICS returned no readable content when opened. Ages, activities, prices and registration details remain unconfirmed."
+      }
+    ]
+  }
+}

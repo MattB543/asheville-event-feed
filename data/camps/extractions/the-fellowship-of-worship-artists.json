@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "the-fellowship-of-worship-artists",
+    "name": "The Fellowship of Worship Artists",
+    "urls": ["https://www.thefellowshipowa.org/mwaw2026"],
+    "area": "Lake Junaluska, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:15:52.481Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "60e565e04193b8ee61ce97f7c4c8ac5ba8b930ca94c647fce59a4f07d61ba8db",
+  "response": {
+    "searches": [
+      "site:thefellowshipowa.org \"2027\" \"June\"",
+      "open https://www.thefellowshipowa.org/music-worship-arts-week-2027"
+    ],
+    "usage": {
+      "inputTokens": 26518,
+      "cachedInputTokens": 0,
+      "outputTokens": 1389,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 37295,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.thefellowshipowa.org/mwaw2026",
+      "chars": 12368,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thefellowshipowa.org/news",
+      "chars": 2775,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thefellowshipowa.org/mwaw2026-registration",
+      "chars": 10543,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2026-1",
+      "chars": 2456,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thefellowshipowa.org/mwaw-schedule",
+      "chars": 27224,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.thefellowshipowa.org/",
+      "chars": 2879,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Fellowship of Worship Artists",
+    "website_url": "https://www.thefellowshipowa.org/",
+    "notes": "2027 dates and registration tickets are posted. The intergenerational event includes separately ticketed elementary/youth participation and summer-only child care, so both are included. Lodging is not established as supervised overnight youth care. No 2027 registration opening date was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Music & Worship Arts Week",
+        "type": "day",
+        "categories": ["music", "arts", "dance", "faith_based"],
+        "description": "Children and youth participate in worship arts rehearsals, seminars, worship and performances. The event includes choral, handbell, dance and instrumental activities.",
+        "camp_page_url": "https://www.thefellowshipowa.org/music-worship-arts-week-2027",
+        "registration_url": "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-25",
+          "text": "June 21 - 25, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Lake Junaluska",
+            "address": "91 N Lakeshore Dr",
+            "town": "Lake Junaluska",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "program",
+            "label": "Elementary & Youth; additional $4.38 ticket service fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thefellowshipowa.org/music-worship-arts-week-2027",
+          "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2027",
+          "https://www.thefellowshipowa.org/mwaw2026",
+          "https://lakejunaluska.com/wp-content/uploads/2021/10/Lake-Junaluska-Map-v2025.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Day classification reflects youth event participation, not a confirmed standalone drop-off camp; verify chaperone requirements and youth supervision with the provider. Activity details are described in the supplied 2026 materials; detailed 2027 youth schedules and rehearsal bands were not available. The event's 11:00 AM Monday to noon Friday range is not a daily care schedule. The venue's official map confirms 91 N. Lakeshore Dr as Bethea Welcome Center, but specific 2027 youth drop-off rooms are not stated."
+      },
+      {
+        "name": "Child Care",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Child care is offered during Music & Worship Arts Week for children whose parents are registered participants, including guests, chaperones and daily attendees.",
+        "camp_page_url": "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2027",
+        "registration_url": "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-25",
+          "text": "Jun 21, 2027, 11:00 AM EDT – Jun 25, 2027, 12:00 PM EDT"
+        },
+        "ages": {
+          "min": 2,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lake Junaluska",
+            "address": "91 N Lakeshore Dr",
+            "town": "Lake Junaluska",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Children of registered attendees",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.thefellowshipowa.org/events-1/music-worship-arts-week-2027",
+          "https://lakejunaluska.com/wp-content/uploads/2021/10/Lake-Junaluska-Map-v2025.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates span the host event; child-care-specific days and hours are not separately stated. The registration page gives the general Lake Junaluska event address, not a child-care drop-off building. Verify the 2027 child-care location and schedule. Care excludes families attending only public worship or concerts."
+      }
+    ]
+  }
+}

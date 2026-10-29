@@ -1,0 +1,650 @@
+{
+  "provider": {
+    "key": "doe-river-gorge-ministries",
+    "name": "Doe River Gorge Ministries",
+    "urls": ["https://www.doerivergorge.com/camps/", "https://www.doerivergorge.com/discover-drg/"],
+    "area": "Hampton, TN",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:49.799Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "bf74f5920470ae4926a3a97ed76fa1820ce6de1d7d6fce01b844c088b621f360",
+  "response": {
+    "searches": [
+      "site:doerivergorge.com 2027 registration opens",
+      "site:doerivergorge.com \"scholarships\""
+    ],
+    "usage": {
+      "inputTokens": 28483,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4392,
+      "reasoningTokens": 267
+    },
+    "status": "completed",
+    "ms": 81343,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.doerivergorge.com/camps/",
+      "chars": 4586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/discover-drg/",
+      "chars": 5773,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/camps-2-6/",
+      "chars": 2867,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/camps-7-12/",
+      "chars": 2785,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/teen-leadership/",
+      "chars": 3852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/mission-and-beliefs/",
+      "chars": 6332,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/our-story/",
+      "chars": 9667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.doerivergorge.com/camps/our-team/",
+      "chars": 12415,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Doe River Gorge Ministries",
+    "website_url": "https://www.doerivergorge.com/",
+    "notes": "2027 dates and prices are posted on Discover DRG; the main camps page still contains a 2026 calendar. Program detail dates without years were matched to the explicitly labeled 2027 calendar. No public registration opening date was found. Alumni discounted registration ended August 31, 2026. Some additional pages returned no readable text, including pre-arrival information. CALL is not treated as full or waitlisted. Beginner Camp is included as an age-band row of Junior Adventure Quest rather than a separate card.",
+    "excluded": [
+      {
+        "name": "Rental Week",
+        "reason": "Facility rental, not a provider-run supervised youth camp."
+      },
+      {
+        "name": "Father Son Retreat",
+        "reason": "Family-only retreat."
+      },
+      {
+        "name": "Day Quest",
+        "reason": "Family and group recreation rather than a supervised youth camp."
+      },
+      {
+        "name": "Exponential Gap Year",
+        "reason": "Semester or year-long program, not a finite summer youth offering."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "School Field Trips",
+        "reason": "School-year field trips, not summer camps."
+      },
+      {
+        "name": "Christmas Train",
+        "reason": "Outside summer and a family attraction rather than a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Adventure Quest",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in outdoor adventure activities, worship, Bible teaching and small-group discussions.",
+        "camp_page_url": "https://www.doerivergorge.com/camps/camps-2-6/",
+        "registration_url": "https://www.doerivergorge.com/camps/2027-camp-registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Doe River Gorge Ministries",
+            "address": "220 Doe River Gorge Rd.",
+            "town": "Hampton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 780,
+            "unit": "session",
+            "label": "Early, through December 15",
+            "year": 2027
+          },
+          {
+            "amount": 825,
+            "unit": "session",
+            "label": "Standard, December 16–April 15",
+            "year": 2027
+          },
+          {
+            "amount": 865,
+            "unit": "session",
+            "label": "Late, after April 16",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Jr Adventure Quest – Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Jr Adventure Quest - Session 2",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Jr Adventure Quest – Session 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Beginner Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "OPEN"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Camp scholarships for qualified applicants"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.doerivergorge.com/discover-drg/",
+          "https://www.doerivergorge.com/camps/camps-2-6/",
+          "https://www.doerivergorge.com/camps/2027-camp-registration/",
+          "https://www.doerivergorge.com/camps/alumni-registration-2027/",
+          "https://www.doerivergorge.com/donate-advance/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Discover DRG specifies grades 3–6 for Junior Adventure Quest and grades 2–3 for Beginner Camp; the program and registration pages broadly say grades 2–6. Alumni registration says July 18–23 includes grade 2. Confirm eligibility for grades 2 and 3 and whether Beginner Camp should be separate."
+      },
+      {
+        "name": "Adventure Quest",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers take part in climbing, whitewater tubing and other outdoor adventures alongside worship, Bible teaching and small-group discussions.",
+        "camp_page_url": "https://www.doerivergorge.com/camps/camps-7-12/",
+        "registration_url": "https://www.doerivergorge.com/camps/2027-camp-registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Doe River Gorge Ministries",
+            "address": "220 Doe River Gorge Rd.",
+            "town": "Hampton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 780,
+            "unit": "session",
+            "label": "Early, through December 15",
+            "year": 2027
+          },
+          {
+            "amount": 825,
+            "unit": "session",
+            "label": "Standard, December 16–April 15",
+            "year": 2027
+          },
+          {
+            "amount": 865,
+            "unit": "session",
+            "label": "Late, after April 16",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Adventure Quest - Session 1",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Adventure Quest - Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Adventure Quest - Session 4",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Adventure Quest - Session 5",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "OPEN"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Camp scholarships for qualified applicants"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.doerivergorge.com/discover-drg/",
+          "https://www.doerivergorge.com/camps/camps-7-12/",
+          "https://www.doerivergorge.com/camps/2027-camp-registration/",
+          "https://www.doerivergorge.com/donate-advance/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "17-Three",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Teens participate in leadership development, Bible studies, experiential training and service initiatives alongside camp staff.",
+        "camp_page_url": "https://www.doerivergorge.com/camps/teen-leadership/",
+        "registration_url": "https://www.doerivergorge.com/camps/2027-camp-registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Doe River Gorge Ministries",
+            "address": "220 Doe River Gorge Rd.",
+            "town": "Hampton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1575,
+            "unit": "session",
+            "label": "Early, through December 15",
+            "year": 2027
+          },
+          {
+            "amount": 1660,
+            "unit": "session",
+            "label": "Standard, December 16–April 15",
+            "year": 2027
+          },
+          {
+            "amount": 1775,
+            "unit": "session",
+            "label": "Late, after April 16",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "17Three – Session 1",
+            "start": "2027-06-06",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "17Three – Session 2",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "17Three – Session 3",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Camp scholarships for qualified applicants"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.doerivergorge.com/discover-drg/",
+          "https://www.doerivergorge.com/camps/teen-leadership/",
+          "https://www.doerivergorge.com/camps/2027-camp-registration/",
+          "https://www.doerivergorge.com/camps/teen-leadership-17three/",
+          "https://www.doerivergorge.com/donate-advance/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Availability differs across official pages: Discover DRG shows both sexes OPEN for session 1, while Teen Leadership shows girls CALL; the separate 17three page shows CALL for both sexes in session 2. Confirm current availability. Grade basis is stated on the separate program page."
+      },
+      {
+        "name": "SALT",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Teens practice servant leadership through team-building challenges, service to the camp community, Bible study and outdoor activities.",
+        "camp_page_url": "https://www.doerivergorge.com/camps/teen-leadership/",
+        "registration_url": "https://www.doerivergorge.com/camps/2027-camp-registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Doe River Gorge Ministries",
+            "address": "220 Doe River Gorge Rd.",
+            "town": "Hampton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2000,
+            "unit": "session",
+            "label": "Early, through December 15",
+            "year": 2027
+          },
+          {
+            "amount": 2100,
+            "unit": "session",
+            "label": "Standard, December 16–April 15",
+            "year": 2027
+          },
+          {
+            "amount": 2200,
+            "unit": "session",
+            "label": "Late, after April 16",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "SALT – Session 1",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "SALT – Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Camp scholarships for qualified applicants"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.doerivergorge.com/discover-drg/",
+          "https://www.doerivergorge.com/camps/teen-leadership/",
+          "https://www.doerivergorge.com/camps/2027-camp-registration/",
+          "https://www.doerivergorge.com/camps/teen-leadership-salt/",
+          "https://www.doerivergorge.com/donate-advance/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The separate SALT page lists June 6–July 2, conflicting with June 6–25 on Discover DRG, Teen Leadership and 2027 Camp Registration; used June 25. July girls' availability also differs between Discover DRG and Teen Leadership. Confirm dates and availability."
+      },
+      {
+        "name": "LEAD",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Teens undertake leadership and discipleship training, wilderness expeditions and hands-on practice helping staff facilitate activities and Bible studies for younger campers.",
+        "camp_page_url": "https://www.doerivergorge.com/camps/teen-leadership/",
+        "registration_url": "https://www.doerivergorge.com/camps/2027-camp-registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Doe River Gorge Ministries",
+            "address": "220 Doe River Gorge Rd.",
+            "town": "Hampton",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2430,
+            "unit": "session",
+            "label": "Early, through December 15",
+            "year": 2027
+          },
+          {
+            "amount": 2565,
+            "unit": "session",
+            "label": "Standard, December 16–April 15",
+            "year": 2027
+          },
+          {
+            "amount": 2700,
+            "unit": "session",
+            "label": "Late, after April 16",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Girls only; boys must call to register.",
+          "text": "Register Girl OPEN"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Camp scholarships for qualified applicants"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.doerivergorge.com/discover-drg/",
+          "https://www.doerivergorge.com/camps/teen-leadership/",
+          "https://www.doerivergorge.com/camps/2027-camp-registration/",
+          "https://www.doerivergorge.com/camps/alumni-registration-2027/",
+          "https://www.doerivergorge.com/donate-advance/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

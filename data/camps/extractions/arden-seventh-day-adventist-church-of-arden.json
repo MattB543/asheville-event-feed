@@ -1,0 +1,288 @@
+{
+  "provider": {
+    "key": "arden-seventh-day-adventist-church-of-arden",
+    "name": "Arden Seventh-day Adventist Church of Arden",
+    "urls": [
+      "https://ardenadventist.com/flag-camp",
+      "https://ardenadventist.com/events/hlcf7ru730es7eu66zldvrh9slp3m1"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:36.052Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "89250912b4e99ccf7d54d70100529ba7e7f5bbfba7b39c5f6456d70acb01db96",
+  "response": {
+    "searches": [
+      "site:ardenadventist.com \"2027\" camp",
+      "\"Arden\" \"Vacation Bible School\" \"2026\" adventist"
+    ],
+    "usage": {
+      "inputTokens": 27389,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2180,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 49259,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ardenadventist.com/flag-camp",
+      "chars": 5329,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/events/hlcf7ru730es7eu66zldvrh9slp3m1",
+      "chars": 1543,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/flag-camp-campers",
+      "chars": 1329,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/s/Most-recent-camper-handbook-2026.pdf",
+      "chars": 23694,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/flag-camp-online-payments",
+      "chars": 3617,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/flag-camp-1",
+      "chars": 2831,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/flag-camp-fulfaq",
+      "chars": 6281,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ardenadventist.com/flag-camp-volunteers",
+      "chars": 1584,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Arden Seventh-day Adventist Church of Arden",
+    "website_url": "https://ardenadventist.com/",
+    "notes": "No 2027 camp information or registration dates were found. FLAG Camp details describe 2026. The only Vacation Bible School listing found describes July 14–18, 2025; no 2026 or 2027 details were found, so its historical dates, ages and hours have not been carried forward.",
+    "excluded": [
+      {
+        "name": "FLAG Camp Volunteers",
+        "reason": "Volunteer staff recruitment and work experience, rather than a separately described camper program."
+      },
+      {
+        "name": "Come Work With Us",
+        "reason": "Employment recruitment, not a youth camp offering."
+      },
+      {
+        "name": "Adult FLAG Camp Volunteers",
+        "reason": "Adult volunteer recruitment, not a youth camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "FLAG Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in singing, prayer, Bible lessons, cooking, crafts, science, music, nature activities and games. Afternoon activities include swimming, bowling and field trips.",
+        "camp_page_url": "https://ardenadventist.com/flag-camp",
+        "registration_url": "https://schools.procareconnect.com/form/58c15f27-3de0-4062-8450-be37abe74bee",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Arden Seventh-day Adventist Church",
+            "address": "35 Airport Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:15",
+          "end": "16:45",
+          "text": "Monday–Friday; no camp on weekends."
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:00",
+          "late_pickup_end": "18:00",
+          "cost_text": "Pre-care: 7:00–7:45 AM $9; 7:45–8:15 AM $6. After-care: 4:45–5:15 PM $6; 5:20–6:00 PM $9; after 6:00 PM $2 per 5 minutes."
+        },
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "day",
+            "label": "Daily rate",
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "week",
+            "label": "Weekly fee",
+            "year": 2026
+          },
+          {
+            "amount": 1200,
+            "unit": "program",
+            "label": "Summer paid in full; payment page says pay before June 10",
+            "year": 2026
+          },
+          {
+            "amount": 40,
+            "unit": "other",
+            "label": "One-time registration fee, first child",
+            "year": 2026
+          },
+          {
+            "amount": 35,
+            "unit": "other",
+            "label": "One-time registration fee, second child",
+            "year": 2026
+          },
+          {
+            "amount": 30,
+            "unit": "other",
+            "label": "One-time registration fee, each additional child",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Ages 5–6",
+            "start": "2026-06-15",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 6
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 7–8",
+            "start": "2026-06-15",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 9–10",
+            "start": "2026-06-15",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 10
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 11–12",
+            "start": "2026-06-15",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "The Walt Hutton Memorial Scholarship is available to families with a demonstrated need for childcare and financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Campers bring a packed lunch each day (please no items that need to be heated). Every Tuesday is Pizza Day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ardenadventist.com/flag-camp",
+          "https://ardenadventist.com/flag-camp-campers",
+          "https://ardenadventist.com/flag-camp-fulfaq",
+          "https://ardenadventist.com/flag-camp-online-payments",
+          "https://ardenadventist.com/flag-camp-1",
+          "https://static1.squarespace.com/static/6547c397f3357b713429705b/t/69c466c7cdf0d318a961d20a/1774479049209/Most+recent+camper+handbook+2026.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official details conflict: the 2026 handbook lists orientation June 11, while the full FAQ says June 6; the handbook lists Tuesday pizza meals at $4, while the FAQ says $6. Neither disputed detail is included. The handbook calls the $1,200 full-summer rate a 10% discount, although 35 days at $40 totals $1,400. The payment page lists $200 weekly and $1,200 full-summer fees without an explicit year; treated as 2026 alongside the current 2026 camp materials. The site still says registration is open for Summer 2026, which has ended; availability is left null rather than treated as 2027 availability."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church's historical Vacation Bible School offering introduces children to Bible stories through The Incredible Race.",
+        "camp_page_url": "https://ardenadventist.com/events/hlcf7ru730es7eu66zldvrh9slp3m1",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://ardenadventist.com/events/hlcf7ru730es7eu66zldvrh9slp3m1"],
+        "confidence": "low",
+        "review_notes": "Only a 2025 event was found: July 14–18, ages 5–11, 9 AM–noon at 35 Airport Road, Arden. Confirm whether VBS will return in 2027 and obtain its dates, eligibility, venue and registration information. The description reflects the historical offering, not a confirmed 2027 theme."
+      }
+    ]
+  }
+}

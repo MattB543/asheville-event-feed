@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "central-united-methodist-church-of-asheville",
+    "name": "Central United Methodist Church of Asheville",
+    "urls": [
+      "https://subsplash.com/central-united-methodist/lb/ev/%2B437xffh",
+      "https://centralumc.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:40.662Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ca652ac2681ae785573e999d9ae93619b0e67caeb5c3356ae342385307334f52",
+  "response": {
+    "searches": [
+      "site:centralumc.org \"2027\" \"Bible\"",
+      "open https://www.centralumc.org/children"
+    ],
+    "usage": {
+      "inputTokens": 13822,
+      "cachedInputTokens": 8223,
+      "outputTokens": 785,
+      "reasoningTokens": 140
+    },
+    "status": "completed",
+    "ms": 19889,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/central-united-methodist/lb/ev/%2B437xffh",
+      "chars": 1142,
+      "method": "fetch"
+    },
+    {
+      "url": "https://centralumc.org/",
+      "chars": 2516,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Central United Methodist Church of Asheville",
+    "website_url": "https://centralumc.org/",
+    "notes": "No official 2027 summer camp information was found. Vacation Bible School details below are for 2026. The supplied event text was readable, but opening the event and ministry pages through the browser returned no text; ministry search results were used to check for other offerings. The registration button's destination could not be verified.",
+    "excluded": [
+      {
+        "name": "Nursery",
+        "reason": "Year-round Sunday childcare, not a finite summer program."
+      },
+      {
+        "name": "Children's Church",
+        "reason": "Year-round Sunday worship programming, not a summer camp."
+      },
+      {
+        "name": "Youth Ministries",
+        "reason": "Recurring weekly youth ministry activities, not a separately documented finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible stories through music, crafts, games, and storytelling.",
+        "camp_page_url": "https://subsplash.com/central-united-methodist/lb/ev/%2B437xffh",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Central United Methodist Church",
+            "address": "27 Church St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9:00 AM–12:00 noon"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "There is no fee.",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/central-united-methodist/lb/ev/%2B437xffh",
+          "https://centralumc.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

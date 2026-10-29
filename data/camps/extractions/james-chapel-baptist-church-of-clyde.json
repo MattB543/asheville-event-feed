@@ -1,0 +1,46 @@
+{
+  "provider": {
+    "key": "james-chapel-baptist-church-of-clyde",
+    "name": "James Chapel Baptist Church of Clyde",
+    "urls": ["https://www.facebook.com/JamesChapelBaptistChurch/"],
+    "area": "Clyde, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:16:23.160Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "James Chapel Baptist Church Clyde VBS 2026",
+      "site:facebook.com \"James Chapel\" \"2026\" \"VBS\"",
+      "\"James Chapel Baptist Church-New\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 22517,
+      "cachedInputTokens": 8223,
+      "outputTokens": 428,
+      "reasoningTokens": 241
+    },
+    "status": "completed",
+    "ms": 18448,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/JamesChapelBaptistChurch/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "James Chapel Baptist Church of Clyde",
+    "website_url": null,
+    "notes": "The supplied Facebook page could be opened but returned no readable content. Searches did not locate a verifiable official website for this Clyde church or official summer 2026 or 2027 camp information. A third-party listing at https://allevents.in/clyde/vacation-bible-school/200028136757957 mentions Vacation Bible School on June 8–12, 2025 at 94 James Chapel Road, Clyde, NC; this is only a historical lead, not verified 2026 or 2027 information, so no card was created. A social-media mirror names the church James Chapel Baptist Church-New, which may indicate a replacement Facebook page that a reviewer should locate and check. No conclusion should be drawn that the church does not offer VBS.",
+    "excluded": [],
+    "cards": []
+  }
+}

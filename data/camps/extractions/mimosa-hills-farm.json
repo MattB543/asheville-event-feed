@@ -1,0 +1,264 @@
+{
+  "provider": {
+    "key": "mimosa-hills-farm",
+    "name": "Mimosa Hills Farm",
+    "urls": ["https://mimosahillsfarm.com/horse-camps-1"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:21:52.097Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f043ff4a3712d1c341b79f85ca634651037715492d7efcceeebf6d90537f1e6f",
+  "response": {
+    "searches": ["site:mimosahillsfarm.com 2027 camp"],
+    "usage": {
+      "inputTokens": 14939,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2049,
+      "reasoningTokens": 186
+    },
+    "status": "completed",
+    "ms": 36566,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mimosahillsfarm.com/horse-camps-1",
+      "chars": 7391,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mimosahillsfarm.com/",
+      "chars": 3008,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mimosa Hills Farm",
+    "website_url": "https://mimosahillsfarm.com/",
+    "notes": "No 2027 camp information or dated registration announcement was found. Cards use the explicitly posted 2026 information. Registration buttons were present in the supplied camp-page text, but their destination URLs could not be verified. Tiny Riders Horse Camps! requires an accompanying adult throughout and is excluded as a family-only offering.",
+    "excluded": [
+      {
+        "name": "Spring BReak Horse Camp!",
+        "reason": "Runs April 6–10, 2026, outside summer."
+      },
+      {
+        "name": "Tiny Riders Horse Camps!",
+        "reason": "A parent, guardian, or babysitter must stay for the duration; excluded as a family-only offering rather than a supervised drop-off youth camp."
+      },
+      {
+        "name": "Riding lesson programs",
+        "reason": "Recurring year-round lessons, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Custom Horse Camps!",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "Groups can arrange horse rides, carriage rides, and educational activities. Programs can run 2.5–5 hours per day for 1–3 days and accommodate beginners through advanced riders.",
+        "camp_page_url": "https://mimosahillsfarm.com/horse-camps-1",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mimosa Hills Farm",
+            "address": "671 Hopewell Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "2.5 hours to 5 hours per day, 1-3 days long."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://mimosahillsfarm.com/horse-camps-1", "https://mimosahillsfarm.com/"],
+        "confidence": "medium",
+        "review_notes": "Custom camps appear within the summer camp page's 2026 offerings but have no specific season or dates. Confirm summer scheduling and youth drop-off arrangements by calling the provider."
+      },
+      {
+        "name": "Little Riders horse camps!",
+        "type": "half_day",
+        "categories": ["horses"],
+        "description": "Beginner riders learn about horses, horse care, and horseback riding and participate in farm activities.",
+        "camp_page_url": "https://mimosahillsfarm.com/horse-camps-1",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 9
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mimosa Hills Farm",
+            "address": "671 Hopewell Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "session",
+            "label": "Plus fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://mimosahillsfarm.com/horse-camps-1", "https://mimosahillsfarm.com/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Young Riders Day Camps!",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "Campers take a riding lesson each day and learn carriage driving, gymnastics on horseback, equine science and management, and animal care. A parent participation activity begins at 2pm on the final day.",
+        "camp_page_url": "https://mimosahillsfarm.com/horse-camps-1",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-21",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mimosa Hills Farm",
+            "address": "671 Hopewell Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "session",
+            "label": "Plus fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Pack a LUNCH"
+        },
+        "transportation": null,
+        "sources": ["https://mimosahillsfarm.com/horse-camps-1", "https://mimosahillsfarm.com/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Overnight Horse Camp!",
+        "type": "overnight",
+        "categories": ["horses"],
+        "description": "Experienced current farm riders participate in horseback riding, trail riding, campfire cooking, and games. Campers sleep in hammocks in the barn; the program is girls only.",
+        "camp_page_url": "https://mimosahillsfarm.com/horse-camps-1",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-30",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mimosa Hills Farm",
+            "address": "671 Hopewell Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "9am drop off July 30; 4pm pickup July 31."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "Plus fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are provided."
+        },
+        "transportation": null,
+        "sources": ["https://mimosahillsfarm.com/horse-camps-1", "https://mimosahillsfarm.com/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

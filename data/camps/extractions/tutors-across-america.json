@@ -1,0 +1,155 @@
+{
+  "provider": {
+    "key": "tutors-across-america",
+    "name": "Tutors Across America",
+    "urls": ["https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:34.508Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b7c0d2847c9d448fea74ed32fb7ec7f4982181e1a6130bffd9d494ea7e09ba78",
+  "response": {
+    "searches": ["site.tutorsacrossamerica.com Asheville 2027 bootcamp"],
+    "usage": {
+      "inputTokens": 27770,
+      "cachedInputTokens": 8223,
+      "outputTokens": 869,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 24252,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
+      "chars": 3345,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/faqs/faq-students/",
+      "chars": 23965,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/faqs/faq-for-tutors/",
+      "chars": 22587,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/product-category/bootcamp/",
+      "chars": 3462,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/product/shadow-ridge-high-school-act-bootcamp/",
+      "chars": 3423,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/product/centennial-high-school-act-bootcamp/",
+      "chars": 3447,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/product/amplus-academy-act-bootcamp-2/",
+      "chars": 3337,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tutorsacrossamerica.com/product/las-vegas-academy-of-the-arts-act-bootcamp-2/",
+      "chars": 3502,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tutors Across America",
+    "website_url": "https://tutorsacrossamerica.com/",
+    "notes": "No 2027 Asheville camp dates or registration milestones were found. The local card uses the explicitly dated 2026 offering. Other nationwide bootcamps are outside the Asheville-area scope.",
+    "excluded": [
+      {
+        "name": "Individual tutoring",
+        "reason": "Year-round tutoring rather than a finite summer camp."
+      },
+      {
+        "name": "Online Supplemental Class Options / Summer Email Program",
+        "reason": "Self-paced online materials and emailed practice problems, not a supervised youth camp."
+      },
+      {
+        "name": "Shadow Ridge High School ACT Bootcamp",
+        "reason": "October 2–4, 2026 is outside summer; also outside the Asheville area."
+      },
+      {
+        "name": "Centennial High School ACT Bootcamp",
+        "reason": "September 11–13, 2026 is outside summer; also outside the Asheville area."
+      },
+      {
+        "name": "Amplus Academy ACT Bootcamp",
+        "reason": "Outside the Asheville-area geographic scope."
+      },
+      {
+        "name": "Las Vegas Academy of the Arts ACT Bootcamp",
+        "reason": "Outside the Asheville-area geographic scope."
+      }
+    ],
+    "cards": [
+      {
+        "name": "ACT/SAT Bootcamp",
+        "type": "clinic",
+        "categories": ["academic"],
+        "description": "Students prepare for the ACT and SAT in a three-day, 20-hour bootcamp, reviewing test-taking strategies and completing practice tests.",
+        "camp_page_url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
+        "registration_url": "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Christian Academy",
+            "address": "74 Riverwood Road",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday, July 27: 1 PM to 5:30 PM. Tuesday, July 28 and Wednesday, July 29: 9 AM to 6 PM, with a lunch break from 1 to 2 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 399,
+            "unit": "program",
+            "label": "Bootcamp; coupons applied at checkout",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tutorsacrossamerica.com/product/asheville-christian-academy-combo-bootcamp/",
+          "https://tutorsacrossamerica.com/faqs/faq-students/",
+          "https://www.ashevillechristian.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

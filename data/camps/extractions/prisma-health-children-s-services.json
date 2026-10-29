@@ -1,0 +1,355 @@
+{
+  "provider": {
+    "key": "prisma-health-children-s-services",
+    "name": "Prisma Health Children's Services",
+    "urls": ["https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage"],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:00.429Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5d3a1596e0c0872f4bb1f3b8d9d72ed0580aa37c5a517b65ea8b74f88661db59",
+  "response": {
+    "searches": [
+      "site:prismahealthchildrens.org camps \"2027\"",
+      "site:prismahealth.org \"Camp Courage\" \"Pleasant Ridge\"",
+      "site:prismahealthchildrens.org \"CAMP KEMO\" \"2026\" camp",
+      "site:dph.sc.gov \"Camp Burnt Gin\" \"1980\""
+    ],
+    "usage": {
+      "inputTokens": 42936,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3248,
+      "reasoningTokens": 512
+    },
+    "status": "completed",
+    "ms": 89672,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage",
+      "chars": 7600,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps",
+      "chars": 2117,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+      "chars": 2843,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-cary-s-kids",
+      "chars": 2586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart",
+      "chars": 2815,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-kemo",
+      "chars": 12913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prismahealthchildrens.org/",
+      "chars": 685,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Prisma Health Children's Services",
+    "website_url": "https://www.prismahealthchildrens.org/",
+    "notes": "No 2027 dates or registration announcements were found. Camp Courage lists two age-band sessions but no dated schedule, so session rows could not be created. Camp Buddy's current camp page does not specify day versus overnight format or a venue; an undated official endocrinology page calls it a day camp at the KROC center. CAMP KEMO serves Midlands patients, outside the immediate Asheville area. Camp Burnt Gin is included only for its Prisma Health partnership session, not the operator's other sessions. The supplied homepage text was blocked by a bot challenge.",
+    "excluded": [
+      {
+        "name": "Camp Cary's Kids",
+        "reason": "Weekend-long family-only camp retreat."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only weekend program."
+      },
+      {
+        "name": "Camp New Horizons",
+        "reason": "Weekend bereavement camp, but no summer timing was established on the official pages."
+      },
+      {
+        "name": "Teen Programs",
+        "reason": "Year-round social programming and weekend retreats without an identified summer offering."
+      },
+      {
+        "name": "Hospital Programs",
+        "reason": "Ongoing hospital-based psychosocial and educational services, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Courage",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "special_needs"],
+        "description": "Children and teens treated at the BI-LO Charities Children's Cancer Center for cancer or a blood disorder participate in swimming, fishing, archery, crafts and other camp activities. Prisma Health pediatric hematology/oncology staff provide on-site medical support.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "Cost-free for campers",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Our camps are medically staffed by members of the Prisma Health Pediatric hematology/oncology team, and our volunteers are trained in the unique medical and psychosocial needs of our camper population."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-courage"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Buddy",
+        "type": "day",
+        "categories": ["general", "special_needs"],
+        "description": "Children with Type 1 diabetes participate in arts and crafts, swimming and outdoor recreation while learning diabetes management. An on-site medical team provides blood sugar checks and continuing education.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-24",
+          "end": "2026-07-26",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-30",
+          "time": null,
+          "text": "Registration Opens: Monday, March 30th and Closes: Friday, May 22nd",
+          "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Our on-site medical team is present throughout the entire duration of the camp, attending to the health of campers and providing blood sugar checks, diabetes management and continuing education throughout the day."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-buddy",
+          "https://prismahealthchildrens.org/locations/practices/pediatric-endocrinology-greenville"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and registration opening are under the 2026 camp information heading. Confirm format and venue: the undated endocrinology page describes a day camp at the KROC center, whereas the 2026 camp page includes evening programming and does not identify a venue. The older venue statement was not assigned to the 2026 season."
+      },
+      {
+        "name": "Camp Heart to Heart",
+        "type": "overnight",
+        "categories": ["general", "special_needs"],
+        "description": "Children with congenital heart disease, medical treatment for heart disease or a history of heart surgery participate in arts and crafts, swimming and outdoor recreation. An on-site medical team adapts activities to each camper's needs.",
+        "camp_page_url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-26",
+          "end": "2026-06-28",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Registration Opens: March 2, 2026 – June 1, 2026",
+          "url": "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "An on-site medical team is present throughout the duration of camp attending to the health of our patients and ensuring that each activity is uniquely adapted to the needs of each camper."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-heart-to-heart"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm overnight format: the official page lists a Friday–Sunday camp with evening programming but does not explicitly say overnight. No venue or registration destination could be established."
+      },
+      {
+        "name": "CAMP KEMO",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "special_needs"],
+        "description": "Children with cancer and their siblings attend a weeklong camp with swimming, boating and hiking. Physicians, nurses and volunteers staff the program for families served by Prisma Health Children's Hospital–Midlands.",
+        "camp_page_url": "https://prismahealthchildrens.org/programs-and-services/camps/camp-kemo/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "No cost to participating children and families",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Staffed by our physicians, nurses and volunteers, CAMP KEMO allows campers to swim, boat, hike and simply be children."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://prismahealthchildrens.org/programs-and-services/camps/camp-kemo/summer-camps",
+          "https://www.prismahealthchildrens.org/programs-and-services/camps/camp-kemo"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Burnt Gin",
+        "type": "overnight",
+        "categories": ["general", "special_needs"],
+        "description": "The Prisma Health partnership provides an overnight summer session for youth with blood disorders, including sickle cell disease and bleeding disorders.",
+        "camp_page_url": "https://prismahealthchildrens.org/programs-and-services/camps/camp-kemo/summer-camps",
+        "registration_url": "https://dph.sc.gov/health-wellness/child-teen-health/camp-burnt-gin/camp-burnt-gin-how-apply",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-11",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Burnt Gin",
+            "address": "1980 Burnt Gin Road",
+            "town": "Wedgefield",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "No cost to attend",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 5: PRISMA Health Partnership",
+            "start": "2026-07-06",
+            "end": "2026-07-11",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "Summer 2026 applications",
+          "text": "Applications for Summer 2026 Are Now Closed."
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "Camp Burnt Gin is a camp program for children who have physical and developmental disabilities and chronic illnesses."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://prismahealthchildrens.org/programs-and-services/camps/camp-kemo/summer-camps",
+          "https://dph.sc.gov/sites/scdph/files/Library/00119-ENG-CR.pdf",
+          "https://www.dph.sc.gov/sites/scdph/files/Library/00138-ENG-CR.pdf",
+          "https://dph.sc.gov/sites/scdph/files/Library/00287-ENG-CR.pdf",
+          "https://dph.sc.gov/health-wellness/child-teen-health/camp-burnt-gin/camp-burnt-gin-how-apply"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-forest-city",
+    "name": "First Baptist Church of Forest City",
+    "urls": ["https://fbcforestcity.churchcenter.com/registrations/events"],
+    "area": "Forest City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:38:35.672Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "55983fbc41cfdf7c465ae9c35fa7ab1cf096c0432a7d483352128e25fd3b1fba",
+  "response": {
+    "searches": [
+      "First Baptist Church Forest City NC vacation bible school 2026",
+      "site:fbcforestcity.com \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 20113,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1015,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 24889,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events",
+      "chars": 726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations",
+      "chars": 726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3771104",
+      "chars": 2306,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3938120",
+      "chars": 2777,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3839058",
+      "chars": 3833,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3770919",
+      "chars": 1091,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3964345",
+      "chars": 1295,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbcforestcity.churchcenter.com/registrations/events/3770923",
+      "chars": 1190,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Forest City",
+    "website_url": "https://fbcforestcity.com/",
+    "notes": "Provider mismatch: the supplied Church Center pages belong to First Baptist Church in Forest City, Iowa (18508 E Highway 9; 641-585-4171), not the requested Forest City, North Carolina church. The North Carolina church's official website publishes 211 West Main Street, Forest City, NC 28043 and 828-245-6626. Its children page lists summer Vacation Bible School, but no 2026 or 2027 dates, ages, prices or registration milestones were found. The official events calendar returned an error. Iowa offerings were not used to populate the North Carolina card.",
+    "excluded": [
+      {
+        "name": "The Huddle",
+        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church, not the requested North Carolina provider."
+      },
+      {
+        "name": "Ignite",
+        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church."
+      },
+      {
+        "name": "Fusion",
+        "reason": "Recurring school-year ministry starting in September; also belongs to the Iowa church."
+      },
+      {
+        "name": "Sunday School and Worship",
+        "reason": "Recurring year-round church programming, not a finite summer camp."
+      },
+      {
+        "name": "TeamKID",
+        "reason": "Missions education ministry; not identified as a finite summer program."
+      },
+      {
+        "name": "Family field trips",
+        "reason": "Family activities, not supervised youth summer camps."
+      },
+      {
+        "name": "Car Care Checkup",
+        "reason": "October vehicle-service event for adults, not a youth summer program; belongs to the Iowa church."
+      },
+      {
+        "name": "New Adult Sunday School Classes Begin",
+        "reason": "Adult programming outside summer; belongs to the Iowa church."
+      },
+      {
+        "name": "Men's Breakfast",
+        "reason": "Recurring adult fellowship event, not a youth summer camp; belongs to the Iowa church."
+      },
+      {
+        "name": "Karen Fredrickson's Open House Retirement Party",
+        "reason": "November community celebration, not a youth summer camp; belongs to the Iowa church."
+      },
+      {
+        "name": "Mugs & Muffins",
+        "reason": "Recurring women's fellowship event, not a youth summer camp; belongs to the Iowa church."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Summer Vacation Bible School is part of the church's children's ministry, which introduces children to stories of the faith.",
+        "camp_page_url": "https://fbcforestcity.com/children",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fbcforestcity.com/children",
+          "https://fbcforestcity.com/",
+          "https://fbcforestcity.com/fbc-events-calendar"
+        ],
+        "confidence": "medium",
+        "review_notes": "Summer Vacation Bible School is confirmed only by the official children's-page search text; opening that page returned no readable content. No year-specific schedule or drop-off venue was stated. Confirm 2027 details with the North Carolina church; do not use the supplied Iowa Church Center registration platform."
+      }
+    ]
+  }
+}

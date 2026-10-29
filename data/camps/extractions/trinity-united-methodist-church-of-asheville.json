@@ -1,0 +1,66 @@
+{
+  "provider": {
+    "key": "trinity-united-methodist-church-of-asheville",
+    "name": "Trinity United Methodist Church of Asheville",
+    "urls": ["https://trinitywavl.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://trinitywavl.org/"
+  },
+  "extractedAt": "2026-10-29T15:04:04.049Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:trinitywavl.org 2026 VBS summer",
+      "site:trinitywavl.org \"Vacation\"",
+      "site:trinitywavl.org/event/vacation-bible-school/ \"2015\""
+    ],
+    "usage": {
+      "inputTokens": 28334,
+      "cachedInputTokens": 8223,
+      "outputTokens": 706,
+      "reasoningTokens": 303
+    },
+    "status": "completed",
+    "ms": 43129,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trinitywavl.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted address: trinitywavl.org:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://trinitywavl.org/\nCall log:\n\u001b[2m  - navigating to \"https://trinitywavl.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity United Methodist Church of Asheville",
+    "website_url": "https://trinitywavl.org/",
+    "notes": "No summer 2027 or 2026 camp information could be verified. Direct access to the official website and event pages was blocked by robots.txt; official search-indexed text was available. Historical Vacation Bible School and Camp Connect listings were found at https://trinitywavl.org/event/vacation-bible-school/, https://trinitywavl.org/event/vacation-bible-school-0/, https://trinitywavl.org/event/camp-connect/ and https://trinitywavl.org/event/camp-connect-0/. The latter Camp Connect listing dates to 2016, and a 2022 newsletter also mentions VBS. These historical offerings were not turned into 2026 or 2027 cards because current operation and year-specific details could not be established. Contact the church to confirm whether either program will return in 2027.",
+    "excluded": [
+      {
+        "name": "Sunday School Classes",
+        "reason": "Ongoing church classes, not a finite summer program."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Regular Sunday childcare, not summer-only childcare."
+      },
+      {
+        "name": "Church Picnic at Camp Tekoa",
+        "reason": "Church-wide picnic rather than a supervised youth camp; the verified announcement is for May 22, 2016."
+      },
+      {
+        "name": "Confirmation Retreat",
+        "reason": "Historical retreat scheduled for March 24–26, 2017, outside summer."
+      },
+      {
+        "name": "Camp Tekoa Week",
+        "reason": "Historical transportation arrangement for a separate provider's camp; registration and payments were directed to Camp Tekoa, not Trinity."
+      }
+    ],
+    "cards": []
+  }
+}

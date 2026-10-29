@@ -1,0 +1,132 @@
+{
+  "provider": {
+    "key": "north-carolina-council-of-trout-unlimited",
+    "name": "North Carolina Council of Trout Unlimited",
+    "urls": ["https://ncturivercourse.com/"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:07:45.652Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cbb5e04225b0f5836313a64d248c29687ed44f372b2b04eff2c94a07c6ba7f26",
+  "response": {
+    "searches": [
+      "site.lakelogan.org address 25 Wormy Chestnut",
+      "open https://ncturivercourse.com/"
+    ],
+    "usage": {
+      "inputTokens": 13323,
+      "cachedInputTokens": 8223,
+      "outputTokens": 904,
+      "reasoningTokens": 81
+    },
+    "status": "completed",
+    "ms": 25770,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ncturivercourse.com/",
+      "chars": 3144,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncturivercourse.com/camper-fees/",
+      "chars": 874,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ncturivercourse.com/application/",
+      "chars": 856,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Carolina Council of Trout Unlimited",
+    "website_url": "https://ncturivercourse.com/",
+    "notes": "The homepage posts 2027 dates, tuition and a January application opening. The camper-fees page still lists an undated $995 tuition, and the application page still says 2026 is full; neither was treated as 2027 pricing or availability. The live homepage returned no readable text during supplemental browsing, so program details use the supplied official-page text.",
+    "excluded": [
+      {
+        "name": "Rivercourse River Helpers",
+        "reason": "Volunteer helper recruitment, not a supervised youth camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rivercourse Cold Water Conservation & Youth Fly Fishing Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers learn fly fishing and fly tying, participate in conservation projects, and study stream ecology, water safety and insect life. The six-day residential program also includes falconry, outdoor games and conservation talks.",
+        "camp_page_url": "https://ncturivercourse.com/",
+        "registration_url": "https://ncturivercourse.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-06-18",
+          "text": "Camp Dates: June 13-18, 2027"
+        },
+        "ages": {
+          "min": 12,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lake Logan Event Center",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1250,
+            "unit": "program",
+            "label": "2027 Camp Tuition",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Applications are being accepted starting January 2027",
+            "url": "https://ncturivercourse.com/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Financial sponsorship may be available through your local Trout Unlimited Chapter."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Comfortable, chaperoned accommodations with all meals provided in a beautiful dining setting"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ncturivercourse.com/",
+          "https://ncturivercourse.com/camper-fees/",
+          "https://ncturivercourse.com/application/",
+          "https://www.lakelogan.org/about/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 homepage explicitly lists $1250 tuition, while the undated camper-fees page lists $995. Use the explicitly dated 2027 price, but confirm the payment page is updated before registration. The application page's full status applies only to 2026. Financial sponsorship wording is on the undated camper-fees page."
+      }
+    ]
+  }
+}

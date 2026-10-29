@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "second-baptist-church-of-rutherfordton",
+    "name": "Second Baptist Church of Rutherfordton",
+    "urls": ["https://2ndbaptistchurch.net/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:28:31.599Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "71688e2e9b1a51499b4a8bc1cef26e373d7ee931b9ea0bc230b6381a5e93cd31",
+  "response": {
+    "searches": [
+      "site:2ndbaptistchurch.net \"2026\" \"VBS\"",
+      "\"\" \"Rutherfordton\" \"Second Baptist\" \"VBS\" \"2026\"",
+      "site:facebook.com/RSBC.rftn \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 24999,
+      "cachedInputTokens": 8223,
+      "outputTokens": 554,
+      "reasoningTokens": 251
+    },
+    "status": "completed",
+    "ms": 32090,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://2ndbaptistchurch.net/",
+      "chars": 888,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Second Baptist Church of Rutherfordton",
+    "website_url": "https://www.2ndbaptistchurch.net/",
+    "notes": "No verifiable summer 2026 or 2027 camp information was found. The church's official Linktree search result references VBS 2025, July 6–10, 6–8:30 PM; an older official Facebook post also advertises VBS. These older details were not carried forward into a 2026 or 2027 card. The Linktree and https://2ndbc.tv/vbs returned no readable text, and direct access to the church domain was blocked by robots.txt. Official website search results for Events and Upcoming supplied no camp details. The church publishes its address as 191 Green Street, Rutherfordton, NC 28139. A reviewer should check with the church for current VBS plans.",
+    "excluded": [
+      {
+        "name": "Sunday School Small Groups",
+        "reason": "Recurring Bible study groups, not a finite summer youth camp."
+      },
+      {
+        "name": "Sunday Evening Small Groups",
+        "reason": "Recurring Bible study groups, not a finite summer youth camp."
+      },
+      {
+        "name": "Week Day Small Groups",
+        "reason": "Recurring Bible study groups, not a finite summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

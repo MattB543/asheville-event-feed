@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "delta-house-life-development-of-asheville-inc",
+    "name": "Delta House Life Development of Asheville, Inc.",
+    "urls": ["https://www.deltahouseleaap21stcentury.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:42.313Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "846a56344e2bff522c95427ba566858a871d92a3fcb4127d09e6ebaaecd99aa7",
+  "response": {
+    "searches": [
+      "site:deltahouseleaap21stcentury.com summer camp 2027 2026",
+      "open https://www.deltahouseleaap21stcentury.com/programs.html"
+    ],
+    "usage": {
+      "inputTokens": 14770,
+      "cachedInputTokens": 8223,
+      "outputTokens": 803,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 21408,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.deltahouseleaap21stcentury.com/",
+      "chars": 4116,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/goq9xv1GJZDB2YUv9",
+      "chars": 1704,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Delta House Life Development of Asheville, Inc.",
+    "website_url": "https://www.deltahouseleaap21stcentury.com/",
+    "notes": "No 2027 summer camp information or registration dates found. The registration form explicitly identifies the summer as 2026. An older 2023-2024 application says camp is free and transportation is provided; those facts were not carried forward to 2026. The homepage still says new registrations are accepted daily, although the listed 2026 camp dates have passed; availability is therefore left null.",
+    "excluded": [
+      {
+        "name": "Delta House L.E.A.A.P. for Success After-school Programs",
+        "reason": "School-year after-school programming, including academic tutoring and enrichment classes, rather than a finite summer camp."
+      },
+      {
+        "name": "Girls Thrive for Womanhood",
+        "reason": "Described as an after-school program; no separate summer offering is stated."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Delta House LEAAP Youth Summer Camp",
+        "type": "day",
+        "categories": ["arts", "stem", "cooking", "dance", "music"],
+        "description": "Camp activities include robotics, photography, cooking, dance, and jazz band or drum circle. The six-week program focuses on arts, community, and culture.",
+        "camp_page_url": "https://www.deltahouseleaap21stcentury.com/index.html",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScDllWfmRxo4n7JRDFF8g4QDVg7Jgd0RqQBgfMsFlztBS--EA/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Delta House",
+            "address": "218 South French Broad Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.deltahouseleaap21stcentury.com/index.html",
+          "https://docs.google.com/forms/d/e/1FAIpQLScDllWfmRxo4n7JRDFF8g4QDVg7Jgd0RqQBgfMsFlztBS--EA/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

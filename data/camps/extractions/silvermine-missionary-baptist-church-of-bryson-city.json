@@ -1,0 +1,46 @@
+{
+  "provider": {
+    "key": "silvermine-missionary-baptist-church-of-bryson-city",
+    "name": "Silvermine Missionary Baptist Church of Bryson City",
+    "urls": ["https://www.facebook.com/silverminechurch828/"],
+    "area": "Bryson City, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:19:00.568Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Silvermine Missionary Baptist Church Bryson City vacation bible school 2026",
+      "site:facebook.com/silverminechurch828 \"2026\" \"VBS\"",
+      "\"Silvermine\" \"Wonder\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 22250,
+      "cachedInputTokens": 8223,
+      "outputTokens": 478,
+      "reasoningTokens": 260
+    },
+    "status": "completed",
+    "ms": 20838,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/silverminechurch828/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Silvermine Missionary Baptist Church of Bryson City",
+    "website_url": "https://www.silverminemissionarybaptist.org/",
+    "notes": "Found the church's own website, but its homepage and Calendar & Events page were blocked by robots.txt. The supplied Facebook page also returned no readable content. No official 2027 summer program announcement or registration date could be verified. Third-party event listings advertise Wonder VBS for June 21–26, 2026, with dinner from 5:00–6:00 PM and a program from 6:00–8:00 PM at 2370 Silvermine Rd, Bryson City, NC. Another third-party listing mentions June 18, so these details require confirmation from the church. No card was created because the VBS announcement could not be read or located in official search snippets. Review the church's Facebook announcements and website calendar directly.",
+    "excluded": [],
+    "cards": []
+  }
+}

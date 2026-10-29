@@ -1,0 +1,138 @@
+{
+  "provider": {
+    "key": "braveheart-grief-ministries",
+    "name": "Braveheart Grief Ministries",
+    "urls": ["https://www.campbraveheart.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:44.460Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c873eb12f6957da8e70d4f84ea92d0161a6cf0b47519ccae4e0ac8851208c23a",
+  "response": {
+    "searches": ["site.campbraveheart.com 2027 registration"],
+    "usage": {
+      "inputTokens": 17269,
+      "cachedInputTokens": 8223,
+      "outputTokens": 603,
+      "reasoningTokens": 63
+    },
+    "status": "completed",
+    "ms": 19586,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campbraveheart.com/",
+      "chars": 2239,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/camp-registration",
+      "chars": 2079,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/who-we-are",
+      "chars": 2521,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/team-4",
+      "chars": 5551,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/purpose-goals",
+      "chars": 2524,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/testimonials",
+      "chars": 3466,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/gallery",
+      "chars": 603,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campbraveheart.com/in-loving-memory",
+      "chars": 1708,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Braveheart Grief Ministries",
+    "website_url": "https://www.campbraveheart.com/",
+    "notes": "2027 dates and pricing are posted. Official pages disagree about camper pickup time on June 12. No dated registration opening announcement was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp Braveheart",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Youth grieving the death of a loved one learn about the grief process, expressing emotions and healthy coping skills in a Christ-centered setting. Campers build support with others experiencing similar losses.",
+        "camp_page_url": "https://www.campbraveheart.com/",
+        "registration_url": "https://www.campbraveheart.com/camp-registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Conference and Retreat Center",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop-off June 7 at 2 PM. June 12 pickup is listed as 10 AM on the homepage and 11 AM on the Purpose and Goals page."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "program",
+            "label": "$200 deposit or full payment due at registration; remaining $200 due May 19, 2027.",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Scholarships are available. Please email us at campbraveheart@gmail.com to make a scholarship request for review. Note there are additional scholarship funds for those who lost loved ones in the storms of Helene and Milton 2024."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campbraveheart.com/",
+          "https://www.campbraveheart.com/who-we-are",
+          "https://www.campbraveheart.com/camp-registration",
+          "https://www.ridgehaven.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm June 12, 2027 pickup time: the homepage says 10 AM, while https://www.campbraveheart.com/who-we-are says 11 AM. Grades 4–12 are stated without specifying rising or completed grades."
+      }
+    ]
+  }
+}

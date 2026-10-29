@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "roots-wings-school-of-art-and-design",
+    "name": "Roots + Wings School of Art and Design",
+    "urls": ["https://www.rootsandwingsschool.com/about-4"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:05.759Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a89f34d472c126a1ce700ead28b64322d235d0cbd8dc38d60d8628b360586836",
+  "response": {
+    "searches": [
+      "Roots + Wings School of Art and Design Asheville summer camp 2026 2027",
+      "open https://www.rootsandwingsarts.com/",
+      "site:rootsandwingsarts.com \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22103,
+      "cachedInputTokens": 8223,
+      "outputTokens": 529,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 22105,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.rootsandwingsschool.com/about-4",
+      "chars": 2788,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rootsandwingsschool.com/registration-1",
+      "chars": 4909,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rootsandwingsschool.com/_files/ugd/067855_64b173f40cb844d9bc04f7e193c7209c.pdf",
+      "chars": 1835,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rootsandwingsschool.com/_files/ugd/067855_3dc22ce294894f2e94fde0109932b7bb.pdf",
+      "chars": 2777,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rootsandwingsschool.com/_files/ugd/067855_674b86537b9b4eb6b6b04054246822a0.pdf",
+      "chars": 1504,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rootsandwingsschool.com/",
+      "chars": 3591,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Roots + Wings School of Art and Design",
+    "website_url": "https://www.rootsandwingsarts.com/",
+    "notes": "Provider identity mismatch: the supplied rootsandwingsschool.com pages belong to Roots and Wings School in New Boston, New Hampshire, not the Asheville art-and-design provider. Do not import their 2026 camp dates or school tuition into this provider. Searches identified rootsandwingsarts.com and rootswingsarts.square.site as the Asheville provider's official sites, but opening those sites and an individual camp page returned no readable content. No verified 2026 or 2027 supervised summer program information was found for the Asheville provider; cards are therefore empty rather than populated from the unrelated New Hampshire school or older undated materials.",
+    "excluded": [
+      {
+        "name": "ANYtime Creativity Camps",
+        "reason": "Official search results describe shipped materials and at-home creative activities without live calls; these are self-directed activity kits rather than supervised youth summer programs."
+      },
+      {
+        "name": "Seeds & Sprouts School",
+        "reason": "School-year preschool and kindergarten, and belongs to the unrelated New Boston, NH provider."
+      },
+      {
+        "name": "The Learning Garden",
+        "reason": "School-year academic program, not a summer-only camp; belongs to the unrelated New Boston, NH provider."
+      },
+      {
+        "name": "Extended Care",
+        "reason": "Before- and after-school childcare, not summer-only childcare; belongs to the unrelated New Boston, NH provider."
+      }
+    ],
+    "cards": []
+  }
+}

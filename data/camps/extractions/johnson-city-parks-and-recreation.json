@@ -1,0 +1,2080 @@
+{
+  "provider": {
+    "key": "johnson-city-parks-and-recreation",
+    "name": "Johnson City Parks & Recreation",
+    "urls": [
+      "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+    ],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:04.708Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "89f9cf59fdea66cd0c55852e47e89e3a1949d0ec43729337f63bb3d6e236cb9d",
+  "response": {
+    "searches": [
+      "site.johnsoncitytn.org summer camps 2027",
+      "site.johnsoncitytn.org \"2026\" \"camps\" \"pdf\""
+    ],
+    "usage": {
+      "inputTokens": 33411,
+      "cachedInputTokens": 8223,
+      "outputTokens": 11761,
+      "reasoningTokens": 214
+    },
+    "status": "completed",
+    "ms": 217600,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+      "chars": 21299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Documents/Departments/Courts/Updated%20Court%20System.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Documents/Departments/Planning%20And%20Development%20Services/Building%20Codes/CoJC%20Small%20Cell%20Permit%20Application.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Documents/permits_licenses/Beer%20License%20Application%20-%20Temporary%20Occasion%201.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Documents/Departments/Finance/Property%20Taxes/Delinquent%20Tax%20Report/2025/Delinquent%20Tax%20Report%2011-06-2025.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Documents/Departments/Finance/Hotel%20Motel%20Taxes/hotel_motel_tax_form-NewLogo.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/",
+      "chars": 5917,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/index.php",
+      "chars": 5926,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/residents/public_works/solid_waste_recycling/brush,_leaf___grass_collection.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/finance/business_applications/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/fire/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/public_works/solid_waste_recycling/garbage_collection/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/online_payments.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks___facilities/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/police/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/rec_services/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/public_works/solid_waste_recycling/recycling/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/senior_services.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/water_sewer_services/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/water_sewer_services/customer_service/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/government/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/government/americans_with_disabilities_act/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/government/courts.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/juvenile_court.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/government/holiday_closing_schedule.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/Images/Departments/Administration/CoJC_OrgChart(1.5.26)-01.png",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - File or directory not found.\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/business/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/business/economic_development.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/business/current___awarded_solicitations.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/administration.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/budget.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/building_services/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/communications_and_engagement_/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/facilities_management.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/finance/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/fleet_management.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/freedom_hall_civic_center/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/residents/human_resources/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/information_technology/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/legal_/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/residents/public_works/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/business/purchasing/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/risk_management/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/schools/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/transit/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/apply_for.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/finance/business_applications/alcoholic_beverages.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/planning_and_development_services/code_enforcement/food_truck_guide.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/finance/applications/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/faq_pages.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/index.php",
+      "chars": 13913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/Documents/Departments/Courts/Updated%20Court%20System.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/Documents/Departments/Planning%20And%20Development%20Services/Building%20Codes/CoJC%20Small%20Cell%20Permit%20Application.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/Documents/permits_licenses/Beer%20License%20Application%20-%20Temporary%20Occasion%201.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/Documents/Departments/Finance/Property%20Taxes/Delinquent%20Tax%20Report/2025/Delinquent%20Tax%20Report%2011-06-2025.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/faqs/Documents/Departments/Finance/Hotel%20Motel%20Taxes/hotel_motel_tax_form-NewLogo.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/building_services/Documents/Departments/Planning%20And%20Development%20Services/Building%20Codes/FAQ/Guide%20to%20Common%20Residential%20Inspection%20Fails%20-%20Codes%20(1).pdf?t=202406260944010",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/fire/frequently_asked_questions.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/police/frequently_asked_question.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/public_works/solid_waste_recycling/faq.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/find_view.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/public_works/street/brush_leaf___grass_collection.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/pay.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/police/traffic_citations/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/departments/water_sewer_services/customer_service/pay_utility_bill.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/by_phone_(utility___taxes).php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/report.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/download_reporting_app.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/request.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/mayoral_proclamation.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/how_do_i/sign_up_for.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/topics_of_interest/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/adult_classes.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/after_school.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/art_music_dance.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/esports_steam.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/fitness_exercise.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/homeschool_programs.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/just_for_teens.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/nature.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/preschool.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/special_events.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/sports_and_recreation.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/therapeutic_recreation.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/family_programs.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/services/parks_and_recreation/rec_services/recreational_programs_and_camps/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/residents/index.php",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"\"404.The page /URL requested wasn't found on this site.\"\")"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/public_works/solid_waste_recycling/garbage_collection/index.php",
+      "chars": 11925,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/departments/public_works/solid_waste_recycling/garbage_collection/Documents/Departments/Public%20Works/Solid%20Waste%20Recycling/Garbage%20Collection/Solid%20Waste%20Collection%20Extra%20Decal.pdf?t=202406260944140",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.johnsoncitytn.org/",
+      "chars": 9495,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Johnson City Parks & Recreation",
+    "website_url": "https://www.johnsoncitytn.org/",
+    "notes": "No official 2027 camp information or registration milestones were found. All dates and prices below describe summer 2026, using the camp page's explicit 2026 introduction. The five younger-child nature weeks are consolidated under the page's Nature Camps heading; Teen Adventure Quest remains separate. Prices without an explicit billing period are recorded per session, except SPROUTS ALL OUT CAMP, whose billing period remains unspecified. No availability is inferred from past dates.",
+    "excluded": [
+      {
+        "name": "INTRO TO YOUTH CHEER CLINIC",
+        "reason": "May 15, 2026 is outside the summer season."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Jump Start JC Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in group games, swimming, arts and crafts, educational guest presentations, and field trips.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "No camp the week of June 29 – July 3."
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "17:30",
+          "cost_text": "$30/week or $100/full camp"
+        },
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 260,
+            "unit": "program",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Secure your spot when registration opens Monday, April 6, 2026 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Please pack a lunch and a snack each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Carver Recreation Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers take field trips and participate in art, team building, fitness activities, computer lab and game room activities, and splash pad play.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "No camp the week of June 29 – July 3."
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carver Recreation Center",
+            "address": "322 W. Watauga Ave",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "17:30",
+          "cost_text": "Resident: $30/week or $100/full camp; non-resident: $40/week or $100/full camp"
+        },
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "program",
+            "label": "Base camper fee; residency label not printed",
+            "year": 2026
+          },
+          {
+            "amount": 185,
+            "unit": "program",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at www.myjcparks.org or in person at Carver Park on Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be provided each day for all children."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Nature Camps",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers explore wildlife, aquatic habitats, reptiles and amphibians, wilderness survival skills, and insects through guest presentations and outdoor activities.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Nature Center, Winged Deer Park",
+            "address": "4137 Bristol Hwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "before/after care is an additional $20.00/week"
+        },
+        "prices": [
+          {
+            "amount": 90,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Nature Adventure Odyssey",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pond & Stream Critter Safari",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Reptile & Amphibian Roundup",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wilderness Survival",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Bug Quest",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Nature Camps is the page's category heading, used to consolidate five themed weeks. The $90 charge is listed for each week without an explicit billing unit."
+      },
+      {
+        "name": "Teen Adventure Quest",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Teens hike, snorkel, raft, and participate in team building and outdoor exploration. The camp lists a field trip each day.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Nature Center, Winged Deer Park",
+            "address": "4137 Bristol Hwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": null,
+          "cost_text": "before/after care is an additional $20.00/week"
+        },
+        "prices": [
+          {
+            "amount": 90,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "The $90 charge is interpreted as per session; the page does not explicitly state its billing unit."
+      },
+      {
+        "name": "SPROUTS ALL OUT CAMP",
+        "type": "half_day",
+        "categories": ["general"],
+        "description": "Preschoolers participate in arts, crafts, games, and storytelling.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kiwanis Recreation Center",
+            "address": "821 W. Market St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Resident; billing period unspecified",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "other",
+            "label": "Non-resident; billing period unspecified",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org or at MPCC beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check whether $50/$60 covers a week or the entire June–July program; the camp page does not say."
+      },
+      {
+        "name": "Yoga & Mindfulness Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers learn yoga, mindfulness, and other calming practices.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org or at MPCC beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Resident/non-resident prices are interpreted as per session; the page does not explicitly state the billing unit."
+      },
+      {
+        "name": "Fitness Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers participate in daily fitness activities and learn about exercise and healthy living.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org or at MPCC beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Resident/non-resident prices are interpreted as per session; the page does not explicitly state the billing unit."
+      },
+      {
+        "name": "Therapeutic Recreation Camp",
+        "type": "half_day",
+        "categories": ["general", "special_needs"],
+        "description": "Participants engage in adapted swimming, crafts, games, and recreational activities. Friday bowling has an additional $8 charge.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": 30
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org or at MPCC beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "The staff are unable to provide one-on-one supervision, however we will try to meet each participant's needs. If an individual does not meet the eligibility requirements, they can still participate if they have their own support staff."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Specific listing says ages 16–30, while general explanatory text says people of all ages. Eligibility includes independent personal care, group participation, communication/social skills, and no history of violence. Prices interpreted per session. Format check: ages 30 outside 2-19."
+      },
+      {
+        "name": "3D Modeling Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers learn 3D modeling with design software and have an opportunity to 3D print their creations.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "Minecraft Education Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers learn coding fundamentals through Minecraft Education Edition and build cities, zoos, and parks with code.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "ETSU Esports Camp",
+        "type": "half_day",
+        "categories": ["general"],
+        "description": "An esports camp for children ages 9–12 held at Memorial Park Community Center. The listing does not describe specific activities.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "No activity description is supplied. Price interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "Learn to Ride Bike Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice balance, pedaling, and bike safety with instructors.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Civitan Park",
+            "address": "1000 N. Broadway St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "LEGO STEM Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers use LEGO Education Spike Essentials kits to design, build, and program robots and inventions through teamwork and problem-solving challenges.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "FOOTBALL CLINIC",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "A one-evening football clinic for students in kindergarten through fifth grade.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-28",
+          "end": "2026-05-28",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Kermit Tipton Stadium",
+            "address": "1509 John Exum Pkwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "19:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "INTRO TO YOUTH SOCCER CAMP",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An introductory youth soccer camp for students in pre-K through eighth grade.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Winged Deer Park (Ellis Turf)",
+            "address": "4137 Bristol Hwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "INTRO TO YOUTH VOLLEYBALL CAMP",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An introductory youth volleyball camp for students in kindergarten through eighth grade.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Memorial Park Community Center",
+            "address": "510 Bert St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "INTRO TO YOUTH TENNIS CAMP",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An introductory youth tennis camp with two morning session options, meeting Monday through Thursday.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Pete Zannis Tennis Center",
+            "address": "505 Liberty Bell Blvd",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday - Thursday; Session 1: 8:00-9:15 a.m.; Session 2: 9:30-10:45 a.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 70,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2026-06-08",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "09:15"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2026-06-08",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:30",
+              "end": "10:45"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+          "https://www.johnsoncitytn.org/business_detail_T5_R19.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices interpreted per session; billing unit not explicitly printed. The page lists a continuous June 8–July 9 span and does not list individual weeks or holiday exceptions."
+      },
+      {
+        "name": "INTRO TO YOUTH SOFTBALL CAMP",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An introductory youth softball camp for students in kindergarten through sixth grade.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Winged Deer Park (Ellis Turf)",
+            "address": "4137 Bristol Hwy",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "INTRO TO YOUTH BASKETBALL CAMP",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "An introductory youth basketball camp for students in kindergarten through sixth grade.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Woodland Elementary Gym",
+            "address": "2303 Indian Ridge Rd",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 40,
+            "unit": "session",
+            "label": "Resident",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Non-resident",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+          "https://woodland.jcschools.org/about"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices interpreted per session; billing unit not explicitly printed."
+      },
+      {
+        "name": "AUDIO/VIDEO BOOT CAMP",
+        "type": "day",
+        "categories": ["stem", "arts"],
+        "description": "Students receive hands-on training with audio/video systems and learn to create social media content and podcasts. Students can create a slideshow for the Juneteenth celebration.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Langston Centre",
+            "address": "315 Elm St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed. Parents/guardians must attend the May 28 meet-and-greet, 16:30–18:00."
+      },
+      {
+        "name": "LANGSTON HEALTH CARE AWARENESS CAMP",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Campers explore nursing and other health care careers through games, puzzles, and interactions with practicing nurses.",
+        "camp_page_url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php",
+        "registration_url": "https://myjcparks.org/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Langston Centre",
+            "address": "315 Elm St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-06",
+          "time": "08:00",
+          "text": "Registration: Register online at myjcparks.org beginning Monday, April 6 at 8 a.m.",
+          "url": "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.johnsoncitytn.org/services/parks_and_recreation/rec_services/recreational_programs_and_camps/camps.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "Price interpreted per session; billing unit not explicitly printed."
+      }
+    ]
+  }
+}

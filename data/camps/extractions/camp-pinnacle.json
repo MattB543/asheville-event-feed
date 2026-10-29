@@ -1,0 +1,206 @@
+{
+  "provider": {
+    "key": "camp-pinnacle",
+    "name": "Camp Pinnacle",
+    "urls": ["https://camppinnacle.com/sessions/", "https://www.camppinnacle.com/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:57.575Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8f83aae4ea3e70072705a0e660509e49c48dadc9d4c25f44bbd0b32756be130f",
+  "response": {
+    "searches": [
+      "site.camppinnacle.com 2027 sessions",
+      "site:camppinnacle.com \"2027\"",
+      "\"Camp Pinnacle\" \"2027\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 40253,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1791,
+      "reasoningTokens": 339
+    },
+    "status": "completed",
+    "ms": 47091,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://camppinnacle.com/sessions/",
+      "chars": 3924,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camppinnacle.com/",
+      "chars": 7370,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/way/",
+      "chars": 4453,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/team/",
+      "chars": 12587,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/faq/",
+      "chars": 8641,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf",
+      "chars": 5103,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/wp-content/uploads/2026/01/The-Junior-Camp-Packing-List.pdf",
+      "chars": 3829,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camppinnacle.com/life/",
+      "chars": 7552,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Pinnacle",
+    "website_url": "https://camppinnacle.com/",
+    "notes": "No explicitly year-labeled 2027 schedule or registration opening date was found on the official pages. The sessions page lists an undated schedule: Session 1 June 13–25 ($5,400), Session 2 June 27–July 9 ($5,400), Session 3 July 11–30 ($7,200), Mini Camp A July 11–17 and B July 24–30 ($2,650), and Session 4 August 1–13 ($5,400). These dates and prices are omitted from structured fields because their summer year could not be verified. Mini Camp is included within the overnight camp program as a shorter session for first-time campers who have completed grades 1–4. The contact page publishes the physical address in Hendersonville; the Flat Rock PO box in the footer is a mailing address. The enrollment page and CampInTouch application returned no readable content.",
+    "excluded": [
+      {
+        "name": "Private Events & Rentals",
+        "reason": "Weddings, corporate retreats, family reunions, and venue rentals are not finite supervised youth summer camp offerings."
+      },
+      {
+        "name": "School-Programs",
+        "reason": "The rental page mentions school programs with Bold Earth partners but does not identify a summer camp offering."
+      },
+      {
+        "name": "Join Our Camp Staff",
+        "reason": "Staff recruitment is an employment program, not a camper offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Pinnacle",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "arts", "general"],
+        "description": "Campers participate in kayaking, mountain biking, swimming, archery, creative activities, and evening games. The program also includes hiking, camping, and whitewater rafting trips.",
+        "camp_page_url": "https://camppinnacle.com/sessions/",
+        "registration_url": "https://camppinnacle.com/enroll/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Pinnacle",
+            "address": "1 Wolfe Lake Dr",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Sessions 1, 2, and 3 on the undated sessions page",
+          "text": "Limited Availability"
+        },
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "We believe every child deserves the chance to experience Camp Pinnacle. That’s why we offer flexible payment plans and limited financial assistance through our Campership Endowment Fund for qualifying families."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Your tuition covers everything your camper needs for an incredible experience: lodging, meals, daily activities, adventure gear, and off-camp trips."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Families can either drive to camp or use our airport pickup service from Asheville (AVL) or Greenville–Spartanburg (GSP)."
+        },
+        "sources": [
+          "https://camppinnacle.com/",
+          "https://camppinnacle.com/sessions/",
+          "https://camppinnacle.com/faq/",
+          "https://camppinnacle.com/life/",
+          "https://camppinnacle.com/contact/",
+          "https://camppinnacle.com/enroll/",
+          "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of the schedule and tuition on the sessions page before adding dated rows. The FAQ defines regular campers as having completed grades 1–8, while the sessions page lists grades 1–11 because older students participate in the separate Wolfe Pack program. Session 3 starts at grade 2; Mini Camp is first-time campers only, grades 1–4. Limited Availability is stated for Sessions 1–3, but the applicable summer year is not printed."
+      },
+      {
+        "name": "Wolfe Pack",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Teen participants develop leadership skills through daily workshops, mentoring younger campers, community service, and planning their own backpacking trip. The program follows a consecutive three-year progression.",
+        "camp_page_url": "https://camppinnacle.com/life/",
+        "registration_url": "https://camppinnacle.com/enroll/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 11,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Pinnacle",
+            "address": "1 Wolfe Lake Dr",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camppinnacle.com/faq/",
+          "https://camppinnacle.com/life/",
+          "https://camppinnacle.com/contact/",
+          "https://camppinnacle.com/enroll/",
+          "https://camppinnacle.com/wp-content/uploads/2026/01/Two-Week-Packing-List.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

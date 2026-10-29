@@ -1,0 +1,100 @@
+{
+  "provider": {
+    "key": "st-luke-cme-church-of-tryon",
+    "name": "St. Luke CME Church of Tryon",
+    "urls": ["https://www.facebook.com/stlcme/"],
+    "area": "Tryon, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:28:23.848Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "St Luke CME Tryon vacation bible school 2026",
+      "site:facebook.com/stlcme \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 25071,
+      "cachedInputTokens": 8223,
+      "outputTokens": 876,
+      "reasoningTokens": 202
+    },
+    "status": "completed",
+    "ms": 31546,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/stlcme/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "St. Luke CME Church of Tryon",
+    "website_url": null,
+    "notes": "No standalone website for the Tryon church or summer 2027 information was found. The known Facebook page returned no readable content. A July 21, 2026 Tryon Daily Bulletin announcement describes the 2026 Vacation Bible School; the card uses that secondary source and requires official confirmation. The similarly named stlukecme.org website belongs to a different church.",
+    "excluded": [
+      {
+        "name": "Jump Start Your School Year Cookout and Back-to-School Celebration",
+        "reason": "Community cookout and school-supply distribution, not a separately described supervised youth camp."
+      },
+      {
+        "name": "Virtual Bible Study",
+        "reason": "Recurring Bible study, not a finite summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children and youth study the stories of David, Esther and Daniel under the theme Heroes of the Bible, exploring faith and perseverance.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-22",
+          "end": "2026-07-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "St. Luke CME Church",
+            "address": "462 Markham Road",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "Evening classes 6–8 p.m., with dinner 6–6:30 p.m.; concluding cookout and back-to-school celebration Saturday at noon."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.tryondailybulletin.com/2026/07/21/st-luke-cme-church-to-host-vacation-bible-school-back-to-school-celebration/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, activities, hours and address come from the July 21, 2026 Tryon Daily Bulletin announcement, not a readable official church announcement. Confirm them with the church. The announcement spans July 22–25 but describes Saturday July 25 as the concluding noon cookout rather than an evening class. No specific youth ages, price or registration date was stated. The venue address could not be verified on a readable church-owned page."
+      }
+    ]
+  }
+}

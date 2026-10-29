@@ -1,0 +1,570 @@
+{
+  "provider": {
+    "key": "bonclarken-conference-center",
+    "name": "Bonclarken Conference Center",
+    "urls": [
+      "https://bonclarken.org/events/camp-bonclarken-1-2026/",
+      "https://bonclarken.org/arp-events/"
+    ],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:09.019Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b1a47018590f45c754d249be6a8cd20ea72695f11522e7842952f43fcab62a77",
+  "response": {
+    "searches": [
+      "open https://bonclarken.org/events/camp-bonclarken-1-2027/",
+      "site.bonclarken.org \"2027\" \"Registration\"",
+      "site:bonclarken.org/events/camp-bonclarken-1-2027 \"Registration\"",
+      "site:arpconferences.org/quest \"grades\""
+    ],
+    "usage": {
+      "inputTokens": 37363,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4500,
+      "reasoningTokens": 488
+    },
+    "status": "completed",
+    "ms": 85380,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bonclarken.org/events/camp-bonclarken-1-2026/",
+      "chars": 3048,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.org/arp-events/",
+      "chars": 3780,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://bonclarken.org/wp-content/uploads/2023/04/campinformation.pdf",
+      "chars": 15911,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.org/events/camp-joy-north-carolina-session-1-2027/",
+      "chars": 2105,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.org/events/quest-middle-school-summer-conference-2027/",
+      "chars": 2044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.org/events/horizon-high-school-summer-conference-2027/",
+      "chars": 2112,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bonclarken.org/events/camp-joy-north-carolina-session-2-2027/",
+      "chars": 2101,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bonclarken Conference Center",
+    "website_url": "https://bonclarken.org/",
+    "notes": "2027 camp dates and fees are posted. Several official pages returned no readable body through the browser; their indexed official-page text was used instead. Quest and Horizon are operated by ARP Conferences and require church-group participation. Their registration pages state March 1 and price tiers without identifying a summer year, so those facts were not assigned to 2027. Bonclarken Music Conference needs review to establish whether its youth offerings qualify as supervised camp programs rather than an all-ages conference.",
+    "excluded": [
+      {
+        "name": "Camp Joy North Carolina",
+        "reason": "Described by Bonclarken as a camp for adults with intellectual disabilities, not a youth program."
+      },
+      {
+        "name": "Family Bible Conference",
+        "reason": "Family conference; no separately enrollable youth camp was established."
+      },
+      {
+        "name": "Bonclarken Music Conference",
+        "reason": "All-ages conference with youth choirs, but the accessible materials did not establish a separately enrollable supervised youth camp. Review the 2026 registration booklet and forthcoming 2027 materials."
+      },
+      {
+        "name": "ARP Middle School Fall Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "ARP High School Spring Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "ARP Middle School Spring Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Bonclarken Volunteer Work Week",
+        "reason": "April volunteer event, outside summer."
+      },
+      {
+        "name": "The 223rd Meeting of the General Synod of the Associate Reformed Presbyterian Church",
+        "reason": "Denominational meeting, not a youth camp."
+      },
+      {
+        "name": "Bonclarken Summer Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Bonclarken Camps Counselor and CIT Positions",
+        "reason": "Presented as summer staff positions and staff applications, not a separately described camper leadership program."
+      },
+      {
+        "name": "Work Crew",
+        "reason": "Conference staffing/service positions for participants who have completed high school."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Bonclarken",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Campers participate in Bible study, crafts, music, recreation, adventure activities, evening worship, and campfires.",
+        "camp_page_url": "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 715,
+            "unit": "session",
+            "label": "Overnight Camper Fees",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Camp Bonclarken 1",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Camp Bonclarken 2",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-15",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 Registration begins Thursday, October 15, 2026, at 10am.",
+            "url": "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2025-10-15",
+          "time": "10:00",
+          "text": "2026 Registration begins Wednesday, October 15, 2025, at 10am.",
+          "url": "https://bonclarken.org/events/camp-bonclarken-1-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00 Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+          "https://bonclarken.org/events/camp-bonclarken-2-2027/",
+          "https://bonclarken.org/arp-events/",
+          "https://bonclarken.org/wp-content/uploads/2023/04/campinformation.pdf",
+          "https://bonclarken.org/events/camp-bonclarken-1-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 event details and registration opening were read through indexed official-page text because direct opens returned empty bodies. Lunch is stated in the undated general camp-information PDF."
+      },
+      {
+        "name": "Camp Bonclarken",
+        "type": "day",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Campers participate in Bible study, crafts, music, recreation, and adventure activities.",
+        "camp_page_url": "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 665,
+            "unit": "session",
+            "label": "Day Camper Fees",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Camp Bonclarken 1",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Camp Bonclarken 2",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-15",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 Registration begins Thursday, October 15, 2026, at 10am.",
+            "url": "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2025-10-15",
+          "time": "10:00",
+          "text": "2026 Registration begins Wednesday, October 15, 2025, at 10am.",
+          "url": "https://bonclarken.org/events/camp-bonclarken-1-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/camp-bonclarken-1-2027/",
+          "https://bonclarken.org/events/camp-bonclarken-2-2027/",
+          "https://bonclarken.org/arp-events/",
+          "https://bonclarken.org/wp-content/uploads/2023/04/campinformation.pdf",
+          "https://bonclarken.org/events/camp-bonclarken-1-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 details were read through indexed official-page text. Dates are the advertised camp-session dates; verify day-camper attendance days and drop-off/pickup hours."
+      },
+      {
+        "name": "Bonclarken Music/Drama Camp",
+        "type": "overnight",
+        "categories": ["music", "theater", "faith_based"],
+        "description": "Campers learn set design, costuming, and program design while preparing a musical based on Biblical themes. The camp concludes with a Friday evening performance.",
+        "camp_page_url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 715,
+            "unit": "session",
+            "label": "Overnight Camper Fees",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-15",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 Registration begins Thursday, October 15, 2026, at 10am.",
+            "url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2025-10-15",
+          "time": "10:00",
+          "text": "2026 Registration begins Wednesday, October 15, 2025 at 10am.",
+          "url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+          "https://bonclarken.org/arp-events/",
+          "https://bonclarken.org/events/bonclarken-music-drama-camp-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 program details and registration opening were read through indexed official-page text because direct opens returned empty bodies."
+      },
+      {
+        "name": "Bonclarken Music/Drama Camp",
+        "type": "day",
+        "categories": ["music", "theater", "faith_based"],
+        "description": "Campers learn set design, costuming, and program design while preparing a musical based on Biblical themes. The camp concludes with a Friday evening performance.",
+        "camp_page_url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 665,
+            "unit": "session",
+            "label": "Day Camper Fees",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-15",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "2027 Registration begins Thursday, October 15, 2026, at 10am.",
+            "url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2025-10-15",
+          "time": "10:00",
+          "text": "2026 Registration begins Wednesday, October 15, 2025 at 10am.",
+          "url": "https://bonclarken.org/events/bonclarken-music-drama-camp-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/bonclarken-music-drama-camp-2027/",
+          "https://bonclarken.org/arp-events/",
+          "https://bonclarken.org/events/bonclarken-music-drama-camp-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 details were read through indexed official-page text. Verify day-camper attendance days and hours; the published dates describe the overall camp session."
+      },
+      {
+        "name": "Quest Middle School Summer Conference",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students attend Bible teaching, worship, games, skits, seminars, and recreation with their church groups.",
+        "camp_page_url": "https://bonclarken.org/events/quest-middle-school-summer-conference-2027/",
+        "registration_url": "https://arpconferences.org/quest/register-for-quest/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/quest-middle-school-summer-conference-2027/",
+          "https://arpconferences.org/quest/",
+          "https://arpconferences.org/hq-things-to-know/",
+          "https://arpconferences.org/quest/register-for-quest/"
+        ],
+        "confidence": "medium",
+        "review_notes": "ARP pages were read through indexed official text. Church groups provide supervision; no camp counselors are provided. Families must contact church leadership rather than register children individually. Registration page gives March 1 and prices without a season year; verify their applicability to 2027."
+      },
+      {
+        "name": "Horizon High School Summer Conference",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students attend Bible teaching, worship, games, skits, seminars, and recreation with their church groups.",
+        "camp_page_url": "https://bonclarken.org/events/horizon-high-school-summer-conference-2027/",
+        "registration_url": "https://arpconferences.org/horizon/register-for-horizon/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bonclarken.org/events/horizon-high-school-summer-conference-2027/",
+          "https://arpconferences.org/horizon/",
+          "https://arpconferences.org/hq-things-to-know/",
+          "https://arpconferences.org/horizon/register-for-horizon/"
+        ],
+        "confidence": "medium",
+        "review_notes": "ARP pages were read through indexed official text. Church groups provide supervision; no camp counselors are provided. Families must contact church leadership rather than register children individually. Registration page gives March 1 and prices without a season year; verify their applicability to 2027."
+      }
+    ]
+  }
+}

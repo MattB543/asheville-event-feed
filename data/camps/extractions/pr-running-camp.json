@@ -1,0 +1,271 @@
+{
+  "provider": {
+    "key": "pr-running-camp",
+    "name": "P.R. Running Camp",
+    "urls": [
+      "https://www.prrunningcamp.com/pr-running-camp-information",
+      "https://www.prrunningcamp.com/",
+      "https://info.abcsportscamps.com/prrunningcamps"
+    ],
+    "area": "Cullowhee, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:35.802Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "dd24bf3e188b9e866803276a96e3adbda6580d8ab1960ca1d176d91cb7f12fba",
+  "response": {
+    "searches": ["site.prrunningcamp.com 2027 registration opens"],
+    "usage": {
+      "inputTokens": 18413,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1833,
+      "reasoningTokens": 48
+    },
+    "status": "completed",
+    "ms": 37690,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.prrunningcamp.com/pr-running-camp-information",
+      "chars": 5318,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/",
+      "chars": 1993,
+      "method": "fetch"
+    },
+    {
+      "url": "https://info.abcsportscamps.com/prrunningcamps",
+      "chars": 9135,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/register",
+      "chars": 604,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/dates",
+      "chars": 1263,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/prospective-coaches",
+      "chars": 4061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/price",
+      "chars": 2052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prrunningcamp.com/pr-running-camp-counselor-application",
+      "chars": 690,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "P.R. Running Camp",
+    "website_url": "https://www.prrunningcamp.com/",
+    "notes": "2027 dates and registration listings are posted. Official pages conflict on combined-session pricing, team pricing, the between-session stay fee, and the youngest eligible grade. No registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Counselor Application",
+        "reason": "Application for camp staff employment, not a youth camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "P.R. Running Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers train on regional trails and attend talks and small-group sessions about running, nutrition and sports psychology. Activities also include river tubing, field games and an end-of-camp cross-country race.",
+        "camp_page_url": "https://www.prrunningcamp.com/pr-running-camp-information",
+        "registration_url": "https://info.abcsportscamps.com/prrunningcamps",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-21",
+          "text": "P.R. Running Camp 2027: Week 1: July 11-15; Week 2: July 17-21."
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Overnight. Check-in 11:00 AM–1:00 PM on the first day; check-out by noon on the final day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 840,
+            "unit": "session",
+            "label": "Early bird, by December 31",
+            "year": 2027
+          },
+          {
+            "amount": 875,
+            "unit": "session",
+            "label": "Standard, after December 31",
+            "year": 2027
+          },
+          {
+            "amount": 825,
+            "unit": "session",
+            "label": "Teams, per camper; Dates & Price page",
+            "year": 2027
+          },
+          {
+            "amount": 1815,
+            "unit": "program",
+            "label": "2 Weeks Of Camp; Dates & Price page; registration platform lists $1,850",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session #1 (July 11-15)",
+            "start": "2027-07-11",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 875,
+              "unit": "session",
+              "label": "Registration platform standard price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session #1 & #2 (July 11-21)",
+            "start": "2027-07-11",
+            "end": "2027-07-21",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1850,
+              "unit": "program",
+              "label": "Both sessions including days in between; registration platform",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session #2 (July 17-21)",
+            "start": "2027-07-17",
+            "end": "2027-07-21",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 875,
+              "unit": "session",
+              "label": "Registration platform standard price; $35 early bird discount through December 31, 2026",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-12-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "5-Day, 4 Night Overnight Event | $35 early bird discount through December 31, 2026",
+            "url": "https://info.abcsportscamps.com/prrunningcamps",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-07-11",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Ends: 07/11/2027",
+            "url": "https://info.abcsportscamps.com/prrunningcamps",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-07-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration Ends: 07/17/2027",
+            "url": "https://info.abcsportscamps.com/prrunningcamps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Need to eat lunch before you arrive, but will provide a grab and go breakfast, lunch and dinner each day of camp. Just dinner on Day 1, Breakfast on the day of check out."
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "We can arrange for shuttle transportation for your camper through a local company who charges $45 each way."
+        },
+        "sources": [
+          "https://www.prrunningcamp.com/",
+          "https://www.prrunningcamp.com/pr-running-camp-information",
+          "https://www.prrunningcamp.com/price",
+          "https://www.prrunningcamp.com/prospective-coaches",
+          "https://info.abcsportscamps.com/prrunningcamps",
+          "https://www.wcu.edu/discover/locations/main-campus/directions-to-campus.aspx"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm eligibility: individual registration listings state rising grades 7–12, while the combined listing states 6–12 despite all listings giving graduation years 2028–2033. Dates & Price lists two weeks at $1,815 versus $1,850 on registration; team price is $825 versus starting at $810 on Team Registration, whose price has no explicit year and is omitted from prices. Info says the between-session stay is free, while registration says $100 extra. Registration includes incorrect weekday names for July 17 and July 21; numeric dates match the 2027 camp pages. The July 11 registration deadline applies to Session #1 and the combined booking; July 17 applies to Session #2. Teams must provide their own transportation for the duration of camp."
+      }
+    ]
+  }
+}

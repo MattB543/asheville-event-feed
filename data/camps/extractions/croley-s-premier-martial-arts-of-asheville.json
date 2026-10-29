@@ -1,0 +1,126 @@
+{
+  "provider": {
+    "key": "croley-s-premier-martial-arts-of-asheville",
+    "name": "Croley's Premier Martial Arts of Asheville",
+    "urls": ["https://premiermartialarts.com/north-carolina-asheville/camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:19.303Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "721fc5411ef9d6a132733c497a087f9641ffc8b3bf4366734ceed0671093f64d",
+  "response": {
+    "searches": ["\"Premier Martial Arts\" \"Asheville\" \"camp\" \"2027\""],
+    "usage": {
+      "inputTokens": 21294,
+      "cachedInputTokens": 8223,
+      "outputTokens": 616,
+      "reasoningTokens": 76
+    },
+    "status": "completed",
+    "ms": 17527,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://premiermartialarts.com/north-carolina-asheville/camps/",
+      "chars": 6084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/student-registration/",
+      "chars": 8120,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/north-carolina-asheville/",
+      "chars": 10864,
+      "method": "fetch"
+    },
+    {
+      "url": "https://premiermartialarts.com/",
+      "chars": 9999,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Croley's Premier Martial Arts of Asheville",
+    "website_url": "https://premiermartialarts.com/north-carolina-asheville/",
+    "notes": "No 2027 dates, prices or registration milestones were found. The camp page describes summer camp without identifying a summer year or listing dated sessions. Its calendar displays October–December 2026, not summer sessions. The student-registration page is a general lesson intake form, not confirmed camp registration.",
+    "excluded": [
+      {
+        "name": "Kids' Karate & Martial Arts",
+        "reason": "Year-round martial arts classes, not a finite summer program."
+      },
+      {
+        "name": "Adult Martial Arts",
+        "reason": "Adult classes, not a supervised youth summer program."
+      },
+      {
+        "name": "Kids' Birthday Parties",
+        "reason": "Private birthday parties, not a summer camp offering."
+      },
+      {
+        "name": "Parents' Night Out",
+        "reason": "Recurring special event with no summer-specific dates or finite summer offering stated."
+      },
+      {
+        "name": "Parent Orientation",
+        "reason": "Orientation for parents, not a youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Martial Arts and Karate Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Children practice martial arts and participate in indoor games, obstacle courses and team challenges. Weekly themes vary, with morning, afternoon and full-day options offered Monday through Friday.",
+        "camp_page_url": "https://premiermartialarts.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Premier Martial Arts Asheville",
+            "address": "239 S Liberty St",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday to Friday; morning, afternoon, or full-day camp sessions."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://premiermartialarts.com/north-carolina-asheville/camps/",
+          "https://premiermartialarts.com/north-carolina-asheville/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp description is undated and has no summer session dates. Season year 2026 represents the fallback listing, not an explicitly dated summer schedule. Confirm local camp details and drop-off location with the studio; the address is published on the camp and studio pages."
+      }
+    ]
+  }
+}

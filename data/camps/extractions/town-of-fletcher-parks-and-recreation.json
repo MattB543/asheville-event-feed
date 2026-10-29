@@ -1,0 +1,265 @@
+{
+  "provider": {
+    "key": "town-of-fletcher-parks-and-recreation",
+    "name": "Town of Fletcher Parks & Recreation",
+    "urls": [
+      "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp/",
+      "https://www.fletchernc.org/wp-content/uploads/2025/06/Summer-Camp-MS.pdf"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:25.185Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6b496c0591ca19801fcdff8ff433e8e9abb870e24fd007a4b073d26441a219c2",
+  "response": {
+    "searches": [
+      "site.fletchernc.org summer camp 2027",
+      "site:fletchernc.org \"SDC\" \"Handbook\""
+    ],
+    "usage": {
+      "inputTokens": 33395,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1740,
+      "reasoningTokens": 208
+    },
+    "status": "completed",
+    "ms": 46404,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp/",
+      "chars": 6264,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/wp-content/uploads/2025/06/Summer-Camp-MS.pdf",
+      "chars": 2005,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/departments/parks-and-recreation/online-registration/",
+      "chars": 6528,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/departments/finance/business-registration/",
+      "chars": 8180,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/wp-content/uploads/2026/06/TOF-Business-Registration-rev-2026.pdf",
+      "chars": 6315,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/departments/planning-and-zoning/forms-applications-and-fees/",
+      "chars": 9326,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/about-us/faq/",
+      "chars": 10132,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp-2/",
+      "chars": 7152,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Town of Fletcher Parks & Recreation",
+    "website_url": "https://www.fletchernc.org/",
+    "notes": "No 2027 summer camp information or registration milestones were found. The 2026 materials list Fletcher Summer Day Camp. Middle School Adventure Camp appears only in 2025 materials; no 2026 offering was found, so it is not included as a current card. The camp-specific page requires online-only registration despite the general registration page describing an in-person option.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Fletcher Summer Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "sports", "arts"],
+        "description": "Campers take field trips, swim at Cane Creek Pool, and participate in arts and crafts, sports, and nature activities.",
+        "camp_page_url": "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp-2/",
+        "registration_url": "https://fletcherparks.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bill Moore Community Park",
+            "address": "85 Howard Gap Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "Monday – Friday, 7:30 -5:30 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 160,
+            "unit": "week",
+            "label": "Fletcher residents, per child",
+            "year": 2026
+          },
+          {
+            "amount": 170,
+            "unit": "week",
+            "label": "Non-residents, per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-09",
+          "time": "10:00",
+          "text": "Camp Registration begins Monday, March 9th at 10:00 AM Residents Registration (Town of Fletcher Tax Payers)",
+          "url": "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp-2/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp/",
+          "https://www.fletchernc.org/departments/parks-and-recreation/fletcher-summer-day-camp-2/",
+          "https://www.fletchernc.org/wp-content/uploads/2026/04/Summer-Camp-Fin-26-1.pdf",
+          "https://www.fletchernc.org/wp-content/uploads/2026/03/2026-Summer-Day-Payment-Information.pdf",
+          "https://www.fletchernc.org/departments/parks-and-recreation/billmoorecommunitypark/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and registration dates on the detail page omit the year; 2026 is established by the parent Summer Camp 2026 page, linked 2026 payment information, and June/July 2026 field-trip calendar. The PDF calendar was readable through official search results but its direct opening returned no text. Non-resident registration began March 10, 2026 at 10:00 AM. A $50 nonrefundable deposit per child per week applies toward tuition, and the camp page states a 3% online credit-card transaction fee."
+      }
+    ]
+  }
+}

@@ -1,0 +1,951 @@
+{
+  "provider": {
+    "key": "ridge-haven",
+    "name": "Ridge Haven",
+    "urls": [
+      "https://www.ridgehaven.org/summer-camps",
+      "https://www.ridgehaven.org/camps",
+      "https://www.ridgehaven.org/summer-retreat",
+      "https://www.ridgehaven.org/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:59.867Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "535cd8796bd9033c29df2c990a58abdd0ae1c7e468147571169be1d46299563f",
+  "response": {
+    "searches": [
+      "site:ridgehaven.org \"Camp Braveheart\"",
+      "open https://www.ridgehaven.org/service-project-camp",
+      "site:ridgehaven.org \"Service Project\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 25051,
+      "cachedInputTokens": 8223,
+      "outputTokens": 6723,
+      "reasoningTokens": 286
+    },
+    "status": "completed",
+    "ms": 116578,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ridgehaven.org/summer-camps",
+      "chars": 4738,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/camps",
+      "chars": 4738,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/summer-retreat",
+      "chars": 5151,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/",
+      "chars": 3950,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/s/2027-Brevard-Camp-Dates-Rates-until-22_Current.pdf",
+      "chars": 3212,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/s/Online-Registration-Guide_Camper.pdf",
+      "chars": 6494,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/s/2027-Brevard-Camp-Dates-Rates-before-214_Current.pdf",
+      "chars": 3214,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ridgehaven.org/registration",
+      "chars": 1774,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ridge Haven",
+    "website_url": "https://www.ridgehaven.org/",
+    "notes": "Brevard offerings are included; the provider's Cono campus is in Iowa, outside this directory's Asheville area. The supplied 2027 PDFs have conflicting early-bird column headings: one says 'Price before 2/14' while its discount section says February 2. The newer 'until 2/2' PDF consistently uses February 2 and was used here. Regular session prices are shown; the current PDF also offers $130 off when registering by February 2 and $50 off by April 15, plus specified sibling and Bible-memory discounts. Camp Braveheart remains on the current program list, but its dates and eligibility could not be established. Several directly opened pages returned empty text; official search results supplied their readable content.",
+    "excluded": [
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp; its daily Kids' Camp is described as part of the family offering, not a separately bookable youth program."
+      },
+      {
+        "name": "Winter Camp",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Winter Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Keenagers Conference",
+        "reason": "Adult conference, not a youth summer camp."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers participate in games, outdoor activities, biblical teaching and worship while living with counselors and cabin mates.",
+        "camp_page_url": "https://www.ridgehaven.org/junior-camp",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-24",
+          "end": "2027-08-07",
+          "text": "2027 Brevard Junior Camp Weeks"
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-05-24",
+            "end": "2027-05-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 580,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 615,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Homeschool Week",
+            "start": "2027-08-02",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 530,
+              "unit": "session",
+              "label": "Regular price; only early-bird discount may be applied",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-03",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Brevard Camp Registration will open on Tuesday, November 3rd at 11am EST",
+            "url": "https://www.ridgehaven.org/summer-camps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/junior-camp",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Junior High Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers participate in biblical teaching, worship, games and outdoor activities that develop relationships and team skills.",
+        "camp_page_url": "https://www.ridgehaven.org/junior-high-camp",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-24",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-05-24",
+            "end": "2027-05-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 580,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 615,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Homeschool Week",
+            "start": "2027-08-02",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 530,
+              "unit": "session",
+              "label": "Regular price; only early-bird discount may be applied",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-03",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Brevard Camp Registration will open on Tuesday, November 3rd at 11am EST",
+            "url": "https://www.ridgehaven.org/summer-camps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/junior-high-camp",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Junior High page's search result still says 2027 weeks are coming soon; the supplied 2027 dates-and-rates PDF explicitly lists the dates used here."
+      },
+      {
+        "name": "Senior High Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers participate in biblical teaching, worship, games and outdoor challenges while developing relationships and team skills.",
+        "camp_page_url": "https://www.ridgehaven.org/senior-high-camp",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-24",
+          "end": "2027-08-07",
+          "text": "2027 Senior High Camp Weeks"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-05-24",
+            "end": "2027-05-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 580,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 615,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 690,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Homeschool Week",
+            "start": "2027-08-02",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 530,
+              "unit": "session",
+              "label": "Regular price; only early-bird discount may be applied",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-03",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Brevard Camp Registration will open on Tuesday, November 3rd at 11am EST",
+            "url": "https://www.ridgehaven.org/summer-camps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/senior-high-camp",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Great Adventure Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Campers stay in open-air cabins and participate in hiking, archery, bouldering, climbing, lake activities and biblical teaching. Weather permitting, they spend at least one night tent camping on campus.",
+        "camp_page_url": "https://www.ridgehaven.org/great-adventure",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-28",
+          "end": "2027-07-03",
+          "text": "2027 Great Adventure Week: June 28 - July 3"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 690,
+            "unit": "session",
+            "label": "Regular price",
+            "year": 2027
+          },
+          {
+            "amount": 560,
+            "unit": "session",
+            "label": "Early bird: register by February 2",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-03",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Brevard Camp Registration will open on Tuesday, November 3rd at 11am EST",
+            "url": "https://www.ridgehaven.org/summer-camps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/great-adventure",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program details were readable through the official search result. The program page calls this Great Adventure Week; the summer-camp listing calls it Great Adventure Camp. Early-bird deadline uses the newer PDF; see provider notes about the older PDF's conflicting heading."
+      },
+      {
+        "name": "Service Project Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers work together on service projects for three to four hours each day and also participate in camp activities and worship. Churches bring their own counselors for the May session; individuals can attend with Ridge Haven counselors in July.",
+        "camp_page_url": "https://www.ridgehaven.org/service-camp",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-24",
+          "text": "2027 Brevard Service Project Camp Weeks"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Churches Only; churches bring their own counselors",
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 475,
+              "unit": "session",
+              "label": "Regular price; applies to leaders and students",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Individuals with Ridge Haven Counselors",
+            "start": "2027-07-19",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 530,
+              "unit": "session",
+              "label": "Regular price",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-03",
+            "time": "11:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Brevard Camp Registration will open on Tuesday, November 3rd at 11am EST",
+            "url": "https://www.ridgehaven.org/summer-camps",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/service-camp",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Retreat",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Youth groups attend with their own leaders for five nights and six days of games, hiking, lake activities, devotion and worship. Ridge Haven provides meals and programming.",
+        "camp_page_url": "https://www.ridgehaven.org/summer-retreat",
+        "registration_url": "https://www.ridgehaven.org/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-31",
+          "text": "2027 Summer Retreat Weeks"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 530,
+            "unit": "session",
+            "label": "Regular price",
+            "year": 2027
+          },
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Early bird: register by February 2",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior High",
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2027-05-31",
+            "end": "2027-06-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2027-07-26",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2027-07-26",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based financial assistance is readily available."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Ridge Haven will provide the meals, programming, activities, worship and talks"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/summer-retreat",
+          "https://www.ridgehaven.org/contact",
+          "https://static1.squarespace.com/static/55d3678fe4b0bdc8a9465faa/t/6ad60f7364493a38d56f8cab/1792413555930/2027+Brevard+Camp+Dates+%26+Rates+until+2.2_Current.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The PDF states separate Junior High and Senior High options but does not assign grade boundaries to those options. Rows reflect both options across the listed weeks; confirm that both run each week. The page directs youth leaders to call 828-862-3916 to book, so the general camp opening was not assigned to this group-booking program. Early-bird deadline uses the newer PDF."
+      },
+      {
+        "name": "Camp Braveheart",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "This Christ-centered camp serves youth grieving the death of a loved one and addresses their emotional and spiritual needs.",
+        "camp_page_url": "https://www.ridgehaven.org/camp-braveheart",
+        "registration_url": "https://www.campbraveheart.com/camp-registration",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ridge Haven Brevard",
+            "address": "215 Ridge Haven Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ridgehaven.org/summer-camps",
+          "https://www.ridgehaven.org/camp-braveheart",
+          "https://www.ridgehaven.org/contact",
+          "https://www.campbraveheart.com/camp-registration",
+          "https://www.campbraveheart.com/events"
+        ],
+        "confidence": "low",
+        "review_notes": "Ridge Haven lists and hosts the program, but no 2027 or 2026 dates, ages, prices or explicit overnight format were readable. Overnight type requires confirmation with Camp Braveheart. The partner homepage returned empty text, and its official events search result says 'No events at the moment.' Do not apply Ridge Haven's general registration opening to this separately registered partner camp."
+      }
+    ]
+  }
+}

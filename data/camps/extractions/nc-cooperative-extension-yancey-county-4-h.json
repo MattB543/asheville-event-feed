@@ -1,0 +1,274 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-yancey-county-4-h",
+    "name": "N.C. Cooperative Extension — Yancey County 4-H",
+    "urls": [
+      "https://yancey.ces.ncsu.edu/news/4-h-summer-fun-2/",
+      "https://yancey.ces.ncsu.edu/news/summerfcs/"
+    ],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:12.969Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "59ce4f5c41436ae14cf80811bcab26f44a5f74450a09e0850323405cfd171bb8",
+  "response": {
+    "searches": [
+      "site:yancey.ces.ncsu.edu \"2026\" \"summer\" \"4-H\"",
+      "site:yancey.ces.ncsu.edu \"Summer Fun\" \"2026\"",
+      "site:yancey.ces.ncsu.edu/event/ \"2026\" \"camp\" \"4-H\""
+    ],
+    "usage": {
+      "inputTokens": 28562,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2185,
+      "reasoningTokens": 271
+    },
+    "status": "completed",
+    "ms": 48110,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://yancey.ces.ncsu.edu/news/4-h-summer-fun-2/",
+      "chars": 5002,
+      "method": "fetch"
+    },
+    {
+      "url": "https://yancey.ces.ncsu.edu/news/summerfcs/",
+      "chars": 7508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://yancey.ces.ncsu.edu/documents/3124/2025-4-H-Summer-Fun-2_Tz7pgoN.pdf",
+      "chars": 6759,
+      "method": "fetch"
+    },
+    {
+      "url": "https://yancey.ces.ncsu.edu/yancey-county-anr-programs/yancey-county-farmland-preservation-program/",
+      "chars": 6558,
+      "method": "fetch"
+    },
+    {
+      "url": "https://yancey.ces.ncsu.edu/documents/911806/Yancey-Farmland-Preservation-application.pdf",
+      "chars": 1780,
+      "method": "fetch"
+    },
+    {
+      "url": "https://yancey.ces.ncsu.edu/",
+      "chars": 5627,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Yancey County 4-H",
+    "website_url": "https://yancey.ces.ncsu.edu/",
+    "notes": "No 2027 camp dates or registration milestones found. Official 2026 calendar entries supply the Summer Fun rows below, but no 2026 brochure was found. The supplied 2025 brochure's ages, prices, aid policies, transportation and meeting location were not carried forward. The 2025 registration-full notice is historical. A June 29, 2026 article confirms participation in residential camp but does not publish session dates or county registration details.",
+    "excluded": [
+      {
+        "name": "4-H Clubs",
+        "reason": "Recurring year-round clubs, including arts and crafts, sewing, LEGO, gardening, outdoor adventures and shooting sports; not finite summer camps."
+      },
+      {
+        "name": "Sizzlin’ Summer",
+        "reason": "Family community event rather than a supervised youth camp."
+      },
+      {
+        "name": "Genesis Academy food pathway lessons",
+        "reason": "Instruction provided within an existing school or childcare program, not a separately offered camp."
+      },
+      {
+        "name": "Safe Plates",
+        "reason": "Food safety training for managers and community members, not a youth summer camp; the supplied article announces a January class."
+      },
+      {
+        "name": "4-H Photography Contest 2026",
+        "reason": "Submission contest rather than a finite supervised camp."
+      },
+      {
+        "name": "2026 4-H Egg-cellent Egg Contest",
+        "reason": "At-home livestock project and contest with online trainings, not a supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun",
+        "type": "day",
+        "categories": ["nature_outdoor", "sports", "general"],
+        "description": "Youth participate in summer day-camp activities in ecology, shooting sports, swimming, agriculture and treetop adventure.",
+        "camp_page_url": "https://yancey.ces.ncsu.edu/4-h-youth-development/4-h-programs-events/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-24",
+          "end": "2026-08-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shooting Sports camp location",
+            "address": "555 Landfill Rd",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "4-H Exploring Ecology day camp",
+            "start": "2026-06-24",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Shooting Sports day camp",
+            "start": "2026-07-10",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Shooting Sports camp location",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Swim day camp",
+            "start": "2026-07-23",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Exploring Ag day camp",
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Exploring Ag day camp",
+            "start": "2026-07-29",
+            "end": "2026-07-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "13:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4-H Treetop Adventure day camp",
+            "start": "2026-08-04",
+            "end": "2026-08-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "14:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://yancey.ces.ncsu.edu/4-h-youth-development/4-h-programs-events/",
+          "https://yancey.ces.ncsu.edu/event/108627/",
+          "https://yancey.ces.ncsu.edu/event/108628/",
+          "https://yancey.ces.ncsu.edu/event/108629/",
+          "https://yancey.ces.ncsu.edu/event/108630/",
+          "https://yancey.ces.ncsu.edu/event/114304/",
+          "https://yancey.ces.ncsu.edu/event/108631/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Calendar entries were available through official search results. Verify whether the July 28 and July 29 Exploring Ag entries represent two days of one session or a rescheduled event; their hours differ. Other sessions may not be indexed. Only the shooting-sports entry states a location; its venue name is not published. Do not use that location for the other rows. The generic program calendar has no year and cannot establish a 2027 May registration opening."
+      },
+      {
+        "name": "NC 4-H Residential Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Yancey County youth attended a week of adventure, learning and teamwork at Betsy-Jeff Penn 4-H Educational Center.",
+        "camp_page_url": "https://yancey.ces.ncsu.edu/news/yancey-county-4-h-at-betsy-jeff-penn-center/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://yancey.ces.ncsu.edu/news/yancey-county-4-h-at-betsy-jeff-penn-center/",
+          "https://yancey.ces.ncsu.edu/4-h-youth-development/4-h-programs-events/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 article is a retrospective, not a registration announcement. The program name comes from the county's general program calendar. County drop-off location, eligibility, session dates and prices are not stated; attendee ages were not treated as eligibility."
+      }
+    ]
+  }
+}

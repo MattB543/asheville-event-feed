@@ -1,0 +1,782 @@
+{
+  "provider": {
+    "key": "providence-academy",
+    "name": "Providence Academy",
+    "urls": ["https://www.providenceacademy.com/summer-camps"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:38.940Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "59f8c595ba5079e28b46506f810a8940b76c8d57d3e59545a385d96e3c8bafbd",
+  "response": {
+    "searches": [
+      "site.providenceacademy.com summer camps 2027",
+      "site:providenceacademy.com \"2026\" \"Summer\" \"pdf\""
+    ],
+    "usage": {
+      "inputTokens": 19613,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5295,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 90302,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.providenceacademy.com/summer-camps",
+      "chars": 8506,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.providenceacademy.com/",
+      "chars": 3923,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Providence Academy",
+    "website_url": "https://www.providenceacademy.com/",
+    "notes": "No 2027 camp information found. Dates below come from the supplied page's 2026 Summer Camps heading. Prices and direct registration links were not found. The page says registrations will begin in March but gives no exact opening date; this is not a 2027 announcement. The linked printout could not be retrieved. Full Day Options combine separately registered camps, so they are not additional programs. Basketball Sessions I and II are grouped as one program. Campus location is inferred for camps other than Swim Camp; confirm individual directors' drop-off instructions.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Basketball",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice basketball fundamentals and play games and age-group scrimmages.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Basketball Session I — Rising K-3rd",
+            "start": "2026-05-26",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Basketball Session I — Rising 4th-8th",
+            "start": "2026-05-26",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "12:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Basketball Session II — Rising K-3rd",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Basketball Session II — Rising 4th-8th",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "12:00",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Campus meeting location is inferred from Summer at PA and the school address; the page directs parents to individual directors for drop-off instructions."
+      },
+      {
+        "name": "Soccer",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice soccer fundamentals and play scrimmage games in age-appropriate groups.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Baseball",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers work on throwing, batting and base running, with guidance on arm care and the mental game of baseball.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rising 3rd-5th",
+            "start": "2026-06-08",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "10:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "6th-8th",
+            "start": "2026-06-08",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:30",
+              "end": "15:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Music Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers sing, dance, play games, and play and make musical instruments. Friday ends with a performance during the final 30 minutes.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 4,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off instructions. Music Camp plus separately registered Art Camp provides a 9AM-3PM option with supervised transitions and lunch/snack breaks; lunch provision is not stated."
+      },
+      {
+        "name": "Worship Band Camp",
+        "type": "half_day",
+        "categories": ["music", "faith_based"],
+        "description": "Students learn instruments, vocals and audio/visual skills for serving on a church worship team. They may bring their own instruments or use instruments in the elementary music classroom.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Art Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers participate in art activities. The page says theme information is forthcoming.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rising 5th-8th",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "11:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rising 2nd-4th",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "12:30",
+              "end": "15:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off instructions. Separately registered Music Camp or Worship Band Camp can be paired with Art Camp for 9AM-3PM attendance with supervised transitions and lunch/snack breaks."
+      },
+      {
+        "name": "Softball",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "A softball camp coordinated by Erica Roller.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "No activity description is supplied. Confirm campus drop-off location with the director."
+      },
+      {
+        "name": "Wrestling",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice takedowns and top and bottom moves in age/weight-appropriate groups. A final match is held Friday.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "11:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Knights Football Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice football fundamentals and proper technique with the high school coaching staff. Each day ends with skills competitions and flag football games.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Reading Roundup",
+        "type": "half_day",
+        "categories": ["academic", "arts"],
+        "description": "Students practice reading fluency, phonics and comprehension with the teacher. Daily stations include clay, art, reading manipulatives and phonics word work.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Cheer Camp",
+        "type": "half_day",
+        "categories": ["sports", "dance"],
+        "description": "Campers learn cheerleading fundamentals, PA cheers and a cheer dance with the school's coaches and cheer teams.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Providence Academy",
+            "address": "2788 Carroll Creek Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.providenceacademy.com/summer-camps",
+          "https://www.providenceacademy.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm campus drop-off location with the director; the camp listing does not explicitly name its venue."
+      },
+      {
+        "name": "Swim Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Swimmers practice freestyle, backstroke, breaststroke, butterfly, turns and dives, and play water games. Campers must already be able to swim one pool length on their stomach and one on their back.",
+        "camp_page_url": "https://www.providenceacademy.com/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "M-F for approximately 2.5 hrs each day. Camp days and times are still being finalized as we wait upon pool availability."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.providenceacademy.com/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "The table lists August 3-7, 2026, but the description says camp days and times are still being finalized pending pool availability. No pool or drop-off venue is named."
+      }
+    ]
+  }
+}

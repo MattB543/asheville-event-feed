@@ -1,0 +1,170 @@
+{
+  "provider": {
+    "key": "the-orchard-church-of-waynesville",
+    "name": "The Orchard Church of Waynesville",
+    "urls": ["https://www.theorchardnc.com/", "https://www.theorchardnc.com/events/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:17:22.484Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8638ff04dd9a5bd463eea61ef1dd1fe36d7c7fdb9803fa23009ad20cb98c59b1",
+  "response": {
+    "searches": [
+      "site:theorchardnc.com summer camp 2026 2027 VBS",
+      "site:theorchardnc.churchcenter.com \"VBS\"",
+      "\"3476086\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 36309,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1139,
+      "reasoningTokens": 270
+    },
+    "status": "completed",
+    "ms": 37621,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.theorchardnc.com/",
+      "chars": 2340,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theorchardnc.com/events/",
+      "chars": 1728,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3319519",
+      "chars": 1174,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3828206",
+      "chars": 3186,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3556731",
+      "chars": 1141,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3970377",
+      "chars": 1062,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3920120",
+      "chars": 2589,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theorchardnc.churchcenter.com/registrations/events/3940860",
+      "chars": 1037,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Orchard Church of Waynesville",
+    "website_url": "https://www.theorchardnc.com/",
+    "notes": "No summer 2027 information was found. An official Church Center search result identifies a summer camp at Teen Valley Ranch, but the registration page returned no readable text when opened. The snippet lists June 15–20 without a year; dates have therefore been left null rather than assigned to a summer.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Prayer",
+        "reason": "Recurring weekly prayer gathering, not a finite summer youth program."
+      },
+      {
+        "name": "Financial Peace University",
+        "reason": "Fall financial education class with incidental childcare, not a summer youth camp."
+      },
+      {
+        "name": "Orchard Play Group",
+        "reason": "Recurring family playground gathering, not a supervised drop-off summer program."
+      },
+      {
+        "name": "Orchard College Christmas Movie Night",
+        "reason": "College-age event outside summer."
+      },
+      {
+        "name": "Treats on the Street",
+        "reason": "Fall community outreach event, not a summer youth camp."
+      },
+      {
+        "name": "Orchard College Friendsgiving",
+        "reason": "College-age event outside summer."
+      },
+      {
+        "name": "Orchard College Christmas Party",
+        "reason": "College-age event outside summer."
+      },
+      {
+        "name": "Winter Retreat 2027",
+        "reason": "January 15–18 retreat, outside summer."
+      },
+      {
+        "name": "Orchard Kids: Fall Faith Labs",
+        "reason": "Fall discipleship program, outside summer."
+      },
+      {
+        "name": "Orchard Kids: SPRING Faith Lab",
+        "reason": "April–May program, outside summer."
+      },
+      {
+        "name": "PreK & Kids-Family Summer Kickoff",
+        "reason": "Family gathering rather than a supervised youth camp."
+      },
+      {
+        "name": "PreK & Kids Summer Family Night",
+        "reason": "Explicitly a program for parents and children together."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp: Teen Valley Ranch",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students attend summer camp at Teen Valley Ranch for Bible study, worship, and camp activities.",
+        "camp_page_url": "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+        "registration_url": "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://theorchardnc.churchcenter.com/registrations/events/3476086",
+          "https://www.theorchardnc.com/students/",
+          "https://tvr.org/"
+        ],
+        "confidence": "low",
+        "review_notes": "The official registration search snippet states grades 6–12 and June 15–20, but does not show a year; confirm the season before entering dates. The full registration page could not be read. Overnight format is inferred from the six-day ranch camp. Teen Valley Ranch publishes its physical location as 216 TVR Loop Rd, Plumtree, NC, but the church does not establish whether families drop off there or meet at the church for group travel, so sites is empty. Confirm format, drop-off location, price, and registration details with the church."
+      }
+    ]
+  }
+}

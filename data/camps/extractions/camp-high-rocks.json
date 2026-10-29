@@ -1,0 +1,401 @@
+{
+  "provider": {
+    "key": "camp-high-rocks",
+    "name": "Camp High Rocks",
+    "urls": [
+      "https://www.highrocks.com/dates-rates/",
+      "https://www.highrocks.com/",
+      "https://www.highrocks.com/activities/horseback-riding/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:01:04.108Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "287d0840545538cbb1fa1e70640debd11c0fc73d610d0aeb0a3cd68a0ec751b4",
+  "response": {
+    "searches": [
+      "site:highrocks.com leadership program",
+      "open https://www.highrocks.com/current-families/leadership-program/",
+      "site:highrocks.com \"2027\" \"September\" registration"
+    ],
+    "usage": {
+      "inputTokens": 27794,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2688,
+      "reasoningTokens": 232
+    },
+    "status": "completed",
+    "ms": 60486,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.highrocks.com/dates-rates/",
+      "chars": 5673,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/",
+      "chars": 4361,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/activities/horseback-riding/",
+      "chars": 4374,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/dates-rates/junior-camp/",
+      "chars": 5108,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/dates-rates/mini-sessions/",
+      "chars": 5775,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/dates-rates/august-session/",
+      "chars": 5295,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/dates-rates/june-session/",
+      "chars": 5604,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.highrocks.com/dates-rates/july-session/",
+      "chars": 5811,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp High Rocks",
+    "website_url": "https://www.highrocks.com/",
+    "notes": "Summer 2027 registration is stated to be open, but no dated opening milestone was found. Session lengths are grouped in one overnight camp card. A separate Summit Leadership Program card covers camper leadership training, not paid junior-staff employment. The registration policies, meals and travel pages returned empty text when opened; meals and airport transportation were visible in official search results.",
+    "excluded": [
+      {
+        "name": "Father-Son Weekends",
+        "reason": "Family-only programs held in spring."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only Labor Day retreat."
+      },
+      {
+        "name": "Counselor Trainee and Assistant Counselor",
+        "reason": "Paid junior-staff employment roles, not camper programs."
+      },
+      {
+        "name": "Summer Jobs",
+        "reason": "Employment positions."
+      },
+      {
+        "name": "Horseback Riding",
+        "reason": "An activity within overnight camp tuition, not a separately enrolled camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp High Rocks",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "arts", "horses"],
+        "description": "Boys participate in outdoor adventure activities, sports, crafts and cabin camp-outs. Longer sessions include horseback riding and opportunities for off-property adventure trips; Junior Camp rotates cabin groups through activities and does not include horseback riding, pottery or rocketry.",
+        "camp_page_url": "https://www.highrocks.com/dates-rates/",
+        "registration_url": "https://www.highrocks.com/apply-now/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-14",
+          "text": "Registration for Summer 2027 is now open!"
+        },
+        "ages": {
+          "min": 7,
+          "max": 16
+        },
+        "grades": {
+          "min": 0,
+          "max": 10,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp High Rocks",
+            "address": "1234 High Rocks Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June – 3 Week",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 10,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7600,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "June – Mini",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5625,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July – 4 Week",
+            "start": "2027-06-28",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 10,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9225,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Mini I",
+            "start": "2027-06-28",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5625,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Mini II",
+            "start": "2027-07-12",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5625,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August – 2 Week",
+            "start": "2027-07-26",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 7,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5625,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Junior Camp",
+            "start": "2027-08-09",
+            "end": "2027-08-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 4,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2400,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We serve buffet style, allowing campers to feel more in control of their own food choices."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Camp High Rocks provides transportation to campers flying commercial or private from the Asheville Regional Airport (AVL) or Greenville Spartanburg International Airport (GSP)."
+        },
+        "sources": [
+          "https://www.highrocks.com/",
+          "https://www.highrocks.com/dates-rates/",
+          "https://www.highrocks.com/dates-rates/junior-camp/",
+          "https://www.highrocks.com/dates-rates/mini-sessions/",
+          "https://www.highrocks.com/dates-rates/august-session/",
+          "https://www.highrocks.com/dates-rates/june-session/",
+          "https://www.highrocks.com/dates-rates/july-session/",
+          "https://www.highrocks.com/activities/horseback-riding/",
+          "https://www.highrocks.com/apply-now/",
+          "https://www.highrocks.com/current-families/meals-at-camp/",
+          "https://www.highrocks.com/current-families/traveling-to-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The July Session detail page says current grades 1–10, but the explicitly dated 2027 rates table says grades 3–10; the row uses the rates table. Grades refer to the 2026–2027 school year. The homepage's general ages 7–16 are retained without converting Junior Camp's kindergarten eligibility to an age. Meals and transportation wording was read only through official search snippets."
+      },
+      {
+        "name": "Summit Leadership Program",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Older campers receive leadership instruction and practice through activity apprenticeships, mentoring younger campers and helping with camp events. Responsibilities increase across eighth, ninth and tenth grades.",
+        "camp_page_url": "https://www.highrocks.com/current-families/leadership-program/",
+        "registration_url": "https://www.highrocks.com/apply-now/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": "The June and July sessions include the Leadership Program for current 8–10th graders."
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 10,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp High Rocks",
+            "address": "1234 High Rocks Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June – 3 Week",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 7600,
+              "unit": "session",
+              "label": "June session tuition; leadership program included",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July – 4 Week",
+            "start": "2027-06-28",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9225,
+              "unit": "session",
+              "label": "July session tuition; leadership program included",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.highrocks.com/current-families/leadership-program/",
+          "https://www.highrocks.com/dates-rates/june-session/",
+          "https://www.highrocks.com/dates-rates/july-session/",
+          "https://www.highrocks.com/dates-rates/",
+          "https://www.highrocks.com/apply-now/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

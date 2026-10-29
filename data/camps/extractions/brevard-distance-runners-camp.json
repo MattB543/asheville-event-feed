@@ -1,0 +1,141 @@
+{
+  "provider": {
+    "key": "brevard-distance-runners-camp",
+    "name": "Brevard Distance Runners Camp",
+    "urls": ["https://www.runbdrc.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:50.436Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9bdb0ccf0a4729d3a8718fd805fc5a53403afa06a0e6d78ac7ce41341151105b",
+  "response": {
+    "searches": [
+      "site.brevard.edu address 1 Brevard College Drive",
+      "site.runbdrc.com/preparing \"College\"",
+      "\"Brevard Distance\" \"Brevard College\" camp"
+    ],
+    "usage": {
+      "inputTokens": 29479,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1053,
+      "reasoningTokens": 209
+    },
+    "status": "completed",
+    "ms": 34983,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.runbdrc.com/",
+      "chars": 4260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.runbdrc.com/registration",
+      "chars": 6889,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campscui.active.com/orgs/BrevardDistanceRunningCamp?orglink=camps-registration",
+      "chars": 5207,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.runbdrc.com/experience-camp",
+      "chars": 3892,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard Distance Runners Camp",
+    "website_url": "https://www.runbdrc.com/",
+    "notes": "2027 dates are posted. The supplied ACTIVE link displays adult coach registrations, not youth camper pricing or ages. No dated registration-opening announcement was found. The Preparing page returned no readable text. The college confirms historical hosting, but the current supplied pages do not explicitly confirm the 2027 drop-off venue.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Brevard Distance Runners Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers participate in trail running, running drills, cross training, team challenges, and speaker sessions on mindset and leadership. Recreational activities include dodgeball, volleyball, tie dye, and a talent show.",
+        "camp_page_url": "https://www.runbdrc.com/",
+        "registration_url": "https://www.runbdrc.com/registration",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-24",
+          "text": "2027 CAMP DATES"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 850,
+            "unit": "week",
+            "label": "Individuals or teams without transportation",
+            "year": 2027
+          },
+          {
+            "amount": 795,
+            "unit": "week",
+            "label": "Teams with transportation",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week One",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week Two",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "BDRC provides a free shuttle to and from Asheville, NC airport (AVL)."
+        },
+        "sources": [
+          "https://www.runbdrc.com/",
+          "https://www.runbdrc.com/registration",
+          "https://www.runbdrc.com/experience-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration-page weeks match the explicitly labeled 2027 dates on the homepage; the registration page does not separately print a year with its prices. Confirm the 2027 venue and drop-off address: historical Brevard College articles identify campus hosting, but current camp pages only give a mailing address. Grades 6–7 require a coach in attendance; grades 8–12 may attend individually or with a coach. Individuals cannot stay two weeks. The $150 non-refundable reservation deposit and separate $50 refundable key deposit are not additional tuition tiers. The transportation discount requires qualifying team buses or vans under the registration page's rules."
+      }
+    ]
+  }
+}

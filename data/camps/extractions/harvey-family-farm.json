@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "harvey-family-farm",
+    "name": "Harvey Family Farm",
+    "urls": ["https://www.harveyfamilyfarm.com/nature-camp"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:08:06.954Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f4b8aa246a8f89e4e2c6799304308ce7554625af33ae3e47dafeb0f587b06c7b",
+  "response": {
+    "searches": [
+      "site:harveyfamilyfarm.com \"camp\" \"2027\"",
+      "open https://www.harveyfamilyfarm.com/flower-farm-events-workshops/nature-camp-week-1-9rcy6-jcykk-6acn8"
+    ],
+    "usage": {
+      "inputTokens": 15692,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1206,
+      "reasoningTokens": 87
+    },
+    "status": "completed",
+    "ms": 38013,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.harveyfamilyfarm.com/nature-camp",
+      "chars": 5124,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/nature-camp",
+      "chars": 1257,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/p/nature-camp-june-22-26-2026",
+      "chars": 1611,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/flower-farm-store/p/nature-camp-june-22-26-2026-be76e-hbc5w-nhz6s",
+      "chars": 1611,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.harveyfamilyfarm.com/",
+      "chars": 2905,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Harvey Family Farm",
+    "website_url": "https://www.harveyfamilyfarm.com/",
+    "notes": "No 2027 camp dates or registration milestones found. The main camp page lists two 2026 weeks, while the official event listings advertise three weeks, including July 20–24. The store category has no results and both supplied product registration pages return page-not-found messages.",
+    "excluded": [
+      {
+        "name": "Camp on the Farm",
+        "reason": "Tent-site reservations for independent camping, not a supervised youth program."
+      },
+      {
+        "name": "Books in Bloom",
+        "reason": "Family story-time event, not a supervised drop-off youth program."
+      },
+      {
+        "name": "Corporate & Team Retreats",
+        "reason": "Adult corporate and leadership-team retreats."
+      },
+      {
+        "name": "Pumpkins & Petals",
+        "reason": "Fall floral arrangement workshop, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nature Camp on the Flower Farm",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "arts"],
+        "description": "Children explore plants, insects, soil and creek wildlife through guided activities, science experiments and nature crafts. Each day also includes supervised outdoor free play.",
+        "camp_page_url": "https://www.harveyfamilyfarm.com/nature-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Harvey Family Farm",
+            "address": "101 Harvey Lane",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Camp opens at 9 am and closes at 4 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 255,
+            "unit": "week",
+            "label": "per child",
+            "year": 2026
+          },
+          {
+            "amount": 225,
+            "unit": "week",
+            "label": "additional siblings",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "We will provide popsicles & healthy snacks. Parents are responsible for packing a lunch each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.harveyfamilyfarm.com/nature-camp",
+          "https://www.harveyfamilyfarm.com/flower-farm-events-workshops/nature-camp-week-1-9rcy6",
+          "https://www.harveyfamilyfarm.com/flower-farm-events-workshops/nature-camp-week-1-9rcy6-jcykk-6acn8",
+          "https://www.harveyfamilyfarm.com/flower-farm-store/nature-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify the July 20–24 session: its official event-page title states those 2026 dates, but the main camp page lists only June 22–26 and July 6–10. Ages 6–12 are stated in official event search results; the event pages returned no readable body when opened. The main page states $255 per child and $225 for additional siblings in a weekly booking context rather than explicitly saying per week. No functioning registration product was found."
+      }
+    ]
+  }
+}

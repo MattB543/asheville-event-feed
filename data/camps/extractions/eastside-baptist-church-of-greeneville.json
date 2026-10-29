@@ -1,0 +1,164 @@
+{
+  "provider": {
+    "key": "eastside-baptist-church-of-greeneville",
+    "name": "Eastside Baptist Church of Greeneville",
+    "urls": [
+      "https://eastsidebaptist.info/event/vbs-family-reunion/",
+      "https://eastsidebaptist.info/"
+    ],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:25:51.828Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1c52347504e60f6daf8f626217768830d9891afc6a5cec586312786cfe0727b8",
+  "response": {
+    "searches": [
+      "site:eastsidebaptist.info \"Vacation Bible School\" 2026",
+      "site:facebook.com \"Eastside\" \"Greeneville\" \"Junkyard\" \"2026\"",
+      "site:eastsidebaptist.info/event/vacation-bible-school-5/ \"20260713\""
+    ],
+    "usage": {
+      "inputTokens": 26209,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1437,
+      "reasoningTokens": 332
+    },
+    "status": "completed",
+    "ms": 38891,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastsidebaptist.info/event/vbs-family-reunion/",
+      "chars": 1383,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastsidebaptist.info/",
+      "chars": 2113,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastsidebaptist.info/event/bibm-summer-meeting-2/",
+      "chars": 1340,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Eastside Baptist Church of Greeneville",
+    "website_url": "https://eastsidebaptist.info/",
+    "notes": "No 2027 summer program information or registration dates found. Official event pages were readable through search results, but direct opens returned no text. The 2026 VBS listing provides little detail; ages, cost and registration remain unverified.",
+    "excluded": [
+      {
+        "name": "Junkyard Jamboree VBS Family Reunion",
+        "reason": "Family reunion and VBS celebration, not a separately described supervised youth camp."
+      },
+      {
+        "name": "BIBM Summer Meeting",
+        "reason": "Mission meeting; not described as a supervised youth program."
+      },
+      {
+        "name": "Kids4Truth",
+        "reason": "Recurring Wednesday Bible classes, not a summer-only program."
+      },
+      {
+        "name": "IGNITE",
+        "reason": "Year-round Wednesday youth group."
+      },
+      {
+        "name": "Ignite Winter Retreat",
+        "reason": "Winter program outside summer."
+      },
+      {
+        "name": "Nursery, Sunday School and Children’s Church",
+        "reason": "Recurring church childcare and classes, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church hosts an evening Vacation Bible School over five days.",
+        "camp_page_url": "https://eastsidebaptist.info/event/vacation-bible-school-5/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Eastside Baptist Church",
+            "address": "195 Serral Drive",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "July 13 @ 6:00 pm - July 17 @ 8:30 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastsidebaptist.info/event/vacation-bible-school-5/",
+          "https://eastsidebaptist.info/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official event text was available only through search results and omits the year beside July 13–17; 2026 is inferred from current event context. The official listing starts at 6:00 pm, while WGRV's 2026 report distinguishes registration at 6:00 pm from activities at 6:30 pm. Confirm activity hours, year, ages and registration with the church."
+      },
+      {
+        "name": "Teen and Junior Camp at The Wilds",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "The church lists a six-day teen and junior camp trip to The Wilds.",
+        "camp_page_url": "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/",
+          "https://eastsidebaptist.info/event/teen-and-junior-camp-at-the-wilds/?ical=1"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and year are supported by the official calendar export through search results. Overnight format is inferred from the multi-day camp trip. The church does not identify the family drop-off location, precise ages or grades, price, transportation arrangements or registration process; do not assume drop-off is at the church or The Wilds."
+      }
+    ]
+  }
+}

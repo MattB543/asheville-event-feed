@@ -1,0 +1,327 @@
+{
+  "provider": {
+    "key": "camp-merrie-woode",
+    "name": "Camp Merrie-Woode",
+    "urls": [
+      "https://www.merriewoode.com/programs-activities",
+      "https://www.merriewoode.com/newpage"
+    ],
+    "area": "Sapphire, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:08:02.626Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "09e711b693ffb4b5bdd63556832da018eb506fc5d1e98efdfcff4bd2982ce038",
+  "response": {
+    "searches": [
+      "site:merriewoode.com \"CIT\" \"JC\"",
+      "open https://www.merriewoode.com/jc/cit-programs"
+    ],
+    "usage": {
+      "inputTokens": 22389,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2098,
+      "reasoningTokens": 113
+    },
+    "status": "completed",
+    "ms": 41976,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.merriewoode.com/programs-activities",
+      "chars": 3720,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/newpage",
+      "chars": 4436,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/jc/dates-and-benefits",
+      "chars": 4349,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/dei-at-camp",
+      "chars": 3809,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/daily-schedule",
+      "chars": 4074,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/jc/camperships",
+      "chars": 4264,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/schedule-a-tour",
+      "chars": 3232,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.merriewoode.com/jc/summer-positions",
+      "chars": 6940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Merrie-Woode",
+    "website_url": "https://www.merriewoode.com/",
+    "notes": "2027 camper and Junior Counselor dates and rates are posted. The dates-and-rates page's metadata still references 2026, but its session table explicitly says 2027. The Junior Counselor application deadline says September 15 without a year, so it is not recorded as a dated milestone.",
+    "excluded": [
+      {
+        "name": "Counselor in Training Program",
+        "reason": "A staff-transition work program: participants assist with teaching and all receive a stipend for their work, with service hours offered instead. Excluded under the employment-program rule."
+      },
+      {
+        "name": "Summer Positions",
+        "reason": "Paid employment positions, not youth camp offerings."
+      },
+      {
+        "name": "Staff Orientation and Activity Specific Pre-orientation",
+        "reason": "Training for hired staff, not youth camp offerings."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Merrie-Woode",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "arts", "sports", "horses", "theater"],
+        "description": "Girls live in cabins and choose instructed activities including boating, riding, climbing, drama, crafts, and swimming. June and Main Session campers choose eight activities, while August Session campers choose five.",
+        "camp_page_url": "https://www.merriewoode.com/newpage",
+        "registration_url": "https://www.merriewoode.com/newpage",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-01",
+          "end": "2027-08-08",
+          "text": "2027 Camp sessions"
+        },
+        "ages": {
+          "min": 7,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Merrie-Woode",
+            "address": "100 Merrie-Woode Road",
+            "town": "Sapphire",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-01",
+            "end": "2027-06-21",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6825,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Session",
+            "start": "2027-06-23",
+            "end": "2027-07-27",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 8950,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "August Session",
+            "start": "2027-07-29",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4150,
+              "unit": "session",
+              "label": "Tuition",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-08-09",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The 2027 Application will open for all prospective campers on Sunday, August 9, 2026.",
+            "url": "https://www.merriewoode.com/newpage",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-09",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "All prospective and returning campers may start applying on Sunday, August 9, 2026.",
+            "url": "https://www.merriewoode.com/newpage",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "deadline",
+            "date": "2026-09-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Returning campers are given priority re-enrollment into their 2026 session through Tuesday, September 15, 2026.",
+            "url": "https://www.merriewoode.com/newpage",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Camperships are need-based full and partial tuition scholarships that make the Merrie-Woode experience available to a range of families, including alumnae families, for whom tuition is out of reach."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "1:00 - Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.merriewoode.com/newpage",
+          "https://www.merriewoode.com/programs-activities",
+          "https://www.merriewoode.com/daily-schedule",
+          "https://www.merriewoode.com/jc/camperships"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Junior Counselor Program",
+        "type": "overnight",
+        "categories": ["general"],
+        "description": "Previous Merrie-Woode campers participate in leadership sessions and assist in activity areas to gain teaching experience. Junior Counselors live together with two JC Leaders and can acquire service hours.",
+        "camp_page_url": "https://www.merriewoode.com/jc/cit-programs",
+        "registration_url": "https://www.merriewoode.com/newpage",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-01",
+          "end": "2027-07-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 12,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Merrie-Woode",
+            "address": "100 Merrie-Woode Road",
+            "town": "Sapphire",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session JC",
+            "start": "2027-06-01",
+            "end": "2027-06-21",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3412,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Main Session JC",
+            "start": "2027-06-23",
+            "end": "2027-07-27",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4475,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.merriewoode.com/jc/cit-programs",
+          "https://www.merriewoode.com/jc/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

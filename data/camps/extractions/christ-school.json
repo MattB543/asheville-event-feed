@@ -1,0 +1,418 @@
+{
+  "provider": {
+    "key": "christ-school",
+    "name": "Christ School",
+    "urls": ["https://www.christschool.org/athletics/summer-camps"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:18.171Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c06347f1debaee82c66011270d58c9a638930e5db3f6a6b3159b7e72561ffe38",
+  "response": {
+    "searches": [
+      "All American Cross Country Camp 2027 July 4 9",
+      "open https://www.crosscountrycamp.com/",
+      "site.crosscountrycamp.com \"2027\" \"890\""
+    ],
+    "usage": {
+      "inputTokens": 28872,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3051,
+      "reasoningTokens": 235
+    },
+    "status": "completed",
+    "ms": 91748,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.christschool.org/athletics/summer-camps",
+      "chars": 4464,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/admissions/tuition-and-financial-aid",
+      "chars": 7207,
+      "method": "fetch"
+    },
+    {
+      "url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
+      "chars": 3135,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/parents/current-parent-faq",
+      "chars": 12324,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/campus-life/school-calendar",
+      "chars": 3307,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/visit-campus",
+      "chars": 4255,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/admission-faq",
+      "chars": 8421,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.christschool.org/new-weekly-schedule",
+      "chars": 12030,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Christ School",
+    "website_url": "https://www.christschool.org/",
+    "notes": "The current camp page lists Plumlee Basketball Camp and All-American Cross Country Camp. Its introductory text still mentions lacrosse and Next Level Football Academy, but no current details accompany those names; they are not included as current offerings. The cross-country website confirms the listed July dates are for 2027, but its pages returned no readable body text when opened; search results supplied the dated heading. Cross-country prices on the school page have no explicit year and are omitted pending verification. School tuition financial aid and school-year transportation policies were not applied to camps.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Plumlee Basketball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Boys practice basketball skills and compete in games with Mason Plumlee and camp coaches. Activities also include film review, strength and conditioning, outdoor team-building, and leadership discussions.",
+        "camp_page_url": "https://www.christschool.org/athletics/summer-camps",
+        "registration_url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in: 9 a.m. to 10:30 a.m. on June 21; Camp begins: 10:30 a.m. on June 21; Camp ends: 1 p.m. on June 24."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 850,
+            "unit": "program",
+            "label": "Overnight by March 1; additional $56 fees; meals and lodging included",
+            "year": 2027
+          },
+          {
+            "amount": 900,
+            "unit": "program",
+            "label": "Overnight after March 1; additional $59 fees; meals and lodging included",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-06-20",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Register By Jun 20, 2027 11:59pm CST",
+            "url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Register for this event! Select a price option to continue."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "includes meals and lodging"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.christschool.org/athletics/summer-camps",
+          "https://register.ryzer.com/camp.cfm?sport=4&id=338224"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ryzer also lists an overnight rate of $800 plus $53 fees by August 1st, absent from the school page and without a calendar year for that cutoff; omitted pending confirmation. Ryzer labels its deadline time CST rather than Eastern; verify the intended timezone and Eastern calendar date before publishing a timed reminder."
+      },
+      {
+        "name": "Plumlee Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Commuter campers participate in basketball skill development, competition, film review, conditioning, and leadership activities. Meals are included, but lodging is not.",
+        "camp_page_url": "https://www.christschool.org/athletics/summer-camps",
+        "registration_url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in: 9 a.m. to 10:30 a.m. on June 21; Camp begins: 10:30 a.m. on June 21; Camp ends: 1 p.m. on June 24. Daily commuter arrival and departure hours are not stated."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "program",
+            "label": "Commuter; additional $50 fees; meals included, no lodging",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-06-20",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Register By Jun 20, 2027 11:59pm CST",
+            "url": "https://register.ryzer.com/camp.cfm?sport=4&id=338224",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Commuter Camper $800.00 ($750.00 + $50.00 Fees)"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "includes meals only, no lodging"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.christschool.org/athletics/summer-camps",
+          "https://register.ryzer.com/camp.cfm?sport=4&id=338224"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ryzer labels its deadline time CST rather than Eastern; verify the intended timezone and Eastern calendar date before publishing a timed reminder. The sample overnight schedule does not establish commuter hours."
+      },
+      {
+        "name": "All-American Cross Country Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "High school runners train on trails around Christ School with camp instructors, including collegiate and high school All-Americans.",
+        "camp_page_url": "https://www.crosscountrycamp.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-23",
+          "text": "2027 Dates Session 1- July 4-9 Session 2- July 11-16 Session 3- July 18-23"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration now open!!!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers are served three meals a day in the dining hall located on the Christ School campus."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.christschool.org/athletics/summer-camps",
+          "https://www.crosscountrycamp.com/",
+          "https://www.crosscountrycamp.com/camp",
+          "https://www.crosscountrycamp.com/camp-info"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates and registration availability were read through official search results because the camp website opened without readable text. The school states high school individuals and teams, boys and girls; grades 9-12 encode that school level. Verify precise grade eligibility. The school lists $890 overnight without an explicit year; omitted. Registration destination could not be recovered."
+      },
+      {
+        "name": "All-American Cross Country Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "High school runners participate in cross-country training on trails around Christ School with camp instructors.",
+        "camp_page_url": "https://www.crosscountrycamp.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-04",
+          "end": "2027-07-23",
+          "text": "2027 Dates Session 1- July 4-9 Session 2- July 11-16 Session 3- July 18-23"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Registration now open!!!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.christschool.org/athletics/summer-camps",
+          "https://www.crosscountrycamp.com/",
+          "https://www.crosscountrycamp.com/camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates and registration availability were read through official search results because the camp website opened without readable text. Verify day-camper participation in all three sessions and precise grade eligibility; the school states high school individuals and teams, boys and girls. The school lists $650 day camp without an explicit year; omitted. Registration destination and day-camper hours could not be recovered."
+      }
+    ]
+  }
+}

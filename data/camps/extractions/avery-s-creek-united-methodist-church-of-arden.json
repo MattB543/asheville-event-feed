@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "avery-s-creek-united-methodist-church-of-arden",
+    "name": "Avery's Creek United Methodist Church of Arden",
+    "urls": ["https://acumc.org/", "https://www.facebook.com/averyscreekumc"],
+    "area": "Arden, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (80410000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 80 ); chrome-tls: fetch failed (80410000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3."
+  },
+  "extractedAt": "2026-10-29T15:13:14.139Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:acumc.org vacation bible school 2026",
+      "site:facebook.com/averyscreekumc \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 16163,
+      "cachedInputTokens": 8223,
+      "outputTokens": 877,
+      "reasoningTokens": 233
+    },
+    "status": "completed",
+    "ms": 25314,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://acumc.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (B0980000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 80\n); chrome-tls: fetch failed (B0980000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 80\n); browser: page.goto: net::ERR_SSL_PROTOCOL_ERROR at https://acumc.org/\nCall log:\n\u001b[2m  - navigating to \"https://acumc.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/averyscreekumc",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Avery's Creek United Methodist Church of Arden",
+    "website_url": "https://acumc.org/",
+    "notes": "No summer 2027 information was found. Direct access to the church website was blocked by robots.txt, and its Facebook page returned no readable content. Official website search results supplied the church's physical address and year-round youth program details. A third-party AllEvents listing identified a 2026 Vacation Bible School, but its dates and hours could not be verified on official pages.",
+    "excluded": [
+      {
+        "name": "UMYF",
+        "reason": "Year-round youth fellowship for grades 7–12, meeting on the first and third Sundays each month; not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round Sunday classes, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Avery's Creek United Methodist Church",
+            "address": "874 Glenn Bridge Rd. SE",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "20:00",
+          "text": "The third-party event listing gives 5–8 pm and says a free meal is served each night at 5 pm; official confirmation is needed."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://acumc.org/"],
+        "confidence": "low",
+        "review_notes": "Confirm the program, July 27–31, 2026 dates, hours, eligible ages, activities and registration details with the church. Dates and hours are from https://allevents.in/arden/vacation-bible-school/200030269180956, not a readable official announcement. That listing says to contact Joan at 828-337-2743 for registration information. The physical address is stated in official homepage search results; 95 Brinson Lane is the mailing address, not the camp venue."
+      }
+    ]
+  }
+}

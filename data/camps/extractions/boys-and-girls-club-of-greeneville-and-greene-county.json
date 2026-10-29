@@ -1,0 +1,167 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-greeneville-and-greene-county",
+    "name": "Boys & Girls Club of Greeneville & Greene County",
+    "urls": ["https://www.ggcbgc.org/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:21.807Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8134aaea6e5bfa3f3c6310ea8fa027fe795a5915ce0046e8e5df1acfca763308",
+  "response": {
+    "searches": [
+      "site:ggcbgc.org summer 2027 2026 program",
+      "site:ggcbgc.org/2015-program-calendar \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 18438,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1274,
+      "reasoningTokens": 167
+    },
+    "status": "completed",
+    "ms": 33819,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ggcbgc.org/",
+      "chars": 2428,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ggcbgc.org/2015-program-calendar",
+      "chars": 1624,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ggcbgc.org/copy-of-one-campaign",
+      "chars": 3775,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ggcbgc.org/one-campaign",
+      "chars": 1941,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ggcbgc.org/club-faqsa72155ae",
+      "chars": 4430,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of Greeneville & Greene County",
+    "website_url": "https://www.ggcbgc.org/",
+    "notes": "No summer 2027 dates or registration announcements were found. The supplied 2026 Summer Program page does not state season dates. Direct website access was blocked by robots.txt; searches did not locate accessible enrollment-form or parent-handbook PDFs. Day Camp with Rural Resources is described as an activity for Club members, without a summer year or separate enrollment details, and was not treated as a separate offering.",
+    "excluded": [
+      {
+        "name": "After School Program",
+        "reason": "School-year childcare, not a summer program."
+      },
+      {
+        "name": "Gardening Program",
+        "reason": "Offered every Monday throughout the year, rather than as a finite summer program."
+      },
+      {
+        "name": "College and Business Tours",
+        "reason": "The official Education page places these activities during spring break."
+      },
+      {
+        "name": "Power Hour",
+        "reason": "Daily homework and tutoring program during the school year."
+      },
+      {
+        "name": "Stride Academy",
+        "reason": "The official Education page describes participation from January through May, not a summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in Club activities including arts and crafts and gym games. Breakfast, lunch and an afternoon snack are provided.",
+        "camp_page_url": "https://www.ggcbgc.org/2015-program-calendar",
+        "registration_url": "https://www.ggcbgc.org/2015-program-calendar",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Boys & Girls Club of Greeneville & Greene County",
+            "address": "413 East Vann Rd.",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "7:30 a.m. - 5:30 p.m., Monday through Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "First child; annual membership fee also required",
+            "year": 2026
+          },
+          {
+            "amount": 180,
+            "unit": "program",
+            "label": "Each additional child; annual membership fee also required",
+            "year": 2026
+          },
+          {
+            "amount": 40,
+            "unit": "other",
+            "label": "Required annual membership fee per child, in addition to summer program fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 Summer Program; waiting list remains open",
+          "text": "Our Summer Program is officially FULL! If you were not able to get a spot, our waiting list is still open. To be added to the waiting list, please call 423-787-9322."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Breakfast is served daily at 8:30 AM. Lunch is served daily at 12:00 PM. Snack is served daily at 2:45 PM."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ggcbgc.org/2015-program-calendar",
+          "https://www.ggcbgc.org/club-faqsa72155ae",
+          "https://www.ggcbgc.org/",
+          "https://www.ggcbgc.org/copy-of-one-campaign",
+          "https://www.ggcbgc.org/one-campaign"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices and enrollment eligibility are from the undated Club FAQs, used as 2026 fallback information; verify them against the 2026 enrollment form or parent handbook. The FAQs require ages 5–18 and say children must currently be attending Kindergarten to be eligible; the kindergarten minimum is recorded without converting it to an age. The homepage and FAQs publish 413 East Vann Rd., while older campaign pages list 740 West Church Street; the current homepage/FAQ address is used. The full status is the still-published 2026 notice, not a 2027 availability statement."
+      }
+    ]
+  }
+}

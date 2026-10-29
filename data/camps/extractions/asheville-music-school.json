@@ -1,0 +1,703 @@
+{
+  "provider": {
+    "key": "asheville-music-school",
+    "name": "Asheville Music School",
+    "urls": [
+      "https://www.ashevillemusicschool.org/summer-camps/",
+      "https://ashevillemusicschool.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": [
+      "seed_sheet",
+      "macaroni_kid",
+      "news828",
+      "our_db",
+      "grid",
+      "aggregator",
+      "gap_fill"
+    ],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:53:40.027Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ca7da599b2507da6953ba0c97e3c2c329cf1303507d7db3d1c5957931a633ec1",
+  "response": {
+    "searches": [
+      "site:ashevillemusicschool.org \"2027\" camp",
+      "open https://www.ashevillemusicschool.org/asheville-music-school-news/summer-camps-announced/"
+    ],
+    "usage": {
+      "inputTokens": 19966,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4967,
+      "reasoningTokens": 199
+    },
+    "status": "completed",
+    "ms": 97480,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillemusicschool.org/summer-camps/",
+      "chars": 4444,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemusicschool.org/",
+      "chars": 3251,
+      "method": "fetch"
+    },
+    {
+      "url": "https://programs.ashevillemusicschool.org/camp-offerings/",
+      "chars": 2125,
+      "method": "fetch"
+    },
+    {
+      "url": "https://programs.ashevillemusicschool.org/admin/uploads/file/summer-camp-scholarship-application-2024.pdf",
+      "chars": 3630,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillemusicschool.org/enroll",
+      "chars": 2667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillemusicschool.org/faqs/",
+      "chars": 6055,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Music School",
+    "website_url": "https://www.ashevillemusicschool.org/",
+    "notes": "No 2027 dates or registration announcements found. Cards use 2026 information. The registration platform currently lists no offerings; this is not treated as an explicit closed status. The provider publishes an overall $210-$385 cost range without assigning prices to individual programs, so prices are left empty. Member and sibling discounts are published, but the two pages describe the multiple-camper discount differently. The February announcement includes Jazz Camp and different Music Explorations details from the current summer-camps page. Non-Trinity camps appear to meet at AMS, but their individual locations are not explicitly stated, so sites are left empty rather than assuming the school's address. Summer 2026 early-bird enrollment began January 2, 2026; no public opening date was found.",
+    "excluded": [
+      {
+        "name": "Private Music Lessons",
+        "reason": "Year-round lessons, not a finite summer camp."
+      },
+      {
+        "name": "Student Bands & Ensembles",
+        "reason": "Year-round or seasonal ensembles rather than finite summer camps."
+      },
+      {
+        "name": "Adult Ukulele Jam Class",
+        "reason": "Adult-only class beginning in September, outside summer."
+      },
+      {
+        "name": "Workshop for AMS Teachers",
+        "reason": "Professional workshop for teachers and staff, not a youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ukulele Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers learn ukulele in a group setting. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trinity United Methodist Church",
+            "address": "587 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list",
+          "https://trinitywavl.org/about/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Rock Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Campers make rock music together in groups. Some experience is helpful; the pre-teen session does not require it.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Mon-Fri, 9am-4pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Pre-Teen Pop Rock Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rock Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Music Explorations",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Young campers explore making music in small or large groups. Camps include outdoor time when weather permits.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trinity United Methodist Church",
+            "address": "587 Haywood Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/summer-camps-announced/",
+          "https://trinitywavl.org/about/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Current camp page gives ages 4-6 and only a morning June 29 session. February 2 announcement gives ages 4-7 and both morning and afternoon sessions that week. Used current camp page; verify whether the afternoon session was removed."
+      },
+      {
+        "name": "Video Game Music Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers make music in a video-game-themed camp, working in groups.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Song Circle Voice Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers participate in group vocal music activities.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Song Studio Voice Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers participate in vocal music activities in a group setting.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Mon-Fri, 1pm-4pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Harry Potter-themed Suzuki Strings Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Campers play string instruments in a Harry Potter-themed Suzuki camp. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Beginner camp: 9am-12pm; full-day camp: 9am-4pm. Mon-Fri."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Beginner Harry Potter-themed Suzuki Strings Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 8
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Harry Potter-themed Suzuki Strings Camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Appalachian Music Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers play Appalachian music on acoustic string instruments.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Mon-Fri, 1pm-4pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Jazz Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers make jazz music in groups. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/asheville-music-school-news/summer-camps-announced/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial need-based scholarships are available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/asheville-music-school-news/summer-camps-announced/",
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "medium",
+        "review_notes": "February 2, 2026 announcement lists dates, hours and ages, but current summer-camps page mentions Jazz Camp only in the overview and omits its dated listing. Verify whether it ran or was removed."
+      },
+      {
+        "name": "Open Jam Camp",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers make music together in an open-jam setting. An instrument is required.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Mon-Fri, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Audio Architects: Intro to Recording & Production",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Campers learn the fundamentals of music recording, with a focus on basic recording and mixing techniques.",
+        "camp_page_url": "https://www.ashevillemusicschool.org/summer-camps/",
+        "registration_url": "https://programs.ashevillemusicschool.org/summer-camps/list",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "1pm-4pm, except Wednesday August 12: 1pm-7pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillemusicschool.org/summer-camps/",
+          "https://www.ashevillemusicschool.org/category/asheville-music-school-news/ams-students/",
+          "https://programs.ashevillemusicschool.org/summer-camps/list"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

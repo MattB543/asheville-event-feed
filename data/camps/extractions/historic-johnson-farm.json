@@ -1,0 +1,84 @@
+{
+  "provider": {
+    "key": "historic-johnson-farm",
+    "name": "Historic Johnson Farm",
+    "urls": ["https://www.hendersoncountypublicschoolsnc.org/johnson-farm/events/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:06.307Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "38893e06c7c928ce15cdbc4227de7ab8f2be06ca8f2b8eabb19461619084d1fe",
+  "response": {
+    "searches": [
+      "site.hendersoncountypublicschoolsnc.org/johnson-farm \"2026\" \"camp\"",
+      "\"Historic Johnson Farm\" \"camp\" \"2026\" summer",
+      "\"Historic Johnson Farm\" \"2026\" \"summer camp\" -site:johnsonsfarm.com"
+    ],
+    "usage": {
+      "inputTokens": 35230,
+      "cachedInputTokens": 8223,
+      "outputTokens": 574,
+      "reasoningTokens": 260
+    },
+    "status": "completed",
+    "ms": 29718,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/johnson-farm/events/",
+      "chars": 7159,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/parents/enrollment/",
+      "chars": 7159,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/parent-portal/",
+      "chars": 5027,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/",
+      "chars": 7057,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Historic Johnson Farm",
+    "website_url": "https://www.hendersoncountypublicschoolsnc.org/johnson-farm/",
+    "notes": "No official 2027 summer camp announcement or verifiable 2026 summer camp details were found. The supplied October 27, 2026 events page lists only workday camps and a year-round volunteer club. Search found older summer camp announcements, including Summer Camp 2020, and an undated tourism listing mentioning summer day camp; these do not establish a 2026 or 2027 offering and were not used to create cards. The official home page and field-trip page returned no readable body when opened, although official search snippets were available.",
+    "excluded": [
+      {
+        "name": "School’s Out Workday Camps",
+        "reason": "One-day camps on school-year student closure days, including November 3; outside summer."
+      },
+      {
+        "name": "Junior Interpreters",
+        "reason": "Year-round volunteer club with monthly September-May meetings, not a finite summer youth program."
+      },
+      {
+        "name": "Spring Break Farm & Arts Camp",
+        "reason": "Spring-break program in March, outside summer; found in third-party event listings."
+      },
+      {
+        "name": "Candlelight Christmas Tours",
+        "reason": "December visitor tours, outside summer and not a supervised youth camp."
+      },
+      {
+        "name": "Daytime Christmas Tours",
+        "reason": "December visitor tours, outside summer and not a supervised youth camp."
+      },
+      {
+        "name": "Field Trips and Student Programs",
+        "reason": "School and group field trips, not a finite summer camp offering."
+      }
+    ],
+    "cards": []
+  }
+}

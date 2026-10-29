@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "skyland-first-baptist-church-of-arden",
+    "name": "Skyland First Baptist Church of Arden",
+    "urls": ["https://skylandbaptist.org/?page_id=250", "https://skylandbaptist.org/?page_id=197"],
+    "area": "Arden, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:19.155Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "27fbdec559ad24e479efc4c6cf04dd59945840316d978788aad56ba965f7d2dc",
+  "response": {
+    "searches": ["\"Skyland\" \"Baptist\" \"VBS\" \"2026\""],
+    "usage": {
+      "inputTokens": 17966,
+      "cachedInputTokens": 8223,
+      "outputTokens": 550,
+      "reasoningTokens": 68
+    },
+    "status": "completed",
+    "ms": 18789,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://skylandbaptist.org/?page_id=250",
+      "chars": 1713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandbaptist.org/?page_id=197",
+      "chars": 1250,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandbaptist.org/",
+      "chars": 1601,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Skyland First Baptist Church of Arden",
+    "website_url": "https://skylandbaptist.org/",
+    "notes": "No official 2027 dates or registration announcements were found. The Children / Youth page describes an annual summer VBS but does not identify a specific season or dates; its general details are retained without projecting dates.",
+    "excluded": [
+      {
+        "name": "Children’s Group and Youth Group",
+        "reason": "Recurring Wednesday-night ministries, not finite summer programs."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round Sunday classes."
+      },
+      {
+        "name": "Preschool Church and Children’s Church",
+        "reason": "Recurring worship-time ministries, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Participants rotate through skits and music, games, crafts, Bible Adventure and Sticky Scriptures stations. Supper is provided before the stations.",
+        "camp_page_url": "https://skylandbaptist.org/?page_id=250",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "one week during the Summer"
+        },
+        "ages": {
+          "min": 3,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Skyland First Baptist Church",
+            "address": "2115 Hendersonville Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "Supper from 5:30-6, followed by VBS stations from 6-8:30."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We enjoy supper, that is provided for us from 5:30-6"
+        },
+        "transportation": null,
+        "sources": ["https://skylandbaptist.org/?page_id=250", "https://skylandbaptist.org/"],
+        "confidence": "medium",
+        "review_notes": "The Children / Youth page gives evergreen VBS ages and hours without a season year. The 2026 season designation is a fallback for undated current information, not confirmation of a dated 2026 event. Meal information refers to supper rather than lunch."
+      }
+    ]
+  }
+}

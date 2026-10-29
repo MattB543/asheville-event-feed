@@ -1,0 +1,62 @@
+{
+  "provider": {
+    "key": "shoal-creek-baptist-church-of-burnsville",
+    "name": "Shoal Creek Baptist Church of Burnsville",
+    "urls": ["https://www.shoalcreekbc.org/"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:36.257Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4aaef6e190bb86ca56e8471f1ae6a4a1e8711e5a40ecb7d33c952f98fc40d6fa",
+  "response": {
+    "searches": [
+      "site:shoalcreekbc.org VBS 2026",
+      "\"Shoal Creek\" \"Burnsville\" \"VBS\" \"2026\" \"June\"",
+      "\"Shoal Creek Baptist Church\" \"Burnsville\" \"Vacation Bible\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 27959,
+      "cachedInputTokens": 8009,
+      "outputTokens": 527,
+      "reasoningTokens": 283
+    },
+    "status": "completed",
+    "ms": 22707,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.shoalcreekbc.org/",
+      "chars": 2595,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shoal-creek-baptist-church-530436.churchcenter.com/registrations/events/3785477?fbclid=IwY2xjawTt6aNwZG9mAWV4dG4DYWVtAjExAGJyaWQRMVpFZmFveFZXYWVOaXpJd2FzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeauOQOXMZ5FemyrLeeYJSdxz8Psq7U12C77JitLvAi_uR5yk1LV7z9h1lLac_aem_hfT8z9Lq5cyr-3LUgYdupg",
+      "chars": 1464,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shoal Creek Baptist Church of Burnsville",
+    "website_url": "https://www.shoalcreekbc.org/",
+    "notes": "No 2027 summer program information found. The church's official YouTube channel lists a VBS Presentation on June 7, 2026, but no readable official 2026 VBS announcement with program details was found, so a VBS card has not been created. Search results also surfaced VBS programs at unrelated Shoal Creek churches in Alabama and Georgia; those were not used. The events page returned no readable text. Older 2024 VBS bulletins were found but were not used as 2026 or 2027 facts.",
+    "excluded": [
+      {
+        "name": "Awana Wednesdays",
+        "reason": "School-year weekly religious classes, September 2, 2026 through May 2, 2027; not a finite summer program."
+      },
+      {
+        "name": "Kid's Club",
+        "reason": "Ongoing Sunday worship and Wednesday children's classes, not a finite summer program."
+      },
+      {
+        "name": "Youth program",
+        "reason": "Regular Wednesday youth ministry for grades 7–12, not an identified finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

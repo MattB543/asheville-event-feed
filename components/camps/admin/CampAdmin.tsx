@@ -2,6 +2,8 @@ import type { CampCard } from '@/lib/camps/contract';
 import type { UnpinnedSite } from '@/lib/db/queries/camps';
 import {
   CAMP_SEARCH_LIMIT,
+  REVIEW_TIERS,
+  reviewTier,
   type AdminCamp,
   type HiddenCamp,
   type OrsPinnedSite,
@@ -19,6 +21,9 @@ export interface CampAdminData {
   /** `?q=` and the live camps it matches (up to CAMP_SEARCH_LIMIT + 1). */
   search: { query: string; results: AdminCamp[] };
 }
+
+/** The queue is long (most cards are medium confidence), so the page shows its top. */
+const REVIEW_PAGE_SIZE = 30;
 
 const sectionTitle = 'mt-8 mb-2 text-lg font-bold text-gray-900 dark:text-gray-100';
 const emptyText = 'text-sm text-gray-600 dark:text-gray-400';
@@ -62,17 +67,45 @@ export default function CampAdmin({
         To review
       </h2>
       <p className={`${emptyText} mb-3`}>
-        Camps or registration dates short of high confidence. Confirm marks this exact card as
-        checked; a re-extraction that changes it brings it back.
+        Camps or registration dates short of high confidence, most important first. Confirm marks
+        this exact card as checked; a re-extraction that changes its facts brings it back.
       </p>
       {queue.length === 0 ? (
         <p className={emptyText}>Nothing to review.</p>
       ) : (
-        <ul className="space-y-4">
-          {queue.map((item) => (
-            <ReviewItem key={item.id} item={item} cardKeys={cardKeys} />
-          ))}
-        </ul>
+        <>
+          <ul className={`${emptyText} mb-3 list-disc pl-5`}>
+            {REVIEW_TIERS.map((label, tier) => (
+              <li key={label}>
+                {label}: {queue.filter((item) => reviewTier(item.card) === tier).length}
+              </li>
+            ))}
+          </ul>
+          <ul className="space-y-4">
+            {queue.slice(0, REVIEW_PAGE_SIZE).map((item, index) => {
+              const tier = reviewTier(item.card);
+              const firstOfTier = index === 0 || reviewTier(queue[index - 1].card) !== tier;
+              return (
+                <li key={item.id} className="list-none">
+                  {firstOfTier && (
+                    <h3 className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      {REVIEW_TIERS[tier]}
+                    </h3>
+                  )}
+                  <ul>
+                    <ReviewItem item={item} cardKeys={cardKeys} />
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+          {queue.length > REVIEW_PAGE_SIZE && (
+            <p className={`${emptyText} mt-3`}>
+              {queue.length - REVIEW_PAGE_SIZE} more after these; reload after confirming or hiding
+              to bring them up.
+            </p>
+          )}
+        </>
       )}
 
       <h2 id="pins" className={sectionTitle}>

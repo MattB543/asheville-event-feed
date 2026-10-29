@@ -1,0 +1,201 @@
+{
+  "provider": {
+    "key": "ymca-of-catawba-valley",
+    "name": "YMCA of Catawba Valley",
+    "urls": ["https://ymcacv.org/summer-camp-burke-county"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:21:25.228Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b22860add5d9605e7e03abc6aff1c2f635dd7a61cab37bcd473a7130d166c344",
+  "response": {
+    "searches": [
+      "site:ymcacv.org Burke summer camp 2026 program guide",
+      "open https://www.ymcacv.org/summer-camp-burke-county",
+      "site:ymcacv.org \"2026\" \"Burke\" \"7\" summer camp guide"
+    ],
+    "usage": {
+      "inputTokens": 28633,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1515,
+      "reasoningTokens": 216
+    },
+    "status": "completed",
+    "ms": 61974,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ymcacv.org/summer-camp-burke-county",
+      "chars": 3293,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcacv.org/sites/ymcacv/files/2026-02/2026-SC-Burke%20County%2021st%20CCLC%20Cheat%20Sheet%20Guide.pdf",
+      "chars": 3247,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ymcacv.org/sites/ymcacv/files/2026-02/2026-SC-Burke%20County%20Cheat%20Sheet%20Guide.pdf",
+      "chars": 3363,
+      "method": "fetch"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?program_id=39316&location_type_id=2&location_id=2676&cid=4075",
+      "chars": 640,
+      "method": "browser"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?program_id=39316&location_type_id=2&location_id=2674&cid=4075",
+      "chars": 640,
+      "method": "browser"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?program_id=39316&location_type_id=2&location_id=2679&cid=4075",
+      "chars": 640,
+      "method": "browser"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?program_id=39316&location_type_id=2&location_id=2678&cid=4075",
+      "chars": 640,
+      "method": "browser"
+    },
+    {
+      "url": "https://operations.daxko.com/Programs/Redirector.aspx?program_id=39329&location_type_id=2&location_id=2680&cid=4075",
+      "chars": 640,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YMCA of Catawba Valley",
+    "website_url": "https://www.ymcacv.org/",
+    "notes": "Research focused on the supplied Burke County offerings. No summer 2027 information was found. The Burke County page could not be rendered by the browser; its supplied text and official search results were used. The linked Program Guide could not be retrieved. Supplied registration pages show zero offerings, which does not establish that registration is closed. DSS voucher and United Way registrations are funding-specific paths, not separate camp cards.",
+    "excluded": [
+      {
+        "name": "Burke County Before and After School Program",
+        "reason": "School-year childcare, not a summer-only program."
+      },
+      {
+        "name": "Burke County School’s Out Day Camp Program",
+        "reason": "Listed for teacher workdays, vacation days and holidays rather than a finite summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "YMCA Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in age-appropriate group activities and learn new skills. Camp activities incorporate character development.",
+        "camp_page_url": "https://ymcacv.org/summer-camp-burke-county",
+        "registration_url": "https://operations.daxko.com/Online/4075/ProgramsV2/Search.mvc?program_id=CMP39316",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "New Dimensions Elementary",
+            "address": "550 Lenoir Rd",
+            "town": "Morganton",
+            "state": "NC"
+          },
+          {
+            "name": "Hildebran Elementary",
+            "address": "703 U.S. Hwy 70 SW",
+            "town": "Hildebran",
+            "state": "NC"
+          },
+          {
+            "name": "Valdese Elementary",
+            "address": "298 Praley Street NW",
+            "town": "Valdese",
+            "state": "NC"
+          },
+          {
+            "name": "Salem Elementary",
+            "address": "1329 Salem Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "the ‘UNITED WAY ONLY Summer Camp’ registration is for families that have been approved through Burke County United Way"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ymcacv.org/summer-camp-burke-county",
+          "https://www.ymcacv.org/sites/ymcacv/files/2026-02/2026-SC-Burke%20County%20Cheat%20Sheet%20Guide.pdf",
+          "https://www.ymcacv.org/programs/youth-development/day-and-summer-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "Retrieve the Program Guide linked on the Burke County page to check dates, age eligibility, hours and prices. Sessions are empty because no dated weeks were accessible; site rows cannot be created without season dates. The registration guide calls New Dimensions Elementary New Dimensions Charter School."
+      },
+      {
+        "name": "21st CCLC YMCA Summer Camp – Traditional",
+        "type": "day",
+        "categories": ["general"],
+        "description": "This traditional YMCA summer camp is offered at Mountain View Elementary and W.A. Young Elementary through the 21st CCLC program.",
+        "camp_page_url": "https://ymcacv.org/summer-camp-burke-county",
+        "registration_url": "https://operations.daxko.com/Online/4075/ProgramsV2/Search.mvc?program_id=CMP39329",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "W.A. Young Elementary",
+            "address": "325 Conley Road",
+            "town": "Morganton",
+            "state": "NC"
+          },
+          {
+            "name": "Mountain View Elementary",
+            "address": "805 Bouchelle St",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ymcacv.org/summer-camp-burke-county",
+          "https://www.ymcacv.org/sites/ymcacv/files/2026-02/2026-SC-Burke%20County%2021st%20CCLC%20Cheat%20Sheet%20Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Retrieve the Burke County Program Guide and current registration offerings to verify activities, eligibility, dates, hours and total cost. The 2026 instructions say $0.00 Due Today, which is not sufficient to establish total camp price. Sessions are empty because no dated weeks were accessible."
+      }
+    ]
+  }
+}

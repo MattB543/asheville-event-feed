@@ -1,0 +1,145 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-rutherfordton",
+    "name": "First Baptist Church of Rutherfordton",
+    "urls": ["https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:59.311Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ad2f2ebaa9cada11d153f752bb0afd08558c7eb6178cd9ef50b5fd2375e449e9",
+  "response": {
+    "searches": [
+      "site:firstbaptistrutherfordton.com \"2027\" camp",
+      "\"First Baptist\" \"Rutherfordton\" \"advocacy camp\"",
+      "open https://s3.amazonaws.com/media.cloversites.com/fd/fdf3d4e1-7167-4c0d-aa1d-8bdb4c4002a7/documents/FBC_Rutherfordton_Newsletter_-_June_17_2026.pdf",
+      "site:s3.amazonaws.com/media.cloversites.com \"Rutherfordton\" \"SUMMER ADVOCACY\""
+    ],
+    "usage": {
+      "inputTokens": 32371,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1243,
+      "reasoningTokens": 327
+    },
+    "status": "completed",
+    "ms": 43887,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+      "chars": 1424,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstbaptistrutherfordton.com/",
+      "chars": 1896,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Rutherfordton",
+    "website_url": "https://www.firstbaptistrutherfordton.com/",
+    "notes": "No 2027 camp information found. The church's ministry and newsletter pages could not be read directly because of robots restrictions; official search results and hosted newsletter PDFs supplied additional information. Passport Summer Camp was also found, but its location, eligibility and registration details remain unconfirmed.",
+    "excluded": [
+      {
+        "name": "Sunday School and Illuminate",
+        "reason": "Year-round ministry gatherings, not finite summer camps."
+      },
+      {
+        "name": "Fundraiser for Children's Summer Camp",
+        "reason": "February fundraising event, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Advocacy Camp",
+        "type": "day",
+        "categories": ["general", "faith_based"],
+        "description": "Children learn about advocacy through games, activities, Bible study and hands-on exploration with community organizations. Topics include housing and homelessness, food insecurity, creation care and disabilities.",
+        "camp_page_url": "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-03",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9am-3pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 30,
+            "unit": "program",
+            "label": "per camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.firstbaptistrutherfordton.com/events/2026/08/03/summer-advocacy-camp",
+          "https://s3.amazonaws.com/media.cloversites.com/fd/fdf3d4e1-7167-4c0d-aa1d-8bdb4c4002a7/documents/FBC_Rutherfordton_Newsletter_-_June_17_2026.pdf",
+          "https://s3.amazonaws.com/media.cloversites.com/fd/fdf3d4e1-7167-4c0d-aa1d-8bdb4c4002a7/documents/FBC_Rutherfordton_Newsletter_-_July_29_2026.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Grades and price were recovered from official PDF search results. Dates without a year use the newsletters' 2026 titles and the event URL. Confirm drop-off location: the event footer publishes the church address, 246 N. Main Street, Rutherfordton, NC, but does not explicitly identify it as the camp meeting place. The June newsletter says 'Register here,' but its destination could not be recovered. July's two remaining spots are historical, not current availability."
+      },
+      {
+        "name": "Passport Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "A summer camp outing listed on the church's calendar under the name Passport Summer Camp. The church's event listing does not describe its activities.",
+        "camp_page_url": "https://www.firstbaptistrutherfordton.com/events/2026/07/06/passport-summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.firstbaptistrutherfordton.com/events/2026/07/06/passport-summer-camp"
+        ],
+        "confidence": "low",
+        "review_notes": "Only the official event's indexed text was available. Overnight format is inferred from the multiday Passport camp listing; confirm format, participant eligibility, activities and drop-off location with the church. The event lists midnight July 6 through noon July 9, which should not be treated as daily camp hours. Year comes from the official event URL."
+      }
+    ]
+  }
+}

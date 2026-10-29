@@ -1,0 +1,193 @@
+{
+  "provider": {
+    "key": "boone-trail-baptist-church-of-johnson-city",
+    "name": "Boone Trail Baptist Church of Johnson City",
+    "urls": ["https://www.boonetrail.net/events/vbs-baptist-center"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:38:04.841Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9fcc811b19e491eb459d6f8933238977b3de287c2a30fe8db9b89a8ed357606e",
+  "response": {
+    "searches": ["site:boonetrail.net 2026 VBS camp", "site.gardner-webb.edu \"110 South Main\""],
+    "usage": {
+      "inputTokens": 21195,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1826,
+      "reasoningTokens": 242
+    },
+    "status": "completed",
+    "ms": 41868,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.boonetrail.net/events/vbs-baptist-center",
+      "chars": 1523,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.boonetrail.net/",
+      "chars": 3402,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boone Trail Baptist Church of Johnson City",
+    "website_url": "https://www.boonetrail.net/",
+    "notes": "No church-specific summer 2027 information was found. The church lists CentriKid Camp and FUGE Camp for 2026. The supplied VBS @ Baptist Center page describes June 16, 17 and 19, 2025; no 2026 or 2027 update was found, so its historical dates are not used as current-season dates. Camp event pages returned no readable body when opened, but their official search results displayed the 2026 dates and venue information. General Lifeway registration dates and prices were not applied to this church's group trips.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "Recurring school-year program running mid-August through May, not a summer camp."
+      },
+      {
+        "name": "Upward Basketball and Cheer",
+        "reason": "Sports league season, not a finite summer camp or clinic."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Weekly year-round ministry gatherings, not a summer camp."
+      },
+      {
+        "name": "Kids’ Worship",
+        "reason": "Recurring Sunday ministry, not a summer camp."
+      },
+      {
+        "name": "Women's Retreat",
+        "reason": "Adult retreat held in October, outside summer."
+      },
+      {
+        "name": "VBS - Zoomerang",
+        "reason": "Only a historical 2022 event was found; no 2026 or 2027 offering was established."
+      }
+    ],
+    "cards": [
+      {
+        "name": "CentriKid Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible study, worship, recreation and activity tracks at an overnight camp for church groups.",
+        "camp_page_url": "https://www.boonetrail.net/events/centrikid-kids-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Gardner-Webb University",
+            "address": "110 South Main Street",
+            "town": "Boiling Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.boonetrail.net/events/centrikid-kids-camp",
+          "https://www.boonetrail.net/events/centrikid",
+          "https://centrikid.lifeway.com/our-camps/",
+          "https://centrikid.lifeway.com/frequently-asked-questions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 dates and university venue were readable only in official search results. The street address is printed on the church's 2025 CentriKid event page. Confirm the church group's actual drop-off location; the 2026 page lists the university but does not explain church departure arrangements. Completed grades 2–6 come from the camp operator's general FAQ, not the church's 2026 event listing. Event endpoint times of 13:00 and 14:00 are not daily camp hours."
+      },
+      {
+        "name": "FUGE Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students participate in a Christian camp with staff-led Bible study and a Scripture-focused program.",
+        "camp_page_url": "https://www.boonetrail.net/events/fuge-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.boonetrail.net/events/fuge-camp",
+          "https://fugecamps.lifeway.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The church's official search result states June 22–26, 2026, but the event page returned no readable body when opened. Confirm the overnight format and church-group eligibility; the church listing does not identify the FUGE variant, destination or drop-off site. The description comes from the operator's general program page. Event endpoint times of 13:00 and 14:00 are not daily hours."
+      },
+      {
+        "name": "VBS @ Baptist Center",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Boone Trail students host Vacation Bible School at the Johnson City Baptist Center.",
+        "camp_page_url": "https://www.boonetrail.net/events/vbs-baptist-center",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Baptist Center",
+            "address": "926 Hopson St.",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.boonetrail.net/events/vbs-baptist-center"],
+        "confidence": "low",
+        "review_notes": "Only the 2025 offering was established. Its dates were June 16, 17 and 19, 2025, with hours of 17:30–19:30. These were not relabeled as 2026 or 2027. Confirm that this program will return and that the Baptist Center remains its venue before publishing as an upcoming offering."
+      }
+    ]
+  }
+}

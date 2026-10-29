@@ -1,0 +1,238 @@
+{
+  "provider": {
+    "key": "into-the-fire",
+    "name": "Into the Fire",
+    "urls": ["https://www.intothefirejc.com/summer-camp"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:32.327Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e5488ce4ac32af89001fdc1c7e5ffbb338c721898ae5780e0ee9af6bdf4a7d46",
+  "response": {
+    "searches": ["site:intothefirejc.com \"2027\" camp"],
+    "usage": {
+      "inputTokens": 16320,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1127,
+      "reasoningTokens": 48
+    },
+    "status": "completed",
+    "ms": 22526,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.intothefirejc.com/summer-camp",
+      "chars": 3260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.intothefirejc.com/s/Summer-Camp-Registration-Form-2026.pdf",
+      "chars": 3610,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.intothefirejc.com/s/Summer-Camp-Registration-Form-2026-h3xc.pdf",
+      "chars": 3610,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.intothefirejc.com/faq",
+      "chars": 1907,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.intothefirejc.com/",
+      "chars": 2669,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Into the Fire",
+    "website_url": "https://www.intothefirejc.com/",
+    "notes": "No 2027 camp information or registration opening date found. The official camp page still lists summer 2026. Its payment instructions conflict with the registration PDF.",
+    "excluded": [
+      {
+        "name": "Open pottery painting",
+        "reason": "Year-round drop-in activity, not a finite supervised summer youth program."
+      },
+      {
+        "name": "Halloween Cat Kids Canvas",
+        "reason": "October program, outside summer."
+      },
+      {
+        "name": "Harvest Moon Canvas Class",
+        "reason": "October program, outside summer."
+      },
+      {
+        "name": "November Ladies Night",
+        "reason": "Outside summer and not a youth camp."
+      },
+      {
+        "name": "To-Go Kits",
+        "reason": "At-home kits, not supervised youth programs."
+      },
+      {
+        "name": "Storytime & Paint",
+        "reason": "Year-round recurring activity rather than a summer-only program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers make themed projects using pottery, canvas, wood, string art and other materials, with games and crafts. Each week ends with a Friday art show for families.",
+        "camp_page_url": "https://www.intothefirejc.com/summer-camp",
+        "registration_url": "https://www.intothefirejc.com/summer-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-02",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Into the Fire",
+            "address": "109 Cherry St Suite 30",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": "Tuesday-Friday 9:00-11:30am; Friday art show at 11:00am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "Per child, four days; plus tax. Registration form lists $164.25 including tax.",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Capybara Art Camp",
+            "start": "2026-06-02",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "KPop Hunters Art Camp",
+            "start": "2026-06-09",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Creepy Crawly Art Camp",
+            "start": "2026-06-16",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Silly Goose Art Camp",
+            "start": "2026-06-23",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Shark Week Art Camp",
+            "start": "2026-07-07",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "The Camp of a Showgirl",
+            "start": "2026-07-14",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": null
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 listings: Capybara, KPop Hunters, Creepy Crawly and Shark Week marked sold out; other weeks have no explicit status.",
+          "text": "June 2-5 - SOLD OUT; June 9-12 - SOLD OUT; June 16-19 -SOLD OUT; July 7-10- SOLD OUT"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.intothefirejc.com/summer-camp",
+          "https://static1.squarespace.com/static/66dc7af2a78a2f16173cb6c3/t/6961256e12815d1ea70ca766/1767974254034/Summer+Camp+Registration+Form+2026.pdf",
+          "https://www.intothefirejc.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page says payment is due by the first day and offers pay plans; the 2026 registration PDF says payment in full is expected at registration. Confirm payment policy. Sold-out labels describe past 2026 sessions, not 2027 availability. The PDF calls the Creepy Crawly theme 'Creepy Crawlers'; the session label follows the camp page."
+      }
+    ]
+  }
+}

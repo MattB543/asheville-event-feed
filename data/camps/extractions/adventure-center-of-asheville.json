@@ -1,0 +1,179 @@
+{
+  "provider": {
+    "key": "adventure-center-of-asheville",
+    "name": "Adventure Center of Asheville",
+    "urls": ["https://ashevilletreetopsadventurepark.com/camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": [
+      "seed_sheet",
+      "macaroni_kid",
+      "news828",
+      "our_db",
+      "grid",
+      "aggregator",
+      "gap_fill"
+    ],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:37.279Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "80bb2a8c13e4edca3ba40dc8966dc80f010106c91ab74468422cb5d83e63c76e",
+  "response": {
+    "searches": [
+      "site:ashevilletreetopsadventurepark.com camps 2027",
+      "\"Kolo\" \"2026\" \"camp\" summer",
+      "site:ashevilletreetopsadventurepark.com \"2026\" \"Summer\" \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 44631,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1302,
+      "reasoningTokens": 259
+    },
+    "status": "completed",
+    "ms": 38100,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilletreetopsadventurepark.com/camps/",
+      "chars": 18052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletreetopsadventurepark.com/groups/amazing-group-adventures-in-asheville/camps/",
+      "chars": 9558,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletreetopsadventurepark.com/faqs/",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletreetopsadventurepark.com/",
+      "chars": 14376,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Adventure Center of Asheville",
+    "website_url": "https://ashevilletreetopsadventurepark.com/",
+    "notes": "No 2027 camp information was found. The current camps page lists two summer programs under its 2026 heading but no longer displays summer dates, age bands, prices, hours or registration links. Older 2025 articles and a 2023 parent handbook were found but were not used to fill 2026 facts. The group Summer Camps page describes outings for other camps, not an additional enrollment program.",
+    "excluded": [
+      {
+        "name": "Teacher Workday Day Camps",
+        "reason": "Offered outside summer on fall teacher workdays."
+      },
+      {
+        "name": "Spring Break Camps",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Fall Afterschool Longboarding Club",
+        "reason": "Fall afterschool program, outside summer."
+      },
+      {
+        "name": "Longboarding Sessions",
+        "reason": "Listed sessions take place in fall and winter, outside summer."
+      },
+      {
+        "name": "Summer Camp Groups",
+        "reason": "Group activity bookings for visiting camps, not a separate supervised youth enrollment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Adventure Camps",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers participate in outdoor adventure activities in age-appropriate groups at the Adventure Center of Asheville.",
+        "camp_page_url": "https://ashevilletreetopsadventurepark.com/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Adventure Center of Asheville",
+            "address": "85 Expo Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Kolo Bike Camp and Adventure Camp are not therapeutic programs and are not appropriate choices for youth dealing with behavioral, motivational, or rehabilitation issues. If you are unsure if your camper would be suited for our camps, please reach out to our Camp Director (camps@adventurecenterofasheville.com)and we would be happy to talk more about our program and what we can offer."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevilletreetopsadventurepark.com/camps/",
+          "https://ashevilletreetopsadventurepark.com/contact-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Kolo Bike Park Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers ride mountain bikes and receive bike instruction at Kolo Bike Park. Campers must be comfortable riding a pedal bike off-road.",
+        "camp_page_url": "https://ashevilletreetopsadventurepark.com/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kolo Bike Park at the Adventure Center of Asheville",
+            "address": "85 Expo Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Kolo Bike Camp and Adventure Camp are not therapeutic programs and are not appropriate choices for youth dealing with behavioral, motivational, or rehabilitation issues. If you are unsure if your camper would be suited for our camps, please reach out to our Camp Director (camps@adventurecenterofasheville.com)and we would be happy to talk more about our program and what we can offer."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevilletreetopsadventurepark.com/camps/",
+          "https://ashevilletreetopsadventurepark.com/contact-us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

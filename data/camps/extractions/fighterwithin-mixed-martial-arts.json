@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "fighterwithin-mixed-martial-arts",
+    "name": "FighterWithin Mixed Martial Arts",
+    "urls": ["https://www.fighterwithin.com/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:25.035Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "bd89d10d2e7de113eee0592c9a6717260d0f2845094369bd0ead201fc9eec1d5",
+  "response": {
+    "searches": [
+      "site:fighterwithin.com summer camp",
+      "site:fighterwithin.com \"camp\" -site:youtube.com"
+    ],
+    "usage": {
+      "inputTokens": 19108,
+      "cachedInputTokens": 8223,
+      "outputTokens": 607,
+      "reasoningTokens": 125
+    },
+    "status": "completed",
+    "ms": 18717,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fighterwithin.com/",
+      "chars": 1806,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fighterwithin.com/schedule",
+      "chars": 204,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "FighterWithin Mixed Martial Arts",
+    "website_url": "https://www.fighterwithin.com/",
+    "notes": "The official homepage mentions summer camp, but no dated 2026 or 2027 camp details or camp registration page were found. A third-party listing describes a 2025 Summer Kids Camp; its dates and hours were not carried forward. The provider's address is published, but the official pages do not explicitly confirm the summer camp drop-off location.",
+    "excluded": [
+      {
+        "name": "Afterschool care",
+        "reason": "School-year childcare, not a finite summer program."
+      },
+      {
+        "name": "Combat Karate",
+        "reason": "Ongoing martial arts classes, not a summer-only camp."
+      },
+      {
+        "name": "American Jiu Jitsu",
+        "reason": "Ongoing martial arts classes, not a summer-only camp."
+      },
+      {
+        "name": "Kickboxing",
+        "reason": "Ongoing martial arts classes, not a summer-only camp."
+      },
+      {
+        "name": "Body Boot Camp classes",
+        "reason": "Ongoing fitness classes, not a finite youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "FighterWithin lists summer camp among its offerings. Camp activities are not described on the official website.",
+        "camp_page_url": "https://www.fighterwithin.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fighterwithin.com/",
+          "https://www.fighterwithin.com/schedule",
+          "https://www.fighterwithin.com/pricing"
+        ],
+        "confidence": "low",
+        "review_notes": "The homepage only mentions summer camp without a formal program title, format, activities or year-specific details. Confirm the program name, day-camp format and drop-off location with the provider; its published contact address is 115C Four Seasons Mall, Hendersonville, NC 28792. The BraveHeart Foundation's training assistance and ages 6–17 were not applied to camp because camp eligibility is not stated."
+      }
+    ]
+  }
+}

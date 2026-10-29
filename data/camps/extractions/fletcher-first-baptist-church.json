@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "fletcher-first-baptist-church",
+    "name": "Fletcher First Baptist Church",
+    "urls": [
+      "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+      "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:26.981Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "669c9eee70712041aac9961ff302a2d93aebe175b6b31f3e540dbc0c44238359",
+  "response": {
+    "searches": ["site:fletcherfirstbaptist.com \"2027\" \"Vacation\""],
+    "usage": {
+      "inputTokens": 14800,
+      "cachedInputTokens": 8223,
+      "outputTokens": 770,
+      "reasoningTokens": 74
+    },
+    "status": "completed",
+    "ms": 24555,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+      "chars": 2222,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+      "chars": 2103,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/wp-content/uploads/2017/04/Fletcher-First-Baptist-VBS-Registration.pdf",
+      "chars": 3194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fletcherfirstbaptist.com/",
+      "chars": 2502,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fletcher First Baptist Church",
+    "website_url": "https://www.fletcherfirstbaptist.com/",
+    "notes": "No summer 2027 information or registration dates were found. The 2026 VBS registration page contains conflicting weekday and commencement information; the official events calendar confirms July 13–17, 2026.",
+    "excluded": [
+      {
+        "name": "AWANA Clubs",
+        "reason": "Recurring school-year program offered September–May, not a finite summer camp."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round weekly classes, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Psalm 23 through Bible lessons, games, crafts, music and snacks. The 2026 theme is Emerald Crossing: An Irish Adventure.",
+        "camp_page_url": "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+        "registration_url": "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Fletcher First Baptist Church",
+            "address": "5 Cane Creek Road",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:00",
+          "text": "6:00–9:00 PM each evening"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fletcherfirstbaptist.com/event/vacation-bible-school/",
+          "https://www.fletcherfirstbaptist.com/ministries/vacation-bible-school-2022/",
+          "https://www.fletcherfirstbaptist.com/events/",
+          "https://www.fletcherfirstbaptist.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration page labels VBS 2026 and states July 13–17, but also says Monday–Thursday and lists commencement as Friday, July 25. July 25, 2026 is a Saturday. Dates here follow the official events calendar, which explicitly lists July 13–17, 2026; the separate commencement date is omitted pending clarification. Eligible ages, grades and fees are not stated. The event page says the event has passed but does not explicitly state registration availability."
+      }
+    ]
+  }
+}

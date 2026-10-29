@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "bethel-baptist-church-of-canton",
+    "name": "Bethel Baptist Church of Canton",
+    "urls": ["https://vbspro.events/p/events/vbsbbc"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:12.151Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6c46cc57b75cbb91e6c59c1465234aa9343ba5819a57c59faa613dcd263be06b",
+  "response": {
+    "searches": [
+      "Bethel Baptist Church Canton 5868 Pigeon official VBS 2027",
+      "open https://www.bethelbaptistcanton.org/events/"
+    ],
+    "usage": {
+      "inputTokens": 13998,
+      "cachedInputTokens": 8223,
+      "outputTokens": 795,
+      "reasoningTokens": 131
+    },
+    "status": "completed",
+    "ms": 19661,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/vbsbbc",
+      "chars": 2903,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bethel Baptist Church of Canton",
+    "website_url": "https://www.bethelbaptistcanton.org/",
+    "notes": "No official 2027 camp information found. The VBS registration page explicitly lists 2026 dates but retains a 2025 reference in its introductory description. The church's events and ministries pages returned no readable text. The church's official contact-page search result confirms the venue address.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Egypt VBS at Bethel Baptist Church",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the Bible story of Joseph through Bible-times customs, occupations, food and games.",
+        "camp_page_url": "https://vbspro.events/p/events/vbsbbc",
+        "registration_url": "https://vbspro.events/p/events/vbsbbc",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Bethel Baptist Church",
+            "address": "5868 Pigeon Road",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:35",
+          "text": "6:00pm (EDT) to 8:35pm (EDT). A meal will be served nightly from 5:15-5:45."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A meal will be served nightly from 5:15-5:45 and a snack will be provided each night."
+        },
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/vbsbbc",
+          "https://www.bethelbaptistcanton.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBS page explicitly dates the event May 31–June 4, 2026, but its introductory copy says '2025 Holy Land Adventure VBS'; verify that the descriptive copy and eligibility were updated for 2026. The meal is an evening meal, not lunch."
+      }
+    ]
+  }
+}

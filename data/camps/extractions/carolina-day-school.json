@@ -1,0 +1,561 @@
+{
+  "provider": {
+    "key": "carolina-day-school",
+    "name": "Carolina Day School",
+    "urls": [
+      "https://www.carolinaday.org/school-life/summer/summer-camps",
+      "https://www.carolinaday.org/athletics/summerbballcamp",
+      "https://www.carolinaday.org/outreach/horizons"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:23.437Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "91076f6c241329643fca3f745183defc16801f0256c3d4c3ba6d3dfd9e9c378a",
+  "response": {
+    "searches": [
+      "site.carolinaday.org summer 2027 camp",
+      "open https://www.horizonsatcarolinaday.org/our-programs/summer-academy/"
+    ],
+    "usage": {
+      "inputTokens": 34575,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3922,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 72905,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+      "chars": 11736,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/athletics/summerbballcamp",
+      "chars": 8563,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/outreach/horizons",
+      "chars": 9054,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/admission/tuition",
+      "chars": 12259,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/school-life/summer",
+      "chars": 9773,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/outreach/tutoring-connection/summer-tutoring-packages",
+      "chars": 13154,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinaday.org/",
+      "chars": 15461,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolina Day School",
+    "website_url": "https://www.carolinaday.org/",
+    "notes": "No summer 2027 dates or registration milestones were found. Summer Enrichment Camps are restricted to students enrolled at CDS for 2026–2027. Horizons' separate official website returned empty content when opened; its indexed official search excerpts supplied supplemental information.",
+    "excluded": [
+      {
+        "name": "Fall Clinic - Fast Cats Running Clinic",
+        "reason": "Fall program, outside summer."
+      },
+      {
+        "name": "Winter Grade 5 Basketball League",
+        "reason": "Winter sports league, not a summer camp."
+      },
+      {
+        "name": "Before and After School",
+        "reason": "School-year childcare."
+      },
+      {
+        "name": "Afterschool Enrichment",
+        "reason": "School-year enrichment classes."
+      },
+      {
+        "name": "New Family Get Connected Days",
+        "reason": "Family orientation events rather than supervised youth camp programs."
+      },
+      {
+        "name": "Employment with Horizons at Carolina Day",
+        "reason": "Employment opportunities."
+      },
+      {
+        "name": "Horizons School-Year Outreach",
+        "reason": "School-year programming, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Space Camp for Artists",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Campers make paintings, drawings, sculptures, and mixed-media artwork with space themes.",
+        "camp_page_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "registration_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carolina Day School — behind the Aftercare Building",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Morning session 9:00 AM–12:00 PM; afternoon session 1:00 PM–4:00 PM. Arrival begins 15 minutes before each session."
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "16:00",
+          "cost_text": "Aftercare: 12:00 PM–4:00 PM — $30/day or $150/week"
+        },
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Morning or afternoon session",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rising 1st–3rd (Morning Session)",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 3rd–6th (Afternoon Session)",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Registration for this enrichment session has now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students enrolled in both a morning and afternoon session should bring: A packed lunch A snack"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/school-life/summer/summer-camps",
+          "https://www.carolinaday.org/school-life/summer"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Broadway Camp for Singers and Actors",
+        "type": "half_day",
+        "categories": ["music", "theater"],
+        "description": "Campers sing, act, and practice improvisation with Broadway songs and scenes.",
+        "camp_page_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "registration_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carolina Day School — behind the Aftercare Building",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Morning campers may arrive beginning at 8:45 AM"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "16:00",
+          "cost_text": "Aftercare: 12:00 PM–4:00 PM — $30/day or $150/week"
+        },
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Registration for this enrichment session has now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students enrolled in both a morning and afternoon session should bring: A packed lunch A snack"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/school-life/summer/summer-camps",
+          "https://www.carolinaday.org/school-life/summer"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Woodland Wonders",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers participate in guided nature walks, storytelling, interactive learning stations, and nature-themed play while becoming familiar with their school environment.",
+        "camp_page_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "registration_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 0,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carolina Day School — behind the Aftercare Building",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Morning campers may arrive beginning at 8:45 AM"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "16:00",
+          "cost_text": "Aftercare: 12:00 PM–4:00 PM — $30/day or $150/week"
+        },
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Registration for this enrichment session has now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students enrolled in both a morning and afternoon session should bring: A packed lunch A snack"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/school-life/summer/summer-camps",
+          "https://www.carolinaday.org/school-life/summer"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Golf Squad",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Students learn putting, chipping, full-swing mechanics, golf vocabulary, etiquette, rules, and history. Each afternoon includes a 1.5-hour lesson followed by aftercare activities.",
+        "camp_page_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "registration_url": "https://www.carolinaday.org/school-life/summer/summer-camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carolina Day School — behind the Aftercare Building",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:00",
+          "text": "Students will receive a 1.5 hr lesson followed by aftercare activities. Afternoon campers may arrive beginning at 12:45 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Registration for this enrichment session has now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students enrolled in both a morning and afternoon session should bring: A packed lunch A snack"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/school-life/summer/summer-camps",
+          "https://www.carolinaday.org/school-life/summer"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Basketball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Children practice basketball skills through instruction and organized games. The co-ed camp is open to CDS students and children from other schools.",
+        "camp_page_url": "https://www.carolinaday.org/athletics/summerbballcamp",
+        "registration_url": "https://www.carolinaday.org/athletics/summerbballcamp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Registration is now closed for this camp."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "lunch will be provided on Friday"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/athletics/summerbballcamp",
+          "https://www.carolinaday.org/school-life/summer"
+        ],
+        "confidence": "medium",
+        "review_notes": "Basketball page retains an opening announcement but its registration form and the Summer page say registration is closed. Dates are stated on the Summer page; hours, price, and drop-off venue were not found."
+      },
+      {
+        "name": "Summer Academy",
+        "type": "day",
+        "categories": ["academic", "stem", "arts", "sports", "nature_outdoor"],
+        "description": "Horizons students attend six weeks of academic enrichment, arts, sports, swimming, and other activities on the CDS campus. The program serves eligible public-school students from low-income families.",
+        "camp_page_url": "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Carolina Day School",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Tuition-free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/outreach/horizons",
+          "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+          "https://www.horizonsatcarolinaday.org/our-model/",
+          "https://www.horizonsatcarolinaday.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Horizons pages could only be read through official search excerpts. Summer Academy excerpt says grades K–8; Horizons homepage says K–9; CDS says students join after kindergarten and return through Grade 9. Grade range is withheld pending clarification. Tuition-free wording is undated current program information, not a dated 2026 rate sheet."
+      },
+      {
+        "name": "Skill Maintenance Summer Tutoring Packages",
+        "type": "clinic",
+        "categories": ["academic"],
+        "description": "Students receive five or ten individual 45-minute reading or math tutoring sessions reviewing previously taught skills or completing summer work. Parents arrange session times and locations directly with the tutor between June and August.",
+        "camp_page_url": "https://www.carolinaday.org/outreach/tutoring-connection/summer-tutoring-packages",
+        "registration_url": "https://www.carolinaday.org/outreach/tutoring-connection/summer-tutoring-packages",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Five or ten sessions of 45 minutes each, scheduled at mutually agreed upon times between June and August."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "program",
+            "label": "Five one-on-one reading or math sessions",
+            "year": 2026
+          },
+          {
+            "amount": 575,
+            "unit": "program",
+            "label": "Ten sessions: reading, math, or five of each",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.carolinaday.org/outreach/tutoring-connection/summer-tutoring-packages"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

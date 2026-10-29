@@ -1,0 +1,132 @@
+{
+  "provider": {
+    "key": "horizons-at-carolina-day-school",
+    "name": "Horizons at Carolina Day School",
+    "urls": [
+      "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+      "https://horizonsatcarolinaday.org/",
+      "https://www.horizonsatcarolinaday.org/our-model/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:58:29.578Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "395a6173662da7ff5dbc84b0752a0582c6b7086f43f1901ddfb4dc7b0559dcf6",
+  "response": {
+    "searches": [
+      "site.horizonsatcarolinaday.org 2027 summer 2026 dates",
+      "open https://www.horizonsatcarolinaday.org/blog/a-grateful-farewell-to-the-horizons-community/"
+    ],
+    "usage": {
+      "inputTokens": 14923,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1050,
+      "reasoningTokens": 172
+    },
+    "status": "completed",
+    "ms": 28283,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+      "chars": 3902,
+      "method": "fetch"
+    },
+    {
+      "url": "https://horizonsatcarolinaday.org/",
+      "chars": 2529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.horizonsatcarolinaday.org/our-model/",
+      "chars": 3633,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Horizons at Carolina Day School",
+    "website_url": "https://www.horizonsatcarolinaday.org/",
+    "notes": "No 2027 dates or registration milestones were found. The program is tuition-free and serves nominated students through a long-term enrollment model, rather than ordinary open camp registration. The October 1, 2026 Summer LABS blog describes enrichment for the two oldest grades within the summer program; it is treated as part of Summer Academy, not a separately enrolled camp.",
+    "excluded": [
+      {
+        "name": "School-Year Outreach and Education",
+        "reason": "School-year enrichment programming, not a summer camp."
+      },
+      {
+        "name": "Super STEAM Saturday",
+        "reason": "School-year enrichment programming rather than a finite summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Academy",
+        "type": "day",
+        "categories": ["academic", "stem", "arts", "sports"],
+        "description": "Students participate in six weeks of reading and math instruction, project-based STEM learning, swimming lessons, arts activities, gardening, and field trips. The program also includes social and emotional learning.",
+        "camp_page_url": "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Carolina Day School",
+            "address": "1345 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Tuition-free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "100% of students qualify for free and reduced lunches; and attend Horizons on a tuition-free basis"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Every Horizons student receives a minimum of two meals and one snack daily"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We commit to providing a high-quality and accessible program experience through round-trip transportation, meals (breakfast, lunch, and snacks) to fuel our students’ day, and all teaching and learning supplies students need to fully participate."
+        },
+        "sources": [
+          "https://www.horizonsatcarolinaday.org/our-programs/summer-academy/",
+          "https://www.horizonsatcarolinaday.org/",
+          "https://www.horizonsatcarolinaday.org/our-model/",
+          "https://www.horizonsatcarolinaday.org/blog/a-grateful-farewell-to-the-horizons-community/",
+          "https://www.carolinaday.org/outreach/horizons"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer Academy page says grades K–8, while the October 1, 2026 official Summer LABS blog search result explicitly describes the summer program as serving rising 1st through 9th graders. The latter is used for the 2026 grade range; the blog could not be read beyond its search result. The school’s official Horizons page also says students join after kindergarten and return through Grade 9. Exact summer dates, daily hours, and enrollment deadlines were not found."
+      }
+    ]
+  }
+}

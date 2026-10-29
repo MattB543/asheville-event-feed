@@ -1,0 +1,270 @@
+{
+  "provider": {
+    "key": "elevate-gymnastics-and-cheer",
+    "name": "Elevate Gymnastics & Cheer",
+    "urls": ["https://elevategymandcheer.com/kids-camps"],
+    "area": "Fairview, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:22.665Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4b8908f359a5ed44208373e663e6fa7f1f2b02470a06bdd9d801323b05455e5c",
+  "response": {
+    "searches": ["site:elevategymandcheer.com \"2027\" camp"],
+    "usage": {
+      "inputTokens": 16717,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2016,
+      "reasoningTokens": 117
+    },
+    "status": "completed",
+    "ms": 38605,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://elevategymandcheer.com/kids-camps",
+      "chars": 5848,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=555998",
+      "chars": 4490,
+      "method": "fetch"
+    },
+    {
+      "url": "https://elevategymandcheer.com/",
+      "chars": 6821,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Elevate Gymnastics & Cheer",
+    "website_url": "https://elevategymandcheer.com/",
+    "notes": "Location mismatch: this provider publishes its location as Fairview, Tennessee, not Fairview, North Carolina. It is not an Asheville-area provider. No 2027 summer information or registration opening date was found. The camp page lists dates without a season year; 2026 is inferred from the page's 2026 footer and Monday, May 25 start.",
+    "excluded": [
+      {
+        "name": "Mommy & Me (12-36 Months)",
+        "reason": "Ongoing parent-child classes, not a finite summer camp."
+      },
+      {
+        "name": "Pre-School Gymnastics (3-4 Years)",
+        "reason": "Ongoing gymnastics classes, not a finite summer camp."
+      },
+      {
+        "name": "Lil' Ninjas (4-6 Years)",
+        "reason": "Ongoing classes, not a finite summer camp."
+      },
+      {
+        "name": "Ninjastics (7-12 Years)",
+        "reason": "Ongoing classes, not a finite summer camp."
+      },
+      {
+        "name": "Adaptive Gymnastic (3-24 Years)",
+        "reason": "Ongoing gymnastics classes, not a finite summer camp."
+      },
+      {
+        "name": "Girls Recreational (5+ Years)",
+        "reason": "Ongoing gymnastics classes, not a finite summer camp."
+      },
+      {
+        "name": "Boys Recreational (5+ Years)",
+        "reason": "Ongoing gymnastics classes, not a finite summer camp."
+      },
+      {
+        "name": "Adult Recreational (18+ Years)",
+        "reason": "Adult-only ongoing classes."
+      },
+      {
+        "name": "Homeschool Gymnastics & Sports Classes",
+        "reason": "Ongoing classes, not a finite summer camp."
+      },
+      {
+        "name": "Elevate Cheer (5+ Years)",
+        "reason": "Cheer classes and team programming, not a finite summer camp."
+      },
+      {
+        "name": "Open Gym",
+        "reason": "Recurring open-gym schedule, not a finite summer camp."
+      },
+      {
+        "name": "Halloween Party / Trunk or Treat",
+        "reason": "October event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Wonders Camp",
+        "type": "day",
+        "categories": ["sports", "arts", "general"],
+        "description": "Campers participate in weekly themed activities, gymnastics obstacle courses, games, trampoline time, and arts and crafts. The camp lists three age groups: Sunshine Crew for ages 3–4, Dream Team for ages 5–6, and Wonder Workers for ages 7–12.",
+        "camp_page_url": "https://elevategymandcheer.com/kids-camps",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=555998",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-25",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Elevate Gymnastics & Cheer",
+            "address": "7107 Adams Dr",
+            "town": "Fairview",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:00",
+          "text": "Monday - Friday: 8:30-3:00"
+        },
+        "extended_care": {
+          "early_dropoff_start": "06:30",
+          "late_pickup_end": "18:00",
+          "cost_text": "AM care 6:30-8:30 $25; PM care 3:00-6:00 $25. The pricing unit is not stated."
+        },
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "day",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "WEEK 1: BEACH WEEK",
+            "start": "2026-05-25",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 2: SPACE WEEK",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 3: NATURE WEEK",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 4: DISNEY WEEK",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 5: GYMNASTICS WEEK",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 6: GAMES WEEK",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 7: NINJA CAMP WEEK",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 8: SUPER HERO WEEK",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "WEEK 9: CARNIVAL WEEK",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://elevategymandcheer.com/kids-camps",
+          "https://elevategymandcheer.com/",
+          "https://app.jackrabbitclass.com/regv2.asp?id=555998"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify geographic eligibility: the official website gives 7107 Adams Dr, Fairview, TN 37062, contrary to the supplied NC area. The dates have no explicit season year; 2026 is inferred from the footer and the stated Monday, May 25 start. The page mentions toddlers but only publishes age bands beginning at age 3, so no younger eligibility is assumed. Age groups are listed generally rather than as separate weekly schedules. Extended-care charges have no stated daily or weekly unit."
+      }
+    ]
+  }
+}

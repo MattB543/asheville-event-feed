@@ -1,0 +1,324 @@
+{
+  "provider": {
+    "key": "zaniac-asheville",
+    "name": "Zaniac Asheville",
+    "urls": ["https://www.zaniaclearning.com/asheville/programs/summer-camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:49.631Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fa01cd478654d7f7438d6f729d4763db2ad0031d5e490ee80e435564115a6ca9",
+  "response": {
+    "searches": [
+      "site.zaniaclearning.com/asheville \"2027\" summer",
+      "site.zaniac.s3.amazonaws.com \"2026\" \"asheville\"",
+      "open https://zaniaclearning.com/asheville/programs/summer-camps/"
+    ],
+    "usage": {
+      "inputTokens": 27701,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2550,
+      "reasoningTokens": 270
+    },
+    "status": "completed",
+    "ms": 61184,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.zaniaclearning.com/asheville/programs/summer-camps/",
+      "chars": 18780,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/registration/enroll/",
+      "chars": 2310,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/",
+      "chars": 2563,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/programs/camps/",
+      "chars": 1326,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/blog/%5E$",
+      "chars": 5804,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/faq/",
+      "chars": 12708,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/locations",
+      "chars": 909,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.zaniaclearning.com/asheville/programs/camp/",
+      "chars": 2784,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Zaniac Asheville",
+    "website_url": "https://www.zaniaclearning.com/asheville/",
+    "notes": "No 2027 STEM Summer Camps dates or registration opening were found. The official Parents' Night Out page lists three summer 2027 events. Summer camp pages returned empty content when opened through the browser, so supplied page text and official search results were used. The linked summer brochure could not be retrieved or identified reliably; detailed weekly curriculum assignments remain unverified.",
+    "excluded": [
+      {
+        "name": "School Break Camps",
+        "reason": "School closure, early release, snow day, teacher workday, fall, winter and spring break offerings are outside summer."
+      },
+      {
+        "name": "Edison Club",
+        "reason": "Year-round after-school care, not a finite summer program."
+      },
+      {
+        "name": "After-School STEM Club",
+        "reason": "School-year after-school program."
+      },
+      {
+        "name": "Zaniac Semester Courses",
+        "reason": "Recurring enrichment classes rather than summer-only camps."
+      },
+      {
+        "name": "Homework Center, Learning Lab, Zane Math and Zane Reading",
+        "reason": "Year-round learning and tutoring offerings, not summer-only camps."
+      },
+      {
+        "name": "Parents' Night Out Events outside summer",
+        "reason": "September through May events are outside the summer scope."
+      },
+      {
+        "name": "Book a STEM Discovery Day",
+        "reason": "The identified offering is a fall 2026 introductory experience, not a summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["stem", "academic", "arts", "music"],
+        "description": "Campers explore coding, engineering, Minecraft-based learning, science, math, and digital art and design through projects and experiments. Camps are grouped by grades K-2, 3-5 and 6-8, with full-day and morning or afternoon half-day options.",
+        "camp_page_url": "https://www.zaniaclearning.com/asheville/programs/summer-camps/",
+        "registration_url": "https://www.zaniaclearning.com/asheville/registration/enroll/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Zaniac Asheville South — Zaniac’s Main Campus",
+            "address": "One Town Square Blvd., Suite 120",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Zaniac Asheville North — UNC Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "17:00",
+          "text": "All-day: 8 a.m. – 5 p.m.; half-day: 8 a.m. – 12 p.m. or 1 p.m. – 5 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 499,
+            "unit": "week",
+            "label": "All-day weekly camps",
+            "year": 2026
+          },
+          {
+            "amount": 299,
+            "unit": "week",
+            "label": "Half-day weekly camps",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "South campus — 12 weeks",
+            "start": "2026-06-02",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": "Zaniac Asheville South — Zaniac’s Main Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 22-26",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Zaniac Asheville North — UNC Asheville",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 29-July 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": "Zaniac Asheville North — UNC Asheville",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 6-10",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": "Zaniac Asheville North — UNC Asheville",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.zaniaclearning.com/asheville/programs/summer-camps/",
+          "https://www.zaniaclearning.com/asheville/registration/enroll/",
+          "https://www.zaniaclearning.com/asheville/",
+          "https://www.unca.edu/campus-map/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page repeatedly states June 1–August 21, 2026, but its South campus section states June 2–August 21. Season start retains June 1; the South row retains June 2. Individual South weeks and curriculum assignments could not be verified without the brochure. UNC Asheville's published campus address is used, but the specific building and drop-off location are not stated. Rising grade basis comes from the enrollment form's instruction to use the grade the child is going into during summer. 'Lunch + Play Outdoors' does not establish whether lunch is supplied, so lunch remains null."
+      },
+      {
+        "name": "Parents' Night Out Events",
+        "type": "evening",
+        "categories": ["stem", "arts"],
+        "description": "Children explore, build and play through themed STEM activities during supervised evening events.",
+        "camp_page_url": "https://www.zaniaclearning.com/asheville/programs/parents-night-out-events/",
+        "registration_url": "https://www.zaniaclearning.com/asheville/registration/enroll/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-19",
+          "end": "2027-08-14",
+          "text": "June 19 Bubbly Science July 17 Magic & Mystery August 14 Graphic Arts"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Zaniac Asheville",
+            "address": "One Town Square Blvd., Suite 120",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:30",
+          "text": "6:00 p.m. - 9:30 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 35,
+            "unit": "session",
+            "label": "Per event",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Bubbly Science",
+            "start": "2027-06-19",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Magic & Mystery",
+            "start": "2027-07-17",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Graphic Arts",
+            "start": "2027-08-14",
+            "end": "2027-08-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.zaniaclearning.com/asheville/programs/parents-night-out-events/",
+          "https://www.zaniaclearning.com/programs/parents-night-out-events/",
+          "https://www.zaniaclearning.com/asheville/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Asheville event page was readable only through search results. Those results explicitly list summer dates under 2027 and state rising K-8, $35 per event, 6–9:30 p.m., and snack included. Verify the full page and confirm the main campus drop-off location before publication."
+      }
+    ]
+  }
+}

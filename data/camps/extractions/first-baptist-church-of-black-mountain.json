@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-black-mountain",
+    "name": "First Baptist Church of Black Mountain",
+    "urls": ["https://www.fbcblackmountain.org/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T14:56:37.299Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1564c3deaaee86380607bc40a386cdfa3fdd2261fdd687c1b3baffe49e73258b",
+  "response": {
+    "searches": ["site:fbcblackmountain.org \"2026\" \"Bible\"", "\"fbcblackmountain\" \"VBS\""],
+    "usage": {
+      "inputTokens": 21697,
+      "cachedInputTokens": 8223,
+      "outputTokens": 388,
+      "reasoningTokens": 163
+    },
+    "status": "completed",
+    "ms": 17460,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fbcblackmountain.org/",
+      "chars": 3233,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Black Mountain",
+    "website_url": "https://www.fbcblackmountain.org/",
+    "notes": "No qualifying summer camp or Vacation Bible School offering for 2027 or 2026 was found in the supplied homepage text or targeted web searches. The official Events page search result says \"No events at the moment\"; opening that page returned no readable text. No camp cards were created because a summer offering could not be verified.",
+    "excluded": [
+      {
+        "name": "Youth Group Activities",
+        "reason": "General ongoing youth ministry activities, not a stated finite summer program."
+      },
+      {
+        "name": "Connect Groups",
+        "reason": "Recurring Sunday school classes for all ages, not a summer camp."
+      },
+      {
+        "name": "Music, Missions and More",
+        "reason": "The indexed official Wednesdays at FBC page describes recurring Wednesday evening children's activities, not a summer-only program."
+      }
+    ],
+    "cards": []
+  }
+}

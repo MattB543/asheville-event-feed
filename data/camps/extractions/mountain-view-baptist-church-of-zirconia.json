@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "mountain-view-baptist-church-of-zirconia",
+    "name": "Mountain View Baptist Church of Zirconia",
+    "urls": ["https://mvbctuxedo.org/event/vbs/", "https://mvbctuxedo.org/"],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:17:50.579Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "88bf51d0f570935a25175bb8367bd4cc1989ebb10cb5dc50de65946561d0dba6",
+  "response": {
+    "searches": [
+      "site:mvbctuxedo.org VBS 2026 2027",
+      "site:facebook.com/mtnviewtuxedo \"2026\" \"VBS\"",
+      "open https://vbspro.events/p/events/mtnviewtuxedo"
+    ],
+    "usage": {
+      "inputTokens": 15549,
+      "cachedInputTokens": 8223,
+      "outputTokens": 843,
+      "reasoningTokens": 255
+    },
+    "status": "completed",
+    "ms": 29519,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mvbctuxedo.org/event/vbs/",
+      "chars": 520,
+      "method": "browser"
+    },
+    {
+      "url": "https://mvbctuxedo.org/",
+      "chars": 1575,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mountain View Baptist Church of Zirconia",
+    "website_url": "https://mvbctuxedo.org/",
+    "notes": "No 2027 summer information found. The supplied VBS page returns a 404. Search results identify an official VBS registration page for 2024, but no readable official 2026 schedule was found. A third-party listing mentions VBS in June 2026; its dates and hours were not used. Facebook and registration pages could not be read.",
+    "excluded": [
+      {
+        "name": "Kids Ministry",
+        "reason": "Ongoing children's ministry and Sunday school, not a finite summer program."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Ongoing teen ministry; no finite summer camp offering verified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School for children.",
+        "camp_page_url": "https://mvbctuxedo.org/event/vbs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mountain View Baptist Church",
+            "address": "458 Mountain View Church Rd",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mvbctuxedo.org/",
+          "https://mvbctuxedo.org/event/vbs/",
+          "https://mvbctuxedo.org/contact/",
+          "https://vbspro.events/p/events/066160"
+        ],
+        "confidence": "low",
+        "review_notes": "Verify that VBS will return in 2027 and obtain its dates, hours, ages, price and registration link. The current official event page is a 404; the indexed official registration page describes 2024, not 2026 or 2027. The church address is published on its website and matches the historical registration listing, but the upcoming camp venue has not been confirmed."
+      }
+    ]
+  }
+}

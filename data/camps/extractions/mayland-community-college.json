@@ -1,0 +1,201 @@
+{
+  "provider": {
+    "key": "mayland-community-college",
+    "name": "Mayland Community College",
+    "urls": ["https://www.mayland.edu/summer-camps/"],
+    "area": "Spruce Pine and Burnsville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:56.269Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3a634662a2ed8b97973c22aa7e26fe9d16eca40b2e04aa343e21cdee268323aa",
+  "response": {
+    "searches": [
+      "site:mayland.edu summer camps 2026 2027 \"Space\"",
+      "site:mayland.edu \"2026\" \"camps\""
+    ],
+    "usage": {
+      "inputTokens": 36106,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1419,
+      "reasoningTokens": 190
+    },
+    "status": "completed",
+    "ms": 37878,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mayland.edu/summer-camps/",
+      "chars": 6751,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mayland.edu/academics/",
+      "chars": 5234,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mayland.edu/campus-maps/",
+      "chars": 4701,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mayland.edu/about-mayland/consumer-information/campus-security-report/",
+      "chars": 7338,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mayland.edu/wp-content/uploads/2026/09/2026-Campus-Security-Report-1.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mayland.edu/wp-content/uploads/2025/09/2025-Campus-Security-Report.pdf",
+      "chars": 25976,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mayland Community College",
+    "website_url": "https://www.mayland.edu/",
+    "notes": "No summer 2027 camp information or registration milestones were found. The summer-camps page does not identify a season year. Junior Space Ranger Camp lists July 13–16 and $175 without a year; these have not been assigned to 2026 or 2027. The academic calendar is not evidence of camp dates.",
+    "excluded": [
+      {
+        "name": "Summer Session",
+        "reason": "Regular college credit courses, not a finite supervised youth camp or teen pre-college program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Be a Hero, Become a Firefighter",
+        "type": "clinic",
+        "categories": ["academic"],
+        "description": "Students learn about protective firefighting gear and fire safety and check out a fire truck.",
+        "camp_page_url": "https://www.mayland.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "4 Hours"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.mayland.edu/summer-camps/"],
+        "confidence": "medium",
+        "review_notes": "The heading states ages 6–10, while the description recommends ages 6–11; the age range records the full stated span. Confirm eligibility, season year, dates and drop-off location with the provider."
+      },
+      {
+        "name": "Junior Space Ranger Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers make upcycled jet packs and design rocket ships, watch STEAM programming in the Arthur Planetarium, and learn about space travel, planets, light and galaxies.",
+        "camp_page_url": "https://www.mayland.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Earth to Sky Park",
+            "address": "66 Energy Exchange Drive",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday–Thursday, 9:00 a.m.–12:00 p.m.; 12 hours total."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mayland.edu/summer-camps/",
+          "https://www.mayland.edu/campus-maps/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page lists 7/13–7/16, Monday–Thursday, and $175, but provides no season year. Dates and price are omitted rather than assigned a guessed year. The page says a mid-morning snack is provided but does not address lunch. Confirm the season year and exact drop-off point within Earth to Sky Park."
+      },
+      {
+        "name": "Become a Health Care Hero",
+        "type": "clinic",
+        "categories": ["stem", "academic"],
+        "description": "Students explore an ambulance and ambulance classroom simulator, practice skills during a simulated EMS call, and learn basic nursing skills using nursing lab simulators.",
+        "camp_page_url": "https://www.mayland.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "2 Hours"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.mayland.edu/summer-camps/"],
+        "confidence": "medium",
+        "review_notes": "The listing has no season year, dates or explicit drop-off venue. Mitchell is given as a contact, not an explicit meeting location; confirm whether camp meets at the main campus."
+      }
+    ]
+  }
+}

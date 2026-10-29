@@ -1,0 +1,288 @@
+{
+  "provider": {
+    "key": "the-industrial-commons-toss",
+    "name": "The Industrial Commons — TOSS",
+    "urls": ["https://www.tosstudio.org/summer-camp-2026"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:29.332Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0cd353b228b06400b6533136e6386e8330271eb60b79b741fdd54a5ed14d293b",
+  "response": {
+    "searches": ["site:tosstudio.org \"2027\" camp"],
+    "usage": {
+      "inputTokens": 16906,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2104,
+      "reasoningTokens": 99
+    },
+    "status": "completed",
+    "ms": 45133,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.tosstudio.org/summer-camp-2026",
+      "chars": 5933,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tosstudio.org/camp-polices-and-procedures",
+      "chars": 11963,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tosstudio.org/",
+      "chars": 2010,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Industrial Commons — TOSS",
+    "website_url": "https://www.tosstudio.org/",
+    "notes": "No summer 2027 youth camp information found. The 2027 artist residency announcement is not a youth camp announcement. Older Nurture Nature grade-specific pages have undated schedules that differ from the explicit 2026 camp page; these were not used. The camp page and policies identify 647 Hopewell Road as the drop-off location, rather than the 510 College Street address in the site header.",
+    "excluded": [
+      {
+        "name": "TOSSafter",
+        "reason": "School-year afterschool art program, not a summer camp."
+      },
+      {
+        "name": "Workshop Series",
+        "reason": "Workshops are designed for adults ages 18 and up, with occasional family-friendly offerings."
+      },
+      {
+        "name": "AiR",
+        "reason": "Paid artist residency, not a supervised youth summer program."
+      },
+      {
+        "name": "Art Festival (Summer TOSSing!)",
+        "reason": "Family/community celebration and exhibition, not a separately supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["arts", "stem"],
+        "description": "Campers explore sculpture, painting, printmaking, ceramics, and fiber art through daily projects and free-choice creation stations. They also participate in outdoor water play, collaborate on public art, and select artwork for an end-of-summer exhibition.",
+        "camp_page_url": "https://www.tosstudio.org/summer-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "TOSS",
+            "address": "647 Hopewell Road",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am-12pm; drop off between 8:45-9am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 135,
+            "unit": "session",
+            "label": "Early Bird Registration (February 14–March 31)",
+            "year": 2026
+          },
+          {
+            "amount": 165,
+            "unit": "session",
+            "label": "Regular Registration (April 1–30)",
+            "year": 2026
+          },
+          {
+            "amount": 195,
+            "unit": "session",
+            "label": "11th Hour Registration (May 1–31)",
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "Last Last minute (June–July 18)",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rising K-1st Grade",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising K-1st Grade",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 2nd-3rd",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 2nd-3rd",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 4th-5th",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 4th-5th",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "Rising 6-8th",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Rising 6-8th",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-14",
+          "time": null,
+          "text": "Apply: February 14 – March 31 (Priority Registration Period)",
+          "url": "https://www.tosstudio.org/summer-camp-2026"
+        },
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 sessions; all rising K–5 sessions are marked waiting list only. No status is stated for rising 6–8 sessions.",
+          "text": "WAITING LIST ONLY"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Full and partial scholarships are available. Families may request financial support during the application process."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Requesting transportation assistance in the camp application will not a guarantee we will be able to pick up your student. We prioritize pickups/drop offs for scholarships recipients and campers within a 5 mile radius of the studio."
+        },
+        "sources": [
+          "https://www.tosstudio.org/summer-camp-2026",
+          "https://www.tosstudio.org/camp-polices-and-procedures",
+          "https://www.tosstudio.org/camp-tuition"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 camp page states a 15% discount for The Industrial Commons ecosystem, while the separate camp-tuition page states 50%; no discounted dollar tier was calculated. The tuition page does not identify its season. Dates and registration opening year come from the explicit Summer Camp 2026 heading and January 2026 policies. Waitlist labels remain on the official page for sessions that ended before October 29, 2026; they do not indicate 2027 availability. The Apply Now destination could not be verified."
+      }
+    ]
+  }
+}

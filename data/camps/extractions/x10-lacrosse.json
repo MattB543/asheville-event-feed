@@ -1,0 +1,221 @@
+{
+  "provider": {
+    "key": "x10-lacrosse",
+    "name": "X10 Lacrosse",
+    "urls": ["https://www.x10lacrosse.com/asheville"],
+    "area": "Arden, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:47.996Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f3b397ea9c3096ca4a4dc3344457c44aab821842753ab635c429c6a3d3eefc49",
+  "response": {
+    "searches": ["site.x10lacrosse.com Asheville 2027 registration"],
+    "usage": {
+      "inputTokens": 19759,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1271,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 29704,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.x10lacrosse.com/asheville",
+      "chars": 7634,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.x10lacrosse.com/the-overnight-camp-experience",
+      "chars": 6642,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.x10lacrosse.com/daycamps",
+      "chars": 3651,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.x10lacrosse.com/Overnightcamps",
+      "chars": 7474,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.x10lacrosse.com/",
+      "chars": 3815,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "X10 Lacrosse",
+    "website_url": "https://www.x10lacrosse.com/",
+    "notes": "No Asheville-specific 2027 dates or registration milestones were found. Asheville cards use the explicitly labeled 2026 information, despite the page's stale Summer 2022 title. The Adirondack page has 2027 dates, but this is not a complete 2027 provider program list and does not establish that Asheville has been discontinued. Other overnight locations outside the Asheville area were not included.",
+    "excluded": [
+      {
+        "name": "Offense VS Defense Clinic",
+        "reason": "October clinic, outside summer."
+      },
+      {
+        "name": "2-Day Training Camp - Private Schools",
+        "reason": "October training camp, outside summer."
+      },
+      {
+        "name": "Wednesday Fall Skills Training",
+        "reason": "October–November training, outside summer."
+      },
+      {
+        "name": "Savanahh: Shooting Clinic with Coach Bocklet",
+        "reason": "November clinic, outside summer."
+      },
+      {
+        "name": "Thanksgiving Break Lacrosse Camp",
+        "reason": "Thanksgiving break program, outside summer."
+      },
+      {
+        "name": "Gobbler Games",
+        "reason": "Fall event, outside summer."
+      },
+      {
+        "name": "The Lax Mash",
+        "reason": "November event, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "X10 Asheville",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers receive lacrosse skills instruction and play games, with separate goalkeeper training available. Activities between lacrosse sessions include hiking, frisbee golf, a talent show, campfire and X10 Olympics.",
+        "camp_page_url": "https://www.x10lacrosse.com/asheville",
+        "registration_url": "https://x10lacrosse.leagueapps.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": {
+          "min": 5,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday arrival 9:00–10:00 AM; Friday pickup 10:00–11:00 AM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1495,
+            "unit": "session",
+            "label": "Sleep Away Camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We have a vegetarian and salad bar available at every lunch and dinner and fruit is served at all meals."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.x10lacrosse.com/asheville",
+          "https://www.x10lacrosse.com/the-overnight-camp-experience",
+          "https://www.x10lacrosse.com/",
+          "https://www.christschool.org/about-us/contact-us",
+          "https://x10lacrosse.leagueapps.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "X10 Asheville",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Day campers participate in lacrosse instruction and evening games alongside overnight campers. The camp also offers recreational activities including frisbee golf, hiking and X10 Olympics.",
+        "camp_page_url": "https://www.x10lacrosse.com/asheville",
+        "registration_url": "https://x10lacrosse.leagueapps.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": {
+          "min": 5,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Christ School",
+            "address": "500 Christ School Road",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "19:30",
+          "text": "Monday arrival 10:00 AM; Tuesday–Thursday arrival 9:00 AM. Pickup each evening at 7:30 PM. Day campers do not attend Friday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Day Camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We have a vegetarian and salad bar available at every lunch and dinner and fruit is served at all meals."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.x10lacrosse.com/asheville",
+          "https://www.x10lacrosse.com/",
+          "https://www.christschool.org/about-us/contact-us",
+          "https://x10lacrosse.leagueapps.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

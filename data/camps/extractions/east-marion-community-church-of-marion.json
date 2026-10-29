@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "east-marion-community-church-of-marion",
+    "name": "East Marion Community Church of Marion",
+    "urls": ["https://eastmarioncc.org/ministries/children", "https://eastmarioncc.org/"],
+    "area": "Marion, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:53.351Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3a9cb64368280f62c410de94486379d214d86e46a049197f0e7044cbbf7dd933",
+  "response": {
+    "searches": ["site:eastmarioncc.org VBS 2027", "site:emcc.myanswers.com/emerald-crossing"],
+    "usage": {
+      "inputTokens": 15989,
+      "cachedInputTokens": 8223,
+      "outputTokens": 748,
+      "reasoningTokens": 140
+    },
+    "status": "completed",
+    "ms": 22776,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastmarioncc.org/ministries/children",
+      "chars": 1890,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastmarioncc.org/",
+      "chars": 1109,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Marion Community Church of Marion",
+    "website_url": "https://eastmarioncc.org/",
+    "notes": "No 2027 camp information was found. The supplied official children's page posts VBS 2026. The linked MyAnswers registration page returned no readable content, so eligibility, fees and registration milestones could not be verified.",
+    "excluded": [
+      {
+        "name": "Kids Worship",
+        "reason": "Recurring Sunday children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Preschool",
+        "reason": "Recurring preschool care during Sunday worship, not a summer-only program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Psalm 23 and David's story through Bible teaching, hands-on activities and apologetics with an Ireland theme.",
+        "camp_page_url": "https://eastmarioncc.org/ministries/children",
+        "registration_url": "https://emcc.myanswers.com/emerald-crossing/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-02",
+          "end": "2026-08-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Marion Community Church",
+            "address": "660 Baldwin Avenue",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "20:00",
+          "text": "Sunday, August 2 – Tuesday, August 4 from 5:00 p.m. – 8:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastmarioncc.org/ministries/children",
+          "https://eastmarioncc.org/",
+          "https://eastmarioncc.org/connect/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "The MyAnswers registration URL was found in a third-party event listing and returned no readable content; verify that it is the church's linked registration destination. Dates and hours are explicitly listed beneath the VBS 2026 heading in the supplied official children's page."
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "cherry-grove-baptist-church-of-jonesborough",
+    "name": "Cherry Grove Baptist Church of Jonesborough",
+    "urls": ["https://cherrygrovetn.org/"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:38:03.071Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "bd0e9e4da9f7f6eafcf835f7563976b8bf574600bf9d02023717c454f2fa674d",
+  "response": {
+    "searches": [
+      "site:cherrygrovetn.org VBS 2026",
+      "\"Cherry Grove Baptist Church\" \"Jonesborough\" \"Vacation\"",
+      "\"Cherry Grove\" \"Jonesborough\" site:facebook.com VBS"
+    ],
+    "usage": {
+      "inputTokens": 29801,
+      "cachedInputTokens": 8223,
+      "outputTokens": 490,
+      "reasoningTokens": 235
+    },
+    "status": "completed",
+    "ms": 32696,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cherrygrovetn.org/",
+      "chars": 5938,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherry Grove Baptist Church of Jonesborough",
+    "website_url": "https://cherrygrovetn.org/",
+    "notes": "No summer 2027 or 2026 camp or Vacation Bible School offering could be verified. Searches found VBS references only in June 2018 church bulletin PDFs; these are too old to establish a current offering. The supplied homepage describes weekly children's and youth ministries but no finite summer program. The bulletin and events pages returned no readable text when opened. No cards were created rather than assuming that historical VBS continues.",
+    "excluded": [
+      {
+        "name": "Children's Department",
+        "reason": "Weekly, year-round children's ministry through sixth grade; no finite summer offering is specified."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Weekly, year-round ministry for grades 7–12; no dated summer camp or other finite summer youth program is specified."
+      },
+      {
+        "name": "Good News club training",
+        "reason": "Training listed for October 18, outside summer, rather than a summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

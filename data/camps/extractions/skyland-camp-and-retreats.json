@@ -1,0 +1,559 @@
+{
+  "provider": {
+    "key": "skyland-camp-and-retreats",
+    "name": "Skyland Camp and Retreats",
+    "urls": [
+      "https://skylandcamp.com/girlscamp/dates-and-rates",
+      "https://skylandcamp.com/girls-camp-dates-rates/",
+      "https://skylandcamp.com/"
+    ],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:15:48.465Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a5cc6849ae7bf233220901f53574b02ff9a80b27469e7b01e586514550c2bdb7",
+  "response": {
+    "searches": ["site:skylandcamp.com \"address\""],
+    "usage": {
+      "inputTokens": 27288,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2597,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 45999,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://skylandcamp.com/girlscamp/dates-and-rates",
+      "chars": 12418,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/girls-camp-dates-rates/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page Not Found\")"
+    },
+    {
+      "url": "https://skylandcamp.com/",
+      "chars": 10445,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/adultscamp/dates-and-rates",
+      "chars": 13044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ultracamp.com/info/upcomingSessions.aspx?idCamp=508&campCode=scn",
+      "chars": 3828,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/reviews",
+      "chars": 4099,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/about-us",
+      "chars": 8752,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/amenities-and-activities",
+      "chars": 9413,
+      "method": "fetch"
+    },
+    {
+      "url": "https://skylandcamp.com/about/faqs",
+      "chars": 6782,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Skyland Camp and Retreats",
+    "website_url": "https://skylandcamp.com/",
+    "notes": "2027 Girls Camp dates and prices are posted and corroborated by UltraCamp. The Girls Camp dates page also retains a clearly labeled 2026 block; only 2027 dates and prices are used here. Main Camp and shorter Starter Camp sessions are combined as one overnight program. No dated 2027 registration opening announcement was found.",
+    "excluded": [
+      {
+        "name": "Mother-Daughter Camp",
+        "reason": "Family-only camp requiring participation with an adult; excluded under the camp rule."
+      },
+      {
+        "name": "Grown-Up Girls Camp",
+        "reason": "Adult-only program for ages 21 and up."
+      },
+      {
+        "name": "Golf Camp",
+        "reason": "Adult-only program for ages 21 and up."
+      },
+      {
+        "name": "Soul Camp",
+        "reason": "Adult-only retreat for ages 21 and up."
+      },
+      {
+        "name": "Volunteer Work Weekends",
+        "reason": "Adult-only volunteer programs for ages 21 and up; scheduled outside summer."
+      },
+      {
+        "name": "Equine Learning",
+        "reason": "Ongoing equine experiences, not a listed finite summer youth camp."
+      },
+      {
+        "name": "Pony Parties",
+        "reason": "Private parties rather than a scheduled summer camp program."
+      },
+      {
+        "name": "Horse Boarding",
+        "reason": "Year-round boarding service, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Girls Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Girls stay in screened-in cabins and participate in daily activities, evening programs, games, and camp traditions in a tech-free setting. Younger campers can attend shorter Starter Camp sessions.",
+        "camp_page_url": "https://skylandcamp.com/girlscamp/dates-and-rates",
+        "registration_url": "https://www.ultracamp.com/info/upcomingSessions.aspx?idCamp=508&campCode=scn",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-26",
+          "end": "2027-07-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Skyland Camp and Retreats",
+            "address": "317 Spencer Street",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Main Camp — Rising 1st Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 2nd Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 3rd Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 4th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 5th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 5,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 6th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 7th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 8th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 8,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp — Rising 9th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Main Camp — Rising 10th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6900,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 1 — Rising 1st Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 1 — Rising 2nd Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 1 — Rising 3rd Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 1 — Rising 4th Grade",
+            "start": "2027-06-26",
+            "end": "2027-07-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 2 — Rising 1st Grade",
+            "start": "2027-07-04",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 1,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 2 — Rising 2nd Grade",
+            "start": "2027-07-04",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 2,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 2 — Rising 3rd Grade",
+            "start": "2027-07-04",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Starter Camp - Session 2 — Rising 4th Grade",
+            "start": "2027-07-04",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 4,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 3450,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Main Camp rising 9th grade is waitlisted; other listed Girls Camp grade/session combinations offer registration.",
+          "text": "2027 Girl's Camp - Main Session - Rising 9th Grade\n6/26/2027 - 7/12/2027\nGrade 9th\n$6,900.00 Wait List"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "For families needing support, our Campership program provides need-based financial aid, including up to 100 percent tuition coverage for eligible households."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers all meals, lodging, daily activities, and evening programs on our tech-free campus."
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Note that Skyland can help arrange pick up and drop off ONLY to and from Asheville Regional Airport."
+        },
+        "sources": [
+          "https://skylandcamp.com/girlscamp/dates-and-rates",
+          "https://www.ultracamp.com/info/upcomingSessions.aspx?idCamp=508&campCode=scn",
+          "https://skylandcamp.com/about/faqs",
+          "https://skylandcamp.com/directions/",
+          "https://www.skylandcamp.com/wp-content/uploads/2018/04/DrivingDirectionsToSkyland.2018.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

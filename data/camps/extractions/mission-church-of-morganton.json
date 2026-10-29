@@ -1,0 +1,92 @@
+{
+  "provider": {
+    "key": "mission-church-of-morganton",
+    "name": "Mission Church of Morganton",
+    "urls": ["https://missionchurchmorganton.churchcenter.com/people/forms/1194521"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:11.287Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5507c8fe80fe431ff2f3e909b3b22ee2b03892d384fb008736ac101a821bb723",
+  "response": {
+    "searches": [
+      "Mission Church Morganton VBS 2026 2027 address",
+      "\"missionchurchmorganton\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 16295,
+      "cachedInputTokens": 8223,
+      "outputTokens": 585,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 19177,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://missionchurchmorganton.churchcenter.com/people/forms/1194521",
+      "chars": 546,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mission Church of Morganton",
+    "website_url": "https://www.missionchurchnc.com/",
+    "notes": "No summer 2027 information found. The available 2026 source is a volunteer interest form, not camper registration. The official events page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Mission Kids",
+        "reason": "Year-round children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Mission Youth",
+        "reason": "Year-round youth ministry, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School over two evenings, with a Sunday morning service on the final day. The volunteer form does not describe specific camper activities.",
+        "camp_page_url": "https://missionchurchmorganton.churchcenter.com/people/forms/1194521",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-12",
+          "end": "2026-06-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "June 12–13: 6PM–8PM. June 14: 10AM–11:30AM (Sunday morning service)."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://missionchurchmorganton.churchcenter.com/people/forms/1194521",
+          "https://www.missionchurchnc.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm camper eligibility, activities, registration and meeting venue: only a volunteer interest form was found. Ages 0–2 refer to childcare for volunteers, not VBS eligibility. The church publishes its location as 221 Herron Street, Morganton, NC 28655, but the VBS form does not explicitly identify the venue, so sites is empty. Dates take their year from the form title, VBS 2026 Volunteer Interest Form."
+      }
+    ]
+  }
+}

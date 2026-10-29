@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "riverside-baptist-church-of-waynesville",
+    "name": "Riverside Baptist Church of Waynesville",
+    "urls": ["https://riversideworship.net/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:16:16.233Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6ced389d4553ecdecc602b63d410bee2454459a90a0bb87cbe25548f0acff51b",
+  "response": {
+    "searches": [
+      "site:riversideworship.net \"VBS\"",
+      "site:facebook.com \"Riverside\" \"Lake Logan\" \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 17323,
+      "cachedInputTokens": 8223,
+      "outputTokens": 704,
+      "reasoningTokens": 149
+    },
+    "status": "completed",
+    "ms": 27755,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://riversideworship.net/",
+      "chars": 1555,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Riverside Baptist Church of Waynesville",
+    "website_url": "https://riversideworship.net/",
+    "notes": "No 2027 camp information found. Official student-ministry and calendar pages were accessible only through search-index text; direct access was blocked by robots.txt. Third-party event listings mention VBS on June 14, 2026 at 6 PM, but no official dated announcement was found, so those dates and hours have not been entered.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "School-year Bible study, games and Scripture memorization ministry; not a summer camp."
+      },
+      {
+        "name": "Worship Celebration",
+        "reason": "Recurring children's Sunday worship program, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about Jesus through the church's Vacation Bible School ministry.",
+        "camp_page_url": "https://riversideworship.net/student-ministries/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Riverside Baptist Church",
+            "address": "2171 Lake Logan Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://riversideworship.net/",
+          "https://riversideworship.net/student-ministries/",
+          "https://riversideworship.net/church-calendar/"
+        ],
+        "confidence": "medium",
+        "review_notes": "VBS is described in official search-index text, but the student-ministry page could not be opened directly. Confirm the summer schedule, registration details and meeting location with the church; the site entered is the church's published address."
+      }
+    ]
+  }
+}

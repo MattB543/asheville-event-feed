@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "enon-baptist-church-of-marshall",
+    "name": "Enon Baptist Church of Marshall",
+    "urls": ["https://www.enonbc.net/"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:27:07.064Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "80c1c3cd83c423ebfd90ed5cd26bf6e5416cc4816e739c96e3391035067979ef",
+  "response": {
+    "searches": [
+      "site:enonbc.net \"VBS\"",
+      "open https://enonbc.net/upcoming-events",
+      "site:facebook.com \"Enon\" \"Junkyard\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 14661,
+      "cachedInputTokens": 8223,
+      "outputTokens": 780,
+      "reasoningTokens": 187
+    },
+    "status": "completed",
+    "ms": 22466,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.enonbc.net/",
+      "chars": 3412,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Enon Baptist Church of Marshall",
+    "website_url": "https://enonbc.net/",
+    "notes": "No 2027 summer information found. The official events page's search description mentions VBS Junkyard Redemption, but the page could not be read. A third-party mirror of church social posts confirms a 2026 VBS, but complete dates, ages and registration details could not be verified officially. An unrelated Enon Church Center account in Alabama was not used. A shared Bible camp application was not included because it was not established as this church's own program.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Youth and Children's Church",
+        "reason": "Year-round weekly ministry, not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round weekly ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School with Bible study. Its listed theme is Junkyard Redemption.",
+        "camp_page_url": "https://enonbc.net/upcoming-events",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Enon Missionary Baptist Church",
+            "address": "174 Ammons Branch Rd",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://enonbc.net/", "https://enonbc.net/upcoming-events"],
+        "confidence": "medium",
+        "review_notes": "The official events page mentions VBS Junkyard Redemption only in its search description; its content could not be opened. A third-party mirror at https://www.findglocal.com/US/Marshall/237859476867/Enon-Baptist-Church reproduces June 2026 church posts about this theme and Bible study. Verify the program details and meeting location with the church. Dates and hours from third-party posts were left unfilled."
+      }
+    ]
+  }
+}

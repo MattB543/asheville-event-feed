@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "oak-grove-christian-church-of-arden",
+    "name": "Oak Grove Christian Church of Arden",
+    "urls": [
+      "https://oakgrovechristianchurch.com/student-ministries",
+      "https://oakgrovechristianchurch.com/",
+      "https://www.facebook.com/OakGroveChristianChurchArden/"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:14.170Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "59fa65468ca3d8d714773082016ea46a1da296c65cdb03edba8e54e37318c128",
+  "response": {
+    "searches": [
+      "site.oakgrovechristianchurch.com VBS 2026 2027",
+      "\"OakGroveChristianChurchArden\" \"VBS\" \"2025\""
+    ],
+    "usage": {
+      "inputTokens": 18131,
+      "cachedInputTokens": 8223,
+      "outputTokens": 840,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 28103,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://oakgrovechristianchurch.com/student-ministries",
+      "chars": 2090,
+      "method": "fetch"
+    },
+    {
+      "url": "https://oakgrovechristianchurch.com/",
+      "chars": 3242,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/OakGroveChristianChurchArden/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Grove Christian Church of Arden",
+    "website_url": "https://oakgrovechristianchurch.com/",
+    "notes": "No 2027 camp information was found. The official student ministries page documents VBS 2024 but does not provide current camp details. AllEvents lists OGCC 2026 Vacation Bible School events on July 7 and July 10, 2026, at 5:30 PM, but the complete schedule could not be verified on official sources. The official calendar and Facebook page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Children & Youth Programs",
+        "reason": "Ongoing student ministry, not a finite summer program. Its K–12 grade range was not applied to Vacation Bible School."
+      },
+      {
+        "name": "Bible Study Group",
+        "reason": "Ongoing Bible study, not a finite summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A children's program focused on Christian teachings and activities.",
+        "camp_page_url": "https://oakgrovechristianchurch.com/student-ministries",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Oak Grove Christian Church",
+            "address": "5 Morris Rd",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://oakgrovechristianchurch.com/student-ministries",
+          "https://oakgrovechristianchurch.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify the 2026 VBS schedule and meeting location with the church. The official website only documents VBS 2024; the 2026 offering and church meeting location appear in the third-party listing https://allevents.in/org/oak-grove-christian-church/13944519. That listing shows July 7 and July 10 events, but does not establish a complete camp date range. The church's official website confirms its street address. No VBS-specific ages, prices, registration dates or 2027 details were verified."
+      }
+    ]
+  }
+}

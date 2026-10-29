@@ -1,0 +1,156 @@
+{
+  "provider": {
+    "key": "the-crunchy-baker",
+    "name": "The Crunchy Baker",
+    "urls": ["https://crunchybaker.com/youth-baking-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:13.912Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "dec5f629e99b5d73ceb73dcba1b2870c255f500ecb994d7e5b4d7bd719bc0cce",
+  "response": {
+    "searches": [
+      "site.theashevillekitchen.com baking camp 2026",
+      "open https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
+      "site.theashevillekitchen.com \"August 10\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20565,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1143,
+      "reasoningTokens": 186
+    },
+    "status": "completed",
+    "ms": 29471,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://crunchybaker.com/youth-baking-camp/",
+      "chars": 2843,
+      "method": "fetch"
+    },
+    {
+      "url": "https://crunchybaker.com/youth-baking-camp-faqs-and-forms/",
+      "chars": 3532,
+      "method": "fetch"
+    },
+    {
+      "url": "https://crunchybaker.com/",
+      "chars": 2094,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Crunchy Baker",
+    "website_url": "https://crunchybaker.com/",
+    "notes": "No official summer 2027 information was found. The three 2026 baking weeks are grouped as themes of Youth Baking Camp. The Asheville Kitchen camp listing returned no readable text. Search found individualized 2026 payment pages, not a verified general registration checkout; their payment amounts were not treated as public camp prices.",
+    "excluded": [
+      {
+        "name": "In-Person Classes",
+        "reason": "Year-round classes, rather than a finite summer youth camp offering."
+      },
+      {
+        "name": "Private Events",
+        "reason": "Custom birthday parties, team-building activities and homeschool events, not a scheduled summer youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Baking Camp",
+        "type": "half_day",
+        "categories": ["cooking"],
+        "description": "Campers practice baking through demonstrations and individual and group hands-on work. Sweet and savory weeks cover doughs and baked goods, while the cake and dessert week covers cakes, fillings and decorating techniques.",
+        "camp_page_url": "https://crunchybaker.com/youth-baking-camp/",
+        "registration_url": "https://www.theashevillekitchen.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Asheville Kitchen",
+            "address": "384 Merrimon Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:30",
+          "text": "9:00am-12:30pm, Monday-Friday."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Sweet & Savory Baking Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cake Decorating & Desserts Baking Camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sweet & Savory Baking Camp",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Additionally, we offer a range of sliding scale rates for classes, so more people can get in on learning to bake! Contact us for more information."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://crunchybaker.com/youth-baking-camp/",
+          "https://crunchybaker.com/youth-baking-camp-faqs-and-forms/",
+          "https://www.theashevillekitchen.com/contact",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

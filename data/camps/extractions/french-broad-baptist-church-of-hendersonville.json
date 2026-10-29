@@ -1,0 +1,68 @@
+{
+  "provider": {
+    "key": "french-broad-baptist-church-of-hendersonville",
+    "name": "French Broad Baptist Church of Hendersonville",
+    "urls": [
+      "https://www.frenchbroadbaptistchurch.com/get-involved/",
+      "https://www.frenchbroadbaptistchurch.com/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:38.880Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7fc746547688b44fe29c9216b9d706c91586eede3181d77003f4a13e8adadfcc",
+  "response": {
+    "searches": [
+      "site:frenchbroadbaptistchurch.com VBS 2026 2027",
+      "\"French Broad Baptist Church\" \"Vacation Bible\""
+    ],
+    "usage": {
+      "inputTokens": 17371,
+      "cachedInputTokens": 8223,
+      "outputTokens": 454,
+      "reasoningTokens": 180
+    },
+    "status": "completed",
+    "ms": 24693,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.frenchbroadbaptistchurch.com/get-involved/",
+      "chars": 1034,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.frenchbroadbaptistchurch.com/",
+      "chars": 1815,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "French Broad Baptist Church of Hendersonville",
+    "website_url": "https://www.frenchbroadbaptistchurch.com/",
+    "notes": "No official 2026 or 2027 summer camp information was found. The supplied WOW VBS page describes an undated livestream for kids and families, not a supervised camp. Search results also surfaced Hendersonville VBS events from 2019 and 2023; these were not used as current offerings. The official site blocks browser access via robots.txt; the calendar and linked WOW signup form returned no readable content.",
+    "excluded": [
+      {
+        "name": "WOW VBS",
+        "reason": "A four-day virtual livestream viewed by kids and families; the page does not establish a supervised youth program or summer dates."
+      },
+      {
+        "name": "Bible Study Groups",
+        "reason": "Recurring year-round Sunday groups, not a finite summer program."
+      },
+      {
+        "name": "Wednesday night children and youth groups",
+        "reason": "Recurring year-round groups, not a finite summer program."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "A fall event, outside the summer."
+      }
+    ],
+    "cards": []
+  }
+}

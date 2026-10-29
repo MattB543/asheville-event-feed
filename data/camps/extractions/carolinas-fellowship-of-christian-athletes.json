@@ -1,0 +1,239 @@
+{
+  "provider": {
+    "key": "carolinas-fellowship-of-christian-athletes",
+    "name": "Carolinas Fellowship of Christian Athletes",
+    "urls": [
+      "https://carolinasfca.org/leadership-camp-2026",
+      "https://www.carolinasfca.org/camps",
+      "https://search.fcacamps.org/CampDetail.aspx?ID=11986"
+    ],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:10:46.838Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a978992eff5b42dba63c9a40e4dd6f90f1ecd639fb0e042b47793223ad6b2b65",
+  "response": {
+    "searches": [
+      "site.carolinasfca.org leadership camp 2027",
+      "site:mhu.edu \"120 Cascade\"",
+      "site:triadfca.org/camps \"2027\" \"Registration\""
+    ],
+    "usage": {
+      "inputTokens": 33047,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1848,
+      "reasoningTokens": 273
+    },
+    "status": "completed",
+    "ms": 49207,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://carolinasfca.org/leadership-camp-2026",
+      "chars": 5815,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinasfca.org/camps",
+      "chars": 9569,
+      "method": "fetch"
+    },
+    {
+      "url": "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
+      "chars": 6074,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carolinasfca.org/regional-board-lead-team-meeting-registration",
+      "chars": 188,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.carolinasfca.org/regional-board-lead-team-meeting-registration",
+      "chars": 188,
+      "method": "browser"
+    },
+    {
+      "url": "https://carolinasfca.org/camps",
+      "chars": 9569,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carolinasfca.org/regional-camp-scholarship-information",
+      "chars": 5090,
+      "method": "fetch"
+    },
+    {
+      "url": "https://carolinasfca.org/camp-on-the-coast",
+      "chars": 6111,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolinas Fellowship of Christian Athletes",
+    "website_url": "https://carolinasfca.org/",
+    "notes": "Cards cover the Asheville-area offerings in Black Mountain and Mars Hill, rather than the provider's entire two-state camp network. The official Triad FCA camps page announces July 12-16, 2027 for Black Mountain Leadership Camp; the regional provider page still displays 2026 details. No 2027 Mars Hill dates or registration milestones were found. The supplied regional-board registration pages are password-protected and are not youth camp pages.",
+    "excluded": [
+      {
+        "name": "Black Mountain Coaches Camp",
+        "reason": "Camp for coaches and their families, not a standalone youth offering."
+      },
+      {
+        "name": "Coaches CTO at The Cove",
+        "reason": "Coaches retreat rather than a supervised youth camp."
+      },
+      {
+        "name": "Winter Blast Collegiate Retreat",
+        "reason": "January 8-10, 2027 is outside summer."
+      },
+      {
+        "name": "NC FCA at The Fort High School Retreat",
+        "reason": "March retreat outside summer."
+      },
+      {
+        "name": "NC FCA at The Fort Middle School Retreat",
+        "reason": "March retreat outside summer."
+      },
+      {
+        "name": "SC FCA Spring Retreat",
+        "reason": "March retreat outside summer."
+      },
+      {
+        "name": "SC FCA Middle School Retreat",
+        "reason": "November retreat outside summer."
+      },
+      {
+        "name": "FCA Greater Charlotte All Abilities Camp",
+        "reason": "April program outside summer."
+      },
+      {
+        "name": "Clemson FCA Power Camp",
+        "reason": "September program outside summer."
+      },
+      {
+        "name": "Leadership Camp adult FCA volunteer track",
+        "reason": "Adult-only track; adult pricing is omitted from the youth card."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Black Mountain Leadership Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "sports"],
+        "description": "Student-athletes participate in leadership training, Christian faith activities, and competitions in huddles led by college students. The camp focuses on leadership on school campuses and sports teams.",
+        "camp_page_url": "https://carolinasfca.org/leadership-camp-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": "JULY 12-16, 2027 BLACK MOUNTAIN LEADERSHIP CAMP"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "YMCA Blue Ridge Assembly",
+            "address": "84 Blue Ridge Circle",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 475,
+            "unit": "program",
+            "label": "Student; 2026 middle school and high school offering",
+            "year": 2026
+          },
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": "GAP track; 2026 high school graduate",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Regional Scholarship Opportunities"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/leadership-camp-2026",
+          "https://triadfca.org/camps",
+          "https://carolinasfca.org/regional-camp-scholarship-information",
+          "https://blueridgeassembly.org/meet/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 dates are stated in the official Triad FCA search result; opening that page returned no readable text. Confirm those dates and overnight format directly before publication. The regional page still lists July 6-10, 2026, middle school and high school students, and a 2026 graduate GAP track. Numerical grade boundaries and 2027 eligibility were not stated; grades are left null. Prices and scholarship wording are from the supplied 2026 regional page, not a 2027 announcement. Its Registration OPEN wording refers to the old season and is not treated as current availability."
+      },
+      {
+        "name": "Western NC Mars Hill Team Football Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Football teams participate in 7-on-7 and lineman activities, team competition, and Christian programming. Coaches register their players as a team.",
+        "camp_page_url": "https://carolinasfca.org/western-n-c-team-football-camp-2026",
+        "registration_url": "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-11",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "Athlete",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/western-n-c-team-football-camp-2026",
+          "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
+          "https://www.mhu.edu/department/registrars-office/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm overnight versus commuter format: the readable official materials give a three-day university camp but do not explicitly state lodging. The regional page was available only through its official search snippet. It prints 120 Cascad Street; the university publishes 120 Cascade Street, used here. This is a finite team camp, not a league or team season. Registration is through coaches rather than necessarily individual parent enrollment."
+      }
+    ]
+  }
+}

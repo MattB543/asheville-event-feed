@@ -1,0 +1,65 @@
+{
+  "provider": {
+    "key": "oak-forest-baptist-church-of-fletcher",
+    "name": "Oak Forest Baptist Church of Fletcher",
+    "urls": [
+      "https://www.oakforestbaptist.com/",
+      "https://www.facebook.com/OakForestBaptistChurch123/"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:29:45.452Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ef7eb9fc85ed115ef1491a8ecd0a8616f7bab3dc9d05b542a80fd48264593b29",
+  "response": {
+    "searches": [
+      "\"Oak Forest Baptist\" \"2026\" \"VBS\" Fletcher",
+      "\"Oak Forest Baptist Church\" \"Fletcher\" \"vacation\""
+    ],
+    "usage": {
+      "inputTokens": 21081,
+      "cachedInputTokens": 8223,
+      "outputTokens": 359,
+      "reasoningTokens": 149
+    },
+    "status": "completed",
+    "ms": 15566,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.oakforestbaptist.com/",
+      "chars": 1073,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/OakForestBaptistChurch123/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Forest Baptist Church of Fletcher",
+    "website_url": "https://www.oakforestbaptist.com/",
+    "notes": "No summer 2027 or 2026 camp or Vacation Bible School offering could be verified on accessible official pages. The supplied homepage lists worship and Bible-study services, not summer programs. The official Facebook page returned no readable content. Search found a third-party Vacation Bible School listing for June 21, 2025, but no corresponding readable official announcement or 2026 update; it was not used to create a card. Reviewer should check the church's Facebook posts directly for summer announcements.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Regular year-round church instruction, not a finite summer program."
+      },
+      {
+        "name": "Wednesday Bible Study",
+        "reason": "Regular year-round church instruction, not a finite summer program."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "A third-party listing places this event on October 24, 2026, outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

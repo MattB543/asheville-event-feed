@@ -1,0 +1,520 @@
+{
+  "provider": {
+    "key": "polk-county-schools",
+    "name": "Polk County Schools",
+    "urls": [
+      "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+      "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/"
+    ],
+    "area": "Columbus and Tryon, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:58.738Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "69cf43c85cd9c546f26ef701e3bfaf5b31c607832dc6c4abdde73ec2b448e8a6",
+  "response": {
+    "searches": [
+      "site.pc ms.polkschools.org address Polk County Middle School",
+      "open https://polkschools.org/pcms/aboutus/"
+    ],
+    "usage": {
+      "inputTokens": 26995,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4118,
+      "reasoningTokens": 217
+    },
+    "status": "completed",
+    "ms": 71352,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+      "chars": 9800,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+      "chars": 8076,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+      "chars": 4076,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/wp-content/uploads/2026/07/Enrollment-Guide-v3.pdf",
+      "chars": 1317,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/polkschools.org/advancedlearningaig/frequently-asked-questions-faqs",
+      "chars": 3348,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/students-master-3d-modeling-and-printing-in-summer-camp/",
+      "chars": 4947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-elementary-students-tackle-mystery-solving-summer-camp/",
+      "chars": 5536,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polkschools.org/polk-county-students-blend-science-art-at-summer-creative-camp/",
+      "chars": 5165,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Polk County Schools",
+    "website_url": "https://polkschools.org/",
+    "notes": "The AIG enrichment page says “Summer 2027 TBA”; no 2027 dates or registration milestones were found. Cards use the seven programs in the official 2026 seminar list. These seminars are for Advanced Learning and AIG students, and students may attend only one seminar. The 2026 registration deadline was May 25, 2026. The May 15 announcement says registration was already open, but does not state its opening date. The registration form returned no readable text. Programs appearing only in the Summer 2025 list were not carried forward: Mystery, Danger and Heroism; Creative Cultivators; Drones - Learn to Fly; So You Want To Write a Novel (or a Screenplay...or a Podcast...); and Crime Buster: A Deep Dive into Forensic Science.",
+    "excluded": [
+      {
+        "name": "Elementary, Middle School and High School Clubs",
+        "reason": "School-year enrichment clubs, not finite summer camps."
+      },
+      {
+        "name": "Passion Projects / Project Nerd",
+        "reason": "School-year independent projects with a March presentation event, not a summer camp."
+      },
+      {
+        "name": "Gear Up",
+        "reason": "A seven-year college and career readiness initiative; no finite summer camp offering is described."
+      },
+      {
+        "name": "BOLT Mentorship Program",
+        "reason": "Ongoing mentorship program, not a finite summer camp."
+      },
+      {
+        "name": "Advanced Learning/AIG Classes",
+        "reason": "School-year academic services, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Computer Science with Sphero Robotics",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Students program Sphero BOLT and RVR+ robots and use Sphero Blueprint Kits to design, build and test robotic solutions through team-based challenges.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Polk County Middle School",
+            "address": "321 Wolverine Trail",
+            "town": "Mill Spring",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9 AM–1 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/pcms/aboutus/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "3D Printing with TinkerCad and a 3D Scanner",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Students learn 3D modeling and printing using TinkerCad and a 3D scanner. Each student designs and prints a 3D object.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-20",
+          "end": "2026-07-23",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Polk County Middle School",
+            "address": "321 Wolverine Trail",
+            "town": "Mill Spring",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9 AM–1 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "2026 seminar",
+          "text": "This course is full."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/pcms/aboutus/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Culture and Cuisine Camp",
+        "type": "half_day",
+        "categories": ["cooking", "academic"],
+        "description": "Students explore different countries and their traditions through hands-on activities. They make snacks inspired by each culture.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Tryon Elementary School",
+            "address": "100 School Place",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "9 AM–1 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/tes/about-us-2/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Space Exploration Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Students explore planetary science and develop a Mars colony proposal addressing habitats, life support and sustainability. The camp concludes with a mission presentation.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Tryon Elementary School",
+            "address": "100 School Place",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9 AM–12 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/tes/about-us-2/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Lego Robotics and Archeology",
+        "type": "half_day",
+        "categories": ["stem", "academic"],
+        "description": "Students design, build and operate Lego Spike Prime robots to complete challenges while studying archeology and its use of technology. Families may attend a robotics display on the final day.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Polk County Middle School",
+            "address": "321 Wolverine Trail",
+            "town": "Mill Spring",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "12:30",
+          "text": "8:30 AM–12:30 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/pcms/aboutus/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Cuttin’ It Up!",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students explore Scherenschnitte, the Swiss-German art of paper cutting, and its history. They create a framed paper-cutting artwork to take home.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Polk County Middle School",
+            "address": "321 Wolverine Trail",
+            "town": "Mill Spring",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9 AM–12 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://polkschools.org/pcms/aboutus/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Herbalism and Alchemy",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Students explore a cove habitat and learn about local flora and herbalism, making teas, syrups and dyes. The program takes place entirely outdoors.",
+        "camp_page_url": "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+        "registration_url": "https://forms.gle/mDfoEwAWSJ9bUH1r9",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": "Summer 2027 TBA"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Pearson Falls and Glen",
+            "address": "2748 Pearson Falls Road",
+            "town": "Saluda",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:45",
+          "text": "9 AM–12:45 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer seminar",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/polkschools.org/advancedlearningaig/clubs-camps-and-enrichment",
+          "https://polkschools.org/polk-county-schools-offers-free-summer-seminars-for-advanced-learners/",
+          "https://polkschools.org/wp-content/uploads/2026/05/List-2026-Summer-Seminar-Registration-and-Descriptions-camp.pdf",
+          "https://www.pearsonsfallsandglen.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

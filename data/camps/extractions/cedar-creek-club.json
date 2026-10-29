@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "cedar-creek-club",
+    "name": "Cedar Creek Club",
+    "urls": ["https://cedarcreekclub.com/family-fun"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:40.248Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7d40bd121f66237f9b4c7408e5bea16b4cd514ddfe51093a19c5569538614031",
+  "response": {
+    "searches": ["site:cedarcreekclub.com camp 2027 2026"],
+    "usage": {
+      "inputTokens": 13795,
+      "cachedInputTokens": 8223,
+      "outputTokens": 711,
+      "reasoningTokens": 98
+    },
+    "status": "completed",
+    "ms": 19234,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cedarcreekclub.com/family-fun",
+      "chars": 1877,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cedarcreekclub.com/",
+      "chars": 3011,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cedar Creek Club",
+    "website_url": "https://cedarcreekclub.com/",
+    "notes": "No public 2027 camp dates or registration announcements were found. The public Family Fun page describes an eight-week summer camp beginning mid-June and running through mid-August, but gives no year, exact dates, ages, prices or camp hours. Member pages appear to require login; additional schedules and registration details may be available only to members.",
+    "excluded": [
+      {
+        "name": "Sports Clinics & Camps",
+        "reason": "The public page describes youth tennis, pickleball and croquet instruction generically, but does not identify a finite summer offering or summer schedule. Summer eligibility could not be established."
+      },
+      {
+        "name": "Private Lessons",
+        "reason": "General ongoing sports instruction, not an identified finite summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Kids Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Campers participate in outdoor activities, arts and crafts, and nature discovery. The club describes an eight-week day camp running from mid-June through mid-August.",
+        "camp_page_url": "https://cedarcreekclub.com/family-fun",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cedar Creek Club",
+            "address": "42 Racquet Club Drive",
+            "town": "Cashiers",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://cedarcreekclub.com/family-fun", "https://cedarcreekclub.com/"],
+        "confidence": "medium",
+        "review_notes": "The Family Fun page is undated: 2026 is used as the fallback season, not as an explicitly stated camp year. Confirm the operating year, exact weekly dates and drop-off location with the club. The published club address is used as the site; the page does not specify a separate camp check-in location. Club facility hours and dining hours are not camp hours or evidence of included lunch."
+      }
+    ]
+  }
+}

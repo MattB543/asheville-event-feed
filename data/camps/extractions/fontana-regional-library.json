@@ -1,0 +1,73 @@
+{
+  "provider": {
+    "key": "fontana-regional-library",
+    "name": "Fontana Regional Library",
+    "urls": [
+      "https://fontanalib.org/events/summer-learning-program-registration-2",
+      "https://fontanalib.org/"
+    ],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:46.110Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e5576a76f9706872e5cc7a8df977c6700ab47b976611ae64c06b33220853498c",
+  "response": {
+    "searches": [
+      "site.fontanalib.org summer 2026",
+      "site:fontanalib.org \"2026\" \"camp\"",
+      "site:fontanalib.org/261/Summer-Reading-Program"
+    ],
+    "usage": {
+      "inputTokens": 28972,
+      "cachedInputTokens": 8223,
+      "outputTokens": 540,
+      "reasoningTokens": 258
+    },
+    "status": "completed",
+    "ms": 29885,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fontanalib.org/events/summer-learning-program-registration-2",
+      "chars": 804,
+      "method": "browser"
+    },
+    {
+      "url": "https://fontanalib.org/",
+      "chars": 3944,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fontana Regional Library",
+    "website_url": "https://fontanalib.org/",
+    "notes": "No 2027 summer camp information found. The supplied Summer Learning Program registration URL returns a 404. The replacement Summer Reading Program page describes independent daily reading, weekly prize collection and take-home activity kits, rather than supervised camp attendance. Official 2026 calendars also list children's summer learning events, but do not establish a supervised camp or skill-clinic format; no camp cards could be verified from the available information.",
+    "excluded": [
+      {
+        "name": "Summer Reading Program",
+        "reason": "Independent reading challenge with weekly prizes and Take & Make Art and Science Kits to enjoy at home; not a supervised youth camp. Official page: https://fontanalib.org/261/Summer-Reading-Program"
+      },
+      {
+        "name": "Hudson Library: Kids Zone for grades K-5",
+        "reason": "Recurring creative and educational library activities listed in both July and October 2026; not a finite summer-only program."
+      },
+      {
+        "name": "MBL- PreK Storytime Ages 3-5",
+        "reason": "Regular library storytime, not a finite summer camp."
+      },
+      {
+        "name": "Hudson Library: Family Storytime",
+        "reason": "Family storytime rather than a supervised youth camp."
+      },
+      {
+        "name": "NCL: Adult Chair Exercise Class",
+        "reason": "Adult-only exercise program."
+      }
+    ],
+    "cards": []
+  }
+}

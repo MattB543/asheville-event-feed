@@ -1,0 +1,658 @@
+{
+  "provider": {
+    "key": "lake-logan",
+    "name": "Lake Logan",
+    "urls": [
+      "https://www.lakelogan.org/camphenry/camp-programs/",
+      "https://www.lakelogan.org/camp-henry-rates-and-dates/",
+      "https://www.lakelogan.org/camphenry/",
+      "https://www.lakelogan.org/camp-henry/",
+      "https://www.camphenry.net/"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["news828", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:07.157Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "22eba2c583a32b3e7a37b0c7567b15c7b7b41f8079bd4b461d7263f75a9bb6ea",
+  "response": {
+    "searches": [
+      "site.lakelogan.org camphenry frequently asked questions meals check in",
+      "open https://www.lakelogan.org/camphenry/camp-faq/",
+      "site.lakelogan.org \"campbrain\""
+    ],
+    "usage": {
+      "inputTokens": 30284,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4562,
+      "reasoningTokens": 216
+    },
+    "status": "completed",
+    "ms": 92124,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lakelogan.org/camphenry/camp-programs/",
+      "chars": 6163,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/camp-henry-rates-and-dates/",
+      "chars": 5866,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/camphenry/",
+      "chars": 3323,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/camp-henry/",
+      "chars": 3323,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/visit/rates/",
+      "chars": 5947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/registration-and-release/",
+      "chars": 5898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/visit/camping/",
+      "chars": 17065,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lakelogan.org/camphenry/camp-henry-en-espanol/",
+      "chars": 11129,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lake Logan",
+    "website_url": "https://www.lakelogan.org/",
+    "notes": "The English Dates and Rates page announces 2027 registration and lists dates without repeating the year; dates and rates below are treated as 2027 from that page context. The Spanish page still describes 2026 and was not used for 2027 prices or dates. The FAQ search result says registration for the next summer opens October 15, conflicting with the explicit November 1 announcement for 2027; the year-specific announcement is used. Additional official FAQ and staff pages returned no readable body when opened. Bridge is an optional between-session extension, not a separate program.",
+    "excluded": [
+      {
+        "name": "Family Camp",
+        "reason": "Family-only program requiring parents or guardians to attend."
+      },
+      {
+        "name": "Junior Counselors",
+        "reason": "Summer staff-support role involving counselor responsibilities, rather than a camper program."
+      },
+      {
+        "name": "Camping at Lake Logan",
+        "reason": "Campsite rentals, not a provider-supervised youth program."
+      },
+      {
+        "name": "Year-round camps",
+        "reason": "Generic year-round offerings without identified summer youth sessions."
+      },
+      {
+        "name": "CHOS Familiares",
+        "reason": "Family-only offering described in older Spanish materials; not listed in the 2027 schedule."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Traditional Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers participate in swimming, boating, fishing, hiking, games, arts and crafts, singing, storytelling and worship. Staff and clergy tailor programming to each age group.",
+        "camp_page_url": "https://www.lakelogan.org/camphenry/camp-programs/",
+        "registration_url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Logan",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "At-cost rate",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Sr. High",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "7th-9th",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "4th-6th",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "6th-8th",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "3rd-5th",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Camp Henry 2027 opens on November 1st!",
+            "url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "An automatic discount of 15% is available for those unable to pay the at-cost rate."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lakelogan.org/camphenry/camp-programs/",
+          "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+          "https://www.lakelogan.org/camphenry/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates have no individual year labels; 2027 is taken from the registration announcement on the schedule page. The generic FAQ says October 15, while the 2027 schedule and landing page explicitly say November 1. Registration URL is the official page containing the login link; the platform destination could not be verified."
+      },
+      {
+        "name": "Mini Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Young campers experience swimming, field games, arts and crafts, singing, dancing and campfires. The program uses smaller cabins and a schedule tailored to a first overnight camp experience.",
+        "camp_page_url": "https://www.lakelogan.org/camphenry/camp-programs/",
+        "registration_url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-14",
+          "end": "2027-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Logan",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "session",
+            "label": "At-cost rate",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Camp Henry 2027 opens on November 1st!",
+            "url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "An automatic discount of 15% is available for those unable to pay the at-cost rate."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lakelogan.org/camphenry/camp-programs/",
+          "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 is taken from the schedule page's registration announcement, not a year printed beside the dates. The generic FAQ says October 15; the explicit 2027 announcement says November 1. Registration URL contains the login link rather than a verified platform destination."
+      },
+      {
+        "name": "Butterfly Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers participate in traditional camp activities with programming delivered in English and Spanish. Individual youth can stay in cabins with campers their age; families may also attend together.",
+        "camp_page_url": "https://www.lakelogan.org/camphenry/camp-programs/",
+        "registration_url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Logan",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "At-cost rate",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Camp Henry 2027 opens on November 1st!",
+            "url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "When registering for Butterfly Camp, please enter the code MARIPOSA to receive the discount."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lakelogan.org/camphenry/camp-programs/",
+          "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Grades describe unaccompanied youth; the family option allows all ages. Year is taken from the schedule's 2027 announcement. The 2027 page does not specify the MARIPOSA discount amount; the older Spanish page's free rate is not carried forward. The generic FAQ registration date conflicts with November 1. Registration URL contains the login link."
+      },
+      {
+        "name": "Camp Henry Outdoor School (CHOS)",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in backcountry activities such as backpacking, rafting, climbing and canoe camping. They learn navigation, campcraft, Leave-No-Trace ethics and expedition management.",
+        "camp_page_url": "https://www.lakelogan.org/camphenry/camp-programs/",
+        "registration_url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Logan",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "7th – 9th 1",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 810,
+              "unit": "session",
+              "label": "At-cost rate",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Sr. High 1",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 810,
+              "unit": "session",
+              "label": "At-cost rate",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "7th – 9th 2",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 810,
+              "unit": "session",
+              "label": "At-cost rate",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "CHOS Amplified",
+            "start": "2027-07-14",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1350,
+              "unit": "session",
+              "label": "At-cost rate",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Sr. High 2",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 810,
+              "unit": "session",
+              "label": "At-cost rate",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Camp Henry 2027 opens on November 1st!",
+            "url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "An automatic discount of 15% is available for those unable to pay the at-cost rate."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lakelogan.org/camphenry/camp-programs/",
+          "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 is taken from the schedule announcement; dates do not repeat the year. Schedule duration labels count nights while program descriptions count calendar days; exact date ranges are retained. The generic FAQ says October 15, conflicting with the explicit November 1 announcement. Registration URL contains the login link."
+      },
+      {
+        "name": "Leadership, Adventure, Mission Program (LAMP)",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "Teens develop leadership skills, participate in community service and take off-campus adventures such as whitewater rafting. The two-week program introduces leadership at Camp Henry and beyond.",
+        "camp_page_url": "https://www.lakelogan.org/camphenry/camp-programs/",
+        "registration_url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Logan",
+            "address": "25 Wormy Chestnut Lane",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1275,
+            "unit": "session",
+            "label": "At-cost rate",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "LAMP 1",
+            "start": "2027-06-27",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LAMP 2",
+            "start": "2027-07-25",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Camp Henry 2027 opens on November 1st!",
+            "url": "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "An automatic discount of 15% is available for those unable to pay the at-cost rate."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lakelogan.org/camphenry/camp-programs/",
+          "https://www.lakelogan.org/camphenry/camp-henry-rates-and-dates/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 is taken from the schedule page's registration announcement rather than a year printed beside each date. The generic FAQ says October 15, conflicting with the explicit 2027 November 1 announcement. Registration URL contains the login link rather than a verified platform destination."
+      }
+    ]
+  }
+}

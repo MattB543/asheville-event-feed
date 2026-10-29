@@ -1,0 +1,292 @@
+{
+  "provider": {
+    "key": "ralph-lundy-soccer-academy",
+    "name": "Ralph Lundy Soccer Academy",
+    "urls": ["https://ralphlundysoccer.com/"],
+    "area": "Spartanburg, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:58.306Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e48a6d63920f18467fd7813de05f34ab68a1986c380909cf1812d102eef7c8fd",
+  "response": {
+    "searches": [
+      "site.ralphlundysoccer.com 2027",
+      "site.trussvilleunitedsoccer.com fields address",
+      "site:ralphlundysoccer.com/locations USC Upstate",
+      "site.ashleyridge.ddtwo.org \"9800\""
+    ],
+    "usage": {
+      "inputTokens": 31238,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2327,
+      "reasoningTokens": 326
+    },
+    "status": "completed",
+    "ms": 64492,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ralphlundysoccer.com/",
+      "chars": 1052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/camps",
+      "chars": 681,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/faq",
+      "chars": 1052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ralphlundysoccer.com/facts",
+      "chars": 10749,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ralph Lundy Soccer Academy",
+    "website_url": "https://ralphlundysoccer.com/",
+    "notes": "No official 2027 summer dates or registration milestones were found. The homepage still lists 2026 camps; the camps registration page reports no events. The locations page and ralphlundy.com returned no readable text when opened, although official location pages were indexed in search. Elite Training School is described in the FAQs as training within the older residential camp, so it is included within Residential Camps rather than as a separate card.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Day Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers train and compete in soccer groups organized by age and ability. Specialized goalkeeper training is offered.",
+        "camp_page_url": "https://ralphlundysoccer.com/",
+        "registration_url": "https://ralphlundysoccer.com/camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Trussville United Soccer Club",
+            "address": "4601 Pumphouse Road",
+            "town": "Trussville",
+            "state": "AL"
+          },
+          {
+            "name": "Ashley Ridge High School",
+            "address": "9800 Delemar Hwy",
+            "town": "Summerville",
+            "state": "SC"
+          },
+          {
+            "name": "Christian Academy of Knoxville",
+            "address": "529 Academy Way",
+            "town": "Knoxville",
+            "state": "TN"
+          },
+          {
+            "name": "Tri-Cities Soccer Club",
+            "address": "2939 Sullivan Gardens Pkwy",
+            "town": "Kingsport",
+            "state": "TN"
+          },
+          {
+            "name": "Shea Family Fields",
+            "address": "5050 North Highway 17",
+            "town": "Awendaw",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": "Trussville United Soccer Club",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": "Ashley Ridge High School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": "Christian Academy of Knoxville",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": "Tri-Cities Soccer Club",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": "Shea Family Fields",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": "Shea Family Fields",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ralphlundysoccer.com/",
+          "https://ralphlundysoccer.com/facts",
+          "https://ralphlundysoccer.com/camps",
+          "https://ralphlundysoccer.com/locations/",
+          "https://ralphlundysoccer.com/locations/db7bd9bc-09cb-4597-8017-5409b5bdc94d",
+          "https://arhs.ddtwo.org/extracurriculars/clubs-organizations",
+          "https://www.cakwarriors.com/about/contact-us-and-directions",
+          "https://www.tricitiesunited.org/fields",
+          "https://ralphlundysoccer.com/locations/shea-family-fields"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm Kingsport drop-off: the academy's indexed locations page identifies Eastman Park at Horse Creek at 2969 Sullivan Gardens Parkway, while the club's own fields page publishes 2939 Sullivan Gardens Pkwy, used here. Trussville's academy location page gives the field complex at 4601 Pumphouse Road; the club contact page instead lists 11 Palm Street. Several location facts were available only through official search snippets."
+      },
+      {
+        "name": "Residential Camps",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers practice soccer techniques and tactics and play small-sided and full-sided games, with specialized training for goalkeepers. The older camp includes advanced tactical training and a college recruiting panel.",
+        "camp_page_url": "https://ralphlundysoccer.com/",
+        "registration_url": "https://ralphlundysoccer.com/camps",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "USC Upstate",
+            "address": "800 University Way",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in Sunday 12:00pm-2:00pm; closing ceremonies Wednesday 12:45pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Ages 8-12, Boys and Girls",
+            "start": "2026-06-14",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ages 13-18, Boys and Girls",
+            "start": "2026-06-21",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Following this session the players will head to lunch and take a break."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ralphlundysoccer.com/",
+          "https://ralphlundysoccer.com/facts",
+          "https://ralphlundysoccer.com/camps",
+          "https://www.uscupstate.edu/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

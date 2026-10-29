@@ -1,0 +1,132 @@
+{
+  "provider": {
+    "key": "carolina-creative-arts",
+    "name": "Carolina Creative Arts",
+    "urls": ["https://www.carolinacreativearts.org/camp"],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:58:31.113Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4e4388d4a0df0b99b269d1230f0d7454fda2a45dcf2f25b5e42264eeb3ffc26d",
+  "response": {
+    "searches": [
+      "site:carolinacreativearts.org camp 2026 2027",
+      "Grace Brevard 55 East Jordan Street official",
+      "site:carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird \"ages\"",
+      "\"2 Week Theater Camp 2026\""
+    ],
+    "usage": {
+      "inputTokens": 25078,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1002,
+      "reasoningTokens": 303
+    },
+    "status": "completed",
+    "ms": 39813,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.carolinacreativearts.org/camp",
+      "chars": 597,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.carolinacreativearts.org/",
+      "chars": 1794,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Carolina Creative Arts",
+    "website_url": "https://www.carolinacreativearts.org/",
+    "notes": "No summer 2027 dates or registration announcements found. The camp page currently contains only a 2025 performance video; the homepage confirms a 2026 summer production. The 2026 theater camp details survive in official registration-page search results, but opening that page returned no readable text. Older creative arts camp listings were not treated as additional 2026 programs.",
+    "excluded": [
+      {
+        "name": "Improv Acting Day Camp",
+        "reason": "Listed for September 7, 2026, outside the summer season."
+      },
+      {
+        "name": "Youth Intermediate Acting 12-Week Course",
+        "reason": "Course begins February 2027; not a summer program."
+      },
+      {
+        "name": "Adult Improv Acting Workshop",
+        "reason": "Adult-only offering."
+      },
+      {
+        "name": "Creative Life Workshop",
+        "reason": "Listed on the adult programming page."
+      },
+      {
+        "name": "Private Study",
+        "reason": "Ongoing one-on-one instruction, not a finite summer camp."
+      },
+      {
+        "name": "PRODUCTION TECH - 8 Week Winter Semester",
+        "reason": "Winter program, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "2 Week Theater Camp",
+        "type": "day",
+        "categories": ["theater", "arts", "music", "dance"],
+        "description": "Students write a play, build sets, choreograph and write songs to create an original production. The camp ends with a performance.",
+        "camp_page_url": "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+        "registration_url": "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grace Brevard",
+            "address": "55 E. Jordan Street",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "Monday-Friday, 9am - 3:30pm; performance July 24."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "session",
+            "label": "Early Bird",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.carolinacreativearts.org/store-2/p/2-week-theater-camp-2026-early-bird",
+          "https://www.carolinacreativearts.org/store-2",
+          "https://www.carolinacreativearts.org/",
+          "https://www.carolinacreativearts.org/camp",
+          "https://www.gracebrevardchurch.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, hours, activities and camp venue were readable only in official registration-page search results; opening the product page returned no text. The year is explicit in the product title. Verify eligibility ages, lunch arrangements and any additional price tiers directly with the provider. The $550 early-bird price is stated in the official store listing. Venue address confirmed on Grace Brevard Church's own website."
+      }
+    ]
+  }
+}

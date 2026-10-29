@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "groce-united-methodist-church-of-asheville",
+    "name": "Groce United Methodist Church of Asheville",
+    "urls": ["https://www.groceumc.org/musiccamp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["our_db", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:36.878Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "36438f7941bd6c46ed0c27d3e2020977c5765f1cf066f7c39085a4fb59d95904",
+  "response": {
+    "searches": ["site:groceumc.org \"2026\" \"camp\"", "site:groceumc.org \"July 13\""],
+    "usage": {
+      "inputTokens": 21960,
+      "cachedInputTokens": 8223,
+      "outputTokens": 599,
+      "reasoningTokens": 142
+    },
+    "status": "completed",
+    "ms": 18558,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.groceumc.org/musiccamp",
+      "chars": 2503,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.groceumc.org/_files/ugd/275cf6_89aa2f3b89a34675a91f950cf1449012.pdf",
+      "chars": 82,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.groceumc.org/",
+      "chars": 1853,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Groce United Methodist Church of Asheville",
+    "website_url": "https://www.groceumc.org/",
+    "notes": "No 2027 summer dates or registration announcements found. The current music camp page advertises Christmas camp and links a 2026 summer slideshow, but no longer states summer dates or prices. A third-party Kidvoyage listing reports July 13–17, 2026 and prices, but these were not confirmed on official pages and are omitted.",
+    "excluded": [
+      {
+        "name": "Christmas Music Camp",
+        "reason": "December program; outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Groce UMC Music Camps",
+        "type": "day",
+        "categories": ["music", "arts", "faith_based"],
+        "description": "Children learn Christian songs and connect the music with scripture, prayer, and conversation. Daily activities include music, crafts, recreation, and lunch.",
+        "camp_page_url": "https://www.groceumc.org/musiccamp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Groce United Methodist Church",
+            "address": "954 Tunnel Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available, so there is never a financial barrier to participate."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Each day includes music, crafts, recreation, lunch, and caring volunteers who embody Christ's hospitality."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.groceumc.org/musiccamp",
+          "https://www.groceumc.org/about-6-3",
+          "https://www.groceumc.org/",
+          "https://www.groceumc.org/_files/ugd/275cf6_89aa2f3b89a34675a91f950cf1449012.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

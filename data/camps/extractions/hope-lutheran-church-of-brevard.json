@@ -1,0 +1,103 @@
+{
+  "provider": {
+    "key": "hope-lutheran-church-of-brevard",
+    "name": "Hope Lutheran Church of Brevard",
+    "urls": ["https://hopebrevard.org/education/vacation-bible-school-2026"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:27.117Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6eac24790cf86264344858d01f3d6600166335b8bda2bcbe3bf4d88c07293ac1",
+  "response": {
+    "searches": ["\"Hope Lutheran Church\" \"Brevard\""],
+    "usage": {
+      "inputTokens": 14344,
+      "cachedInputTokens": 8223,
+      "outputTokens": 758,
+      "reasoningTokens": 108
+    },
+    "status": "completed",
+    "ms": 21483,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hopebrevard.org/education/vacation-bible-school-2026",
+      "chars": 1837,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hopebrevard.org/",
+      "chars": 5781,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hope Lutheran Church of Brevard",
+    "website_url": "https://hopebrevard.org/",
+    "notes": "Provider-location mismatch: the supplied website belongs to Hope Lutheran Church in Melbourne, Florida, not Brevard, North Carolina. Its official location page lists 4541 North Wickham Road, Melbourne, FL 32935. The VBS below is therefore not an Asheville-area offering and should not be published locally without correcting the provider record. No 2027 summer information was found.",
+    "excluded": [
+      {
+        "name": "Children’s Sunday School Classes",
+        "reason": "Recurring Sunday school, not a finite summer camp."
+      },
+      {
+        "name": "Wednesday Men's Bible Study",
+        "reason": "Adult Bible study, not a youth summer camp."
+      },
+      {
+        "name": "Wednesday Women's Bible Study",
+        "reason": "Adult Bible study, not a youth summer camp."
+      },
+      {
+        "name": "Wednesday in the Word",
+        "reason": "Recurring September-through-May program outside summer."
+      },
+      {
+        "name": "Next Steps New Member Class",
+        "reason": "New-member course listed for September 2023, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Rainforest Falls Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and their relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "camp_page_url": "https://hopebrevard.org/education/vacation-bible-school-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://hopebrevard.org/education/vacation-bible-school-2026",
+          "https://hopebrevard.org/",
+          "https://hopebrevard.org/home/location"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplied provider name and NC area conflict with the official website, which identifies a Melbourne, FL church. Verify provider identity before publication. The VBS page does not explicitly identify its drop-off venue, so sites is empty; the church's published address is 4541 North Wickham Road, Melbourne, FL 32935."
+      }
+    ]
+  }
+}

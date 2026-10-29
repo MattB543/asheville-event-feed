@@ -1,0 +1,142 @@
+{
+  "provider": {
+    "key": "central-church-of-christ-of-johnson-city",
+    "name": "Central Church of Christ of Johnson City",
+    "urls": ["https://gracemine.org/events/vbs-2026/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:00.158Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3e4bb064a1143f44d9e63bdd3e41898516c0a4e1d6ac51378cf7758b3f6ba852",
+  "response": {
+    "searches": [
+      "site:gracemine.org \"2027\" \"VBS\"",
+      "High Rock Bible Camp 2026 teen preteen official",
+      "\"High Rock Bible Camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25963,
+      "cachedInputTokens": 8223,
+      "outputTokens": 972,
+      "reasoningTokens": 188
+    },
+    "status": "completed",
+    "ms": 26418,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://gracemine.org/events/vbs-2026/",
+      "chars": 1926,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gracemine.org/sermon-archive/sermon-dates/",
+      "chars": 7598,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/JmYHTz9PRFqaApAS9",
+      "chars": 596,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gracemine.org/about-us/campus-locations/",
+      "chars": 1960,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gracemine.org/event-category/camp/",
+      "chars": 1627,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gracemine.org/",
+      "chars": 2720,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Central Church of Christ of Johnson City",
+    "website_url": "https://gracemine.org/",
+    "notes": "No 2027 VBS information or registration dates were found. The church also lists HRBC Teen Week (June 7–12, 2026) and HRBc Preteen Event (June 14–18, 2026); these belong to the separate provider High Rock Bible Camp and are not included as Central Church programs.",
+    "excluded": [
+      {
+        "name": "HRBC Spring Retreat",
+        "reason": "April 17–19, 2026; outside summer."
+      },
+      {
+        "name": "HRBC Fall Retreat",
+        "reason": "September 11–13, 2026; outside summer."
+      },
+      {
+        "name": "HRBC Workday",
+        "reason": "April volunteer cleanup and repair event, not a supervised summer youth program."
+      },
+      {
+        "name": "Sunday Morning Bible Class",
+        "reason": "Recurring year-round Bible class, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children in pre-K through sixth grade attend Living Bible School. Teens who are not assisting with VBS are directed to attend Adult Bible Class.",
+        "camp_page_url": "https://gracemine.org/events/vbs-2026/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfWyHfPyJ7WF6HoWp_j38idK_PaJOpO0MwTme06_5l59rCxeQ/closedform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Central Church of Christ",
+            "address": "2722 E. Oakland Avenue",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "6:00 pm – 8:00 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS registration",
+          "text": "The form 2026 VBS Registration WWJD is no longer accepting responses."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://gracemine.org/events/vbs-2026/",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfWyHfPyJ7WF6HoWp_j38idK_PaJOpO0MwTme06_5l59rCxeQ/closedform",
+          "https://gracemine.org/about-us/campus-locations/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

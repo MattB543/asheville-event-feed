@@ -1,0 +1,316 @@
+{
+  "provider": {
+    "key": "milligan-university",
+    "name": "Milligan University",
+    "urls": [
+      "https://milligan.edu/life/get-involved/camps/",
+      "https://milligan.edu/life/get-involved/camps/nursing-camp/"
+    ],
+    "area": "Milligan, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:21.039Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a4f6d7dc284bb51c08b3d882f2c889da10a757fb8b0b2d16d169f9bf59eeff94",
+  "response": {
+    "searches": [
+      "site.milliganbuffs.com camps 2026",
+      "open https://milliganbuffs.com/sports/2025/6/1/camps-Camps.aspx",
+      "site.milliganbuffs.com \"2026\" \"Camp\" \"DATES\"",
+      "site.milliganbuffs.com \"Underclassman\" camp 2026",
+      "site.milliganbuffs.com \"Swim\" \"2026\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 38497,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2635,
+      "reasoningTokens": 428
+    },
+    "status": "completed",
+    "ms": 59877,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://milligan.edu/life/get-involved/camps/",
+      "chars": 3273,
+      "method": "fetch"
+    },
+    {
+      "url": "https://milligan.edu/life/get-involved/camps/nursing-camp/",
+      "chars": 4673,
+      "method": "fetch"
+    },
+    {
+      "url": "https://milligan.edu/admissions/tuition/",
+      "chars": 7260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://milligan.edu/admissions/tuition/cost-of-attendance/net-price-calculator/",
+      "chars": 2496,
+      "method": "fetch"
+    },
+    {
+      "url": "https://milligan.edu/wp-content/uploads/MU_Summer_Camp_Waiver-pdf.pdf",
+      "chars": 4140,
+      "method": "fetch"
+    },
+    {
+      "url": "https://milligan.edu/",
+      "chars": 6450,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Milligan University",
+    "website_url": "https://milligan.edu/",
+    "notes": "No Milligan-operated 2027 summer camp information was found. The university's general camps page has undated dates that differ from the explicitly dated 2026 athletics basketball page; the 2026 athletics dates are used. Nursing information is explicitly tied to 2025, so its historical dates are preserved as 2025 rather than relabeled. The 2026 swim PDF landing page was readable, but the actual PDF content could not be retrieved. The underclassman registration page did not expose dates or eligibility. FUGE camps at Milligan are operated by Lifeway, not Milligan University, and are not included as this provider's programs. The general camps page also lists Baseball with undated June 2-5 dates; no corresponding 2026 summer offering was verified.",
+    "excluded": [
+      {
+        "name": "Baseball Prospect Camp",
+        "reason": "The official 2026 registration page specifies November 7, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Men's Basketball Youth Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Co-ed campers develop basketball skills with Milligan's athletic program.",
+        "camp_page_url": "https://milliganbuffs.com/sports/2026/2/11/2026-mens-basketball-youth-summer-camps.aspx",
+        "registration_url": "https://milliganbuffs.com/sb_output.aspx?form=10",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Milligan University",
+            "address": "1 Blowers Boulevard",
+            "town": "Milligan",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:00",
+          "text": "Monday-Thursday 8am-4pm; Friday 8am-noon"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 220,
+            "unit": "session",
+            "label": "Regular Fee",
+            "year": 2026
+          },
+          {
+            "amount": 195,
+            "unit": "session",
+            "label": "Multiple Children/Teams with 6 or more children",
+            "year": 2026
+          },
+          {
+            "amount": 165,
+            "unit": "session",
+            "label": "Milligan Alumni",
+            "year": 2026
+          },
+          {
+            "amount": 110,
+            "unit": "session",
+            "label": "Milligan Faculty/Staff",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://milliganbuffs.com/sports/2026/2/11/2026-mens-basketball-youth-summer-camps.aspx",
+          "https://milliganbuffs.com/sb_output.aspx?form=10",
+          "https://milligan.edu/life/get-involved/camps/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The general camps page lists June 2-6, July 7-11 and July 21-25 without a year; the explicitly labeled 2026 athletics page lists June 8-12, July 6-10 and July 20-24. Confirm the specific campus drop-off building. Fees are presented as camp fees; session units follow the weeklong registration options."
+      },
+      {
+        "name": "Women's Basketball Underclassman Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants practice individual and team drills and play five-on-five games. The camp includes a parent information session about recruiting.",
+        "camp_page_url": "https://milliganbuffs.com/sports/2025/6/1/camps-Camps.aspx",
+        "registration_url": "https://milliganbuffs.com/sb_output.aspx?form=4",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://milliganbuffs.com/sports/2025/6/1/camps-Camps.aspx",
+          "https://milliganbuffs.com/sb_output.aspx?form=4"
+        ],
+        "confidence": "low",
+        "review_notes": "Official athletics index identifies this as a 2026 camp, but accessible registration text does not provide dates, hours, price, eligibility or venue. Verify that it occurs in summer before publication."
+      },
+      {
+        "name": "Summer Swim Lessons",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants take swimming lessons through Milligan's athletics program.",
+        "camp_page_url": "https://milliganbuffs.com/documents/2026/5/15/Swim_Lessons_Summer2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://milligan.edu/life/get-involved/camps/",
+          "https://milliganbuffs.com/documents/2026/5/15/Swim_Lessons_Summer2026.pdf"
+        ],
+        "confidence": "low",
+        "review_notes": "Retrieve the actual Summer 2026 PDF to verify youth eligibility, session dates, pool location, fees and registration. The landing page exposed only the document title. Undated dates on the university camps page were not assigned to 2026."
+      },
+      {
+        "name": "Nursing Summer Camp",
+        "type": "day",
+        "categories": ["academic", "stem"],
+        "description": "Participants practice nursing skills including vital signs, IVs and injections, tour health care agencies, and earn CPR certification.",
+        "camp_page_url": "https://milligan.edu/life/get-involved/camps/nursing-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-07-14",
+          "end": "2025-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Milligan University",
+            "address": "1 Blowers Boulevard",
+            "town": "Milligan",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9 a.m. – 3 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Historical 2025 offering",
+          "text": "Registration is full."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch is included but no overnight housing or evening programming is provided."
+        },
+        "transportation": null,
+        "sources": ["https://milligan.edu/life/get-involved/camps/nursing-camp/"],
+        "confidence": "medium",
+        "review_notes": "Only 2025 information was found. Year is taken from the eligibility wording 'current seniors (2025)', not printed directly beside July 14-16. Eligibility also includes current seniors, in addition to rising juniors and seniors; the grade object cannot express both bases. Historical fees of $175 before May 15 and $225 after May 15 were omitted because neither 2026 nor 2027 fees were verified. Confirm whether the program will return and its campus drop-off building."
+      }
+    ]
+  }
+}

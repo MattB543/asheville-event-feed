@@ -1,0 +1,127 @@
+{
+  "provider": {
+    "key": "celebration-family-worship-center-of-morganton",
+    "name": "Celebration Family Worship Center of Morganton",
+    "urls": [
+      "https://www.cfwcmorganton.org/",
+      "https://www.facebook.com/cfwcmorganton/",
+      "https://www.facebook.com/Celebration-Family-Worship-Center-141968040037/"
+    ],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:21:17.982Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "406897a5f8030f3253d5fe5e54a1008c3824c204252e98f194d75b2cf3ac096f",
+  "response": {
+    "searches": ["site.cfwcmorganton.org \"VBS\"", "\"cfwcmorganton\" \"2026\" \"NORTH\""],
+    "usage": {
+      "inputTokens": 25831,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1011,
+      "reasoningTokens": 181
+    },
+    "status": "completed",
+    "ms": 29448,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cfwcmorganton.org/",
+      "chars": 2937,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/cfwcmorganton/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/Celebration-Family-Worship-Center-141968040037/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Celebration Family Worship Center of Morganton",
+    "website_url": "https://www.cfwcmorganton.org/",
+    "notes": "No summer 2027 announcement was found. The current official homepage lists fall events rather than VBS. The official Facebook page and events page returned no readable text. A third-party event listing identifies a 2026 VBS; its dates and hours require official confirmation. No registration dates were found.",
+    "excluded": [
+      {
+        "name": "Children's Ministry",
+        "reason": "Year-round church ministry, not a finite summer program."
+      },
+      {
+        "name": "Youth Ministry",
+        "reason": "Year-round church ministry, not a finite summer program."
+      },
+      {
+        "name": "HALLELUJAH HARVEST FESTIVAL",
+        "reason": "October family event outside summer."
+      },
+      {
+        "name": "R3VIVE YOUNG ADULTS BIBLE STUDY",
+        "reason": "Adult program for ages 18–30, not a youth summer camp."
+      },
+      {
+        "name": "MEN'S FELLOWSHIP BREAKFAST",
+        "reason": "November fellowship meal, not a summer camp."
+      },
+      {
+        "name": "PASTORS APPRECIATION SUNDAY THANKSGIVING LUNCHEON",
+        "reason": "November church service and family luncheon, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend Vacation Bible School hosted by Celebration Family Worship Center. The 2026 theme was True North.",
+        "camp_page_url": "https://www.facebook.com/cfwcmorganton/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "New Dimensions School",
+            "address": "550 Lenoir Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cfwcmorganton.org/",
+          "https://www.facebook.com/cfwcmorganton/posts/cfwc-will-be-hosting-our-vbs-on-june-18-22-600pm-830pm-visit-our-website-to-sign/10160536161310038/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Facebook search result confirms the church offers VBS but concerns an older season. The 2026 theme, July 27–30 dates and 18:30–20:30 hours come only from the search snippet for https://happeningnext.com/event/cfwc-2026-vbs-true-north-eid3a0drm0vdv; confirm these against the church's original announcement. That listing gives 550 Lenoir Rd; the official homepage identifies this address as New Dimensions School. Ages, price and registration details could not be verified."
+      }
+    ]
+  }
+}

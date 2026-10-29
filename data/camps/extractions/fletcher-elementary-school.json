@@ -1,0 +1,72 @@
+{
+  "provider": {
+    "key": "fletcher-elementary-school",
+    "name": "Fletcher Elementary School",
+    "urls": ["https://www.hendersoncountypublicschoolsnc.org/fle/"],
+    "area": "Fletcher, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:14.049Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5cc03d1da09667a863471aab0561b0b2ed5fcb6f6c2f0720c98815490a615d8b",
+  "response": {
+    "searches": [
+      "site:hendersoncountypublicschoolsnc.org \"2026\" \"summer\" \"child care\"",
+      "site:hendersoncountypublicschoolsnc.org/fle/ summer",
+      "site:hendersoncountypublicschoolsnc.org \"Summer PLUS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 29087,
+      "cachedInputTokens": 8223,
+      "outputTokens": 496,
+      "reasoningTokens": 219
+    },
+    "status": "completed",
+    "ms": 25552,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/",
+      "chars": 3820,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/updates-and-links/",
+      "chars": 3011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/fle/about/enrollment/",
+      "chars": 3873,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/",
+      "chars": 7057,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fletcher Elementary School",
+    "website_url": "https://www.hendersoncountypublicschoolsnc.org/fle/",
+    "notes": "No summer 2027 or 2026 program announcement specific to Fletcher Elementary was found. The school’s Summer Learning Information page describes summer 2021 only, so those dates were not reused. District pages describe Summer PLUS generally and say specific schedules and site locations are announced in spring; Fletcher was explicitly a Summer PLUS site in 2020, but no current summer site assignment was found. Summer PLUS should be reviewed under Henderson County Public Schools rather than assumed to meet at Fletcher. Official pages checked include the Fletcher Summer Learning Information page, HCPS Child Care Program Overview, Annual Enrollment, and the April 14, 2026 Child Care Parent Handbook. These establish historical or district-wide programs but do not establish a 2026 or 2027 Fletcher summer offering.",
+    "excluded": [
+      {
+        "name": "PSAM",
+        "reason": "Before-school childcare operating during the school year, not a finite summer program."
+      },
+      {
+        "name": "PSPM",
+        "reason": "After-school childcare operating during the school year, not a finite summer program."
+      },
+      {
+        "name": "PLUS (Non-Student Days)",
+        "reason": "Teacher-workday and winter-weather childcare outside summer; distinct from the district’s Summer PLUS program."
+      }
+    ],
+    "cards": []
+  }
+}

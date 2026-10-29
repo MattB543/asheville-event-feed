@@ -1,0 +1,184 @@
+{
+  "provider": {
+    "key": "niswonger-performing-arts-center",
+    "name": "Niswonger Performing Arts Center",
+    "urls": ["https://www.npacgreeneville.com/education/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:47.450Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "859093ec1863a9913932be457c778235b84270ff2417cff5878698df263e3f60",
+  "response": {
+    "searches": [
+      "site.npacgreeneville.com \"camp\" \"2027\"",
+      "site:npacgreeneville.com \"Camp\"",
+      "\"NPAC\" \"2026\" \"Dalmatians\""
+    ],
+    "usage": {
+      "inputTokens": 34500,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1257,
+      "reasoningTokens": 224
+    },
+    "status": "completed",
+    "ms": 32604,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.npacgreeneville.com/education/",
+      "chars": 6572,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://forms.gle/tDoVnKVpMnBwLyMR9",
+      "chars": 2586,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/xQD8rjtr26oj1uU9A",
+      "chars": 2588,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/yEJtksxqHPGbBEUm8",
+      "chars": 2794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/Fjn92s58DdKgC1xs7",
+      "chars": 2796,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/gvuPKwx84o4t7LbN8",
+      "chars": 2818,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/bh6wX23eLdr9adK36",
+      "chars": 2820,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/8hLXGuj6VNwM1EoD6",
+      "chars": 622,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Niswonger Performing Arts Center",
+    "website_url": "https://www.npacgreeneville.com/",
+    "notes": "No summer 2027 camp information found. The education page lists summer camp dates without a year alongside its 2026-2027 school-year series. The camp flyer and camp registration link were not accessible in the retrieved page text.",
+    "excluded": [
+      {
+        "name": "Carnival! | Knoxville Symphony Orchestra's Young People's Concert",
+        "reason": "School field-trip performance on November 4, 2026, outside summer; not a supervised camp."
+      },
+      {
+        "name": "Lightwire Theater’s A Very Electric Christmas",
+        "reason": "School field-trip performance on December 15, 2026, outside summer; not a supervised camp."
+      },
+      {
+        "name": "Rosie Revere, Ada Twist, and Iggy Peck: The Questioneers",
+        "reason": "School field-trip performance on February 23, 2027, outside summer; not a supervised camp."
+      },
+      {
+        "name": "The Peking Acrobats",
+        "reason": "School field-trip performance on March 12, 2027, outside summer; not a supervised camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp NPAC Kids!",
+        "type": "day",
+        "categories": ["theater", "music", "dance", "arts"],
+        "description": "Campers sing, act, dance, and design costumes, sets, and props during a week-long theatrical day camp. Separate grade groups work on 101 Dalmatians KIDS and Mary Poppins JR.",
+        "camp_page_url": "https://www.npacgreeneville.com/education/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Niswonger Performing Arts Center",
+            "address": "212 Tusculum Blvd",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9AM – 3PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "101 Dalmatians KIDS",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 5,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mary Poppins JR.",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 12,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Camp section; retained listing for the past summer",
+          "text": "Registration Full - Waitlist Registrations Accepted"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.npacgreeneville.com/education/",
+          "https://www.npacgreeneville.com/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp dates June 1-5 and June 15-19 have no explicit year. They are provisionally labeled 2026 from the current page context, not treated as 2027 dates. Verify the year against the camp flyer. The page retains both an open-registration heading and a full/waitlist message for this past-season camp; availability reflects the camp-specific message, not summer 2027 availability."
+      }
+    ]
+  }
+}

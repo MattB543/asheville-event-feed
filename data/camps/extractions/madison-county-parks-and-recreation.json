@@ -1,0 +1,127 @@
+{
+  "provider": {
+    "key": "madison-county-parks-and-recreation",
+    "name": "Madison County Parks and Recreation",
+    "urls": ["https://www.madisoncountync.gov/park-summer-events.html"],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:05.676Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "2635928bcb8f7b962de15bf0ca9889aafc526f62bdca85f9fe557c78aa37e5b6",
+  "response": {
+    "searches": [
+      "site.madisoncountync.gov summer 2027 parks recreation",
+      "open https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/screenshot_2026-06-23_at_10.36.59%E2%80%AFam.png",
+      "site.madisoncountync.gov \"2026\" \"trip\" \"summer\""
+    ],
+    "usage": {
+      "inputTokens": 46572,
+      "cachedInputTokens": 8223,
+      "outputTokens": 961,
+      "reasoningTokens": 233
+    },
+    "status": "completed",
+    "ms": 30799,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.madisoncountync.gov/park-summer-events.html",
+      "chars": 715,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025[1].pdf",
+      "chars": 5005,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_2025_parks_and_recreation_trip_reservation_page[1].pdf",
+      "chars": 862,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/fee-schedule.html",
+      "chars": 554,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/screenshot_2026-06-23_at_10.36.59%E2%80%AFam.png",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/",
+      "chars": 1746,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/out_of_county_births.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/scanner_madisoncountync.gov_20251222_134155.pdf",
+      "chars": 0,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Madison County Parks and Recreation",
+    "website_url": "https://www.madisoncountync.gov/parks-and-recreation.html",
+    "notes": "No summer 2027 information was found. The summer events page lists a Summer 2026 Trip Schedule for Parents, but the schedule could not be read; the supplied PNG also could not be rendered. The linked registration and reservation PDFs are labeled 2025, so their dates, fees, lunch policy and pickup location have not been treated as confirmed 2026 facts.",
+    "excluded": [
+      {
+        "name": "Youth Leagues",
+        "reason": "Sports leagues, rather than finite summer camp programs."
+      },
+      {
+        "name": "Senior Games",
+        "reason": "Senior-focused programming, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Students take supervised recreational field trips. The linked prior-year materials describe horseback riding, swimming, movies, bowling and arcade outings.",
+        "camp_page_url": "https://www.madisoncountync.gov/park-summer-events.html",
+        "registration_url": "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025[1].pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.madisoncountync.gov/parks-and-recreation.html",
+          "https://www.madisoncountync.gov/park-summer-events.html",
+          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_program_registration_form_2025[1].pdf",
+          "https://www.madisoncountync.gov/uploads/5/9/7/0/59701963/summer_2025_parks_and_recreation_trip_reservation_page[1].pdf",
+          "https://mhs.madisonk12.net/about-us/contact-information-directions"
+        ],
+        "confidence": "low",
+        "review_notes": "Read the Summer 2026 Trip Schedule for Parents linked on the summer events page to establish dates, trip rows, hours and prices. The 2025 registration form identifies Madison County High School as pickup/drop-off; the school's official address is 5740 US Hwy 25/70, Marshall, NC. Confirm that this remains the 2026 or 2027 pickup site before adding it. The currently linked registration form is a 2025 document; confirm whether it is still intended for registration. Description activities are from the supplied 2025 materials, not a readable 2026 schedule."
+      }
+    ]
+  }
+}

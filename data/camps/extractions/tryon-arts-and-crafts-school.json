@@ -1,0 +1,146 @@
+{
+  "provider": {
+    "key": "tryon-arts-and-crafts-school",
+    "name": "Tryon Arts & Crafts School",
+    "urls": [
+      "https://tryonartsandcrafts.org/classesworkshops/",
+      "https://tryonartsandcrafts.org/calendar-of-events/"
+    ],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:36.483Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7fd7553359528fea44aac3b81242c2be369ef04ff69df6943a54daae28b3462f",
+  "response": {
+    "searches": [
+      "site:tryonartsandcrafts.org \"Summer Sizzler\" 2026",
+      "\"Tryon\" \"Summer Sizzler\" \"2026\"",
+      "open https://tryonartsandcrafts.org/product-category/classes-workshops/page/3/",
+      "site:tryonartsandcrafts.org/product/ \"2026 Summer Sizzler\""
+    ],
+    "usage": {
+      "inputTokens": 26738,
+      "cachedInputTokens": 8223,
+      "outputTokens": 749,
+      "reasoningTokens": 226
+    },
+    "status": "completed",
+    "ms": 29004,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tryonartsandcrafts.org/classesworkshops/",
+      "chars": 2686,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/calendar-of-events/",
+      "chars": 5122,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/registration-info-forms/",
+      "chars": 3014,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/product-category/memberships-registration/",
+      "chars": 4448,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/information-and-schedule/",
+      "chars": 5402,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/product/2026-summer-sizzler-youth-art-camps-june-july/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | Tryon Arts &amp; Crafts School\")"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/product-category/classes-by-session/summer-session-1/",
+      "chars": 3188,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/product-category/summer-session-2/",
+      "chars": 3137,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tryonartsandcrafts.org/",
+      "chars": 2398,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tryon Arts & Crafts School",
+    "website_url": "https://tryonartsandcrafts.org/",
+    "notes": "No 2027 youth camp dates or registration milestones were found. The supplied 2027 Summer Session pages describe recurring classes, not a 2027 youth camp list. The Youth Programs category currently reports no products. Camp detail pages were not discoverable; some category pages opened without readable content.",
+    "excluded": [
+      {
+        "name": "6-Week Classes & Group Studio Time",
+        "reason": "Recurring year-round instruction and studio access, including the summer class sessions, rather than summer-only supervised youth programs."
+      },
+      {
+        "name": "Youth Woodworking",
+        "reason": "Listed within the ongoing winter and spring weekly class schedule, not as a summer camp."
+      },
+      {
+        "name": "Concentration Weeks",
+        "reason": "General craft intensives, not identified as supervised youth programs; the fall offerings also occur outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Sizzler",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Week-long youth art camps at Tryon Arts & Crafts School.",
+        "camp_page_url": "https://tryonartsandcrafts.org/product-category/youth-programs/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Tryon Arts & Crafts School",
+            "address": "373 Harmon Field Road",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tryonartsandcrafts.org/classesworkshops/",
+          "https://tryonartsandcrafts.org/calendar-of-events/",
+          "https://tryonartsandcrafts.org/product-category/youth-programs/",
+          "https://tryonartsandcrafts.org/facility/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar supplies only the overall June 29–July 31 range under its 2026 heading, not individual camp weeks. The Youth Programs category has no products, so ages, hours, prices, specific activities and registration details could not be verified. The school campus is used as the site based on the provider's location; confirm the camp drop-off location when camp details return."
+      }
+    ]
+  }
+}

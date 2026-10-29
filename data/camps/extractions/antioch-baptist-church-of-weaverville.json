@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "antioch-baptist-church-of-weaverville",
+    "name": "Antioch Baptist Church of Weaverville",
+    "urls": [
+      "https://kideventpro.lifeway.com/myEvent/?id=73808",
+      "https://www.facebook.com/153341602039950/"
+    ],
+    "area": "Weaverville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://"
+  },
+  "extractedAt": "2026-10-29T15:16:19.686Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Antioch Baptist Church Weaverville VBS 2026 2027",
+      "site:kideventpro.lifeway.com/myEvent/ \"73808\"",
+      "\"Antioch Baptist Church - Weaverville\" \"Emerald\""
+    ],
+    "usage": {
+      "inputTokens": 19078,
+      "cachedInputTokens": 8223,
+      "outputTokens": 910,
+      "reasoningTokens": 266
+    },
+    "status": "completed",
+    "ms": 26760,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kideventpro.lifeway.com/myEvent/?id=73808",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.2.52:443, 10.67.1.33:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=73808\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=73808\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/153341602039950/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://kideventpro.lifeway.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Antioch Baptist Church of Weaverville",
+    "website_url": "https://www.antiochbaptistweaverville.org/",
+    "notes": "No 2027 information found. The supplied Lifeway registration page and Facebook page returned no readable content; the church website was blocked. A third-party reproduction of the church's 2026 event announcement supplied the VBS details below, which require official verification. No registration opening date could be verified.",
+    "excluded": [
+      {
+        "name": "VBS kickoff funday / water slide",
+        "reason": "July 12, 2026 kickoff gathering appears to be a family event rather than a separately supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The Emerald Crossing theme explores Psalm 23 and the life of David through Bible school classes.",
+        "camp_page_url": "https://www.facebook.com/153341602039950/",
+        "registration_url": "https://kideventpro.lifeway.com/myEvent/?id=73808",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Antioch Baptist Church",
+            "address": "9 Antioch Church Road",
+            "town": "Weaverville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:45",
+          "text": "Classes on the 13th - 17th from 5:30-8:45."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Dinner will be provided nightly."
+        },
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Official pages could not be read. Verify dates, hours, theme, dinner and eligibility against the church's Facebook announcement or Lifeway event 73808. The 2026 details were reproduced at https://stayhappening.com/e/antioch-baptist-church-vbs-2026-E2ISYHVOM5T; that announcement says all ages are welcome without numeric bounds. The address appears in that event and a church-authored Facebook fundraiser search result, but the venue website could not be checked."
+      }
+    ]
+  }
+}

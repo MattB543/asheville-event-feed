@@ -1,0 +1,411 @@
+{
+  "provider": {
+    "key": "girl-scouts-carolinas-peaks-to-piedmont",
+    "name": "Girl Scouts Carolinas Peaks to Piedmont",
+    "urls": [
+      "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:15.844Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "10dd737877086be0aaebdb7c0e6d47ae16fe3ec9ae1bb3f775e23e0dfbe7e278",
+  "response": {
+    "searches": [
+      "site:girlscoutsp2p.org \"2027\" \"camp\"",
+      "open https://blog.girlscoutsp2p.org/2026/01/19/todays-tips-1-19-26/",
+      "\"2026 Summer Camp Program Guide\" \"p2p\" issuu",
+      "site:girlscoutsp2p.org \"day camp\" \"2026\" \"Location:\""
+    ],
+    "usage": {
+      "inputTokens": 46537,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3271,
+      "reasoningTokens": 311
+    },
+    "status": "completed",
+    "ms": 73489,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+      "chars": 16272,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/get-involved/join/juliettes-individually-registered-members.html",
+      "chars": 11810,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/discover/activities/events.html?q=keyauwee",
+      "chars": 6704,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/content/dam/girlscoutsp2p-redesign/forms-and-documents/experience/Juliette%20Girl%20Scouts%20FAQ.pdf",
+      "chars": 4060,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors.html",
+      "chars": 7011,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/ways-to-get-outside.html",
+      "chars": 10098,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/outdoor-girl-leadership-programs.html",
+      "chars": 7996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.girlscoutsp2p.org/",
+      "chars": 10273,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girl Scouts Carolinas Peaks to Piedmont",
+    "website_url": "https://www.girlscoutsp2p.org/",
+    "notes": "The official October 26, 2026 blog says 2027 Summer Camp details will be available November 19. No 2027 dates or registration opening were found. The embedded 2026 Summer Camp Program Guide could not be fully retrieved; cards contain only verified portions of the 2026 schedule. Camp Pisgah is listed for troop camping rather than individual overnight summer camp in 2026. The October 26 update says Camp Ginger Cascades will not reopen for the 2027 membership year. Day camp cities were identified, but exact drop-off venues were not found.",
+    "excluded": [
+      {
+        "name": "Work at Camp",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Riding Instructor-in-Training",
+        "reason": "Year-round volunteer training, primarily assisting weekend riding programs during the school year."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp experiences."
+      },
+      {
+        "name": "Individually Registered Members",
+        "reason": "Year-round Girl Scout membership, not a finite summer program."
+      },
+      {
+        "name": "School's Out, Camp Out",
+        "reason": "Teacher-workday program outside summer."
+      },
+      {
+        "name": "2026 Council-Wide Campout",
+        "reason": "October program outside summer."
+      },
+      {
+        "name": "Girl Scouts Love State Parks",
+        "reason": "September program outside summer."
+      },
+      {
+        "name": "Horse Programs",
+        "reason": "Year-round lessons and troop riding activities; no separate finite 2026 summer horse camp verified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Overnight Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers participate in swimming, boating, archery, climbing, hiking, arts and crafts, outdoor cooking and team-building activities. Week-long and half-week sessions are offered.",
+        "camp_page_url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-07-17",
+          "text": "Stay tuned for 2027 Summer Camp details that will be available on National Camp Day, November 19!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Keyauwee Program Center",
+            "address": "2574 Sweetbriar Road",
+            "town": "Sophia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Lights, Camera, Camp!",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Half-week session",
+            "start": "2026-06-28",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Magic and Mysteries",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-20",
+          "time": null,
+          "text": "Coupon will be e-mailed to you by January 20 when summer camp registrations open.",
+          "url": "https://blog.girlscoutsp2p.org/2026/01/19/todays-tips-1-19-26/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Once you register for a program and pay a $50 non-refundable deposit, you will have access to our online financial aid application."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide well balanced, kid-friendly meals three times a day as well as an afternoon snack."
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "GSCP2P will be offering free transportation assistance from our Asheville and Hickory Service Centers for select weeks of camp- June 21-26, 2026 and July 12-17."
+        },
+        "sources": [
+          "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+          "https://www.girlscoutsp2p.org/en/discover/our-council/visit/camps.html",
+          "https://blog.girlscoutsp2p.org/2026/05/11/todays-tips-5-11-26/",
+          "https://blog.girlscoutsp2p.org/2026/01/19/todays-tips-1-19-26/",
+          "https://blog.girlscoutsp2p.org/2026/10/26/todays-tips-10-26-26/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The listed sessions are only the dates verified outside the embedded 2026 guide; season bounds are not the complete overnight season. Retrieve the guide to check remaining themes, separate grade bands and prices."
+      },
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Girls participate in activities focused on adventure, discovery and Girl Scouting. Day camp runs in selected community locations.",
+        "camp_page_url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-06",
+          "end": "2026-08-07",
+          "text": "Stay tuned for 2027 Summer Camp details that will be available on National Camp Day, November 19!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Day camp programs run 9 a.m. - 3 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Hickory",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Greensboro",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Black Mountain",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-01-20",
+          "time": null,
+          "text": "Coupon will be e-mailed to you by January 20 when summer camp registrations open.",
+          "url": "https://blog.girlscoutsp2p.org/2026/01/19/todays-tips-1-19-26/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Forms, including health forms, financial assistance and transportation assistance request forms, will be sent to you via e-mail after registration."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/summer-camp.html",
+          "https://blog.girlscoutsp2p.org/2026/06/22/todays-tips-6-22-26/",
+          "https://blog.girlscoutsp2p.org/2026/05/11/todays-tips-5-11-26/",
+          "https://blog.girlscoutsp2p.org/2026/01/19/todays-tips-1-19-26/",
+          "https://blog.girlscoutsp2p.org/2026/10/26/todays-tips-10-26-26/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official blog lists Winston-Salem as another day camp city, but its dates were not verified. Retrieve the embedded guide for the complete schedule, prices and actual drop-off venues; city labels are not verified sites."
+      },
+      {
+        "name": "Counselor-in-Training",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Older campers participate in a summer leadership program preparing them for camp counselor roles. CIT II requires completion of CIT I.",
+        "camp_page_url": "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/outdoor-girl-leadership-programs.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-21",
+          "end": "2026-07-31",
+          "text": "Stay tuned for 2027 Summer Camp details that will be available on National Camp Day, November 19!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "CIT I: First week",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 11,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "CIT I: Second week",
+            "start": "2026-06-28",
+            "end": "2026-07-01",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 11,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "CIT II: First week",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 12,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "CIT II: Second week",
+            "start": "2026-07-26",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 12,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.girlscoutsp2p.org/en/members/for-girl-scouts/camp-and-outdoors/outdoor-girl-leadership-programs.html",
+          "https://blog.girlscoutsp2p.org/2026/10/26/todays-tips-10-26-26/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the page's explicit April 1, 2026 CIT II application deadline. Overnight format is inferred from the summer camp context; confirm format, location, prices and whether both weeks are mandatory in the Summer Camp Program Guide."
+      }
+    ]
+  }
+}

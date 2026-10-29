@@ -1,0 +1,400 @@
+{
+  "provider": {
+    "key": "camp-wayfarer",
+    "name": "Camp Wayfarer",
+    "urls": [
+      "https://www.campwayfarer.com/summer-camp-costs-dates/",
+      "https://www.campwayfarer.com/horseback-riding-camps/",
+      "https://www.campwayfarer.com/",
+      "https://www.campwayfarer.com/parents/"
+    ],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:01:41.114Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6297efcf260cffa6eb44555a482b622fa4e76e572c7dcc1357fefe9d34fa8438",
+  "response": {
+    "searches": [
+      "site:campwayfarer.com Cascadia 2027 registration",
+      "open https://www.campwayfarer.com/summer-camp-costs-dates/"
+    ],
+    "usage": {
+      "inputTokens": 32496,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2515,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 48543,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campwayfarer.com/summer-camp-costs-dates/",
+      "chars": 10817,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/horseback-riding-camps/",
+      "chars": 10134,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/",
+      "chars": 9047,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/parents/",
+      "chars": 8790,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/visit/",
+      "chars": 9185,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/summer-camp-north-carolina/",
+      "chars": 10194,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/the-wayfarer-difference/",
+      "chars": 10075,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campwayfarer.com/about/summer-camp-founders/",
+      "chars": 11758,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Wayfarer",
+    "website_url": "https://www.campwayfarer.com/",
+    "notes": "2027 dates and prices are posted. Residential session lengths, including Adventure Camp, are grouped as rows of Camp Wayfarer; Cascadia is a separate expedition program. Horseback riding is an optional activity within residential camp, not a separately scheduled camp. No official registration opening date was found. Additional pages opened through the browser returned no readable body text; official search results supplied Cascadia and activity details. The costs page labels some sessions Limited, which is recorded as available rather than full or waitlist.",
+    "excluded": [
+      {
+        "name": "Working at Camp",
+        "reason": "Staff employment, not a youth camp."
+      },
+      {
+        "name": "Events & Facility Rentals",
+        "reason": "Private venue rentals and retreats, not a posted supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Wayfarer",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "horses", "arts"],
+        "description": "Campers participate in outdoor activities, sports, creative arts, horseback riding, and off-campus trips. Adventure Camp sessions provide younger first-time campers with five age-specific activity periods.",
+        "camp_page_url": "https://www.campwayfarer.com/summer-camp-costs-dates/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-29",
+          "text": "2027 Costs & Dates"
+        },
+        "ages": {
+          "min": 5,
+          "max": 16
+        },
+        "grades": {
+          "min": 0,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Wayfarer",
+            "address": "One Red Bird Song Road",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Junior Main Camp",
+            "start": "2027-06-06",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 8325,
+              "unit": "session",
+              "label": "32 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Main Camp",
+            "start": "2027-06-20",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9925,
+              "unit": "session",
+              "label": "39 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "1st Session Adventure Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2175,
+              "unit": "session",
+              "label": "6 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "2nd Session Adventure Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2175,
+              "unit": "session",
+              "label": "6 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "1st Session",
+            "start": "2027-06-20",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6325,
+              "unit": "session",
+              "label": "18 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "2nd Session",
+            "start": "2027-07-11",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6325,
+              "unit": "session",
+              "label": "18 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "June Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4925,
+              "unit": "session",
+              "label": "11 nights",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "July Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 7,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4925,
+              "unit": "session",
+              "label": "11 nights",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "All residential sessions; some have limited availability.",
+          "text": "Junior Main Camp, June Camp and 1st Session: Available. Main Camp, both Adventure Camp sessions, July Camp and 2nd Session: Limited."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campwayfarer.com/summer-camp-costs-dates/",
+          "https://www.campwayfarer.com/",
+          "https://www.campwayfarer.com/horseback-riding-camps/",
+          "https://www.campwayfarer.com/camp-life/camp-activities/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm kindergarten eligibility: the costs page says rising K5–3rd grade for Adventure Camp, but its explanatory example says children who have completed kindergarten through completed 2nd grade. Grades follow the explicitly labeled rising-grade table. Main Camp prose says five weeks while its table gives 39 nights; dates follow the table. Activity details were also available through official search snippets."
+      },
+      {
+        "name": "Cascadia",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers travel through the Pacific Northwest on a camping-based expedition featuring overnight whitewater rafting, rock climbing, sea kayaking, backpacking, and day adventures.",
+        "camp_page_url": "https://www.campwayfarer.com/wayfarer-expeditions/cascadia/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-04",
+          "end": "2027-07-06",
+          "text": "2027 Costs & Dates"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5325,
+            "unit": "session",
+            "label": "14 nights",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Cascadia I",
+            "start": "2027-06-04",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 11,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Cascadia II",
+            "start": "2027-06-22",
+            "end": "2027-07-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 10,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Cascadia I and Cascadia II",
+          "text": "Available"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campwayfarer.com/summer-camp-costs-dates/",
+          "https://www.campwayfarer.com/wayfarer-expeditions/cascadia/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

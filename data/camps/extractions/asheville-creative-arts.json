@@ -1,0 +1,81 @@
+{
+  "provider": {
+    "key": "asheville-creative-arts",
+    "name": "Asheville Creative Arts",
+    "urls": ["https://ashevillecreativearts.org/camps-and-classes/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:41.895Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d2aacbad859b5989f6dd18e48990d51e03e1bfba93e83af311922d290935ab13",
+  "response": {
+    "searches": ["site:ashevillecreativearts.org summer camp 2026 2027"],
+    "usage": {
+      "inputTokens": 19444,
+      "cachedInputTokens": 8223,
+      "outputTokens": 416,
+      "reasoningTokens": 68
+    },
+    "status": "completed",
+    "ms": 13178,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillecreativearts.org/camps-and-classes/",
+      "chars": 4749,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/about/in-the-media/",
+      "chars": 11447,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/camps-and-classes/register-for-classes/",
+      "chars": 3742,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/get-involved/donate-to-our-partner-organizations/register-for-lnc-festival/",
+      "chars": 7947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecreativearts.org/",
+      "chars": 4753,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Creative Arts",
+    "website_url": "https://ashevillecreativearts.org/",
+    "notes": "No qualifying youth summer camp with 2027 or 2026 details was found on the official pages or in web searches. The news archive contains a Summer Theatre Camp announcement dated January 30, 2018; this historical offering is not evidence of a current camp and was not carried forward. The 2027 Sarah Malinak SUMMER CAMP is an artist residency, not a supervised youth camp. The Creative Farm page mentions forthcoming classes and workshops for artists and young people, but does not identify a finite summer youth program.",
+    "excluded": [
+      {
+        "name": "Arts POW!",
+        "reason": "Bookable in-school and out-of-school arts instruction; no finite summer-only youth camp is stated."
+      },
+      {
+        "name": "TAPAS residency and performance opportunities",
+        "reason": "School residency and performance programming, not a summer camp."
+      },
+      {
+        "name": "Sarah Malinak SUMMER CAMP",
+        "reason": "June 2027 artist residency for developing creative work, not a supervised youth camp."
+      },
+      {
+        "name": "Asheville Creative Arts’ (End of) Summer Soiree",
+        "reason": "Community celebration on September 19, 2026, not a supervised youth summer program."
+      },
+      {
+        "name": "The Legacy Neighborhoods Coalition Festival",
+        "reason": "Community festival and marketplace vendor registration, not a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

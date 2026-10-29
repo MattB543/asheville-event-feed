@@ -1,0 +1,53 @@
+{
+  "provider": {
+    "key": "ratcliffe-cove-baptist-church-of-waynesville",
+    "name": "Ratcliffe Cove Baptist Church of Waynesville",
+    "urls": ["https://www.ratcliffecovebaptistchurch.com/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:15:52.227Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c7c157163a21cada27c5e147994a49660f51076cb6646f63cfeac4ddd3eed43e",
+  "response": {
+    "searches": [
+      "site:ratcliffecovebaptistchurch.com \"2026\" \"Bible\"",
+      "\"Ratcliffe Cove Baptist Church\" \"Vacation Bible School\""
+    ],
+    "usage": {
+      "inputTokens": 21363,
+      "cachedInputTokens": 8223,
+      "outputTokens": 393,
+      "reasoningTokens": 169
+    },
+    "status": "completed",
+    "ms": 19284,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ratcliffecovebaptistchurch.com/",
+      "chars": 1326,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ratcliffe Cove Baptist Church of Waynesville",
+    "website_url": "https://www.ratcliffecovebaptistchurch.com/",
+    "notes": "No summer 2027 or 2026 camp or Vacation Bible School offering could be verified on the official website or through searches for the church's official social media announcements. The Events page lists recurring worship and Wednesday activities. The Ministries and News pages returned no readable text. A third-party social-media mirror mentions a July 2023 VBS kickoff, but this does not establish a 2026 or 2027 offering and was not used to create a card.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Small Groups",
+        "reason": "Recurring year-round activities, including Adventure Club and Youth, rather than a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes rather than a finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

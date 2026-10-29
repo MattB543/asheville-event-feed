@@ -1,0 +1,437 @@
+{
+  "provider": {
+    "key": "transylvania-county-library",
+    "name": "Transylvania County Library",
+    "urls": [
+      "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+      "https://library.transylvaniacounty.org/youth/",
+      "https://library.transylvaniacounty.org/",
+      "https://www.transylvaniacounty.org/departments/parks-and-recreation",
+      "https://tcpr.recdesk.com/Community/Home"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:09:33.583Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3ccba4627408b8999c8ac7d57d999f0544dbeade1cb1ac2e6c52c4a5a78c2045",
+  "response": {
+    "searches": [
+      "site:library.transylvaniacounty.org \"2027\" summer",
+      "site:library.transylvaniacounty.org \"Torn Paper\"",
+      "open https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+      "?"
+    ],
+    "usage": {
+      "inputTokens": 30262,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3341,
+      "reasoningTokens": 354
+    },
+    "status": "completed",
+    "ms": 67126,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+      "chars": 17569,
+      "method": "fetch"
+    },
+    {
+      "url": "https://library.transylvaniacounty.org/youth/",
+      "chars": 6642,
+      "method": "fetch"
+    },
+    {
+      "url": "https://library.transylvaniacounty.org/",
+      "chars": 4535,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacounty.org/departments/parks-and-recreation",
+      "chars": 4445,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacounty.org/departments/register-of-deeds",
+      "chars": 9500,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacounty.org/sites/default/files/departments/Register%20of%20Deeds/Docs/Website%20Instructions.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://library.transylvaniacounty.org/faq/",
+      "chars": 13111,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacounty.org/",
+      "chars": 4952,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Transylvania County Library",
+    "website_url": "https://library.transylvaniacounty.org/",
+    "notes": "No summer 2027 program information or registration announcements found. Cards describe 2026 short youth skill and educational programs, not a conventional day camp. The June/July newsletter's extracted text is partly garbled; PDF screenshots could not be generated. The August/September newsletter could only be partially read.",
+    "excluded": [
+      {
+        "name": "Summer Reading Program",
+        "reason": "Self-directed reading incentive program, not a supervised camp or clinic."
+      },
+      {
+        "name": "Summer Reading Kickoff and Wednesday Family Shows",
+        "reason": "All-ages family events and performances, not supervised youth camps or skill clinics."
+      },
+      {
+        "name": "Fun Learning Mime and Masks with Doug Berky",
+        "reason": "Explicitly offered for children and their caregivers; family-only workshop."
+      },
+      {
+        "name": "Playdough Playtime",
+        "reason": "Program for children and their caregivers, also offered outside summer."
+      },
+      {
+        "name": "Super Soaked Saturday",
+        "reason": "All-ages family water-fun event, not a supervised youth camp."
+      },
+      {
+        "name": "Rock Painting",
+        "reason": "All-ages drop-in activity, not a supervised youth camp or clinic."
+      },
+      {
+        "name": "Tuesday Storytimes & Activity; Second Saturday Storytime & Craft; LEGO Night; Paws & Pages; Teen Space Activity; Book Clubs",
+        "reason": "Recurring library activities rather than finite summer camps or clinics."
+      },
+      {
+        "name": "Teen Book Party",
+        "reason": "Book discussion and social gathering, not a camp or skill clinic."
+      },
+      {
+        "name": "Craft Connection",
+        "reason": "Adult-only craft program."
+      },
+      {
+        "name": "North Carolina Reads",
+        "reason": "Fall book discussion series, not a summer youth camp."
+      },
+      {
+        "name": "Concerts, Chautauqua performances, Noontime Notions and All Things Appalachia",
+        "reason": "Public performances and presentations, not supervised youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "The American Red Cross Babysitter’s Training Course with Pediatric First Aid/CPR/AED",
+        "type": "clinic",
+        "categories": ["academic"],
+        "description": "Participants practice babysitting and child-care skills through hands-on activities, videos and group exercises. The course includes pediatric first aid, CPR and AED training.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/04/2026-Red-Cross-Babysitters-Course-Participant-Application.pdf",
+        "registration_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/04/2026-Red-Cross-Babysitters-Course-Participant-Application.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-06-27",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are being provided to all participants by the Friends of the Transylvania County Library to cover costs."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A pizza lunch will be provided and we’ll take breaks throughout the day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/04/2026-Red-Cross-Babysitters-Course-Participant-Application.pdf",
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Torn Paper Landscape Collages for Teens",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Teens use paper of different colors and textures to create landscape collages.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-19",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "11:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the June/July 2026 newsletter heading. Verify the rising grade range in the original PDF; its extracted text is garbled."
+      },
+      {
+        "name": "The North Carolina Arboretum's ecoEXPLORE Program: Herpetology Season",
+        "type": "clinic",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Children learn about local reptiles and amphibians, including their habitats, food and breathing. The session introduces the ecoEXPLORE program.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-25",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the June/July 2026 newsletter heading. The stated ages are a target audience ('geared toward'), not explicitly an admission restriction; confirm whether this educational session permits youth drop-off."
+      },
+      {
+        "name": "Clued-In Mystery for Teens",
+        "type": "evening",
+        "categories": ["general"],
+        "description": "Teens work together to find clues around the library after hours and solve a mystery through a scavenger-hunt card game.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-17",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the June/July 2026 newsletter heading. This is a finite after-hours youth program rather than a conventional camp; it also had a separate fall offering in 2025."
+      },
+      {
+        "name": "WNC Nature Center presents Forest Sounds",
+        "type": "clinic",
+        "categories": ["nature_outdoor"],
+        "description": "Children learn why animals make different sounds and what listeners can interpret from them. Participants create a group soundscape.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:00",
+          "end": "16:45",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the June/July 2026 newsletter heading. Confirm whether this short educational workshop permits youth drop-off."
+      },
+      {
+        "name": "What State Am I? Trivia Game",
+        "type": "clinic",
+        "categories": ["academic"],
+        "description": "Participants test their knowledge of the 50 states, territories and Washington, D.C., through an America 250 trivia game.",
+        "camp_page_url": "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-30",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Transylvania County Library",
+            "address": "212 S Gaston St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://library.transylvaniacounty.org/wp-content/uploads/2026/05/4WebJunJuly2026.pdf",
+          "https://library.transylvaniacounty.org/youth/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use the June/July 2026 newsletter heading. Confirm whether this registered educational game qualifies as a supervised youth clinic rather than an ordinary library event."
+      }
+    ]
+  }
+}

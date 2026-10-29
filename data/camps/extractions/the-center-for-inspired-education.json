@@ -1,0 +1,129 @@
+{
+  "provider": {
+    "key": "the-center-for-inspired-education",
+    "name": "The Center for Inspired Education",
+    "urls": ["https://www.centerforinspirededucation.com/camps/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:54.205Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a9b5dcd621373f6f96c1c4359e5c3b03cfc7a3476ac21c01e242471624dff5af",
+  "response": {
+    "searches": [
+      "site:centerforinspirededucation.com camps 2027 Honey Hive address",
+      "open https://www.centerforinspirededucation.com/camps/"
+    ],
+    "usage": {
+      "inputTokens": 14859,
+      "cachedInputTokens": 8223,
+      "outputTokens": 942,
+      "reasoningTokens": 119
+    },
+    "status": "completed",
+    "ms": 24708,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.centerforinspirededucation.com/camps/",
+      "chars": 8453,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerforinspirededucation.com/",
+      "chars": 2542,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Center for Inspired Education",
+    "website_url": "https://www.centerforinspirededucation.com/",
+    "notes": "No 2027 information found. The camps page announces a summer off from kids camps, while retaining older Camp Summer Haven descriptions and assistant information. Camp Honey Hive is included because its explicit eligibility is ages 16 and older, despite being described as an adult camp. No published camp street address was found on the camps or contact pages.",
+    "excluded": [
+      {
+        "name": "Camp Summer Haven",
+        "reason": "The provider announces that it is taking this summer off from kids camps; the retained description has no current sessions."
+      },
+      {
+        "name": "Camp Assistants",
+        "reason": "An assistant option attached to the paused Camp Summer Haven, with no currently scheduled sessions."
+      },
+      {
+        "name": "Inspired Student",
+        "reason": "Ongoing tutoring and coaching, not a finite summer program."
+      },
+      {
+        "name": "Nourishing the Teacher",
+        "reason": "Adult teacher retreat, not a youth camp."
+      },
+      {
+        "name": "Little Lambs",
+        "reason": "Preschool program, not identified as summer-only childcare."
+      },
+      {
+        "name": "The Love Project",
+        "reason": "Year-long family and individual service projects, not a finite supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Honey Hive Day Camp",
+        "type": "day",
+        "categories": ["arts", "cooking", "general", "special_needs"],
+        "description": "Participants cook, dance, play bingo, and make arts and crafts. Afternoon activities include community field trips and a kindness outing.",
+        "camp_page_url": "https://www.centerforinspirededucation.com/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-17",
+          "end": "2026-08-19",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "10 am - 3 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "program",
+            "label": "full price",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "$125 full price/reduced pay options: Scholarship Forms"
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Welcome to our Special Needs Adult Camp, where laughter, creativity, and friendship are always on the agenda!"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.centerforinspirededucation.com/camps/",
+          "https://www.centerforinspirededucation.com/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camps page states Wednesday–Friday alongside August 17–19, 2026, which fall Monday–Wednesday. Dates follow the explicit numeric dates; verify with the provider. The program is described as an adult camp but explicitly accepts ages 16 and older. Confirm the drop-off street address; only East Asheville is published."
+      }
+    ]
+  }
+}

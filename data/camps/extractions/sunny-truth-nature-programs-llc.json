@@ -1,0 +1,271 @@
+{
+  "provider": {
+    "key": "sunny-truth-nature-programs-llc",
+    "name": "Sunny Truth Nature Programs LLC",
+    "urls": ["https://sunnytruthnsm.com/summer-camp"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:01:21.910Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "920a8626c59052ddb7a72730ae679ed19a5c603c3525440705efaeb0f7d53cc6",
+  "response": {
+    "searches": ["site:sunnytruthnsm.com \"Chestnut\"", "open https://sunnytruthnsm.com/contact"],
+    "usage": {
+      "inputTokens": 16164,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1376,
+      "reasoningTokens": 110
+    },
+    "status": "completed",
+    "ms": 32126,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sunnytruthnsm.com/summer-camp",
+      "chars": 7767,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunnytruthnsm.com/new-products-1",
+      "chars": 904,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunnytruthnsm.com/new-products",
+      "chars": 1481,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunnytruthnsm.com/springfall-break-camp-registration",
+      "chars": 1091,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunnytruthnsm.com/single-day-program-registration",
+      "chars": 832,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sunnytruthnsm.com/",
+      "chars": 1543,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sunny Truth Nature Programs LLC",
+    "website_url": "https://sunnytruthnsm.com/",
+    "notes": "No 2027 summer information found. The supplied summer page includes outdated text before the explicitly labeled 2026 program; only the 2026 section was used. Contact-page search results publish the current program address, while page footers retain the older Holland Creek address.",
+    "excluded": [
+      {
+        "name": "Young Explorers",
+        "reason": "Ongoing nature preschool program with monthly registration, not a finite summer camp."
+      },
+      {
+        "name": "Week long school break camps, April 6-10",
+        "reason": "April school-break program outside summer."
+      },
+      {
+        "name": "Single Day Programs",
+        "reason": "Listed dates are in fall and winter 2026, outside summer."
+      },
+      {
+        "name": "Requested Programs",
+        "reason": "Custom group programming offered on request, not a listed finite summer youth offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Children explore forests, meadows, springs and creeks through games, art, science and time with farm animals. Weekly themes include natural history, building with natural materials, primitive skills and water.",
+        "camp_page_url": "https://sunnytruthnsm.com/summer-camp",
+        "registration_url": "https://sunnytruthnsm.com/new-products",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Chestnut Mountain Property",
+            "address": "3816 Metcalf Creek Loop Rd",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 170,
+            "unit": "week",
+            "label": "Early registration before March 1",
+            "year": 2026
+          },
+          {
+            "amount": 185,
+            "unit": "week",
+            "label": "March 1 until all spots taken",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Explore",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Our Past",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Earth and Sky",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Farm Animals",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Build Week",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Skills Week",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Nature Art",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Games Week",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Water Week",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Wild Week",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "2026 registration listings; weeks 2, 3, 5 and 10",
+          "text": "sold out"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sunnytruthnsm.com/summer-camp",
+          "https://sunnytruthnsm.com/new-products",
+          "https://sunnytruthnsm.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the Chestnut Mountain drop-off address: official contact-page search results say programs are currently located at 3816 Metcalf Creek Loop Rd, Mars Hill, NC 28754; the contact page returned no readable text when opened. Older footers give 288 Holland Creek. Availability reflects retained 2026 sold-out labels, not 2027 availability; all listed sessions are past. The daily schedule mentions lunch but does not say whether lunch is supplied."
+      }
+    ]
+  }
+}

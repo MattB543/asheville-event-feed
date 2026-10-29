@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "beulah-baptist-church-of-tryon",
+    "name": "Beulah Baptist Church of Tryon",
+    "urls": ["https://bbctryon.com/events"],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:44.331Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8be811840552615dfea94d5ac7e46a674403327f9976c5ad01c2a4e26fae39fd",
+  "response": {
+    "searches": ["site:bbctryon.com \"2026\" \"Vacation\""],
+    "usage": {
+      "inputTokens": 13493,
+      "cachedInputTokens": 8223,
+      "outputTokens": 698,
+      "reasoningTokens": 105
+    },
+    "status": "completed",
+    "ms": 17570,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bbctryon.com/events",
+      "chars": 1594,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bbctryon.com/",
+      "chars": 1802,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Beulah Baptist Church of Tryon",
+    "website_url": "https://bbctryon.com/",
+    "notes": "No official 2026 or 2027 summer program information was found. The events page still advertises Vacation Bible School 2025, May 30–June 1, 2025. The card identifies that historical program but does not carry its 2025 dates, eligibility, hours, or registration link forward to 2027.",
+    "excluded": [
+      {
+        "name": "BBC Kids",
+        "reason": "Recurring children's ministry during regular church services, not a finite summer program."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "Weekly youth worship and Bible study, not a finite summer program."
+      },
+      {
+        "name": "Next Steps Membership Class",
+        "reason": "Recurring membership class, not a summer youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church's historical Vacation Bible School offering includes games, Bible stories, crafts, and music.",
+        "camp_page_url": "https://bbctryon.com/events",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Beulah Baptist Church",
+            "address": "140 Beulah Church Rd",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://bbctryon.com/events", "https://bbctryon.com/contact"],
+        "confidence": "medium",
+        "review_notes": "Confirm whether Vacation Bible School returns in 2027; the only posted offering is explicitly labeled 2025. The contact page publishes 140 Beulah Church Rd as the church's location, while the 2025 event says 140 Beulah Church Lane and the homepage says 140 Beulah Baptist Church Lane. The contact-page address is used here; confirm the 2027 drop-off location."
+      }
+    ]
+  }
+}

@@ -1,0 +1,1320 @@
+{
+  "provider": {
+    "key": "mars-hill-university",
+    "name": "Mars Hill University",
+    "urls": [
+      "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+      "https://www.mhu.edu/academics/majors-and-minors/department-of-art/camps/",
+      "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+      "https://www.mhu.edu/about-what-to-do-and-see-summer-opportunities-at-mars-hill-mhu-launch-summer-program/"
+    ],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:07:19.349Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1ba8cb6e35f9473852e6f84a56f1e4ce7d0a07c323a5b847afef45f49b173eb2",
+  "response": {
+    "searches": [
+      "site.mhu.edu summer camp 2027",
+      "open https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+      "site.mhu.edu \"Dance Camp\" \"2026\"",
+      "\"Mars Hill\" \"Dance Camp\" 2026 registration",
+      "site.bikereg.com \"Mars Hill\" \"2027\" \"Mountain\""
+    ],
+    "usage": {
+      "inputTokens": 59922,
+      "cachedInputTokens": 0,
+      "outputTokens": 10115,
+      "reasoningTokens": 476
+    },
+    "status": "completed",
+    "ms": 208289,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+      "chars": 10157,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/academics/majors-and-minors/department-of-art/camps/",
+      "chars": 9865,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+      "chars": 11758,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/about-what-to-do-and-see-summer-opportunities-at-mars-hill-mhu-launch-summer-program/",
+      "chars": 7913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/future-students/traditional-undergraduate/admitted-students/tuition-deposit/",
+      "chars": 8145,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/Cn1A9i4hVCjjujp47",
+      "chars": 1497,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/wp-content/uploads/2024/02/Mars-Hill-Summer-Camp-Student-Handbook-2025.docx.pdf",
+      "chars": 11748,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mhu.edu/events/",
+      "chars": 8016,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mars Hill University",
+    "website_url": "https://www.mhu.edu/",
+    "notes": "The university's main camp calendar still lists 2026. The affiliated cycling camp has posted 2027 dates. No other 2027 dates or registration milestones were found. Art camps and MHU Launch have only 2025 information; they are mentioned here rather than assigning their dates or prices to 2026 or 2027. Art camps listed in 2025 were drawing/painting, wheel throwing, hand-built creatures, and printmaking/photography. MHU Launch was an invite-only, fully funded three-week college-entry program. Several sports and partner camps are documented only by the university calendar; their format and specific check-in locations need confirmation. Campus sites below use the university's published campus address, not an inferred building address.",
+    "excluded": [
+      {
+        "name": "Blue Ridge Old Time Music Week",
+        "reason": "The university describes this as an adult music opportunity."
+      },
+      {
+        "name": "Hot Doggett 100 Bicycle Race/Ride",
+        "reason": "Public bicycle race/ride rather than a supervised youth camp."
+      },
+      {
+        "name": "Summer School",
+        "reason": "University online courses, not a finite supervised youth summer camp."
+      },
+      {
+        "name": "Lion Life Orientation",
+        "reason": "College enrollment orientation rather than a youth summer camp."
+      },
+      {
+        "name": "Mars Hill University Honor Band",
+        "reason": "January program, outside summer."
+      },
+      {
+        "name": "J. Elwood Roberts/MHU Choral Festival",
+        "reason": "February program, outside summer."
+      },
+      {
+        "name": "Winter ID Camps",
+        "reason": "Winter soccer programs, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "MHU Summer Music Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students attend music classes, instrumental master classes, and ensemble rehearsals. Camp ends with a concert.",
+        "camp_page_url": "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScAtlY8Pj4EHtydeQ3U-Z2iY5RixJ7fT_UJkQaQUz9dtgQEbA/closedform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 600,
+            "unit": "program",
+            "label": "resident student staying on campus",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "REGISTRATION DEADLINE IS MAY 14th 2026"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+          "https://www.mhu.edu/academics/majors-and-minors/music/camps-festivals-workshops/",
+          "https://docs.google.com/forms/d/e/1FAIpQLScAtlY8Pj4EHtydeQ3U-Z2iY5RixJ7fT_UJkQaQUz9dtgQEbA/closedform"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "MHU Summer Music Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Commuter students attend music classes, instrumental master classes, and ensemble rehearsals with the summer music camp.",
+        "camp_page_url": "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLScAtlY8Pj4EHtydeQ3U-Z2iY5RixJ7fT_UJkQaQUz9dtgQEbA/closedform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": "commuter student",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "REGISTRATION DEADLINE IS MAY 14th 2026"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/summer-music-camp/",
+          "https://www.mhu.edu/academics/majors-and-minors/music/camps-festivals-workshops/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "MHU Summer Marching Band Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students practice visual fundamentals, music exercises, ensemble rehearsal, and leadership skills. They observe Music City Drum Corps and perform alongside its members.",
+        "camp_page_url": "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/marching-band-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/academics/majors-and-minors/music/department-of-music/marching-band-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Mars Hill Junior Cycling Camp - Road/Gravel",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Riders practice bike handling, group riding, race tactics, and bike maintenance. The program includes road rides and separate gravel instruction.",
+        "camp_page_url": "https://www.marshillcyclingcamp.com/road-camp",
+        "registration_url": "https://www.bikereg.com/78047",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-19",
+          "text": "1 Session • June 14–19 2027"
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University Dogwood Hall",
+            "address": "155 Townhouse Drive",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Drop Off: Mon, June 14, 1-2pm; Pick Up: Sat, June 19, 11am"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "other",
+            "kind": "opens",
+            "date": "2026-10-31",
+            "time": "00:15",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration opens: 10/31/26 12:15 am et",
+            "url": "https://www.bikereg.com/78047",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.marshillcyclingcamp.com/road-camp",
+          "https://www.bikereg.com/78047"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Mars Hill Junior Cycling Camp - Mountain Bike",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Intermediate and advanced riders practice technical descending, climbing, cornering, braking, and bike maintenance. Camp includes supervised trail rides.",
+        "camp_page_url": "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+        "registration_url": "https://www.bikereg.com/78048",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-07-24",
+          "text": "4 Sessions • June–July 2027"
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University Dogwood Hall",
+            "address": "155 Townhouse Drive",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday drop-off 1-2pm; Saturday pickup 11am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1735,
+            "unit": "session",
+            "label": "includes housing, 3 meals/day, snacks and camp shirt",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "MTB 1",
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MTB 2",
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "MTB 3",
+            "start": "2027-07-19",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "includes housing, 3 meals/day, endless snacks"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.marshillcyclingcamp.com/mountain-bike-camp",
+          "https://www.bikereg.com/78048"
+        ],
+        "confidence": "medium",
+        "review_notes": "The heading says four sessions, but the readable schedule lists only MTB 1, MTB 2 and MTB 3. Dates without repeated years were taken from the page's 2027 heading. Confirm whether a fourth session is missing."
+      },
+      {
+        "name": "Teacher Academy",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Participants explore teaching through activities designed to introduce the work of a professional educator.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/teacher-academy/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/teacher-academy/",
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "MHU Dance Camp",
+        "type": "overnight",
+        "categories": ["dance"],
+        "description": "Campers participate in dance instruction with an overnight camper option.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/bailey-mountain-cloggers/dance-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+          "https://www.mhu.edu/about/what-to-do-and-see/bailey-mountain-cloggers/dance-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and overnight option come from the university calendar. The dedicated dance page still describes 2025; its prices were not carried forward."
+      },
+      {
+        "name": "MHU Dance Camp",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Campers participate in dance instruction as day campers.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/bailey-mountain-cloggers/dance-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar gives June 14–19 for the combined offering but does not separately specify day-camper dates. Confirm day-camper arrival dates and hours; dedicated page remains dated 2025."
+      },
+      {
+        "name": "Junior Lions Soccer Kids Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Children participate in a youth soccer camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only the 2026 calendar was found for these sessions. Confirm day format, specific field, ages, hours and prices; 2025 soccer details were not reused."
+      },
+      {
+        "name": "Mars Hill Future Lions Kids Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Children participate in a baseball camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": "https://www.playnsports.com/organization/mars-hill-university-baseball/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+          "https://www.playnsports.com/organization/mars-hill-university-baseball/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Baseball registration page says camps meet at Henderson Field, but its venue street address was not verified. Confirm day format and age eligibility for 2026."
+      },
+      {
+        "name": "Mars Hill Baseball Advanced Skills Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Participants attend an advanced baseball skills camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": "https://www.playnsports.com/organization/mars-hill-university-baseball/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+          "https://www.playnsports.com/organization/mars-hill-university-baseball/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm day format and 2026 eligibility. Henderson Field is named on the baseball registration page, but its venue street address was not verified."
+      },
+      {
+        "name": "Mars Hill Baseball Summer Prospect Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players work on pitching, catching, hitting, infield and outfield skills with university baseball staff.",
+        "camp_page_url": "https://www.playnsports.com/event/mhu-lions-summer-prospect-camp-1/",
+        "registration_url": "https://www.playnsports.com/organization/mars-hill-university-baseball/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-31",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Summer Prospect Camp 1 – Postponed to July 31st",
+            "start": "2026-07-31",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 8,
+              "max": 12,
+              "basis": "unspecified"
+            },
+            "hours": {
+              "start": "08:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Summer Prospect Camp 2",
+            "start": "2026-08-08",
+            "end": "2026-08-08",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.playnsports.com/event/mhu-lions-summer-prospect-camp-1/",
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "University calendar lists Camp 1 on June 20, but the registration page title says postponed to July 31. Year is taken from the 2026 calendar context. Confirm revised date and Camp 2 eligibility. Henderson Field street address remains unverified."
+      },
+      {
+        "name": "Mars Hill Strength & Conditioning Camps",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants attend strength and conditioning training.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-11",
+          "end": "2026-06-15",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "low",
+        "review_notes": "Calendar lists only a date span. Confirm youth eligibility, meeting schedule, format and exact facility."
+      },
+      {
+        "name": "Mars Hill Football Prospect Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants attend a football prospect camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-23",
+          "end": "2026-05-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only the university calendar entry was found. Confirm youth eligibility, hours, price and check-in facility."
+      },
+      {
+        "name": "Women’s Basketball Team Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Basketball teams participate in a summer team camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-05",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only a calendar entry was found. Confirm youth team eligibility and check-in gym."
+      },
+      {
+        "name": "Fellowship of Christian Athletes Football Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Football teams attend competition and training activities with FCA.",
+        "camp_page_url": "https://carolinasfca.org/western-n-c-team-football-camp-2026",
+        "registration_url": "https://fca.regfox.com/2026wncfootballmarshill",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-11",
+          "end": "2026-06-13",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "athlete",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 registration",
+          "text": "Sorry, Online Registration is Closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://carolinasfca.org/western-n-c-team-football-camp-2026",
+          "https://search.fcacamps.org/CampDetail.aspx?ID=11986",
+          "https://fca.regfox.com/2026wncfootballmarshill"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, grades and athlete price are explicit; confirm overnight accommodation and campus check-in location."
+      },
+      {
+        "name": "SART Youth Theatre Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Youth participate in a theatre camp featuring Seussical, Jr.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Seussical, Jr.",
+            "start": "2026-06-22",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Calendar supplies title and dates only. Confirm day format, theatre venue, eligibility and whether the date span includes performances."
+      },
+      {
+        "name": "Point Guard College Overnight Basketball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players participate in an overnight basketball camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Point Guard Scoring College Overnight Basketball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players attend a basketball camp focused on scoring.",
+        "camp_page_url": "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pgcbasketball.com/camps/scoring-college-s/north-carolina-mars-hill-mars-hill-university/",
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "PGC's camp page says June 29–July 3; university calendar says June 28–July 3. Operator's dates used."
+      },
+      {
+        "name": "Point Guard Playmaker College Overnight Basketball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Players participate in an overnight basketball camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Soccer High School Team Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "High school soccer teams participate in a summer camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-30",
+          "end": "2026-08-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "low",
+        "review_notes": "Calendar does not establish whether this is day or overnight. Confirm format and exact venue."
+      },
+      {
+        "name": "Women’s Basketball Elite Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants attend an elite basketball camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-01",
+          "end": "2026-08-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only calendar entry found. Confirm youth eligibility, gym, hours and price."
+      },
+      {
+        "name": "Men’s Soccer Prospect Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants attend a soccer prospect camp.",
+        "camp_page_url": "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-02",
+          "end": "2026-08-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mars Hill University",
+            "address": "120 Cascade Street",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mhu.edu/about/what-to-do-and-see/summer-opportunities-at-mars-hill/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only calendar entry found. Confirm youth eligibility, field, hours and price."
+      },
+      {
+        "name": "MHU Junior Lions Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Children practice softball skills and teamwork with the university softball program.",
+        "camp_page_url": "https://www.playnsports.com/event/mhu-junior-lions-summer-camp/",
+        "registration_url": "https://www.playnsports.com/event/mhu-junior-lions-summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "12:00",
+          "text": "8:00 am - 12:00 pm | Check in 7:30 am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "day",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 200,
+            "unit": "program",
+            "label": "all four days",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.playnsports.com/event/mhu-junior-lions-summer-camp/"],
+        "confidence": "medium",
+        "review_notes": "Readable registration text gives July 6–9 without a repeated year; 2026 was taken from the page's summer-event context. Confirm year and softball check-in venue."
+      }
+    ]
+  }
+}

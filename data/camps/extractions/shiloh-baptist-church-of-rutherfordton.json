@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "shiloh-baptist-church-of-rutherfordton",
+    "name": "Shiloh Baptist Church of Rutherfordton",
+    "urls": ["https://shilohbaptistrutherfordton.myanswers.com/vbs2026/"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:12.271Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "669323f637ca9204502f0fd18b0a61caf3a606fe4528ac44fc49a32ccfa64044",
+  "response": {
+    "searches": [
+      "Shiloh Baptist Church Rutherfordton address",
+      "\"Shiloh\" \"Rutherfordton\" \"1850\" site:facebook.com"
+    ],
+    "usage": {
+      "inputTokens": 17225,
+      "cachedInputTokens": 8223,
+      "outputTokens": 866,
+      "reasoningTokens": 107
+    },
+    "status": "completed",
+    "ms": 25609,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+      "chars": 1240,
+      "method": "fetch"
+    },
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/",
+      "chars": 2609,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://shilohbaptistrutherfordton.myanswers.com/",
+      "chars": 828,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shiloh Baptist Church of Rutherfordton",
+    "website_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+    "notes": "No 2027 program information or registration dates found. The 2026 event page says the event has ended. No separate church website with a published venue address was located.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in games, music, crafts and Bible lessons about Psalm 23. Food is served before the evening program.",
+        "camp_page_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+        "registration_url": "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Shiloh Baptist Church",
+            "address": "1850 Poors Ford Rd",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:15",
+          "text": "Food will be served from 5 to 5:45 PM each night. VBS will run from 6 to 8:15 pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Event has ended"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Food will be served from 5 to 5:45 PM each night."
+        },
+        "transportation": null,
+        "sources": [
+          "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/",
+          "https://shilohbaptistrutherfordton.myanswers.com/vbs2026/register/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration form prints June 7–12 without a year; 2026 is taken from the event URL. The form's overall time is 5–8:15 p.m., while the description separates food at 5–5:45 p.m. from VBS at 6–8:15 p.m. Age Group choices include Toddlers and grades 1–6; toddler ages are not specified and the numeric grade range does not represent that additional group. Address 1850 Poors Ford Rd appears in multiple directories and a Fruitland Baptist Bible College Facebook recruitment post; no venue-published address was found. Other third-party listings give 1810 Poors Ford Rd, so confirm the drop-off address. The lunch field records the stated evening food service, not a midday lunch."
+      }
+    ]
+  }
+}

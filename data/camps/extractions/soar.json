@@ -1,0 +1,501 @@
+{
+  "provider": {
+    "key": "soar",
+    "name": "SOAR",
+    "urls": ["https://soarnc.org/adhd-camp/"],
+    "area": "Balsam, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:05.592Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "85407e3e0da1962b51e23ecfa46e45b669ea0cea1d45e5c987433ec373f4ce68",
+  "response": {
+    "searches": [
+      "site.soarnc.org 2027 camp",
+      "site:soarnc.org/dates-and-rates/ \"NC\"",
+      "site:soarnc.org/dates-and-rates/ \"NC\" -\"Location Start\""
+    ],
+    "usage": {
+      "inputTokens": 46619,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4082,
+      "reasoningTokens": 329
+    },
+    "status": "completed",
+    "ms": 83993,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://soarnc.org/adhd-camp/",
+      "chars": 9094,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/adhd-camp/camp-tuition/",
+      "chars": 9907,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/gap-year/gap-tuition/",
+      "chars": 6018,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/dates-and-rates/",
+      "chars": 2588,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/soar-webinar-registration/",
+      "chars": 3450,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/adhd-camp/camp-life/",
+      "chars": 7946,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/adhd-camp/our-facilities/",
+      "chars": 14183,
+      "method": "fetch"
+    },
+    {
+      "url": "https://soarnc.org/adhd-camp/camp-faqs/",
+      "chars": 9557,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "SOAR",
+    "website_url": "https://soarnc.org/",
+    "notes": "No explicitly dated 2027 summer schedule or registration opening was found. The dates-and-rates listing does not expose its session table in readable text; individual course pages were available through official search results but returned empty text when opened. Cards cover the North Carolina youth offerings found. Undated tuition amounts are recorded in review notes rather than assigned a summer year. Florida, California and international satellite offerings are not covered by these Asheville-area cards.",
+    "excluded": [
+      {
+        "name": "GAP Year Program",
+        "reason": "September–May academic-year program, not a summer camp."
+      },
+      {
+        "name": "Academy School Year",
+        "reason": "August–May boarding school, not a summer camp."
+      },
+      {
+        "name": "Christmas in the Keys",
+        "reason": "Winter program outside summer."
+      },
+      {
+        "name": "NC Family Week",
+        "reason": "Family-only program."
+      },
+      {
+        "name": "NC First Ascent",
+        "reason": "Adult-only offering for ages 18–25."
+      },
+      {
+        "name": "SOAR Webinar",
+        "reason": "Parent informational webinar outside summer, not a supervised youth camp."
+      },
+      {
+        "name": "Work at SOAR",
+        "reason": "Employment and staff internship opportunities, not camper programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "NC Intro to SOAR",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Campers stay in rustic cabins and participate in rock climbing, whitewater rafting, ropes courses, lake activities, outdoor cooking and team challenges.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-intro-to-soar/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-intro-to-soar/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists seven days, five sessions and $2,100, but no summer year or session dates. Verify the year and session table on the course page; the direct page open returned empty text."
+      },
+      {
+        "name": "NC Llama Trek Adventure",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Younger campers participate in outdoor activities and a three-day, two-night llama trek in Panthertown Wilderness. The program provides additional support with belongings and hygiene.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-llama-trek-adventure/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-llama-trek-adventure/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists ten days, four sessions and $3,900 without a summer year or session dates. Verify the year and session table on the course page."
+      },
+      {
+        "name": "NC Classic Adventure",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Campers take a four-day, three-night backpacking trip through Pisgah National Forest, practicing route selection, map and compass skills, and packing. Activities also include rafting, climbing and ropes courses.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-classic-adventure/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-classic-adventure/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists eleven days, four sessions and $3,900 without a summer year or session dates. Direct opening returned empty text; verify the year and session table."
+      },
+      {
+        "name": "NC Canoe Adventure",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Campers take a four-day, three-night canoe expedition on Fontana Lake, paddling between campsites and setting up camp on lake islands. Other activities include climbing, rafting and ropes courses.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-canoe-adventure/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-canoe-adventure/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists eleven days, four sessions and $3,900 without a summer year or session dates. Verify the year and session table on the course page."
+      },
+      {
+        "name": "NC Horseback Riding Adventure",
+        "type": "overnight",
+        "categories": ["horses", "nature_outdoor", "special_needs"],
+        "description": "Campers learn riding, grooming and horse care. The course also includes rock climbing, whitewater rafting, ropes courses and primitive skills.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-horseback-riding-adventure/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-horseback-riding-adventure/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists eleven days, four sessions and $4,300 without a summer year or session dates. Verify the year and session table on the course page."
+      },
+      {
+        "name": "NC Expedition: Mountain-to-Sea",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "special_needs"],
+        "description": "Campers practice expedition planning and backpacking in Pisgah National Forest. Activities also include caving, rappelling, kayaking and whitewater rafting.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-expedition-mountain-to-sea/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-expedition-mountain-to-sea/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Course summary lists fifteen days, but description says seventeen days. Official search text lists one session and $5,100 without a summer year or dates. Verify duration, year and session dates on the course page."
+      },
+      {
+        "name": "NC Discovery",
+        "type": "overnight",
+        "categories": ["academic", "nature_outdoor", "special_needs"],
+        "description": "Campers combine outdoor expeditions and science field trips with structured study periods led by Academy teachers. Academic activities include reading, writing, journaling and study strategies.",
+        "camp_page_url": "https://soarnc.org/dates-and-rates/nc-discovery/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Base",
+            "address": "226 SOAR Lane",
+            "town": "Balsam",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Needs-based financial aid is available on a first-come, first-served basis through a limited scholarship fund."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "SOAR welcomes youth and young adults diagnosed with ADHD and/or Learning Disabilities (and their siblings)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Tuition covers group gear, lodging (on and off base), meals, staffing, and all activities."
+        },
+        "transportation": null,
+        "sources": [
+          "https://soarnc.org/dates-and-rates/nc-discovery/",
+          "https://soarnc.org/adhd-camp/our-facilities/",
+          "https://soarnc.org/adhd-camp/camp-tuition/",
+          "https://soarnc.org/adhd-camp/camp-faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search text lists twenty-one days, two sessions and $5,800 without a summer year or session dates. Verify the year and session table on the course page."
+      }
+    ]
+  }
+}

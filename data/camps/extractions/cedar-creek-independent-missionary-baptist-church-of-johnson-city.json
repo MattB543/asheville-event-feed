@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "cedar-creek-independent-missionary-baptist-church-of-johnson-city",
+    "name": "Cedar Creek Independent Missionary Baptist Church of Johnson City",
+    "urls": ["https://www.cedarcreekmissionarybaptistchurch.org/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:42.551Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7e8a68e2cfcd6db9a74982bf40a3a8c46667c45d27b8fb515e18e8f600a40635",
+  "response": {
+    "searches": ["site:cedarcreekmissionarybaptistchurch.org \"Visit\" \"address\""],
+    "usage": {
+      "inputTokens": 13288,
+      "cachedInputTokens": 8223,
+      "outputTokens": 770,
+      "reasoningTokens": 109
+    },
+    "status": "completed",
+    "ms": 18048,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+      "chars": 2608,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+      "chars": 428,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cedar Creek Independent Missionary Baptist Church of Johnson City",
+    "website_url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+    "notes": "No 2027 or 2026 summer information was found. The homepage still advertises Vacation Bible School for July 11–13, 2025; those historical dates and hours have not been carried forward. The VBS registration page contains no visible program details or registration form. The church publishes its location as Gray, TN, rather than Johnson City.",
+    "excluded": [
+      {
+        "name": "Kids 4 Christ",
+        "reason": "Recurring Wednesday-night ministry during the school year, not a finite summer program."
+      },
+      {
+        "name": "Crossbearers",
+        "reason": "Recurring teen and young-adult youth group, not a finite summer program."
+      },
+      {
+        "name": "Nursery and Toddler room",
+        "reason": "Childcare available during regular church services, not summer-only childcare."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School. Specific activities are not described on the available program pages.",
+        "camp_page_url": "https://www.cedarcreekmissionarybaptistchurch.org/",
+        "registration_url": "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cedar Creek Independent Missionary Baptist Church",
+            "address": "262 Cedar Creek Road",
+            "town": "Gray",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cedarcreekmissionarybaptistchurch.org/",
+          "https://www.cedarcreekmissionarybaptistchurch.org/vbs",
+          "https://www.cedarcreekmissionarybaptistchurch.org/visit-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that VBS will return and confirm its drop-off location. The homepage lists only July 11–13, 2025, with no 2026 or 2027 details; the listed site is the church's published address, not an explicitly stated VBS drop-off location. The registration page has no visible form."
+      }
+    ]
+  }
+}

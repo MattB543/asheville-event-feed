@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-canton",
+    "name": "First Baptist Church of Canton",
+    "urls": ["https://www.canton-fbc.org/vbsmemories"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:16.960Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c0fc3594d7ee70293e97339691fa48e3724177c93a838105e16e4ac694d45ecf",
+  "response": {
+    "searches": [
+      "site:canton-fbc.org VBS 2026",
+      "open https://www.canton-fbc.org/childrensactivities"
+    ],
+    "usage": {
+      "inputTokens": 12488,
+      "cachedInputTokens": 8223,
+      "outputTokens": 741,
+      "reasoningTokens": 124
+    },
+    "status": "completed",
+    "ms": 24414,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.canton-fbc.org/vbsmemories",
+      "chars": 1797,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.canton-fbc.org/",
+      "chars": 853,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Canton",
+    "website_url": "https://www.canton-fbc.org/",
+    "notes": "No 2027 camp information found. The 2026 VBS form states an age-reference date of June 6, 2026, but does not state program dates; that date was not treated as a camp date. The youth page describes a past trip to SummerSalt Youth Camp at Charleston Southern, but does not identify its year or dates; no separate card was extracted from that retrospective. The Children and Happenings & Highlights pages returned no readable text when opened.",
+    "excluded": [
+      {
+        "name": "Sunday school and children's church",
+        "reason": "Recurring worship and religious education, not a finite summer program."
+      },
+      {
+        "name": "JOLT weekly youth gatherings",
+        "reason": "Year-round youth ministry gatherings, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A children's Vacation Bible School program for preschoolers through rising sixth graders.",
+        "camp_page_url": "https://www.canton-fbc.org/vbsmemories",
+        "registration_url": "https://www.canton-fbc.org/vbsmemories",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 11
+        },
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "First Baptist Church of Canton",
+            "address": "208 Academy Street",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS registration form",
+          "text": "Sorry, but this form is now closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.canton-fbc.org/vbsmemories",
+          "https://www.canton-fbc.org/",
+          "https://www.canton-fbc.org/worship-services"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

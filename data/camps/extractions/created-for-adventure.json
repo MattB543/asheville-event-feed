@@ -1,0 +1,205 @@
+{
+  "provider": {
+    "key": "created-for-adventure",
+    "name": "Created for Adventure",
+    "urls": ["https://createdforadventure.com/trips"],
+    "area": "Western North Carolina, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:09.760Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7269426b2278d971e0459a1773734d51159dc847851be64fc7b9dd692a8d2728",
+  "response": {
+    "searches": [
+      "site:createdforadventure.com \"Ultimate Adventure\"",
+      "site:airports.hawaii.gov lih airport address 3901"
+    ],
+    "usage": {
+      "inputTokens": 29144,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1644,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 43531,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://createdforadventure.com/trips",
+      "chars": 2351,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/register-now",
+      "chars": 4783,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/custom-trips",
+      "chars": 5575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/faq",
+      "chars": 12688,
+      "method": "fetch"
+    },
+    {
+      "url": "https://createdforadventure.com/",
+      "chars": 5817,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Created for Adventure",
+    "website_url": "https://createdforadventure.com/",
+    "notes": "The provider has posted two scheduled 2027 teen trips, both outside North Carolina. Other destinations are now advertised as custom group trips rather than scheduled individual summer offerings; older teen offerings in the FAQ were not carried forward. Registration is promoted now, but no dated 2027 opening was found. The registration page mixes a 2027 heading with 2026 payment and cancellation dates; its October 1 early-bird deadline has no year, so it was not recorded as a 2027 milestone.",
+    "excluded": [
+      {
+        "name": "Custom Groups",
+        "reason": "Bespoke trips for camps, churches and schools, with no confirmed summer dates or separately enrollable youth summer program. Includes Alaska, Pacific Northwest, Western North Carolina, Colorado, Grand Teton, Hawaii and Coastal Beach adventures."
+      },
+      {
+        "name": "Ski Adventure",
+        "reason": "Winter ski retreat, not a summer program."
+      },
+      {
+        "name": "Mother Daughter Hawaii Adventure - Kauai",
+        "reason": "Family-only offering referenced in the FAQ; not on the scheduled 2027 teen program list."
+      },
+      {
+        "name": "Bike Denali: Adults",
+        "reason": "Adult-only offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Hawaii Teen Adventure - Kauai",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Teens learn to surf, hike, swim and snorkel on Kauai, and sail along the Napali Coast. The trip includes community service, devotional time and Christian small-group activities.",
+        "camp_page_url": "https://createdforadventure.com/trips/hawaii-adventure-kauai",
+        "registration_url": "https://createdforadventure.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-02",
+          "end": "2027-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Lihue International Airport",
+            "address": "3901 Mokulele Loop",
+            "town": "Lihue",
+            "state": "HI"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3250,
+            "unit": "program",
+            "label": "Trip fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Scholarship funds may be available through generous supporters of Created for Adventure."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Most food, overland travel, lodging, all activities, and group gear. Not included: airfare, personal gear, and a couple of meals out (including travel day meals)."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Our Trip Leaders will meet all campers at the airport and will constantly check for any changes in travel plans."
+        },
+        "sources": [
+          "https://createdforadventure.com/trips",
+          "https://createdforadventure.com/trips/hawaii-adventure-kauai",
+          "https://createdforadventure.com/register-now",
+          "https://createdforadventure.com/faq",
+          "https://createdforadventure.com/scholarships",
+          "https://airports.hawaii.gov/lih/getting-to-from/driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page returned no readable body when opened; its description and airport check-in were available through official search results. Dates, grades and price are explicit in the supplied 2027 trips page. Airport address is from the airport's official website. The page's search title still says Hawaii Girls Surfing Camp, but the current offering is explicitly co-ed."
+      },
+      {
+        "name": "Ultimate Adventure: Alaska to Hawaii",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Teens hike, ice climb, raft and watch wildlife in Alaska, then surf, snorkel and hike on Kauai. The trip also includes community service, daily devotions and evening small groups.",
+        "camp_page_url": "https://createdforadventure.com/trips/alaska-experience",
+        "registration_url": "https://createdforadventure.com/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-26",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "current"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5700,
+            "unit": "program",
+            "label": "Trip fee",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Scholarship funds may be available through generous supporters of Created for Adventure."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Most food, overland travel, lodging, all activities, and group gear. Not included: airfare, personal gear, and a couple of meals out (including travel day meals)."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Our Trip Leaders will meet all campers at the airport and will constantly check for any changes in travel plans."
+        },
+        "sources": [
+          "https://createdforadventure.com/trips",
+          "https://createdforadventure.com/trips/alaska-experience",
+          "https://createdforadventure.com/register-now",
+          "https://createdforadventure.com/faq",
+          "https://createdforadventure.com/scholarships"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

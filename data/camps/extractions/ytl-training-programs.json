@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "ytl-training-programs",
+    "name": "YTL Training Programs",
+    "urls": ["https://www.ytltrainingprograms.org/summer-camp", "https://ytltrainingprograms.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["beyond_school", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:58:03.056Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a6a17fc7556d577ac4df0fde6bf62bac5fc3cf5c41e4c0b3b0f84cf1ee3417b2",
+  "response": {
+    "searches": ["site:ytltrainingprograms.org summer camp 2027 2026 address"],
+    "usage": {
+      "inputTokens": 13087,
+      "cachedInputTokens": 8223,
+      "outputTokens": 762,
+      "reasoningTokens": 79
+    },
+    "status": "completed",
+    "ms": 19259,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ytltrainingprograms.org/summer-camp",
+      "chars": 1487,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ytltrainingprograms.org/",
+      "chars": 995,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YTL Training Programs",
+    "website_url": "https://www.ytltrainingprograms.org/",
+    "notes": "No summer 2027 information was found. The summer page still says 2026 registration is coming soon and gives only June–August, without exact dates. The 2026–2027 waitlist link is explicitly for afterschool, not summer camp. The contact page publishes 789 Merrimon Ave., Asheville, NC 28804, but does not identify it as the summer camp drop-off location, so sites is empty.",
+    "excluded": [
+      {
+        "name": "R.O.S.E.S & M.O.S.S",
+        "reason": "Afterschool program, not a separate finite summer offering; summer activities are included in the Summer Camp card."
+      },
+      {
+        "name": "G.R.A.C.E for Teens Afterschool",
+        "reason": "Afterschool program rather than a separate summer camp offering."
+      },
+      {
+        "name": "G.R.A.C.E for Teens Advocacy and Outreach",
+        "reason": "Ongoing advocacy and family support services, not a finite supervised summer program."
+      },
+      {
+        "name": "Afterschool and Summer Camp Facilitators",
+        "reason": "Employment opportunities, not youth camp enrollment."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["academic", "stem", "nature_outdoor", "general"],
+        "description": "Campers participate in STEM activities, agricultural enrichment, mindfulness and community service projects. The program also includes weekly field trips and academic summer learning support.",
+        "camp_page_url": "https://www.ytltrainingprograms.org/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "2026 Camp Registration is COMING SOON. Camp will run from June - August."
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "Program hours are 7:30 am to 5:30 pm, Monday through Friday."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ytltrainingprograms.org/summer-camp",
+          "https://www.ytltrainingprograms.org/programs",
+          "https://www.ytltrainingprograms.org/contact-8"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

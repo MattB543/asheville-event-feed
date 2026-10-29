@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "first-baptist-church-gowensville-of-landrum",
+    "name": "First Baptist Church Gowensville of Landrum",
+    "urls": ["https://vbspro.events/p/aeda76"],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:46.433Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "66e3bfd2972e81a100a8d8c26c72a1ca2ed4b62ca634608c808ca7fec26a206a",
+  "response": {
+    "searches": [
+      "First Baptist Gowensville official VBS 2027 2026",
+      "\"Gowensville\" \"VBS\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 17819,
+      "cachedInputTokens": 8223,
+      "outputTokens": 627,
+      "reasoningTokens": 137
+    },
+    "status": "completed",
+    "ms": 16697,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/aeda76",
+      "chars": 2482,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church Gowensville of Landrum",
+    "website_url": "https://fbcgowensville.com/",
+    "notes": "No summer 2027 program information or registration dates found. The supplied VBS registration page provides explicit 2026 dates. The church's Events and New Here pages returned no readable text when opened, although official search results showed the church address.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "ROME VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Participants explore the sights, sounds, and culture of Paul's world and learn about his life and the experiences of early Christians.",
+        "camp_page_url": "https://vbspro.events/p/aeda76",
+        "registration_url": "https://vbspro.events/p/aeda76",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Gowensville",
+            "address": "5650 North Hwy 14",
+            "town": "Landrum",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": "6:30pm (EDT) to 8:30pm (EDT)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 event",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://vbspro.events/p/aeda76"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

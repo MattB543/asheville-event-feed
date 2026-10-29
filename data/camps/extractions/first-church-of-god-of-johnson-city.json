@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "first-church-of-god-of-johnson-city",
+    "name": "First Church of God of Johnson City",
+    "urls": ["https://firstchurchofgodjc.com/", "https://www.youtube.com/watch?v=6co66eDGUXs"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:30:59.767Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "abdcb1e26681507e0093efcad3ea432e79727ae8ea202c986fc8a49788234352",
+  "response": {
+    "searches": [
+      "\"First Church of God\" \"Johnson City\" \"VBS\" 2026",
+      "\"First Church of God of Johnson City\" \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 22064,
+      "cachedInputTokens": 8223,
+      "outputTokens": 744,
+      "reasoningTokens": 169
+    },
+    "status": "completed",
+    "ms": 34130,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://firstchurchofgodjc.com/",
+      "chars": 2899,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=6co66eDGUXs",
+      "chars": 389,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.youtube.com/howyoutubeworks?utm_campaign=ytgen&utm_source=ythp&utm_medium=LeftNav&utm_content=txt&u=https%3A%2F%2Fwww.youtube.com%2Fhowyoutubeworks%3Futm_source%3Dythp%26utm_medium%3DLeftNav%26utm_campaign%3Dytgen",
+      "chars": 4292,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.youtube.com/",
+      "chars": 852,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Church of God of Johnson City",
+    "website_url": "https://firstchurchofgodjc.com/",
+    "notes": "No official 2027 or 2026 summer camp schedule or registration information was found. The supplied official YouTube video title identifies Vacation Bible School, but its accessible text does not establish the program year or camp details. Search also found third-party VBS listings for 2024 and 2025; those historical dates were not used. The church website contains unrelated School Food Service Cooperative and NETCO employment content.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Regular church programming, not a finite summer camp."
+      },
+      {
+        "name": "NETCO Employment Opportunities",
+        "reason": "Employment recruitment, not a supervised youth summer program; appears to be unrelated content on the church website."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church identifies a Vacation Bible School program in its official YouTube video title. Activities are not described in the accessible program text.",
+        "camp_page_url": "https://www.youtube.com/watch?v=6co66eDGUXs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://firstchurchofgodjc.com/",
+          "https://www.youtube.com/watch?v=6co66eDGUXs"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm that Vacation Bible School will be offered in summer 2027 and obtain dates, eligibility, activities, registration details and the drop-off location directly from the church. The accessible YouTube title confirms only the program name, not its year. The church publishes its address as 801 W Watauga Ave., Johnson City, TN 37604, but the accessible official sources do not explicitly identify it as the VBS drop-off location."
+      }
+    ]
+  }
+}

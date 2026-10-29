@@ -1,0 +1,337 @@
+{
+  "provider": {
+    "key": "girl-scouts-of-south-carolina-mountains-to-midlands",
+    "name": "Girl Scouts of South Carolina—Mountains to Midlands",
+    "urls": [
+      "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-wabak.html",
+      "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html"
+    ],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:57.127Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "20839286a2818851b6049887005c441ba596393e98841717efb7a3bb8914e43d",
+  "response": {
+    "searches": [
+      "site:gssc-mm.org \"2026\" \"camp\" \"brochure\"",
+      "site:gssc-mm.org/en/sf-events-repository/2026/ \"Camp WaBak\"",
+      "\"2026 Camp Book\" \"gssc\"",
+      "open https://www.gssc-mm.org/en/discover/our-council.html",
+      "site:gssc-mm.org/content/dam \"2026\" \"Pirates\""
+    ],
+    "usage": {
+      "inputTokens": 51510,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3309,
+      "reasoningTokens": 389
+    },
+    "status": "completed",
+    "ms": 93351,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-wabak.html",
+      "chars": 7972,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html",
+      "chars": 7985,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/activities/registration-faq.html",
+      "chars": 9288,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties.html",
+      "chars": 7602,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/friends-of-camp-wabak.html",
+      "chars": 10955,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/property-rentals.html",
+      "chars": 8512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/rental-info/Rental%20Rates%20-%20GSSC-MM%20Troops%20and%20Service%20Units.pdf",
+      "chars": 2718,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/rental-info/Rental%20Rates%20-%20OOC%20Troops%20and%20Service%20Units.pdf",
+      "chars": 2744,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girl Scouts of South Carolina—Mountains to Midlands",
+    "website_url": "https://www.gssc-mm.org/",
+    "notes": "No 2027 dates or registration milestones were found. The summer camp page welcomes families back in 2027 but does not announce when details will be published. The council publications page lists a 2026 Camp Book, but its PDF link and complete contents could not be retrieved; the 2026 sessions below are incomplete and were recovered from official newsletters and indexed official pages. Search access to parts of the council website was blocked by robots.txt. An indexed homepage also lists Camp WaBak - CIT 1 for July 12–24, 2026, but insufficient program details were accessible to extract it reliably. Included the provider's three named summer camps, including its Columbia and Spartanburg offerings.",
+    "excluded": [
+      {
+        "name": "Property Rentals",
+        "reason": "Facility reservations, not finite supervised youth camp programs; rental fees and check-in hours are not summer camp fees or hours."
+      },
+      {
+        "name": "Friends of Camp WaBak",
+        "reason": "Year-round supporter association, not a youth summer camp."
+      },
+      {
+        "name": "Labor Day Weekend Family Camp @ Camp WaBak",
+        "reason": "Family camping event; adults are responsible for supervising their youth family members."
+      },
+      {
+        "name": "Troop Camp Weekend November 2026",
+        "reason": "November program, outside summer."
+      },
+      {
+        "name": "Fall Break Camp - Camp Cathy 2026",
+        "reason": "November school-break camp, outside summer."
+      },
+      {
+        "name": "Trailblazers M2M: Eco-Art Camp Out at WaBak",
+        "reason": "September program, outside summer."
+      },
+      {
+        "name": "The Great Galentine’s Archery Camp Out",
+        "reason": "February program, outside summer."
+      },
+      {
+        "name": "Tent and Overnight Camp Training",
+        "reason": "Adult training in September, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp WaBak",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts", "stem"],
+        "description": "Girls participate in archery, canoeing, hiking, experiments, nature crafts, and themed activities. Camp also includes cabin circles, slacklining, hammocking, and creek hikes.",
+        "camp_page_url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-wabak.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp WaBak",
+            "address": "36 Camp WaBak Road",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Pirates and Mermaids",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Choose Your Own Adventure",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-04",
+          "time": null,
+          "text": "Take a look, start dreaming big, and mark your calendars: camp registration opens February 4.",
+          "url": "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you are interested in sponsoring a campership for a girl to go to summer camp, go here and select Campership from the dropdown list."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-wabak.html",
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/Site%20Usage%20Orientation%20Packet.pdf",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJFebruary42026.pdf",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf",
+          "https://www.gssc-mm.org/?cid=XDAwOmepSGvom7DPCjsJtQ%3D%3D&eid=n0XBFWvr3IKCJbyoTrMrsg%3D%3D",
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/friends-of-camp-wabak.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session list and season span cover only recovered sessions, not the complete summer. Choose Your Own Adventure dates came from an indexed official homepage headed Wild About 2026 Summer Camp. Retrieve the 2026 Camp Book from the council publications page to check additional sessions, eligibility, prices, and leadership offerings. Campership wording confirms their existence but does not explain eligibility or applications."
+      },
+      {
+        "name": "Camp Mary Elizabeth",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "general"],
+        "description": "Girls participate in crafts, games, aquatics, hiking, archery, and activities related to each week's theme. Days begin and end with flag ceremonies.",
+        "camp_page_url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-mary-elizabeth.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Mary Elizabeth",
+            "address": "330 Scout Drive",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Camp Clue",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-04",
+          "time": null,
+          "text": "Take a look, start dreaming big, and mark your calendars: camp registration opens February 4.",
+          "url": "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/camp-mary-elizabeth.html",
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/Site%20Usage%20Orientation%20Packet.pdf",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJFebruary42026.pdf",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only one 2026 session was recovered from the official February newsletter; the season span is not the complete summer. Program description and address were accessible through indexed official text. Retrieve the 2026 Camp Book for all weeks, eligibility, fees, hours, and any leadership programs."
+      },
+      {
+        "name": "Camp Cathy",
+        "type": "day",
+        "categories": ["arts", "stem", "nature_outdoor", "general"],
+        "description": "Girls participate in rock wall climbing, aquatics, art and design, and team challenges. Activities cover outdoors, STEM, life skills, and entrepreneurship.",
+        "camp_page_url": "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/cathy-novinger-girl-scout-leadership-center.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cathy Novinger Girl Scout Leadership Center",
+            "address": "1107 Williams Street",
+            "town": "Columbia",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Center Stage",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Animal Adventures",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-04",
+          "time": null,
+          "text": "Take a look, start dreaming big, and mark your calendars: camp registration opens February 4.",
+          "url": "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp/cathy-novinger-girl-scout-leadership-center.html",
+          "https://www.gssc-mm.org/en/get-involved/camps-and-properties/summer-camp.html",
+          "https://www.gssc-mm.org/en/discover/our-council.html",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJFebruary42026.pdf",
+          "https://www.gssc-mm.org/content/dam/gssc-mm-redesign/documents/taxi-newsletters/IATJJanuary72026.pdf",
+          "https://www.gssc-mm.org/?cid=wI1SIQ1cNzjFWnKTxuqr6Q%3D%3D&eid=Bi3SDD3tynv69ODgajlLxw%3D%3D&n=k4030j5PsaMnD4EzJhT+xQ%3D%3D"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only two 2026 weeks were recovered; season span is not the complete summer. Animal Adventures dates came from an indexed official homepage headed Wild About 2026 Summer Camp. Homepage event start/end timestamps were not treated as daily camp hours. Retrieve the 2026 Camp Book for all weeks, eligibility, fees, daily hours, and leadership programs."
+      }
+    ]
+  }
+}

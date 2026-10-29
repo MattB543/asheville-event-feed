@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "stoney-mountain-baptist-church-of-hendersonville",
+    "name": "Stoney Mountain Baptist Church of Hendersonville",
+    "urls": ["https://stoneymountainbaptist.com/vbs/", "https://stoneymountainbaptist.com/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:36.150Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6979024e97482dd57ed1e24ad25b11095bd5875fa0013666231d362d6456752f",
+  "response": {
+    "searches": [
+      "site:stoneymountainbaptist.com VBS 2026 2027",
+      "\"Stoney Mountain Baptist\" \"vacation bible\" 2026"
+    ],
+    "usage": {
+      "inputTokens": 21589,
+      "cachedInputTokens": 8223,
+      "outputTokens": 649,
+      "reasoningTokens": 173
+    },
+    "status": "completed",
+    "ms": 26500,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://stoneymountainbaptist.com/vbs/",
+      "chars": 748,
+      "method": "browser"
+    },
+    {
+      "url": "https://stoneymountainbaptist.com/",
+      "chars": 1887,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Stoney Mountain Baptist Church of Hendersonville",
+    "website_url": "https://stoneymountainbaptist.com/",
+    "notes": "No official 2027 or 2026 VBS details were found. The VBS page still lists July 21–24, 2025; those dates and historical age bands have not been carried forward. Search results call the historical offering VBS/Teen Connection 2025, but do not describe a separate teen program sufficiently to split it into another card.",
+    "excluded": [
+      {
+        "name": "Beyond The Game",
+        "reason": "Sports ministry organized into recurring sports seasons throughout the year, rather than a summer camp or clinic."
+      },
+      {
+        "name": "Sunday School, BLAST, TnT, Afterglow and Youth Activities",
+        "reason": "Regular year-round church programs, not finite summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School for children and teens. Current pages do not describe its activities.",
+        "camp_page_url": "https://stoneymountainbaptist.com/vbs/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Stoney Mountain Baptist Church",
+            "address": "3301 Asheville Highway",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://stoneymountainbaptist.com/vbs/",
+          "https://stoneymountainbaptist.com/",
+          "https://stoneymountainbaptist.com/plan-your-visit",
+          "https://stoneymountainbaptist.com/events/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBS page contains only 2025 information: July 21–24, ages 4 and up and ages 11–18. Confirm that VBS returns in 2027 and whether Teen Connection is a separately described offering. No 2026 fallback information was found."
+      }
+    ]
+  }
+}

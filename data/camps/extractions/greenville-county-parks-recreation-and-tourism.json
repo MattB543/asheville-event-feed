@@ -1,0 +1,784 @@
+{
+  "provider": {
+    "key": "greenville-county-parks-recreation-and-tourism",
+    "name": "Greenville County Parks, Recreation & Tourism",
+    "urls": [
+      "https://greenvillerec.com/camp-programs/",
+      "https://greenvillerec.com/camp-spearhead/",
+      "https://greenvillerec.com/therapeutic-special-needs/"
+    ],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:04.681Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b9c5d97fa611b099b5ee7de4f435812fbc39fb2809f9f0219e40c53fbb09db20",
+  "response": {
+    "searches": [
+      "site.greenvillerec.com summer day camps 2026 teen leadership",
+      "open https://greenvillerec.com/community-center-summer-camps/",
+      "site:greenvillerec.com \"Summer Serve\" CIT",
+      "\"Spearhead\" \"Summer Serve\"",
+      "site:greenvillerec.com \"Summer Serve\" \"CIT\" ages"
+    ],
+    "usage": {
+      "inputTokens": 56367,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5000,
+      "reasoningTokens": 542
+    },
+    "status": "completed",
+    "ms": 105029,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://greenvillerec.com/camp-programs/",
+      "chars": 3180,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenvillerec.com/camp-spearhead/",
+      "chars": 7512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenvillerec.com/therapeutic-special-needs/",
+      "chars": 7224,
+      "method": "fetch"
+    },
+    {
+      "url": "https://webtrac.greenvillerec.com/wbwsc/webtrac.wsc/SPLASH.html",
+      "chars": 1015,
+      "method": "browser"
+    },
+    {
+      "url": "https://greenvillerec.com/wp-content/uploads/2025/08/2026-summer-camp-guide-.pdf",
+      "chars": 25296,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenvillerec.com/wp-content/uploads/2025/02/2025-summer-camp-guide_final-5-compressed.pdf",
+      "chars": 24915,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenvillerec.com/wp-content/uploads/2026/09/camp-spearhead-summer-camp-guide.pdf",
+      "chars": 10858,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greenville County Parks, Recreation & Tourism",
+    "website_url": "https://greenvillerec.com/",
+    "notes": "Camp Spearhead has posted 2027 dates and rates on therapeutic-special-needs; camp-spearhead still shows 2026. Other camp pages found show 2026 or undated information, not a provider-wide 2027 program list. Spearhead Summer Serve CIT Program is linked on the supplied pages, but its eligibility, format, dates and application details could not be verified; a reviewer should investigate that offering before publishing it.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp",
+        "reason": "March program outside summer."
+      },
+      {
+        "name": "Community Center After-School Programs",
+        "reason": "School-year childcare, not a summer-only program."
+      },
+      {
+        "name": "The Weekend Program",
+        "reason": "Fall and spring recreational program outside summer."
+      },
+      {
+        "name": "Apply to Work at Camp",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Learn to Play Tennis",
+        "reason": "School-year classes, separate from Summer Tennis Camps."
+      },
+      {
+        "name": "Adult Tennis Programs and Private Lessons",
+        "reason": "Adult programming or ongoing lessons, not finite youth summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Spearhead",
+        "type": "overnight",
+        "categories": ["special_needs", "nature_outdoor", "general"],
+        "description": "Children and adults with disabilities participate in canoeing, swimming, fishing, challenge-course activities, target sports, crafts and group games.",
+        "camp_page_url": "https://greenvillerec.com/therapeutic-special-needs/",
+        "registration_url": "https://greenvillerec.com/therapeutic-special-needs/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-30",
+          "text": "SUMMER 2027 Dates and Rates"
+        },
+        "ages": {
+          "min": 8,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pleasant Ridge Camp & Retreat Center",
+            "address": "4232 Hwy 11",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 385,
+            "unit": "week",
+            "label": "Greenville County Residents",
+            "year": 2027
+          },
+          {
+            "amount": 483,
+            "unit": "week",
+            "label": "Non Greenville County Residents",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-03-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "2027 Camper Applications will be available March 1, 2027. All applications are completed online. Please note that this is an application NOT a registration.",
+            "url": "https://greenvillerec.com/therapeutic-special-needs/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-03-01",
+          "time": null,
+          "text": "2026 Camper Applications will be available March 1, 2026.",
+          "url": "https://greenvillerec.com/camp-spearhead/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "If you need scholarship assistance, please contact us by calling 864-288-6470 or emailing CampSpearhead@greenvilecounty.org"
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Children and adults with disabilities ages 8 and older. (No upper age limit)"
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Our Food Service staff provides nutritious, balanced, and tasty meals."
+        },
+        "transportation": null,
+        "sources": [
+          "https://greenvillerec.com/therapeutic-special-needs/",
+          "https://greenvillerec.com/camp-spearhead/",
+          "https://greenvillerec.com/wp-content/uploads/2025/08/2026-summer-camp-guide-.pdf",
+          "https://greenvillerec.com/wp-content/uploads/2026/09/camp-spearhead-summer-camp-guide.pdf"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Community Center Elementary Summer Day Camps",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in recreation activities and practice life skills in a supervised community-center setting.",
+        "camp_page_url": "https://greenvillerec.com/community-center-summer-camps/",
+        "registration_url": "https://webtrac.greenvillerec.com/webtrac/web/splash.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "June 1, 2026 – July 31, 2026 (closed July 3)"
+        },
+        "ages": {
+          "min": 6,
+          "max": 11
+        },
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brutontown Community Center",
+            "address": "200 Leo Lewis St",
+            "town": "Greenville",
+            "state": "SC"
+          },
+          {
+            "name": "Freetown Community Center",
+            "address": "200 Alice Ave",
+            "town": "Greenville",
+            "state": "SC"
+          },
+          {
+            "name": "Mt. Pleasant Community Center",
+            "address": "710 S. Fairfield Road",
+            "town": "Greenville",
+            "state": "SC"
+          },
+          {
+            "name": "Slater Hall Community Center",
+            "address": "5 Whitney St",
+            "town": "Slater",
+            "state": "SC"
+          },
+          {
+            "name": "Staunton Bridge Community Center",
+            "address": "165 Staunton Bridge Rd",
+            "town": "Greenville",
+            "state": "SC"
+          },
+          {
+            "name": "Sterling Community Center",
+            "address": "113 Minus St",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 AM – 5:00 PM (Early Arrival at 7:30 AM and Late Stay until 6:00 PM)"
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "18:00",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 405,
+            "unit": "program",
+            "label": "Greenville County Residents; 9 weeks",
+            "year": 2026
+          },
+          {
+            "amount": 507,
+            "unit": "program",
+            "label": "Out-of-County Residents; 9 weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Brutontown Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Freetown Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Mt. Pleasant Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Slater Hall Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Staunton Bridge Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Sterling Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-09",
+          "time": null,
+          "text": "Registration Opens Feb. 9, 2026",
+          "url": "https://greenvillerec.com/camp-programs/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "A limited amount of scholarships are available for qualified families."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If you need a modification, please reach out to us so we can meet with you and make a plan."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenvillerec.com/community-center-summer-camps/",
+          "https://greenvillerec.com/camp-programs/",
+          "https://greenvillerec.com/wp-content/uploads/2025/11/2026-cc-camp-parent-handbook.pdf",
+          "https://greenvillerec.com/parks/brutontown-community-center/",
+          "https://greenvillerec.com/parks/freetown-community-center/",
+          "https://greenvillerec.com/parks/slater-community-center/",
+          "https://greenvillerec.com/parks/staunton-bridge-community-center/",
+          "https://greenvillerec.com/parks/sterling-community-center/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The detailed camp page retains an in-person registration sentence for February 3, 2025; the camp-programs page explicitly gives February 9, 2026. The handbook lists 7:30–18:00 including care, while the detailed page distinguishes core hours of 9:00–17:00."
+      },
+      {
+        "name": "Community Center Teen Leadership Camp",
+        "type": "day",
+        "categories": ["general", "academic"],
+        "description": "Teens practice communication, money management, food preparation and other life skills through workshops and activities. They also participate in sports, crafts, community service and field trips.",
+        "camp_page_url": "https://greenvillerec.com/community-center-teen-leadership-camp/",
+        "registration_url": "https://webtrac.greenvillerec.com/webtrac/web/splash.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": "June 1, 2026 – July 31, 2026 (closed July 3)"
+        },
+        "ages": {
+          "min": 12,
+          "max": 14
+        },
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Mt. Pleasant Community Center",
+            "address": "710 S. Fairfield Road",
+            "town": "Greenville",
+            "state": "SC"
+          },
+          {
+            "name": "Sterling Community Center",
+            "address": "113 Minus St",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "9:00 AM – 5:00 PM (Early Arrival at 7:30 AM and Late Stay until 6:00 PM)"
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "18:00",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 475,
+            "unit": "program",
+            "label": "Greenville County Residents; 9 weeks",
+            "year": 2026
+          },
+          {
+            "amount": 595,
+            "unit": "program",
+            "label": "Out-of-County Residents; 9 weeks",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Mt. Pleasant Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": "Sterling Community Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-02",
+          "time": null,
+          "text": "Registration Opens Feb. 2, 2026",
+          "url": "https://greenvillerec.com/community-center-teen-leadership-camp/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "A limited amount of scholarships are available for qualified families."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If you need a modification, please reach out to us so we can meet with you and make a plan."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Nutritious and delicious lunch and afternoon snacks are provided daily."
+        },
+        "transportation": null,
+        "sources": [
+          "https://greenvillerec.com/community-center-teen-leadership-camp/",
+          "https://greenvillerec.com/camp-programs/",
+          "https://greenvillerec.com/wp-content/uploads/2025/11/2026-cc-camp-parent-handbook.pdf",
+          "https://greenvillerec.com/parks/sterling-community-center/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The detailed page says registration opens February 2, 2026 but also retains online February 3 and in-person February 3, 2025 wording. Core hours are distinguished from care on the detailed page; the handbook lists the combined 7:30–18:00 span."
+      },
+      {
+        "name": "Summer Tennis Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Youth participate in tennis instruction in Rising Stars and Beginner groups.",
+        "camp_page_url": "https://pavilion.greenvillerec.com/tennis/",
+        "registration_url": "https://webtrac.greenvillerec.com/webtrac/web/splash.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pavilion",
+            "address": "400 Scottswood Rd",
+            "town": "Taylors",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rising Stars",
+            "start": "2026-05-26",
+            "end": "2026-08-06",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 4,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "10:30"
+            },
+            "price": {
+              "amount": 64,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Beginner",
+            "start": "2026-05-26",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 145,
+              "unit": "week",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pavilion.greenvillerec.com/tennis/",
+          "https://pavilion.greenvillerec.com/",
+          "https://greenvillerec.com/camp-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The tennis page omits a year; dates align with 2026 weekdays and are treated as 2026, not projected to 2027. The camp index gives conflicting undated spans May 28–August 1 and June 1–August 12. Rising Stars meets Tuesday–Thursday; Beginner meets Monday–Friday. No individual weeks are listed."
+      },
+      {
+        "name": "Summer Tennis Camps",
+        "type": "evening",
+        "categories": ["sports"],
+        "description": "Youth participate in summer tennis instruction in Intermediate and Advanced groups.",
+        "camp_page_url": "https://pavilion.greenvillerec.com/tennis/",
+        "registration_url": "https://webtrac.greenvillerec.com/webtrac/web/splash.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pavilion",
+            "address": "400 Scottswood Rd",
+            "town": "Taylors",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "20:00",
+          "text": "5:00 PM – 8:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 236,
+            "unit": "month",
+            "label": "June or July; 2 days/week",
+            "year": 2026
+          },
+          {
+            "amount": 354,
+            "unit": "month",
+            "label": "June or July; 3 days/week",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Intermediate",
+            "start": "2026-06-01",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Advanced",
+            "start": "2026-06-02",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pavilion.greenvillerec.com/tennis/",
+          "https://pavilion.greenvillerec.com/",
+          "https://greenvillerec.com/camp-programs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Separated from morning Summer Tennis Camps because this is an evening format. The tennis page omits a year; dates align with 2026 weekdays and are treated as 2026. Intermediate meets Monday, Wednesday and Friday; Advanced meets Tuesday–Thursday. The index has conflicting undated tennis date spans."
+      }
+    ]
+  }
+}

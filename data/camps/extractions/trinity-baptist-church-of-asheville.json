@@ -1,0 +1,252 @@
+{
+  "provider": {
+    "key": "trinity-baptist-church-of-asheville",
+    "name": "Trinity Baptist Church of Asheville",
+    "urls": [
+      "https://tbcavl.com/vbs",
+      "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:29.381Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f91edd1f909f80fc870bbaec6756635463901e0e96a556c47da2b09907c10e9c",
+  "response": {
+    "searches": [
+      "site.tbcasheville.org \"camp\" \"2026\"",
+      "\"Launch\" \"camp\" \"2026\" \"Trinity\" Asheville",
+      "open https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bffyctt6",
+      "site:subsplash.com/trinitybaptistchurch-nor/lb/ev/ \"ffyctt6\" \"Cost\"",
+      "site:subsplash.com/trinitybaptistchurch-nor \"sm4cxrg\" \"grade\""
+    ],
+    "usage": {
+      "inputTokens": 28176,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2061,
+      "reasoningTokens": 413
+    },
+    "status": "completed",
+    "ms": 60181,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tbcavl.com/vbs",
+      "chars": 3529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+      "chars": 1505,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+      "chars": 692,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.tbcasheville.org/im-new/campus-map/",
+      "chars": 1627,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tbcavl.com/",
+      "chars": 2342,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Baptist Church of Asheville",
+    "website_url": "https://www.tbcasheville.org/",
+    "notes": "No 2027 summer youth program information was found. Kids' Camp and Arise Youth Conference pages returned no readable body when opened; their official search results supplied limited 2026 details. Kids' Camp lists departure on June 14 separately from camp dates June 15–19. No 2026 registration opening dates were found.",
+    "excluded": [
+      {
+        "name": "Launch | Trinity Kids",
+        "reason": "Regular Wednesday children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes."
+      },
+      {
+        "name": "Trinity Kids Church",
+        "reason": "Recurring church program; explicitly does not meet during summer break."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "October event outside summer."
+      },
+      {
+        "name": "Pursuit Youth Conference '26",
+        "reason": "March 13–14 program outside summer."
+      },
+      {
+        "name": "LAUNCH – Snow Tubing",
+        "reason": "Winter outing outside summer."
+      },
+      {
+        "name": "Land of the Sky Jubilee",
+        "reason": "General church worship gathering, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Launch Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible teachings about redemption through the Junkyard Redemption theme, with snacks, crafts, and games.",
+        "camp_page_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+        "registration_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": -1,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Student Center | Trinity Baptist Church",
+            "address": "216 Shelburne Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:15",
+          "text": "Monday–Thursday: drop-off begins 5:30 PM, meals begin 5:45 PM, VBS begins 6:30 PM, pickup begins 8:15 PM. Sunday kickoff is listed at 10:00 AM; Friday commencement is at 6:00 PM, with food and inflatables afterward."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junkyard Redemption",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "5:45 PM | Meals begin | Family Life Center"
+        },
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2B5c5z8js",
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/+5c5z8js/register",
+          "https://www.tbcasheville.org/ministries/launch/",
+          "https://www.tbcasheville.org/im-new/campus-map/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Sunday kickoff is 10:00 AM in the event description but 10:15 AM in the event header. Eligibility wording is 'PreK4 to Rising 7th Grade'; rising basis is explicit only for the upper endpoint. Meals are evening meals, not midday lunch."
+      },
+      {
+        "name": "LAUNCH | Kids' Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Children attend a week of faith-focused activities at Venture of Faith Camp.",
+        "camp_page_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bffyctt6",
+        "registration_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bffyctt6/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bffyctt6",
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bffyctt6/register",
+          "https://www.tbcasheville.org/ministries/launch/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search snippets state June 15–19, 2026, rising 4th–7th grades, departure Sunday June 14, and registration deadline April 26, 2026. Opened pages had no readable body. Verify overnight format, departure/drop-off location, pricing, and full details; overnight format is inferred from the weeklong away-camp description and 'Pack your bags.'"
+      },
+      {
+        "name": "Arise Youth Conference",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Youth attend the church's Arise Youth Conference program.",
+        "camp_page_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bsm4cxrg",
+        "registration_url": "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bsm4cxrg/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bsm4cxrg",
+          "https://subsplash.com/trinitybaptistchurch-nor/lb/ev/%2Bsm4cxrg/register"
+        ],
+        "confidence": "low",
+        "review_notes": "Only the official event title and July 20–24, 2026 dates were readable through search results. Verify supervised youth-program eligibility and overnight format before publication; the format, activities, ages, location, and price were not available in the readable official material."
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "provider": {
+    "key": "east-tennessee-cheer-and-gymnastics",
+    "name": "East Tennessee Cheer & Gymnastics",
+    "urls": ["https://www.etcheerandgymnastics.com/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:49.527Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0f11eb51064d028c20df1668c8efa1c7f62ff761f01b8d0ce1a4683ea343b861",
+  "response": {
+    "searches": ["site.etcheerandgymnastics.com summer camp 2026", "\"ETCG\" \"summer camps\""],
+    "usage": {
+      "inputTokens": 25688,
+      "cachedInputTokens": 8223,
+      "outputTokens": 641,
+      "reasoningTokens": 187
+    },
+    "status": "completed",
+    "ms": 23123,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.etcheerandgymnastics.com/",
+      "chars": 1575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://portal.iclasspro.com/etcg1gym/booking",
+      "chars": 702,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Tennessee Cheer & Gymnastics",
+    "website_url": "https://www.etcheerandgymnastics.com/",
+    "notes": "The official homepage links to Summer Camps, but the supplied registration-portal text contains only the Kingsport location selector, not camp listings. The camp portal at https://portal.iclasspro.com/etcg1gym/camps returned no readable content. Searches found no official 2026 or 2027 camp details or PDFs; only older official social posts about 2022 camps. No cards were created because current program names, formats and activities could not be verified. The homepage mentions Johnson City, but the supplied portal lists only Kingsport; confirm current camp locations with the provider. The gym-news.html and gym-info.html pages also returned no readable content.",
+    "excluded": [
+      {
+        "name": "Preschool Gymnastics",
+        "reason": "Ongoing gymnastics classes, not a finite summer program."
+      },
+      {
+        "name": "Recreational Gymnastics",
+        "reason": "Ongoing gymnastics classes, not a finite summer program."
+      },
+      {
+        "name": "Team Gymnastics",
+        "reason": "Team program rather than a finite summer camp."
+      },
+      {
+        "name": "Tumbling",
+        "reason": "Ongoing classes; no summer-only camp or clinic verified."
+      },
+      {
+        "name": "Recreational Cheer",
+        "reason": "Ongoing classes, not a finite summer program."
+      },
+      {
+        "name": "All Star Cheer",
+        "reason": "Team program rather than a finite summer camp."
+      },
+      {
+        "name": "Urban Ninja",
+        "reason": "Ongoing classes; no summer-only camp or clinic verified."
+      },
+      {
+        "name": "Open Gym",
+        "reason": "Recurring open-gym offering, not a verified finite summer program."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private birthday events, not summer camp programs."
+      }
+    ],
+    "cards": []
+  }
+}

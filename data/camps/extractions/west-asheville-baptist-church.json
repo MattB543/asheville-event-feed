@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "west-asheville-baptist-church",
+    "name": "West Asheville Baptist Church",
+    "urls": ["https://www.westashevillebaptist.org/vbs/", "https://www.westashevillebaptist.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:49.687Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "381972acc6926194b4cef9dd96eaa4f3bc11354f33236e7435cdf68d6adad25f",
+  "response": {
+    "searches": ["site:westashevillebaptist.org \"2027\""],
+    "usage": {
+      "inputTokens": 13619,
+      "cachedInputTokens": 8223,
+      "outputTokens": 798,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 25818,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.westashevillebaptist.org/vbs/",
+      "chars": 2396,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.westashevillebaptist.org/",
+      "chars": 2132,
+      "method": "fetch"
+    },
+    {
+      "url": "https://form.jotform.com/261166615192154",
+      "chars": 138,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West Asheville Baptist Church",
+    "website_url": "https://www.westashevillebaptist.org/",
+    "notes": "No 2027 summer information was found. The WABC Kids page mentions preteen Summer Camp but provides no named offering, dates, location, format or registration details; no separate card was created from that general mention. The events page displays an error and the calendar lists no events. The supplied VBS registration form is unavailable.",
+    "excluded": [
+      {
+        "name": "Early Learning Center",
+        "reason": "Year-round preschool and childcare, not a finite summer-only program."
+      },
+      {
+        "name": "Kids’ Morning Out",
+        "reason": "School-year preschool program operating September through May."
+      },
+      {
+        "name": "WABC Kids Sunday programs and REVUP Wednesday",
+        "reason": "Recurring year-round children's ministry programs rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Illumination Station Kids Week",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible teachings about Jesus and light through crafts, activities, games and music.",
+        "camp_page_url": "https://www.westashevillebaptist.org/vbs/",
+        "registration_url": "https://form.jotform.com/261166615192154",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "West Asheville Baptist Church",
+            "address": "926 Haywood Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:15",
+          "end": "20:30",
+          "text": "Monday - Thursday 6:15 pm - 8:30 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.westashevillebaptist.org/vbs/",
+          "https://www.westashevillebaptist.org/",
+          "https://form.jotform.com/261166615192154"
+        ],
+        "confidence": "medium",
+        "review_notes": "The June 22–25 dates have no adjacent year; 2026 is taken from the page's explicit eligibility cutoff of 06/15/26. Children must be four by June 15, 2026. The page retains 'Online Registration has ended but you can sign up onsite' after the event has passed, so current availability is left null. The linked form is unavailable."
+      }
+    ]
+  }
+}

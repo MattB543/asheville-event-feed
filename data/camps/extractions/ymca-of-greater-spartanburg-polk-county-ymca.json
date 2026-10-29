@@ -1,0 +1,168 @@
+{
+  "provider": {
+    "key": "ymca-of-greater-spartanburg-polk-county-ymca",
+    "name": "YMCA of Greater Spartanburg — Polk County YMCA",
+    "urls": [
+      "https://www.spartanburgymca.org/programs/22000394/summer-camp-polk-county-ymca/?locations=-1"
+    ],
+    "area": "Columbus, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:02.353Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5162156adba66f2660081759a39ad76a54ee3fdb3264c80565f1865940c78d27",
+  "response": {
+    "searches": [
+      "site:spartanburgymca.org Polk summer camp 2026 2027",
+      "site:spartanburgymca.org \"2027\" \"camp\" \"Polk\""
+    ],
+    "usage": {
+      "inputTokens": 29613,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1162,
+      "reasoningTokens": 157
+    },
+    "status": "completed",
+    "ms": 32032,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.spartanburgymca.org/programs/22000394/summer-camp-polk-county-ymca/?locations=-1",
+      "chars": 3172,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/programs/",
+      "chars": 2960,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/ymca-summer-programs/",
+      "chars": 2561,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/schedules/",
+      "chars": 3458,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/group-exercise-schedule/",
+      "chars": 2312,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/beast-mode-schedule/",
+      "chars": 2583,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/pool-schedule/",
+      "chars": 3033,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.spartanburgymca.org/gym-schedule/",
+      "chars": 2421,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YMCA of Greater Spartanburg — Polk County YMCA",
+    "website_url": "https://www.spartanburgymca.org/",
+    "notes": "No summer 2027 information was found. The official Summer Day Camp page explicitly describes 2026 and includes Polk County. The older Polk-specific page lists June 3–July 26 and February registration dates without a season year; those dates and fees were not assigned to 2026 or 2027. No year-confirmed 2026 weekly schedule or tuition was found.",
+    "excluded": [
+      {
+        "name": "Afterschool Care",
+        "reason": "School-year childcare, not a finite summer program."
+      },
+      {
+        "name": "Youth Basketball",
+        "reason": "Sports league or team season."
+      },
+      {
+        "name": "Youth Volleyball",
+        "reason": "Sports league or team season."
+      },
+      {
+        "name": "Youth Flag Football",
+        "reason": "Sports league or team season."
+      },
+      {
+        "name": "Youth Soccer",
+        "reason": "Sports league or team season."
+      },
+      {
+        "name": "SOS Days-2026-2027 School Year",
+        "reason": "School-break childcare outside summer; the listed Polk County session is in November."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Day Camp",
+        "type": "day",
+        "categories": ["general", "stem", "sports", "arts"],
+        "description": "Campers participate in swimming, sports, team games, STEAM activities, reading, character development and field trips.",
+        "camp_page_url": "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
+        "registration_url": "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Polk County YMCA",
+            "address": "105 N Peak Street",
+            "town": "Columbus",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:00",
+          "end": "18:00",
+          "text": "Full-day child care: 7:00 a.m. – 6:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-16",
+          "time": null,
+          "text": "General Registration (All Families): Opens February 16",
+          "url": "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "To register with Financial Assistance, please visit your local YMCA branch."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Polk Camps Provide Breakfast and Lunch Daily"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.spartanburgymca.org/programs/22000393/summer-day-camp/",
+          "https://www.spartanburgymca.org/programs/22000394/summer-camp-polk-county-ymca/?locations=-1",
+          "https://www.spartanburgymca.org/branch/polk-county/",
+          "https://www.spartanburgymca.org/polk-county/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The February 16 opening is assigned to 2026 from the Summer Day Camp page's explicit 2026 heading; members and returning campers could register February 2. The older Polk-specific page instead lists February 12 and February 19 without a year, and its June 3–July 26 weekly schedule was omitted because its year cannot be established. Lunch is stated only on that undated Polk-specific page; confirm it remains applicable. The 2026 page names Polk County YMCA as a camp site, and the branch publishes 105 N Peak Street; confirm the drop-off location for 2027."
+      }
+    ]
+  }
+}

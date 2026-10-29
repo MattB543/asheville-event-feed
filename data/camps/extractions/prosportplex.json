@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "prosportplex",
+    "name": "ProSportPlex",
+    "urls": ["https://www.prosportplex.com/ricodowdle/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:18.226Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0b7c5493f09b04d4767a4fefb467dd31583651759fc23c58ed49f5bf201ae1ad",
+  "response": {
+    "searches": ["site.prosportplex.com Rico Dowdle 2027", "site:prosportplex.com \"2027\""],
+    "usage": {
+      "inputTokens": 23660,
+      "cachedInputTokens": 8223,
+      "outputTokens": 697,
+      "reasoningTokens": 177
+    },
+    "status": "completed",
+    "ms": 20451,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.prosportplex.com/ricodowdle/",
+      "chars": 2439,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prosportplex.com/camps/",
+      "chars": 2154,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prosportplex.com/past-camps/",
+      "chars": 2201,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prosportplex.com/category/current-camps/",
+      "chars": 1326,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.prosportplex.com/",
+      "chars": 3632,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "ProSportPlex",
+    "website_url": "https://www.prosportplex.com/",
+    "notes": "No 2027 Asheville camp information or registration milestones found. This card uses the explicitly dated 2026 Asheville offering. The provider lists camps nationally; offerings outside the Asheville area were not included. The camp page returned no readable content in the browser, so program details were taken from the supplied official-page text. The BUY TICKETS destination could not be verified.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Rico Dowdle: Youth Football Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Campers practice football fundamentals and teamwork through drills and on-field instruction with Rico Dowdle and camp instructors. Motivational talks address discipline, perseverance, confidence, and leadership.",
+        "camp_page_url": "https://www.prosportplex.com/ricodowdle/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-20",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "A.C. Reynolds High School",
+            "address": "1 Rocket Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": null,
+          "text": "06/20/2026 10:00 am"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.prosportplex.com/ricodowdle/",
+          "https://acrhs.buncombeschools.org/o/acrhs/page/directions"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

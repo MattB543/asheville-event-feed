@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "liberty-missionary-baptist-church-of-waynesville",
+    "name": "Liberty Missionary Baptist Church of Waynesville",
+    "urls": ["https://www.facebook.com/lmbcnc/", "https://www.facebook.com/lmbcnc/videos/"],
+    "area": "Waynesville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:17:14.521Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Liberty Missionary Baptist Church Waynesville VBS 2026",
+      "site:facebook.com/lmbcnc \"VBS\" \"2026\"",
+      "\"lmbcnc\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 30652,
+      "cachedInputTokens": 8223,
+      "outputTokens": 685,
+      "reasoningTokens": 257
+    },
+    "status": "completed",
+    "ms": 26278,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/lmbcnc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/lmbcnc/videos/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Liberty Missionary Baptist Church of Waynesville",
+    "website_url": null,
+    "notes": "No standalone official website or 2027 summer information found. The official Facebook page returned no readable content. A FindGlocal mirror of church posts reports VBS 2026 and a September 20, 2026 post referring to VBS in July, but exact dates, eligibility and registration details could not be verified. A search result for a 2026 Jotform VBS registration names a different director and could not be linked to this Waynesville church; its facts were not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based", "music"],
+        "description": "Children participate in Vacation Bible School, including music activities.",
+        "camp_page_url": "https://www.facebook.com/lmbcnc/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Liberty Missionary Baptist Church",
+            "address": "641 Liberty Church Road",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.facebook.com/lmbcnc/"],
+        "confidence": "low",
+        "review_notes": "The official Facebook page could not be read. Program existence, music activities and July 2026 timing appear only in church posts reproduced at https://www.findglocal.com/US/Waynesville/763088693892623/Liberty-Missionary-Baptist-Church. That mirror publishes the church address, also corroborated by church directories; confirm the camp drop-off venue directly. Verify exact dates, ages or grades, hours, costs and registration details with the church before publishing."
+      }
+    ]
+  }
+}

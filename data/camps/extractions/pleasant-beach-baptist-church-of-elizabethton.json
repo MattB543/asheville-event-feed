@@ -1,0 +1,131 @@
+{
+  "provider": {
+    "key": "pleasant-beach-baptist-church-of-elizabethton",
+    "name": "Pleasant Beach Baptist Church of Elizabethton",
+    "urls": [
+      "https://pbbctn.churchcenter.com/pages/vbs-signup",
+      "https://www.pleasantbeachbaptist.com/"
+    ],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:25:36.317Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6d9acf2fd4826d7fb980c5cb155e326b7675d045f34a6173b48227a9f54ccd7f",
+  "response": {
+    "searches": [
+      "site.pbbctn.churchcenter.com VBS 2026",
+      "open https://pbbctn.churchcenter.com/pages/vbs-signup",
+      "\"Pleasant Beach Baptist\" \"2026\" \"June\" VBS"
+    ],
+    "usage": {
+      "inputTokens": 26437,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1021,
+      "reasoningTokens": 267
+    },
+    "status": "completed",
+    "ms": 39681,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pbbctn.churchcenter.com/pages/vbs-signup",
+      "chars": 1366,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.pleasantbeachbaptist.com/",
+      "chars": 1818,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pbbctn.churchcenter.com/registrations",
+      "chars": 812,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pbbctn.churchcenter.com/registrations/events/2221573",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Pleasant Beach Baptist Church\")"
+    },
+    {
+      "url": "https://pbbctn.churchcenter.com/registrations/events/3563987",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Pleasant Beach Baptist Church\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Pleasant Beach Baptist Church of Elizabethton",
+    "website_url": "https://www.pleasantbeachbaptist.com/",
+    "notes": "No official 2027 summer program dates or registration milestones were found. The supplied VBS HQ page gives check-in information and a teen option but no season year, dates, price, or younger-child eligibility. Additional Church Center pages opened through the browser returned no readable text.",
+    "excluded": [
+      {
+        "name": "Riverside Learning Center",
+        "reason": "Regular weekday learning center and childcare; no finite summer-only offering was found."
+      },
+      {
+        "name": "Master Clubs Registration 2026",
+        "reason": "Regular children's ministry registration, not identified as a finite summer program."
+      },
+      {
+        "name": "Crown College Trip",
+        "reason": "November 5–6, 2026 trip, outside summer."
+      },
+      {
+        "name": "VBS TRAINING - CHILD SAFETY COURSE",
+        "reason": "Volunteer training, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend an evening Vacation Bible School with snacks provided. The church also offers a program for older siblings entering grades 7–12.",
+        "camp_page_url": "https://pbbctn.churchcenter.com/pages/vbs-signup",
+        "registration_url": "https://pbbctn.churchcenter.com/pages/vbs-signup",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pleasant Beach Baptist Church",
+            "address": "125 Watauga Rd.",
+            "town": "Elizabethton",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "20:30",
+          "text": "Check-in will start at 6:10 every night. Check-out will be at 8:30pm every night."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pbbctn.churchcenter.com/pages/vbs-signup",
+          "https://www.pleasantbeachbaptist.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "VBS HQ does not identify a year; 2026 is a fallback record with no dates, not a confirmed dated season. Confirm current hours and younger-child eligibility. The FAQ specifies rising grades 7–12 for the teen option, but the overall grade range is unknown; no dated age-band rows can be created. Check-in at 18:10 is not explicitly the program start. The Church Center address misspells Watauga as Watuaga; the church's own website publishes 125 Watauga Rd., which is used here."
+      }
+    ]
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "provider": {
+    "key": "winding-creek-stables",
+    "name": "Winding Creek Stables",
+    "urls": ["https://www.windingcreekstablesnc.com/summer-camps.html"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstab"
+  },
+  "extractedAt": "2026-10-29T15:06:21.982Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "open https://www.windingcreekstablesnc.com/summer-camps.html",
+      "site:windingcreekstablesnc.com summer camps",
+      "site:windingcreekstablesnc.com \"camp\"",
+      "\"Equestrian Adventure\" \"2026\" \"Winding\""
+    ],
+    "usage": {
+      "inputTokens": 23212,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1549,
+      "reasoningTokens": 298
+    },
+    "status": "completed",
+    "ms": 38888,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.windingcreekstablesnc.com/summer-camps.html",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.windingcreekstablesnc.com/summer-camps.html\nCall log:\n\u001b[2m  - navigating to \"https://www.windingcreekstablesnc.com/summer-camps.html\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.windingcreekstablesnc.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: www.windingcreekstablesnc.com. is not in the cert's altnames: DNS:*.secureserversites.net, DNS:secureserversites.net); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.windingcreekstablesnc.com/\nCall log:\n\u001b[2m  - navigating to \"https://www.windingcreekstablesnc.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Winding Creek Stables",
+    "website_url": "https://www.windingcreekstablesnc.com/",
+    "notes": "No 2027 information found. Official pages could not be opened directly; their indexed search text was readable. The summer page does not print a year in the retrieved text. Dates are provisionally labeled 2026 using the matching June 22–26, 2026 ACTIVEkids listing; confirm the year with the provider. The upcoming-events page still mentions 2025 registration.",
+    "excluded": [
+      {
+        "name": "Private and group riding lessons",
+        "reason": "Year-round classes, not finite summer camps."
+      },
+      {
+        "name": "Holiday and Spring Break camps",
+        "reason": "Outside summer; mentioned generally on the services page without specific sessions."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Equestrian Adventure Camp",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "Campers take horsemanship lessons, ride, and attend mini clinics with local professionals. An optional Thursday-night barn sleepover includes cooking dinner and breakfast.",
+        "camp_page_url": "https://www.windingcreekstablesnc.com/summer-camps.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Winding Creek Stables",
+            "address": "706 Jess Lamb Road",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 650,
+            "unit": "session",
+            "label": "Tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.windingcreekstablesnc.com/summer-camps.html",
+          "https://www.windingcreekstablesnc.com/contact-us.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of June 8–12: the indexed official summer page has no printed year, and 2026 is inferred from the other camp's matching 2026 listing. Information was read through search results because direct pages returned no readable content. Campers must be proficient at the posting trot; the provider asks families to contact it if unsure. The registration button's destination could not be retrieved."
+      },
+      {
+        "name": "Horsin' Around Camp Week",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "Campers participate in riding, horse care, crafts, and games. The camp accepts riders of all experience levels.",
+        "camp_page_url": "https://www.windingcreekstablesnc.com/summer-camps.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Winding Creek Stables",
+            "address": "706 Jess Lamb Road",
+            "town": "Rutherfordton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Camp runs 9 am- 3 pm each day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 475,
+            "unit": "week",
+            "label": "Camp tuition",
+            "year": 2026
+          },
+          {
+            "amount": 100,
+            "unit": "day",
+            "label": "A la carte days; contact provider",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers will bring a packed lunch each day. Snacks provided twice daily."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.windingcreekstablesnc.com/summer-camps.html",
+          "https://www.windingcreekstablesnc.com/contact-us.html",
+          "https://www.activekids.com/rutherfordton-nc/equestrian/equestrian-camps/horsin-around-2026"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official summer page's indexed text lists ages 6–13 and 9 am–3 pm; ACTIVEkids lists ages 7–15 and 9 am–2 pm for June 22–26, 2026. Official website values are used, but confirm this conflict and the season year. The official page's retrieved text does not print a year. Direct pages could not be read, and an official registration destination could not be verified."
+      }
+    ]
+  }
+}

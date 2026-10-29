@@ -1,0 +1,117 @@
+{
+  "provider": {
+    "key": "grace-fellowship-church-of-johnson-city",
+    "name": "Grace Fellowship Church of Johnson City",
+    "urls": ["https://www.gfcnow.com/pinecove/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:18.385Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "54b487029d8ebb679cce2f7040f14262ec51e33d6d25052e01c9009e4f6d788c",
+  "response": {
+    "searches": [
+      "site.gfcnow.com summer camp 2027 Pine Cove",
+      "open https://www.pinecove.com/city/grace-fellowship/"
+    ],
+    "usage": {
+      "inputTokens": 14065,
+      "cachedInputTokens": 8223,
+      "outputTokens": 730,
+      "reasoningTokens": 88
+    },
+    "status": "completed",
+    "ms": 18649,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gfcnow.com/pinecove/",
+      "chars": 2010,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gfc.churchcenter.com/registrations/events/3803207",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 - Grace Fellowship Church of Johnson City Tennessee\")"
+    },
+    {
+      "url": "https://www.gfcnow.com/",
+      "chars": 2732,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grace Fellowship Church of Johnson City",
+    "website_url": "https://www.gfcnow.com/",
+    "notes": "The church has posted 2027 camp dates and says registration information will be available in December 2026; that is not a registration opening date. Pine Cove's general announcement says City registration opens in January 2027, but the church-specific Pine Cove page has not yet published registration details.",
+    "excluded": [
+      {
+        "name": "Grace Kids",
+        "reason": "Year-round Sunday children's ministry, not a finite summer camp."
+      },
+      {
+        "name": "Pine Cove City Serving Opportunities",
+        "reason": "Volunteer opportunities supporting camp, not a youth camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Pine Cove City",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in Bible study, worship, time with their counselor, and camp activities including dancing, cheering, and jumping.",
+        "camp_page_url": "https://www.gfcnow.com/pinecove/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-28",
+          "end": "2027-07-02",
+          "text": "SAVE-THE-DATE: Monday, June 28 – Friday, July 2, 2027. Registration information will be available in December 2026."
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Grace Fellowship Church",
+            "address": "2314 South Greenwood Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Camp capacity; registration opening has not been posted.",
+          "text": "We will have a stacked week – which means plenty of space is available. Invite your friends to join us!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch is included in price."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.gfcnow.com/pinecove/",
+          "https://www.gfcnow.com/",
+          "https://www.pinecove.com/city/grace-fellowship/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

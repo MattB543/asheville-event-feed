@@ -1,0 +1,646 @@
+{
+  "provider": {
+    "key": "blue-ridge-council-scouting-america",
+    "name": "Blue Ridge Council, Scouting America",
+    "urls": [
+      "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+      "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf"
+    ],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:09:19.707Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c3c813a6c576715bca34cb605f1424bca93360de1d8822eb787d423946d859b0",
+  "response": {
+    "searches": [
+      "open https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+      "site:highfallscountypark.com address",
+      "site:oconeesc.com High Falls 671",
+      "\"Lights of Hope\" \"address\" Anderson"
+    ],
+    "usage": {
+      "inputTokens": 41528,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4615,
+      "reasoningTokens": 309
+    },
+    "status": "completed",
+    "ms": 112244,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+      "chars": 5661,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+      "chars": 21745,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2025/11/CIT.pdf",
+      "chars": 2073,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2025/11/Area-Director.pdf",
+      "chars": 2991,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/BRC-Event-or-Camp-Financial-Assistance-Request-Form-Feb-2026.pdf",
+      "chars": 2733,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/",
+      "chars": 3109,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+      "chars": 2832,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge Council, Scouting America",
+    "website_url": "https://www.blueridgecouncil.org/",
+    "notes": "2027 Camp Old Indian information is posted; Cub Scout camps still show 2026. The preliminary guide leaves specialty-track week selection unresolved, despite the main page listing July 18–24 as Tracks Week. CIT remains linked from the current page but its document is for 2026; omitted because the posted 2027 program guide does not confirm it. Individual merit-badge classes, first-year advancement activities and adventure excursions are treated as activities within summer camp, not separate camps. Direct page opens returned no readable text; supplied official page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "Camp Old Indian Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Department Director",
+        "reason": "Adult employment program."
+      },
+      {
+        "name": "Cub-O-Ree",
+        "reason": "May 1–3, 2026 is outside summer."
+      },
+      {
+        "name": "Cub Family Weekends",
+        "reason": "Family-only camping weekends."
+      },
+      {
+        "name": "Webelos Woods",
+        "reason": "No summer dates confirmed."
+      },
+      {
+        "name": "Scoutmaster Merit Badge and adult leader training",
+        "reason": "Adult-only offerings."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Old Indian",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "stem", "general"],
+        "description": "Scouts camp with their troops, take merit-badge instruction, and participate in aquatics, outdoor skills, games and campfires. Specialty tracks cover STEM, trade skills and target sports.",
+        "camp_page_url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+        "registration_url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-24",
+          "text": "2027 Registration is Now Open!"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Old Indian",
+            "address": "601 Callahan Mountain Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 445,
+            "unit": "week",
+            "label": "In-council youth, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 485,
+            "unit": "week",
+            "label": "In-council youth, regular",
+            "year": 2027
+          },
+          {
+            "amount": 455,
+            "unit": "week",
+            "label": "Out-of-council youth, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 495,
+            "unit": "week",
+            "label": "Out-of-council youth, regular",
+            "year": 2027
+          },
+          {
+            "amount": 300,
+            "unit": "week",
+            "label": "Bounce Back, early bird",
+            "year": 2027
+          },
+          {
+            "amount": 315,
+            "unit": "week",
+            "label": "Bounce Back, regular; preliminary guide",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tracks Week",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2026-11-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Register one adult leader and pay the $190 campsite deposit by November 15, 2026 to hold your unit’s spot for summer 2027.",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-04-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Apr 1, 2027 Remainder of fees due to keep the Early Bird discount",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-05-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "May 1, 2027 All fees due · Last day to change registrations",
+            "url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "The Blue Ridge Council offers financial support of up to 50% of the Early Bird registration fee for summer camp at Camp Old Indian."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Camp Old Indian is a Special Needs Ready Camp"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/02/Program-Guide-2-21-26-v8.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm specialty dates: the main page says Tracks Week July 18–24, while the preliminary guide says tracks may run July 11–17 or July 18–24. Main page gives Bounce Back $300 without a regular tier; guide gives $315 regular. Campership applications are due March 15, 2027; $100 per Scout is due March 1 to register for programs."
+      },
+      {
+        "name": "Pinnacle High Adventure Mountain Leadership Program",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Older Scouts form expedition patrols for climbing, rappelling, rafting, mountain biking and wilderness search-and-rescue activities. Leadership roles rotate and the program includes a backcountry overnight.",
+        "camp_page_url": "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+        "registration_url": "https://www.blueridgecouncil.org/camps/camp-old-indian/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-24",
+          "text": "Offered each week of camp"
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Old Indian",
+            "address": "601 Callahan Mountain Road",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "program",
+            "label": "Five-day program fee, in addition to camp registration",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tracks Week",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/wp-content/uploads/2026/09/CampOldIndian2027ProgramGuide.pdf",
+          "https://www.blueridgecouncil.org/camps/camp-old-indian/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is ages 14+, or age 13 and finished eighth grade; the grade condition is not a blanket grade minimum. Rows show host camp weeks, not separately printed five-day expedition dates. Specialty-week timing remains unresolved in the preliminary guide. Camp registration fees are additional."
+      },
+      {
+        "name": "Cub Scout Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "stem", "sports", "general"],
+        "description": "Cub Scouts participate in archery, slingshots, Scout skills and STEM activities. Activities vary by location, and first graders must have a parent present.",
+        "camp_page_url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+        "registration_url": "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "High Falls County Park",
+            "address": "671 High Falls Road",
+            "town": "Seneca",
+            "state": "SC"
+          },
+          {
+            "name": "Easley First Baptist",
+            "address": "300 East First Avenue",
+            "town": "Easley",
+            "state": "SC"
+          },
+          {
+            "name": "Camp Oasis",
+            "address": "50 Jenkins Spring Rd",
+            "town": "Greenwood",
+            "state": "SC"
+          },
+          {
+            "name": "Lights of Hope",
+            "address": "150 Rose Valley Blvd.",
+            "town": "Anderson",
+            "state": "SC"
+          },
+          {
+            "name": "Advent UMC",
+            "address": "2258 Woodruff Road",
+            "town": "Simpsonville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:00",
+          "text": "Hours vary by location; typical hours Monday–Thursday 8:30 am–4:00 pm and Friday 8:30 am–1:00 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": "Early bird before May 15",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "Regular after May 15",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Oconee",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "High Falls County Park",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Easley",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": "Easley First Baptist",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Greenwood",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Camp Oasis",
+            "ages": null,
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Anderson",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Lights of Hope",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mauldin/Simpsonville",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": "Advent UMC",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+          "https://scoutingevent.com/551-109409",
+          "https://scoutingevent.com/551-gwddaycamp24",
+          "https://www.efbc.org/contact-us",
+          "https://oconeesc.com/documents/procurement/solicitations/attachments/itb-24-12-notice-of-invitation-to-bid.pdf",
+          "https://andersonlightsofhope.org/contact-us",
+          "https://advent-umc.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp Oasis address comes from an older official registration listing; confirm current drop-off address. Greenwood 2026 registration states 8 am–4 pm Monday–Thursday, Friday until 1 pm, and drop-off beginning 7:30 am; other sites' hours are only typical council hours. No 2027 Cub Scout camp details found."
+      },
+      {
+        "name": "Cub Scout Twilight Camp",
+        "type": "evening",
+        "categories": ["nature_outdoor", "stem", "sports", "general"],
+        "description": "Cub Scouts participate in evening outdoor activities with a dinosaur theme. Youth entering first grade must have a parent present.",
+        "camp_page_url": "https://scoutingevent.com/551-109513",
+        "registration_url": "https://scoutingevent.com/551-109513",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Aldersgate UMC",
+            "address": "7 Shannon Drive",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "week",
+            "label": "Council-listed early bird before May 15",
+            "year": 2026
+          },
+          {
+            "amount": 150,
+            "unit": "week",
+            "label": "Council-listed regular after May 15",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgecouncil.org/camps/cub-scout-camping/cub-scout-day-camp/",
+          "https://scoutingevent.com/551-109513",
+          "https://aumcsc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official registration search result confirms evening format but did not expose exact hours. Fees are the council page's shared Day Camp fees; confirm twilight-specific pricing. No 2027 information found."
+      }
+    ]
+  }
+}

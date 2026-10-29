@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "st-james-episcopal-church-of-hendersonville",
+    "name": "St. James Episcopal Church of Hendersonville",
+    "urls": ["https://stjamesepiscopal.com/learn/children/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:04.905Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4f7823df7bd25b3793af89346bd48d8cea2eddd438381af5ebab8a88d7465884",
+  "response": {
+    "searches": ["site.stjamesepiscopal.com VBS 2027"],
+    "usage": {
+      "inputTokens": 15539,
+      "cachedInputTokens": 8223,
+      "outputTokens": 660,
+      "reasoningTokens": 87
+    },
+    "status": "completed",
+    "ms": 17271,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://stjamesepiscopal.com/learn/children/",
+      "chars": 4916,
+      "method": "fetch"
+    },
+    {
+      "url": "https://stjamesepiscopal.com/",
+      "chars": 8211,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "St. James Episcopal Church of Hendersonville",
+    "website_url": "https://stjamesepiscopal.com/",
+    "notes": "No 2027 summer program information was found. The 2026 Vacation Bible School is hosted at Trinity Presbyterian Church. The participant registration short link returned no readable content, so registration details could not be checked.",
+    "excluded": [
+      {
+        "name": "Sunday School for Children",
+        "reason": "Recurring Sunday faith formation, not a finite summer program."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Ongoing nursery ministry during worship, not summer-only childcare."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children connect Bible stories with ways to mend God's world and practice faith in daily life. Participants rotate through crafts, story time, hands-on learning, and games/snacks.",
+        "camp_page_url": "https://stjamesepiscopal.com/learn/children/",
+        "registration_url": "https://bit.ly/vbs-2026-glc",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Trinity Presbyterian Church",
+            "address": "900 Blythe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "June 1-4, 9 a.m. to noon"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://stjamesepiscopal.com/learn/children/",
+          "https://www.trinitypresnc.org/about-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "provider": {
+    "key": "kiddie-academy-of-asheville",
+    "name": "Kiddie Academy of Asheville",
+    "urls": ["https://kiddieacademy.com/academies/asheville/programs/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:30.147Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c86ae2d9782595385dc749093890aacc7bd881525394de7f5d695c09e44e4c2f",
+  "response": {
+    "searches": ["site:kiddieacademy.com/academies/asheville \"2027\" \"camp\""],
+    "usage": {
+      "inputTokens": 21845,
+      "cachedInputTokens": 8223,
+      "outputTokens": 773,
+      "reasoningTokens": 66
+    },
+    "status": "completed",
+    "ms": 19424,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+      "chars": 7901,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/enrollment-and-tuition/",
+      "chars": 8387,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/visit/",
+      "chars": 4809,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/resources/",
+      "chars": 3260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/academies/asheville/",
+      "chars": 6606,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/faq/",
+      "chars": 3354,
+      "method": "fetch"
+    },
+    {
+      "url": "https://kiddieacademy.com/",
+      "chars": 5749,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Kiddie Academy of Asheville",
+    "website_url": "https://kiddieacademy.com/academies/asheville/",
+    "notes": "No summer 2027 dates or registration milestones were found. The CampVentures page is undated and provides no season dates, session calendar or published prices. Age-band rows cannot be dated, so sessions is empty. The site's general operating hours and general 'Now Enrolling' notice were not treated as camp-specific hours or availability.",
+    "excluded": [
+      {
+        "name": "Infant",
+        "reason": "Year-round childcare, not a finite summer program."
+      },
+      {
+        "name": "Toddler",
+        "reason": "Year-round childcare, not a finite summer program."
+      },
+      {
+        "name": "Early Preschool",
+        "reason": "Year-round preschool, separate from the summer CampVentures offering."
+      },
+      {
+        "name": "Preschool",
+        "reason": "Year-round preschool, separate from the summer CampVentures offering."
+      },
+      {
+        "name": "Pre-Kindergarten",
+        "reason": "Year-round educational program, not a finite summer camp."
+      },
+      {
+        "name": "Kindergarten",
+        "reason": "Regular educational program, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "CampVentures",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in summer-themed hands-on activities, creative arts, science exploration, outdoor play and cooking activities. Older children take local field trips, while younger children have on-site enrichment opportunities.",
+        "camp_page_url": "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Kiddie Academy of Asheville",
+            "address": "22 Walden Ridge Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We provide an assortment of healthy, nutritious meals and snacks for children every day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://kiddieacademy.com/academies/asheville/programs/summer-camp/",
+          "https://kiddieacademy.com/academies/asheville/enrollment-and-tuition/",
+          "https://kiddieacademy.com/academies/asheville/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

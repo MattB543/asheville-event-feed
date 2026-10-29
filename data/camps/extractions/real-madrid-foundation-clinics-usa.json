@@ -1,0 +1,162 @@
+{
+  "provider": {
+    "key": "real-madrid-foundation-clinics-usa",
+    "name": "Real Madrid Foundation Clinics USA",
+    "urls": ["https://rmfclinicsusa.com/info-566-soccer-summer-camp-asheville-2027"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:15.305Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6c6541bbd5bb2c8a83e9e87f2707480a0963fa218f30a95ea54b9a25ee8eae09",
+  "response": {
+    "searches": [
+      "site:rmfclinicsusa.com Asheville 2027 location",
+      "open https://rmfclinicsusa.com/faq"
+    ],
+    "usage": {
+      "inputTokens": 29350,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1009,
+      "reasoningTokens": 84
+    },
+    "status": "completed",
+    "ms": 23640,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://rmfclinicsusa.com/info-566-soccer-summer-camp-asheville-2027",
+      "chars": 6158,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/dates-and-locations",
+      "chars": 10404,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/register-now",
+      "chars": 9036,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/winter-camps",
+      "chars": 4044,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/register-566-soccer-summer-camp-asheville-2027",
+      "chars": 11736,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/camps",
+      "chars": 5830,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/camps-in-albuquerque",
+      "chars": 5260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://rmfclinicsusa.com/camps-in-alaska",
+      "chars": 5252,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Real Madrid Foundation Clinics USA",
+    "website_url": "https://rmfclinicsusa.com/",
+    "notes": "Asheville's 2027 camp dates and prices are posted, but the venue remains Location TBD. The location directory and general registration page say Waiting List, while the Asheville registration form offers paid registration. The FAQ page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Winter Camps & Clinics",
+        "reason": "December programs in Palo Alto and San Diego are outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Soccer Summer Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Players and goalkeepers practice technical and tactical soccer skills through training, games and challenges led by Real Madrid Foundation coaches. Campers of beginner through advanced levels are grouped by playing level.",
+        "camp_page_url": "https://rmfclinicsusa.com/info-566-soccer-summer-camp-asheville-2027",
+        "registration_url": "https://rmfclinicsusa.com/register-566-soccer-summer-camp-asheville-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-25",
+          "text": "June 21st - 25th"
+        },
+        "ages": {
+          "min": 5,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "14:00",
+          "text": "Training hours: 8:00am - 2:00pm. Monday to Friday"
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:00",
+          "late_pickup_end": "15:00",
+          "cost_text": "Early drop off $50; Late pick up $50; Early drop off & late pick up $75. The page does not state the billing unit."
+        },
+        "prices": [
+          {
+            "amount": 599,
+            "unit": "session",
+            "label": "Regular camp price",
+            "year": 2027
+          },
+          {
+            "amount": 499,
+            "unit": "session",
+            "label": "Only the next 20 registrations",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Asheville listing on the location directory and general registration page",
+          "text": "Waiting List"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://rmfclinicsusa.com/info-566-soccer-summer-camp-asheville-2027",
+          "https://rmfclinicsusa.com/register-566-soccer-summer-camp-asheville-2027",
+          "https://rmfclinicsusa.com/dates-and-locations",
+          "https://rmfclinicsusa.com/register-now"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm availability: the directory and general registration page say Waiting List, but the Asheville-specific form accepts camper details and displays a $499 payment total. Confirm the venue when Location TBD is replaced. The year is taken from the program URLs and the directory's Summer 2027 label; dates on the program pages omit the year. Asheville-specific hours are 8:00am–2:00pm, whereas the generic camps page shows a 9:00am–3:00pm sample schedule. The installment option adds a stated $30 fee."
+      }
+    ]
+  }
+}

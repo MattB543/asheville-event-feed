@@ -1,0 +1,135 @@
+{
+  "provider": {
+    "key": "kl-training-solutions",
+    "name": "KL Training Solutions",
+    "urls": ["https://mydaddytaughtmethat.org/impact-academy/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:46.356Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5bb4b3e89353272b1ee8d855d1dc7e9dd6ab9a2f14662c9388a1f84768fa8eb1",
+  "response": {
+    "searches": ["site:mydaddytaughtmethat.org \"summer\" \"2027\""],
+    "usage": {
+      "inputTokens": 17401,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1046,
+      "reasoningTokens": 118
+    },
+    "status": "completed",
+    "ms": 25145,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mydaddytaughtmethat.org/impact-academy/",
+      "chars": 7253,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mydaddytaughtmethat.org/mdtmt-application-form/",
+      "chars": 3667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mydaddytaughtmethat.org/impact-academy-form/",
+      "chars": 3754,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mydaddytaughtmethat.org/",
+      "chars": 6891,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "KL Training Solutions",
+    "website_url": "https://mydaddytaughtmethat.org/",
+    "notes": "No official 2027 dates, registration milestones, or dated 2026 summer schedule were found. The Impact Academy page explicitly describes summer programming separately from afterschool programming. Its undated hours and free participation policy are recorded as fallback information, not confirmed 2027 terms.",
+    "excluded": [
+      {
+        "name": "My Daddy Taught Me That (MDTMT)",
+        "reason": "Ongoing mentorship and after-school program; no separately scheduled finite summer offering found."
+      },
+      {
+        "name": "My Sistah Taught Me That (MSTMT)",
+        "reason": "Ongoing mentorship and after-school program; no separately scheduled finite summer offering found."
+      },
+      {
+        "name": "KL Impact Academy afterschool programming",
+        "reason": "School-year afterschool programming is excluded; only the explicitly described summer component is included."
+      }
+    ],
+    "cards": [
+      {
+        "name": "KL Impact Academy",
+        "type": "day",
+        "categories": ["academic", "stem", "general"],
+        "description": "Students participate in academic enrichment, physical activity, creative learning, and mentorship. The program includes reading and math support and occasional educational field trips.",
+        "camp_page_url": "https://mydaddytaughtmethat.org/impact-academy/",
+        "registration_url": "https://mydaddytaughtmethat.org/impact-academy-form/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "KLTS Impact Center",
+            "address": "3 Hunt Hill Place",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Our summer programs run Monday-Friday from 9-3."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free of charge; undated participation policy",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "waitlist",
+          "scope": "Current general application; not explicitly summer 2027",
+          "text": "All programs are currently full at this time. Completing this form will place your child on the waitlist rather than enroll them in the program."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "Will You Need Transportation: Pick-up, Drop-off, Both"
+        },
+        "sources": [
+          "https://mydaddytaughtmethat.org/impact-academy/",
+          "https://mydaddytaughtmethat.org/impact-academy-form/",
+          "https://mydaddytaughtmethat.org/contact-us/",
+          "https://mydaddytaughtmethat.org/our-story/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program body and FAQ specify K–8, but a navigation description on the same site says grades 6–12. K–8 is used here because it is stated in the program's dedicated eligibility section and FAQ. Summer hours and free participation are undated; the 2026 price year is a fallback label, not an explicitly dated announcement. Confirm summer dates and 2027 terms. The application asks about transportation needs but does not guarantee service or state its cost. Its waitlist notice is general and does not specifically apply to summer 2027. The center address uses the provider's published contact location."
+      }
+    ]
+  }
+}

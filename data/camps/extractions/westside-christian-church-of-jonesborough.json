@@ -1,0 +1,103 @@
+{
+  "provider": {
+    "key": "westside-christian-church-of-jonesborough",
+    "name": "Westside Christian Church of Jonesborough",
+    "urls": [
+      "https://wccjbo.org/steprightupvbs",
+      "https://wccjbo.org/",
+      "https://www.facebook.com/WCCjonesborough/"
+    ],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:47.087Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "30a45fbc107fc1654f5490b3c758f15ce907d403975b375398ef38c6c68390b9",
+  "response": {
+    "searches": ["site:wccjbo.org VBS 2026 2027", "\"wccjbo\" \"VBS\" \"2026\""],
+    "usage": {
+      "inputTokens": 17256,
+      "cachedInputTokens": 8223,
+      "outputTokens": 735,
+      "reasoningTokens": 162
+    },
+    "status": "completed",
+    "ms": 22429,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://wccjbo.org/steprightupvbs",
+      "chars": 3379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://wccjbo.org/",
+      "chars": 1872,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.facebook.com/WCCjonesborough/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Westside Christian Church of Jonesborough",
+    "website_url": "https://wccjbo.org/",
+    "notes": "The official website retains a Vacation Bible School registration form, but no 2027 announcement or dated 2026 VBS details were found. The events page and official Facebook page returned no readable text. Grade choices on the registration form are not treated as eligibility requirements.",
+    "excluded": [
+      {
+        "name": "Sunday Youth Night",
+        "reason": "Recurring year-round youth ministry, not a finite summer program."
+      },
+      {
+        "name": "Wednesday Adult, Youth, and Children's classes",
+        "reason": "Year-round church classes, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School for children. Its registration form collects each child's details, allergies, and additional care information.",
+        "camp_page_url": "https://wccjbo.org/steprightupvbs",
+        "registration_url": "https://wccjbo.org/steprightupvbs",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Westside Christian Church",
+            "address": "1405 Persimmon Ridge Road",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://wccjbo.org/steprightupvbs", "https://wccjbo.org/"],
+        "confidence": "medium",
+        "review_notes": "The registration form has no season year, dates, hours, eligibility, price, or activity description. Confirm that VBS will run in summer 2027 and that drop-off is at the church address printed in the footer. The URL contains steprightupvbs, but the visible program heading only says Vacation Bible School; the theme is not confirmed."
+      }
+    ]
+  }
+}

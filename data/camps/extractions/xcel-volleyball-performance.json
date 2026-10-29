@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "xcel-volleyball-performance",
+    "name": "Xcel Volleyball Performance",
+    "urls": ["https://www.xcelsportsplex.com/camps", "https://www.xcelsportsplex.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:11:48.529Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5fc5199dd61aa6e04f3863e7665c1d61a372e716dc131e6ef87e146941a8774c",
+  "response": {
+    "searches": [
+      "site:xcelsportsplex.com \"2026\" \"camp\"",
+      "\"Xcel\" \"2026\" \"summer camps\" volleyball"
+    ],
+    "usage": {
+      "inputTokens": 27624,
+      "cachedInputTokens": 8223,
+      "outputTokens": 460,
+      "reasoningTokens": 164
+    },
+    "status": "completed",
+    "ms": 23683,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.xcelsportsplex.com/camps",
+      "chars": 384,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.xcelsportsplex.com/",
+      "chars": 1448,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.xcelsportsplex.com/xvpcorporatesponsors",
+      "chars": 14014,
+      "method": "fetch"
+    },
+    {
+      "url": "https://user.sportngin.com/users/sign_up?user_return_to=https%3A%2F%2Flogin.sportngin.com%3Fnext_url%3Dhttps%253A%252F%252Fwww.xcelsportsplex.com%252Fcamps%26set_site_id%3D16426&brand=",
+      "chars": 294,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.sportsengine.com/?utm_source=https://www.xcelsportsplex.com&utm_medium=usertopnav&utm_campaign=applications",
+      "chars": 7161,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sportsengine.com/?utm_source=Sitebuilder&utm_medium=Footer&utm_campaign=SportsEngine+Internal+Link&utm_term=Footer",
+      "chars": 7161,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.xcelsportsplex.com/26summercamps",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Xcel Volleyball Performance",
+    "website_url": "https://www.xcelsportsplex.com/",
+    "notes": "No identifiable 2026 or 2027 summer camp offerings could be verified. The homepage lists a '2026 Summer Camps' quick link, but the supplied Clinics, Camps, and Academy page contains no program details; opening that page through the browser also returned no readable content. Searches did not locate official 2026 camp details, PDFs, or 2027 announcements. An older official Facebook post announces summer camp schedules but does not establish current offerings. No cards were created rather than guessing program names, dates, or locations. A reviewer should check the camp page visually for image-only flyers or contact director Lindsey Rogers at lindsey@xcelsportsplex.com.",
+    "excluded": [
+      {
+        "name": "Girls 26-27 Tryout information",
+        "reason": "Tryouts for a club team season, not a finite summer camp."
+      },
+      {
+        "name": "2026-2027 Boys Season",
+        "reason": "Club volleyball team season, not a summer camp."
+      },
+      {
+        "name": "2025-2026 Armour Season",
+        "reason": "Club volleyball team season, not a summer camp."
+      },
+      {
+        "name": "2025-2026 Boys Season",
+        "reason": "Club volleyball team season, not a summer camp."
+      },
+      {
+        "name": "Make-up Tryouts",
+        "reason": "October 25 tryouts are outside summer and are for club team participation."
+      }
+    ],
+    "cards": []
+  }
+}

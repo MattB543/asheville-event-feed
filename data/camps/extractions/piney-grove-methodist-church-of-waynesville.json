@@ -1,0 +1,46 @@
+{
+  "provider": {
+    "key": "piney-grove-methodist-church-of-waynesville",
+    "name": "Piney Grove Methodist Church of Waynesville",
+    "urls": ["https://www.facebook.com/pineygrovemethodist/"],
+    "area": "Waynesville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:16:15.155Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Piney Grove Methodist Church Waynesville VBS 2026",
+      "site:facebook.com/pineygrovemethodist \"VBS\" \"2026\"",
+      "site:facebook.com/pineygrovemethodist \"Vacation\""
+    ],
+    "usage": {
+      "inputTokens": 24890,
+      "cachedInputTokens": 8223,
+      "outputTokens": 415,
+      "reasoningTokens": 247
+    },
+    "status": "completed",
+    "ms": 25776,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/pineygrovemethodist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Piney Grove Methodist Church of Waynesville",
+    "website_url": null,
+    "notes": "The supplied Facebook page returned no readable content. Official Facebook search snippets mention VBS planning in older worship recordings, but no verifiable 2026 or 2027 summer program details were found. A third-party listing reports VBS on June 22–26, 2025; those dates were not used because they are outside the requested fallback year and could not be confirmed on an official page. No standalone website could be verified as belonging to this Waynesville church. No cards were created rather than inferring a current offering. Manual review of the church's Facebook posts is needed.",
+    "excluded": [],
+    "cards": []
+  }
+}

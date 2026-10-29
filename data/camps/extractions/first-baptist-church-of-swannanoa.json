@@ -1,0 +1,177 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-swannanoa",
+    "name": "First Baptist Church of Swannanoa",
+    "urls": [
+      "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+      "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc"
+    ],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:40.125Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3a187cfc26ab90d2aed2cdfdc8222a24253b0226d9f1c521020f7be4f2151d79",
+  "response": {
+    "searches": [
+      "site.fbcswan.org \"2027\"",
+      "site:subsplash.com/firstbaptistchurchofswan \"2026\" \"Camp\""
+    ],
+    "usage": {
+      "inputTokens": 17433,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1593,
+      "reasoningTokens": 257
+    },
+    "status": "completed",
+    "ms": 42755,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+      "chars": 1071,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+      "chars": 786,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register",
+      "chars": 542,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Swannanoa",
+    "website_url": "https://fbcswan.org/",
+    "notes": "No summer 2027 information or registration opening dates were found. VBS has explicit 2026 information. Summer Camp Alive! was found only with 2025 dates; those historical dates are retained without relabeling them as 2026 or 2027. The official Camp Eagle Registration page lists July 15–19, grades 6–12 and $370 per student, but gives no year or clear camp format; it needs verification before inclusion.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp 2026",
+        "reason": "Runs April 7–10, outside summer."
+      },
+      {
+        "name": "Adult VBS 2026",
+        "reason": "Adult-only program."
+      },
+      {
+        "name": "Children's Ministry weekly activities",
+        "reason": "Ongoing Bible studies and ministry activities, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible study, music and worship, games, crafts, snacks and missions. The 2026 theme is Illumination Station, about following Jesus and sharing their faith.",
+        "camp_page_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+        "registration_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church Swannanoa",
+            "address": "503 Park St",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "Dinner begins at 5:30 PM. VBS runs from 6:00–8:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bx9srjq5",
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/+x9srjq5/register"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Camp Alive!",
+        "type": "day",
+        "categories": ["general"],
+        "description": "A supervised day camp for children completing K4 through fifth grade offers half-day and full-day attendance.",
+        "camp_page_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+        "registration_url": "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc/register",
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": "2025-07-07",
+          "end": "2025-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": -1,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "FBC Swannanoa",
+            "address": "503 Park St",
+            "town": "Swannanoa",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "15:30",
+          "text": "Half day 8:30 am to 12:00 pm or full day 8:30 am to 3:30 pm. Friday, July 11th will be a half day until 12 pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Historical July 7–11, 2025 event only",
+          "text": "Registration is full"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc",
+          "https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2B5fcx5tc/register"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only 2025 information was verified; confirm whether the program returns in 2027. The 2025 page calls the camp free and says no aftercare is available; no 2026 or 2027 price or care information was found. Another official event, https://subsplash.com/firstbaptistchurchofswan/lb/ev/%2Bfz8ry47, describes a week ending Thursday, July 17, but its complete dated heading was not verified, so it is not included as a session."
+      }
+    ]
+  }
+}

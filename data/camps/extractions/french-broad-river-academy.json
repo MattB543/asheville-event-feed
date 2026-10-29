@@ -1,0 +1,304 @@
+{
+  "provider": {
+    "key": "french-broad-river-academy",
+    "name": "French Broad River Academy",
+    "urls": ["https://www.fbra-avl.org/summer-programming/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:16.210Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "96ad70227e1a31e464fb9b22ba676a51184380ae3d1acec430baf2ea43443f50",
+  "response": {
+    "searches": [
+      "site:fbra-avl.org summer camp 2027 2026 Salamander",
+      "site:fbra-avl.org \"Beginning Kayaking\""
+    ],
+    "usage": {
+      "inputTokens": 25248,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2120,
+      "reasoningTokens": 162
+    },
+    "status": "completed",
+    "ms": 49735,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fbra-avl.org/summer-programming/",
+      "chars": 6897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fbra-avl.org/tuition-aid/",
+      "chars": 9646,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fbra-avl.org/faqs/",
+      "chars": 9669,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fbra-avl.org/",
+      "chars": 10253,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "French Broad River Academy",
+    "website_url": "https://www.fbra-avl.org/",
+    "notes": "No summer 2027 dates or camp registration milestones were found. The October 1, 2026 summer-programming retrospective confirms the offerings below but does not give dates, prices, or detailed eligibility. School admission dates, tuition, and school financial aid are not camp facts. The About page also lists Music and Art as summer activities, but no distinct current camp offering or format could be verified. The calendar and About pages returned no readable body when opened during research.",
+    "excluded": [
+      {
+        "name": "Spring Splash: camp fbra",
+        "reason": "May fundraising event, not a supervised summer youth camp."
+      },
+      {
+        "name": "Back-to-School Float/Picnic",
+        "reason": "Family event where parents are responsible for their own children, not a supervised youth camp."
+      },
+      {
+        "name": "FBRA middle school",
+        "reason": "School-year education and associated field lessons, not a finite summer camp."
+      },
+      {
+        "name": "FBRA Ski Program",
+        "reason": "School programming outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Salamander Adventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Students explore the local watershed through outdoor activities.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Climbing Trip",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Students camp and rock climb in Kentucky's Red River Gorge with FBRA teachers.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Advanced Kayaking",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Students take an overnight kayaking trip beyond FBRA's usual school programming areas.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Mountain Biking",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Students take an overnight mountain biking trip beyond FBRA's usual school programming areas.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Backpacking",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Students take an overnight backpacking trip beyond FBRA's usual school programming areas.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Beginning Kayaking",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Students participate in beginning kayaking day trips departing from campus.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Intermediate and Advanced Solo Canoeing",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Students participate in intermediate and advanced solo canoeing day trips departing from campus.",
+        "camp_page_url": "https://www.fbra-avl.org/summer-programming/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.fbra-avl.org/summer-programming/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

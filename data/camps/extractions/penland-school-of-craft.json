@@ -1,0 +1,172 @@
+{
+  "provider": {
+    "key": "penland-school-of-craft",
+    "name": "Penland School of Craft",
+    "urls": ["https://penland.org/community/summer-camp/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:48.070Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ea328e813f9986ce30d2f4f6ce939a3eac3b3b4cbe5d8c0935eb54dc8a4c470f",
+  "response": {
+    "searches": [
+      "site:penland.org summer kids camps teen 2026 2027",
+      "site:penland.org \"2026\" \"Kids\" \"camp\"",
+      "Penland kids camp 2026 registration"
+    ],
+    "usage": {
+      "inputTokens": 39696,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1028,
+      "reasoningTokens": 213
+    },
+    "status": "completed",
+    "ms": 45524,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://penland.org/community/summer-camp/",
+      "chars": 4670,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/workshop-search/?season=spring&items=18",
+      "chars": 5557,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/learn-with-us/registration-information/",
+      "chars": 15576,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/learn-with-us/workshop-fees/",
+      "chars": 13821,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/learn-with-us/workshop-fees",
+      "chars": 13821,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/workshop-search/?items=9999&scholarships=true&season=summer",
+      "chars": 5557,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/learn-with-us/once-you-are-enrolled/",
+      "chars": 6187,
+      "method": "fetch"
+    },
+    {
+      "url": "https://penland.org/wp-content/uploads/2024/12/Penland-Campus-Map.pdf",
+      "chars": 727,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Penland School of Craft",
+    "website_url": "https://penland.org/",
+    "notes": "The official registration platform says it is planning the 2027 summer camp program, but no youth dates, prices, individual sessions or registration milestones were found. The youth page describes kids camps and teen weekend workshops together for ages 3–17; separate age limits are not posted. General workshop schedules, fees and summer 2027 scholarship deadlines apply to adults aged 18 or older and were not transferred to youth cards. Website pages returned empty bodies when opened with the browser; official indexed text and the supplied fetched pages were readable.",
+    "excluded": [
+      {
+        "name": "Immersive Craft Workshops",
+        "reason": "The minimum age is 18; these are adult workshops, not youth camps."
+      },
+      {
+        "name": "Teaching Artist in the Schools",
+        "reason": "School-year classroom collaborations, not summer camp."
+      },
+      {
+        "name": "Subs with SuitCASEs",
+        "reason": "Classroom activities during school reading assessments, not summer camp."
+      },
+      {
+        "name": "Community Open House 2027",
+        "reason": "February 27, 2027 event, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids’ Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers make art and crafts in media including clay, wood, textiles, drawing and painting, with professional teaching artists.",
+        "camp_page_url": "https://penland.org/community/summer-camp/",
+        "registration_url": "https://penland-school-of-craft.jumbula.com/",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "We are currently planning our 2027 summer camp program."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Full and partial need-based scholarships are available in every camp, made possible by donors and participants in Penland summer scholarship auctions."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://penland.org/community/summer-camp/",
+          "https://penland.org/community/youth-and-community/",
+          "https://penland-school-of-craft.jumbula.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current pages do not specify day versus half-day schedules or a drop-off venue. Confirm format and site when the registration platform posts details. The ages 3–17 statement spans kids camps and teen workshops, so it was not assigned to this program."
+      },
+      {
+        "name": "Teen Workshops",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Teens participate in hands-on art activities led by local and out-of-state professional artists in weekend workshops.",
+        "camp_page_url": "https://penland.org/community/summer-camp/",
+        "registration_url": "https://penland-school-of-craft.jumbula.com/",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "We are currently planning our 2027 summer camp program."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://penland.org/community/summer-camp/",
+          "https://penland.org/community/youth-and-community/",
+          "https://penland-school-of-craft.jumbula.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official youth page describes teen weekend workshops but does not publish separate ages, dates, fees or drop-off locations. Confirm these when 2027 offerings are posted. The scholarship wording says every camp, without explicitly identifying teen workshops, so financial aid was left null."
+      }
+    ]
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "provider": {
+    "key": "asheville-conservatory",
+    "name": "Asheville Conservatory",
+    "urls": [
+      "https://www.ashevillesummer.com/summer-camps",
+      "https://www.theashevilleconservatory.com/summer-camps"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:56.370Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "779c576f97c09103c3124b30dbae4cac1068848db4bcfbc32fb60f47bfd1610e",
+  "response": {
+    "searches": [
+      "site:theashevilleconservatory.com \"2027\"",
+      "open https://www.ashevillesummer.com/policies-summer"
+    ],
+    "usage": {
+      "inputTokens": 19911,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2330,
+      "reasoningTokens": 125
+    },
+    "status": "completed",
+    "ms": 53253,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillesummer.com/summer-camps",
+      "chars": 2755,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevilleconservatory.com/summer-camps",
+      "chars": 2755,
+      "method": "fetch"
+    },
+    {
+      "url": "https://form.jotform.com/260717223370047",
+      "chars": 2189,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesummer.com/",
+      "chars": 2028,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesummer.com/music-classes",
+      "chars": 9894,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesummer.com/art-classes",
+      "chars": 6209,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillesummer.com/kindermusik",
+      "chars": 4911,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevilleconservatory.com/",
+      "chars": 2028,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Conservatory",
+    "website_url": "https://www.theashevilleconservatory.com/",
+    "notes": "No official 2027 summer camp information found. Cards retain the posted 2026 offerings. All camps require a $75 non-refundable deposit, with the remaining tuition due 30 days before camp begins; the deposit is not an additional tuition tier. The summer policies page was found, but its body could not be read through the browser. The homepage gives conflicting ZIP codes for 830 Hendersonville Rd.; the street address, town and state agree.",
+    "excluded": [
+      {
+        "name": "Music Classes",
+        "reason": "Year-round private lessons and weekly group instruction, not finite summer camps."
+      },
+      {
+        "name": "Art Classes",
+        "reason": "Ongoing classes with continuing enrollment, not finite summer camps."
+      },
+      {
+        "name": "Kindermusik",
+        "reason": "Ongoing early-childhood classes with caregiver participation, not a finite summer camp."
+      },
+      {
+        "name": "Teacher training program",
+        "reason": "Teacher training and teaching-assistant opportunities, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Mini Maestros: A Preschool Music & Rhythm Experience!",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Preschool campers explore rhythm, movement, singing, drums and hands-on instrument play. Activities include music games, creative projects and imaginative play.",
+        "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
+        "registration_url": "https://form.jotform.com/260717223370047",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Biltmore Studio",
+            "address": "830 Hendersonville Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9AM - 3PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.theashevilleconservatory.com/summer-camps",
+          "https://www.ashevillesummer.com/summer-camps",
+          "https://form.jotform.com/260717223370047",
+          "https://www.theashevilleconservatory.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Piano & Art: Discovery Adventure Camp!",
+        "type": "day",
+        "categories": ["music", "arts"],
+        "description": "Campers develop piano, rhythm and music skills and spend part of each day creating projects in the art studio. Beginners and experienced students can participate; no prior experience is required.",
+        "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
+        "registration_url": "https://form.jotform.com/260717223370047",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Biltmore Studio",
+            "address": "830 Hendersonville Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9AM - 3PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 315,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.theashevilleconservatory.com/summer-camps",
+          "https://www.ashevillesummer.com/summer-camps",
+          "https://form.jotform.com/260717223370047",
+          "https://www.theashevilleconservatory.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Both camp pages list July 20-24, but the registration form lists July 20-25. The row follows the camp pages; confirm the ending date with the provider. Ages are printed as '6-12, 13+' with no upper limit or separately scheduled age bands."
+      },
+      {
+        "name": "Jazz & Rock: Band Experience",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Intermediate and advanced musicians play in a band while exploring jazz, rock, rhythm, improvisation and ensemble skills. Each week ends with an informal performance for families.",
+        "camp_page_url": "https://www.theashevilleconservatory.com/summer-camps",
+        "registration_url": "https://form.jotform.com/260717223370047",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Biltmore Studio",
+            "address": "830 Hendersonville Rd.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9AM - 3PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.theashevilleconservatory.com/summer-camps",
+          "https://www.ashevillesummer.com/summer-camps",
+          "https://form.jotform.com/260717223370047",
+          "https://www.theashevilleconservatory.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

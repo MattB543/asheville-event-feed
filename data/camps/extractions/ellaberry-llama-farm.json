@@ -1,0 +1,153 @@
+{
+  "provider": {
+    "key": "ellaberry-llama-farm",
+    "name": "Ellaberry Llama Farm",
+    "urls": ["https://ellaberryllamafarm.com/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:18:05.002Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f5d3bdc32896a773f14a59a4c313b4f99e583cee4e0c2d3811532dfdd90772e9",
+  "response": {
+    "searches": [
+      "site:ellaberryllamafarm.com camp",
+      "\"Ellaberry\" \"camp\" \"2026\" \"simpletix\""
+    ],
+    "usage": {
+      "inputTokens": 22433,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1192,
+      "reasoningTokens": 146
+    },
+    "status": "completed",
+    "ms": 29758,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ellaberryllamafarm.com/",
+      "chars": 3696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ellaberryllamafarm.com/faq/",
+      "chars": 3247,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Ellaberry Llama Farm",
+    "website_url": "https://ellaberryllamafarm.com/",
+    "notes": "No summer 2027 camp announcement was found. The current official website and SimpleTix calendar do not list the youth summer camp. A 2026 camp listing was found at https://kiddingaroundgreenville.com/listing/summer-camp-ellaberry-llama-farm; its details are included below as unverified third-party information. No official camp registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Farm Tour",
+        "reason": "Year-round all-ages visitor experience, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Orchard Trek",
+        "reason": "Year-round visitor experience, not a youth summer camp."
+      },
+      {
+        "name": "Birthday Parties and Private Events",
+        "reason": "Private celebrations rather than scheduled youth summer programs."
+      },
+      {
+        "name": "Homeschool Day",
+        "reason": "The currently listed event is November 5, 2026, outside summer."
+      },
+      {
+        "name": "Toddler Day",
+        "reason": "The currently listed event is November 24, 2026, outside summer."
+      },
+      {
+        "name": "Cookies & Canvas",
+        "reason": "The currently listed dates begin January 9, 2027, outside summer."
+      },
+      {
+        "name": "Needle Felting Class",
+        "reason": "The currently listed dates begin January 10, 2027, outside summer."
+      },
+      {
+        "name": "Valentine's Farm Tour",
+        "reason": "February 13, 2027 event, outside summer."
+      },
+      {
+        "name": "Kid's Day (Ages 3-14)",
+        "reason": "February 7, 2026 event, outside summer."
+      },
+      {
+        "name": "Adult Day Camp",
+        "reason": "Marketed as an adult-tailored experience rather than a youth camp."
+      },
+      {
+        "name": "Falling For Llamas",
+        "reason": "October 24, 2026 seasonal visitor event, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Ellaberry Llama Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Campers learn llama care and grooming and hike with llamas. Activities include llama showing, creek activities, painting, needle felting and crafts.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Ellaberry Llama Farm",
+            "address": "4198 Old Clear Creek Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 425,
+            "unit": "week",
+            "label": "$150 deposit required",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ellaberryllamafarm.com/",
+          "https://ellaberryllamafarm.com/events/",
+          "https://ellaberryllamafarm.com/contact-us/",
+          "https://ellaberryllamafarm.simpletix.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify program name, dates, ages, hours, activities, price and deposit directly with the provider: these appear only in the third-party 2026 listing at https://kiddingaroundgreenville.com/listing/summer-camp-ellaberry-llama-farm, not on the current official pages. That listing gives 4178 Clear Creek Road; the official contact page and official SimpleTix venue publish 4198 Old Clear Creek Road, which is used here. Confirm the camp drop-off location."
+      }
+    ]
+  }
+}

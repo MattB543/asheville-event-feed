@@ -1,0 +1,109 @@
+{
+  "provider": {
+    "key": "greeneville-city-schools",
+    "name": "Greeneville City Schools",
+    "urls": ["https://www4.gcschools.net/article/2795720"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:05.195Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "13b7a676fdf12c70819423c9eeba186bcebaad91dd8c7535325188207622b3a4",
+  "response": {
+    "searches": [
+      "site:gcschools.net \"summer\" \"2026\" camp",
+      "open https://www4.gcschools.net/documents",
+      "\"gcschools\" \"Summer Learning Camp Flyer 2026\"",
+      "open https://halhenard.gcschools.net/o/hhes/live-feed/?page_no=3"
+    ],
+    "usage": {
+      "inputTokens": 23973,
+      "cachedInputTokens": 8223,
+      "outputTokens": 896,
+      "reasoningTokens": 255
+    },
+    "status": "completed",
+    "ms": 35613,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www4.gcschools.net/article/2795720",
+      "chars": 2024,
+      "method": "browser"
+    },
+    {
+      "url": "https://www4.gcschools.net/page/online-registration",
+      "chars": 2501,
+      "method": "browser"
+    },
+    {
+      "url": "https://www4.gcschools.net/",
+      "chars": 4309,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greeneville City Schools",
+    "website_url": "https://www4.gcschools.net/",
+    "notes": "No summer 2027 information was found. The official documents index lists Summer Learning Camp Flyer 2026, but no readable PDF link was exposed, so its contents could not be checked. Older Hal Henard camp pages explicitly describe summer 2022, even where the article publication date is 2024; their dates, sites, eligibility and services were not reused as 2026 facts. Returning student registration in the March 2026 announcement refers to school enrollment, not a separate returning-camper registration audience.",
+    "excluded": [
+      {
+        "name": "New and Returning Student Registration",
+        "reason": "School-year enrollment, not a finite summer camp."
+      },
+      {
+        "name": "Summer Book Bus",
+        "reason": "Community book borrowing stops, not a supervised camp."
+      },
+      {
+        "name": "Camp NPAC Kids",
+        "reason": "Promoted in school newsletters but provided by Niswonger Performing Arts Center, not Greeneville City Schools."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Learning Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "A summer learning program for Greeneville City Schools students.",
+        "camp_page_url": "https://www4.gcschools.net/article/2795720",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-20",
+          "time": null,
+          "text": "Summer is just around the corner, and we’re excited to share that registration for our Summer Learning Camp opens on April 20th!",
+          "url": "https://www4.gcschools.net/article/2795720"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www4.gcschools.net/article/2795720",
+          "https://www4.gcschools.net/documents"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check Summer Learning Camp Flyer 2026 in the official documents index for dates, eligibility, meeting sites, hours, cost and services. The readable 2026 announcement provides only the registration opening; the day format and academic category follow the program name and older description, rather than a detailed 2026 program description."
+      }
+    ]
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "provider": {
+    "key": "asheville-performing-arts-academy",
+    "name": "Asheville Performing Arts Academy",
+    "urls": ["https://theapaa.com/summer"],
+    "area": "Asheville, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:58:37.836Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a1f444ec8c71bfbed6510c19c0d5d91243d3045518362f7c2c9403d6039768f2",
+  "response": {
+    "searches": [
+      "site:theapaa.com summer 2027",
+      "open https://theapaa.com/summer-2026/summer-camps"
+    ],
+    "usage": {
+      "inputTokens": 22557,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2677,
+      "reasoningTokens": 128
+    },
+    "status": "completed",
+    "ms": 53114,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://theapaa.com/summer",
+      "chars": 16642,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theapaa.com/programs/2026-27-season",
+      "chars": 2384,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theapaa.com/summer-2026/summer-camps",
+      "chars": 16620,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theapaa.com/",
+      "chars": 6798,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Performing Arts Academy",
+    "website_url": "https://theapaa.com/",
+    "notes": "No summer 2027 dates or registration milestones were found. The card retains the published summer 2026 information. The summer pages returned no readable content in the browser tool; supplied official-page text was used. Direct registration-form URLs could not be verified.",
+    "excluded": [
+      {
+        "name": "The Company",
+        "reason": "Year-round performing arts program, not a finite summer camp."
+      },
+      {
+        "name": "The Prep Program",
+        "reason": "Year-round performing arts classes and productions, not a finite summer camp."
+      },
+      {
+        "name": "Youth Community Theatre",
+        "reason": "School-year productions, not a published summer camp."
+      },
+      {
+        "name": "Carpenter Academy of Irish Dance (CAID)",
+        "reason": "Ongoing dance classes, not a published summer-only program."
+      },
+      {
+        "name": "JTF Team",
+        "reason": "January theatre competition program, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Musical Theatre Workshop",
+        "type": "day",
+        "categories": ["theater", "music", "dance", "arts"],
+        "description": "Campers learn songs, choreography and scenes from musicals and work on sets, props and costumes. Each week ends with a shortened production for families.",
+        "camp_page_url": "https://theapaa.com/summer",
+        "registration_url": "https://theapaa.com/summer",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asheville Performing Arts Academy",
+            "address": "55 Shiloh Road, STE 4",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Monday-Friday, 9am-3pm. Friday performances begin at 2:30pm for grades 1-3 and 3:30pm for grades 4-9; campers are released at the conclusion of their performance."
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:45",
+          "late_pickup_end": "17:00",
+          "cost_text": "Additional fee of $50 per student"
+        },
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "First student, before March 1, 2026",
+            "year": 2026
+          },
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "First student, starting March 1, 2026; additional siblings receive $70 off their first week; save $70 each additional week when paid in full",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Beetlejuice Jr. Workshop AND Mini Workshop",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Descendants Workshop AND Mini Villains Workshop",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "The Greatest Show(man) Workshop",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "We will have a pizza party for lunch on Friday. Pizza party costs are not included in the registration fees."
+        },
+        "transportation": null,
+        "sources": [
+          "https://theapaa.com/summer",
+          "https://theapaa.com/summer-2026/summer-camps",
+          "https://theapaa.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm camp drop-off at the published academy address; the summer page gives it in the footer rather than explicitly identifying a camp venue. The summer page repeatedly states rising grades 4-9 but once says grades 4-10 in the performance paragraph; grades 4-9 were used. General hours end at 3pm, but the older group's Friday performance starts at 3:30pm and release follows the performance. Extended-care fee has no stated billing period. Registration URL is the official camp page containing registration buttons, not a verified direct form."
+      }
+    ]
+  }
+}

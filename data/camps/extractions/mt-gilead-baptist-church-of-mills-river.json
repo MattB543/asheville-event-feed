@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "mt-gilead-baptist-church-of-mills-river",
+    "name": "Mt. Gilead Baptist Church of Mills River",
+    "urls": [
+      "https://www.mtgilead.net/activities-events/",
+      "https://www.mtgilead.net/",
+      "https://www.facebook.com/mtgileadmillsriver/"
+    ],
+    "area": "Mills River, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.mtgilead.net/activities-events/"
+  },
+  "extractedAt": "2026-10-29T15:29:26.564Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:mtgilead.net \"2026\" \"Bible\"",
+      "site:facebook.com/mtgileadmillsriver \"2026\" \"VBS\"",
+      "open https://allevents.in/mills-river/vbs-emerald-crossing/200030075084703"
+    ],
+    "usage": {
+      "inputTokens": 16076,
+      "cachedInputTokens": 8223,
+      "outputTokens": 931,
+      "reasoningTokens": 278
+    },
+    "status": "completed",
+    "ms": 28668,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mtgilead.net/activities-events/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.mtgilead.net/activities-events/\nCall log:\n\u001b[2m  - navigating to \"https://www.mtgilead.net/activities-events/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.mtgilead.net/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.mtgilead.net/\nCall log:\n\u001b[2m  - navigating to \"https://www.mtgilead.net/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://www.facebook.com/mtgileadmillsriver/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mt. Gilead Baptist Church of Mills River",
+    "website_url": "https://www.mtgilead.net/",
+    "notes": "No summer 2027 information was found. The church website was blocked by robots.txt and its Facebook page returned no readable content; official search snippets provided the church address and historical confirmation of Vacation Bible School. The 2026 Emerald Crossing dates and hours were found only in third-party event listings and require confirmation with the church. No registration opening date was found.",
+    "excluded": [
+      {
+        "name": "Wednesday Night Bible Study",
+        "reason": "Recurring Bible study rather than a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School provides Bible teaching. The listed 2026 theme was Emerald Crossing.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mt. Gilead Baptist Church",
+            "address": "56 Mount Gilead Church Rd",
+            "town": "Mills River",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mtgilead.net/",
+          "https://www.facebook.com/mtgileadmillsriver/posts/vbs-vacation-bible-school-one-of-the-biggest-outreach-events-a-church-can-do-to-/1706897232672430/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the 2026 theme, June 8–12 dates, and 17:30–20:00 hours with the church: these were found only in matching third-party listings at https://allevents.in/mills-river/vbs-emerald-crossing/200030075084703 and https://happeningnext.com/event/vbs-andquotemerald-crossingandquot-eid3a0dnmm039. Official pages could not be read directly; official search snippets confirmed the church address and historical VBS offering. Ages, cost, registration details, and 2027 plans remain unverified."
+      }
+    ]
+  }
+}

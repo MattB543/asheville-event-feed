@@ -1,0 +1,274 @@
+{
+  "provider": {
+    "key": "need-more-outdoors",
+    "name": "Need More Outdoors",
+    "urls": ["https://needmoreoutdoors.org/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:43.121Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "81736161d8a7d6bbbc94be6d2f95b692ae0a8d72e5f1fb85bc95cef1708bb311",
+  "response": {
+    "searches": [
+      "site:needmoreoutdoors.org summer camp Ecosplash 2026 2027",
+      "open https://needmoreoutdoors.org/adventures-activities/",
+      "site:needmoreoutdoors.org \"camp\" \"2026\"",
+      "site:needmoreoutdoors.org/eco-splash-camps/ \"Dates\""
+    ],
+    "usage": {
+      "inputTokens": 26166,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2512,
+      "reasoningTokens": 299
+    },
+    "status": "completed",
+    "ms": 54025,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://needmoreoutdoors.org/",
+      "chars": 2724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://needmoreoutdoors.org/updates-need-more-outdoors-blog/",
+      "chars": 4307,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Need More Outdoors",
+    "website_url": "https://needmoreoutdoors.org/",
+    "notes": "No summer 2027 announcements or clearly year-labeled 2026 summer schedules were found. Several official pages returned empty text when opened; their indexed official-page text was used instead. The events calendar lists old 2022 events despite displaying a current month heading. Undated July and September dates on program pages were not assigned to 2026 based on footer copyright. Drop-off locations were not identified; the provider publishes only a mailing address, and activity partners or field-trip destinations were not treated as drop-off sites. The PDF downloads page could not be read and no relevant indexed PDF was found.",
+    "excluded": [
+      {
+        "name": "Nantahala Kids Club",
+        "reason": "The official program and registration pages describe spring and fall after-school sessions, not summer programming."
+      },
+      {
+        "name": "AfterSchool Programs",
+        "reason": "Customizable after-school programming, not an identified finite summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Eco Splash Camps",
+        "type": "day",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers raft or kayak and take part in hands-on stream ecology activities, including fish counts and learning about salamanders. Environmental education is offered with Mainspring Conservation Trust.",
+        "camp_page_url": "https://needmoreoutdoors.org/eco-splash-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer funding support from 50% – 100 for local individuals"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/",
+          "https://needmoreoutdoors.org/eco-splash-camps/",
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program-specific ages and activities were retrieved from indexed official-page text because direct opens returned no text. The program page describes two-day camps, while the homepage describes two- or three-day camps. Confirm current duration and drop-off location."
+      },
+      {
+        "name": "Learn to Kayak Weekend Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Young people receive an introduction to whitewater kayaking and the rivers of western North Carolina. Equipment, instructors, meals and snacks are included.",
+        "camp_page_url": "https://needmoreoutdoors.org/adventures-activities/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer funding support from 50% – 100 for local individuals"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All equipment, instructors, meals and snacks are included."
+        },
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Offering and hours were retrieved from indexed official-page text; direct opening returned no text. No current summer dates, program-specific age limits or drop-off location were found."
+      },
+      {
+        "name": "Advanced Kids Camps",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Experienced young kayakers work on paddling skills and explore western North Carolina rivers. The activities page describes two-day intermediate and advanced camps.",
+        "camp_page_url": "https://needmoreoutdoors.org/adventures-activities/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer funding support from 50% – 100 for local individuals"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/kids-leadership-kayak-camp/",
+          "https://needmoreoutdoors.org/scholarships/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Indexed official text lists Intermediate Weekend and Ocoee Boot Camp Weekend dates without a stated summer year. Dates were omitted rather than inferred from copyright or weekdays. Confirm current schedule and day-camp format."
+      },
+      {
+        "name": "Kids Leadership Kayak Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice whitewater kayaking alongside teamwork and leadership skills. Participants may help teach and support less-experienced paddlers.",
+        "camp_page_url": "https://needmoreoutdoors.org/kids-leadership-kayak-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available!"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://needmoreoutdoors.org/adventures-activities/",
+          "https://needmoreoutdoors.org/kids-leadership-kayak-camp/",
+          "https://needmoreoutdoors.org/oudoor-experiences-create-leadership-skills/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The activities page includes leadership camp among summer offerings and describes two-day camps, but the dedicated page's indexed text lists a three-day September 5–7 leadership camp without a year. Confirm duration, summer schedule and day-camp format. Historical 2022 meal and hour information was not carried forward."
+      },
+      {
+        "name": "Day at the Barn Camp",
+        "type": "day",
+        "categories": ["horses", "nature_outdoor", "arts"],
+        "description": "Campers learn about horses, explore trails and creeks, learn about fossils and the environment, and create art with Otter Creek School Farm. Lunch features local produce.",
+        "camp_page_url": "https://needmoreoutdoors.org/day-at-the-barn-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "50% and 100% scholarships for all youth in the #828 area"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost: $85 (includes guides, transportation, lunch, and all equipment)"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Cost: $85 (includes guides, transportation, lunch, and all equipment)"
+        },
+        "sources": [
+          "https://needmoreoutdoors.org/day-at-the-barn-camp/",
+          "https://needmoreoutdoors.org/adventures-activities/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The indexed official page states July 15 and $85 but provides no summer year; date and numeric price were omitted rather than labeled 2026. Hours and inclusion wording are undated. Otter Creek School Farm is the activity venue, but the transportation pickup/drop-off location is not stated."
+      }
+    ]
+  }
+}

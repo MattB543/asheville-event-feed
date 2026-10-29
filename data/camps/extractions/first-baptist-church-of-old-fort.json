@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-old-fort",
+    "name": "First Baptist Church of Old Fort",
+    "urls": ["https://oldfortfirstbaptist.com/system/"],
+    "area": "Old Fort, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert'"
+  },
+  "extractedAt": "2026-10-29T15:14:35.654Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:oldfortfirstbaptist.com VBS 2026",
+      "\"First Baptist Church of Old Fort\" \"2026\" \"VBS\" facebook"
+    ],
+    "usage": {
+      "inputTokens": 18330,
+      "cachedInputTokens": 8223,
+      "outputTokens": 891,
+      "reasoningTokens": 202
+    },
+    "status": "completed",
+    "ms": 24738,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://oldfortfirstbaptist.com/system/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://oldfortfirstbaptist.com/system/\nCall log:\n\u001b[2m  - navigating to \"https://oldfortfirstbaptist.com/system/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://oldfortfirstbaptist.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); chrome-tls: fetch failed (Hostname/IP does not match certificate's altnames: Host: oldfortfirstbaptist.com. is not in the cert's altnames: DNS:*.websrvcs.com, DNS:websrvcs.com); browser: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://oldfortfirstbaptist.com/\nCall log:\n\u001b[2m  - navigating to \"https://oldfortfirstbaptist.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Old Fort",
+    "website_url": "https://oldfortfirstbaptist.com/system/",
+    "notes": "No summer 2027 information was found. The official website and its alternate homepage were blocked by robots.txt; search-indexed official bulletins establish the church address but are older materials. Two third-party event listings report Emerald Crossing VBS for July 19–23, 2026; these dates and hours require official confirmation. Search results for Old Fort Baptist Church's 2027 VBS belong to a different provider and were not used.",
+    "excluded": [
+      {
+        "name": "Sunday School, Mission Programs, Youth Services and Bible Study",
+        "reason": "The official homepage describes ongoing church ministries, not finite summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Emerald Crossing VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "A Vacation Bible School program. Specific camper activities could not be verified from accessible official materials.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-19",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Old Fort",
+            "address": "203 East Main Street",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:45",
+          "end": "20:45",
+          "text": "Third-party event listings give 5:45 pm–8:45 pm; daily hours need official confirmation."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://oldfortfirstbaptist.com/system/",
+          "https://oldfortfirstbaptist.com/clientimages/35448/5.28.17%20two-sided.pdf"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm the program name, July 19–23, 2026 dates, daily hours and meeting location with the church. Program details were found only at https://allevents.in/old-fort/emerald-crossing-vbs-at-first-baptist-church-of-old-fort/200030146842612 and https://happeningnext.com/event/emerald-crossing-vbs-at-first-baptist-church-of-old-fort-eid3a0dp8boe0. The address is supported by an indexed official May 28, 2017 bulletin, but current official camp details could not be read."
+      }
+    ]
+  }
+}

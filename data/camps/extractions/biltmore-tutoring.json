@@ -1,0 +1,154 @@
+{
+  "provider": {
+    "key": "biltmore-tutoring",
+    "name": "Biltmore Tutoring",
+    "urls": ["https://www.biltmoretutoring.com/classes/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:05.767Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "792337cec84aa98a03ec807695ad397ef33892ca9987091a8e2aa6b60a2c96d4",
+  "response": {
+    "searches": [
+      "site:biltmoretutoring.com summer boot camps 2027 2026",
+      "open https://www.biltmoretutoring.com/summer-boot-camp-2023/"
+    ],
+    "usage": {
+      "inputTokens": 15072,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1074,
+      "reasoningTokens": 92
+    },
+    "status": "completed",
+    "ms": 26122,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.biltmoretutoring.com/classes/",
+      "chars": 2061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.biltmoretutoring.com/",
+      "chars": 4276,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Biltmore Tutoring",
+    "website_url": "https://www.biltmoretutoring.com/",
+    "notes": "Summer 2027 dates will be announced in spring. The card retains explicitly dated 2026 sessions as fallback; no 2027 registration date was found. The 2026 announcement has an old 2023 URL and stale footer text, but its heading and session table explicitly identify 2026.",
+    "excluded": [
+      {
+        "name": "Private Tutoring",
+        "reason": "Ongoing one-on-one tutoring, not a finite summer camp."
+      },
+      {
+        "name": "Subject Tutoring",
+        "reason": "Ongoing subject support, not a summer-only program."
+      },
+      {
+        "name": "Test Preparation",
+        "reason": "Private hourly test preparation is ongoing rather than a finite summer camp; summer boot camps are included separately."
+      },
+      {
+        "name": "College Counseling",
+        "reason": "Ongoing admissions guidance, not a finite supervised summer program."
+      },
+      {
+        "name": "Reading & Study Skills",
+        "reason": "Ongoing tutoring service rather than a stated summer-only camp."
+      },
+      {
+        "name": "Free SAT Practice",
+        "reason": "At-home diagnostic test rather than a supervised summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SAT and ACT summer boot camps",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Students receive five days of small-group SAT or ACT test-preparation instruction focused on test-taking strategies. Tuition includes books, practice materials, and two practice tests with diagnostic feedback.",
+        "camp_page_url": "https://www.biltmoretutoring.com/classes/",
+        "registration_url": "https://www.biltmoretutoring.com/contact/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-27",
+          "end": "2026-08-07",
+          "text": "Summer 2027 dates will be announced in spring. Call or contact us and we’ll let you know as soon as they’re set."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Biltmore Tutoring",
+            "address": "10 Crispin Court, Suite D-201",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "15:00",
+          "text": "2026 boot camps: 10:00 AM – 3:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1295,
+            "unit": "session",
+            "label": "Includes registration fees, books, practice materials, instruction, and diagnostic tests.",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "SAT SUMMER BOOT CAMP",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "ACT SUMMER BOOT CAMP",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.biltmoretutoring.com/classes/",
+          "https://www.biltmoretutoring.com/summer-boot-camp-2023/",
+          "https://www.biltmoretutoring.com/contact/",
+          "https://www.biltmoretutoring.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

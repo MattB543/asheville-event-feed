@@ -1,0 +1,127 @@
+{
+  "provider": {
+    "key": "literacy-together",
+    "name": "Literacy Together",
+    "urls": ["https://lit-together.org/programs/youth-literacy/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:20.323Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fd6d3171b8ca3e017ddae7045e9d1cab272b11219c98f157c7c4ea9add62204b",
+  "response": {
+    "searches": [
+      "site:lit-together.org summer camp 2026",
+      "site:lit-together.org \"2026\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 27451,
+      "cachedInputTokens": 8223,
+      "outputTokens": 844,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 26595,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lit-together.org/programs/youth-literacy/",
+      "chars": 5589,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/register-your-child/",
+      "chars": 3095,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/wp-content/uploads/Buncombe-County-NC-Electronic-Brochure-Ovpt.-W_-Logo-1-2.pdf",
+      "chars": 6017,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/dolly-partons-imagination-library-faqs/",
+      "chars": 5693,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/the-youth-literacy-2022-summer-camp-training-started-on-monday-june-13th/",
+      "chars": 8064,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lit-together.org/",
+      "chars": 3261,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Literacy Together",
+    "website_url": "https://lit-together.org/",
+    "notes": "No 2027 camper dates or registration information found. The internship page mentions Summer 2027 internship opportunities, but that is a paid employment program, not camper registration. The named summer reading initiative remains described on the Youth Literacy page, primarily through historical information. No 2026 camper schedule, fees, or confirmed summer drop-off sites were found; academic-year tutoring locations were not treated as summer sites.",
+    "excluded": [
+      {
+        "name": "Literacy Leaders",
+        "reason": "Paid high-school reading-tutor internship; a job or employment program rather than a camp for participants."
+      },
+      {
+        "name": "Youth Literacy academic-year tutoring",
+        "reason": "School-year and after-school tutoring, not a finite summer program."
+      },
+      {
+        "name": "Dolly Parton’s Imagination Library",
+        "reason": "Year-round book-mailing program with no supervised camp component."
+      },
+      {
+        "name": "Adult Literacy",
+        "reason": "Adult literacy instruction, not a youth summer camp."
+      },
+      {
+        "name": "ESOL",
+        "reason": "Ongoing language instruction, not a stated finite youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Igniting Superhero Readers Summer Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Elementary-age campers receive reading tutoring through Literacy Together’s summer partnerships with local camp programs. Tutors work individually with children on literacy skills.",
+        "camp_page_url": "https://lit-together.org/programs/youth-literacy/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://lit-together.org/programs/youth-literacy/",
+          "https://lit-together.org/internships/",
+          "https://lit-together.org/high-school-students-discover-the-rewards-of-summer-literacy-internship/",
+          "https://lit-together.org/youth-literacy-program-summer-camp-update/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm whether the named initiative is still offered to campers under this name in 2027 and whether enrollment is exclusively through partner camps. The Youth Literacy page describes its 2021 launch, and later updates describe tutoring embedded in partner summer camps rather than separate camper registration. Obtain current summer sites, eligibility, and dates directly from the provider; historical grades and locations were not carried forward."
+      }
+    ]
+  }
+}

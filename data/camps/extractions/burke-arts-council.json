@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "burke-arts-council",
+    "name": "Burke Arts Council",
+    "urls": ["https://www.burkearts.org/teens-children-classes"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:19.491Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "41484a2191a9f9792f9c689c16953439484e15a398d58500aed70fbfd027e142",
+  "response": {
+    "searches": [
+      "site:burkearts.org summer camp 2026 2027",
+      "open https://www.burkearts.org/youth-classes",
+      "site:burkearts.org/youth-classes \"2026\" \"July\"",
+      "site:burkearts.org/youth-classes/intro-watercolor \"Saturday\"",
+      "open https://www.burkearts.org/youth-classes/intro-watercolor?format=json"
+    ],
+    "usage": {
+      "inputTokens": 22304,
+      "cachedInputTokens": 8223,
+      "outputTokens": 935,
+      "reasoningTokens": 414
+    },
+    "status": "completed",
+    "ms": 30707,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.burkearts.org/teens-children-classes",
+      "chars": 2165,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.burkearts.org/newsupdates",
+      "chars": 5263,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.burkearts.org/summer-in-burke",
+      "chars": 4768,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.burkearts.org/",
+      "chars": 3592,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Burke Arts Council",
+    "website_url": "https://www.burkearts.org/",
+    "notes": "No verified summer 2027 or 2026 camp schedule was found. The supplied Teens/Children Classes Summer Camp page contains only navigation and contact information. Search located a separate Youth Classes section, but its pages returned no readable body text when opened. Official search snippets describe Intro to Watercolor for Kids, Intro to Crochet for Kids! and A Foundational Drawing Class for Kids, but did not establish their dates or whether they occurred in summer; these require review before inclusion. No cards were created from the page title alone.",
+    "excluded": [
+      {
+        "name": "After School Art Club",
+        "reason": "School-year after-school programming; verified listings include March, September and October rather than summer."
+      },
+      {
+        "name": "Clay Sculpture for Kids",
+        "reason": "Spring program starting April 18, 2026."
+      },
+      {
+        "name": "Children's Spring Theater",
+        "reason": "Spring program held April 15, 22 and 29, 2026."
+      },
+      {
+        "name": "Collage Button-Making for Kids with Lyvia Turpin",
+        "reason": "Held March 14, 2026, outside summer."
+      },
+      {
+        "name": "Theatrical Youth Improv for High Schoolers with Tracy Scott Ages 14 - 17",
+        "reason": "Listed for February 23, 2026, outside summer; the official listing also says it was postponed."
+      },
+      {
+        "name": "After School Improv for Teens",
+        "reason": "Held October 16 and 23, 2025, outside summer."
+      },
+      {
+        "name": "Act Out! Theater Workshop",
+        "reason": "Held September 24, 2026, outside summer."
+      },
+      {
+        "name": "BOO! Ceramic Ghosts Workshop",
+        "reason": "Held October 3, 2026, outside summer."
+      },
+      {
+        "name": "Summer in Burke County",
+        "reason": "Gallery exhibition, not a finite supervised youth program."
+      },
+      {
+        "name": "Summer Strings Concert",
+        "reason": "Public concert and reception, not a supervised youth camp or clinic."
+      }
+    ],
+    "cards": []
+  }
+}

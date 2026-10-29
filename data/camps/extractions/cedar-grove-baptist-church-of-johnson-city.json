@@ -1,0 +1,46 @@
+{
+  "provider": {
+    "key": "cedar-grove-baptist-church-of-johnson-city",
+    "name": "Cedar Grove Baptist Church of Johnson City",
+    "urls": ["https://www.facebook.com/cedargrovebaptistchurchjc/"],
+    "area": "Johnson City, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:30:40.418Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Cedar Grove Baptist Church\" \"Johnson City\" \"2026\"",
+      "\"cedargrovebaptistchurchjc\"",
+      "site:facebook.com/cedargrovebaptistchurchjc \"2026\" \"Bible\""
+    ],
+    "usage": {
+      "inputTokens": 28996,
+      "cachedInputTokens": 8223,
+      "outputTokens": 478,
+      "reasoningTokens": 275
+    },
+    "status": "completed",
+    "ms": 23609,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/cedargrovebaptistchurchjc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cedar Grove Baptist Church of Johnson City",
+    "website_url": null,
+    "notes": "The supplied Facebook page returned no readable content. No verified standalone website or official 2026 or 2027 summer program details were found. An older church children's-ministry Facebook post confirms that VBS has been held at 353 Cedar Grove Rd, Johnson City, TN, but does not establish a current summer offering. A third-party listing advertises Vacation Bible School on June 28, 2025; those dates were not used. The domain cedargrovebaptist.net, linked by an older directory listing, returned no readable content and could not be verified as this church's current website. Search results for similarly named churches in Maryville, Leeds and Kentucky were not used. Cards are empty because no 2026 or 2027 offering could be verified; this does not establish that the church has stopped offering VBS.",
+    "excluded": [],
+    "cards": []
+  }
+}

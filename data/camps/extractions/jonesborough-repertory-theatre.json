@@ -1,0 +1,140 @@
+{
+  "provider": {
+    "key": "jonesborough-repertory-theatre",
+    "name": "Jonesborough Repertory Theatre",
+    "urls": [
+      "https://www.jonesboroughtheatre.com/education",
+      "https://www.jonesboroughtheatre.com/theatreclasses"
+    ],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:56.466Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f8ae1201781490ae67e0f2d6a4c4ad1a263d05b2384c3fcf977eb101386e1b69",
+  "response": {
+    "searches": [
+      "site:jonesboroughtheatre.com summer 2026 camp",
+      "open https://static1.squarespace.com/static/55ba5ce1e4b08c22e010d485/t/69cc0f3d7359594a10c02ade/1774980925106/Summer%2BCamp%2BForm.pdf",
+      "\"Jonesborough\" \"2026\" \"summer camp\" theatre"
+    ],
+    "usage": {
+      "inputTokens": 23614,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1009,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 49990,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jonesboroughtheatre.com/education",
+      "chars": 6916,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jonesboroughtheatre.com/theatreclasses",
+      "chars": 5913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jonesboroughtheatre.com/s/Education-Form.pdf",
+      "chars": 3676,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jonesboroughtheatre.com/s/JRT_Open_Stage_Registration_Form-1.pdf",
+      "chars": 11970,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jonesboroughtheatre.com/s/Education-Form-Voice-Acting.pdf",
+      "chars": 3147,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jonesboroughtheatre.com/",
+      "chars": 503,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jonesborough Repertory Theatre",
+    "website_url": "https://www.jonesboroughtheatre.com/",
+    "notes": "No summer 2027 information was found. An official 2026 Summer Camp Registration Form confirms a summer camp, but does not identify its specific offerings, dates, ages, hours, prices or meeting location. The education pages retain a Summer 2026 heading while listing August, September and October classes; those classes should not be treated as confirmed summer camps solely from that heading.",
+    "excluded": [
+      {
+        "name": "Musical Theatre 1",
+        "reason": "Recurring theatre class with no confirmed finite summer schedule; the general registration form covers fall, spring and summer."
+      },
+      {
+        "name": "Musical Theatre 2",
+        "reason": "Recurring theatre class starting the week of August 10, with no confirmed summer-only duration."
+      },
+      {
+        "name": "Musical Theatre 3",
+        "reason": "Recurring theatre class starting the week of August 10, with no confirmed summer-only duration."
+      },
+      {
+        "name": "Open Stage Class",
+        "reason": "Listed session starts the week of September 21, outside summer."
+      },
+      {
+        "name": "Voice Acting with Emma Tate",
+        "reason": "October 3 workshop, outside summer."
+      },
+      {
+        "name": "Adult Intermediate Tap",
+        "reason": "Adult class scheduled September 14 through October 19, outside summer."
+      },
+      {
+        "name": "Adult Beginner Musical Theatre Dance",
+        "reason": "Adult class scheduled September 16 through October 21, outside summer."
+      },
+      {
+        "name": "Theatre for Young Audiences",
+        "reason": "Touring performances for audiences, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Participants take part in a theatre education program and perform in a final class production.",
+        "camp_page_url": null,
+        "registration_url": "https://static1.squarespace.com/static/55ba5ce1e4b08c22e010d485/t/69cc0f3d7359594a10c02ade/1774980925106/Summer%2BCamp%2BForm.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://static1.squarespace.com/static/55ba5ce1e4b08c22e010d485/t/69cc0f3d7359594a10c02ade/1774980925106/Summer%2BCamp%2BForm.pdf"
+        ],
+        "confidence": "low",
+        "review_notes": "Only the official 2026 Summer Camp Registration Form was located. Confirm the program name, day-camp format, individual offerings, schedule, eligibility, price and drop-off venue with JRT. The form has a blank JRT Class field and supplies no schedule; do not apply the current weekly classes' details to this camp."
+      }
+    ]
+  }
+}

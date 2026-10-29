@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "the-asheville-kitchen",
+    "name": "The Asheville Kitchen",
+    "urls": [
+      "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
+      "https://www.theashevillekitchen.com/kids-baking-camps-2026"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:55:46.923Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5523ef4ad7d53161c3764910ede5ee0af577378729aa91d65d8b129433f280ca",
+  "response": {
+    "searches": [
+      "site:theashevillekitchen.com \"camp\" \"2027\"",
+      "site:theashevillekitchen.com \"baking camp\""
+    ],
+    "usage": {
+      "inputTokens": 23494,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1242,
+      "reasoningTokens": 144
+    },
+    "status": "completed",
+    "ms": 36804,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
+      "chars": 4227,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevillekitchen.com/kids-baking-camps-2026",
+      "chars": 810,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.theashevillekitchen.com/faq",
+      "chars": 3290,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevillekitchen.com/camp-2026-payments",
+      "chars": 1184,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevillekitchen.com/kids-camp-policies",
+      "chars": 3492,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theashevillekitchen.com/",
+      "chars": 834,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Asheville Kitchen",
+    "website_url": "https://www.theashevillekitchen.com/",
+    "notes": "No 2027 camp information or registration dates found. The 2026 camp overview page returns a page-not-found message; surviving payment pages document two baking themes, grouped as sessions of one youth baking camp. Personalized installment listings are not separate camps. The June session's full tuition is not stated plainly and has been left unknown.",
+    "excluded": [
+      {
+        "name": "Regular cooking classes and private classes",
+        "reason": "Year-round classes and custom group bookings, not finite summer youth programs."
+      },
+      {
+        "name": "Youth Class: Scones & Biscuits",
+        "reason": "December 28 offering, outside summer."
+      },
+      {
+        "name": "Youth Class: Biscotti",
+        "reason": "December 19 offering, outside summer."
+      },
+      {
+        "name": "Gingerbread House Class (Child + Parent)",
+        "reason": "Family-only December offering, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Baking Camp",
+        "type": "half_day",
+        "categories": ["cooking"],
+        "description": "Campers learn kitchen and baking fundamentals through demonstrations and individual and group hands-on work. Sessions cover sweet and savory baked goods or cakes, decorating techniques, and desserts, with creations taken home each day.",
+        "camp_page_url": "https://www.theashevillekitchen.com/kids-camp-policies",
+        "registration_url": "https://www.theashevillekitchen.com/camp-2026-payments",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Asheville Kitchen",
+            "address": "384 Merrimon Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:30",
+          "text": "Each day of camp starts promptly at 9am, and ends at 12:30pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Sweet & Savory Baking",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Cake Decorating & Desserts",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 550,
+              "unit": "session",
+              "label": "per child",
+              "year": 2026
+            },
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "Surviving 2026 payment listings only; not 2027 availability.",
+          "text": "Sold Out"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/bricker-2026-camp-payment-1",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/dingess-2026-camp-payment-1",
+          "https://www.theashevillekitchen.com/camp-2026-payments/p/cake-decorating",
+          "https://www.theashevillekitchen.com/camp-2026-payments",
+          "https://www.theashevillekitchen.com/kids-camp-policies",
+          "https://www.theashevillekitchen.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The original 2026 overview is unavailable, so completeness of the session list cannot be confirmed. Youth Baking Camp uses the descriptive name in the surviving listings; the two baking themes are grouped under the camp rule. July dates obtain their year from the Camp 2026 Payments heading. June payment pages are personalized installment listings rather than a public registration page; do not treat $184 as full-session tuition. Sold Out refers to past 2026 listings."
+      }
+    ]
+  }
+}

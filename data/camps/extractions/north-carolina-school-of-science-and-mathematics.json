@@ -1,0 +1,719 @@
+{
+  "provider": {
+    "key": "north-carolina-school-of-science-and-mathematics",
+    "name": "North Carolina School of Science and Mathematics",
+    "urls": [
+      "https://www.ncssm.edu/summer",
+      "https://www.ncssm.edu/summer/summer-accelerator",
+      "https://www.ncssm.edu/summer/early-accelerator/morganton-courses"
+    ],
+    "area": "Morganton, NC",
+    "discovered_by": ["news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:27.723Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "50530b466f1959464cc257e10708fa63ebe40485c162cb321712a6848daae6ec",
+  "response": {
+    "searches": [
+      "site:ncssm.edu/summer \"2027\"",
+      "open https://www.ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses",
+      "site:ncssm.edu \"10th-12th Residential\" \"2026\"",
+      "site:ncssm.edu \"7th-9th Residential\" \"July 12\""
+    ],
+    "usage": {
+      "inputTokens": 47477,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4954,
+      "reasoningTokens": 467
+    },
+    "status": "completed",
+    "ms": 98195,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ncssm.edu/summer",
+      "chars": 6135,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/summer/summer-accelerator",
+      "chars": 11947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/summer/early-accelerator/morganton-courses",
+      "chars": 4968,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/residential/unc-system-tuition-grant",
+      "chars": 5809,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/residential/ncssm-durham/durham-campus-safety",
+      "chars": 5744,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/residential/ncssm-morganton/morganton-campus-safety",
+      "chars": 10497,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/residential/campus-life",
+      "chars": 8466,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncssm.edu/summer/early-accelerator",
+      "chars": 6672,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Carolina School of Science and Mathematics",
+    "website_url": "https://www.ncssm.edu/",
+    "notes": "Cards cover the Morganton offerings relevant to the requested area. Durham-only programs, other distant campuses, and virtual-only courses are not included. Early Accelerator and Summer Accelerator explicitly say Summer 2027 information is coming; their dates and prices below are 2026 facts. INSPIRE has announced its 2027 application opening but still displays 2026 program dates. The Summer Accelerator course pages returned truncated text, so its session inventory is incomplete. The undated December 6 application opening on the Accelerator overview was not assigned to either summer.",
+    "excluded": [
+      {
+        "name": "Summer Employment",
+        "reason": "Employment opportunities for instructors and staff, not youth camp participation."
+      },
+      {
+        "name": "Residential",
+        "reason": "Two-year residential high school program, not a finite summer camp."
+      },
+      {
+        "name": "Online",
+        "reason": "Academic-year supplemental high school program, not a summer camp."
+      },
+      {
+        "name": "UNC System Tuition Grant",
+        "reason": "College tuition assistance for graduates, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Early Accelerator",
+        "type": "day",
+        "categories": ["stem", "academic", "arts"],
+        "description": "Students explore STEM concepts through interactive activities and hands-on projects in weeklong courses.",
+        "camp_page_url": "https://www.ncssm.edu/summer/early-accelerator/morganton-courses",
+        "registration_url": "https://www.ncssm.edu/summer/early-accelerator/early-accelerator-admissions",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-08",
+          "end": "2026-07-17",
+          "text": "Check back soon for more information regarding Summer 2027!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "NCSSM-Morganton",
+            "address": "901 Burkemont Avenue",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "9:00 am to 3:30 pm Monday-Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "session",
+            "label": "Weeklong course",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Jurassic Park: Rise of the Engineers",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Machine Learning & Coding with Finch Robotics",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Math and Art: A Perfect Match",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mystery, Danger, and Heroism",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Galloping Galaxies",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mathventures: Unlocking the World Through Numbers",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Math and Art: A Perfect Match",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Hogwarts Enchanted Classroom",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Hogwarts Enchanted Classroom",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Math in Motion",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Secrets of the Cell: DNA Detectives",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Jurassic Park: Rise of the Engineers",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Mystery, Danger, and Heroism",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Ghost Yard of the Atlantic",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Once accepted to Early Accelerator or Summer Accelerator, we will provide the link and instructions on how to complete the FACTS Assessment."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students must bring lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ncssm.edu/summer/early-accelerator",
+          "https://www.ncssm.edu/summer/early-accelerator/morganton-courses",
+          "https://www.ncssm.edu/summer/early-accelerator/early-accelerator-admissions"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Accelerator",
+        "type": "overnight",
+        "categories": ["stem", "academic", "arts"],
+        "description": "Students take hands-on STEM courses and participate in afternoon and evening activities while living on campus. Courses for rising 10th through 12th graders include two weeks of online work before the residential week.",
+        "camp_page_url": "https://www.ncssm.edu/summer/summer-accelerator",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Check back soon for more information regarding Summer 2027!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "NCSSM-Morganton",
+            "address": "901 Burkemont Avenue",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1495,
+            "unit": "session",
+            "label": "Rising 7th–9th graders, residential course",
+            "year": 2026
+          },
+          {
+            "amount": 1925,
+            "unit": "session",
+            "label": "Rising 10th–12th graders, two online weeks and one residential week",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Aviation",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Stream Savers",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Physics Made Simple: The Science of Motion",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Biotechnology",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Exploring Cybersecurity: Protecting the Digital World",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pump It Up! An Exploration of Body Systems and the Role of Exercise",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Biotechnology",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Design, Build, Code",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "Pump It Up! An Exploration of Body Systems and the Role of Exercise",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Explorations in Genetics",
+            "start": "2026-06-01",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Forensics",
+            "start": "2026-06-01",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Exploring Anatomy: Hands-On Dissection",
+            "start": "2026-06-01",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Empowerment through Leadership",
+            "start": "2026-06-08",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Introduction to Human Biology",
+            "start": "2026-06-22",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Art Studio: Drawing and Painting",
+            "start": "2026-06-29",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Any student in the United States who has been accepted to the Summer Accelerator program may apply for financial aid by completing a FACTS Aid Assessment."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "no",
+          "text": "NCSSM will NOT provide transportation from Durham to Morganton (and back at the end of the week)."
+        },
+        "sources": [
+          "https://www.ncssm.edu/summer/summer-accelerator",
+          "https://www.ncssm.edu/summer/summer-accelerator/accelerator-7th-9th/7th-9th-residential-courses",
+          "https://www.ncssm.edu/summer/summer-accelerator/accelerator-10th-12th/10th-12th-residential-courses",
+          "https://www.ncssm.edu/courses/empowerment-through-leadership",
+          "https://www.ncssm.edu/courses/introduction-to-human-biology",
+          "https://www.ncssm.edu/courses/art-studio-drawing-and-painting-hs"
+        ],
+        "confidence": "medium",
+        "review_notes": "The residential course-list pages returned truncated text; check both pages for additional Morganton sessions before publishing. Season boundaries are left null because the inventory is incomplete. High-school row dates include the two online weeks: Empowerment through Leadership begins in person June 21, Introduction to Human Biology July 5, and Art Studio July 12. FULL labels are retained from the currently displayed historical 2026 lists, not interpreted as 2027 availability. The overview's December 6 opening and February 3 early-bird deadline have no explicit summer year and were omitted."
+      },
+      {
+        "name": "INSPIRE",
+        "type": "overnight",
+        "categories": ["stem", "academic"],
+        "description": "Students work with mentors on inquiry or research experiences and attend leadership, communication, and team-building workshops. They present their research results on the final day.",
+        "camp_page_url": "https://www.ncssm.edu/summer/inspire-program",
+        "registration_url": "https://www.ncssm.edu/summer/inspire-program/inspire-admissions",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-06-26",
+          "text": "Applications for Summer 2027 will open January 6, 2027."
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "NCSSM-Morganton",
+            "address": "901 Burkemont Avenue",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free for accepted North Carolina residents",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-06",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Applications for Summer 2027 will open January 6, 2027.",
+            "url": "https://www.ncssm.edu/summer/inspire-program",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": {
+          "date": "2026-01-06",
+          "time": null,
+          "text": "For Summer 2026, the online application will be available beginning January 6, 2026.",
+          "url": "https://www.ncssm.edu/summer/inspire-program/inspire-admissions"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Breakfast, lunch, and dinner are provided."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ncssm.edu/summer/inspire-program",
+          "https://www.ncssm.edu/summer/inspire-program/inspire-admissions"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

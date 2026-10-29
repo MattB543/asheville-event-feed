@@ -1,0 +1,88 @@
+{
+  "provider": {
+    "key": "cane-creek-baptist-church-of-union-mills",
+    "name": "Cane Creek Baptist Church of Union Mills",
+    "urls": ["https://sites.google.com/view/canecreekbaptistchurch/upcoming-events"],
+    "area": "Union Mills, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:29.728Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cf864d6a5c407cbd3476cb425fa06a9cf09c5c97500509bee0fee69bb979d44e",
+  "response": {
+    "searches": [
+      "\"Cane Creek\" \"Union Mills\" \"VBS\" \"2026\"",
+      "open https://www.canecreek.church/upcoming-events"
+    ],
+    "usage": {
+      "inputTokens": 13523,
+      "cachedInputTokens": 8223,
+      "outputTokens": 739,
+      "reasoningTokens": 210
+    },
+    "status": "completed",
+    "ms": 20393,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sites.google.com/view/canecreekbaptistchurch/upcoming-events",
+      "chars": 802,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sites.google.com/",
+      "chars": 1253,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cane Creek Baptist Church of Union Mills",
+    "website_url": "https://sites.google.com/view/canecreekbaptistchurch/home",
+    "notes": "No official 2027 or 2026 summer program information was found. The supplied official events page advertises only Magnified! VBS 2025, June 9–13, 2025. A historical program card is retained without carrying 2025 dates, eligibility or hours into 2026 or 2027. The canecreek.church pages returned no readable text. The supplied Google sign-in page did not expose a registration form.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Magnified! VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "This Vacation Bible School explores God through a theme focused on small things in nature.",
+        "camp_page_url": "https://sites.google.com/view/canecreekbaptistchurch/upcoming-events",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Cane Creek Baptist Church",
+            "address": "151 Cane Creek Mountain Road",
+            "town": "Union Mills",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sites.google.com/view/canecreekbaptistchurch/upcoming-events"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering is documented. Confirm whether VBS will return in 2027 and whether Magnified! remains its name or theme. The 2025 page states Pre-K through Middle School and 6:30pm–8:30pm; these historical details were not used as current eligibility or hours."
+      }
+    ]
+  }
+}

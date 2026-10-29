@@ -1,0 +1,284 @@
+{
+  "provider": {
+    "key": "university-of-tennessee-extension-clyde-austin-4-h-center",
+    "name": "University of Tennessee Extension — Clyde Austin 4-H Center",
+    "urls": ["https://eastern.tennessee.edu/4-h-camps/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:18.628Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c2802263a9ed968bdd72d7c3c2ec6bf7ee0cba64a6dc986d6bb1988df52f52c6",
+  "response": {
+    "searches": [
+      "site.clydeaustin4hcenter.tennessee.edu camp junior address",
+      "open https://clydeaustin4hcenter.tennessee.edu/camps/",
+      "site.clydeaustin4hcenter.tennessee.edu \"214\""
+    ],
+    "usage": {
+      "inputTokens": 31161,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2462,
+      "reasoningTokens": 302
+    },
+    "status": "completed",
+    "ms": 58186,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastern.tennessee.edu/4-h-camps/",
+      "chars": 2148,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+      "chars": 1437,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/01/2026-Junior-High-Brochure.pdf",
+      "chars": 5827,
+      "method": "fetch"
+    },
+    {
+      "url": "https://giveutia.tennessee.edu/campaigns/42952/donations/new",
+      "chars": 5560,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://eastern.tennessee.edu/",
+      "chars": 3849,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "University of Tennessee Extension — Clyde Austin 4-H Center",
+    "website_url": "https://clydeaustin4hcenter.tennessee.edu/",
+    "notes": "The Eastern Region's 2027 schedule posts five Junior Camp weeks in Greeneville and Junior High Camp July 12–16. Registration is handled through county Extension offices; county prices and eligibility wording vary. The schedule's Other Events column is regional, not a list of programs at Clyde Austin: Target Smart Camp is not established as meeting here. Some center pages returned no readable text when opened, but official search results supplied their contents. Roane County's page combines a 2027 heading with undated April 17 registration and May 17 payment dates; these were not treated as confirmed 2027 milestones.",
+    "excluded": [
+      {
+        "name": "Camp Explore",
+        "reason": "Environmental education program for school groups; no summer camp offering or summer dates established."
+      },
+      {
+        "name": "Seasonal Employment",
+        "reason": "Employment program, not a youth camp."
+      },
+      {
+        "name": "Private Rental",
+        "reason": "Facility rental, not a named supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior 4-H Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "arts", "stem", "general"],
+        "description": "Campers participate in swimming, fishing, canoeing, kayaking, shooting sports, crafts and outdoor activities. They stay in dormitories and eat meals at the center.",
+        "camp_page_url": "https://clydeaustin4hcenter.tennessee.edu/junior-4-h-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-02",
+          "text": "2027 Eastern Region Junior Camp Schedule for Clyde Austin and Clyde York 4-H Centers"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Clyde Austin 4-H Center",
+            "address": "214 4-H Lane",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 360,
+            "unit": "session",
+            "label": "Greene County",
+            "year": 2026
+          },
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Hamilton County",
+            "year": 2026
+          },
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Sullivan County",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Claiborne, Johnson, McMinn, Monroe, Sullivan",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Blount, Bradley, Cocke, Loudon, Meigs, Roane",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Carter, Hamilton, Jefferson, Sevier, Union",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Campbell, Greene, Hamblen, Hancock, Washington",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Anderson, Hawkins, Knox, Grainger, Unicoi",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Campers eat home cooked meals"
+        },
+        "transportation": null,
+        "sources": [
+          "https://eastern.tennessee.edu/4-h-camps/",
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+          "https://clydeaustin4hcenter.tennessee.edu/camps/",
+          "https://clydeaustin4hcenter.tennessee.edu/junior-4-h-camp/",
+          "https://clydeaustin4hcenter.tennessee.edu/about/",
+          "https://hamilton.tennessee.edu/4-h-junior-camp/",
+          "https://hamilton.tennessee.edu/wp-content/uploads/sites/158/2026/04/2026-Jr-Camp-Registration-Packet.pdf",
+          "https://greene.tennessee.edu/4-h-junior-camp-4th-6th-grades/",
+          "https://sullivan.tennessee.edu/4-h-junior-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The center and Hamilton County say completed grades 4–6; several county offices instead specify grades 4–6 as of January 1. Confirm eligibility with the registering county. Prices are selected county-specific 2026 fees, not universal fees or a complete county price list. The official address and some county facts were readable only through official search results."
+      },
+      {
+        "name": "Junior High 4-H Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "arts", "stem", "general"],
+        "description": "Campers join tribes for team challenges and participate in service-learning projects, offsite adventures and hands-on workshops. Activities include swimming, canoeing, fishing and outdoor recreation.",
+        "camp_page_url": "https://clydeaustin4hcenter.tennessee.edu/junior-high-4-h-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Clyde Austin 4-H Center",
+            "address": "214 4-H Lane",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "Campbell County",
+            "year": 2026
+          },
+          {
+            "amount": 435,
+            "unit": "session",
+            "label": "Bradley County",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "limited camp scholarships"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost includes all meals, lodging, a t-shirt, and activities while at camp"
+        },
+        "transportation": null,
+        "sources": [
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/10/2027-Eastern-Region-Camp-Week-Schedule.pdf",
+          "https://eastern.tennessee.edu/wp-content/uploads/sites/62/2026/01/2026-Junior-High-Brochure.pdf",
+          "https://clydeaustin4hcenter.tennessee.edu/junior-high-4-h-camp/",
+          "https://clydeaustin4hcenter.tennessee.edu/about/",
+          "https://hamilton.tennessee.edu/4-h-junior-high-camp/",
+          "https://campbell.tennessee.edu/4-h-camps/",
+          "https://bradley.tennessee.edu/camps/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The center and Hamilton County state completed grades 6–8; Bradley County uses grades as of January 1. Confirm county eligibility before registration. Prices are county-specific 2026 fees; the scholarship statement applies to Bradley County's 2026 offering. Meal inclusion is from the 2026 brochure. The official address and several program facts were available only through official search results."
+      }
+    ]
+  }
+}

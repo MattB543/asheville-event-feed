@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "appalachian-free-will-baptist-association",
+    "name": "Appalachian Free Will Baptist Association",
+    "urls": ["https://www.facebook.com/appyouthcamp/"],
+    "area": "Greeneville, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:24:31.719Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Appalachian Free Will Baptist Association youth camp 2026 Greeneville",
+      "open https://harmonychurch.org/camp/",
+      "site.oaksretreatcenter.com \"265\""
+    ],
+    "usage": {
+      "inputTokens": 20602,
+      "cachedInputTokens": 8223,
+      "outputTokens": 902,
+      "reasoningTokens": 197
+    },
+    "status": "completed",
+    "ms": 29574,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/appyouthcamp/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Free Will Baptist Association",
+    "website_url": null,
+    "notes": "No standalone association website found. Harmony Free Will Baptist publishes the camp information and embedded permission form. Facebook and direct website opens returned no readable text; camp facts were available in official search-indexed content.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Appalachian Youth Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Campers spend four days and three nights together with structured activities, prayer and time focused on their relationship with Christ.",
+        "camp_page_url": "https://harmonychurch.org/camp/",
+        "registration_url": "https://harmonychurch.org/camp/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-10",
+          "text": "2027 Appalachian Youth Camp Permission Form"
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Oaks Family Conference Center and Camp",
+            "address": "265 Camp Joshua Lane",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Arrive no later than 3:00 pm Monday June 7; campers leave following the Thursday June 10 commencement and award ceremony at 10:30 am."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Per child; includes meals/snacks, lodging and souvenirs",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We charge $250 which covers ALL meals/snacks, lodging, and souvenirs."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "I understand that it’s my responsibility to either provide or arrange for transportation to and from camp."
+        },
+        "sources": [
+          "https://harmonychurch.org/camp/",
+          "https://www.oaksretreatcenter.com/",
+          "https://www.mapquest.com/us/tennessee/the-oaks-retreat-center-445510052"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify the search-indexed 2027 permission form on Harmony's camp page: surrounding text still calls it the 2025 form. The form also permits students who are 17 years old; no minimum age is stated. Payment is due June 4, but this is not explicitly a registration deadline. Venue address was corroborated by third-party listings; the venue's own location address could not be read."
+      }
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "north-toxaway-baptist-church-of-lake-toxaway",
+    "name": "North Toxaway Baptist Church of Lake Toxaway",
+    "urls": ["https://northtoxaway.org/pastor-updates/pastors-update-august-17-2026/"],
+    "area": "Lake Toxaway, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:53.853Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "afb5b7b255e7aa19b094f8e20245a5d2a873566fa97a424b4293b7a7a62a4acc",
+  "response": {
+    "searches": ["site:northtoxaway.org VBS 2027 2026", "site:northtoxaway.org \"VBS\" \"August\""],
+    "usage": {
+      "inputTokens": 22683,
+      "cachedInputTokens": 8223,
+      "outputTokens": 733,
+      "reasoningTokens": 187
+    },
+    "status": "completed",
+    "ms": 24045,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://northtoxaway.org/pastor-updates/pastors-update-august-17-2026/",
+      "chars": 1583,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northtoxaway.org/pastor-updates/pastors-update-august-13-2026/",
+      "chars": 1528,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northtoxaway.org/pastor-updates/pastors-update-august-18-2026/",
+      "chars": 1200,
+      "method": "fetch"
+    },
+    {
+      "url": "https://northtoxaway.org/",
+      "chars": 2396,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Toxaway Baptist Church of Lake Toxaway",
+    "website_url": "https://northtoxaway.org/",
+    "notes": "No 2027 summer program information found. Official pastor updates confirm VBS began on August 10, 2026 and occurred that week, but do not give its ending date, ages, fees or detailed activities. The ministries page and August 10 update returned no readable text when opened; the August 10 announcement was readable in official search results.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church holds Vacation Bible School during the summer.",
+        "camp_page_url": "https://northtoxaway.org/pastor-updates/pastors-update-august-10-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-10",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://northtoxaway.org/pastor-updates/pastors-update-august-10-2026/",
+          "https://northtoxaway.org/pastor-updates/pastors-update-august-17-2026/",
+          "https://northtoxaway.org/",
+          "https://northtoxaway.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The August 10, 2026 official search result says 'Remeber VBS starts tonight.' The August 17 update confirms the preceding week included VBS but does not establish an exact ending date. Confirm the participant ages, activities, schedule and drop-off venue with the church. Its published address is 51 Slick Fisher Rd., Lake Toxaway, NC 28747, but the VBS announcements do not explicitly identify the meeting location."
+      }
+    ]
+  }
+}

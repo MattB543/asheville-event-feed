@@ -1,0 +1,328 @@
+{
+  "provider": {
+    "key": "camp-greene-tennessee",
+    "name": "Camp Greene Tennessee",
+    "urls": ["https://www.campgreenetn.org/camp-registration"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:22.566Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3c0e3cd30d5b6eb0061064bc86586ee2e82f57944e60db6a9997aeba4efd2517",
+  "response": {
+    "searches": ["site:campgreenetn.org 2027 camp"],
+    "usage": {
+      "inputTokens": 16572,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2461,
+      "reasoningTokens": 100
+    },
+    "status": "completed",
+    "ms": 52770,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campgreenetn.org/camp-registration",
+      "chars": 2438,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/P9acWS84YUEWzHK56",
+      "chars": 2779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://forms.gle/KVHXfVJuQfFMudCF8",
+      "chars": 4923,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenetn.org/",
+      "chars": 2037,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenetn.org/about-us",
+      "chars": 2253,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenetn.org/giving",
+      "chars": 2515,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgreenetn.org/newsletters",
+      "chars": 5641,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Greene Tennessee",
+    "website_url": "https://www.campgreenetn.org/",
+    "notes": "No 2027 program dates or registration milestones were found. Cards use the explicitly dated 2026 registration forms. Overnight and day-camper offerings are separated by camp type, with grade bands represented as sessions. The Upcoming Events page still lists 2022 dates; those dates were not used. The payment mailing address is not the camp location. Scholarship references in older newsletters were not treated as confirmation of 2026 or 2027 financial aid.",
+    "excluded": [
+      {
+        "name": "Fall Retreat",
+        "reason": "Outside summer."
+      },
+      {
+        "name": "Young Adult and College Age Retreat",
+        "reason": "Described for young adults and college-age participants, not as a supervised youth summer program; dates and details are pending."
+      },
+      {
+        "name": "Camp Greene Day",
+        "reason": "The listed event occurred March 26, 2022, outside summer."
+      },
+      {
+        "name": "Counselor and volunteer roles",
+        "reason": "Staff and service applications rather than camper programs. The youth counselor-in-training offering is included separately."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Greene Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers participate in worship, Bible study, games and group activities. Overnight sessions run separately for elementary, middle-school and high-school students.",
+        "camp_page_url": "https://www.campgreenetn.org/camp-registration",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Greene",
+            "address": "4604 Asheville Hwy",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 160,
+            "unit": "session",
+            "label": "All campers",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Sr High Camp",
+            "start": "2026-06-10",
+            "end": "2026-06-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr High Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgreenetn.org/",
+          "https://www.campgreenetn.org/about-us",
+          "https://www.campgreenetn.org/camp-registration",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
+          "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Camp Greene Summer Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Day campers attend Camp Greene's faith-based summer camp activities without staying overnight. The registration form offers day-camper sessions for elementary and middle-school students.",
+        "camp_page_url": "https://www.campgreenetn.org/camp-registration",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Greene",
+            "address": "4604 Asheville Hwy",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 160,
+            "unit": "session",
+            "label": "Day camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Jr Camp DAY CAMPER",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr High Camp, DAY CAMPER",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgreenetn.org/",
+          "https://www.campgreenetn.org/about-us",
+          "https://www.campgreenetn.org/camp-registration",
+          "https://docs.google.com/forms/d/e/1FAIpQLSfkJY0ETHNMsZ2hKmTMDHzjzmBp6-BV1IoL-lXWMwDewa0tog/viewform?usp=send_form"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "CIT for Jr Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "High-school freshmen and sophomores serve as counselors-in-training at Jr Camp. CITs participate alongside campers in activities, worship and Bible study and help include campers in activities.",
+        "camp_page_url": "https://www.campgreenetn.org/camp-registration",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 10,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Greene",
+            "address": "4604 Asheville Hwy",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgreenetn.org/",
+          "https://www.campgreenetn.org/camp-registration",
+          "https://docs.google.com/forms/d/e/1FAIpQLSdpGLunUkFevXjK3-15k1CRHowb28mYLnhp35WaU7qBrbw0ZQ/viewform?usp=send_form"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 Counselor/CIT form describes a selected youth service role, not a separately described training curriculum. Confirm that it should be listed as a CIT program. Overnight format is inferred from the combined Counselor/CIT commitment and the requirement that counselors stay all day and night. Eligibility says freshman or sophomore without explicitly stating rising or current grades."
+      }
+    ]
+  }
+}

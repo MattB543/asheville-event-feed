@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "key": "buncombe-county-public-libraries",
+    "name": "Buncombe County Public Libraries",
+    "urls": ["https://www.buncombenc.gov/305/Summer-Learning-Program"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:37.018Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3c3569623d8679ef0e3719eff19f485c87069b95d1585770570b2b99f8a8756d",
+  "response": {
+    "searches": ["site.buncombenc.gov libraries summer 2026 camp"],
+    "usage": {
+      "inputTokens": 17145,
+      "cachedInputTokens": 8223,
+      "outputTokens": 255,
+      "reasoningTokens": 68
+    },
+    "status": "completed",
+    "ms": 14637,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.buncombenc.gov/305/Summer-Learning-Program",
+      "chars": 4715,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombenc.gov/457/Register-of-Deeds",
+      "chars": 6865,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombenc.gov/",
+      "chars": 5070,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Buncombe County Public Libraries",
+    "website_url": "https://www.buncombenc.gov/161/Libraries",
+    "notes": "No qualifying supervised summer youth camp was found on the official pages or in searches of the library's official calendar. The Summer Learning Program page announces the 2027 reading theme but does not describe a supervised camp, drop-off program, or youth clinic. The supplied Register of Deeds page is unrelated to library programming.",
+    "excluded": [
+      {
+        "name": "Summer Learning Program",
+        "reason": "A summer reading challenge and library activities for readers of all ages, rather than a documented finite, supervised youth camp. The announced 2027 theme is Mysteries Await at Your Library; no qualifying camp format or dates are stated."
+      }
+    ],
+    "cards": []
+  }
+}

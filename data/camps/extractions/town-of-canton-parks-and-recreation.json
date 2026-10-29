@@ -1,0 +1,186 @@
+{
+  "provider": {
+    "key": "town-of-canton-parks-and-recreation",
+    "name": "Town of Canton Parks & Recreation",
+    "urls": ["https://www.cantonnc.com/summer-camp/"],
+    "area": "Canton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:08:48.512Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "64245dc2165da41f0995ae6bf0885776bcce32dbb2862fbac7f442569c93c701",
+  "response": {
+    "searches": [
+      "site.cantonnc.com \"Recreation Park\" \"address\"",
+      "open https://cantonnc.recdesk.com/Community/Program/Detail?programId=90"
+    ],
+    "usage": {
+      "inputTokens": 18377,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1498,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 35747,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cantonnc.com/summer-camp/",
+      "chars": 6449,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cantonnc.recdesk.com/Community/Program",
+      "chars": 1160,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cantonnc.com/resident-faqs/",
+      "chars": 9348,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cantonnc.com/",
+      "chars": 4882,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Town of Canton Parks & Recreation",
+    "website_url": "https://www.cantonnc.com/",
+    "notes": "No summer 2027 program or registration information was found. The summer camp page states registration begins March 14, 2026 and no camp June 29–July 3, 2026, but labels its overall schedule June 8–August 7, 2025. Overall dates and dated session rows are omitted rather than correcting the conflicting year. Weekly themes are listed without assigned dates except Community Helpers as week one. RecDesk's supplied program listing has no results, and a search-indexed Bobcats week-seven detail page could not be read.",
+    "excluded": [
+      {
+        "name": "Camp Hope",
+        "reason": "The town describes this as a facility available for rental, not a supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Canton Summer Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers do outdoor crafts, games, themed activities and swimming at Recreation Park. Separate rising-grade groups participate in activities appropriate to their grade bands.",
+        "camp_page_url": "https://www.cantonnc.com/summer-camp/",
+        "registration_url": "https://cantonnc.recdesk.com/Community/Program",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Recreation Park",
+            "address": "77 Penland St",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "Drop off 7:30–8:45am; camp activities begin at 9:00am; pickup 4:00–5:30pm at Recreation Park's basketball courts."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 130,
+            "unit": "week",
+            "label": "per child",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-14",
+          "time": null,
+          "text": "REGISTRATION BEGINS MARCH 14, 2026",
+          "url": "https://www.cantonnc.com/summer-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers need to bring their own lunch and snacks for the day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.cantonnc.com/summer-camp/",
+          "https://cantonnc.recdesk.com/Community/Program",
+          "https://cantonnc.recdesk.com/Community/Facility"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the overall summer dates with the provider: the camp page explicitly prints June 8–August 7, 2025 alongside 2026 registration and holiday closure dates. Prices and hours are treated as part of the 2026 information surrounding that conflicting schedule. Separate rising 1st–2nd, 3rd–4th and 5th–6th grade bands and eight weekly themes are stated, but dated rows cannot be created reliably."
+      },
+      {
+        "name": "Counselors in Training (CITs)",
+        "type": "day",
+        "categories": ["general"],
+        "description": "CITs assist with camper supervision during recreation and meals, camp preparation, check-in and checkout, and cleanup. They serve as role models within the summer camp community.",
+        "camp_page_url": "https://www.cantonnc.com/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 14
+        },
+        "grades": {
+          "min": 7,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Recreation Park",
+            "address": "77 Penland St",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "FREE",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cantonnc.com/summer-camp/",
+          "https://cantonnc.recdesk.com/Community/Facility"
+        ],
+        "confidence": "medium",
+        "review_notes": "The eligibility heading says '7th Graders – 14 Years Old'; rising grade basis follows the page's statement that groups use the grade children are entering in fall. Confirm eligibility and CIT-specific dates, hours and registration procedure. The free price is presented within the page's 2026 context, but the overall camp schedule is labeled 2025. Included as a youth training program, not an employment offering."
+      }
+    ]
+  }
+}

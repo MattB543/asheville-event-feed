@@ -1,0 +1,176 @@
+{
+  "provider": {
+    "key": "enka-high-school",
+    "name": "Enka High School",
+    "urls": [
+      "https://ehs.buncombeschools.org/",
+      "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
+      "https://gofan.co/event/6717358"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:35.705Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a82d05022dd3e1c136c957a90b10eaa4f8ee2d72617e40627e3d48df36d51414",
+  "response": {
+    "searches": ["Enka \"camp\" \"2026\" wrestling", "site:gofan.co \"Enka\" \"Camp\" \"2026\""],
+    "usage": {
+      "inputTokens": 29881,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1217,
+      "reasoningTokens": 257
+    },
+    "status": "completed",
+    "ms": 40276,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ehs.buncombeschools.org/",
+      "chars": 5702,
+      "method": "browser"
+    },
+    {
+      "url": "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
+      "chars": 2331,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gofan.co/event/6717358",
+      "chars": 3223,
+      "method": "browser"
+    },
+    {
+      "url": "https://ehs.buncombeschools.org/page/tours",
+      "chars": 1728,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/o/bcs/page/enrollment",
+      "chars": 3286,
+      "method": "browser"
+    },
+    {
+      "url": "http://www.buncombeschools.org/o/bcs/page/summer-meals",
+      "chars": 3033,
+      "method": "browser"
+    },
+    {
+      "url": "https://sites.google.com/bcsemail.org/enkajetathletics/faq",
+      "chars": 1682,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/document/d/1lL0zdGdhQNmLUYiP0g7MsplhXK78QU-b/edit?usp=drive_link&ouid=108274583231995559228&rtpof=true&sd=true",
+      "chars": 0,
+      "error": "fetch: HTTP 401; chrome-tls: HTTP 401 for https://docs.google.com/document/d/1lL0zdGdhQNmLUYiP0g7MsplhXK78QU-b/edit?usp=drive_link&ouid=108274583231995559228&rtpof=true&sd=true; browser: HTTP 401"
+    },
+    {
+      "url": "https://sites.google.com/",
+      "chars": 1253,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Enka High School",
+    "website_url": "https://ehs.buncombeschools.org/",
+    "notes": "No official summer 2027 camp dates or registration announcements were found. The wrestling page references a 2026 flyer, but its embedded contents could not be read. GoFan's volleyball event returned no readable page body; only its official search result supplied a date and grade band. An older school summer-camp announcement is dated June 5, 2024 and was not used for 2026 facts.",
+    "excluded": [
+      {
+        "name": "Enka High School 2026-2027 Athletic Registration",
+        "reason": "Registration for school sports teams and seasons, not a finite summer camp."
+      },
+      {
+        "name": "Summer Meals",
+        "reason": "Meal service, not a supervised youth camp."
+      },
+      {
+        "name": "School Tours",
+        "reason": "School tours are not summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "WNC Elite Wrestling Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Campers receive wrestling instruction from Gardner-Webb University staff, Enka High staff, and Owen High Coach Rich Caisse. The camp is open to all ages and experience levels.",
+        "camp_page_url": "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Enka High School",
+            "address": "475 Enka Lake Road",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://sites.google.com/bcsemail.org/enkajetathletics/mens-sports/wrestling/wrestling-camp",
+          "https://ehs.buncombeschools.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Enka Jet Volleyball Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "A youth volleyball camp with a listed sixth-through-eighth-grade offering.",
+        "camp_page_url": "https://gofan.co/event/6717358",
+        "registration_url": "https://gofan.co/event/6717358",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-29",
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://gofan.co/event/6717358"],
+        "confidence": "medium",
+        "review_notes": "The official GoFan search result states 'Enka Jet Volleyball Camp (6th-8th grade) - Registration - Jul 29, 2026'; the event body could not be read. Verify the ending date, drop-off venue, hours, price, and whether grades are rising. A third-party copy of an athletic booster announcement also mentions a second-through-fifth-grade offering, but its details were not independently confirmed on an official page and are omitted."
+      }
+    ]
+  }
+}

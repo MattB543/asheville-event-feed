@@ -1,0 +1,169 @@
+{
+  "provider": {
+    "key": "hominy-baptist-church-of-candler",
+    "name": "Hominy Baptist Church of Candler",
+    "urls": [
+      "https://www.hominybaptist.com/thisweek/2025/7/28/vacation-bible-school",
+      "https://www.hominybaptist.com/child-care"
+    ],
+    "area": "Candler, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:09.853Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0786a16cb655abc6c04877432d22c4155edc6540de9592c491adb165ad7693d4",
+  "response": {
+    "searches": [
+      "site:hominybaptist.com \"2026\" \"Bible\"",
+      "open https://www.hominybaptist.com/thisweek/2026/7/27/vacation-bible-school",
+      "site:hominybaptist.com/thisweek/2026/7/29 \"Vacation\""
+    ],
+    "usage": {
+      "inputTokens": 17797,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1409,
+      "reasoningTokens": 251
+    },
+    "status": "completed",
+    "ms": 36917,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hominybaptist.com/thisweek/2025/7/28/vacation-bible-school",
+      "chars": 1572,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/child-care",
+      "chars": 3140,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/schedule",
+      "chars": 2629,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hominybaptist.com/",
+      "chars": 1895,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hominy Baptist Church of Candler",
+    "website_url": "https://www.hominybaptist.com/",
+    "notes": "No 2027 camp information found. The child-care page describes an ongoing summer camp but does not publish year-specific dates, camp-specific ages or tuition. Official 2026 Vacation Bible School calendar entries supersede the supplied 2025 event. Registration links labeled Register HERE were visible, but their destination could not be retrieved.",
+    "excluded": [
+      {
+        "name": "Hominy Child Care",
+        "reason": "Year-round childcare is excluded; its separately described summer camp is included."
+      },
+      {
+        "name": "After School program",
+        "reason": "School-year childcare from mid-August to mid-June, not a summer camp."
+      },
+      {
+        "name": "Children’s Choir and Bible Study",
+        "reason": "Recurring church activities rather than finite summer youth programs."
+      },
+      {
+        "name": "DayStay",
+        "reason": "Adult day services, not a youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Students participate in educational outings, swimming, water parks, putt putt, movies, bowling and other outings. The summer camp serves students in the Enka district.",
+        "camp_page_url": "https://www.hominybaptist.com/child-care",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Summer camp is available to students in the entire Enka district from mid-June to mid-August."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hominy Baptist Church",
+            "address": "135 Candler School Rd",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "In summer camp breakfast, lunch, and snack are provided from Buncombe County Schools USDA program."
+        },
+        "transportation": null,
+        "sources": ["https://www.hominybaptist.com/child-care"],
+        "confidence": "medium",
+        "review_notes": "The summer description is undated; season.year 2026 denotes the fallback season, not an explicitly published 2026 schedule. Confirm exact dates and camp hours. The six-weeks-through-twelve age range and 7 a.m.–5:30 p.m. hours describe the overall childcare operation, not specifically summer camp, so they were not assigned to this card."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church holds Vacation Bible School over three summer evenings.",
+        "camp_page_url": "https://www.hominybaptist.com/thisweek/2026/7/27/vacation-bible-school",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-29",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Hominy Baptist Church",
+            "address": "135 Candler School Rd",
+            "town": "Candler",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": null,
+          "text": "Monday 5:30–8:30 p.m.; Tuesday and Wednesday 5:30–8:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hominybaptist.com/thisweek/2026/7/27/vacation-bible-school",
+          "https://www.hominybaptist.com/thisweek/2026/7/28/vacation-bible-school",
+          "https://www.hominybaptist.com/thisweek/2026/7/29/vacation-bible-school"
+        ],
+        "confidence": "medium",
+        "review_notes": "The July 29 date and hours were readable only through the official page's search snippet; opening that page returned no text. The calendar lists a later Monday ending time than Tuesday and Wednesday. Confirm the registration destination and participant eligibility."
+      }
+    ]
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-henderson-county",
+    "name": "Boys & Girls Club of Henderson County",
+    "urls": [
+      "https://bgchendersonco.org/wp-content/uploads/2025/03/Summer-Application.pdf",
+      "https://bgchendersonco.org/programs/",
+      "https://bgchendersonco.org/Membership/",
+      "https://bgchendersonco.org/",
+      "https://bgchendersonco.org/membership/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:15.147Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "89346a672f67ac645ddd8e2e508c79e141a0f3f392ed351a96efacf9af2f202a",
+  "response": {
+    "searches": [
+      "site:bgchendersonco.org summer 2026 2027",
+      "site:bgchendersonco.org \"summer\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25520,
+      "cachedInputTokens": 8223,
+      "outputTokens": 824,
+      "reasoningTokens": 164
+    },
+    "status": "completed",
+    "ms": 29981,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bgchendersonco.org/wp-content/uploads/2025/03/Summer-Application.pdf",
+      "chars": 25036,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/programs/",
+      "chars": 884,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/Membership/",
+      "chars": 1571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bgchendersonco.org/",
+      "chars": 4391,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of Henderson County",
+    "website_url": "https://bgchendersonco.org/",
+    "notes": "No summer 2027 dates or registration announcements were found. Official July 2026 news confirms free summer programming, but no 2026 summer schedule, eligibility limits or registration opening date was located. The supplied Summer Application and the field-trip PDF found in search describe 2025; their facts were not carried forward.",
+    "excluded": [
+      {
+        "name": "Afterschool Online Membership Application",
+        "reason": "School-year programming runs August 12, 2026–May 14, 2027, not summer."
+      },
+      {
+        "name": "Sports Leagues",
+        "reason": "Basketball and flag football are seasonal sports leagues, not finite summer camps or clinics."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Programming",
+        "type": "day",
+        "categories": ["general", "stem", "academic", "nature_outdoor"],
+        "description": "Youth participate in Brain Gain, reading, STEM activities and member-selected activities. The program also includes local field trips and outdoor walks.",
+        "camp_page_url": "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Boys & Girls Club of Henderson County",
+            "address": "1304 Ashe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Completely free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bgchendersonco.org/difference-makers-help-lead-one-of-the-highest-attendance-days-on-record/",
+          "https://bgchendersonco.org/programs/",
+          "https://bgchendersonco.org/Membership/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The July 1, 2026 official article calls this summer programming but does not supply a distinct branded program name; Summer Programming is used as its descriptive name. Confirm summer dates, ages or grades, hours and registration process with the Club. The membership page currently offers only school-year registration."
+      }
+    ]
+  }
+}

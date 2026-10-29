@@ -1,0 +1,319 @@
+{
+  "provider": {
+    "key": "look-up-christian-ministries-look-up-lodge",
+    "name": "Look Up Christian Ministries — Look Up Lodge",
+    "urls": ["https://www.lookuplodge.com/summer-camp"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:09.179Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "947467bca7879fa0fa0b2350d2808b7dacbc6fc66c38c8010b63f3fdf8143196",
+  "response": {
+    "searches": [
+      "site.lookuplodge.com summer camp kids teen ages 2027",
+      "open https://www.lookuplodge.com/summer-camp",
+      "site:lookuplodge.com/school-year-conferences \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 21845,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2171,
+      "reasoningTokens": 200
+    },
+    "status": "completed",
+    "ms": 47984,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lookuplodge.com/summer-camp",
+      "chars": 2855,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lookuplodge.com/summer-2026-recaps",
+      "chars": 9054,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lookuplodge.com/retreats-and-camps",
+      "chars": 2078,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lookuplodge.com/summerstaff",
+      "chars": 1466,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lookuplodge.com/",
+      "chars": 1805,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Look Up Christian Ministries — Look Up Lodge",
+    "website_url": "https://www.lookuplodge.com/",
+    "notes": "Summer 2027 dates are posted, but the summer rate heading explicitly says 2026. Summer Camp is group-only, not open to individual campers, and groups must bring a chaperone; the provider suggests an 8:1 camper-to-leader ratio. No numeric summer camper ages or grades or registration opening dates were found. The Programmed Conferences page could only be read through official search results. Its Lil' Kids Camp on May 22–23 is excluded as a school-year offering before summer.",
+    "excluded": [
+      {
+        "name": "Custom Retreats",
+        "reason": "Year-round custom group retreats, not a finite summer youth program."
+      },
+      {
+        "name": "Summer Staff 2027",
+        "reason": "Employment and staff service program, not a camper offering."
+      },
+      {
+        "name": "Work at Look Up Lodge",
+        "reason": "Employment opportunities."
+      },
+      {
+        "name": "Winter Camp Teens",
+        "reason": "January 15–18, 2027; outside summer."
+      },
+      {
+        "name": "Winter Camp Teens 2.0",
+        "reason": "January 29–31, 2027; outside summer."
+      },
+      {
+        "name": "Kids Winter Camp",
+        "reason": "February 19–21, 2027; outside summer."
+      },
+      {
+        "name": "Lil' Kids Camp",
+        "reason": "May 22–23, 2027 school-year conference offering; outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Church groups participate in chapel, worship, small groups, recreational games, and activities including boating, a giant swing, zipline, and climbing wall. Groups must bring an accompanying chaperone.",
+        "camp_page_url": "https://www.lookuplodge.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-30",
+          "end": "2027-08-07",
+          "text": "2027 Summer Camp Dates"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Look Up Lodge",
+            "address": "100 Look Up Lodge Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 427,
+            "unit": "session",
+            "label": "5 nights, per person",
+            "year": 2026
+          },
+          {
+            "amount": 367,
+            "unit": "session",
+            "label": "4 nights, per person",
+            "year": 2026
+          },
+          {
+            "amount": 297,
+            "unit": "session",
+            "label": "3 nights, per person",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "5 Night Teen Camp",
+            "start": "2027-05-30",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "5 Night Teen Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "5 Night Teen Camp",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "5 Night Teen Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "5 Night Teen Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "4 Night Teen Camp",
+            "start": "2027-07-03",
+            "end": "2027-07-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-07-08",
+            "end": "2027-07-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-07-17",
+            "end": "2027-07-20",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-07-20",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-07-25",
+            "end": "2027-07-28",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-07-28",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "full"
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-08-01",
+            "end": "2027-08-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "3 Night Kids Camp",
+            "start": "2027-08-04",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "All teen sessions and July kids sessions are marked full; August kids sessions have REGISTER buttons.",
+          "text": "CAMP FULL"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.lookuplodge.com/summer-camp",
+          "https://www.lookuplodge.com/contact-us"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

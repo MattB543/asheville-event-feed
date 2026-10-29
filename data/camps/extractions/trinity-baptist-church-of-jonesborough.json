@@ -1,0 +1,133 @@
+{
+  "provider": {
+    "key": "trinity-baptist-church-of-jonesborough",
+    "name": "Trinity Baptist Church of Jonesborough",
+    "urls": [
+      "https://trinitybaptistjonesborough.org/",
+      "https://trinitybaptistjonesborough.org/category/event/"
+    ],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:38:14.977Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "aac02351ada4ad9c1b87b4fe271ee3195332e6eeea25084ee24dea936d0d26e8",
+  "response": {
+    "searches": [
+      "site:trinitybaptistjonesborough.org VBS 2026",
+      "\"Trinity\" \"Jonesborough\" \"VBS\" \"2026\"",
+      "site:trinitybaptistjonesborough.org \"VBS\"",
+      "\"site:trinitybaptistjonesborough.org/ministries/children\""
+    ],
+    "usage": {
+      "inputTokens": 39415,
+      "cachedInputTokens": 8223,
+      "outputTokens": 964,
+      "reasoningTokens": 363
+    },
+    "status": "completed",
+    "ms": 38343,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://trinitybaptistjonesborough.org/",
+      "chars": 5504,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinitybaptistjonesborough.org/category/event/",
+      "chars": 3519,
+      "method": "fetch"
+    },
+    {
+      "url": "https://trinitybaptistjonesborough.org/ways-to-give/",
+      "chars": 5517,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Baptist Church of Jonesborough",
+    "website_url": "https://trinitybaptistjonesborough.org/",
+    "notes": "No summer 2027 program information or registration dates were found. Official event archive search results reference a VBS Celebration at Wetlands Water Park on June 15, but do not provide the underlying VBS dates, ages, activities or registration details. The children’s ministry, youth ministry and older event archive pages returned no readable text. A provisional VBS card is included with unknown details left blank; the celebration date is not treated as a VBS date.",
+    "excluded": [
+      {
+        "name": "VBS Celebration at Wetlands Water Park",
+        "reason": "Churchwide celebration listed for adults and children, not a separately described supervised youth camp."
+      },
+      {
+        "name": "Wednesday Nights – Fall 2026",
+        "reason": "Recurring church classes rather than a finite summer camp."
+      },
+      {
+        "name": "The Refuge",
+        "reason": "Ongoing Sunday and Wednesday youth ministry rather than a finite summer camp."
+      },
+      {
+        "name": "Equip – Fall 2026",
+        "reason": "Fall classes outside summer."
+      },
+      {
+        "name": "Equip – Spring 2026",
+        "reason": "Spring classes outside summer."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Fall community event outside summer."
+      },
+      {
+        "name": "Christmas Musical & Banquet",
+        "reason": "Christmas event outside summer."
+      },
+      {
+        "name": "Youth Play & Dessert Auction",
+        "reason": "November performance and fundraiser outside summer."
+      },
+      {
+        "name": "Annual Church Picnic",
+        "reason": "Churchwide picnic, not a supervised youth camp."
+      },
+      {
+        "name": "Trinity’s Got Talent!",
+        "reason": "Churchwide performance and ice cream fellowship, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers VBS and lists a separate water-park celebration afterward. The accessible official listing does not describe the VBS activities.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://trinitybaptistjonesborough.org/category/event/"],
+        "confidence": "low",
+        "review_notes": "VBS is evidenced only by the official event archive’s search result for its separate celebration. Confirm the program name, summer year, camp location, dates, eligibility and registration directly with the church. The archive does not explicitly print a year with the June 15 celebration date; 2026 is the archive’s surrounding event context, not a confirmed VBS schedule. Do not use Wetlands Water Park as the VBS drop-off site."
+      }
+    ]
+  }
+}

@@ -1,0 +1,763 @@
+{
+  "provider": {
+    "key": "east-tennessee-state-university",
+    "name": "East Tennessee State University",
+    "urls": [
+      "https://news.etsu.edu/articles/2026-summer-camps",
+      "https://www.etsu.edu/coe/summer-camp/",
+      "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+      "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+      "https://www.etsu.edu/pharmacycamp",
+      "https://www.etsu.edu/coe/summer-camp/applied-stem/"
+    ],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:11.404Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "df2e2bbb9f6f82b91f33dcb90797a206c3d545a3ebc5fbc52948cc06a5822b33",
+  "response": {
+    "searches": [
+      "site.etsu.edu 2026 \"Future Nurse\" camp",
+      "site.etsu.edu \"Brooks Gym\" \"address\"",
+      "site.register.ryzer.com \"Mock\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 40687,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5729,
+      "reasoningTokens": 368
+    },
+    "status": "completed",
+    "ms": 110632,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://news.etsu.edu/articles/2026-summer-camps",
+      "chars": 5630,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/",
+      "chars": 4168,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+      "chars": 4237,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+      "chars": 4897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+      "chars": 2187,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/enrichment.php",
+      "chars": 2582,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/coe/summer-camp/applied-stem/default.php",
+      "chars": 4357,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.etsu.edu/cas/das/bluegrass/areas-of-study/summer-offering.php",
+      "chars": 2681,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Tennessee State University",
+    "website_url": "https://www.etsu.edu/",
+    "notes": "2027 dates are posted for Bluegrass Summer Camp, GattonRx Summer Camp and Applied STEM Foundations Summer Institution, but not for the other programs below. This is not a university-wide finalized 2027 program list. Several athletics websites returned no readable page text; additional sports offerings may require follow-up. Exact drop-off buildings and street addresses were not established for most programs, so sites are left empty rather than using administrative mailing addresses.",
+    "excluded": [
+      {
+        "name": "Mixed Media & Crafting Camp",
+        "reason": "Spring enrichment program, March 15–19, 2027; outside summer."
+      },
+      {
+        "name": "Fall, Winter, and Spring Enrichment",
+        "reason": "School-break offerings outside summer."
+      },
+      {
+        "name": "Summer Courses",
+        "reason": "Regular university courses requiring summer-term admission, not a supervised youth camp or teen pre-college program."
+      },
+      {
+        "name": "Youth Day Camp — November 14, 2026",
+        "reason": "Baseball clinic outside summer."
+      },
+      {
+        "name": "HS Prospect Camp — November 15, 2026",
+        "reason": "Baseball clinic outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Renaissance Child Camps",
+        "type": "day",
+        "categories": ["stem", "arts", "general"],
+        "description": "Campers rotate through science, art, technology and team-building classes. Weekly field trips supplement activities except during cooking-focused Kitchistry weeks.",
+        "camp_page_url": "https://www.etsu.edu/coe/summer-camp/renaissance-child.php",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "We cannot wait to see everyone for camp in 2027."
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:00",
+          "end": "16:30",
+          "text": "Drop-off takes place from 7:45–8:10 AM, and pick-up is from 4:30–5:00 PM."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "A packed lunch (no microwavable food stuffs — we do not have access to one)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.etsu.edu/coe/summer-camp/",
+          "https://www.etsu.edu/coe/summer-camp/renaissance-child.php"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "ETSU Bluegrass Summer Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Young musicians take instrumental and vocal lessons, receive band coaching and explore a recording laboratory. Activities include music history, jams, square dances, concerts and campus tours.",
+        "camp_page_url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-09",
+          "text": "ETSU BLUEGRASS SUMMER CAMP JULY 5-9, 2027!"
+        },
+        "ages": {
+          "min": 12,
+          "max": 19
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University main campus",
+            "address": "1276 Gilbreath Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "program",
+            "label": "On-site participant; room, board, instruction and meals",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for 2027 will begin on January 15th, 2027.",
+            "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have a limited number of scholarships available for students with financial need."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are included in the camp fee."
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/cas/das/bluegrass/summer-camp.php"],
+        "confidence": "medium",
+        "review_notes": "The updated 2027 heading appears alongside stale references to January 2025 registration and a 2026 schedule. Confirm that the undated fees apply to 2027. The scholarship deadline has no year and was not extracted. Additional family registrants receive a stated 50% discount."
+      },
+      {
+        "name": "ETSU Bluegrass Summer Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "Off-site participants join instrumental and vocal lessons, band coaching, recording-laboratory activities and music-history instruction. The camp also includes jams, concerts, square dances and campus tours.",
+        "camp_page_url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-07-09",
+          "text": "ETSU BLUEGRASS SUMMER CAMP JULY 5-9, 2027!"
+        },
+        "ages": {
+          "min": 12,
+          "max": 19
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University main campus",
+            "address": "1276 Gilbreath Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 550,
+            "unit": "program",
+            "label": "Off-site participant; instruction and meals",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for 2027 will begin on January 15th, 2027.",
+            "url": "https://www.etsu.edu/cas/das/bluegrass/summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We have a limited number of scholarships available for students with financial need."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are included in the camp fee."
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/cas/das/bluegrass/summer-camp.php"],
+        "confidence": "medium",
+        "review_notes": "Off-site participation is classified as day attendance. Confirm the undated fee applies to 2027; the page retains stale 2025 registration and 2026 schedule references. No commuter attendance hours are stated. Additional family registrants receive a stated 50% discount."
+      },
+      {
+        "name": "GattonRx Summer Camp",
+        "type": "overnight",
+        "categories": ["stem", "academic"],
+        "description": "High school students explore the pharmacy profession through hands-on activities, interactions with Gatton students and faculty, and campus tours.",
+        "camp_page_url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-06-11",
+          "text": "June 6-11, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "program",
+            "label": "Double occupancy room",
+            "year": 2027
+          },
+          {
+            "amount": 500,
+            "unit": "program",
+            "label": "Single occupancy room",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Applications open February 1, 2027.",
+            "url": "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Financial assistance is available for those who qualify."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.etsu.edu/pharmacy/administration/student_affairs/pharmacy-summer-camp.php",
+          "https://news.etsu.edu/articles/2026-summer-camps",
+          "https://www.etsu.edu/pharmacy/admissions/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Applied STEM Foundations Summer Institution",
+        "type": "pre_college",
+        "categories": ["stem", "academic"],
+        "description": "Students explore STEM majors and careers through lectures, hands-on experiences, field trips and speaker presentations. Technology and health-experience tracks focus on different academic fields.",
+        "camp_page_url": "https://www.etsu.edu/coe/summer-camp/applied-stem/default.php",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-06-18",
+          "text": "Applied STEM Institute May 31 - June 18, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "15:30",
+          "text": "8:30am - 3:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "program",
+            "label": "Three weeks; lunch included",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Applied STEM Technology track",
+            "start": "2027-05-31",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Applied STEM Health Experience track",
+            "start": "2027-05-31",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost $75 - Lunch provided"
+        },
+        "transportation": null,
+        "sources": ["https://www.etsu.edu/coe/summer-camp/applied-stem/default.php"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Future Nurse Explorers Camp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers learn CPR and basic first aid while exploring health-care careers. Activities also include a ropes course and other summer recreation.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "week",
+            "label": "Includes daily lunch and T-shirt",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The full week costs $200, which includes lunch each day and a T-shirt."
+        },
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Youth Skills Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice shooting, ball handling, footwork, defense and game play through competitive drills and teaching stations. ETSU men's basketball staff and players provide instruction.",
+        "camp_page_url": "https://etsubucs.com/news/2026/5/8/mens-basketball-brooks-savage-youth-skills-camp-set-for-june-15-18.aspx",
+        "registration_url": "https://www.coachsavagehoops.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers are asked to bring their own lunch daily"
+        },
+        "transportation": null,
+        "sources": [
+          "https://etsubucs.com/news/2026/5/8/mens-basketball-brooks-savage-youth-skills-camp-set-for-june-15-18.aspx",
+          "https://news.etsu.edu/articles/2026-summer-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Athletics announcement names Gordon Ball Court and Brooks Gymnasium, while the camp website's general search description names Freedom Hall. Confirm actual drop-off venue and its street address. The camp website returned no readable text."
+      },
+      {
+        "name": "Women's Soccer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn soccer fundamentals and game strategies with ETSU women's soccer coaches and players.",
+        "camp_page_url": "https://www.etsusoccer.com/camps_clinics.cfm",
+        "registration_url": "https://www.etsusoccer.com/camps_clinics.cfm",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": null
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-06",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and a camp T-shirt are provided"
+        },
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "medium",
+        "review_notes": "News announcement states each session lasts four days; end dates calculated from stated starts. Full-day attendance is for girls ages 5 and up, with a half-day option for children under 5; no overall minimum age is given. Exact program title, hours, prices and venue require confirmation on the unreadable camp website."
+      },
+      {
+        "name": "Elite ID Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players experience collegiate-style soccer training with ETSU staff and players, followed by match play. Goalkeepers receive position-specific training.",
+        "camp_page_url": "https://www.etsusoccer.com/etsu-elite-id-camp.cfm",
+        "registration_url": "https://register.ryzer.com/camp.cfm?id=332786",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-11",
+          "end": "2026-07-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "9:00 AM - 11:00 AM, 2:00 PM - 4:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 164,
+            "unit": "session",
+            "label": "$150 plus $14 fees",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://register.ryzer.com/camp.cfm?id=332786",
+          "https://news.etsu.edu/articles/2026-summer-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration-platform details were available through search results only. Venue is stated as Summer Taylor Soccer Complex, but its published street address was not established. College players also qualify; grade maximum left null."
+      },
+      {
+        "name": "Women's Basketball Day Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Girls work on basketball skills and teamwork with ETSU women's basketball coaches and players.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and a T-shirt are provided, and half-day options are available."
+        },
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "medium",
+        "review_notes": "The news article calls this a two-day program but prints June 22–24, which spans three days. Confirm dates and exact program name with the women's basketball camp provider. Half-day options are mentioned without prices or hours."
+      },
+      {
+        "name": "Women's Basketball Elite Camps",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players work on basketball skills and teamwork with ETSU women's basketball coaches and players.",
+        "camp_page_url": "https://news.etsu.edu/articles/2026-summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": "Single-day elite camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-13",
+            "end": "2026-06-13",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-08",
+            "end": "2026-08-08",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://news.etsu.edu/articles/2026-summer-camps"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

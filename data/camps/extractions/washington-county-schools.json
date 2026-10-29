@@ -1,0 +1,149 @@
+{
+  "provider": {
+    "key": "washington-county-schools",
+    "name": "Washington County Schools",
+    "urls": ["https://www.wcde.org/page/saccsummer/"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:03.439Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "96322cd27ccb15fef84d4f5db95cb789b4eb59464ad7f7140402c0fd83a4fee7",
+  "response": {
+    "searches": ["site.wcde.org SACC summer 2027", "site.wcde.org \"SACC\" \"Rates\""],
+    "usage": {
+      "inputTokens": 23393,
+      "cachedInputTokens": 8223,
+      "outputTokens": 857,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 30853,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.wcde.org/page/saccsummer/",
+      "chars": 3458,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.wcde.org/o/wcs/page/rates-summer",
+      "chars": 0,
+      "error": "fetch: thin page (227 chars); browser: soft 404 (\"Page Not Found | Washington County Schools\")"
+    },
+    {
+      "url": "https://forms.gle/C7hjyvfVBUtTgAnJ9",
+      "chars": 1303,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.wcde.org/page/saccsummer",
+      "chars": 3458,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.wcde.org/",
+      "chars": 1657,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Washington County Schools",
+    "website_url": "https://www.wcde.org/",
+    "notes": "No summer 2027 information found. The summer page still includes registration wording referring to 2025; the linked Google registration form requires sign-in and its contents could not be reviewed. The published rates page lists school-day before/after care rather than full-day summer rates, so no summer prices are recorded. Summer Academy is mentioned only in connection with SACC before/after care; insufficient official program details were found to create a separate Academy card.",
+    "excluded": [
+      {
+        "name": "School Age Child Care (school-year before and after care)",
+        "reason": "School-year childcare rather than a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "School Age Child Care (SACC) Summer Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in arts and crafts, hands-on science projects, music, outdoor play and board games. Enrollment is limited to children attending kindergarten through eighth grade in a Washington County School.",
+        "camp_page_url": "https://www.wcde.org/page/saccsummer/",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSej_nC45OopgXWWyuAVjng1DaZ2WP7Er9dtJHwINu8xb5QGNA/viewform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Boones Creek Elementary",
+            "address": "132 Highland Church Rd.",
+            "town": "Johnson City",
+            "state": "TN"
+          },
+          {
+            "name": "Jonesborough Elementary",
+            "address": "720 N Cherokee Street",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "07:00",
+          "end": "18:00",
+          "text": "Monday - Friday, 7:00 a.m. - 6:00 p.m. Closed May 25, June 19 and July 3, 2026. Before and after school care is also available for Summer Academy students at Jonesborough Elementary, Monday - Thursday, June 1 - June 25, 2026; separate care hours are not stated."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-05-22",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Boones Creek Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-05-22",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": "Jonesborough Elementary",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wcde.org/page/saccsummer/",
+          "https://www.wcde.org/o/bce",
+          "https://www.wcde.org/o/jes",
+          "https://www.wcde.org/page/rates"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

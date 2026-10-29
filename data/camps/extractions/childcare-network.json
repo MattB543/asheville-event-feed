@@ -1,0 +1,164 @@
+{
+  "provider": {
+    "key": "childcare-network",
+    "name": "Childcare Network",
+    "urls": [
+      "https://childcarenetwork.com/summer-camp/",
+      "https://schools.childcarenetwork.com/nc/asheville",
+      "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:55.820Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "826d141b06c0cb2038bfe0f7286f0651521c08c1c56c943af93f9adad4b64f91",
+  "response": {
+    "searches": [
+      "site.childcarenetwork.com summer camp 2027 Asheville",
+      "open https://schools.childcarenetwork.com/nc/asheville/330-sardis-road"
+    ],
+    "usage": {
+      "inputTokens": 27438,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1110,
+      "reasoningTokens": 170
+    },
+    "status": "completed",
+    "ms": 38098,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://childcarenetwork.com/summer-camp/",
+      "chars": 6852,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.childcarenetwork.com/nc/asheville",
+      "chars": 1778,
+      "method": "fetch"
+    },
+    {
+      "url": "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://childcarenetwork.com/es/summer-camp/",
+      "chars": 7150,
+      "method": "fetch"
+    },
+    {
+      "url": "https://childcarenetwork.com/about/how-to-enroll/",
+      "chars": 5944,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/financial-assistance/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=financial-assistance",
+      "chars": 5231,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/health-and-safety/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=health-safety",
+      "chars": 5293,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.childcarenetwork.com/about/meals/?utm_source=website&utm_medium=landingpage&utm_campaign=summercamp2026&utm_content=meals",
+      "chars": 4267,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Childcare Network",
+    "website_url": "https://childcarenetwork.com/",
+    "notes": "No official 2027 summer dates or registration milestones were found. The summer page is undated and directs families to their local school for dates, tuition and enrollment. An additional official search result names Infinity Explorers Adventure Summer Camp, but that page returned no readable text; it may be an older name for the same offering rather than a separate program. The Sardis Road detail page also returned no readable text.",
+    "excluded": [
+      {
+        "name": "Infants, Toddlers, Twos, Threes and Pre-K",
+        "reason": "Year-round early childhood education and childcare, not finite summer programs."
+      },
+      {
+        "name": "School-Age - Young Achievers Club",
+        "reason": "Year-round before- and after-school care; the summer offering is represented separately."
+      },
+      {
+        "name": "Spring and winter school break care",
+        "reason": "Programs outside summer."
+      },
+      {
+        "name": "Careers",
+        "reason": "Employment opportunities, not youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers participate in weekly themed activities, indoor and outdoor play, and hands-on learning. Special events and field trips vary by location.",
+        "camp_page_url": "https://childcarenetwork.com/summer-camp/",
+        "registration_url": "https://childcarenetwork.com/about/how-to-enroll/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Our camp runs all summer long, following local school district break schedules, with flexible week-by-week enrollment options available. Please contact your local school for your specific camp dates!"
+        },
+        "ages": {
+          "min": 5,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Childcare Network Asheville Weaverville Highway",
+            "address": "443 Weaverville Hwy",
+            "town": "Asheville",
+            "state": "NC"
+          },
+          {
+            "name": "Childcare Network Asheville Sardis Road",
+            "address": "330 Sardis Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Full-day summer camp."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We offer a variety of options to make school break care affordable, including childcare scholarships, military and sibling discounts, and employee benefits."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We ensure a safe, supervised environment and provide daily meals and snacks."
+        },
+        "transportation": null,
+        "sources": [
+          "https://childcarenetwork.com/summer-camp/",
+          "https://schools.childcarenetwork.com/nc/asheville",
+          "https://schools.childcarenetwork.com/nc/asheville/443-weaverville-hwy",
+          "https://childcarenetwork.com/about/how-to-enroll/",
+          "https://childcarenetwork.com/programs/infinity-explorers-summer-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page does not identify a season year; 2026 is retained as the fallback year without assigning any dates. It lists 13 weekly themes but no dates or local site schedules, so session rows cannot be dated. Confirm whether Infinity Explorers Adventure Summer Camp is the current program name. Confirm summer participation at Sardis Road: its address is published in the official Asheville directory, but its detail page could not be read. School opening hours and school-age classroom availability were not treated as summer camp hours or availability."
+      }
+    ]
+  }
+}

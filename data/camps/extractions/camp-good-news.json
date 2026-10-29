@@ -1,0 +1,318 @@
+{
+  "provider": {
+    "key": "camp-good-news",
+    "name": "Camp Good News",
+    "urls": ["https://campgoodnewsnc.org/summer-schedule/", "https://campgoodnewsnc.org/"],
+    "area": "Fairview, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:21.186Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cb959e4bd3e20605230627e25a53267561da953307dd18d7e9507ba22711fb6c",
+  "response": {
+    "searches": ["site:campgoodnewsnc.org \"2027\""],
+    "usage": {
+      "inputTokens": 18429,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2068,
+      "reasoningTokens": 84
+    },
+    "status": "completed",
+    "ms": 39844,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campgoodnewsnc.org/summer-schedule/",
+      "chars": 3851,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/",
+      "chars": 1906,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/registration-form/",
+      "chars": 1879,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf",
+      "chars": 6256,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/wp-content/uploads/2026/09/Copy-of-Advance-Permission-Slip-.docx.pdf",
+      "chars": 2045,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/about-us/",
+      "chars": 2726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/why-camp-is-free/",
+      "chars": 3454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campgoodnewsnc.org/counselors/",
+      "chars": 3656,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Good News",
+    "website_url": "https://campgoodnewsnc.org/",
+    "notes": "2027 registration forms are announced for 'the new year,' but no precise opening date or 2027 summer schedule was found. Returning campers should receive forms by the end of March 2027; this is a mailing notice, not a registration opening or deadline. Cards retain the explicitly labeled Summer 2026 schedule. The 2026 registration PDF contains stale 2024 headings and dates alongside the correct 2026 dates. The About Us page publishes 110 Maranatha Rd; Directions spells the road 'Marantha.' The About Us address is used.",
+    "excluded": [
+      {
+        "name": "Discipleship Training",
+        "reason": "Runs October through May, outside summer."
+      },
+      {
+        "name": "Winter Advance",
+        "reason": "Listed January and April weekends are outside summer."
+      },
+      {
+        "name": "Saturday Night Alive",
+        "reason": "The listed January 3 evening is outside summer."
+      },
+      {
+        "name": "Fall Advance",
+        "reason": "October 16-18, 2026 is outside summer."
+      },
+      {
+        "name": "Counselors",
+        "reason": "Volunteer counselor recruitment, not a camper or counselor-in-training program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers attend chapel and participate in activities including swimming, archery, games, crafts and scripture memory.",
+        "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
+        "registration_url": "https://campgoodnewsnc.org/registration-form/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": "2027 registration forms will be available in the new year!"
+        },
+        "ages": {
+          "min": 7,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Good News",
+            "address": "110 Maranatha Rd",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:00",
+          "text": "8:30am-4pm, Monday-Friday. Campers will be dropped off between 8am-8:45am and will be picked up at 4pm everyday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "Tuition free; donations accepted",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Day Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campgoodnewsnc.org/summer-schedule/",
+          "https://campgoodnewsnc.org/about-us/",
+          "https://campgoodnewsnc.org/",
+          "https://campgoodnewsnc.org/registration-form/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Children’s Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general", "nature_outdoor"],
+        "description": "Campers stay in cabins, attend chapel twice daily and participate in swimming, archery, games, crafts, scripture memory and campfires.",
+        "camp_page_url": "https://campgoodnewsnc.org/summer-schedule/",
+        "registration_url": "https://campgoodnewsnc.org/registration-form/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-28",
+          "end": "2026-08-07",
+          "text": "2027 registration forms will be available in the new year!"
+        },
+        "ages": {
+          "min": 7,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Good News",
+            "address": "110 Maranatha Rd",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Campers arrive on Sunday afternoon between 4:00-5:00PM and leave 12:00pm on Friday afternoon."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "Tuition free; donations accepted",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Teen Boys",
+            "start": "2026-06-28",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle Boys",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr. Boys",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Teen Girls",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle Girls",
+            "start": "2026-07-26",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 12
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Jr. Girls",
+            "start": "2026-08-02",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": 9
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campgoodnewsnc.org/summer-schedule/",
+          "https://campgoodnewsnc.org/about-us/",
+          "https://campgoodnewsnc.org/",
+          "https://campgoodnewsnc.org/registration-form/",
+          "https://campgoodnewsnc.org/wp-content/uploads/2025/12/Camp-Reg-2026-2.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The registration PDF contains a stale 'SUMMER CAMP REGISTRATION 2024' heading and June 30-August 9 dates, alongside a 2026 block matching the Summer 2026 schedule. This card uses the explicitly labeled Summer 2026 web schedule, June 28-August 7. Review the form before distributing it to parents."
+      }
+    ]
+  }
+}

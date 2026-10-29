@@ -1,0 +1,193 @@
+{
+  "provider": {
+    "key": "trejo-soccer-academy",
+    "name": "Trejo Soccer Academy",
+    "urls": ["https://www.trejosocceracademy.com/"],
+    "area": "Forest City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:50.299Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "298e5a79880391b6ca143c3ac54154e772122ece1bf7b79fd8e233b2ef583690",
+  "response": {
+    "searches": ["site:trejosocceracademy.com \"camp\" \"2027\""],
+    "usage": {
+      "inputTokens": 16264,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1056,
+      "reasoningTokens": 55
+    },
+    "status": "completed",
+    "ms": 26427,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.trejosocceracademy.com/",
+      "chars": 2084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trejosocceracademy.com/copy-of-camps",
+      "chars": 3288,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trejosocceracademy.com/copy-of-indoor-2",
+      "chars": 3107,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trejosocceracademy.com/copy-of-tsa",
+      "chars": 2203,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trejosocceracademy.com/copy-of-camps-2",
+      "chars": 2187,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trejosocceracademy.com/copy-of-camps-3",
+      "chars": 327,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trejo Soccer Academy",
+    "website_url": "https://www.trejosocceracademy.com/",
+    "notes": "Summer 2027 is posted on the homepage and SUMMER CAMP page. The CAMPS page retains the same program's 2026 dates, not a separate offering. Elite Camp has TBD dates and an older 2025 release; no summer 2027 offering is established.",
+    "excluded": [
+      {
+        "name": "Elite Level Training",
+        "reason": "Ongoing individually scheduled training, not a finite summer program."
+      },
+      {
+        "name": "Summer League",
+        "reason": "Sports league season."
+      },
+      {
+        "name": "Elite Camp",
+        "reason": "No summer dates established; linked materials have TBD dates and historical fall/winter offerings."
+      },
+      {
+        "name": "Fall Camp",
+        "reason": "Historical November program outside summer."
+      },
+      {
+        "name": "Winter Camp",
+        "reason": "Historical February program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice ball work, dribbling, passing, positioning, fitness and soccer fundamentals through drills and small- and larger-group games.",
+        "camp_page_url": "https://www.trejosocceracademy.com/copy-of-camps-2",
+        "registration_url": "https://www.trejosocceracademy.com/copy-of-camps-2",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": "JULY 12- july 16. 2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Legacy Soccer Park",
+            "address": "520 Piney Ridge Rd",
+            "town": "Forest City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Session 1: 8:00am–10:30am; Session 2: 5:00pm–7:30pm. You will only attend one session per day."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "program",
+            "label": "Includes TSA Nike jersey and Nike soccer ball",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "SESSION 1",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 10
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "10:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "SESSION 2",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 11,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "17:00",
+              "end": "19:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-07-08",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "REGISTRATION CLOSES: JULY 8th. 2027",
+            "url": "https://www.trejosocceracademy.com/copy-of-camps-2",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.trejosocceracademy.com/",
+          "https://www.trejosocceracademy.com/copy-of-camps-2"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

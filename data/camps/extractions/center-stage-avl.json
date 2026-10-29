@@ -1,0 +1,570 @@
+{
+  "provider": {
+    "key": "center-stage-avl",
+    "name": "Center Stage AVL",
+    "urls": ["https://www.centerstageavl.com/summer/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:17.147Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1a656fd4b0897e5262518912efc62fb6fdab57c580092b2f5155fe3e3319ebc3",
+  "response": {
+    "searches": [
+      "site:centerstageavl.com summer 2027 intensive camps",
+      "open https://www.centerstageavl.com/theme-camps"
+    ],
+    "usage": {
+      "inputTokens": 17419,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3951,
+      "reasoningTokens": 212
+    },
+    "status": "completed",
+    "ms": 73552,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.centerstageavl.com/summer/",
+      "chars": 1297,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/classes",
+      "chars": 2130,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/fee-schedule",
+      "chars": 794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/s/2026-2027-Fee-Schedule.pdf",
+      "chars": 1595,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/theme-camps",
+      "chars": 1554,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/dance-camps",
+      "chars": 2133,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.centerstageavl.com/",
+      "chars": 824,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Center Stage AVL",
+    "website_url": "https://www.centerstageavl.com/",
+    "notes": "No summer 2027 program dates or registration milestones were found. The 2026-2027 navigation refers to the regular dance season, not confirmed summer 2027 offerings. Theme Camps, Dance Camps and Summer Classes lack a summer year and exact dates; they are retained provisionally as 2026 offerings. Direct web opens returned empty content, so additional intensive and Boot Camp details were obtained through official-site search results. Embedded camp schedules, registration links and the calendar PDF could not be retrieved.",
+    "excluded": [
+      {
+        "name": "2026-2027 Season Classes",
+        "reason": "Regular school-year dance classes, not finite summer programs."
+      },
+      {
+        "name": "CSPC",
+        "reason": "Season-long competitive dance program; its separately advertised summer Boot Camp is included."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Theme Camps",
+        "type": "half_day",
+        "categories": ["dance", "arts"],
+        "description": "Campers participate in stories, crafts, games, dress-up and dancing. Each week ends with a Friday showcase for family and friends.",
+        "camp_page_url": "https://www.centerstageavl.com/theme-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "June & July"
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage AVL",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday–Friday | 9:00 AM–1:00 PM"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": "A non-refundable $50 deposit is due upon registration; remaining balance due June 1st for June camps and July 1st for July camps.",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers should bring a lunch and morning snack each day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.centerstageavl.com/summer/",
+          "https://www.centerstageavl.com/theme-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer and theme-camp pages do not print a summer year or exact weeks in the accessible text. The 2026 attribution is provisional, based on the explicitly dated 2026 intensives on the same summer overview. Check the embedded SUMMER THEME CAMPS schedule for dates and themes."
+      },
+      {
+        "name": "Dance Camps",
+        "type": "half_day",
+        "categories": ["dance"],
+        "description": "Dancers work on technique, choreography and different dance styles, ending with a Friday showcase. Ballet camp options include classical technique, variations, appropriate pre-pointe or pointe work, contemporary movement and strength training.",
+        "camp_page_url": "https://www.centerstageavl.com/dance-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "July"
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage AVL",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "13:00",
+          "text": "Monday–Friday | 9:00 AM–1:00 PM; Ballet Camp hours are 9:00 AM–12:30 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": "A non-refundable $50 deposit is due upon registration; remaining balance due June 1st for June camps and July 1st for July camps.",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers should bring a lunch and morning snack each day"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.centerstageavl.com/summer/",
+          "https://www.centerstageavl.com/dance-camps"
+        ],
+        "confidence": "medium",
+        "review_notes": "The overview lists ages 7-10; the detailed page additionally lists Ballet Camp bands 6-9 and 9-14, producing the overall 6-14 range. Exact weeks and a summer year are absent from accessible text; 2026 is provisional based on the overview's dated intensives. Bands cannot be represented as dated rows until the embedded schedule is checked."
+      },
+      {
+        "name": "Hip Hop Intensive",
+        "type": "clinic",
+        "categories": ["dance"],
+        "description": "Dancers practice hip hop technique, choreography and freestyle and learn about hip hop culture with guest instructors and Center Stage instructor KG Brown.",
+        "camp_page_url": "https://www.centerstageavl.com/hiphop-intensive",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-14",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage AVL",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Ages 6-8",
+            "start": "2026-07-14",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": null,
+            "hours": {
+              "start": "15:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 60,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 9-12",
+            "start": "2026-07-14",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 12
+            },
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "19:00"
+            },
+            "price": {
+              "amount": 175,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 13 & Up",
+            "start": "2026-07-14",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 13,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "19:00"
+            },
+            "price": {
+              "amount": 175,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.centerstageavl.com/summer/",
+          "https://www.centerstageavl.com/hiphop-intensive"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, prices and hours were read through official-site search results; direct page open returned empty content. Registration button destinations were not accessible. Ages 9-12 and 13 & Up share the stated 4:00–7:00 PM schedule and $175 price."
+      },
+      {
+        "name": "Modern Intensive",
+        "type": "clinic",
+        "categories": ["dance"],
+        "description": "Dancers study beginner Horton technique, Horton technique or Martha Graham technique in age-based groups with Raquelle Chavis.",
+        "camp_page_url": "https://www.centerstageavl.com/modern-intensive",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-21",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage AVL",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Beginner Horton Technique",
+            "start": "2026-07-21",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "15:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 80,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Horton Technique",
+            "start": "2026-07-21",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 11
+            },
+            "grades": null,
+            "hours": {
+              "start": "16:00",
+              "end": "17:30"
+            },
+            "price": {
+              "amount": 90,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Martha Graham Technique",
+            "start": "2026-07-21",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "17:30",
+              "end": "19:00"
+            },
+            "price": {
+              "amount": 90,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.centerstageavl.com/summer/",
+          "https://www.centerstageavl.com/modern-intensive"
+        ],
+        "confidence": "medium",
+        "review_notes": "Details were available through official-site search results rather than a readable direct page. Registration is by contacting Ms. Chavis at geechieanne@gmail.com; no registration opening date is stated."
+      },
+      {
+        "name": "Boot Camp",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "Dancers train in jazz, tap, contemporary, musical theatre, lyrical, hip hop and other styles with Platinum Dance Collective. The three-day program concludes with showcases and awards.",
+        "camp_page_url": "https://www.centerstageavl.com/boot-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-01",
+          "end": "2026-08-03",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage Dance Studio",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Ages 6–8: Day 1, 9:00–11:30 AM; Days 2–3, 9:00 AM–12:30 PM. Ages 9 & Up: 9:00 AM–4:00 PM."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Ages 6–8",
+            "start": "2026-08-01",
+            "end": "2026-08-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 225,
+              "unit": "session",
+              "label": "per dancer",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ages 9 & Up",
+            "start": "2026-08-01",
+            "end": "2026-08-03",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 385,
+              "unit": "session",
+              "label": "per dancer",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Packed lunch • Ages 9 & Up Only"
+        },
+        "transportation": null,
+        "sources": ["https://www.centerstageavl.com/boot-camp", "https://www.centerstageavl.com/"],
+        "confidence": "medium",
+        "review_notes": "Official-site search results state the dates, age bands, prices and variable younger-group hours; direct opening returned empty content. Registration links and schedule PDF could not be retrieved. The page says mandatory for CSPC dancers and open to dancers from all studios. Past-season 'Limited spots available' wording was not treated as current availability."
+      },
+      {
+        "name": "Summer Classes",
+        "type": "clinic",
+        "categories": ["dance"],
+        "description": "Dancers take summer dance classes to try a new style or continue their training. The fee schedule describes a four-week summer class session.",
+        "camp_page_url": "https://www.centerstageavl.com/summer-classes/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 2.5,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Center Stage AVL",
+            "address": "38L Rosscraggon Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.centerstageavl.com/summer/",
+          "https://www.centerstageavl.com/summer-classes/",
+          "https://static1.squarespace.com/static/69f0c0a06130204d15d94467/t/6a7d0b0c6b15a870db2d829a/1786579724103/2026-2027+Fee+Schedule.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Included as a finite summer skill program because the fee schedule specifies a four-week summer session. Exact dates, class rows and summer year are absent; 2026 is provisional from the summer overview's dated intensives. Minimum age comes from the summer overview. The 2026-2027 fee schedule's monthly tuition tiers were not assigned to an undated summer session."
+      }
+    ]
+  }
+}

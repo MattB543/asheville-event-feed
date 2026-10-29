@@ -1,0 +1,333 @@
+{
+  "provider": {
+    "key": "arp-conferences",
+    "name": "ARP Conferences",
+    "urls": ["https://arpconferences.org/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:35.927Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f966afd66b4e8032ab83c58aedd9038c63751f878ed9e93b2a4eefb20606f7c5",
+  "response": {
+    "searches": [
+      "open https://arpconferences.org/quest/",
+      "site:arpconferences.org Quest grades",
+      "open https://arpconferences.org/wp-content/uploads/2026/04/Appalachia2026-packet-Final.pdf"
+    ],
+    "usage": {
+      "inputTokens": 22713,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2594,
+      "reasoningTokens": 212
+    },
+    "status": "completed",
+    "ms": 53294,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://arpconferences.org/",
+      "chars": 1129,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/quest/register-for-quest/",
+      "chars": 2754,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/horizon/register-for-horizon/",
+      "chars": 2755,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arpconferences.org/summer-2027/",
+      "chars": 977,
+      "method": "fetch"
+    },
+    {
+      "url": "http://arpconferences.org/wp-content/uploads/2025/06/Horizon-Schedule-2025.pdf",
+      "chars": 2204,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "ARP Conferences",
+    "website_url": "https://arpconferences.org/",
+    "notes": "2027 dates are posted, but linked registration materials still describe 2026. The undated March 1 registration statement is not treated as a confirmed 2027 opening. Participants register through church groups, not individually. Appalachia Mission takes place outside the Asheville area. The Summer 2027 page retains a stale Summer 2026 heading, but its individual dates explicitly state 2027.",
+    "excluded": [
+      {
+        "name": "Family Bible Conference",
+        "reason": "Family conference rather than a standalone youth camp; children's activities are part of the family event."
+      },
+      {
+        "name": "Work Crew",
+        "reason": "Staff/service work supporting the conferences for participants who have completed high school, rather than a youth camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Quest",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Middle school students attend Christian teaching and group singing with their church groups, alongside recreation and fellowship activities.",
+        "camp_page_url": "https://arpconferences.org/quest/",
+        "registration_url": "https://arpconferences.org/quest/register-for-quest/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 455,
+            "unit": "program",
+            "label": "Before May 1; Bonclarken lodging and meals",
+            "year": 2026
+          },
+          {
+            "amount": 337.5,
+            "unit": "program",
+            "label": "Before May 1; private lodging with Bonclarken meals",
+            "year": 2026
+          },
+          {
+            "amount": 185,
+            "unit": "program",
+            "label": "Before May 1; private lodging without meals",
+            "year": 2026
+          },
+          {
+            "amount": 480,
+            "unit": "program",
+            "label": "After May 1; Bonclarken lodging and meals",
+            "year": 2026
+          },
+          {
+            "amount": 362.5,
+            "unit": "program",
+            "label": "After May 1; private lodging with Bonclarken meals",
+            "year": 2026
+          },
+          {
+            "amount": 210,
+            "unit": "program",
+            "label": "After May 1; private lodging without meals",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-01",
+          "time": null,
+          "text": "Register from March 1 - May 1, 2026",
+          "url": "https://arpconferences.org/wp-content/uploads/2026/02/Packet-2026-Quest-Horizon.pdf"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Bonclarken Lodging & Meals Private Lodging & Bonclarken Meals Private Lodging"
+        },
+        "transportation": null,
+        "sources": [
+          "https://arpconferences.org/",
+          "https://arpconferences.org/quest/",
+          "https://arpconferences.org/hq-things-to-know/",
+          "https://arpconferences.org/quest/register-for-quest/",
+          "https://arpconferences.org/wp-content/uploads/2026/02/Packet-2026-Quest-Horizon.pdf",
+          "https://bonclarken.org/contact-us/",
+          "https://bonclarken.org/driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Quest's program page could only be read through search results. Prices are retained as 2026 because the linked 2026 packet confirms the registration page's tiers. Confirm 2027 pricing and registration opening. Bonclarken publishes 500 Pine Drive as its address but recommends 5 Pine Drive for GPS access to the main entrance."
+      },
+      {
+        "name": "Horizon",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students attend morning and evening sessions with games, skits, singing and Christian teaching, plus theological seminars and recreation. Students lodge and participate with their church groups.",
+        "camp_page_url": "https://arpconferences.org/horizon/",
+        "registration_url": "https://arpconferences.org/horizon/register-for-horizon/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Bonclarken Conference Center",
+            "address": "500 Pine Drive",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 455,
+            "unit": "program",
+            "label": "Before May 1; Bonclarken lodging and meals",
+            "year": 2026
+          },
+          {
+            "amount": 337.5,
+            "unit": "program",
+            "label": "Before May 1; private lodging with Bonclarken meals",
+            "year": 2026
+          },
+          {
+            "amount": 185,
+            "unit": "program",
+            "label": "Before May 1; private lodging without meals",
+            "year": 2026
+          },
+          {
+            "amount": 480,
+            "unit": "program",
+            "label": "After May 1; Bonclarken lodging and meals",
+            "year": 2026
+          },
+          {
+            "amount": 362.5,
+            "unit": "program",
+            "label": "After May 1; private lodging with Bonclarken meals",
+            "year": 2026
+          },
+          {
+            "amount": 210,
+            "unit": "program",
+            "label": "After May 1; private lodging without meals",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-01",
+          "time": null,
+          "text": "Register from March 1 - May 1, 2026",
+          "url": "https://arpconferences.org/wp-content/uploads/2026/02/Packet-2026-Quest-Horizon.pdf"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Bonclarken Lodging & Meals Private Lodging & Bonclarken Meals Private Lodging"
+        },
+        "transportation": null,
+        "sources": [
+          "https://arpconferences.org/",
+          "https://arpconferences.org/horizon/",
+          "https://arpconferences.org/hq-things-to-know/",
+          "https://arpconferences.org/horizon/register-for-horizon/",
+          "https://arpconferences.org/wp-content/uploads/2026/02/Packet-2026-Quest-Horizon.pdf",
+          "https://bonclarken.org/contact-us/",
+          "https://bonclarken.org/driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Prices are retained as 2026 because the linked 2026 packet confirms the registration page's tiers. Confirm 2027 pricing and registration opening. Church leaders supervise participants; the program explicitly provides no camp counselors. Bonclarken publishes 500 Pine Drive as its address but recommends 5 Pine Drive for GPS access to the main entrance."
+      },
+      {
+        "name": "Appalachia Mission",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Youth groups prepare and lead Vacation Bible Schools at churches in Kentucky, Tennessee and Virginia. Teams gather each evening for worship, Bible study and prayer.",
+        "camp_page_url": "https://arpconferences.org/appalachia-mission/",
+        "registration_url": "https://arpconferences.org/wp-content/uploads/2026/04/Appalachia2026-packet-Final.pdf",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-03",
+          "end": "2027-07-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Jubilee",
+            "address": "3316 Owens Ridge Rd",
+            "town": "Tazewell",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "program",
+            "label": "Per person",
+            "year": 2026
+          },
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "Additional charge for staying through Saturday",
+            "year": 2026
+          },
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Late registration fee per person after April 15",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://arpconferences.org/",
+          "https://arpconferences.org/appalachia-mission/",
+          "https://arpconferences.org/about/",
+          "https://arpconferences.org/wp-content/uploads/2026/04/Appalachia2026-packet-Final.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates are posted on the homepage, but the mission page and packet still describe 2026. Camp Jubilee location, completed-grade requirement and prices are 2026 fallback facts; confirm them for 2027. The packet permits individual exceptions to the completed ninth-grade requirement. Registration is by church group using an emailed form, not individual registration."
+      }
+    ]
+  }
+}

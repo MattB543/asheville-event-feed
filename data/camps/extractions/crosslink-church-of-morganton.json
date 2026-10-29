@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "key": "crosslink-church-of-morganton",
+    "name": "Crosslink Church of Morganton",
+    "urls": ["https://crosslinkchurch.org/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:38:09.718Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "db228f810d3635125ca5d50710eff4cb9a0f44a21b2944daff1f44ca5d9e9927",
+  "response": {
+    "searches": [
+      "site:crosslinkchurch.org \"VBS\"",
+      "\"Crosslink\" \"Morganton\" \"VBS\"",
+      "site:facebook.com/ourcrosslink \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 24261,
+      "cachedInputTokens": 8223,
+      "outputTokens": 388,
+      "reasoningTokens": 219
+    },
+    "status": "completed",
+    "ms": 22413,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://crosslinkchurch.org/",
+      "chars": 674,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Crosslink Church of Morganton",
+    "website_url": "https://crosslinkchurch.org/",
+    "notes": "No summer 2027 or 2026 camp or Vacation Bible School offering could be verified on the official website or indexed church Facebook posts. Older official Facebook posts mention VBS, but do not establish a 2026 or 2027 offering; no card was created from those historical references. The church Facebook page could not be read directly. Searches found no additional official camp pages or PDFs. Confirm current VBS plans with the church.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring church instruction, not a finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "provider": {
+    "key": "m28-ministries",
+    "name": "M28 Ministries",
+    "urls": [
+      "https://www.m28camps.com/summer",
+      "https://www.m28camps.com/",
+      "https://www.m28camps.com/registration"
+    ],
+    "area": "Lake Junaluska, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:48.242Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f76e8d55a629b2155d66ab3ad80aafe1d8046c16c4fcf9cedadbecdb7bcb5885",
+  "response": {
+    "searches": ["site.m28camps.com summer 2027 registration"],
+    "usage": {
+      "inputTokens": 28634,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1395,
+      "reasoningTokens": 66
+    },
+    "status": "completed",
+    "ms": 29001,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.m28camps.com/summer",
+      "chars": 23705,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/",
+      "chars": 7367,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/registration",
+      "chars": 1624,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/honduras27",
+      "chars": 3689,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/store/p/mountain-1-2027-registration",
+      "chars": 9575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5",
+      "chars": 9580,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje",
+      "chars": 9571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje-294gw",
+      "chars": 9565,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "M28 Ministries",
+    "website_url": "https://www.m28camps.com/",
+    "notes": "2027 dates and group registration are posted. The older summer2027 interest page still invites notification when registration opens; no opening date was found. Camp requires attendance with a church youth group, whose leaders supervise students. Payment instructions conflict: the general introduction states a $150 deposit while session listings and FAQ state $115; session listings require full payment May 3, 2027 while the FAQ says June 1, 2027.",
+    "excluded": [
+      {
+        "name": "M28 Winter",
+        "reason": "President's Day weekend program, outside summer."
+      },
+      {
+        "name": "Basics of Faith Tweens Retreat",
+        "reason": "March retreat, outside summer."
+      },
+      {
+        "name": "College Discipleship",
+        "reason": "Year-round leadership development rather than a finite summer youth camp."
+      },
+      {
+        "name": "Join Our Summer Team",
+        "reason": "Summer staff and counselor recruitment, not a camper program."
+      },
+      {
+        "name": "M28 Honduras",
+        "reason": "January 2027 youth camp in Honduras, outside summer and the local area."
+      },
+      {
+        "name": "Worship Nights, Retreats & D-Now Weekends",
+        "reason": "Church partnership services without a listed finite summer camp offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "M28 Summer",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students participate in worship, Bible teaching, discipleship groups, breakout sessions, volleyball, swimming and a silent disco during a three-night camp. Students must attend with a church or youth group and its adult leaders.",
+        "camp_page_url": "https://www.m28camps.com/summer",
+        "registration_url": "https://www.m28camps.com/summer",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-23",
+          "end": "2027-07-13",
+          "text": "SUMMER 2027 DATES"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Lake Junaluska Conference & Retreat Center",
+            "address": "91 North Lakeshore Drive",
+            "town": "Lake Junaluska",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 335,
+            "unit": "session",
+            "label": "Per participant; additional one-time $175 church group admin fee and 3.3% fee if paying by credit card",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Mountain 1",
+            "start": "2027-06-23",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mountain 2",
+            "start": "2027-06-27",
+            "end": "2027-06-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mountain 3",
+            "start": "2027-07-02",
+            "end": "2027-07-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mountain 4",
+            "start": "2027-07-06",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Mountain 5",
+            "start": "2027-07-10",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cost includes 3 nights lodging, all meals, 6 worship sessions, and all programming"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.m28camps.com/summer",
+          "https://www.m28camps.com/store/p/mountain-1-2027-registration",
+          "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5",
+          "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje",
+          "https://www.m28camps.com/store/p/mountain-1-2027-registration-mrmr5-63jje-294gw",
+          "https://lakejunaluska.com/",
+          "https://www.m28camps.com/summer2027"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm deposit and final-payment requirements: the summer page introduction says $150 deposit, session listings and FAQ say $115; session listings say full payment May 3, 2027, FAQ says June 1, 2027. Neither payment deadline has been treated as a registration deadline. Eligibility states entering 7th grade through graduating seniors; the rising grade range records 7–12 but also includes students graduating in 2027. The Mountain 1 description mistakenly refers to Mountain 4 when naming its speaker."
+      }
+    ]
+  }
+}

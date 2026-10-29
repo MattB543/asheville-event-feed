@@ -1,0 +1,70 @@
+{
+  "provider": {
+    "key": "fiddlehead-farm-and-forest",
+    "name": "Fiddlehead Farm & Forest",
+    "urls": [
+      "https://fiddleheadff.com/offerings/summer-camp-full-day/",
+      "https://fiddleheadff.com/wp-content/uploads/2025/04/FiddleheadCampFlyer0325.pdf"
+    ],
+    "area": "Fletcher, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:07:24.386Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "baa1aede5ce18897b2895f40d318eaa7c9e6f3f2459804ece15ba3cc7c883b61",
+  "response": {
+    "searches": ["site:fiddleheadff.com summer camp 2026 2027 closed"],
+    "usage": {
+      "inputTokens": 11304,
+      "cachedInputTokens": 8223,
+      "outputTokens": 335,
+      "reasoningTokens": 38
+    },
+    "status": "completed",
+    "ms": 13524,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fiddleheadff.com/offerings/summer-camp-full-day/",
+      "chars": 379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fiddleheadff.com/wp-content/uploads/2025/04/FiddleheadCampFlyer0325.pdf",
+      "chars": 907,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fiddleheadff.com/",
+      "chars": 602,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Fiddlehead Farm & Forest",
+    "website_url": "https://fiddleheadff.com/",
+    "notes": "The official homepage states “We’re Permanently Closed” and “This location is now permanently closed.” No current camp cards are included. The remaining summer camp pages contain only headings and contact information. The supplied flyer describes summer 2025, explicitly confirmed by its May 1, 2025 balance deadline; its dates and prices must not be treated as 2026 or 2027 information. No 2027 announcement or 2026 camp schedule was found.",
+    "excluded": [
+      {
+        "name": "Fiddlehead Day Camp",
+        "reason": "Historical summer camp with half-day and full-day options in the 2025 flyer. The provider now explicitly states that it is permanently closed, so this is not a current offering."
+      },
+      {
+        "name": "Camp Counselor for Summer Camps",
+        "reason": "Employment opportunity, not a camper program."
+      },
+      {
+        "name": "BIKE DEV TEAM – MONDAY",
+        "reason": "Team offering, not a finite summer camp."
+      },
+      {
+        "name": "PRIVATE TECHNIQUE COACHING",
+        "reason": "Individual coaching offering with no finite summer youth program stated."
+      }
+    ],
+    "cards": []
+  }
+}

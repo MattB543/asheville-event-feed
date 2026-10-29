@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "barnardsville-baptist-church",
+    "name": "Barnardsville Baptist Church",
+    "urls": ["https://www.facebook.com/barnardsvillebaptist/"],
+    "area": "Barnardsville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:38:39.699Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Barnardsville Baptist Church VBS 2026",
+      "site:facebook.com/barnardsvillebaptist \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 22911,
+      "cachedInputTokens": 8223,
+      "outputTokens": 341,
+      "reasoningTokens": 162
+    },
+    "status": "completed",
+    "ms": 18333,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/barnardsvillebaptist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Barnardsville Baptist Church",
+    "website_url": null,
+    "notes": "No summer camp program could be verified from readable official pages. The church's Facebook page returned no readable content. Direct access to barnardsvillebaptist.org was blocked by robots.txt; although directories identify it as the church's website, indexed pages contain unrelated Miro content, so it is not treated as a verified current church website. A third-party mirror of Facebook posts includes a June 30, 2026 fundraiser mentioning Vacation Bible School, but no dates, ages, hours or program details were found. This is a lead for manual follow-up, not enough to create a verified card. No 2027 camp information or registration announcements were found.",
+    "excluded": [],
+    "cards": []
+  }
+}

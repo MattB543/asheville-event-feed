@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "clearview-baptist-church-of-travelers-rest",
+    "name": "Clearview Baptist Church of Travelers Rest",
+    "urls": ["https://www.clearviewbc.com/vbs2026", "https://www.clearviewbc.com/"],
+    "area": "Travelers Rest, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:14.779Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "25e7ddd33371af91c3d5954c13e3c38453c4d2ee72e7b45281542e54eea17f94",
+  "response": {
+    "searches": ["site.clearviewbc.com \"2027\" \"VBS\""],
+    "usage": {
+      "inputTokens": 13733,
+      "cachedInputTokens": 8223,
+      "outputTokens": 723,
+      "reasoningTokens": 67
+    },
+    "status": "completed",
+    "ms": 19167,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.clearviewbc.com/vbs2026",
+      "chars": 4299,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clearviewbc.com/",
+      "chars": 229,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Clearview Baptist Church of Travelers Rest",
+    "website_url": "https://www.clearviewbc.com/",
+    "notes": "No official 2027 VBS information was found. The card uses the supplied official 2026 event text. Direct access to clearviewbc.com was blocked by robots.txt during web research; official search results corroborated the dates and church address.",
+    "excluded": [
+      {
+        "name": "AWANA",
+        "reason": "School-year program listed August 19 through May 5, not a summer camp."
+      },
+      {
+        "name": "Children's Choir",
+        "reason": "Recurring church program, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Rainforest Falls VBS with preschool and elementary programming, daily lessons, and small crews led by volunteers.",
+        "camp_page_url": "https://www.clearviewbc.com/vbs2026",
+        "registration_url": "https://rock.clearviewbc.com/page/414?EventOccurrenceId=331",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Clearview Baptist Church Family Life Center",
+            "address": "5611 State Park Rd",
+            "town": "Travelers Rest",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00pm till 8:30pm, with optional free supper from 5:15-5:45pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 Vacation Bible School",
+          "text": "Registration for VBS Children 2026 closed on Thursday, June 4, 2026"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.clearviewbc.com/vbs2026",
+          "https://rock.clearviewbc.com/page/414?EventOccurrenceId=331",
+          "https://www.clearviewbc.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "provider": {
+    "key": "legacy-dance-center",
+    "name": "Legacy Dance Center",
+    "urls": ["https://legacydance.net/"],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:06:39.357Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "72109e93c8ed06e37d5661b5a8ba6b1dc0a211f8ec1d92b61688e115468af3b5",
+  "response": {
+    "searches": [
+      "site:legacydance.net summer camps",
+      "\"Legacy Dance Center\" \"2026\" \"camp\"",
+      "site:legacydance.net/wp-content/uploads/2026 \"camp\" \"July\"",
+      "open https://legacydance.net/wp-content/uploads/2026/01/Jan-Newsletter-2026-1-1.pdf"
+    ],
+    "usage": {
+      "inputTokens": 36171,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1994,
+      "reasoningTokens": 365
+    },
+    "status": "completed",
+    "ms": 60180,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://legacydance.net/",
+      "chars": 1495,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.jackrabbitclass.com/regv2.asp?id=531196",
+      "chars": 22838,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/open-house-in-person-registration/",
+      "chars": 735,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/open-house-in-person-registration//",
+      "chars": 735,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/register-now-for-the-2026-2027-season-classes-begin-sep-8th/",
+      "chars": 949,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/wp-content/uploads/2026/06/General-Schedule-2026-2027.pdf",
+      "chars": 2578,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/register-now-for-the-2026-2027-season-classes-begin-sep-8th//",
+      "chars": 949,
+      "method": "fetch"
+    },
+    {
+      "url": "https://legacydance.net/faqs/",
+      "chars": 1694,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Legacy Dance Center",
+    "website_url": "https://legacydance.net/",
+    "notes": "No summer 2027 dates or registration milestones found. The 2026 summer camp details were readable in official search-indexed text from the January 2026 newsletter, but direct PDF opens returned no readable content. The 2026-2027 fall class registration date is not a summer camp registration date. Undated competition-team pages also mention Summer Dance Camp and League Intensive requirements, but no year-specific schedules or standalone program details were found.",
+    "excluded": [
+      {
+        "name": "Summer Dance Preview Camp",
+        "reason": "Held April 6–8, 2026 during spring break, not summer."
+      },
+      {
+        "name": "General Class Fall Schedule",
+        "reason": "School-year dance, cheer and tumbling classes beginning September 8, 2026, not finite summer programs."
+      },
+      {
+        "name": "Competition Teams",
+        "reason": "Competition team seasons, not summer camps."
+      },
+      {
+        "name": "Adult Pilates and Adult Zumba",
+        "reason": "Adult-only recurring classes."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Legacy's Summer Camps",
+        "type": "half_day",
+        "categories": ["dance", "sports", "arts"],
+        "description": "Campers participate in dance, tumbling, games, crafts, snacks and themed activities. Themes include princesses, Toy Story, K-pop Demon Hunters and circus acro and tumbling.",
+        "camp_page_url": "https://legacydance.net/how-to-make-up-missed-classes-2/",
+        "registration_url": "https://app.jackrabbitclass.com/regv2.asp?id=531196",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-07-15",
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Legacy Dance Center",
+            "address": "115 Glance Street",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "A Royal Princess Academy",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 2,
+              "max": 4
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "A Royal Princess Academy",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 2,
+              "max": 4
+            },
+            "grades": null,
+            "hours": {
+              "start": "15:30",
+              "end": "17:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Toy Story- To Legacy & Beyond",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "10:00",
+              "end": "12:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Toy Story- To Legacy & Beyond",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": {
+              "start": "17:30",
+              "end": "19:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "K POP Demon Hunters",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "12:30",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "K POP Demon Hunters",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 7,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "17:30",
+              "end": "19:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Circus Acro & Tumbling",
+            "start": "2026-06-15",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "12:30",
+              "end": "14:30"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Circus Acro & Tumbling",
+            "start": "2026-07-13",
+            "end": "2026-07-15",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": null
+            },
+            "grades": null,
+            "hours": {
+              "start": "15:30",
+              "end": "17:30"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://legacydance.net/wp-content/uploads/2026/01/Jan-Newsletter-2026-1-1.pdf",
+          "https://legacydance.net/how-to-make-up-missed-classes-2/",
+          "https://legacydance.net/about-us/contact-us/",
+          "https://app.jackrabbitclass.com/regv2.asp?id=531196"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify dates, ages and hours visually in the January 2026 newsletter PDF; these were available only through official search-indexed text. Dates take their year from the newsletter title. Camp location is inferred to be the studio at its published contact address; confirm drop-off location. No camp price or exact registration opening date was found. The preview camp's $110 price does not apply to these summer sessions."
+      }
+    ]
+  }
+}

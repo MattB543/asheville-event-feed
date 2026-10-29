@@ -1,0 +1,93 @@
+{
+  "provider": {
+    "key": "heaven-bound-baptist-church-of-bakersville",
+    "name": "Heaven Bound Baptist Church of Bakersville",
+    "urls": ["https://www.facebook.com/heavenboundbaptistchurch7/"],
+    "area": "Bakersville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:26:53.947Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Heaven Bound\" \"Bakersville\" \"VBS\"",
+      "site:facebook.com/heavenboundbaptistchurch7 \"June\" \"2026\"",
+      "\"Heaven Bound Baptist\" \"Mine Creek\""
+    ],
+    "usage": {
+      "inputTokens": 21011,
+      "cachedInputTokens": 8223,
+      "outputTokens": 930,
+      "reasoningTokens": 310
+    },
+    "status": "completed",
+    "ms": 30000,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/heavenboundbaptistchurch7/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Heaven Bound Baptist Church of Bakersville",
+    "website_url": null,
+    "notes": "No standalone website could be verified for this Bakersville church. Its Facebook page returned no readable content. No 2027 information was found. A third-party mirror of the church's posts preserves a June 3, 2026 Vacation Bible School announcement; the card below is provisional because the original post could not be read. The similarly named heavenboundbaptistchurch.com could not be verified as this provider and was not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School includes classes for all ages. A meal is served each night.",
+        "camp_page_url": "https://www.facebook.com/heavenboundbaptistchurch7/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Heaven Bound Baptist Church",
+            "address": null,
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "19:30",
+          "text": "We will begin at 5:30pm and conclude at 7:30pm each night."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A meal will be served each night."
+        },
+        "transportation": null,
+        "sources": ["https://www.facebook.com/heavenboundbaptistchurch7/"],
+        "confidence": "low",
+        "review_notes": "Verify the original June 3, 2026 Facebook announcement. Dates, hours, all-ages classes and meals were readable only in the third-party mirror at https://www.findglocal.com/US/Bakersville/108594257462168/Heaven-Bound-Baptist-Church. The post's 2026 date supplies the year for June 8–11. No registration opening date was available. The church identifies its location as Mine Creek Road near Bakersville, but no numbered street address could be verified. The lunch field refers to an evening meal, not lunch."
+      }
+    ]
+  }
+}

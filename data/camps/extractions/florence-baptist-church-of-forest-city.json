@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "florence-baptist-church-of-forest-city",
+    "name": "Florence Baptist Church of Forest City",
+    "urls": ["https://www.florencechurch.net/events"],
+    "area": "Forest City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:38:32.049Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3ccd6791bc27c9276ea664a595b42dfe09ad6b0fb58001d57ca6cfc8718665f9",
+  "response": {
+    "searches": [
+      "site.florencechurch.net VBS 2026 2027",
+      "\"Florence\" \"Forest City\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23487,
+      "cachedInputTokens": 8223,
+      "outputTokens": 866,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 26184,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.florencechurch.net/events",
+      "chars": 7202,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.florencechurch.net/",
+      "chars": 1688,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Florence Baptist Church of Forest City",
+    "website_url": "https://www.florencechurch.net/",
+    "notes": "No 2027 camp dates or registration announcements were found. The children's ministry confirms an annual summer VBS, but the latest dated VBS listing found is for June 1–4, 2025; those dates and hours are not used as 2026 or 2027 facts. Search results for florencebaptist.org concern a different church.",
+    "excluded": [
+      {
+        "name": "Adult VBS",
+        "reason": "Adult-only portion of Vacation Bible School."
+      },
+      {
+        "name": "Florence Kids Sunday mornings and Wednesday evenings",
+        "reason": "Year-round children's ministry activities, not a finite summer program."
+      },
+      {
+        "name": "Florence Students weekly meetings",
+        "reason": "Year-round youth ministry meetings, not a finite summer program."
+      },
+      {
+        "name": "Florence Students Summer 2026 Schedule",
+        "reason": "Lists youth social outings and recreation events, not camps or instructed sports or skill clinics."
+      },
+      {
+        "name": "Upward Sports",
+        "reason": "Sports league or team season; no summer camp or clinic was identified."
+      },
+      {
+        "name": "Churchwide Pool Party",
+        "reason": "Churchwide fellowship event, not a supervised youth camp."
+      },
+      {
+        "name": "Summer family fun events",
+        "reason": "Family-only fellowship events rather than youth drop-off programs."
+      },
+      {
+        "name": "Children's Christmas Performance",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend a week of Vacation Bible School on the church campus to learn about Jesus.",
+        "camp_page_url": "https://www.florencechurch.net/florence-kids",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Florence Baptist Church",
+            "address": "201 South Broadway St.",
+            "town": "Forest City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.florencechurch.net/florence-kids",
+          "https://www.florencechurch.net/events",
+          "https://www.florencechurch.net/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

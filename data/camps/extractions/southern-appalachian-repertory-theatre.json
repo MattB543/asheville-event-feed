@@ -1,0 +1,120 @@
+{
+  "provider": {
+    "key": "southern-appalachian-repertory-theatre",
+    "name": "Southern Appalachian Repertory Theatre",
+    "urls": ["https://www.sartplays.com/youth"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:27:09.144Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e72bbd5ba5f0c7d7da92e011fc992418c7778009e2f3d4a92fe257f1eb4ccccf",
+  "response": {
+    "searches": [
+      "site:sartplays.com youth camp 2027 2026",
+      "open https://www.sartplays.com/youth",
+      "site:sartplays.com \"camp\" \"9\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 18440,
+      "cachedInputTokens": 8223,
+      "outputTokens": 801,
+      "reasoningTokens": 242
+    },
+    "status": "completed",
+    "ms": 26815,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sartplays.com/youth",
+      "chars": 2167,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sartplays.com/_files/ugd/feb280_94fa4e2e4c284f99b8cbdfe0c7d184b8.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sartplays.com/",
+      "chars": 2036,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southern Appalachian Repertory Theatre",
+    "website_url": "https://www.sartplays.com/",
+    "notes": "No 2027 youth camp information was found. The linked PDF could not be read or rendered, so its registration instructions and any additional schedule details remain unverified.",
+    "excluded": [
+      {
+        "name": "2026 Summer Stock Theatre Internship Program",
+        "reason": "College-student professional theatre internship; excluded as a job or employment program."
+      },
+      {
+        "name": "Theatre for Young Audiences",
+        "reason": "Audience programming, not a finite supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SART Youth Theatre Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Campers work with theatre professionals on acting and stage experience, preparing a production of Seussical, Jr. Performances follow camp on July 11 and 12.",
+        "camp_page_url": "https://www.sartplays.com/youth",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-09",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Owen Theatre",
+            "address": "44 College St",
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 450,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited tuition assistance available."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sartplays.com/youth",
+          "https://www.sartplays.com/",
+          "https://www.sartplays.com/box-office"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

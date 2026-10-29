@@ -1,0 +1,92 @@
+{
+  "provider": {
+    "key": "shady-grove-baptist-church-of-newport",
+    "name": "Shady Grove Baptist Church of Newport",
+    "urls": ["https://www.facebook.com/104799757852449/"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:31:23.529Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Shady Grove Baptist Church Newport TN VBS 2026",
+      "site:facebook.com \"Shady Grove\" \"Newport\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 17470,
+      "cachedInputTokens": 8223,
+      "outputTokens": 794,
+      "reasoningTokens": 238
+    },
+    "status": "completed",
+    "ms": 23761,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/104799757852449/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Shady Grove Baptist Church of Newport",
+    "website_url": null,
+    "notes": "No standalone website for this Newport church or summer 2027 information was found. The supplied Facebook page could not be read. A third-party mirror of the church's June 2026 Facebook posts confirms a VBS offering, but its details need direct verification. Similarly named churches' websites were not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School includes classes for children. The church's mirrored posts also welcome adults and other ages.",
+        "camp_page_url": "https://www.facebook.com/104799757852449/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Shady Grove Baptist Church",
+            "address": "1171 Sweetwater Road",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "21:00",
+          "text": "6:00-9:00 each evening"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/104799757852449/",
+          "https://www.findglocal.com/US/Newport/104799757852449/Shady-Grove-Baptist-Church"
+        ],
+        "confidence": "low",
+        "review_notes": "The official Facebook page returned no readable content. The FindGlocal mirror contains June 23–27, 2026 posts about VBS and states evening hours of 6–9, but does not plainly provide the complete date range; dates were therefore left null. Verify the program, hours, drop-off location and address directly with the church. The address is shown on the mirror and corroborated by church directories, not a readable official location page."
+      }
+    ]
+  }
+}

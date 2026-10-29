@@ -1,0 +1,173 @@
+{
+  "provider": {
+    "key": "camp-spring-creek",
+    "name": "Camp Spring Creek",
+    "urls": ["https://campspringcreek.org/camp-admissions-sessions/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:53.994Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7084c4da0dec694a512db10e7e1d01c089d536bdf29c3edc315ec60162886c8c",
+  "response": {
+    "searches": [
+      "site:campspringcreek.org 2027 camp scholarship",
+      "open https://campspringcreek.org/camp-in-touch/"
+    ],
+    "usage": {
+      "inputTokens": 17700,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1168,
+      "reasoningTokens": 163
+    },
+    "status": "completed",
+    "ms": 31610,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campspringcreek.org/camp-admissions-sessions/",
+      "chars": 2754,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/rates-and-availability",
+      "chars": 2642,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-philosophy",
+      "chars": 2426,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-history",
+      "chars": 2141,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/our-people-1",
+      "chars": 5427,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/camp-video",
+      "chars": 1891,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/testimonials",
+      "chars": 2730,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campspringcreek.org/annual-report",
+      "chars": 1886,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Spring Creek",
+    "website_url": "https://campspringcreek.org/",
+    "notes": "The homepage explicitly announces 2027 dates of June 20–July 31. Admissions lists 2027 tuition but retains a 2025–2026 payment schedule; those installment dates are not 2027 registration milestones. The current donation page mentions local scholarship day campers, but no 2027 day-camp offering, dates or tuition were found, so a separate day-camp card was not created. Application and donation pages returned no readable body when opened; their search results were readable.",
+    "excluded": [
+      {
+        "name": "Virtual Tutoring",
+        "reason": "Ongoing Zoom tutoring available throughout the week, not a finite summer camp."
+      },
+      {
+        "name": "Training & Outreach",
+        "reason": "Orton-Gillingham professional training for teachers, tutors and parents, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Spring Creek",
+        "type": "overnight",
+        "categories": ["academic", "special_needs", "arts", "nature_outdoor"],
+        "description": "Campers receive one-on-one Orton-Gillingham reading instruction and participate in arts, woodshop, swimming and outdoor activities. The residential program serves children with dyslexia and other language-based learning differences.",
+        "camp_page_url": "https://campspringcreek.org/camp-admissions-sessions/",
+        "registration_url": "https://campspringcreek.org/camp-in-touch/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-31",
+          "text": "2027 Dates: June 20 - July 31"
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Spring Creek",
+            "address": "774 Spring Creek Road",
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 18180,
+            "unit": "session",
+            "label": "Six-Week Boarding Student",
+            "year": 2027
+          },
+          {
+            "amount": 100,
+            "unit": "other",
+            "label": "Non-refundable application fee; online payment adds $3",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Six-Week Boarding Student",
+            "start": "2027-06-20",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "This need-based scholarship helps to supplement the cost of attending camp for deserving students."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "We accept campers with dyslexia and other language-based learning differences, including ADHD."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "At Camp Spring Creek, our food is prepared daily with as many fresh local ingredients as possible."
+        },
+        "transportation": null,
+        "sources": [
+          "https://campspringcreek.org/",
+          "https://campspringcreek.org/camp-admissions-sessions/",
+          "https://campspringcreek.org/camp-in-touch/",
+          "https://campspringcreek.org/our-philosophy",
+          "https://campspringcreek.org/activities-program/",
+          "https://campspringcreek.org/why-camp-spring-creek",
+          "https://campspringcreek.org/donate"
+        ],
+        "confidence": "medium",
+        "review_notes": "Admissions labels tuition as 2027 but still shows the 2025–2026 installment schedule; confirm the updated payment schedule. Financial-aid wording and the application landing page were available only through official search results. Meals are described on Why Camp Spring Creek, and lunch appears in the Activities Program daily schedule."
+      }
+    ]
+  }
+}

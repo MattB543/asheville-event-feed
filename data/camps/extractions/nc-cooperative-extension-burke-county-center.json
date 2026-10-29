@@ -1,0 +1,387 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-burke-county-center",
+    "name": "N.C. Cooperative Extension — Burke County Center",
+    "urls": [
+      "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+      "https://burke.ces.ncsu.edu/news/its-time-for-burke-county-4-h-summer-fun/"
+    ],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:05:52.709Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "030c831d1afb62fc496c95a0fc28bdb7874f69b035df2c35deb202bae7e5745c",
+  "response": {
+    "searches": [
+      "site:burke.ces.ncsu.edu \"2027\" \"camp\"",
+      "site:burke.ces.ncsu.edu \"2026\" \"Eastern\""
+    ],
+    "usage": {
+      "inputTokens": 30076,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2729,
+      "reasoningTokens": 253
+    },
+    "status": "completed",
+    "ms": 54055,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+      "chars": 7619,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/news/its-time-for-burke-county-4-h-summer-fun/",
+      "chars": 9837,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/documents/1076427/2025-Summer-Fun-Sign-Up.pdf",
+      "chars": 1949,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/documents/4295/2026_Summer_Fun_Sign-Up_1.pdf",
+      "chars": 1521,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/documents/1076426/2025-Passport-to-4-H-11-x-8.5-in.pdf",
+      "chars": 2944,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/4-h-youth-development/burke-county-4-h-summer-activities/",
+      "chars": 10069,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/documents/2646/Camp-Packing-List.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burke.ces.ncsu.edu/search/?tag=4-h-summer",
+      "chars": 2876,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Burke County Center",
+    "website_url": "https://burke.ces.ncsu.edu/",
+    "notes": "No summer 2027 dates or registration milestones were found. The 2026 Summer Fun day offerings are grouped as sessions of the provider's named series; the overnight trip is a separate card. The summer activities page still describes a 2025 Eastern 4-H Center trip; no 2026 or 2027 Burke County trip details were found, so those obsolete dates and prices are not included. Other offerings found only in 2025 materials are not carried forward. The 2026 sign-up PDF could not be rendered by the browser; its supplied extracted text establishes the meeting location, registration fee and accommodation policy.",
+    "excluded": [
+      {
+        "name": "4-H County Cookout",
+        "reason": "Family food-and-games event, not a supervised youth camp."
+      },
+      {
+        "name": "4-H Fundraiser Yardsale",
+        "reason": "Fundraising sale, not a supervised youth program."
+      },
+      {
+        "name": "2027 Extension Master Gardener℠ Class",
+        "reason": "January–April volunteer training, outside summer and not a youth camp."
+      },
+      {
+        "name": "4-H Teen Leaders",
+        "reason": "Recurring club meeting rather than a finite summer leadership camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun",
+        "type": "day",
+        "categories": ["arts", "stem", "nature_outdoor", "cooking", "general"],
+        "description": "Youth participate in supervised camps, workshops and trips covering sewing, babysitting safety, wildlife, agriculture, fishing, social skills and STEM.",
+        "camp_page_url": "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+        "registration_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-02",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burke County Agricultural Building",
+            "address": "130 Ammons Drive",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 10,
+            "unit": "other",
+            "label": "Registration fee in addition to activity costs",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Sewing Camp",
+            "start": "2026-06-02",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 50,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Safe Sitter and CPR",
+            "start": "2026-06-11",
+            "end": "2026-06-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 14
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 45,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "WHEP & Carolina Raptor Center",
+            "start": "2026-06-22",
+            "end": "2026-06-22",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Burke Extension Youth Camp",
+            "start": "2026-06-23",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "16:30"
+            },
+            "price": {
+              "amount": 60,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Fishing Educational Day",
+            "start": "2026-06-30",
+            "end": "2026-06-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:30",
+              "end": "15:30"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Level Up Your Social Game",
+            "start": "2026-07-01",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 10,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "16:00"
+            },
+            "price": {
+              "amount": 45,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Ignite Your Summer: 4-H STEM & Adventure Camp!",
+            "start": "2026-07-08",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 9,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "08:00",
+              "end": "17:00"
+            },
+            "price": {
+              "amount": 90,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please direct special accommodation requests to the Burke Extension office at least 10 days prior to the event."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+          "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the article's May 29, 2026 publication and the 2026 sign-up form. WHEP's session heading says ages 8–18, while its general program description says 8–19; the session-specific range is used. Cloverbud workshops are announced for ages 5–9 but have no dates, hours or prices, so they are included in the overall age span but not assigned invented session dates. Level Up Your Social Game also includes a Thursday-evening potluck with no stated end time. The supplied PDF text states a $10 registration fee but does not specify whether it is per participant or per activity."
+      },
+      {
+        "name": "Adventure 4-H20 Camping Trip",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Youth travel to Bryson City for white-water rafting, two nights in teepees, campfire activities, games and crafts.",
+        "camp_page_url": "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+        "registration_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burke County Agricultural Building",
+            "address": "130 Ammons Drive",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "13:00",
+          "text": "1pm Wed-1pm Fri"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 130,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 10,
+            "unit": "other",
+            "label": "Summer Fun registration fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Please direct special accommodation requests to the Burke Extension office at least 10 days prior to the event."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "We’ve handled the logistics transportation, lodging, and all meals are fully provided."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We’ve handled the logistics transportation, lodging, and all meals are fully provided."
+        },
+        "sources": [
+          "https://burke.ces.ncsu.edu/news/4-h-summer-fun/",
+          "https://eit-wagpress-prod.s3.amazonaws.com/media/documents/2026_Summer_Fun_Sign-Up_1.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the article's May 29, 2026 publication and the 2026 sign-up form. The PDF's supplied text establishes departure and return at the Agricultural Building. The $10 Summer Fun registration fee is stated separately on the form; its charging frequency is not specified."
+      }
+    ]
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "provider": {
+    "key": "oak-grove-baptist-church-of-landrum",
+    "name": "Oak Grove Baptist Church of Landrum",
+    "urls": ["https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00"],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:56.461Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "995e8cfc7e35c6b582c73d2f16311db1add04e5e4d5383f29a3b502ec3d8c0e9",
+  "response": {
+    "searches": [
+      "site:oglandrum.com VBS 2026 2027",
+      "site:oglandrum.com/event-details/vbs-2026",
+      "open https://www.oglandrum.com/event-details/vbs-2026-06-02-18-00"
+    ],
+    "usage": {
+      "inputTokens": 14939,
+      "cachedInputTokens": 8223,
+      "outputTokens": 919,
+      "reasoningTokens": 241
+    },
+    "status": "completed",
+    "ms": 24638,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00",
+      "chars": 727,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.oglandrum.com/",
+      "chars": 891,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Grove Baptist Church of Landrum",
+    "website_url": "https://www.oglandrum.com/",
+    "notes": "No 2027 summer program information was found. The VBS details page and events page returned no readable text. Only June 1 and June 2, 2026 were confirmed; these may not represent the full VBS schedule.",
+    "excluded": [
+      {
+        "name": "Fall Festival",
+        "reason": "Outside summer and described as an event for children and the whole family."
+      },
+      {
+        "name": "Walking with Jesus",
+        "reason": "Recurring ladies' walking and Bible study group, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Senior Outing",
+        "reason": "Adult-only outing for ages 55 and older."
+      },
+      {
+        "name": "GriefShare",
+        "reason": "Recurring bereavement support group, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend an evening Vacation Bible School at Oak Grove Baptist Church.",
+        "camp_page_url": "https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Oak Grove Baptist Church",
+            "address": "826 Oak Grove Road",
+            "town": "Landrum",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.oglandrum.com/event-details/vbs-2026-06-01-18-00",
+          "https://www.oglandrum.com/event-details/vbs-2026-06-02-18-00",
+          "https://www.oglandrum.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 1 is stated in the supplied official page text; June 2 and its hours are stated in an official search result only. Verify the full VBS date range, eligible ages, activities and registration destination with the church. The linked /vbs page returned no readable content; dates beyond June 2 could not be confirmed."
+      }
+    ]
+  }
+}

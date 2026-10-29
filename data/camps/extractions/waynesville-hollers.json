@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "waynesville-hollers",
+    "name": "Waynesville Hollers",
+    "urls": [
+      "https://www.waynesvillehollers.com/news/2026-summer-camp",
+      "https://www.waynesvillehollers.com/"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:22.034Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cb4a68e1c606046bf4b6d1796287d67bf545fd3d089eb0f13f9f2207ce9fbdb5",
+  "response": {
+    "searches": [
+      "site:waynesvillehollers.com camp 2027",
+      "site:ths.haywood.k12.nc.us \"2238\"",
+      "open https://forms.gle/tpFQQDrTyPh2TjYBA"
+    ],
+    "usage": {
+      "inputTokens": 18340,
+      "cachedInputTokens": 8223,
+      "outputTokens": 987,
+      "reasoningTokens": 217
+    },
+    "status": "completed",
+    "ms": 46407,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.waynesvillehollers.com/news/2026-summer-camp",
+      "chars": 2392,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillehollers.com/",
+      "chars": 2886,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.waynesvillehollers.com/stats",
+      "chars": 2272,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Waynesville Hollers",
+    "website_url": "https://www.waynesvillehollers.com/",
+    "notes": "No 2027 summer camp information found. The homepage's 2027 player applications concern the collegiate team, not youth camp. Camp details were available through indexed registration-platform text; direct opens returned no readable content.",
+    "excluded": [
+      {
+        "name": "2027 Player Applications",
+        "reason": "Applications to play on a collegiate summer baseball team, not a finite supervised youth camp."
+      },
+      {
+        "name": "Camp Night: Flying Pigs vs Hollers",
+        "reason": "A baseball spectator event, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Waynesville Hollers Summer Baseball Camp",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice baseball through drills, live gameplay, and instruction from current Waynesville Hollers players and coaches.",
+        "camp_page_url": "https://www.waynesvillehollers.com/news/2026-summer-camp",
+        "registration_url": "https://www.playnsports.com/event/waynesville-hollers-summer-camp-june/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Tuscola High School Field",
+            "address": "564 Tuscola School Rd",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9:00 am - 12:00 pm | Check in 8:30 am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.waynesvillehollers.com/news/2026-summer-camp",
+          "https://www.playnsports.com/event/waynesville-hollers-summer-camp-june/",
+          "https://ths.haywood.k12.nc.us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the actual drop-off location: the registration platform names Tuscola High School Field but prints 2238 Asheville Rd, which school materials identify as Junaluska Elementary School. The address used here is Tuscola High School's own published location, 564 Tuscola School Rd. Dates, ages, hours and price came from indexed registration-platform text; direct opening returned no readable content. The registration text omits the year beside June 22–24; 2026 is taken from the provider's linked 2026 Summer Camp announcement. The platform lists Food and Drinks among included items but does not explicitly promise lunch."
+      }
+    ]
+  }
+}

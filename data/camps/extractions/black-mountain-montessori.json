@@ -1,0 +1,185 @@
+{
+  "provider": {
+    "key": "black-mountain-montessori",
+    "name": "Black Mountain Montessori",
+    "urls": ["https://www.bmtmont.org/summer-camps"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:53:03.793Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b39dc906ab9ead5f5b017b5041e08e4f971ecc50b5963a53fabfcf057d7be295",
+  "response": {
+    "searches": ["site:bmtmont.org \"summer\" \"2027\""],
+    "usage": {
+      "inputTokens": 15210,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1190,
+      "reasoningTokens": 51
+    },
+    "status": "completed",
+    "ms": 27000,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bmtmont.org/summer-camps",
+      "chars": 2858,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bmtmont.org/tuition-and-fees",
+      "chars": 3952,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bmtmont.org/",
+      "chars": 5003,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Black Mountain Montessori",
+    "website_url": "https://www.bmtmont.org/",
+    "notes": "No summer 2027 information found. Dates, rates and hours below are for summer 2026. School-year financial aid information was not applied to summer camp. Before & After Camp Care is included as extended care, not a separate program.",
+    "excluded": [
+      {
+        "name": "Stepping Stones",
+        "reason": "School-year preschool program, not a finite summer camp."
+      },
+      {
+        "name": "Preschool-Kindergarten",
+        "reason": "School-year education, not a summer camp."
+      },
+      {
+        "name": "Elementary Grades 1-6",
+        "reason": "School-year education, not a summer camp."
+      },
+      {
+        "name": "Before & After School Care",
+        "reason": "School-year childcare, distinct from summer camp extended care."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Montessori Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in weekly themed activities, art, water play, music and outdoor play. Teachers lead activities and the camp hosts special visitors.",
+        "camp_page_url": "https://www.bmtmont.org/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Black Mountain Montessori",
+            "address": "101 Carver Ave",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "Full Day Camp: 9:00am-3:00pm. Half Day Camp: 9:00am-12:30pm."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:00",
+          "late_pickup_end": "17:00",
+          "cost_text": "Before Camp Care: $7 per day, 8:00-9:00 am. After Camp Care: $18 per day, 3:00-5:00 pm."
+        },
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Full Day Camp",
+            "year": 2026
+          },
+          {
+            "amount": 250,
+            "unit": "week",
+            "label": "Half Day Camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week One",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week Two",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week Three",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week Four",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-01",
+          "time": null,
+          "text": "Summer Camp registration begins February 2026.",
+          "url": "https://www.bmtmont.org/summer-camps"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.bmtmont.org/summer-camps", "https://www.bmtmont.org/"],
+        "confidence": "medium",
+        "review_notes": "The last-year registration date represents February 2026 at month precision, not a stated February 1 opening. The camp page says registration begins the first week in February for currently enrolled families, with community registration for remaining spots in March; no exact opening day is given."
+      }
+    ]
+  }
+}

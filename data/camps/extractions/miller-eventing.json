@@ -1,0 +1,135 @@
+{
+  "provider": {
+    "key": "miller-eventing",
+    "name": "Miller Eventing",
+    "urls": [
+      "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+      "https://www.millereventing.com/"
+    ],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:06:24.030Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f3850ecf52936ed3a5dfc68408c37e9f343a2fc57029b6ec596b45a0009056c0",
+  "response": {
+    "searches": [
+      "site.millereventing.com summer camp 2027 overnight",
+      "open https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027"
+    ],
+    "usage": {
+      "inputTokens": 15778,
+      "cachedInputTokens": 8223,
+      "outputTokens": 963,
+      "reasoningTokens": 125
+    },
+    "status": "completed",
+    "ms": 26927,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+      "chars": 1433,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/",
+      "chars": 3710,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp",
+      "chars": 1450,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.millereventing.com/post/master-eventing-skills-at-our-summer-camp",
+      "chars": 6582,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Miller Eventing",
+    "website_url": "https://www.millereventing.com/",
+    "notes": "The dedicated event page posts July 7–11, 2027; the homepage still advertises the 2026 event. The 2027 page currently says registration is closed without an opening date. Youth participation is supported by the provider's blog, but numerical eligibility limits and overnight arrangements are not stated.",
+    "excluded": [
+      {
+        "name": "Lessons",
+        "reason": "Ongoing riding lessons, not a finite summer program."
+      },
+      {
+        "name": "Boarding at Miller Eventing",
+        "reason": "Ongoing horse boarding, not a supervised youth summer program."
+      },
+      {
+        "name": "Training",
+        "reason": "Ongoing training service, not a finite youth summer program."
+      },
+      {
+        "name": "Online Equine Coaching",
+        "reason": "Ongoing coaching service, not a finite summer program."
+      },
+      {
+        "name": "Clinics",
+        "reason": "General service listing without a specific summer youth clinic or dates."
+      },
+      {
+        "name": "Judging",
+        "reason": "Professional service, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Miller Eventing Summer Camp",
+        "type": "clinic",
+        "categories": ["horses", "sports"],
+        "description": "Riders practice dressage, cross-country and stadium jumping. Activities also include trail riding, horse-care workshops and group activities.",
+        "camp_page_url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+        "registration_url": "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-07",
+          "end": "2027-07-11",
+          "text": "Jul 07, 2027, 5:00 PM – Jul 11, 2027, 1:00 PM"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Foothills Equestrian Nature Center",
+            "address": "3381 Hunting Country Road",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.millereventing.com/event-details/miller-eventing-summer-camp-2027",
+          "https://www.millereventing.com/post/master-eventing-skills-at-our-summer-camp",
+          "https://www.millereventing.com/",
+          "https://fence.org/wp-content/uploads/2026/07/Trail-Brochure-NEW.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the camp format and youth eligibility with the provider: the pages describe all ages and include a teenage camper testimonial, but do not state age limits or whether overnight accommodation is provided. Classified as a riding clinic rather than assuming residential supervision. Event start and end times are not daily camp hours. The homepage's 2026 listing is stale relative to the dedicated 2027 page."
+      }
+    ]
+  }
+}

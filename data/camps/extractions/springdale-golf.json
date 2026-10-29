@@ -1,0 +1,122 @@
+{
+  "provider": {
+    "key": "springdale-golf",
+    "name": "Springdale Golf",
+    "urls": ["https://www.springdalegolfnc.com/nc-junior-golf-tournaments"],
+    "area": "Canton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:56.636Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d4495876dded0d7e5d9d1582d9b064fe2e6da456755cd1fabd14b1bd439df4b7",
+  "response": {
+    "searches": ["site.springdalegolfnc.com junior camp 2027 2026"],
+    "usage": {
+      "inputTokens": 17224,
+      "cachedInputTokens": 8223,
+      "outputTokens": 832,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 22559,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+      "chars": 3901,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/springdale-golf-club-membership-cost",
+      "chars": 5372,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/faq",
+      "chars": 3487,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.springdalegolfnc.com/",
+      "chars": 6617,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Springdale Golf",
+    "website_url": "https://www.springdalegolfnc.com/",
+    "notes": "The junior golf page says to stay tuned for 2027 dates. No dated camp sessions, age limits, or registration opening dates were found. Registration is by calling 828-235-8451, extension 1, or emailing ashley@springdalegolf.com.",
+    "excluded": [
+      {
+        "name": "PGA Junior League",
+        "reason": "A youth golf league, not a finite summer camp or clinic."
+      },
+      {
+        "name": "Youth on Course Partnership",
+        "reason": "Subsidized golf rounds rather than a supervised summer camp."
+      },
+      {
+        "name": "Golf Lessons",
+        "reason": "Ongoing golf instruction, not identified as a finite summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Golf Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Campers practice chipping, putting, bunker shots, and full swings through instruction, drills, and contests. Each session includes golf etiquette and sportsmanship lessons, with swimming pool time after the final clinic.",
+        "camp_page_url": "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "STAY TUNED FOR 2027 DATES"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Springdale Resort",
+            "address": "190 Golfwatch Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Daily Camp Hours are 9 AM—12 Noon Each Day; sessions run Monday–Wednesday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "session",
+            "label": "Per child; three-day session",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.springdalegolfnc.com/nc-junior-golf-tournaments",
+          "https://www.springdalegolfnc.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page announces forthcoming 2027 dates but leaves the five-session, Monday–Wednesday schedule, hours, and $150 fee without an explicit season year. The fee is retained as a 2026 fallback, not a confirmed 2027 price; verify its year and whether the format and hours apply to 2027. No individual session dates are listed."
+      }
+    ]
+  }
+}

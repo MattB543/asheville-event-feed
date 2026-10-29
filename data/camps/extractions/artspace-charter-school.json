@@ -1,0 +1,130 @@
+{
+  "provider": {
+    "key": "artspace-charter-school",
+    "name": "ArtSpace Charter School",
+    "urls": ["https://www.artspacecharter.org/", "https://www.artspacecharter.org/?page_id=2880"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:36:14.655Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d716f73bbe84b38597372b489e7be8fa7ba42dff433d0a65b0c81b109418d4e1",
+  "response": {
+    "searches": [
+      "site:artspacecharter.org \"summer\" \"2026\"",
+      "open https://www.worthamarts.org/education/summer-camps/",
+      "site:worthamarts.org 2026 camp June July \"$\"",
+      "open https://www.worthamarts.org/education/summer-camps/faq/"
+    ],
+    "usage": {
+      "inputTokens": 30156,
+      "cachedInputTokens": 8223,
+      "outputTokens": 801,
+      "reasoningTokens": 185
+    },
+    "status": "completed",
+    "ms": 33209,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.artspacecharter.org/",
+      "chars": 3650,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artspacecharter.org/?page_id=2880",
+      "chars": 3650,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artspacecharter.org/apps/pages/index.jsp?uREC_ID=2014108&type=d",
+      "chars": 4538,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.artspacecharter.org/apps/pages/index.jsp?uREC_ID=2014108&type=d&pREC_ID=2099600",
+      "chars": 4538,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "ArtSpace Charter School",
+    "website_url": "https://www.artspacecharter.org/",
+    "notes": "No 2027 summer information found. Official search results identify a 2026 partnership with Wortham Center for Creative Arts Camps; this is included as a jointly presented program, not a camp meeting at ArtSpace. The fetched legacy URL now returns the school homepage. Wortham's readable camp page did not expose individual session dates or prices; those remain unknown.",
+    "excluded": [
+      {
+        "name": "K-8 arts-integrated education",
+        "reason": "School-year education, not a finite summer camp."
+      },
+      {
+        "name": "Encore! After School",
+        "reason": "School-year after-school program, not summer-only childcare."
+      },
+      {
+        "name": "Spark Learning Center",
+        "reason": "Hybrid middle school education, not a finite summer program."
+      },
+      {
+        "name": "Community Picnic",
+        "reason": "Family community gathering, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Creative Arts Camps",
+        "type": "day",
+        "categories": ["arts", "music", "theater", "dance"],
+        "description": "Campers participate in theater, music, visual arts, movement and creative storytelling activities. The program is presented by Wortham Center in partnership with ArtSpace Charter School.",
+        "camp_page_url": "https://www.worthamarts.org/education/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Wortham Center for the Performing Arts",
+            "address": "18 Biltmore Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Campers should bring a water bottle, a snack that does not need to be refrigerated, a lunch that does not need to be refrigerated, and any materials that have been assigned during their camp experience."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.artspacecharter.org/?page_id=2880",
+          "https://www.worthamarts.org/education/summer-camps/",
+          "https://www.worthamarts.org/education/summer-camps/faq/",
+          "https://www.worthamarts.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "ArtSpace's official search snippet describes four weeklong sessions during June and July 2026, but individual dates and prices were not exposed in the readable Wortham page. Check the camp page's registration widgets or graphics for those details. Drop-off is behind Wortham on S. Market Street; the address given is Wortham's published venue address. The page retains 'registration open now' for the past 2026 season, so no current availability is assigned."
+      }
+    ]
+  }
+}

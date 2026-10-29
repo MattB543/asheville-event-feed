@@ -1,0 +1,151 @@
+{
+  "provider": {
+    "key": "antiochian-orthodox-christian-diocese-of-miami-and-the-southeast",
+    "name": "Antiochian Orthodox Christian Diocese of Miami and the Southeast",
+    "urls": ["https://domse.org/camp-st-thekla/"],
+    "area": "Cleveland, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:05.632Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ec4136a65c2666df81a3ce9461bc74664a2fd25c15e4e5c04145600245b3cdd1",
+  "response": {
+    "searches": [
+      "Camp St Thekla 2026 2027 summer registration",
+      "open https://campstthekla.org/",
+      "site.domse.org \"2027\" \"Session 2\"",
+      "\"Camp St. Thekla\" \"2026\" \"9\" \"17\""
+    ],
+    "usage": {
+      "inputTokens": 29939,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1272,
+      "reasoningTokens": 325
+    },
+    "status": "completed",
+    "ms": 42077,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://domse.org/camp-st-thekla/",
+      "chars": 3261,
+      "method": "fetch"
+    },
+    {
+      "url": "https://domse.org/0-domse-pay-now/",
+      "chars": 3215,
+      "method": "fetch"
+    },
+    {
+      "url": "https://domse.org/",
+      "chars": 2161,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Antiochian Orthodox Christian Diocese of Miami and the Southeast",
+    "website_url": "https://domse.org/",
+    "notes": "Official diocesan event listings publish both summer 2027 sessions. The camp's separate website was blocked by robots.txt, and opened diocesan event pages returned no readable text; their official search-indexed text supplied the dates. No 2027 registration opening, prices or eligibility details were found.",
+    "excluded": [
+      {
+        "name": "DOMSE Camp St. Thekla Winter Camp 2027",
+        "reason": "February 12–15, 2027; outside summer."
+      },
+      {
+        "name": "2026 Camp St. Thekla Staff Application",
+        "reason": "Adult staff recruitment, not a youth camp program."
+      },
+      {
+        "name": "DOMSE Winter Retreat 2027",
+        "reason": "January retreat outside summer."
+      },
+      {
+        "name": "DOMSE Fall Retreat 2027",
+        "reason": "September retreat outside summer."
+      },
+      {
+        "name": "DOMSE Clergy Retreat 2027",
+        "reason": "Clergy retreat, not a supervised youth summer program."
+      },
+      {
+        "name": "DOMSE 2027 Parish Life Conference (PLC)",
+        "reason": "General parish conference rather than a finite supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp St. Thekla",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor"],
+        "description": "Campers experience Orthodox Christian faith and fellowship alongside outdoor activities including hiking, swimming, canoeing, climbing, zip-lining and archery.",
+        "camp_page_url": "https://domse.org/camp-st-thekla/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://domse.org/camp-st-thekla/",
+          "https://domse.org/events/",
+          "https://domse.org/event/domse-camp-st-thekla-summer-camp-2027-session-1/",
+          "https://domse.org/event/domse-camp-st-thekla-summer-camp-2027-session-2/",
+          "https://asburyhills.org/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify the 2027 dates on the diocesan event pages: official search-indexed text states June 27–July 3 and July 4–10, but opening the pages returned no readable text. The separate camp website could not be read. Confirm overnight format and eligibility there when accessible; ages 9–17 appeared only in an external Orthodox camping directory and were not entered."
+      }
+    ]
+  }
+}

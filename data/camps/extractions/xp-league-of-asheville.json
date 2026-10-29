@@ -1,0 +1,269 @@
+{
+  "provider": {
+    "key": "xp-league-of-asheville",
+    "name": "XP League of Asheville",
+    "urls": [
+      "https://www.xpleague.com/north-carolina-asheville/camps/",
+      "https://asheville.xpl.gg/camps1"
+    ],
+    "area": "Arden, NC",
+    "discovered_by": ["news828", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:06.850Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b2ff7dead754a28b3b38be108010c54ec6850cb77cc4dac4f8706a3560bc6638",
+  "response": {
+    "searches": ["XP League Asheville summer camps 2026 2027"],
+    "usage": {
+      "inputTokens": 20171,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1862,
+      "reasoningTokens": 125
+    },
+    "status": "completed",
+    "ms": 41044,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.xpleague.com/north-carolina-asheville/camps/",
+      "chars": 6500,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asheville.xpl.gg/camps1",
+      "chars": 6003,
+      "method": "fetch"
+    },
+    {
+      "url": "https://xpleague.com/north-carolina-asheville/team-schedule/",
+      "chars": 2776,
+      "method": "fetch"
+    },
+    {
+      "url": "https://xpleague.com/north-carolina-asheville/faqs/",
+      "chars": 8686,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.xpleague.com/",
+      "chars": 4599,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asheville.xpl.gg/",
+      "chars": 5431,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "XP League of Asheville",
+    "website_url": "https://xpleague.com/north-carolina-asheville/",
+    "notes": "No official 2027 dates or registration milestones were found. The legacy camps1 page lists June 17–21 through August 12–16 without a year; these appear to be an older schedule, not verified 2026 information. Its dates, prices and hours have therefore not been assigned to 2026 or 2027. Content Creation for YouTube & Twitch appears on that legacy page but not on the newer camps page; confirm whether it remains offered. No 2027 program list was found.",
+    "excluded": [
+      {
+        "name": "Year-Round Esports",
+        "reason": "Year-round competitive league with team seasons, practices and matches, rather than a finite summer camp."
+      },
+      {
+        "name": "After-School",
+        "reason": "After-school programming, not an identified summer-only offering."
+      },
+      {
+        "name": "Roblox Club",
+        "reason": "Ongoing club rather than an identified finite summer program."
+      },
+      {
+        "name": "Parents Night Out",
+        "reason": "Recurring event programming with no identified summer-only session."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Level Up Youth Esports Camp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers play games in organized, monitored sessions with coaches. Activities focus on gameplay skills, teamwork and community building.",
+        "camp_page_url": "https://xpleague.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "XP League Asheville",
+            "address": "15 Loop Road, Suite 2B",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://xpleague.com/north-carolina-asheville/camps/",
+          "https://xpleague.com/north-carolina-asheville/faqs/",
+          "https://asheville.xpl.gg/camps1",
+          "https://asheville.xpl.gg/home1"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Minecraft Redstone Engineering",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers explore Minecraft Redstone mechanics and their applications to electrical engineering. They build contraptions and work with circuitry through hands-on projects.",
+        "camp_page_url": "https://xpleague.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "XP League Asheville",
+            "address": "15 Loop Road, Suite 2B",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://xpleague.com/north-carolina-asheville/camps/",
+          "https://xpleague.com/north-carolina-asheville/faqs/",
+          "https://asheville.xpl.gg/camps1",
+          "https://asheville.xpl.gg/home1"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Game Design with Fortnite Creative",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers learn programming concepts and game design through hands-on projects. They create puzzle games using conditional statements and tower escape challenges using functions.",
+        "camp_page_url": "https://xpleague.com/north-carolina-asheville/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "XP League Asheville",
+            "address": "15 Loop Road, Suite 2B",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://xpleague.com/north-carolina-asheville/camps/",
+          "https://xpleague.com/north-carolina-asheville/faqs/",
+          "https://asheville.xpl.gg/camps1",
+          "https://asheville.xpl.gg/home1"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Content Creation for YouTube & Twitch",
+        "type": "day",
+        "categories": ["stem", "arts"],
+        "description": "Campers learn to record and edit video, create stream overlays and write scripts for their video ideas.",
+        "camp_page_url": "https://asheville.xpl.gg/camps1",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "XP League Asheville",
+            "address": "15 Loop Road, Suite 2B",
+            "town": "Arden",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://asheville.xpl.gg/camps1", "https://asheville.xpl.gg/home1"],
+        "confidence": "medium",
+        "review_notes": "Confirm that this program remains offered: it appears on the undated legacy camps1 page but is absent from the newer official camps page. The legacy August 5–9 session and pricing cannot be verified as 2026 or 2027."
+      }
+    ]
+  }
+}

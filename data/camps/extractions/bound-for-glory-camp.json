@@ -1,0 +1,147 @@
+{
+  "provider": {
+    "key": "bound-for-glory-camp",
+    "name": "Bound for Glory Camp",
+    "urls": ["https://bfgcamp.org/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:11.266Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "022f8743b2aea103e7f0d9f35d0ea4466b1b1bbfde3cb4db724297d9eb0988a3",
+  "response": {
+    "searches": [
+      "site:bfgcamp.org 2027",
+      "\"Bound for Glory Camp\" \"address\"",
+      "\"Bound for Glory\" camp \"road\" Brevard"
+    ],
+    "usage": {
+      "inputTokens": 30438,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1044,
+      "reasoningTokens": 194
+    },
+    "status": "completed",
+    "ms": 31919,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bfgcamp.org/",
+      "chars": 5921,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2025/12/BFG-NL-Final-11-19.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2024/12/BFG-Newsletter-11-20.pdf",
+      "chars": 7524,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2023/11/Newsletter-11-20.pdf",
+      "chars": 10785,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2022/11/BFG-Newsletter.pdf",
+      "chars": 7136,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2021/09/2020-Annual-Newsletter-_-bound-for-glory.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2021/09/2019-Annual-Newsletter-_-bound-for-glory.pdf",
+      "chars": 0,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bfgcamp.org/wp-content/uploads/2021/09/2018-Annual-Newsletter-_-bound-for-glory.pdf",
+      "chars": 0,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bound for Glory Camp",
+    "website_url": "https://bfgcamp.org/",
+    "notes": "No summer 2027 dates or registration milestones were found. The homepage and application page publish July 6–31, 2026; the parents page still displays 2025 dates. The contact page returned no readable text. Searches did not locate a published campus street address; the website's PO Box is a mailing address, not a drop-off location. Optional Friday sleepovers are part of the day camp, not a separately advertised overnight program.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Bound for Glory Camp",
+        "type": "day",
+        "categories": ["academic", "nature_outdoor", "faith_based"],
+        "description": "Campers receive individualized literacy tutoring, writing instruction and guided oral reading, alongside outdoor games, enrichment activities and Christian devotions. The four-week day camp includes optional Friday sleepovers and Saturday adventure excursions.",
+        "camp_page_url": "https://bfgcamp.org/",
+        "registration_url": "https://bfgcamp.org/apply/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bound For Glory's Campus",
+            "address": null,
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "17:30",
+          "text": "Monday–Friday, 8:30–5:30. The daily schedule lists arrival from 7:45–8:30 and parent pickup from 5:30–5:45."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free for qualifying campers",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We provide our four-week camp at zero costs to our campers’ families."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Bound for Glory Camp will provide two nutritious meals (breakfast and lunch) and a healthy afternoon snack."
+        },
+        "transportation": null,
+        "sources": [
+          "https://bfgcamp.org/",
+          "https://bfgcamp.org/apply/",
+          "https://bfgcamp.org/info/a-day-at-camp/",
+          "https://bfgcamp.org/educate/",
+          "https://bfgcamp.org/our-home/",
+          "https://bfgcamp.org/donate/",
+          "https://bfgcamp.org/author/johndavidclark/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Obtain the campus street address from the provider. The homepage says overnight excursions occur each Friday, while the A Day At Camp page specifies the first three Fridays, with Saturday pickup at 3:00pm. Daily hours are 8:30–5:30 on the homepage; the daily schedule additionally permits arrival at 7:45 and pickup through 5:45. Eligibility requires Transylvania County residency, age 9–12 at camp onset, eligibility for NC free or reduced-price lunch, and reading or writing scores at least one year below grade level. Application does not guarantee acceptance."
+      }
+    ]
+  }
+}

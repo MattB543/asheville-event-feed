@@ -1,0 +1,1159 @@
+{
+  "provider": {
+    "key": "asbury-hills-camp-and-retreat-center",
+    "name": "Asbury Hills Camp and Retreat Center",
+    "urls": ["https://asburyhills.org/summer-camp/"],
+    "area": "Cleveland, SC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:10:52.983Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e7e80fae77ec854fb43c163d413cb51c38b5105adca9fbca0dd3684c1ebf3430",
+  "response": {
+    "searches": [
+      "open https://asburyhills.org/summer-camp/",
+      "site:asburyhills.org \"2027\" \"Schedule\"",
+      "site:asburyhills.org \"2027\" filetype:pdf",
+      "site:asburyhills.org/camps/altitude-for-junior-high \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 36635,
+      "cachedInputTokens": 8223,
+      "outputTokens": 7628,
+      "reasoningTokens": 353
+    },
+    "status": "completed",
+    "ms": 165512,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://asburyhills.org/summer-camp/",
+      "chars": 14856,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/wp-content/uploads/2020/12/Elem-Core.pdf",
+      "chars": 1660,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/wp-content/uploads/2020/12/Jr-High-Core.pdf",
+      "chars": 1713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/camps/family-camp/",
+      "chars": 2482,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/capital-campaign/",
+      "chars": 2961,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/camps/corefor-elementary-students/",
+      "chars": 2385,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/camps/drenched-for-elementary-students/",
+      "chars": 2346,
+      "method": "fetch"
+    },
+    {
+      "url": "https://asburyhills.org/camps/express-for-elementary-students/",
+      "chars": 2286,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asbury Hills Camp and Retreat Center",
+    "website_url": "https://asburyhills.org/",
+    "notes": "The official summer page lists 2027 programs and announces registration opening October 17, interpreted as October 17, 2026 for summer 2027. It says the 2027 schedule is here, but the schedule was not readable through the web tool and searches did not locate a readable 2027 schedule PDF. Individual program pages still describe 2026 dates and prices, retained below without projecting them forward. Age bands are grouped as rows of the named programs. Registration platform links could not be recovered.",
+    "excluded": [
+      {
+        "name": "Family Camp",
+        "reason": "Family-only weekend program, rather than a supervised youth camp."
+      },
+      {
+        "name": "Hands and Feet: Diakonos",
+        "reason": "Youth service retreat takes place March 12–14, 2027, outside summer."
+      },
+      {
+        "name": "Summer Camp Staff",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Open House",
+        "reason": "Public family event outside summer, not a supervised youth camp."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Fall event outside summer."
+      },
+      {
+        "name": "Group Retreats",
+        "reason": "Year-round custom group retreats, not a listed finite summer youth program."
+      },
+      {
+        "name": "Pastoral Retreats",
+        "reason": "Adult retreat offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "CORE",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based", "general"],
+        "description": "Campers participate in canoeing, creek hiking, climbing, water activities, worship and devotions. Older campers also have high-ropes activities and an overnight camping experience.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 715,
+            "unit": "session",
+            "label": "Elementary",
+            "year": 2026
+          },
+          {
+            "amount": 745,
+            "unit": "session",
+            "label": "Junior High",
+            "year": 2026
+          },
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Elementary",
+            "start": "2026-05-31",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-05-31",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-05-31",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/corefor-elementary-students/",
+          "https://asburyhills.org/camps/core-for-junior-high/",
+          "https://asburyhills.org/camps/core-for-senior-high/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the unreadable 2027 schedule linked from the summer page before publishing current dates or prices. Junior and Senior High details were read through official search results. The October registration announcement omits the calendar year; 2026 is inferred from the summer 2027 context."
+      },
+      {
+        "name": "DRENCHED",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers take part in swimming, canoeing, water slides and activities at the Drenched Lake. Junior High campers have an off-site tubing trip, and Senior High campers have an off-site whitewater rafting trip.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Elementary",
+            "year": 2026
+          },
+          {
+            "amount": 795,
+            "unit": "session",
+            "label": "Junior High",
+            "year": 2026
+          },
+          {
+            "amount": 845,
+            "unit": "session",
+            "label": "Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Elementary",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Elementary",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-06-14",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior High",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-06-07",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/drenched-for-elementary-students/",
+          "https://asburyhills.org/camps/drenched-for-junior-high/",
+          "https://asburyhills.org/camps/drenched-for-senior-high/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the unreadable 2027 schedule for current dates and prices. Older age-band dates and prices were read through official search results. The registration announcement omits the calendar year; 2026 is inferred."
+      },
+      {
+        "name": "EXPRESS",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "This two-night, three-day camp includes team building, creek hiking and arts and crafts.",
+        "camp_page_url": "https://asburyhills.org/camps/express-for-elementary-students/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 395,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-14",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-05",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-08",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/express-for-elementary-students/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the unreadable 2027 schedule; individual page still gives 2026 dates and pricing. Registration calendar year 2026 is inferred from the summer 2027 announcement."
+      },
+      {
+        "name": "ALTITUDE",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "faith_based"],
+        "description": "Campers climb the Alpine Tower, use canopy zip lines and the Giant Swing, and spend a night in a tree house. The program also includes climbing excursions.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-05",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 805,
+            "unit": "session",
+            "label": "Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Senior High",
+            "start": "2026-07-05",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/altitude-for-senior-high/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Junior High is listed on the 2027 overview, but its dates and price were not recovered. Season span only covers the recovered Senior High 2026 session, read through official search results. Check the 2027 schedule. Registration calendar year is inferred as 2026."
+      },
+      {
+        "name": "ENDEAVOR",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers participate in water activities, climbing and high ropes, group games and a late-night experience.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": "Junior High and Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior High",
+            "start": "2026-07-26",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-07-26",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/endeavor-for-junior-high/",
+          "https://asburyhills.org/camps/endeavor-for-senior-high/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and prices were read through official search results. Check the unreadable 2027 schedule for replacements. Registration calendar year 2026 is inferred."
+      },
+      {
+        "name": "EXPEDITION",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "This two-week camp combines on-site camp activities with off-site excursions, including rafting and a two-night primitive backpacking trip. Campers also participate in Christian faith activities.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-07",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1390,
+            "unit": "session",
+            "label": "Junior High",
+            "year": 2026
+          },
+          {
+            "amount": 1425,
+            "unit": "session",
+            "label": "Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior High",
+            "start": "2026-06-07",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-07-05",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/expedition-for-junior-high/",
+          "https://asburyhills.org/camps/expedition-for-senior-high/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and prices were read through official search results. Check the unreadable 2027 schedule for current details. Registration calendar year 2026 is inferred."
+      },
+      {
+        "name": "SEASIDE",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers visit the beach and aquarium, take a dolphin cruise, and participate in group games, worship and devotions. Junior High programming includes guided kayaking, while Senior High programming includes crabbing.",
+        "camp_page_url": "https://asburyhills.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-21",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Sea Islands Camp & Retreat Center",
+            "address": "3429 Camp Care Road",
+            "town": "Johns Island",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 780,
+            "unit": "session",
+            "label": "Junior High and Senior High",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Junior High",
+            "start": "2026-06-21",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Senior High",
+            "start": "2026-06-28",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-17",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 Opens October 17!",
+            "url": "https://asburyhills.org/summer-camp/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/seaside-for-junior-high/",
+          "https://asburyhills.org/camps/seaside-for-senior-high/",
+          "https://sccarm.org/sea-islands-camp-retreat-center-open-house/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "This program meets in Johns Island, not Cleveland. Confirm drop-off arrangements at Sea Islands. Dates, prices and venue address were read through official search results. Check the unreadable 2027 schedule. Registration calendar year 2026 is inferred."
+      },
+      {
+        "name": "Counselor-in-Training",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Campers spend a week learning Christian leadership skills and how camp staff work. Rising 11th and 12th graders may return for a volunteer second week; admission requires an application and interview.",
+        "camp_page_url": "https://asburyhills.org/camps/counselor-in-training/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-31",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Asbury Hills Camp and Retreat Center",
+            "address": "150 Asbury Drive",
+            "town": "Cleveland",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We truly see the value in the summer camp experience and encourage you to fill out our Camper Scholarship Application should you need financial assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00pm – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://asburyhills.org/summer-camp/",
+          "https://asburyhills.org/camps/counselor-in-training/",
+          "https://asburyhills.org/for-parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 training dates and price were read through official search results. Check the unreadable 2027 schedule and CIT application for current dates and admissions milestones. The general registration opening was not applied to this application-and-interview program."
+      }
+    ]
+  }
+}

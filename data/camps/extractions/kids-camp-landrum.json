@@ -1,0 +1,269 @@
+{
+  "provider": {
+    "key": "kids-camp-landrum",
+    "name": "Kids Camp Landrum",
+    "urls": [
+      "https://www.kidscamplandrum.com/summer-camp",
+      "https://www.kidscamplandrum.com/copy-of-summer-camp"
+    ],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:27:50.182Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c585a3e3d74ac9d9468ac3c1c0a641ba85a279e4ac439bf09b34833eb17aa0cd",
+  "response": {
+    "searches": [
+      "site:kidscamplandrum.com 2027 summer ages",
+      "open https://www.kidscamplandrum.com/faq"
+    ],
+    "usage": {
+      "inputTokens": 18183,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2036,
+      "reasoningTokens": 204
+    },
+    "status": "completed",
+    "ms": 38396,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.kidscamplandrum.com/summer-camp",
+      "chars": 911,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/copy-of-summer-camp",
+      "chars": 1444,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/copy-of-nbcc-home",
+      "chars": 892,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/copy-of-registration-edit",
+      "chars": 918,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/_files/ugd/cea9f8_8c019dcab03942a3929ac7e9bacfa2a1.pdf",
+      "chars": 928,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/_files/ugd/cea9f8_6e9bc25028724f43abe2f10bbb066daf.pdf",
+      "chars": 1953,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/_files/ugd/cea9f8_31f4cb8c32004874a6f23dcf31a96618.pdf",
+      "chars": 26639,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.kidscamplandrum.com/",
+      "chars": 2315,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Kids Camp Landrum",
+    "website_url": "https://www.kidscamplandrum.com/",
+    "notes": "No summer 2027 information was found. The 2026-2027 resources describe summer 2026, not summer 2027. The older summer-camp page still references summer 2025 and contains apparent template text about Camp NBCC in James Island; the current Landrum summer page and handbook were used instead. Web opens of the FAQ and old registration page returned no readable text.",
+    "excluded": [
+      {
+        "name": "After School Program",
+        "reason": "School-year after-school childcare, not a finite summer program."
+      },
+      {
+        "name": "Holiday Camps and Teacher Workdays",
+        "reason": "School-year holiday and teacher-workday programs outside summer."
+      },
+      {
+        "name": "Employment",
+        "reason": "Employment opportunities, not youth camp enrollment."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "faith_based"],
+        "description": "Campers participate in themed crafts, games, daily Bible devotions and field trips. Afternoon activities include sports, drama, movement, group games and wellness.",
+        "camp_page_url": "https://www.kidscamplandrum.com/copy-of-summer-camp",
+        "registration_url": "https://www.kidscamplandrum.com/copy-of-nbcc-home",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-05-26",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Landrum",
+            "address": "300 East Rutherford St",
+            "town": "Landrum",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "07:00",
+          "end": "18:00",
+          "text": "Monday-Friday 7:00am-6:00pm. Morning drop off is between 7:00am-9:00am; afternoon pick up is between 4:00pm-6:00pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 140,
+            "unit": "week",
+            "label": "Annual contract or summer-only contract",
+            "year": 2026
+          },
+          {
+            "amount": 75,
+            "unit": "other",
+            "label": "Non-refundable registration fee per camper",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2026-05-26",
+            "end": "2026-05-29",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Kids Camp Landrum does not offer hot lunch. In our all day programs, you will be required to send your child with a lunchbox and a water bottle. In our all day programs, a snack will be provided."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.kidscamplandrum.com/copy-of-summer-camp",
+          "https://www.kidscamplandrum.com/copy-of-nbcc-home",
+          "https://5bce0ce0-e782-4deb-ae7e-14702c245b95.filesusr.com/ugd/cea9f8_8c019dcab03942a3929ac7e9bacfa2a1.pdf",
+          "https://5bce0ce0-e782-4deb-ae7e-14702c245b95.filesusr.com/ugd/cea9f8_6e9bc25028724f43abe2f10bbb066daf.pdf",
+          "https://5bce0ce0-e782-4deb-ae7e-14702c245b95.filesusr.com/ugd/cea9f8_31f4cb8c32004874a6f23dcf31a96618.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The handbook says May 26-August 1, while the summer schedule ends Friday July 31; the season end follows the listed session rows. The schedule does not print a year in the supplied text; 2026 comes from the linking page's Summer Camp 2026 heading. Camp is closed June 29-July 3, so that closure is not an enrollment row. Confirm summer eligibility; K5-8th grade is stated only for after-school care and was not applied here. The registration page currently advertises after-school enrollment, so confirm the summer registration destination. Pricing includes a $10/week discount for each additional sibling and prorating for weeks shorter than five days."
+      }
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "love-chapel-christian-church-of-erwin",
+    "name": "Love Chapel Christian Church of Erwin",
+    "urls": ["https://www.lcccerwin.org/"],
+    "area": "Erwin, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.lcccerwin.org/"
+  },
+  "extractedAt": "2026-10-29T15:31:06.265Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:lcccerwin.org VBS 2026",
+      "\"Love Chapel\" \"Kingdom Quest\"",
+      "\"Kingdom Quest VBS\" \"Erwin\""
+    ],
+    "usage": {
+      "inputTokens": 21948,
+      "cachedInputTokens": 8223,
+      "outputTokens": 918,
+      "reasoningTokens": 294
+    },
+    "status": "completed",
+    "ms": 30325,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lcccerwin.org/",
+      "chars": 0,
+      "error": "fetch: fetch failed (certificate has expired); chrome-tls: fetch failed (certificate has expired); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.lcccerwin.org/\nCall log:\n\u001b[2m  - navigating to \"https://www.lcccerwin.org/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Love Chapel Christian Church of Erwin",
+    "website_url": "https://www.lcccerwin.org/",
+    "notes": "No summer 2027 information was found. The official website blocked direct access; official search snippets supplied the church address and weekly ministry information but not VBS details. Third-party listings identify Kingdom Quest VBS for June 8–11, 2026; those details require church confirmation. No official registration announcement was found.",
+    "excluded": [
+      {
+        "name": "Sunday Night Youth",
+        "reason": "Weekly youth ministry, not a finite summer program."
+      },
+      {
+        "name": "Sunday Night Club 25",
+        "reason": "Recurring weekly ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kingdom Quest VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School hosted by Love Chapel Christian Church.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-11",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Love Chapel Christian Church",
+            "address": "1415 Love Station Rd",
+            "town": "Erwin",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.lcccerwin.org/events/", "https://www.lcccerwin.org/worship/"],
+        "confidence": "low",
+        "review_notes": "Confirm the program name, dates, ages, daily hours and registration details with the church. Dates and program name were found only in third-party listings at https://allevents.in/erwin/kingdom-quest-vbs/200030033451937 and https://happeningnext.com/event/kingdom-quest-vbs-eid3a0dmpgpk5. Their 6 PM start and 8 PM end describe the overall event interval, so daily hours were left null. The official calendar and worship search snippets publish 1415 Love Station Rd; some third-party church directories instead list 1421 Love Station Rd. Official pages could not be opened because of robots.txt restrictions."
+      }
+    ]
+  }
+}

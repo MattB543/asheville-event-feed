@@ -1,0 +1,104 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-tryon",
+    "name": "First Baptist Church of Tryon",
+    "urls": [
+      "https://www.firstbaptisttryon.org/",
+      "https://www.firstbaptisttryon.org/weeklybulletin"
+    ],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:29:59.983Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "340a402267a044a3599cf49e57706a12c8e554ebe963c30bce9d03142732e2ad",
+  "response": {
+    "searches": [
+      "site:firstbaptisttryon.org \"2026\" \"camp\"",
+      "\"First Baptist\" \"Tryon\" \"VBS\" \"2026\"",
+      "\"firstbaptisttryon\" \"VBS\"",
+      "site:facebook.com/TryonFirstBaptist \"Rainforest\""
+    ],
+    "usage": {
+      "inputTokens": 27163,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1018,
+      "reasoningTokens": 377
+    },
+    "status": "completed",
+    "ms": 34450,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstbaptisttryon.org/",
+      "chars": 1519,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstbaptisttryon.org/weeklybulletin",
+      "chars": 12117,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Tryon",
+    "website_url": "https://www.firstbaptisttryon.org/",
+    "notes": "No 2027 summer information found. The official service page lists Vacation Bible School, but current dates and details could not be verified on official pages. A third-party event listing reports Rainforest Falls Vacation Bible School July 20–23, 2026 at the church; these dates require verification. The bulletin and children pages returned no readable content through the browser, so linked bulletin PDFs could not be inspected. The youth page mentions summer camp without identifying a specific offering, dates, format or location; no separate youth camp card was created.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious education, not a finite summer camp."
+      },
+      {
+        "name": "Youth",
+        "reason": "Regular school-year youth meetings are not summer camps; the general summer camp mention lacks enough detail to identify a separate program."
+      },
+      {
+        "name": "SEE (Sunday Evening Ekklesia)",
+        "reason": "Multigenerational gatherings held January through April and September through November, outside summer."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Childcare during regular Sunday School and worship, not summer-only childcare."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church lists Vacation Bible School among its ministries.",
+        "camp_page_url": "https://www.firstbaptisttryon.org/gallery-3",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.firstbaptisttryon.org/gallery-3"],
+        "confidence": "low",
+        "review_notes": "The official page names VBS but provides no season-specific details. Verify the third-party Rainforest Falls listing for July 20–23, 2026, including hours, eligibility and meeting location. The church publishes its address as 125 Pacolet Street, Tryon, NC 28782, but an official current VBS source confirming that drop-off location was not found. Do not reuse ages or hours from the indexed 2019 Facebook announcement."
+      }
+    ]
+  }
+}

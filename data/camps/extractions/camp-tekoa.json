@@ -1,0 +1,2525 @@
+{
+  "provider": {
+    "key": "camp-tekoa",
+    "name": "Camp Tekoa",
+    "urls": [
+      "https://camptekoa.org/adventure-camps",
+      "https://camptekoa.org/overnight-camps",
+      "https://camptekoa.org/camps/dates-and-rates-2026",
+      "https://camptekoa.org/future-families/summer-camps",
+      "https://camptekoa.org/day-camps",
+      "https://camptekoa.org/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:27.538Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e6970bffa25dcd7f26aa8b2f14d86113181cfd2853dd008a34d531f2e6f18f7b",
+  "response": {
+    "searches": [
+      "open https://camptekoa.org/future-families/2027-dates-rates",
+      "site:camptekoa.org \"2027\" \"file\"",
+      "site:camptekoa.org \"Mini Camp\" \"Description\"",
+      "site:camptekoa.org \"Journey\" \"Description\""
+    ],
+    "usage": {
+      "inputTokens": 37724,
+      "cachedInputTokens": 8223,
+      "outputTokens": 16443,
+      "reasoningTokens": 468
+    },
+    "status": "completed",
+    "ms": 290058,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://camptekoa.org/adventure-camps",
+      "chars": 2562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/overnight-camps",
+      "chars": 2325,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/camps/dates-and-rates-2026",
+      "chars": 1555,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/future-families/summer-camps",
+      "chars": 1704,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/future-families/2027-dates-rates",
+      "chars": 1536,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campsself.active.com/CampTekoaUMC?loginRequired=1",
+      "chars": 354,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/register/register-now",
+      "chars": 2340,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camptekoa.org/forms/dates-and-rates/158-dates-and-rates-sheet-2026/file",
+      "chars": 2771,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Tekoa",
+    "website_url": "https://camptekoa.org/",
+    "notes": "2027 dates and prices were found in the official 2027 Dates & Rates PDF through search indexing; direct opens returned no readable content. Registration is announced for November 2026, with the exact date still pending. Program details not updated for 2027 are taken from current program pages or the 2026 brochure. Leap and MS TKO Starter appear in older materials or navigation but are absent from the 2027 schedule and are not included. Middle- and high-school versions of Cascade, Survivor and Water Adventure are grouped as age-band rows. Mini Camp weeks are shown as the PDF lists them, not split into unconfirmed half-week sessions.",
+    "excluded": [
+      {
+        "name": "Barnabas Camp",
+        "reason": "Special-needs camp for adults ages 18 and older."
+      },
+      {
+        "name": "Tekoa Afterschool",
+        "reason": "School-year childcare rather than a finite summer program."
+      },
+      {
+        "name": "Break Camp",
+        "reason": "School-break programming outside summer."
+      },
+      {
+        "name": "Work at Camp",
+        "reason": "Employment program."
+      },
+      {
+        "name": "Tekoa Retreats",
+        "reason": "Retreat offerings are not identified as supervised youth summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Elementary Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers swim, boat, use the zipline and slip-n-slide, and make arts and crafts.",
+        "camp_page_url": "https://camptekoa.org/day-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 8
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:30",
+          "text": "Monday – Friday, 8:00am – 4:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 425,
+            "unit": "week",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/day-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results. Completed-kindergarten requirement is from the 2026 brochure."
+      },
+      {
+        "name": "Adventure Day Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers swim, boat, play water and field games, and use the lake zipline and slip-n-slide. The program includes weekly adventure trips.",
+        "camp_page_url": "https://camptekoa.org/day-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "16:30",
+          "text": "Monday – Friday, 8:00am – 4:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 450,
+            "unit": "week",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/day-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "Mini Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Short overnight sessions include arts and crafts, swimming, the lake zipline, and campfires.",
+        "camp_page_url": "https://camptekoa.org/overnight-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 500,
+            "unit": "session",
+            "label": "Mini Camp",
+            "year": 2027
+          },
+          {
+            "amount": 500,
+            "unit": "session",
+            "label": "Older Mini Camp",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Mini",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Mini",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Mini",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Older Mini",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Mini",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Mini",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Older Mini",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/overnight-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "Overview gives ages 7–11, while the 2026 brochure gives elementary Mini ages 7–9. Confirm Older Mini ages and exact half-week dates; PDF lists only week spans. PDF was readable only through search."
+      },
+      {
+        "name": "Elementary TKO",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers stay in cabins and participate in swimming, boating, arts and crafts, ziplining, talent shows and campfires.",
+        "camp_page_url": "https://camptekoa.org/overnight-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 850,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/overnight-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "MS TKO Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers participate in lake activities and camp games, visit nearby waterfalls, and spend one night camping in on-site shelters.",
+        "camp_page_url": "https://camptekoa.org/overnight-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 875,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/overnight-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "HS TKO Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "faith_based"],
+        "description": "Campers participate in swimming, arts and crafts, high ropes and ziplining. They also take a whitewater rafting trip and complete a local service project.",
+        "camp_page_url": "https://camptekoa.org/overnight-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 900,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/overnight-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/194-2026-camp-brochure/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "Quest",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers use the climbing tower and lake zipline and take an off-site rock-climbing trip.",
+        "camp_page_url": "https://camptekoa.org/quest",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 950,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/quest",
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "Breakout",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Rising sixth graders participate in climbing, camping, rafting and waterfall exploration.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 11
+        },
+        "grades": {
+          "min": 6,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/210-adventure-infosheet-6thgradebreakout-1/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "Cascade",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "horses", "faith_based"],
+        "description": "This all-girls program includes tubing, waterfall exploration, paddleboarding and horseback riding.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": "Middle school",
+            "year": 2027
+          },
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": "High school",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Cascade (MS-All Girls)",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Cascade (HS-All Girls)",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Cascade (MS-All Girls)",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Cascade (MS-All Girls)",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Cascade (HS-All Girls)",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Cascade (MS-All Girls)",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/203-adventure-infosheet-cascade2023-1/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only through search. Activity description comes from the existing Cascade information sheet; confirm high-school itinerary."
+      },
+      {
+        "name": "Journey",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "horses", "faith_based"],
+        "description": "Campers backpack, explore a cave, use the high ropes course and take a horseback riding trip.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/214-adventure-infosheet-journey/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "Overview identifies Journey as all girls; the 2027 PDF says only Journey (MS). Confirm whether eligibility changed. PDF was readable only through search."
+      },
+      {
+        "name": "Overboard",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "An all-boys middle-school adventure program centered on outdoor exploration.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itinerary was not obtained."
+      },
+      {
+        "name": "Water Adventure",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "A coed outdoor adventure program offered separately for middle- and high-school campers.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": "Middle school",
+            "year": 2027
+          },
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": "High school",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Water Adventure (MS)",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Water Adventure (HS)",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Water Adventure (MS)",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Water Adventure (MS)",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Water Adventure (HS)",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Water Adventure (MS)",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itineraries were not obtained."
+      },
+      {
+        "name": "Survivor",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers live at a primitive campsite, learn to make fires and prepare food, and complete group challenges to earn supplies.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1050,
+            "unit": "session",
+            "label": "Middle school",
+            "year": 2027
+          },
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": "High school",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Survivor (MS)",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Survivor (MS)",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Survivor (HS)",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Survivor (HS)",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Survivor (MS)",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Survivor (HS)",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 17
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Survivor (MS)",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Survivor (MS)",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 12,
+              "max": 14
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://mail.camptekoa.org/forms/dates-and-rates/48-adventure-camp-descriptions/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only through search. Activity description is from an undated official description document."
+      },
+      {
+        "name": "Blitz!",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "A coed adventure program for campers entering ninth grade.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 14
+        },
+        "grades": {
+          "min": 9,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results; detailed itinerary was not obtained."
+      },
+      {
+        "name": "Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers take a multiday excursion involving backpacking, canoe camping and caving.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/forms/forms-and-waivers/215-adventure-infosheet-expedition/file",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only through search. Older official descriptions disagree on excursion length; description omits that length."
+      },
+      {
+        "name": "Ultimate Challenge",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "faith_based"],
+        "description": "Campers participate in water, rock, rope and trail activities, including a backpacking trip.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1100,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/blog/camp-tekoa-adventure-camps-breakdown",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 schedule and rates were readable only in official search results."
+      },
+      {
+        "name": "Expedition Extreme!",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "horses", "faith_based"],
+        "description": "This two-week adventure program includes backpacking, caving, scuba diving, mountain biking and horseback riding.",
+        "camp_page_url": "https://camptekoa.org/adventure-camps",
+        "registration_url": "https://camptekoa.org/register/register-now",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": null,
+          "text": "Expedition Extreme (HS 2 weeks) is listed under Week 4, June 27–July 3."
+        },
+        "ages": {
+          "min": 15,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Tekoa",
+            "address": "211 Thomas Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2300,
+            "unit": "session",
+            "label": "Two weeks",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration for Summer 2027 camps will open in November.",
+            "url": "https://camptekoa.org/register/register-now",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you have a financial need, please apply on our website for financial assistance."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://camptekoa.org/adventure-camps",
+          "https://camptekoa.org/blog/preparing-your-child-for-their-first-adventure-camp",
+          "https://camptekoa.org/forms/dates-and-rates/198-2027-dates-rates/file",
+          "https://camptekoa.org/register/register-now",
+          "https://camptekoa.org/contact-camp-tekoa"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 PDF lists the two-week program under June 27–July 3 but does not explicitly print its final date. End remains null rather than projecting a second-week checkout date. Confirm exact dates with registration. PDF was readable only through search."
+      }
+    ]
+  }
+}

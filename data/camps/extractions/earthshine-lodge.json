@@ -1,0 +1,87 @@
+{
+  "provider": {
+    "key": "earthshine-lodge",
+    "name": "Earthshine Lodge",
+    "urls": ["https://earthshinenc.com/product/activities/"],
+    "area": "Lake Toxaway, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:45.312Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "2d77932816faeafd0c00b8545dc1c8a12ca061a3e25c6c39a170fab98dab13b3",
+  "response": {
+    "searches": [
+      "site:earthshinenc.com summer camp 2027",
+      "open https://earthshinenc.com/product/aimgetaways/"
+    ],
+    "usage": {
+      "inputTokens": 17823,
+      "cachedInputTokens": 8223,
+      "outputTokens": 511,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 21958,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://earthshinenc.com/product/activities/",
+      "chars": 3508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/wp-content/uploads/2026/06/Summer-Guest-Pass-2026.pdf",
+      "chars": 4571,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/program_questions/",
+      "chars": 3988,
+      "method": "fetch"
+    },
+    {
+      "url": "https://earthshinenc.com/",
+      "chars": 9829,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Earthshine Lodge",
+    "website_url": "https://earthshinenc.com/",
+    "notes": "No qualifying supervised youth summer camps found. The Summer Day Pass requires participants under 18 to have active supervision from a chaperone or guardian throughout all activities; it is not a drop-off youth camp. The official All-Inclusive Mountain Getaways search result announces 2027 dates and says \"Summer Family Camp: Dates Coming Soon!\", but this is a family lodging offering and is excluded. That page and the outdoor-education URL returned no readable text when opened.",
+    "excluded": [
+      {
+        "name": "Summer Day Pass",
+        "reason": "Family/accompanied visitor activities rather than a supervised youth camp: all participants under 18 must have active supervision from a chaperone or guardian on all activities at all times."
+      },
+      {
+        "name": "Summer Family Camp",
+        "reason": "Family-only all-inclusive lodging getaway, not a supervised youth camp. The official site says 2027 dates are coming soon."
+      },
+      {
+        "name": "Summer Vacation Adventure Family Camp for All Ages",
+        "reason": "2026 all-inclusive vacation stay for families or groups, not a supervised youth camp."
+      },
+      {
+        "name": "Firefly Weekend",
+        "reason": "All-ages all-inclusive lodging getaway rather than a youth camp."
+      },
+      {
+        "name": "Leaf Lookers’ Weekend",
+        "reason": "Fall all-inclusive lodging getaway outside summer."
+      },
+      {
+        "name": "Fly-Fishing Retreat",
+        "reason": "Published spring and fall retreats are outside summer."
+      },
+      {
+        "name": "An Appalachian Christmas",
+        "reason": "December holiday lodging and family activities outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "provider": {
+    "key": "landrum-high-school-baseball",
+    "name": "Landrum High School Baseball",
+    "urls": ["https://landrumbaseball.com/camp-1"],
+    "area": "Landrum, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:35.637Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "42bfb1da09cc42cdbab0b2ef158deef411aaa9e86d163decfa6a60afc7c98004",
+  "response": {
+    "searches": [
+      "site:landrumbaseball.com camp 2027 2026",
+      "\"Landrum\" \"camp\" \"2026\" \"baseball\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 20015,
+      "cachedInputTokens": 8223,
+      "outputTokens": 701,
+      "reasoningTokens": 176
+    },
+    "status": "completed",
+    "ms": 22746,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://landrumbaseball.com/camp-1",
+      "chars": 1162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/spreadsheets/d/1IP4c06yVhANT7TIBkPR2LlLwIzSfGxrQdVJk3t3qBpk/edit?usp=sharing",
+      "chars": 2348,
+      "method": "fetch"
+    },
+    {
+      "url": "https://landrumbaseball.com/",
+      "chars": 1621,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Landrum High School Baseball",
+    "website_url": "https://landrumbaseball.com/",
+    "notes": "No 2027 camp information found. The supplied camp page confirms a 2026 camp but its embedded registration and medical release forms were not readable, leaving dates, location, eligibility, hours and prices unverified. The website's About page says it is independently owned and operated by Kevin Jackson and is not affiliated with or managed by Landrum High School or Spartanburg County District One Schools; the camp page says form submissions go directly to the baseball coaching staff.",
+    "excluded": [
+      {
+        "name": "2026 Baseball Schedules",
+        "reason": "Varsity, JV and C-Team team seasons and game schedules, not finite summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Landrum Baseball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "A baseball camp offered by Landrum High School Baseball. Registration requires both a camp registration form and a medical release form.",
+        "camp_page_url": "https://landrumbaseball.com/camp-1",
+        "registration_url": "https://landrumbaseball.com/camp-1",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://landrumbaseball.com/camp-1",
+          "https://landrumbaseball.com/",
+          "https://landrumbaseball.com/about/"
+        ],
+        "confidence": "low",
+        "review_notes": "Check the embedded Camp Registration and Medical Release forms on the camp page for dates, summer timing, day-camp format, eligibility, venue, hours and price. The readable page confirms the 2026 program name but does not state these details."
+      }
+    ]
+  }
+}

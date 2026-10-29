@@ -1,0 +1,270 @@
+{
+  "provider": {
+    "key": "camp-merri-mac",
+    "name": "Camp Merri-Mac",
+    "urls": [
+      "https://merri-mac.com/dates-rates/",
+      "https://merri-mac.com/",
+      "https://merri-mac.com/prospective-families/activities-trips/"
+    ],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:53:43.577Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "525a4e5a2a9e340b45a1261eea317695e0f9422e5e7289269bf4400bba0f01e7",
+  "response": {
+    "searches": [
+      "site:merri-mac.com financial aid scholarship special needs",
+      "open https://merri-mac.com/prospective-families/food-nutrition/"
+    ],
+    "usage": {
+      "inputTokens": 23870,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1564,
+      "reasoningTokens": 148
+    },
+    "status": "completed",
+    "ms": 33514,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://merri-mac.com/dates-rates/",
+      "chars": 5795,
+      "method": "fetch"
+    },
+    {
+      "url": "https://merri-mac.com/",
+      "chars": 5364,
+      "method": "fetch"
+    },
+    {
+      "url": "https://merri-mac.com/prospective-families/activities-trips/",
+      "chars": 22639,
+      "method": "fetch"
+    },
+    {
+      "url": "https://merrimac.campintouch.com/v2/alumni/register.aspx",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://merrimac.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://merri-mac.com/enrolled-families/",
+      "chars": 4480,
+      "method": "fetch"
+    },
+    {
+      "url": "https://merri-mac.com/enrolled-families/clothing-gear/",
+      "chars": 3327,
+      "method": "fetch"
+    },
+    {
+      "url": "https://merri-mac.com/enrolled-families/traveling-to-camp/",
+      "chars": 3556,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Merri-Mac",
+    "website_url": "https://merri-mac.com/",
+    "notes": "2027 summer sessions and tuition are posted. No explicit calendar registration opening date was found; the enrollment policy gives returning campers seven days after their sessions and describes subsequent first-come-first-served enrollment without calendar dates. Additional food/nutrition, foundation and suitability page URLs attempted during research returned no readable text.",
+    "excluded": [
+      {
+        "name": "Mother Daughter Weekend",
+        "reason": "Family-only weekends; the listed 2027 dates are also outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Merri-Mac",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "faith_based",
+          "nature_outdoor",
+          "sports",
+          "arts",
+          "horses",
+          "cooking",
+          "music",
+          "dance",
+          "theater"
+        ],
+        "description": "Girls choose eight activities and attend four each day on an alternating schedule at this Christian overnight camp. Activities include swimming, riding, arts and crafts, sports, music and outdoor trips.",
+        "camp_page_url": "https://merri-mac.com/dates-rates/",
+        "registration_url": "https://merrimac.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-12",
+          "text": "2027 Summer Sessions"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Merri-Mac",
+            "address": "1123 Montreat Rd",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "First Session",
+            "start": "2027-06-07",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9420,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1A",
+            "start": "2027-06-07",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1B",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Second Session",
+            "start": "2027-07-04",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Third Session",
+            "start": "2027-07-18",
+            "end": "2027-08-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 9420,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3A",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3B",
+            "start": "2027-07-31",
+            "end": "2027-08-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5490,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Campers arriving by plane will be met by camp personnel in camp vans."
+        },
+        "sources": [
+          "https://merri-mac.com/dates-rates/",
+          "https://merri-mac.com/",
+          "https://merri-mac.com/prospective-families/activities-trips/",
+          "https://merri-mac.com/enrolled-families/traveling-to-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

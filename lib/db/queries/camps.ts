@@ -19,7 +19,12 @@ import {
   type SupportValue,
 } from '@/lib/camps/contract';
 import { cleanCard } from '@/lib/camps/display';
-import { DRIVE_LIMIT_MINUTES, driveMinutesFromDowntown, kmBetween } from '@/lib/camps/geo';
+import {
+  DRIVE_LIMIT_MINUTES,
+  PACK_SQUARE,
+  driveMinutesFromDowntown,
+  kmBetween,
+} from '@/lib/camps/geo';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 /**
@@ -41,7 +46,7 @@ const CAMP_CACHE_OPTIONS = { tags: [CAMPS_TAG], revalidate: 3600 };
  * the wrapper's source text plus these parts, so entries written by the old code would keep being
  * served until they expire (Vercel's data cache survives deploys).
  */
-const CAMP_CACHE_SHAPE = 'v3';
+const CAMP_CACHE_SHAPE = 'v4';
 
 /** Popularity window: views in the last 14 Eastern days, today included. */
 const VIEW_WINDOW_DAYS = 14;
@@ -392,23 +397,58 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
  * D3: a camp is in when any of its sites is within the drive limit (55 min day, 75 overnight).
  * A camp with an unplaced site stays in until Matt pins it; discovery only looked near Asheville.
  */
+/** Straight-line km past which no camp is within 75 minutes' drive (Camp Greenville is ~60). */
+const FAR_KM = 160;
+
+/** States within 75 minutes of Asheville. An unplaced site elsewhere is a same-named church in Florida. */
+const NEARBY_STATES = new Set(['NC', 'SC', 'TN', 'GA', 'VA']);
+
+function siteMayBeNear(site: CampSiteInfo): boolean {
+  if (site.lat !== null && site.lng !== null) {
+    return kmBetween(PACK_SQUARE, { lat: site.lat, lng: site.lng }) <= FAR_KM;
+  }
+  return !site.state || NEARBY_STATES.has(site.state.trim().toUpperCase());
+}
+
 function withinRadius(camp: CampListing): boolean {
   const limit =
     camp.card.type === 'overnight' ? DRIVE_LIMIT_MINUTES.overnight : DRIVE_LIMIT_MINUTES.day;
   if (camp.sites.length === 0) return true;
-  return camp.sites.some((site) => site.driveMinutes === null || site.driveMinutes <= limit);
+  // No route (unplaced, or ORS found none): out only when the site is plainly far away
+  return camp.sites.some((site) =>
+    site.driveMinutes === null ? siteMayBeNear(site) : site.driveMinutes <= limit
+  );
 }
+
+/**
+ * The list is cached in this many parts by provider: Next refuses a cache entry over 2MB, and
+ * ~1,100 trimmed camps at ~2KB each pass that. Raise it if a part's entry nears 2MB again.
+ */
+const LIST_CACHE_PARTS = 4;
 
 /**
  * Every live camp for the directory, trimmed (CampListItem). Keyed by the Eastern date, so the
  * views window moves at midnight.
  */
-export function listLiveCamps(): Promise<CampListItem[]> {
-  return unstable_cache(
-    async () => (await queryCamps()).map(toListItem),
-    ['camps-list', CAMP_CACHE_SHAPE, getTodayStringEastern()],
-    CAMP_CACHE_OPTIONS
-  )();
+export async function listLiveCamps(): Promise<CampListItem[]> {
+  const parts = await Promise.all(
+    Array.from({ length: LIST_CACHE_PARTS }, (_, part) =>
+      unstable_cache(
+        async () =>
+          (
+            await queryCamps(
+              sql`mod(abs(hashtext(${camps.providerKey})), ${LIST_CACHE_PARTS}) = ${part}`
+            )
+          ).map(toListItem),
+        ['camps-list', CAMP_CACHE_SHAPE, String(part), getTodayStringEastern()],
+        CAMP_CACHE_OPTIONS
+      )()
+    )
+  );
+  // queryCamps orders each part by name, then slug
+  return parts
+    .flat()
+    .sort((a, b) => a.card.name.localeCompare(b.card.name) || a.slug.localeCompare(b.slug));
 }
 
 /** Camp slugs are slugPart output ([a-z0-9-]); anything else is a miss, not a query. */

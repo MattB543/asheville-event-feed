@@ -1,0 +1,45 @@
+{
+  "provider": {
+    "key": "southside-free-will-baptist-church-of-elizabethton",
+    "name": "Southside Free Will Baptist Church of Elizabethton",
+    "urls": [],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "no official page found"
+  },
+  "extractedAt": "2026-10-29T15:38:07.197Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Southside Free Will Baptist Church Elizabethton VBS 2026",
+      "\"Southside\" \"Elizabethton\" \"VBS\"",
+      "\"Southside Free Will Baptist Church of Elizabethton\"",
+      "open https://www.findglocal.com/US/Elizabethton/126748543850244/Southside-Free-Will-Baptist-Church-of-Elizabethton"
+    ],
+    "usage": {
+      "inputTokens": 24231,
+      "cachedInputTokens": 8223,
+      "outputTokens": 442,
+      "reasoningTokens": 247
+    },
+    "status": "completed",
+    "ms": 20607,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [],
+  "extraction": {
+    "provider_name": "Southside Free Will Baptist Church of Elizabethton",
+    "website_url": null,
+    "notes": "No official 2026 or 2027 summer program information or provider-owned website could be verified. Search found third-party listings for Wonder Junction VBS in July 2025 and a youth lock-in named Juniors 4th to 8th Grade in July 2025, but no readable official announcement or newer information; these were not made into cards. The FindGlocal profile and AllEvents VBS page returned no readable content. Do not confuse this provider with Southside Christian Church in Elizabethton or Southside Church in Clayton, NC.",
+    "excluded": [
+      {
+        "name": "Sunday Morning Sunday School",
+        "reason": "Recurring church classes rather than a finite summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

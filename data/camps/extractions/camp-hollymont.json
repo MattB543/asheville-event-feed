@@ -1,0 +1,357 @@
+{
+  "provider": {
+    "key": "camp-hollymont",
+    "name": "Camp Hollymont",
+    "urls": ["https://hollymont.com/explore/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:08:11.328Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9b212d0ca01c5526a3c2943489b343b9805589e43c85849e79920f1aae6d695a",
+  "response": {
+    "searches": [
+      "site:hollymont.com counselors training 2027",
+      "open https://hollymont.com/counselors-in-training/"
+    ],
+    "usage": {
+      "inputTokens": 20363,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2058,
+      "reasoningTokens": 117
+    },
+    "status": "completed",
+    "ms": 43503,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hollymont.com/explore/",
+      "chars": 5392,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/2027dates-and-rates/",
+      "chars": 2675,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/registration/",
+      "chars": 1058,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/explore/camp-life/",
+      "chars": 3220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/explore/first-time-campers/",
+      "chars": 4942,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/wp-content/uploads/2016/08/Packing-List-for-7-Day-Campers.pdf",
+      "chars": 2443,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/wp-content/uploads/2016/08/Packing-List-for-13-20-and-27-Day-Campers.pdf",
+      "chars": 2485,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hollymont.com/",
+      "chars": 2562,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Hollymont",
+    "website_url": "https://hollymont.com/",
+    "notes": "Camp now meets in Rabun Gap, Georgia, not Asheville. The main camper dates and rates are posted for 2027. The CIT page mixes a 'CIT 2026 Sessions' heading with dates whose stated weekdays match 2027 and eligibility for the 2026-27 school year; CIT dates require confirmation.",
+    "excluded": [
+      {
+        "name": "Mother-Daughter Session",
+        "reason": "Family-only overnight experience attended jointly by mothers or other adult women and daughters."
+      },
+      {
+        "name": "Staff",
+        "reason": "Employment opportunities, not youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Hollymont",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "faith_based",
+          "nature_outdoor",
+          "sports",
+          "arts",
+          "music",
+          "theater",
+          "dance",
+          "horses",
+          "cooking"
+        ],
+        "description": "Girls choose daily skills including sports, swimming, arts, performing arts, cooking and outdoor activities. Camp includes group fellowship, Bible devotions and evening activities.",
+        "camp_page_url": "https://hollymont.com/2027dates-and-rates/",
+        "registration_url": "https://hollymont.com/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": {
+          "min": 7,
+          "max": 15
+        },
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp Hollymont",
+            "address": "339 Nacoochee Drive",
+            "town": "Rabun Gap",
+            "state": "GA"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3080,
+            "unit": "session",
+            "label": "Starter Sessions; first-time campers in grades 1-3 during the 2026-27 school year",
+            "year": 2027
+          },
+          {
+            "amount": 5460,
+            "unit": "session",
+            "label": "Classic Sessions",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "A Starter",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "B Starter",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "C Starter",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 3,
+              "basis": "current"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "A session",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "B session",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "C session",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "AB1 session: 3 Week Extended Experience",
+            "start": "2027-06-13",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BC1 session: 3 Week Extended Experience",
+            "start": "2027-06-27",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "AB session: 4 Week Extended Experience",
+            "start": "2027-06-13",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "BC session: 4 Week Extended Experience",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "11:40 – Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://hollymont.com/",
+          "https://hollymont.com/2027dates-and-rates/",
+          "https://hollymont.com/explore/",
+          "https://hollymont.com/explore/camp-life/",
+          "https://hollymont.com/registration/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Counselors in Training",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Participants study leadership, communication, organization and teamwork through Bible study and training. They assist counselors with camper skills, evening activities and devotions.",
+        "camp_page_url": "https://hollymont.com/counselors-in-training/",
+        "registration_url": "https://hollymont.com/registration/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 11,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Camp Hollymont",
+            "address": "339 Nacoochee Drive",
+            "town": "Rabun Gap",
+            "state": "GA"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 4585,
+            "unit": "session",
+            "label": "CIT session; printed under CIT 2026 Sessions",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "11:45 am Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://hollymont.com/counselors-in-training/",
+          "https://hollymont.com/registration/",
+          "https://hollymont.com/parents/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the CIT session year and rate. The CIT page says 'CIT 2026 Sessions — $4,585' but lists Saturday June 12–Friday June 25, Saturday June 26–Friday July 9, and Saturday July 10–Friday July 23, whose weekdays match 2027 rather than 2026. Dates are withheld rather than assigning an uncertain year. Eligibility explicitly refers to grades 10-11 during the 2026-27 school year. A 27-day option is mentioned without dates and with a customized rate."
+      }
+    ]
+  }
+}

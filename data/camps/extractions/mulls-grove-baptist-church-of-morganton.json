@@ -1,0 +1,149 @@
+{
+  "provider": {
+    "key": "mulls-grove-baptist-church-of-morganton",
+    "name": "Mulls Grove Baptist Church of Morganton",
+    "urls": ["https://mullsgrovebaptistchurch.org/church-ministries/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:24.713Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b6dfc79f74fc58c05a61d01ebea593ffab4026c1ca8cd0db26083b5033ae335b",
+  "response": {
+    "searches": [
+      "site:mullsgrovebaptistchurch.org \"2026\" \"Bible\"",
+      "\"Mull's Grove Baptist Church\" \"VBS\"",
+      "\"South Mountain Baptist Camp\" address"
+    ],
+    "usage": {
+      "inputTokens": 21895,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1254,
+      "reasoningTokens": 256
+    },
+    "status": "completed",
+    "ms": 36964,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mullsgrovebaptistchurch.org/church-ministries/",
+      "chars": 5116,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mullsgrovebaptistchurch.org/",
+      "chars": 2860,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mulls Grove Baptist Church of Morganton",
+    "website_url": "https://mullsgrovebaptistchurch.org/",
+    "notes": "No 2027 or dated 2026 camp information was found. The ministries page confirms annual Vacation Bible School and youth summer camp at South Mountain Baptist Camp, but gives no dates, prices or eligibility. Older church Facebook VBS posts were not used for current-season details. The church calendar page returned no readable content.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Year-round church classes, not a finite summer program."
+      },
+      {
+        "name": "Children’s church, nursery and Team Kids",
+        "reason": "Recurring year-round church programming."
+      },
+      {
+        "name": "Winter Extreme",
+        "reason": "Winter program, outside summer."
+      },
+      {
+        "name": "July 4th Freedom Celebration",
+        "reason": "Community parade and family celebration, not a supervised youth camp."
+      },
+      {
+        "name": "Keenager Ministry",
+        "reason": "Program for adults age 50 and older."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church holds Vacation Bible School each summer as part of its children’s ministry.",
+        "camp_page_url": "https://mullsgrovebaptistchurch.org/church-ministries/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Mull's Grove Baptist Church",
+            "address": "5106 Burkemont Rd",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mullsgrovebaptistchurch.org/church-ministries/",
+          "https://mullsgrovebaptistchurch.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The ministries page confirms annual VBS but does not explicitly identify its meeting location; the church address is supplied as the presumed venue. Confirm location and 2027 details with the church."
+      },
+      {
+        "name": "Summer camp at South Mountain Baptist Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "The church’s youth ministry participates in summer camp at South Mountain Baptist Camp.",
+        "camp_page_url": "https://mullsgrovebaptistchurch.org/church-ministries/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mullsgrovebaptistchurch.org/church-ministries/",
+          "https://www.southmountainbaptistcamp.com/",
+          "https://www.southmountainbaptistcamp.com/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The church confirms annual youth summer camp but does not specify the session, overnight format or drop-off arrangements. Overnight classification is inferred from the host camp’s lodging facilities. The host publishes its location as 3558 Baptist Camp Rd, Connelly Springs, NC 28612; it is not listed as a drop-off site because church transportation or meeting arrangements are unknown. Do not apply the host’s general sessions or prices to this church group without confirmation."
+      }
+    ]
+  }
+}

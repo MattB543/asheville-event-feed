@@ -1,0 +1,1123 @@
+{
+  "provider": {
+    "key": "brevard-music-center",
+    "name": "Brevard Music Center",
+    "urls": ["https://www.brevardmusic.org/institute/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:09:10.707Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "350880d8796f3d7a50428d1f7375b535c584424bea07b783ee0d0eaee60ee7ce",
+  "response": {
+    "searches": [
+      "site:brevardmusic.org/institute/ 2027",
+      "open https://www.brevardmusic.org/institute/classical-guitar-institute/",
+      "site:brevardmusic.org \"Guitar\" \"2027\" \"Tuition\"",
+      "\"Blue Ridge Guitar Camp\" \"age\"",
+      "site:brevardmusic.org/institute/classical-guitar-institute \"Dates\"",
+      "site:brevardmusic.org/institute/clarinet-seminar \"Tuition\" \"Dates\""
+    ],
+    "usage": {
+      "inputTokens": 56070,
+      "cachedInputTokens": 8223,
+      "outputTokens": 8561,
+      "reasoningTokens": 731
+    },
+    "status": "completed",
+    "ms": 165015,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.brevardmusic.org/institute/",
+      "chars": 8462,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardmusic.org/institute/about-our-campus/",
+      "chars": 8260,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardmusic.org/institute/program-faqs/",
+      "chars": 14975,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardmusic.org/",
+      "chars": 2761,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard Music Center",
+    "website_url": "https://www.brevardmusic.org/",
+    "notes": "Official program pages are partly updated to 2027 while the overview and FAQs still describe 2026. Individual program dates take precedence. No 2027 application opening date was inferred from the FAQ's recurring November 1 statement. College-only and adult-only offerings are excluded from this youth directory. Some official pages returned only partial text; missing tuition and registration links were not guessed. Blue Ridge Banjo Camp youth eligibility could not be established. The Blue Ridge Guitar Camp application page could not be read.",
+    "excluded": [
+      {
+        "name": "College Orchestral Institute",
+        "reason": "College-only program for ages 18-29 who have completed at least one full-time college year; not a youth or teen pre-college offering."
+      },
+      {
+        "name": "Collaborative Piano Institute",
+        "reason": "College-only program for ages 18-29 who have completed at least one full-time college year."
+      },
+      {
+        "name": "Opera Institute",
+        "reason": "College vocal program for ages 18-29, not a youth or teen pre-college offering."
+      },
+      {
+        "name": "Adult Classical Guitar Workshop",
+        "reason": "Adult-only program for ages 30 and older."
+      },
+      {
+        "name": "Adult Chamber Music Workshop",
+        "reason": "Adult-only program for ages 18 and older."
+      },
+      {
+        "name": "Resident Assistant positions",
+        "reason": "Employment or assistantship positions rather than youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "High School Orchestral Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students rehearse and perform orchestral music and receive instrumental instruction. Housing and meals are provided on campus.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/high-school-orchestral-studies/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-01",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 9800,
+            "unit": "program",
+            "label": "Six weeks; before scholarships; includes housing and meals",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-02-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Application Deadline: February 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/high-school-orchestral-studies/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Brevard offers scholarship support according to merit and to need, so the amount varies by program and from student to student."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "BMC provides a shuttle service for students from the Asheville, North Carolina airport (AVL) to the Brevard Music Center. There is a $15 fee each way, for pick-up and for drop-off."
+        },
+        "sources": [
+          "https://www.brevardmusic.org/institute/high-school-orchestral-studies/",
+          "https://www.brevardmusic.org/institute/",
+          "https://www.brevardmusic.org/institute/program-faqs/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Piano Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Pianists receive private instruction, participate in studio classes and masterclasses, and present weekly public recitals. Full-session and second-session students also participate in the chorus.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/piano-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-19",
+          "end": "2027-08-02",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Full Session — college",
+            "start": "2027-06-19",
+            "end": "2027-08-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Full Session — high school",
+            "start": "2027-06-20",
+            "end": "2027-08-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 1 — college",
+            "start": "2027-06-19",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 1 — high school",
+            "start": "2027-06-20",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 2",
+            "start": "2027-07-10",
+            "end": "2027-08-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/piano-institute/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMC offers both merit scholarship and financial aid support as part of the application process"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/piano-institute/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Piano Seminar",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students bring prepared piano works for lessons, masterclasses, practice, and performances during a five-day seminar.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/piano-seminar/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1650,
+            "unit": "program",
+            "label": "Includes instruction, housing, meals, and on-campus health services",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "limited scholarships available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/piano-seminar/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Low Brass Seminar",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students work on low-brass fundamentals, audition preparation, orchestral excerpts, and chamber music through lessons and daily masterclasses.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/low-brass-seminar/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1650,
+            "unit": "program",
+            "label": "Includes instruction, housing and meals",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarship support is available in the form of financial need-based assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/low-brass-seminar/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Flute Seminar",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Flutists participate in masterclasses, private lessons, flute choir, and faculty and student recitals.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/flute-seminar/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 24
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1650,
+            "unit": "program",
+            "label": "Includes instruction, housing and meals",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Limited scholarship support is available in the form of financial need-based assistance."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/flute-seminar/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 24 outside 2-19."
+      },
+      {
+        "name": "Clarinet Seminar",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Clarinetists receive private lessons and daily masterclasses and participate in chamber music and solo performances. Topics include tone, articulation, repertoire, and audition preparation.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/clarinet-seminar/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-13",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1650,
+            "unit": "program",
+            "label": "Includes instruction, housing and meals",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "limited scholarships available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/clarinet-seminar/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Saxophone Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Saxophonists receive private lessons and chamber music coaching, attend technique and repertoire classes, and perform solo and ensemble music.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/saxophone-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-01",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Full Session",
+            "start": "2027-06-20",
+            "end": "2027-08-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 1",
+            "start": "2027-06-20",
+            "end": "2027-07-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 2",
+            "start": "2027-07-12",
+            "end": "2027-08-01",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/saxophone-institute/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMC offers both merit scholarship and financial aid support as part of the application process"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/saxophone-institute/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Classical Guitar Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Guitarists receive lessons, small-ensemble coaching, masterclasses, and technique instruction. Each session presents a public recital.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/classical-guitar-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-17",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Full Session",
+            "start": "2027-06-20",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 1",
+            "start": "2027-06-20",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Half Session 2",
+            "start": "2027-07-03",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Application Deadline March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/classical-guitar-institute/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "scholarships available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/classical-guitar-institute/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 session dates and application deadline were readable in official search results, but opening the program URL initially returned no text. Verify the full page and tuition. Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "High School Voice – Classical",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Singers study vocal technique, foreign-language diction, acting, and chamber music through lessons and coaching. They perform songs and staged opera scenes and participate in the chorus.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/high-school-voice-classical/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-10",
+          "end": "2027-08-02",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5500,
+            "unit": "program",
+            "label": "Three weeks; before scholarships; includes housing and meals",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/high-school-voice-classical/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMC offers both merit scholarship and financial aid support as part of the application process"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/high-school-voice-classical/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Tuition was obtained from an official search snippet on the 2027 program page; verify the full tuition section."
+      },
+      {
+        "name": "High School Voice – Musical Theater",
+        "type": "overnight",
+        "categories": ["music", "theater", "dance"],
+        "description": "Singers train in singing, dancing, acting, and storytelling through song. Selected pieces are presented in a final showcase.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/high-school-voice-musical-theater/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/high-school-voice-musical-theater/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMC offers both merit scholarship and financial aid support as part of the application process"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/high-school-voice-musical-theater/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "2027 dates and deadline were available through official search results; the opened page returned only partial text. Verify tuition and the complete dates section."
+      },
+      {
+        "name": "Composition Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Composition students receive weekly private lessons and seminars and write new works for public performances and ensemble reading sessions.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/composition-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-01",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 9800,
+            "unit": "program",
+            "label": "Six weeks; before scholarships; includes housing and meals",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-02-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: February 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/composition-institute/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "BMC offers both merit scholarship and financial aid support as part of the application process"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition fee includes all instruction, housing, meals, on-campus health services, and concert admission."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/composition-institute/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and tuition were obtained through official search results. The program dates end August 1, but the departure section permits July 31, August 1, or August 2 depending on closing activities. Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Jazz Institute",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Students participate in big-band and combo classes, private lessons, recording sessions, jazz theory and history, jam sessions, and performances.",
+        "camp_page_url": "https://www.brevardmusic.org/institute/jazz-institute/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-17",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 29
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-03-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Deadline: March 15, 2027",
+            "url": "https://www.brevardmusic.org/institute/jazz-institute/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "scholarships available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All housing and meals are provided on the Brevard Music Center campus and included in the cost of tuition."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.brevardmusic.org/institute/jazz-institute/",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 29 outside 2-19."
+      },
+      {
+        "name": "Blue Ridge Guitar Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Participants study intermediate and advanced bluegrass guitar, including rhythm and lead playing, with Bryan Sutton and other instructors.",
+        "camp_page_url": "https://www.blueridgeguitarcamp.com/",
+        "registration_url": "https://www.blueridgeguitarcamp.com/apply",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-02",
+          "end": "2027-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-16",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Applications Open: November 16",
+            "url": "https://www.blueridgeguitarcamp.com/",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-01",
+            "time": "23:59",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Deadline: 11:59 PM on January 1, 2027",
+            "url": "https://www.blueridgeguitarcamp.com/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Many of our performance spaces and buildings are easily accessible, but we are happy to work with you on any special needs you many have during your time on campus."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgeguitarcamp.com/",
+          "https://www.blueridgeguitarcamp.com/what-to-expect",
+          "https://www.blueridgeguitarcamp.com/facilities",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "low",
+        "review_notes": "Youth eligibility and supervision arrangements need verification because the application page could not be read. Opening year 2026 is inferred from the November 16 opening for summer 2027. Deadline timezone is not stated. Camp facilities page gives 349 Andante Lane; provider footer publishes 365 Andante Lane, used here."
+      },
+      {
+        "name": "Blue Ridge Fiddle Camp",
+        "type": "overnight",
+        "categories": ["music"],
+        "description": "Fiddlers and violinists explore musical styles, rhythm, and technology through instruction and collaborative playing. Participants younger than 18 must attend with a parent or guardian.",
+        "camp_page_url": "https://www.blueridgefiddlecamp.com/",
+        "registration_url": "https://www.blueridgefiddlecamp.com/apply",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-18",
+          "end": "2027-08-21",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Brevard Music Center",
+            "address": "365 Andante Lane",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "applications for 2027 will open in January",
+            "url": "https://www.blueridgefiddlecamp.com/apply",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.blueridgefiddlecamp.com/",
+          "https://www.blueridgefiddlecamp.com/apply",
+          "https://www.blueridgefiddlecamp.com/faq",
+          "https://www.blueridgefiddlecamp.com/explore",
+          "https://www.blueridgefiddlecamp.com/location",
+          "https://www.brevardmusic.org/institute/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The application page still says dates will be announced, while the homepage lists August 18-21, 2027. January opening came from official search results. Under-18 participants require a parent or guardian; confirm this meets directory supervision criteria. Camp location page gives 349 Andante Lane; provider footer publishes 365 Andante Lane, used here."
+      }
+    ]
+  }
+}

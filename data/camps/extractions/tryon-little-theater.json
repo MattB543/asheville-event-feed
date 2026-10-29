@@ -1,0 +1,179 @@
+{
+  "provider": {
+    "key": "tryon-little-theater",
+    "name": "Tryon Little Theater",
+    "urls": [
+      "https://tltinfo.org/opportunities-for-youth/summer-youth-theater.html",
+      "https://tltinfo.org/",
+      "https://tltinfo.org/event-calendar.html"
+    ],
+    "area": "Tryon, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:39.174Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ec8a87a6b51d765c1030479d69eb0a7aa659e583ed7968cec7ce7d6fd8f44c54",
+  "response": {
+    "searches": [
+      "site:tltinfo.org summer 2026 youth",
+      "\"Newsies\" \"2026\" \"Tryon\" rehearsals",
+      "site:tryonarts.org/event/summer-theater-camp-2026 \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 35849,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1546,
+      "reasoningTokens": 280
+    },
+    "status": "completed",
+    "ms": 47781,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://tltinfo.org/opportunities-for-youth/summer-youth-theater.html",
+      "chars": 10074,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tltinfo.org/",
+      "chars": 11022,
+      "method": "fetch"
+    },
+    {
+      "url": "https://tltinfo.org/event-calendar.html",
+      "chars": 9606,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Tryon Little Theater",
+    "website_url": "https://tltinfo.org/",
+    "notes": "No summer 2027 dates or registration announcements were found. Summer Theater Camp is offered in collaboration with Tryon Fine Arts Center. The youth opportunities page still calls Cinderella the most recent production, but the youth auditions page identifies Newsies as the 2026 production. Performance dates are not treated as the full youth program dates.",
+    "excluded": [
+      {
+        "name": "Youth theater classes",
+        "reason": "Classes are offered on a varying schedule as part of developing year-round youth programming; no finite summer-specific class offering was found."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Theater Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "Campers rehearse a play and make sets and costumes, then move to the Tryon Fine Arts Center for technical and dress rehearsals. The program concludes with a fully staged public performance.",
+        "camp_page_url": "https://tryonarts.org/event/summer-theater-camp-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-08-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Sunnydale",
+            "address": "334 S. Trade St.",
+            "town": "Tryon",
+            "state": "NC"
+          },
+          {
+            "name": "Tryon Fine Arts Center",
+            "address": "34 Melrose Avenue",
+            "town": "Tryon",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": null,
+          "text": "Event lists 9:00 am; Saturday performance is at 10:30 am."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Rehearsals, sets and costumes",
+            "start": "2026-07-27",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": "Sunnydale",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Technical and dress rehearsals; public performance",
+            "start": "2026-07-31",
+            "end": "2026-08-01",
+            "year": 2026,
+            "site": "Tryon Fine Arts Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tryonarts.org/event/summer-theater-camp-2026/",
+          "https://tryonarts.org/arts-education/",
+          "https://tryonarts.org/summer-camps/",
+          "https://tltinfo.org/shows-new/audition-dates.html"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official camp page lists a $180–$225 price range without identifying tiers or units, so prices are omitted. Its event header lists 9:00 am without a daily end time. Site rows reflect the stated move to TFAC on Friday rather than separate registrations. Confirm ages, daily hours, price tiers and the registration destination with TFAC."
+      },
+      {
+        "name": "Tryon Youth Summer Theater",
+        "type": "evening",
+        "categories": ["theater"],
+        "description": "Young people perform all roles in a fully staged theater production. The 2026 production was Newsies.",
+        "camp_page_url": "https://tltinfo.org/opportunities-for-youth/summer-youth-theater.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://tltinfo.org/opportunities-for-youth/summer-youth-theater.html",
+          "https://tltinfo.org/opportunities-for-youth/youth-auditions.html",
+          "https://tltinfo.org/event-calendar.html/event/2026/07/19/newsies-summer-youth-show/557369"
+        ],
+        "confidence": "low",
+        "review_notes": "The official pages establish a finite summer youth production but do not state rehearsal dates, rehearsal location, participant ages, fees or daily format. Evening is a provisional classification requiring confirmation; published performance times do not establish rehearsal hours. July 16–19, 2026 are performance dates only and are not used as the program season. The general youth page's Cinderella reference is outdated relative to the 2026 youth auditions page."
+      }
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "provider": {
+    "key": "greeneville-cumberland-presbyterian-church",
+    "name": "Greeneville Cumberland Presbyterian Church",
+    "urls": ["https://www.gcpchurch.org/vbs"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:01.839Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f6db1fc2acdb294165ad3dfd18e45a094ea019e4d1e3bdb6a6afefafabe5e3c2",
+  "response": {
+    "searches": [
+      "site.gcpchurch.org VBS 2026 2027 God's Neighborhood",
+      "open https://www.gcpchurch.org/vbs",
+      "\"gcpchurch\" \"VBS\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 17441,
+      "cachedInputTokens": 8223,
+      "outputTokens": 721,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 21184,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gcpchurch.org/vbs",
+      "chars": 1573,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gcpchurch.org/",
+      "chars": 1081,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greeneville Cumberland Presbyterian Church",
+    "website_url": "https://www.gcpchurch.org/",
+    "notes": "No 2027 information found. The VBS page provides activities and eligibility but no camp dates, daily hours, price, or registration opening date. Its June 21 worship presentation is not a camp session date. The online registration destination could not be retrieved.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "God's Neighborhood VBS",
+        "type": "vbs",
+        "categories": ["faith_based", "general"],
+        "description": "Children participate in crafts, music, games, and Bible stories, with light breakfast and lunch. Children birth through age 3 have nursery activities and play time.",
+        "camp_page_url": "https://www.gcpchurch.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 0,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Greeneville Cumberland Presbyterian Church",
+            "address": "201 N. Main Street",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "eat together around the table for a light breakfast and lunch."
+        },
+        "transportation": null,
+        "sources": ["https://www.gcpchurch.org/vbs", "https://www.gcpchurch.org/"],
+        "confidence": "medium",
+        "review_notes": "The VBS page does not explicitly identify its program year; 2026 is provisional context, not established by a dated program heading. Confirm the season and camp dates with the church. Eligibility states birth–3 nursery activities and age 4 through completed fifth grade rotating centers; middle and high school youth have service opportunities, not a separately described camp. No rows were created because dates are unavailable. Format check: ages 0 outside 2-19."
+      }
+    ]
+  }
+}

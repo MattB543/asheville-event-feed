@@ -1,0 +1,188 @@
+{
+  "provider": {
+    "key": "smoky-mountain-sk8way-and-fun-zone",
+    "name": "Smoky Mountain Sk8way & Fun Zone",
+    "urls": ["https://smokymountainsk8way.com/2026-summer-camp/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:52.487Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1b448d6527e5f353cd4a042e36962c4200dcd903860a7569881055a1b9de6662",
+  "response": {
+    "searches": ["site:smokymountainsk8way.com summer camp 2027 2026"],
+    "usage": {
+      "inputTokens": 50786,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1369,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 32405,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://smokymountainsk8way.com/2026-summer-camp/",
+      "chars": 6036,
+      "method": "fetch"
+    },
+    {
+      "url": "https://smokymountainsk8way.com/wp-content/uploads/2025/02/Summer-Camp-Parent-Handbook-2025.doc",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://smokymountainsk8way.com/schools/",
+      "chars": 1510,
+      "method": "fetch"
+    },
+    {
+      "url": "https://smokymountainsk8way.com/faq/",
+      "chars": 9504,
+      "method": "fetch"
+    },
+    {
+      "url": "https://smokymountainsk8way.com/wp-content/uploads/2020/03/Summer-Camp-2019-16.jpg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://smokymountainsk8way.com/wp-content/uploads/2020/03/Summer-Camp-2019-4.jpg",
+      "chars": 2950,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Smoky Mountain Sk8way & Fun Zone",
+    "website_url": "https://smokymountainsk8way.com/",
+    "notes": "The camp page has a 2027 preview mixed with retained 2026 enrollment text and a partial 2026 calendar. The 2027 preview explicitly says registration is not open and dates and prices will be announced later; March 2 is not treated as a 2027 opening. The supplied handbook is explicitly for 2025, so its hours, prices and policies were not carried forward.",
+    "excluded": [
+      {
+        "name": "Rink Link – After School Program",
+        "reason": "School-year after-school childcare, not a finite summer program."
+      },
+      {
+        "name": "School’s Out",
+        "reason": "School-year care for teacher workdays, school closings and early dismissals, rather than summer camp."
+      },
+      {
+        "name": "All Ages — Saturday Lessons",
+        "reason": "Recurring skating lessons, not a summer-only camp or finite summer clinic."
+      },
+      {
+        "name": "Adults — Thursday Night Lessons",
+        "reason": "Adult-only recurring lessons."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Smoky Mountain Sk8way Summer Camp",
+        "type": "day",
+        "categories": ["general", "arts", "stem", "sports", "nature_outdoor", "cooking"],
+        "description": "Campers participate in skating, team games, inflatables, arts and crafts, cooking activities and STEAM experiments. Weekly themes also include local field trips, nature activities and swimming.",
+        "camp_page_url": "https://smokymountainsk8way.com/2026-summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-15",
+          "end": "2026-08-07",
+          "text": "DETAILS COMING IN 2027"
+        },
+        "ages": {
+          "min": 6,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Smoky Mountain Sk8way & Fun Zone",
+            "address": "19025 Great Smoky Expressway",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": "Weekly enrollment",
+            "year": 2026
+          },
+          {
+            "amount": 75,
+            "unit": "other",
+            "label": "Enrollment fee; includes camp t-shirt, water bottle and sling bag",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 3: Art Adventures",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Time Traveling in Appalachia",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10: Water Wonders",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Enrollment is limited and begins March 2nd.",
+          "url": "https://smokymountainsk8way.com/2026-summer-camp/"
+        },
+        "availability": {
+          "status": "closed",
+          "scope": "Summer 2027 enrollment",
+          "text": "Registration is not open. We’ll publish official camp dates, pricing and enrollment details here when they are ready."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://smokymountainsk8way.com/2026-summer-camp/",
+          "https://smokymountainsk8way.com/online-tickets/",
+          "https://smokymountainsk8way.com/squishy-skate-september-19-2026/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2027 age range is labeled expected, not finalized. The retained calendar is headed Tentative 2026 Summer Camp Calendar; only weeks 3, 8 and 10 retain explicit dates. Season bounds span those dated rows, not the full ten-week camp season. Other weeks are labeled FULL without dates and cannot be represented safely as dated rows. March 2 and the $175 weekly/$75 enrollment fees are retained alongside Summer Camp 2026 text, but conflict with the newer 2027 no-registration preview; verify their historical year attribution. Do not interpret legacy Registration IS LIVE or FULL labels as 2027 availability."
+      }
+    ]
+  }
+}

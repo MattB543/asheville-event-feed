@@ -1,0 +1,146 @@
+{
+  "provider": {
+    "key": "trinity-presbyterian-church-of-hendersonville",
+    "name": "Trinity Presbyterian Church of Hendersonville",
+    "urls": [
+      "https://www.trinitypresnc.org/",
+      "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:22.661Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0a92987e756e2ba0e5c48499c0e8957b062c63d3b1449750fbedf81f90204877",
+  "response": {
+    "searches": [
+      "site:trinitypresnc.org \"VBS\" \"2026\"",
+      "open https://www.trinitypresnc.org/post/tidings-newsletter-may-2026",
+      "site:trinitypresnc.org/post/tidings-newsletter-may-2026 \"VBS\" \"registration\""
+    ],
+    "usage": {
+      "inputTokens": 27397,
+      "cachedInputTokens": 8223,
+      "outputTokens": 997,
+      "reasoningTokens": 179
+    },
+    "status": "completed",
+    "ms": 28093,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.trinitypresnc.org/",
+      "chars": 4483,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+      "chars": 22562,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.trinitypresnc.org/post/fear-not-summer-lecture-series",
+      "chars": 3353,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Trinity Presbyterian Church of Hendersonville",
+    "website_url": "https://www.trinitypresnc.org/",
+    "notes": "No summer 2027 camp information found. Community VBS is hosted at Trinity with partner congregations Grace Lutheran Church and St. James Episcopal Church. The May 2026 newsletter search result mentions a registration form, but the accessible page text was truncated and no registration URL could be verified.",
+    "excluded": [
+      {
+        "name": "Youth Group",
+        "reason": "Ongoing youth ministry, not a finite summer camp."
+      },
+      {
+        "name": "Presbytery-wide Youth Mission Retreat",
+        "reason": "Held March 6–7, 2026, outside summer."
+      },
+      {
+        "name": "Cub Scouts - Pack 620 weekend campout",
+        "reason": "April campout, outside summer."
+      },
+      {
+        "name": "Joy of Jazz Festival",
+        "reason": "Youth jazz clinic held March 28, 2026, outside summer."
+      },
+      {
+        "name": "Summer student marketing intern",
+        "reason": "Employment program, not a camp."
+      },
+      {
+        "name": "Fear Not! Summer Lecture Series",
+        "reason": "Adult learning lectures, not a supervised youth program."
+      },
+      {
+        "name": "2026 Women’s Retreat at Montreat",
+        "reason": "Adult retreat held in March, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Community VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children connect Bible stories with actions for daily life through the Operation Restoration theme. Daily themes focus on feeding, healing, forgiving and praying.",
+        "camp_page_url": "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Trinity Presbyterian Church",
+            "address": "900 Blythe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9am to noon each day"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-05-01",
+          "time": null,
+          "text": "Registration for Community VBS will open in May.",
+          "url": "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.trinitypresnc.org/",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-june-2026"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2026 registration opening is stated only as May; May 1 is a month placeholder, not an announced opening day. The March newsletter specifies entering 4-year-old Pre-K through sixth grade in fall 2026."
+      }
+    ]
+  }
+}

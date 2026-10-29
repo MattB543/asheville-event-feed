@@ -102,13 +102,11 @@ export async function censusGeocode(oneLineAddress: string): Promise<SiteGeo | n
       addressMatches?: Array<{ matchedAddress: string; coordinates: { x: number; y: number } }>;
     };
   };
-  const matches = (json.result?.addressMatches ?? [])
-    .map((match) => ({
-      lat: match.coordinates.y,
-      lng: match.coordinates.x,
-      label: match.matchedAddress,
-    }))
-    .filter((point) => kmBetween(PACK_SQUARE, point) <= MAX_KM_FROM_DOWNTOWN);
+  const matches = (json.result?.addressMatches ?? []).map((match) => ({
+    lat: match.coordinates.y,
+    lng: match.coordinates.x,
+    label: match.matchedAddress,
+  }));
   const [first] = matches;
   if (!first) return null;
   // Matches more than a kilometer apart (the same number on two streets of that name) are a guess.

@@ -1,0 +1,111 @@
+{
+  "provider": {
+    "key": "spanish-for-kids-preschool",
+    "name": "Spanish for Kids Preschool",
+    "urls": ["https://spanishforkidspres.wixsite.com/class"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:22.334Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7a8c1f9713c02d5867705fbd40fe828e40b05ec84f4dabac88f9d18c05396358",
+  "response": {
+    "searches": [
+      "site:spanishforkidspres.wixsite.com/class summer camp",
+      "open https://spanishforkidspres.wixsite.com/class",
+      "site:spanishforkidspres.wixsite.com \"2027\"",
+      "site:spanishforkidspres.wixsite.com/summer-camp"
+    ],
+    "usage": {
+      "inputTokens": 14510,
+      "cachedInputTokens": 8223,
+      "outputTokens": 915,
+      "reasoningTokens": 302
+    },
+    "status": "completed",
+    "ms": 28759,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://spanishforkidspres.wixsite.com/class",
+      "chars": 2643,
+      "method": "fetch"
+    },
+    {
+      "url": "https://spanishforkidspres.wixsite.com/class/lista-de-precios",
+      "chars": 1128,
+      "method": "fetch"
+    },
+    {
+      "url": "https://spanishforkidspres.wixsite.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error: Page Not Found | Wix.com\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spanish for Kids Preschool",
+    "website_url": "https://spanishforkidspres.wixsite.com/class",
+    "notes": "No 2027 camp information or dated 2026 camp schedule was found. The main site advertises summer camp for ages 4–8 but still includes older school-year enrollment information. Official Wix pages opened without readable text; additional information was accessible through official search snippets. Preschool tuition and enrollment fees were not treated as camp prices.",
+    "excluded": [
+      {
+        "name": "Immersion Spanish Program",
+        "reason": "Year-round preschool/childcare program, not a finite summer offering."
+      },
+      {
+        "name": "After School program",
+        "reason": "Ongoing after-school childcare, not a summer-only program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["academic", "arts"],
+        "description": "Children participate in drawing, painting, crafts, songs, storytelling and games.",
+        "camp_page_url": "https://spanishforkidspres.wixsite.com/summer-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spanish for Kids Preschool",
+            "address": "29 Shelby Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://spanishforkidspres.wixsite.com/class",
+          "https://spanishforkidspres.wixsite.com/class/contact",
+          "https://spanishforkidspres.wixsite.com/summer-camp/untitled"
+        ],
+        "confidence": "medium",
+        "review_notes": "The main page states ages 4–8 without a camp year. No dated 2026 or 2027 schedule was found; season.year is a fallback with no dates. The address comes from the official contact-page search snippet, and activities come from an undated official summer-camp search snippet. Confirm that these activities and the preschool location apply to the upcoming camp."
+      }
+    ]
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "provider": {
+    "key": "asheville-community-yoga",
+    "name": "Asheville Community Yoga",
+    "urls": [
+      "https://ashevillecommunityyoga.org/event/summer-camp-2024/",
+      "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
+      "https://ashevillecommunityyoga.org/summer-camp-2026-sign-up/"
+    ],
+    "area": "Woodfin, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:10.288Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3c49e9e00c3d2e287dcb8527819563f7706c8a419acf0ee057fb90652e714ed2",
+  "response": {
+    "searches": [
+      "site:ashevillecommunityyoga.org summer camp 2027",
+      "open https://ashevillecommunityyoga.org/home/youth-family-programming/",
+      "site:ashevillecommunityyoga.org \"Summer Camp\" \"2026\" \"ages\""
+    ],
+    "usage": {
+      "inputTokens": 30332,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1601,
+      "reasoningTokens": 183
+    },
+    "status": "completed",
+    "ms": 38641,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillecommunityyoga.org/event/summer-camp-2024/",
+      "chars": 2774,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
+      "chars": 7274,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/summer-camp-2026-sign-up/",
+      "chars": 7183,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/home/how-to-register-for-youth-classes/",
+      "chars": 6323,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/class-schedules/",
+      "chars": 4660,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/summer-camp-2025/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | Asheville Community Yoga\")"
+    },
+    {
+      "url": "https://ashevillecommunityyoga.org/",
+      "chars": 9771,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Community Yoga",
+    "website_url": "https://ashevillecommunityyoga.org/",
+    "notes": "2027 sessions are posted, but the registration page's descriptive tuition and selectable checkout tiers conflict. No 2027 registration opening date was found. Ages and hours found on the older event page explicitly describe 2025, so they were not carried forward.",
+    "excluded": [
+      {
+        "name": "Youth Yoga Classes",
+        "reason": "Recurring classes, paused during summer; not a finite summer camp."
+      },
+      {
+        "name": "Tween/Teen Yoga",
+        "reason": "Recurring classes rather than a finite summer program."
+      },
+      {
+        "name": "Prenatal Yoga",
+        "reason": "Adult classes, not a youth summer program."
+      },
+      {
+        "name": "Baby & Me Yoga",
+        "reason": "Caregiver-and-baby classes rather than a supervised youth summer camp."
+      },
+      {
+        "name": "Winter/Spring 2027 Yoga Teacher Training Program",
+        "reason": "Outside summer and not presented as a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Summer Camp",
+        "type": "day",
+        "categories": ["sports", "arts", "nature_outdoor"],
+        "description": "Children practice mindfulness, movement and yoga games and participate in art and gardening. Activities also include music, storytelling and nature exploration.",
+        "camp_page_url": "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
+        "registration_url": "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Community Yoga",
+            "address": "8 Brookdale Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "week",
+            "label": "Community Rate — descriptive tuition; conflicts with checkout",
+            "year": 2027
+          },
+          {
+            "amount": 450,
+            "unit": "week",
+            "label": "Sustainer Rate — descriptive tuition; conflicts with checkout tier name",
+            "year": 2027
+          },
+          {
+            "amount": 500,
+            "unit": "week",
+            "label": "Supporter Rate — descriptive tuition; conflicts with checkout",
+            "year": 2027
+          },
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Community Rate — selectable checkout tier",
+            "year": 2027
+          },
+          {
+            "amount": 450,
+            "unit": "week",
+            "label": "Supporter Rate — selectable checkout tier",
+            "year": 2027
+          },
+          {
+            "amount": 550,
+            "unit": "week",
+            "label": "Sustainer Rate — selectable checkout tier",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-08-16",
+            "end": "2027-08-20",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Community Rate: Discounted spaces for those in our community who represent marginalized populations and/or have limited access to financial resources."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevillecommunityyoga.org/summer-camp-2027-sign-up/",
+          "https://ashevillecommunityyoga.org/product/week-5-aug-2-6-2027/",
+          "https://ashevillecommunityyoga.org/home/how-to-register-for-youth-classes/",
+          "https://ashevillecommunityyoga.org/contactdirections/",
+          "https://ashevillecommunityyoga.org/event/summer-camp-2024/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2027 tuition before publishing: the sign-up page describes Community $400, Sustainer $450 and Supporter $500, but its checkout options list Community $350, Supporter $450 and Sustainer $550. Confirm the 2027 drop-off location at the published campus address; the explicit camp location is on the 2025 event page. Obtain 2027 ages and hours: only the 2025 event page states ages 5–10 and 8:30 am–3:00 pm."
+      }
+    ]
+  }
+}

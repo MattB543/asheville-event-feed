@@ -1,0 +1,106 @@
+{
+  "provider": {
+    "key": "destination-space",
+    "name": "Destination SPACE",
+    "urls": ["https://www.destinationspace-stem.org/media"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:55.552Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "65956b22a6ddb3a1ba0de6884fb174a9fdece143ab4bb992f3c27073af91a6b7",
+  "response": {
+    "searches": [
+      "site:destinationspace-stem.org 2026 camp",
+      "\"Destination SPACE\" \"2026\" camp satellite"
+    ],
+    "usage": {
+      "inputTokens": 26701,
+      "cachedInputTokens": 8223,
+      "outputTokens": 804,
+      "reasoningTokens": 167
+    },
+    "status": "completed",
+    "ms": 32862,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.destinationspace-stem.org/media",
+      "chars": 2483,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.destinationspace-stem.org/summer-camp-programs",
+      "chars": 2607,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.destinationspace-stem.org/",
+      "chars": 2471,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Destination SPACE",
+    "website_url": "https://www.destinationspace-stem.org/",
+    "notes": "No 2027 or 2026 camp dates, prices, eligibility requirements, or registration milestones were found. The current camp page describes Satellite Week without a season year; its archive ends at 2025. Historical locations and eligibility in media stories were not treated as current camp facts. The press-releases page returned no readable text. Destination Aerospace appears only as an archived 2020 virtual camp and was not treated as a current offering.",
+    "excluded": [
+      {
+        "name": "Deep Space Program",
+        "reason": "Ongoing student projects, curriculum development, and internship opportunities, not a finite summer camp."
+      },
+      {
+        "name": "ThinSat Program",
+        "reason": "Multi-phase school-based satellite project, not a finite summer camp."
+      },
+      {
+        "name": "Project Midnight Ghost",
+        "reason": "Ongoing aircraft-recovery research collaboration, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Satellite Week",
+        "type": "pre_college",
+        "categories": ["stem"],
+        "description": "Students learn about satellites and remote sensing by building weather stations, launching them on weather balloons, and analyzing data. Activities also include robotic rovers, model rockets, and space weather forecasting.",
+        "camp_page_url": "https://www.destinationspace-stem.org/summer-camp-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "The majority of our students attend on full scholarships."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.destinationspace-stem.org/summer-camp-programs",
+          "https://www.destinationspace-stem.org/media",
+          "https://www.destinationspace-stem.org/past-events"
+        ],
+        "confidence": "medium",
+        "review_notes": "The current undated camp page does not specify day versus residential format or eligibility. The pre_college classification is supported by historical UNCA coverage and the provider's 2021 past-events description, not a 2026 or 2027 announcement. Confirm the current format and drop-off venue before publication. Scholarship wording is on the undated current program page."
+      }
+    ]
+  }
+}

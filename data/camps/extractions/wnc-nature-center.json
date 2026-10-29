@@ -1,0 +1,100 @@
+{
+  "provider": {
+    "key": "wnc-nature-center",
+    "name": "WNC Nature Center",
+    "urls": ["https://wildwnc.org/teen-programs/", "https://wildwnc.org/education/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/teen-programs/; browser: HTTP 403"
+  },
+  "extractedAt": "2026-10-29T15:35:38.576Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "open https://wildwnc.org/teen-programs/",
+      "site wildwnc.org summer camp 2026",
+      "site:wildwnc.org \"summer camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22269,
+      "cachedInputTokens": 8223,
+      "outputTokens": 821,
+      "reasoningTokens": 239
+    },
+    "status": "completed",
+    "ms": 26460,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://wildwnc.org/teen-programs/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/teen-programs/; browser: HTTP 403"
+    },
+    {
+      "url": "https://wildwnc.org/education/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/education/; browser: HTTP 403"
+    },
+    {
+      "url": "https://wildwnc.org/",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403 for https://wildwnc.org/; browser: HTTP 403"
+    }
+  ],
+  "extraction": {
+    "provider_name": "WNC Nature Center",
+    "website_url": "https://wildwnc.org/",
+    "notes": "No active summer camp programs or 2027 summer program announcements were found. The official Teen Programs page explicitly cancels the Young Naturalist Teen Program for summer 2026 and says, \"We plan to continue the program in the future as resources allow.\" The Education page still advertises two summer teen volunteer opportunities, and older 2026 information PDFs remain indexed; these conflict with the cancellation notice and should not be treated as active offerings. Direct opens of the supplied pages and both PDFs returned no readable text; official search-indexed text was available. Recheck https://wildwnc.org/teen-programs/ for a future restart announcement.",
+    "excluded": [
+      {
+        "name": "Young Naturalist Teen Program",
+        "reason": "The current official Teen Programs page states that the program will not be offered for summer 2026. No confirmed 2027 restart was found."
+      },
+      {
+        "name": "Young Naturalist Shift Leader",
+        "reason": "An older 2026 information PDF describes this component of the Young Naturalist program, but the current Teen Programs page cancels the summer 2026 program. No separate active offering or 2027 restart was confirmed."
+      },
+      {
+        "name": "Painting With Animals",
+        "reason": "Year-round children's art classes, not a finite summer camp."
+      },
+      {
+        "name": "Wild Seasons",
+        "reason": "Adult art and craft classes offered throughout the year."
+      },
+      {
+        "name": "Jr. Wild Walk: A Junior Zookeeper Experience",
+        "reason": "A family-attended experience requiring an adult to accompany children, rather than a supervised drop-off youth program."
+      },
+      {
+        "name": "Wolf Howl",
+        "reason": "Offered in the fall, outside summer."
+      },
+      {
+        "name": "Night at the Nature Center",
+        "reason": "Offered in the spring for children and families, outside summer."
+      },
+      {
+        "name": "Holiday Critter Check Up",
+        "reason": "December event, outside summer."
+      },
+      {
+        "name": "Schools & Groups",
+        "reason": "School and group field-trip services, not a provider-run summer youth camp."
+      },
+      {
+        "name": "Outreach Education",
+        "reason": "Educational visits to classrooms, libraries, camps and other groups, not a standalone summer camp."
+      },
+      {
+        "name": "Apprenticeship Opportunities",
+        "reason": "Adult apprenticeship positions, not youth summer camps."
+      }
+    ],
+    "cards": []
+  }
+}

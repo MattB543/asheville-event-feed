@@ -1,0 +1,608 @@
+{
+  "provider": {
+    "key": "green-river-preserve",
+    "name": "Green River Preserve",
+    "urls": [
+      "https://greenriverpreserve.org/summer-camp/dates-rates",
+      "https://greenriverpreserve.org/summer-camp/",
+      "https://greenriverpreserve.org/overnight-camp",
+      "https://greenriverpreserve.org/summer-camp/overnight-summer-camp",
+      "https://greenriverpreserve.org/"
+    ],
+    "area": "Cedar Mountain, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:59:38.244Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "db98785fa9d55abfee36cfb45457cd8677b1391b2e69c3c1da9832ce8cde5847",
+  "response": {
+    "searches": [
+      "site:greenriverpreserve.org 2027 registration September",
+      "open https://greenriverpreserve.org/summer-camp/grp-expeditions",
+      "site:greenriverpreserve.org \"campintouch.com\" \"application\""
+    ],
+    "usage": {
+      "inputTokens": 27483,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4028,
+      "reasoningTokens": 218
+    },
+    "status": "completed",
+    "ms": 77977,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://greenriverpreserve.org/summer-camp/dates-rates",
+      "chars": 5395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/summer-camp/",
+      "chars": 5995,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/overnight-camp",
+      "chars": 6898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/summer-camp/overnight-summer-camp",
+      "chars": 9686,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/2027-registration-details",
+      "chars": 5522,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriver.campintouch.com/v2/family/inquiryForm.aspx",
+      "chars": 2165,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/summer-camp/video-gallery",
+      "chars": 5313,
+      "method": "fetch"
+    },
+    {
+      "url": "https://greenriverpreserve.org/summer-camp",
+      "chars": 5995,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Green River Preserve",
+    "website_url": "https://greenriverpreserve.org/",
+    "notes": "2027 dates and rates are posted and enrollment is open, but no exact public opening date was found. The scholarship application opens in January 2027. Some supplemental pages returned empty text when opened; official search snippets supplied additional details. Early-bird enrollment ran September 1–15, 2026. Overnight session lengths, including Rookie Camp, are grouped as one program.",
+    "excluded": [
+      {
+        "name": "GRP Family Camp",
+        "reason": "Family-only program; the listed 2027 session is also in May."
+      },
+      {
+        "name": "Adult Camp",
+        "reason": "Adult-only program."
+      },
+      {
+        "name": "School of Environmental Education",
+        "reason": "School-group residential programs offered in spring and fall, rather than summer camp."
+      },
+      {
+        "name": "KALE",
+        "reason": "School program; no finite summer youth camp offering found."
+      },
+      {
+        "name": "Staff positions and internships",
+        "reason": "Employment programs rather than youth camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Overnight Summer Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Campers take morning naturalist-led hikes, choose outdoor and creative afternoon activities, and participate in evening camp programs. Longer sessions include backpacking campouts and group learning projects.",
+        "camp_page_url": "https://greenriverpreserve.org/summer-camp/overnight-summer-camp",
+        "registration_url": "https://greenriverpreserve.org/2027-registration-details",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-05",
+          "text": "Enrollment for 2027 is now open!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Green River Preserve",
+            "address": "301 Green River Road",
+            "town": "Cedar Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1 - Rookie Camp",
+            "start": "2027-06-06",
+            "end": "2027-06-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 1500,
+              "unit": "session",
+              "label": "First-time campers only; 5 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-13",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4590,
+              "unit": "session",
+              "label": "12 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6370,
+              "unit": "session",
+              "label": "19 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 4",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2120,
+              "unit": "session",
+              "label": "6 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-25",
+            "end": "2027-08-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 2,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 4590,
+              "unit": "session",
+              "label": "12 days",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "All five overnight camp sessions",
+          "text": "Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to be considered for a scholarship, check “yes” next to “seeking scholarship” on the camper application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenriverpreserve.org/summer-camp/dates-rates",
+          "https://greenriverpreserve.org/summer-camp/overnight-summer-camp",
+          "https://greenriverpreserve.org/2027-registration-details"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Base Camp Expeditions (BCX)",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Participants focus on rock climbing with reading time or mountain biking. They stay on GRP property and develop skills on nearby climbing routes or bike trails.",
+        "camp_page_url": "https://greenriverpreserve.org/summer-camp/base-camp-expeditions",
+        "registration_url": "https://greenriverpreserve.org/2027-registration-details",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-23",
+          "text": "Enrollment for 2027 is now open!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 10,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "GRP Base Camp back field",
+            "address": "301 Green River Road",
+            "town": "Cedar Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2530,
+            "unit": "session",
+            "label": "6 days",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Rock & Read",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Mountain Biking",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Rock & Read has limited availability; Mountain Biking is open",
+          "text": "Rock & Read: Limited Availability; Mountain Biking: Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to be considered for a scholarship, check “yes” next to “seeking scholarship” on the camper application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenriverpreserve.org/summer-camp/dates-rates",
+          "https://greenriverpreserve.org/summer-camp/base-camp-expeditions",
+          "https://greenriverpreserve.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The dates-and-rates page says applicants should have prior experience; the Base Camp Expeditions search snippet says no experience needed. Confirm prerequisites. Drop-off is stated in the official search snippet as the back field between 1–2 PM. Rising grade basis comes from the homepage's expedition eligibility statement."
+      },
+      {
+        "name": "Blue Ridge Expeditions (BRX)",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Participants combine time at base camp with multi-day backpacking, rock climbing, and whitewater canoeing.",
+        "camp_page_url": "https://greenriverpreserve.org/summer-camp/blue-ridge-expeditions",
+        "registration_url": "https://greenriverpreserve.org/2027-registration-details",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-03",
+          "text": "Enrollment for 2027 is now open!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Blue Ridge 1",
+            "start": "2027-06-13",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4490,
+              "unit": "session",
+              "label": "12 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Blue Ridge 2",
+            "start": "2027-06-28",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5540,
+              "unit": "session",
+              "label": "16 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Blue Ridge 3",
+            "start": "2027-07-19",
+            "end": "2027-08-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5540,
+              "unit": "session",
+              "label": "16 days",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Blue Ridge 2 has limited availability; Blue Ridge 1 and 3 are open",
+          "text": "Blue Ridge 1: Open; Blue Ridge 2: Limited Availability; Blue Ridge 3: Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to be considered for a scholarship, check “yes” next to “seeking scholarship” on the camper application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenriverpreserve.org/summer-camp/dates-rates",
+          "https://greenriverpreserve.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Adventure Plus Expeditions",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Participants undertake advanced wilderness trips in the Smoky Mountains or Linville Gorge. Activities include backpacking, cultural learning, and technical outdoor skills.",
+        "camp_page_url": "https://greenriverpreserve.org/summer-camp/adventure-plus-expeditions",
+        "registration_url": "https://greenriverpreserve.org/2027-registration-details",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-08",
+          "text": "Enrollment for 2027 is now open!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "GRP Base Camp back field",
+            "address": "301 Green River Road",
+            "town": "Cedar Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Smoky Mountains Exploration",
+            "start": "2027-06-13",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4480,
+              "unit": "session",
+              "label": "12 days",
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Linville Gorge Climbing",
+            "start": "2027-06-28",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4330,
+              "unit": "session",
+              "label": "11 days",
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Linville Gorge has limited availability; Smoky Mountains is open",
+          "text": "Smoky Mountains Exploration: Open; Linville Gorge Climbing: Limited Availability"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to be considered for a scholarship, check “yes” next to “seeking scholarship” on the camper application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenriverpreserve.org/summer-camp/dates-rates",
+          "https://greenriverpreserve.org/summer-camp/adventure-plus-expeditions"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplemental program page's official search snippet mixes 2026 overview dates with 2027 trip details. Dates and prices here use the clearly labeled 2027 dates-and-rates table. The back-field arrival/departure location and 1–2 PM window were visible only for Smoky Mountains; confirm Linville Gorge meets there too."
+      },
+      {
+        "name": "Leadership in Training (LIT)",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Participants develop leadership and outdoor skills through wilderness adventures and hands-on mentorship at base camp. They work alongside cabin groups and shadow camp staff.",
+        "camp_page_url": "https://greenriverpreserve.org/summer-camp/trail-blazers-leadership-expedition",
+        "registration_url": "https://greenriverpreserve.org/2027-registration-details",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-15",
+          "text": "Enrollment for 2027 is now open!"
+        },
+        "ages": {
+          "min": 17,
+          "max": null
+        },
+        "grades": {
+          "min": 12,
+          "max": null,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5930,
+            "unit": "session",
+            "label": "33 days",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "LIT",
+            "start": "2027-06-13",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "mixed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "mixed",
+          "scope": "Female applicants waitlist only; male applicants limited availability",
+          "text": "Female Waitlist Only/Male Limited Availability"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "If you would like to be considered for a scholarship, check “yes” next to “seeking scholarship” on the camper application."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenriverpreserve.org/summer-camp/dates-rates",
+          "https://greenriverpreserve.org/summer-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

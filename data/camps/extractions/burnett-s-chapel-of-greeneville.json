@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "key": "burnett-s-chapel-of-greeneville",
+    "name": "Burnett's Chapel of Greeneville",
+    "urls": ["https://www.facebook.com/burnetts.chapel.1957/"],
+    "area": "Greeneville, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:25:36.442Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Burnett's Chapel Greeneville VBS 2026",
+      "site:facebook.com/burnetts.chapel.1957 \"2026\" \"VBS\"",
+      "open https://happeningnext.com/event/2026-vbsim-on-gods-team-eid3a0dpkikja"
+    ],
+    "usage": {
+      "inputTokens": 20692,
+      "cachedInputTokens": 8223,
+      "outputTokens": 807,
+      "reasoningTokens": 264
+    },
+    "status": "completed",
+    "ms": 22096,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/burnetts.chapel.1957/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Burnett's Chapel of Greeneville",
+    "website_url": null,
+    "notes": "No standalone provider website or 2027 summer information was found. The supplied official Facebook page returned no readable content. A third-party event listing identifies a 2026 Vacation Bible School, but its details could not be verified on the church's own page. No registration dates were found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School. A third-party listing gives the 2026 theme as I'm On God's Team.",
+        "camp_page_url": "https://www.facebook.com/burnetts.chapel.1957/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Burnett's Chapel",
+            "address": "1555 Whitesands Road",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "The official Facebook page could not be read. Verify the program name, June 1–5, 2026 dates, evening hours, theme and venue address with the church before publication. Dates and hours were found only in the search snippet for https://stayhappening.com/e/2026-vbsim-on-gods-team-E2ISYLGAQH8; the venue address was also shown by https://www.findglocal.com/US/Greeneville/103099764903458/Burnett%27s-Chapel. No readable official source confirmed these facts."
+      }
+    ]
+  }
+}

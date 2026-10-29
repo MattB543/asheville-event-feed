@@ -1,0 +1,205 @@
+{
+  "provider": {
+    "key": "hart-theatre",
+    "name": "HART Theatre",
+    "urls": ["https://harttheatre.org/summer-camps/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:15:30.216Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c4de6fd34411939468449570512758605a0bf1060ae212d19f6fbf1e370cfcf7",
+  "response": {
+    "searches": [
+      "site:harttheatre.org camps 2026 2027 Broadway Bound",
+      "\"HART\" \"Broadway Bound\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23228,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1683,
+      "reasoningTokens": 184
+    },
+    "status": "completed",
+    "ms": 38298,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://harttheatre.org/summer-camps/",
+      "chars": 5191,
+      "method": "fetch"
+    },
+    {
+      "url": "https://harttheatre.org/",
+      "chars": 5034,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "HART Theatre",
+    "website_url": "https://harttheatre.org/",
+    "notes": "No 2027 summer camp information or registration milestones found. The camp page does not print a year alongside its dates; dates are recorded provisionally as 2026 and require confirmation. The live pages returned no readable text through the browser, so extraction relies on the supplied official-page text and official search results. Registration button destinations could not be recovered. The two one-week production themes are grouped as one program; the two-week training intensive is a separate program.",
+    "excluded": [
+      {
+        "name": "Classes at HART",
+        "reason": "Regular theater classes; the currently listed offerings are fall 2026 classes, not summer camps."
+      },
+      {
+        "name": "HART Conservatory",
+        "reason": "Ongoing theater education program, not a finite summer offering."
+      },
+      {
+        "name": "Academy Productions",
+        "reason": "Year-round production opportunities rather than summer camp sessions."
+      },
+      {
+        "name": "Internships at HART",
+        "reason": "Paid internship and employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Broadway Bound",
+        "type": "day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Students train in acting, voice, and dance, including improvisation, stage combat, and scene and monologue work. The two-week intensive concludes with a staged showcase.",
+        "camp_page_url": "https://harttheatre.org/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "HART Theatre",
+            "address": "250 Pigeon Street",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Monday - Friday 9 am - 4 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 600,
+            "unit": "program",
+            "label": "Two-week intensive",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available for Production Tuition, Classes, and Camps"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://harttheatre.org/summer-camps/",
+          "https://harttheatre.org/academy-at-hart/",
+          "https://harttheatre.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of June 1–12 and the $600 tuition on the camp page or registration form; the camp page does not explicitly identify a summer year. Eligibility is stated as Middle & High School, without numeric grades, so grades are left null. The theater address is published in the official footer, but the camp section does not separately state its drop-off venue."
+      },
+      {
+        "name": "A Musical Theatre Production Camp",
+        "type": "day",
+        "categories": ["theater", "music", "dance"],
+        "description": "Students rehearse music, movement, and scenes to stage a 30-minute musical production. Each one-week camp concludes with a performance for family and friends.",
+        "camp_page_url": "https://harttheatre.org/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "HART Theatre",
+            "address": "250 Pigeon Street",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Monday - Friday 9 am - 4 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "session",
+            "label": "One-week production camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Underwater Adventure",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Annie KIDS",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are available for Production Tuition, Classes, and Camps"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://harttheatre.org/summer-camps/", "https://harttheatre.org/"],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of June 29–July 3 and July 27–31 and the $300 tuition on the camp page or registration forms; no summer year is printed beside the dates. The card uses the shared production-camp wording and groups the two musical themes as session rows. The theater address is published in the official footer, but the camp section does not separately state its drop-off venue. The page permits students outside the listed range with prior approval; this is not a statement of special-needs support."
+      }
+    ]
+  }
+}

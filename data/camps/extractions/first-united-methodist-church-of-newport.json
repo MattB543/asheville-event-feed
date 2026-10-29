@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "first-united-methodist-church-of-newport",
+    "name": "First United Methodist Church of Newport",
+    "urls": ["https://www.fumcnewport.org/camp-in-the-community.html"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:19.808Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c58d725bec4e9b365f1e99bcc97da8b906fd416fae7af0118237adeae5acbca2",
+  "response": {
+    "searches": [
+      "site.fumcnewport.org \"2027\" camp",
+      "\"Newport\" \"CITC\" \"2026\" registration"
+    ],
+    "usage": {
+      "inputTokens": 18504,
+      "cachedInputTokens": 8223,
+      "outputTokens": 628,
+      "reasoningTokens": 163
+    },
+    "status": "completed",
+    "ms": 19157,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fumcnewport.org/camp-in-the-community.html",
+      "chars": 1962,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumcnewport.org/first-umc-campus.html",
+      "chars": 1461,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fumcnewport.org/",
+      "chars": 4225,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First United Methodist Church of Newport",
+    "website_url": "https://www.fumcnewport.org/",
+    "notes": "No 2027 camp information was found. The supplied church page lists June 8–12, 2026. Live page opens returned no readable text, so the registration button destination and linked camp booklet could not be retrieved. Youth assistant-counselor training is mentioned as part of the ministry, but no separate named summer offering or enrollment details are provided.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Camp in the Community",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Children attend a week-long day camp with games, songs and stories focused on Christian faith and relationships.",
+        "camp_page_url": "https://www.fumcnewport.org/camp-in-the-community.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First UMC Newport",
+            "address": "212 Washington Avenue",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.fumcnewport.org/camp-in-the-community.html",
+          "https://www.fumcnewport.org/",
+          "https://www.campinthecommunity.org/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

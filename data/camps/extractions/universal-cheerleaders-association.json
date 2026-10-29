@@ -1,0 +1,170 @@
+{
+  "provider": {
+    "key": "universal-cheerleaders-association",
+    "name": "Universal Cheerleaders Association",
+    "urls": ["https://www.varsity.com/uca/school/camps/locations/tn-etsu/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:23.728Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ce9562a5d732cd7b8a6f926514bb8281aff8935c6ad82262cc34790630943879",
+  "response": {
+    "searches": [
+      "site.etsu.edu \"Culp\" \"412\" address",
+      "open https://www.varsity.com/uca/school/camps/locations/tn-etsu/"
+    ],
+    "usage": {
+      "inputTokens": 28171,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1033,
+      "reasoningTokens": 129
+    },
+    "status": "completed",
+    "ms": 25083,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+      "chars": 8861,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/espn-air-dates-2023/",
+      "chars": 8657,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/",
+      "chars": 7872,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/camp-brochure/",
+      "chars": 4701,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/types/",
+      "chars": 10542,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/locations/",
+      "chars": 13718,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/school/camps/types/fall-training/",
+      "chars": 8893,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.varsity.com/uca/wp-content/uploads/2024/12/2-day-byo-home.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://www.varsity.com/uca/wp-content/uploads/2024/01/UCA_3Day_2024_BYOHomeCampSampleSchedule_.pdf",
+      "chars": 1729,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Universal Cheerleaders Association",
+    "website_url": "https://www.varsity.com/uca/",
+    "notes": "No 2027 ETSU camp dates or registration milestones were found. The supplied location page lists 2026 dates. Research is scoped to the Johnson City offering, not UCA's nationwide locations. The location page could not be independently reopened with readable text; its supplied fetched text was used.",
+    "excluded": [
+      {
+        "name": "College Spirit Camp",
+        "reason": "The July 23–26, 2026 ETSU session is listed for college teams, not as a youth or teen pre-college program."
+      },
+      {
+        "name": "Fall Build Your Own Camps",
+        "reason": "Fall program outside summer."
+      },
+      {
+        "name": "Fall Stunt Camps",
+        "reason": "Fall program outside summer."
+      },
+      {
+        "name": "Routine Choreography",
+        "reason": "Choreography service with no finite summer youth offering identified."
+      },
+      {
+        "name": "Sectional Routine Choreography",
+        "reason": "No summer-specific offering or dates identified."
+      },
+      {
+        "name": "Choreography Clean Ups",
+        "reason": "Routine coaching service rather than a listed summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Traditional Overnight Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Cheer teams practice crowd leading and cheerleading skills, with leadership training and team bonding. Squads stay in campus dorms.",
+        "camp_page_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+        "registration_url": "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-11",
+          "end": "2026-07-14",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Tennessee State University — D.P. Culp Student Center",
+            "address": "412 J L Seehorn Jr. Road",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Junior High and High School",
+            "start": "2026-07-11",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "July 11–14, 2026 session",
+          "text": "Register Now!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.varsity.com/uca/school/camps/locations/tn-etsu/",
+          "https://www.varsity.com/uca/school/camps/types/",
+          "https://www.varsity.com/uca/school/camps/camp-brochure/",
+          "https://www.etsu.edu/students/student-center/contactus.php"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplied location page still says Register Now! for a session that ended July 14, 2026; verify this stale availability before displaying it. No numerical ages or grades are given for Junior High and High School teams. The camp page supplies a PO box; ETSU's official contact page supplies the physical street address used here. Pricing and a direct registration-platform link were not accessible."
+      }
+    ]
+  }
+}

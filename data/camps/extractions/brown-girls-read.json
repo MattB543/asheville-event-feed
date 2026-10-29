@@ -1,0 +1,120 @@
+{
+  "provider": {
+    "key": "brown-girls-read",
+    "name": "Brown Girls Read",
+    "urls": ["https://browngirlsread.org/summer-camp/"],
+    "area": "Spartanburg, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:21.212Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0929dde00369edaf937f21a47b496ac710f14b1cef0081dcdfb0124d0aecf86a",
+  "response": {
+    "searches": [
+      "site:browngirlsread.org \"Summer\" \"2026\"",
+      "site.wofford.edu \"429\" \"Church\""
+    ],
+    "usage": {
+      "inputTokens": 22558,
+      "cachedInputTokens": 8223,
+      "outputTokens": 953,
+      "reasoningTokens": 154
+    },
+    "status": "completed",
+    "ms": 27230,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://browngirlsread.org/summer-camp/",
+      "chars": 1648,
+      "method": "fetch"
+    },
+    {
+      "url": "https://browngirlsread.org/",
+      "chars": 2923,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brown Girls Read",
+    "website_url": "https://browngirlsread.org/",
+    "notes": "No 2027 summer camp details or registration milestones were found. The 2026 registration platform was readable through search results only; opening it returned no text.",
+    "excluded": [
+      {
+        "name": "After School Tutoring",
+        "reason": "Academic-year tutoring, not a finite summer camp."
+      },
+      {
+        "name": "After-School Partnerships",
+        "reason": "After-school programming, not a stated summer offering."
+      },
+      {
+        "name": "EHI Fundraising Gala",
+        "reason": "Fundraising event, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Crowned & Confident BRG Summer Camp",
+        "type": "overnight",
+        "categories": ["academic", "arts", "general"],
+        "description": "Girls explore literature and participate in branding, vision-board, affirmation and creative activities. The residential weekend includes author discussions and activities focused on identity, self-expression and leadership.",
+        "camp_page_url": "https://browngirlsread.org/summer-camp/",
+        "registration_url": "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-26",
+          "end": "2026-06-28",
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Wofford College",
+            "address": "429 North Church Street",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 150,
+            "unit": "program",
+            "label": "General Admission",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "For Scholarship Opportunities, fill out the SAM form HERE:"
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://browngirlsread.org/summer-camp/",
+          "https://browngirlsread.org/",
+          "https://www.zeffy.com/en-US/ticketing/brown-girls-read-summer-camp",
+          "https://www.wofford.edu/admission/visit/directions-and-map",
+          "https://www.wofford.edu/about/news/news-archives/2026/crowned-and-confident"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Zeffy registration details were available only in search results. Zeffy states ages 10 and up and June 26 at 08:00 through June 28 at 17:00; the third-party Connect Spartanburg listing states ages 10–16 and Friday 17:00 through Sunday 10:00. Hours are omitted pending confirmation. Connect Spartanburg lists 250 Evins Street (Greek Village), while Zeffy and Wofford's own directions page publish 429 North Church Street; the official campus address is used, but the precise drop-off building should be confirmed."
+      }
+    ]
+  }
+}

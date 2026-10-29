@@ -1,0 +1,174 @@
+{
+  "provider": {
+    "key": "ym360",
+    "name": "YM360",
+    "urls": ["https://generatestudents.com/products/cullowhee-nc-july-29-23-2027"],
+    "area": "Cullowhee, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:53.571Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4b0ea727bbb0e217989965ac6b74a9258a72558ecf9701afbf178a8caf0eec77",
+  "response": {
+    "searches": ["site:wcu.edu \"1 University Way\""],
+    "usage": {
+      "inputTokens": 32116,
+      "cachedInputTokens": 8223,
+      "outputTokens": 816,
+      "reasoningTokens": 47
+    },
+    "status": "completed",
+    "ms": 23408,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
+      "chars": 22775,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/",
+      "chars": 9645,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/collections/2027-generate-camp",
+      "chars": 7833,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/collections/generate-conference",
+      "chars": 4579,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/pages/connect-option",
+      "chars": 5875,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/pages/serve-option",
+      "chars": 7713,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/pages/guide-option",
+      "chars": 6408,
+      "method": "fetch"
+    },
+    {
+      "url": "https://generatestudents.com/pages/explore-option",
+      "chars": 5967,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "YM360",
+    "website_url": "https://generatestudents.com/",
+    "notes": "Only the Cullowhee offering is included; the national 2027 catalog lists one Cullowhee session. Registration is through church groups, with accompanying adults. The January 31 deposit deadline has no explicit year and is therefore not entered as a dated registration milestone.",
+    "excluded": [
+      {
+        "name": "GENERATE Conference",
+        "reason": "The posted conferences occur January through March, outside summer."
+      },
+      {
+        "name": "LEAD TEAM",
+        "reason": "The Cullowhee session explicitly states that LEAD TEAM is not needed for this week."
+      }
+    ],
+    "cards": [
+      {
+        "name": "GENERATE Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Church youth groups participate in Bible study, worship, and recreation while staying in university dormitories. Groups choose options involving group-building activities, community service, evangelism training, or activities planned by their church.",
+        "camp_page_url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
+        "registration_url": "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-19",
+          "end": "2027-07-23",
+          "text": "Dates: July 19 – 23, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Western Carolina University",
+            "address": "1 University Drive",
+            "town": "Cullowhee",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "First-day registration and check-in: 1:00–3:00 PM. Closing-day dismissal: 9:00 AM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 399,
+            "unit": "session",
+            "label": "CONNECT OPTION; per person",
+            "year": 2027
+          },
+          {
+            "amount": 419,
+            "unit": "session",
+            "label": "SERVE OPTION; per person",
+            "year": 2027
+          },
+          {
+            "amount": 409,
+            "unit": "session",
+            "label": "GUIDE OPTION; per person; church groups of 40 or less",
+            "year": 2027
+          },
+          {
+            "amount": 389,
+            "unit": "session",
+            "label": "EXPLORE OPTION; per person",
+            "year": 2027
+          },
+          {
+            "amount": 399,
+            "unit": "session",
+            "label": "SHARE Option; per person",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meals, lodging, T-shirt, curriculum, programming"
+        },
+        "transportation": null,
+        "sources": [
+          "https://generatestudents.com/products/cullowhee-nc-july-29-23-2027",
+          "https://generatestudents.com/collections/2027-generate-camp",
+          "https://generatestudents.com/pages/connect-option",
+          "https://generatestudents.com/pages/serve-option",
+          "https://generatestudents.com/pages/guide-option",
+          "https://generatestudents.com/pages/explore-option",
+          "https://www.wcu.edu/discover/locations/main-campus/campus-map.aspx"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page gives 1 University Way; WCU's own campus map publishes 1 University Drive, which is used here. Eligibility also includes graduates and accompanying adults, beyond the numeric grade range. The product header displays $389 discounted from $409; the explicit option-specific prices are used instead. January 31 deposit instructions do not print a year. SERVE groups must provide their own transportation to assigned service sites; no camp-wide transportation policy is stated."
+      }
+    ]
+  }
+}

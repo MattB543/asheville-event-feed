@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "black-mountain-united-methodist-church",
+    "name": "Black Mountain United Methodist Church",
+    "urls": ["https://blackmountainumc.org/events/vacation-bible-school/"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:14:24.388Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "2c995d457fcf789fe703bdad245cbca63992522089cbc6051d6926f4bc4d2677",
+  "response": {
+    "searches": [
+      "site:blackmountainumc.org \"Vacation\" \"2027\"",
+      "open https://blackmountainumc.org/creation-explorers-vacation-bible-school/"
+    ],
+    "usage": {
+      "inputTokens": 14632,
+      "cachedInputTokens": 8223,
+      "outputTokens": 795,
+      "reasoningTokens": 117
+    },
+    "status": "completed",
+    "ms": 29139,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://blackmountainumc.org/events/vacation-bible-school/",
+      "chars": 1177,
+      "method": "fetch"
+    },
+    {
+      "url": "https://blackmountainumc.org/",
+      "chars": 3504,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Black Mountain United Methodist Church",
+    "website_url": "https://blackmountainumc.org/",
+    "notes": "No summer 2027 information or registration announcement was found. The 2026 event listing gives July 27 only and says more information is forthcoming. An older Creation Explorers VBS page surfaced, but its year could not be verified and its ages and activities were not applied to the 2026 listing.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Year-round Sunday classes, not a finite summer camp."
+      },
+      {
+        "name": "SOAP Lessons with Pastor Chandler",
+        "reason": "Recurring Sunday fellowship and devotion, not a summer camp."
+      },
+      {
+        "name": "Morning Explorers",
+        "reason": "Regular preschool; no summer-only camp offering was identified."
+      },
+      {
+        "name": "Kid Quest",
+        "reason": "Ongoing children's program; no finite summer offering was identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School for children. Activities for the listed 2026 event were not described.",
+        "camp_page_url": "https://blackmountainumc.org/events/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-27",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Black Mountain United Methodist Church",
+            "address": "101 Church St",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "19:30",
+          "text": "5:00 pm - 7:30 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://blackmountainumc.org/events/vacation-bible-school/",
+          "https://blackmountainumc.org/",
+          "https://blackmountainumc.org/contact-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event page lists July 27, 2026, 5:00–7:30 pm, but says 'More info to come!' Check whether July 27 represents the complete program or only its first evening. The church location is taken from its homepage and contact page; the supplied event text does not explicitly identify the drop-off venue."
+      }
+    ]
+  }
+}

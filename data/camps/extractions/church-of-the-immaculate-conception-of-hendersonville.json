@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "church-of-the-immaculate-conception-of-hendersonville",
+    "name": "Church of the Immaculate Conception of Hendersonville",
+    "urls": ["https://theimmaculate.org/church/vbs/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:25.511Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "601fe666de01a974d7078541ea45d8eaff3fefcaf799cc8fa6d88cd603598183",
+  "response": {
+    "searches": [
+      "Immaculate Conception Hendersonville vacation bible school 2026 2027",
+      "site:ichvl.com \"2026\" \"camp\"",
+      "\"Camp Joshua\" \"2026\" \"Hendersonville\""
+    ],
+    "usage": {
+      "inputTokens": 33701,
+      "cachedInputTokens": 8223,
+      "outputTokens": 572,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 27514,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://theimmaculate.org/church/vbs/",
+      "chars": 1613,
+      "method": "fetch"
+    },
+    {
+      "url": "https://theimmaculate.org/",
+      "chars": 584,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Church of the Immaculate Conception of Hendersonville",
+    "website_url": "https://ichvl.com/",
+    "notes": "The supplied theimmaculate.org pages belong to a different parish at 200 Ware Avenue, Towson, Maryland, not the Hendersonville provider. Its July 27–31, 2026 VBS must not be attributed to Hendersonville. The Hendersonville parish's official website is ichvl.com; its church is at 208 7th Avenue West, Hendersonville, NC. No Hendersonville VBS or summer 2027 camp information was found. July 2026 parish bulletins advertised North Carolina Right to Life's Camp Joshua at Immaculata Catholic School for July 17–18, 2026; this is an externally operated offering, and the organizer's current website instead advertises November 13–14 in Hendersonville. No cards are returned because no summer program operated by this provider was verified.",
+    "excluded": [
+      {
+        "name": "Vacation Bible School (VBS)",
+        "reason": "The supplied program page describes a different Immaculate Conception parish in Towson, MD, outside the requested provider and area."
+      },
+      {
+        "name": "Camp Joshua",
+        "reason": "An externally operated North Carolina Right to Life program advertised in parish bulletins, rather than a verified parish-operated camp. The organizer currently advertises November 13–14, outside summer; the parish's older July 17–18, 2026 listing requires review."
+      }
+    ],
+    "cards": []
+  }
+}

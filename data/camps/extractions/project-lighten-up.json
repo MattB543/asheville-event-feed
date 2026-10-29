@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "project-lighten-up",
+    "name": "Project Lighten Up",
+    "urls": ["https://www.facebook.com/ProjectLightenUp"],
+    "area": "Asheville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:16:21.395Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Project Lighten Up\" camp 2026",
+      "\"Project Lighten Up\" \"2026\" \"summer\"",
+      "open https://rockhillbcnc.cfsites.org/"
+    ],
+    "usage": {
+      "inputTokens": 22580,
+      "cachedInputTokens": 8223,
+      "outputTokens": 837,
+      "reasoningTokens": 176
+    },
+    "status": "completed",
+    "ms": 177327,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/ProjectLightenUp",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Project Lighten Up",
+    "website_url": null,
+    "notes": "No dedicated website for this Asheville provider was verified. The similarly named projectlightenupprogram.com appears to be unrelated. Facebook returned no readable page text; indexed official posts confirm a summer camp historically, but no 2026 or 2027 schedule or registration announcement was found. Historical dates, grades, hours and meals have not been carried forward. The card needs provider confirmation before publication.",
+    "excluded": [
+      {
+        "name": "After School Action Program for Excellence",
+        "reason": "School-year afterschool program, not a finite summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Learning Academy",
+        "type": "day",
+        "categories": ["academic", "general"],
+        "description": "Campers take part in educational and recreational activities, including reading and math practice.",
+        "camp_page_url": "https://www.facebook.com/ProjectLightenUp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Rock Hill Missionary Baptist Church",
+            "address": "486 Caribou Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/ProjectLightenUp",
+          "https://www.facebook.com/ProjectLightenUp/posts/we-blend-education-and-recreation-into-daily-activities-campers-keeping-up-their/3233079656702151/",
+          "https://www.facebook.com/ProjectLightenUp/videos/take-a-look-at-this-video-summer-fun-at-the-arboretum/321609740485158/",
+          "https://www.buncombenc.gov/Facilities/Facility/Details/Rock-Hill-Baptist-Church-47"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm current operation, program name and drop-off venue directly with the provider. Summer Learning Academy and the church venue are documented in a December 2023 Urban News article and the provider's volunteer-directory profile, rather than readable current official camp pages. The county confirms the church address, but the church's own website returned no readable text. Official Facebook search snippets establish historical educational and recreational summer activities, not a 2026 or 2027 offering. No year-specific dates, eligibility, prices, hours or registration details were verified."
+      }
+    ]
+  }
+}

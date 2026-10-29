@@ -1,0 +1,231 @@
+{
+  "provider": {
+    "key": "rod-ray-tennis-camp",
+    "name": "Rod Ray Tennis Camp",
+    "urls": ["https://www.rodraytenniscamp.com/clubs/7260/pages/194264"],
+    "area": "Spartanburg, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:23.059Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a0b7216ade7e57fc172c0637e2a0220a580d1d7fe0a65ba55b48877eb3e76242",
+  "response": {
+    "searches": [
+      "Rod Ray Tennis Camp 2026 2027 dates",
+      "site.wofford.edu \"429 North Church\"",
+      "site.activekids.com/spartanburg-sc \"session-2-2027\" \"Rod\""
+    ],
+    "usage": {
+      "inputTokens": 32938,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1743,
+      "reasoningTokens": 220
+    },
+    "status": "completed",
+    "ms": 45115,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194264",
+      "chars": 625,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/signup",
+      "chars": 3244,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260",
+      "chars": 897,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194267",
+      "chars": 627,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194268",
+      "chars": 615,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campsself.active.com/RodRayTennisCamp",
+      "chars": 362,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194269",
+      "chars": 647,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194270",
+      "chars": 615,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Rod Ray Tennis Camp",
+    "website_url": "https://www.rodraytenniscamp.com/",
+    "notes": "The provider's ACTIVEkids organizer listing posts two summer 2027 sessions. The main website's camp information, facilities and FAQ pages returned navigation without substantive content. ACTIVEkids session details were accessible only in search snippets. No prices, ages or registration opening dates could be verified. Wofford's athletics page still lists three 2026 sessions; these were not carried forward into 2027.",
+    "excluded": [
+      {
+        "name": "Christmas Camp",
+        "reason": "December 21–22, 2026; outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers participate in tennis training at Wofford College.",
+        "camp_page_url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194264",
+        "registration_url": "https://www.activekids.com/orgs/rod-ray-tennis-camp",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Wofford College",
+            "address": "429 North Church Street",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "Day Camp check in is Monday at 9:00. Day camp ends each day at 5:00. Both overnight and day camp ends on Thursday at 12:00."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-14",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-21",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.rodraytenniscamp.com/clubs/7260/pages/194264",
+          "https://www.activekids.com/orgs/rod-ray-tennis-camp",
+          "https://www.activekids.com/spartanburg-sc/racquet-sports/tennis-camps/session-1-2027",
+          "https://www.wofford.edu/admission/visit/directions-and-map"
+        ],
+        "confidence": "medium",
+        "review_notes": "Day-camp Monday starts are derived from the Session 1 registration snippet's Monday check-in wording and the listed Sunday–Thursday session ranges. Verify Session 2's day option and hours directly with the provider; its detailed page could not be read. The address is Wofford's published campus address; the precise day-camp check-in location was not available."
+      },
+      {
+        "name": "Overnight Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers stay at Wofford College and participate in tennis training, with the first training session following Sunday check-in.",
+        "camp_page_url": "https://www.rodraytenniscamp.com/clubs/7260/pages/194264",
+        "registration_url": "https://www.activekids.com/orgs/rod-ray-tennis-camp",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-06-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Wofford College",
+            "address": "429 North Church Street",
+            "town": "Spartanburg",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Overnight check in is Sunday at 4:00. Both overnight and day camp ends on Thursday at 12:00."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.rodraytenniscamp.com/clubs/7260/pages/194264",
+          "https://www.activekids.com/orgs/rod-ray-tennis-camp",
+          "https://www.activekids.com/spartanburg-sc/racquet-sports/tennis-camps/session-1-2027",
+          "https://www.wofford.edu/admission/visit/directions-and-map"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check-in and departure information came from the Session 1 registration search snippet. Verify Session 2's overnight option and check-in details directly with the provider. The camp information search snippet specifies dorm check-in but does not identify the dorm; the site address is Wofford's published campus address."
+      }
+    ]
+  }
+}

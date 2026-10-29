@@ -1,0 +1,257 @@
+{
+  "provider": {
+    "key": "bob-jones-university",
+    "name": "Bob Jones University",
+    "urls": ["https://educamp.bju.edu/camps/senior-music/", "https://educamp.bju.edu/"],
+    "area": "Greenville, SC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:07:55.609Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4a7ad75a5bfabad85edbeecc2cc85e9853904f66d3e8bb899faee069d360f0b5",
+  "response": {
+    "searches": ["site:educamp.bju.edu camps 2026", "site:bju.edu \"Welcome Center\" \"1700\""],
+    "usage": {
+      "inputTokens": 64946,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2047,
+      "reasoningTokens": 137
+    },
+    "status": "completed",
+    "ms": 46594,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://educamp.bju.edu/camps/senior-music/",
+      "chars": 16749,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://educamp.bju.edu/",
+      "chars": 1206,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://educamp.campbrainregistration.com/",
+      "chars": 502,
+      "method": "browser"
+    },
+    {
+      "url": "https://educamp.bju.edu/info/",
+      "chars": 3421,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://educamp.bju.edu/about-us/",
+      "chars": 3534,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://educamp.bju.edu/files/2025/10/20250725music-camp-de106.jpg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://educamp.bju.edu/files/2025/10/20250725music-camp-de091.jpg",
+      "chars": 24588,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bob Jones University",
+    "website_url": "https://educamp.bju.edu/",
+    "notes": "Partial provider extraction: these cards cover Senior Music only, the program supplied in full. The official camps-by-type directory lists many additional programs that still require individual-page research; they are not excluded under the camp rule. The homepage says '2027 Camps Coming in December'; no specific registration opening date was verified. The homepage's 'Register by Dec. 31 SAVE 20%' has no explicit year and was not converted into a 2027 milestone. Registration is currently closed.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Senior Music",
+        "type": "overnight",
+        "categories": ["music", "faith_based"],
+        "description": "Campers choose instrumental, vocal or composition tracks and participate in private instruction, rehearsals, workshops and final recitals and concerts. Daily devotions and Bible challenges are included.",
+        "camp_page_url": "https://educamp.bju.edu/camps/senior-music/",
+        "registration_url": "https://educamp.campbrainregistration.com/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-12",
+          "end": "2026-07-24",
+          "text": "2027 Camps Coming in December"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Bob Jones University Welcome Center",
+            "address": "1700 Wade Hampton Blvd.",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 450,
+            "unit": "session",
+            "label": "Overnight Camp; additional $20 registration fee per camper, not per camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Band, Composition, Harp, Guitar, Keyboard",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Vocal, Composition, Handbells, Keyboard, Strings",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "This camp is closed for this year. Check back again next year!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be served in our dining common in an all-you-can-eat buffet style."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We offer complimentary shuttle service to and from the GSP International Airport as well as the Greenville Amtrak and Greyhound stations. You can request a shuttle on the online registration form."
+        },
+        "sources": [
+          "https://educamp.bju.edu/camps/senior-music/",
+          "https://educamp.bju.edu/",
+          "https://educamp.bju.edu/info/",
+          "https://www.bju.edu/about/campus-map/student-center/",
+          "https://educamp.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use 2026 from the homepage's 2026 camp heading and the program's 'As of Sept. 2026 and 2026 grads' eligibility statement. Rising grades represents September eligibility; 2026 graduates are also expressly eligible. The homepage's December announcement is provider-wide, not a confirmation of Senior Music's 2027 return. Audition instructions conflict: one section requires advance string videos while another describes Sunday chair-placement auditions."
+      },
+      {
+        "name": "Senior Music",
+        "type": "day",
+        "categories": ["music", "faith_based"],
+        "description": "Campers choose instrumental, vocal or composition tracks and participate in private instruction, rehearsals, workshops and final recitals and concerts. Daily devotions and Bible challenges are included.",
+        "camp_page_url": "https://educamp.bju.edu/camps/senior-music/",
+        "registration_url": "https://educamp.campbrainregistration.com/",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-07-12",
+          "end": "2026-07-24",
+          "text": "2027 Camps Coming in December"
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Bob Jones University Welcome Center",
+            "address": "1700 Wade Hampton Blvd.",
+            "town": "Greenville",
+            "state": "SC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "21:00",
+          "text": "Campers may be required to be on campus from 8:30 a.m.–9 p.m. on camp days. Check your camp schedule for specific details. Sunday check-in is 2–4 p.m.; Friday ends after the final performance, 2–3:30 p.m. Daily drop-off is 8–8:30 a.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "session",
+            "label": "Day Camp; additional $20 registration fee per camper, not per camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Band, Composition, Harp, Guitar, Keyboard",
+            "start": "2026-07-12",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Vocal, Composition, Handbells, Keyboard, Strings",
+            "start": "2026-07-19",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "This camp is closed for this year. Check back again next year!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and dinner are included in the camp cost."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "We offer complimentary shuttle service to and from the GSP International Airport as well as the Greenville Amtrak and Greyhound stations. You can request a shuttle on the online registration form."
+        },
+        "sources": [
+          "https://educamp.bju.edu/camps/senior-music/",
+          "https://educamp.bju.edu/",
+          "https://educamp.bju.edu/info/",
+          "https://www.bju.edu/about/campus-map/student-center/",
+          "https://educamp.campbrainregistration.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates use 2026 from the homepage's 2026 camp heading and the program's 'As of Sept. 2026 and 2026 grads' eligibility statement. Rising grades represents September eligibility; 2026 graduates are also expressly eligible. Day campers must live in or stay with family in the immediate Greenville area. Hours are a possible attendance requirement, not a fixed daily schedule. The December announcement is provider-wide. Audition instructions conflict between advance string videos and Sunday chair-placement auditions."
+      }
+    ]
+  }
+}

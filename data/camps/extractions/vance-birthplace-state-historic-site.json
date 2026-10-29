@@ -1,0 +1,59 @@
+{
+  "provider": {
+    "key": "vance-birthplace-state-historic-site",
+    "name": "Vance Birthplace State Historic Site",
+    "urls": ["https://historicsites.nc.gov/news/events/summer-storytime-vance-birthplace"],
+    "area": "Weaverville, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:16.182Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fb0f53ef07613eecb9aad7048abdcb0f1dbcab12122d984469e4a501b28cffdf",
+  "response": {
+    "searches": ["site:historicsites.nc.gov \"Vance\" \"camp\""],
+    "usage": {
+      "inputTokens": 15302,
+      "cachedInputTokens": 8223,
+      "outputTokens": 291,
+      "reasoningTokens": 76
+    },
+    "status": "completed",
+    "ms": 15307,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://historicsites.nc.gov/news/events/summer-storytime-vance-birthplace",
+      "chars": 2930,
+      "method": "fetch"
+    },
+    {
+      "url": "https://historicsites.nc.gov/about/faq",
+      "chars": 5105,
+      "method": "fetch"
+    },
+    {
+      "url": "https://historicsites.nc.gov/",
+      "chars": 4189,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Vance Birthplace State Historic Site",
+    "website_url": "https://historicsites.nc.gov/all-sites/vance-birthplace",
+    "notes": "No qualifying summer camp programs or 2027 camp information were found on the official site. The official upcoming-events page lists no upcoming events. The supplied Summer Storytime page describes a June 21, 2025 family event, not a supervised youth camp.",
+    "excluded": [
+      {
+        "name": "Summer Storytime at Vance Birthplace",
+        "reason": "Family storytime and drop-in crafts, rather than a supervised youth camp. The page invites families with young children and lists June 21, 2025."
+      },
+      {
+        "name": "Vance Birthplace Field Trips: Virtual & In-Person Experiences",
+        "reason": "School and educator field-trip experiences arranged by request, not a finite summer youth program."
+      }
+    ],
+    "cards": []
+  }
+}

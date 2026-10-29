@@ -1,0 +1,1967 @@
+{
+  "provider": {
+    "key": "camp-grier",
+    "name": "Camp Grier",
+    "urls": ["https://www.campgrier.org/summer-camps", "https://www.worxproject.org/"],
+    "area": "Old Fort, NC",
+    "discovered_by": ["beyond_school", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:46.033Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fdcd8b03e84d4ee4c2abf7bbf2faa46a8f532348af6bf1b60ac1c43712d4f3de",
+  "response": {
+    "searches": [
+      "site.campgrier.org \"Day Camp\" \"2027\"",
+      "open https://www.campgrier.org/summer-day-camp",
+      "site.campgrier.org/summer-day-camp \"Pathfinders\""
+    ],
+    "usage": {
+      "inputTokens": 31406,
+      "cachedInputTokens": 8223,
+      "outputTokens": 10670,
+      "reasoningTokens": 377
+    },
+    "status": "completed",
+    "ms": 177173,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campgrier.org/summer-camps",
+      "chars": 12024,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worxproject.org/",
+      "chars": 904,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgrier.org/summer-rates-registration",
+      "chars": 1944,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+      "chars": 455,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.worxproject.org/registration",
+      "chars": 629,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.campgrier.org/",
+      "chars": 1831,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgrier.org/mission",
+      "chars": 1658,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campgrier.org/our-story",
+      "chars": 4309,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Grier",
+    "website_url": "https://www.campgrier.org/",
+    "notes": "2027 rates and registration listings are posted. Several program-description dates and eligibility ranges conflict with UltraCamp; these are flagged on the affected cards. Browser opens returned no readable text, so additional research relied on official search-indexed pages and the supplied page text. No dated 2027 registration opening announcement was found. The WORX Project has no verified 2027 schedule; its undated registration-page weeks were not assigned a year. Canoeing and climbing appear as themed Pioneers day-camp sessions in UltraCamp, although the rates page lists them as $575 specialty day camps.",
+    "excluded": [
+      {
+        "name": "Sleep Away Family Camp",
+        "reason": "Family-only program."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment applications, not camper programs."
+      },
+      {
+        "name": "Streets to Peaks Jan",
+        "reason": "January program, outside summer."
+      },
+      {
+        "name": "Streets to Peaks Spring Break",
+        "reason": "Spring-break program, outside summer."
+      },
+      {
+        "name": "Equestrian lessons and guided trail rides",
+        "reason": "Year-round lessons and activities, not finite summer camps."
+      },
+      {
+        "name": "YouthBuild CORE-2",
+        "reason": "Workforce-development and employment program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Explorers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers participate in worship, art, canoeing, hiking, swimming and games on Camp Grier's campus.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 2,
+          "max": 3,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1205,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Description-page dates have no explicit year alongside them; interpreted as 2027 from the linked Summer 2027 rates and current navigation."
+      },
+      {
+        "name": "Discoverers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers spend one night camping away from their cabin on campus and participate in worship, art, canoeing, hiking, swimming and games.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1205,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+        ],
+        "confidence": "medium",
+        "review_notes": "Session 5 ends July 15 on the description page but July 16 in UltraCamp; used UltraCamp's explicitly dated 2027 listing."
+      },
+      {
+        "name": "Adventurers",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers use Camp Grier as a base for river paddling or rock climbing and traditional camp activities. Two-week campers take a two-night backpacking trip.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1205,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          },
+          {
+            "amount": 2200,
+            "unit": "session",
+            "label": "2 weeks",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week; description-page price",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 5",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 6",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 1/2",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2200,
+              "unit": "session",
+              "label": "2 weeks",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 6/7",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2200,
+              "unit": "session",
+              "label": "2 weeks",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+        ],
+        "confidence": "medium",
+        "review_notes": "UltraCamp lists Session 3 at $1305 rather than $1205, Session 7 grades 10–12 rather than rising 7–9, and Session 6/7 ending July 23 rather than July 30. Used description-page eligibility, Session 3 price and two-week end date. Session 5 ends July 15 on the description page but July 16 in UltraCamp."
+      },
+      {
+        "name": "Navigators",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general", "faith_based"],
+        "description": "Campers participate in traditional camp activities and off-campus river or rock-climbing trips. Two-week campers also backpack for three nights, develop leadership skills and complete service activities.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1205,
+            "unit": "session",
+            "label": "1 week Traditional",
+            "year": 2027
+          },
+          {
+            "amount": 2200,
+            "unit": "session",
+            "label": "2 week Traditional",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week Traditional",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week Traditional",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 7",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1205,
+              "unit": "session",
+              "label": "1 week Traditional",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 2/3",
+            "start": "2027-06-20",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2200,
+              "unit": "session",
+              "label": "2 week Traditional",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session 5/6",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2200,
+              "unit": "session",
+              "label": "2 week Traditional",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from the current Summer 2027 rates and navigation."
+      },
+      {
+        "name": "Navigator Wilderness Adventures",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers practice hiking, orienteering, canoeing and rock climbing, with one or two nights camping in the woods.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1305,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 2",
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "The description lists June 21–26, unlike other Session 2 programs' June 20–25. Confirm whether this is a stale date; year is inferred from current 2027 context."
+      },
+      {
+        "name": "Onewheel Camp",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers receive Onewheel instruction and participate in trail riding, trick sessions, challenges and competitions.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1305,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 2: Rising 6th–8th grade",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2: Rising 9th–12th grade",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 9,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+        ],
+        "confidence": "medium",
+        "review_notes": "UltraCamp's Middle School One Wheel listing says grades 6–9; the description page says rising 6–8 and a separate rising 9–12 group. Used description-page bands."
+      },
+      {
+        "name": "Equestrian",
+        "type": "overnight",
+        "categories": ["horses", "nature_outdoor", "faith_based"],
+        "description": "Campers practice ground horsemanship, arena riding and trail riding, alongside worship, swimming, canoeing and art.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1305,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1 Discoverer",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 Navigator",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 Adventurer",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5 Navigator",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6 Discoverer",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7 Adventurer",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from current rates and navigation."
+      },
+      {
+        "name": "Equestrian Day Camp",
+        "type": "day",
+        "categories": ["horses", "nature_outdoor"],
+        "description": "Campers practice ground horsemanship, arena riding and trail riding and participate in other camp activities.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 5,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "15:30",
+          "text": "Monday-Friday 8:00am-3:30pm (pick up ends at 5:00)"
+        },
+        "extended_care": {
+          "early_dropoff_start": null,
+          "late_pickup_end": "17:00",
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 575,
+            "unit": "week",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 4",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.ultracamp.com/info/upcomingsessions.aspx?campcode=CGN&idCamp=1220"
+        ],
+        "confidence": "medium",
+        "review_notes": "Description page says rising grades 5–12 and August 2–6; UltraCamp says grades 4–12 and August 2–5. Used description-page eligibility and Friday end date."
+      },
+      {
+        "name": "Mountain Bike",
+        "type": "overnight",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers practice riding skills and trail etiquette through instruction and guided rides. They also participate in art, canoeing, swimming and games.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1305,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1 Discoverer",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 Navigator",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 Adventurer",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5 Navigator",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6 Discoverer",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7 Adventurer",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Description-page dates lack an adjacent year; interpreted as 2027 from current rates and navigation."
+      },
+      {
+        "name": "Mountain Bike Day Camp",
+        "type": "day",
+        "categories": ["sports", "nature_outdoor"],
+        "description": "Campers receive mountain-bike instruction and practice riding skills and trail etiquette on guided rides.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-05",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 575,
+            "unit": "week",
+            "label": "Monday-Friday specialty day camp",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 4 Adventurers",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8 Discoverers",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 4,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Day-session eligibility is expressed only as Adventurers and Discoverers; grade ranges follow those explicitly defined bands on the same page. Dates interpreted as 2027 from current rates."
+      },
+      {
+        "name": "Eco Camp",
+        "type": "overnight",
+        "categories": ["stem", "nature_outdoor"],
+        "description": "Campers explore sustainable farming, food systems and environmental science through hands-on activities. They also swim, play field games and use the climbing wall.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 4,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 1205,
+            "unit": "session",
+            "label": "1 week",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1 Discoverer",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration",
+          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=488357"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Leadership & Counselor Training",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers practice communication, problem solving and outdoor leadership. The two-week program includes a multi-day canoeing or backpacking trip.",
+        "camp_page_url": "https://www.campgrier.org/summer-camps",
+        "registration_url": "https://www.ultracamp.com/clientlogin.aspx?idCamp=1220&campCode=CGN",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2000,
+            "unit": "session",
+            "label": "2 weeks",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 5/6",
+            "start": "2027-07-11",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-camps",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is rising 11th grade through rising college freshman; college freshman is not encoded as a numeric K–12 grade. Dates lack an adjacent year and are interpreted from current 2027 rates."
+      },
+      {
+        "name": "Summer Day Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor", "sports"],
+        "description": "Campers participate in outdoor adventures, games and classic camp activities, with meals in the dining hall. Pioneers have rock-climbing and canoeing themed sessions.",
+        "camp_page_url": "https://www.campgrier.org/summer-day-camp",
+        "registration_url": "https://www.ultracamp.com/reservations.aspx?campcode=CGN&idCamp=1220",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-06",
+          "text": "June - August, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Grier",
+            "address": "985 Camp Grier Rd.",
+            "town": "Old Fort",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "session",
+            "label": "UltraCamp day-camp listing",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1 Pathfinders Day Camp",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "Session 1 Expeditioners Day Camp",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 1 Pioneers Day Camp",
+            "start": "2027-06-13",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 Pathfinders Day Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 Expeditioners Day Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2 Pioneers Day Camp",
+            "start": "2027-06-20",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 Pathfinders Day Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 Expeditioners Day Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3 Pioneers Day Camp",
+            "start": "2027-06-27",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4 Pathfinders Day Camp",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4 Expeditioners Day Camp",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 4 Pioneers Rock Climbing Camp",
+            "start": "2027-07-04",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5 Pathfinders Day Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5 Expeditioners Day Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 5 Pioneers Day Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6 Pathfinders Day Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6 Expeditioners Day Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 6 Pioneers Day Camp",
+            "start": "2027-07-18",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7 Pathfinders Day Camp",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7 Expeditioners Day Camp",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 7 Pioneers Day Camp",
+            "start": "2027-07-25",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8 Pathfinders Day Camp",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 2,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8 Expeditioners Day Camp",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 8 Pioneers Canoeing Day Camp",
+            "start": "2027-08-01",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 6,
+              "max": 8,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "closes",
+            "date": "2027-05-29",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registration will end on 5/29/2027.",
+            "url": "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=594992",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Session 1 Pathfinders Day Camp only",
+          "text": "Availability: This session has openings"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "with meals in the dining hall"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.campgrier.org/summer-day-camp",
+          "https://www.ultracamp.com/info/upcomingsessions.aspx?campcode=CGN&idCamp=1220",
+          "https://www.ultracamp.com/info/sessiondetail.aspx?campCode=CGN&idCamp=1220&idSession=594992",
+          "https://www.campgrier.org/summer-rates-registration"
+        ],
+        "confidence": "medium",
+        "review_notes": "Additional facts were accessible only through official search snippets. UltraCamp lists Sunday–Friday dates; actual weekday attendance and hours need confirmation. Rates page lists canoe and climbing specialty day camps at $575, while the Pioneers themed listings are $400. The May 29 registration close applies only to Session 1 Pathfinders, not all sessions."
+      },
+      {
+        "name": "The WORX Project",
+        "type": "day",
+        "categories": ["stem", "nature_outdoor", "cooking"],
+        "description": "Students explore skilled trades and career-connected learning through hands-on outdoor activities.",
+        "camp_page_url": "https://www.worxproject.org/",
+        "registration_url": "https://www.worxproject.org/registration",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "session",
+            "label": "Eligible public-school students",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week Two",
+            "start": "2026-07-13",
+            "end": "2026-07-16",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.worxproject.org/",
+          "https://www.worxproject.org/registration",
+          "https://form.jotform.com/260564135874159"
+        ],
+        "confidence": "medium",
+        "review_notes": "The indexed registration form title says 2026 Week 1 July 7–10, but its body says Week Two July 13–16; used the body dates and title's year. Eligibility is rising grades 6–8 attending Buncombe County or Asheville City public schools, plus ACS IRL rising 9th graders. The official website lists four undated July weeks; their year could not be verified, so only the form-supported week is included. A school-system listing gives Camp Woodson, 55 Woodson Rd, Fairview, NC, but describes traveling there; the parent drop-off site was not established, so sites is empty."
+      }
+    ]
+  }
+}

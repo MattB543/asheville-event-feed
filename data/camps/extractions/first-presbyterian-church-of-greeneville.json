@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "first-presbyterian-church-of-greeneville",
+    "name": "First Presbyterian Church of Greeneville",
+    "urls": ["https://www.firstpresgreeneville.org/vbs-registration"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:09.254Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ae32fa3128f911663c709c3102ebc4e6db1f50f6dbabe6b117b086bbd010c3d2",
+  "response": {
+    "searches": [
+      "site:firstpresgreeneville.org VBS 2026 2027",
+      "site:firstpresgreeneville.org \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 17577,
+      "cachedInputTokens": 8223,
+      "outputTokens": 769,
+      "reasoningTokens": 160
+    },
+    "status": "completed",
+    "ms": 25875,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.firstpresgreeneville.org/vbs-registration",
+      "chars": 1697,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.firstpresgreeneville.org/",
+      "chars": 1383,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Presbyterian Church of Greeneville",
+    "website_url": "https://www.firstpresgreeneville.org/",
+    "notes": "No 2027 or 2026 VBS details were found. The VBS registration page's embedded form failed to load in the supplied crawl. Search found an official VBS page advertising Wilderness Escape 2021 at Rural Resources; those historical dates, grades, hours and location were not carried forward. The newsletter page advertises a current newsletter, but no readable newsletter or PDF was accessible.",
+    "excluded": [
+      {
+        "name": "WFC - Wednesday at First Church",
+        "reason": "Recurring school-year after-school ministry, not a finite summer program."
+      },
+      {
+        "name": "Children's Choir",
+        "reason": "Ongoing children's ministry rather than a stated summer camp."
+      },
+      {
+        "name": "Bell Choir",
+        "reason": "Ongoing children's ministry rather than a stated summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers Vacation Bible School for children. Current activities and summer program details are not published on the readable registration page.",
+        "camp_page_url": "https://www.firstpresgreeneville.org/vbs-registration",
+        "registration_url": "https://www.firstpresgreeneville.org/vbs-registration",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.firstpresgreeneville.org/vbs-registration",
+          "https://www.firstpresgreeneville.org/vbs",
+          "https://www.firstpresgreeneville.org/about/the-bell-newsletter"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm whether VBS will run in summer 2027 and obtain dates, eligibility, activities and drop-off location directly from the church. The registration form is unreadable, and the separate VBS page contains only a 2021 offering at Rural Resources. The church publishes 110 North Main Street, Greeneville, TN, but this is not confirmed as the current VBS drop-off venue."
+      }
+    ]
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "provider": {
+    "key": "partners-aligned-toward-health",
+    "name": "Partners Aligned Toward Health",
+    "urls": [
+      "https://pathwnc.org/programs/healthy-lifestyles/",
+      "https://pathwnc.org/programs/prevention/youth-to-youth-y2y/"
+    ],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:41.074Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6a7d2da0b7a1188f8cd3df884b5e6b8b512f229b5cbffde7931d48e927bbdd5b",
+  "response": {
+    "searches": [
+      "site:pathwnc.org 2027 camp",
+      "open https://mhhs.yanceync.net/",
+      "site:pathwnc.org \"2026\" \"pickleball\" \"June\"",
+      "site:pathwnc.org/wp-content/uploads/2026 \"TENNIS CAMP\"",
+      "\"site:pathwnc.org\" \"pickleball\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 37861,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1799,
+      "reasoningTokens": 415
+    },
+    "status": "completed",
+    "ms": 47706,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pathwnc.org/programs/healthy-lifestyles/",
+      "chars": 4151,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/programs/prevention/youth-to-youth-y2y/",
+      "chars": 9691,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/programs/healthy-lifestyles/sizzlin-summer-series/",
+      "chars": 5544,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/wp-content/uploads/2025/06/2025-Sizzlin-Summer-Flyer.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: HTTP 404"
+    },
+    {
+      "url": "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
+      "chars": 3483,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org///programs/healthy-lifestyles-2/tennis-camp/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | PATH\")"
+    },
+    {
+      "url": "https://pathwnc.org/programs/healthy-lifestyles-2/tennis-camp/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | PATH\")"
+    },
+    {
+      "url": "https://pathwnc.org/programs/healthy-lifestyles-2/sizzlin-summer-series/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | PATH\")"
+    },
+    {
+      "url": "https://pathwnc.org///programs/healthy-lifestyles-2/sizzlin-summer-series/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Not Found | PATH\")"
+    },
+    {
+      "url": "https://pathwnc.org/toe-river-racqueteers-camps-wrap-up-adding-a-feather-to-coach-mikes-cap/",
+      "chars": 6742,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/15th-annual-toe-river-racqueteers-tennis-camp-sees-record-turnout-major-increase-in-pickleball-camp-participants/",
+      "chars": 5621,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pathwnc.org/",
+      "chars": 4338,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Partners Aligned Toward Health",
+    "website_url": "https://pathwnc.org/",
+    "notes": "No summer 2027 information was found. The tennis page's undated 'Registration coming soon' does not explicitly refer to 2027. The supplied Summer Resource Guide text is truncated before PATH's camp listings; both official PDF versions opened without readable text, and PDF screenshots failed. Search indexing confirms a PATH Summer Hangouts listing but did not expose its full details. Other organizations' offerings in PATH's resource guide are not included as PATH programs.",
+    "excluded": [
+      {
+        "name": "Appalachian Youth to Youth",
+        "reason": "School-year after-school leadership program, not a finite summer camp. The page's July 2025 international conference trip does not establish a separately offered local summer program."
+      },
+      {
+        "name": "Sizzlin’ Summer Series",
+        "reason": "All-ages family-friendly community events, not supervised drop-off youth programs."
+      },
+      {
+        "name": "Free Pool Days",
+        "reason": "Public pool admission events, not supervised youth camps."
+      },
+      {
+        "name": "Weekly tennis and pickleball classes",
+        "reason": "Regular ongoing classes rather than finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Toe River Racqueteers Summer Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Children learn tennis skills with professional coaching. Smaller rackets, courts and slower balls are provided for the youngest players.",
+        "camp_page_url": "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
+          "https://pathwnc.org/programs/healthy-lifestyles/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Free pricing is stated on the current undated program page, not explicitly labeled 2026. Check the unreadable 2026 guide for dates, age bands, hours and venue. Mountain Heritage High School was the 2025 venue, but no readable 2026 source confirmed it; its official address is 333 Mountain Heritage HS Road, Burnsville, NC."
+      },
+      {
+        "name": "Toe River Racqueteers Pickleball Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Children receive instruction in pickleball from a retired tennis professional.",
+        "camp_page_url": "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pathwnc.org/programs/healthy-lifestyles/",
+          "https://pathwnc.org/programs/healthy-lifestyles/tennis-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Free pricing is stated on the current undated healthy lifestyles page, not explicitly labeled 2026. Check the unreadable 2026 guide for the exact program title, dates, ages, hours and venue. Do not carry forward the 2025 Mountain Heritage High School venue without confirmation."
+      },
+      {
+        "name": "PATH Summer Hangouts",
+        "type": "day",
+        "categories": ["general"],
+        "description": "PATH offers free summer events for middle and high school students in Yancey and Mitchell counties.",
+        "camp_page_url": "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free summer events",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://pathwnc.org/wp-content/uploads/2026/06/2026-Summer-Resource-Guide.pdf"
+        ],
+        "confidence": "low",
+        "review_notes": "The official 2026 guide lists this under day camps; only its search snippet could be read: 'Fun & FREE Summer Events for middle and high schoolers in Yancey and Mitchell Counties!' Verify supervision/drop-off eligibility, format, activities, dates, sites and registration details on page 31 before publication."
+      }
+    ]
+  }
+}

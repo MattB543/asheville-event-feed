@@ -1,0 +1,247 @@
+{
+  "provider": {
+    "key": "unc-eshelman-school-of-pharmacy",
+    "name": "UNC Eshelman School of Pharmacy",
+    "urls": ["https://pharmacy.unc.edu/the-pills-academy/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:36.052Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "67f998770e143a077fb87182ec5886d868f91ecddd3d0020734953ca83f781f4",
+  "response": {
+    "searches": [
+      "site.wpcc.edu Western Piedmont Community College address 1001",
+      "open https://pharmacy.unc.edu/rx-impact/",
+      "site.pharmacy.unc.edu/rx-impact/ \"College\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 25093,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1751,
+      "reasoningTokens": 191
+    },
+    "status": "completed",
+    "ms": 41431,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://pharmacy.unc.edu/the-pills-academy/",
+      "chars": 4728,
+      "method": "fetch"
+    },
+    {
+      "url": "https://faopharmacy.unc.edu/wp-content/uploads/sites/200/2026/06/Academic-Calendar-2026-2027-v19-06182026.pdf?utm_campaign=Friday%20Wrap-Up&utm_medium=email&_hsenc=p2ANqtz--BnIhPqa6McnGGm6535MRuZSI1u6ebLcP08hmBtes9AK4QtrtKT2_T6_ho1ikQBnpnp3XKu1ZzlcNy1mhvBB1IF8SZ_w&_hsmi=437168069&utm_content=437168069&utm_source=hs_email",
+      "chars": 6192,
+      "method": "fetch"
+    },
+    {
+      "url": "https://applynow.unc.edu/register/westernpiedmontPILLS",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Not Found\")"
+    },
+    {
+      "url": "https://applynow.unc.edu/register/southeasternPILLS",
+      "chars": 1456,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pharmacy.unc.edu/about/asheville-campus/",
+      "chars": 4138,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pharmacy.unc.edu/about/chapel-hill-campus/",
+      "chars": 4121,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pharmacy.unc.edu/chapel-hill-campus/",
+      "chars": 4121,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pharmacy.unc.edu/asheville-campus/",
+      "chars": 4138,
+      "method": "fetch"
+    },
+    {
+      "url": "https://pharmacy.unc.edu/",
+      "chars": 3798,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "UNC Eshelman School of Pharmacy",
+    "website_url": "https://pharmacy.unc.edu/",
+    "notes": "The PILLS Academy has 2027 dates posted, but its page retains a May 22, 2026 application deadline and the Southeastern registration page describes 2026. Neither is treated as a 2027 registration milestone or availability statement. Rx-IMPACT also has a 2027 high school camp posted in Chapel Hill, outside the Asheville area; included because it is a qualifying provider program. The Rx-IMPACT page returned no readable body when opened; its facts were retrieved through official search results.",
+    "excluded": [
+      {
+        "name": "Rx-IMPACT – College session",
+        "reason": "College-student offering, not a youth summer camp or teen pre-college program."
+      },
+      {
+        "name": "Year-Long Virtual Mentorship",
+        "reason": "Year-round follow-up component of The PILLS Academy, not a separate finite summer camp."
+      },
+      {
+        "name": "PharmD summer immersions",
+        "reason": "Degree-program coursework for enrolled pharmacy students, not a youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "The PILLS Academy",
+        "type": "day",
+        "categories": ["stem", "academic"],
+        "description": "Students participate in hands-on pharmacy and pharmaceutical sciences activities, interactive demonstrations, and career exploration. The two-day camp also connects participants with subsequent virtual mentorship and local pharmacist shadowing opportunities.",
+        "camp_page_url": "https://pharmacy.unc.edu/the-pills-academy/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-21",
+          "end": "2027-07-29",
+          "text": "Check back in 2027 for registration information."
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Southeastern Community College",
+            "address": "4564 Chadbourn Hwy",
+            "town": "Whiteville",
+            "state": "NC"
+          },
+          {
+            "name": "Western Piedmont Community College",
+            "address": "1001 Burkemont Avenue",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Each day students will be at the PILLS Academy from approximately 9:00 AM – 4:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "100% free of charge",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-07-21",
+            "end": "2027-07-22",
+            "year": 2027,
+            "site": "Southeastern Community College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-28",
+            "end": "2027-07-29",
+            "year": 2027,
+            "site": "Western Piedmont Community College",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch is provided."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Participants are responsible for their own transportation to and from the Academy site each day."
+        },
+        "sources": [
+          "https://pharmacy.unc.edu/the-pills-academy/",
+          "https://www.wpcc.edu/campus-maps/",
+          "https://sccnc.edu/employees/",
+          "https://applynow.unc.edu/register/southeasternPILLS"
+        ],
+        "confidence": "medium",
+        "review_notes": "The program page explicitly posts July 2027 dates but retains an application deadline of May 22nd 2026. Confirm that the undated free tuition and lunch details remain applicable to 2027. The Southeastern application page still describes June 17–18, 2026 and closed registration; no 2027 registration link or deadline was confirmed."
+      },
+      {
+        "name": "Rx-IMPACT",
+        "type": "day",
+        "categories": ["stem", "academic"],
+        "description": "High school students participate in hands-on demonstrations, explore pharmacy practice, and learn from pharmacists in rural and medically underserved communities.",
+        "camp_page_url": "https://pharmacy.unc.edu/rx-impact/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-23",
+          "end": "2027-06-24",
+          "text": "High school day camp – June 23-24, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "Each day students will be at the Rx-IMPACT summer day camp from approximately 9:00 AM – 4:00 PM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "100% free of charge",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch is provided."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Participants are responsible for their own transportation to and from the UNC Chapel Hill campus each day of the program."
+        },
+        "sources": ["https://pharmacy.unc.edu/rx-impact/"],
+        "confidence": "medium",
+        "review_notes": "Facts were available only through official search results because opening the page returned no readable body. Eligibility also includes 2027 high school graduates, which is not represented by the rising-grade range. The page identifies the UNC Chapel Hill campus but does not identify a specific high school camp drop-off building; do not substitute the Beard Hall location published for the college session."
+      }
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "laurel-ridge-country-club",
+    "name": "Laurel Ridge Country Club",
+    "urls": ["https://www.laurelridgeexperience.com/files/2025%20Membership%20Summary.pdf"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:54.955Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "21a8a80ee39daa485a498058e6e67ed76aac122009aae60c5f31d81dbe5584fc",
+  "response": {
+    "searches": [
+      "site:laurelridgeexperience.com camp 2026",
+      "site:laurelridgeexperience.com \"camp\" \"2026\" \"July\"",
+      "site:laurelridgeexperience.com \"2026\" \"camp\" \"$\""
+    ],
+    "usage": {
+      "inputTokens": 22263,
+      "cachedInputTokens": 8223,
+      "outputTokens": 981,
+      "reasoningTokens": 292
+    },
+    "status": "completed",
+    "ms": 30809,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.laurelridgeexperience.com/files/2025%20Membership%20Summary.pdf",
+      "chars": 11410,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.laurelridgeexperience.com/",
+      "chars": 2788,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Laurel Ridge Country Club",
+    "website_url": "https://www.laurelridgeexperience.com/",
+    "notes": "No 2027 camp information found. Official search results describe the 2026 Youth Sports Camp, but event pages and the summer calendar returned no readable body text when opened. Complete 2026 session dates, prices and registration details could not be verified.",
+    "excluded": [
+      {
+        "name": "Individual or group golf and tennis lessons",
+        "reason": "Ongoing instruction, not a finite summer youth camp."
+      },
+      {
+        "name": "Men’s and ladies’ tennis groups",
+        "reason": "Regularly scheduled play groups, not finite youth summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Sports Camp",
+        "type": "day",
+        "categories": ["sports", "general"],
+        "description": "Campers receive golf and tennis instruction and participate in recreational swimming, games and educational activities. The week-long camp is offered to members and non-members.",
+        "camp_page_url": "https://www.laurelridgeexperience.com/about/pool-tennis",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Laurel Ridge Country Club",
+            "address": "49 Cupp Lane",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.laurelridgeexperience.com/about/pool-tennis",
+          "https://www.laurelridgeexperience.com/default.aspx?ID=210098&p=v35EvtView&qfilter=RSC2&seriesDate=6%2F16%2F2026+10%3A00%3A00+AM&ssid=100032&type=0",
+          "https://www.laurelridgeexperience.com/contact/directions"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Pool & Tennis page conflicts internally: one paragraph says ages 6–13, while the Summer Youth Camps section and the 2026 event search result say ages 6–14; the card uses 6–14. The event search title says June 15, 2026, but complete session boundaries were not readable, so dates and session rows are omitted. Search results with different July dates share the same event ID and were not treated as verified separate sessions. Verify the full schedule and age limit with the club."
+      }
+    ]
+  }
+}

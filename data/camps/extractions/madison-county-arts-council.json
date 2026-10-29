@@ -1,0 +1,233 @@
+{
+  "provider": {
+    "key": "madison-county-arts-council",
+    "name": "Madison County Arts Council",
+    "urls": [
+      "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/",
+      "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/",
+      "https://madisoncountyarts.com/education/"
+    ],
+    "area": "Marshall, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:26:12.486Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0bf2df37b4f0d34aae56db32afc88c7fb56213ca8736544a9ff5fccc798a1cee",
+  "response": {
+    "searches": [
+      "site:madisoncountyarts.com camp 2026",
+      "site:madisoncountyarts.com \"2026\" \"JAM\"",
+      "\"\" \"Val and Andy Clark\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 26161,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1641,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 36849,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/",
+      "chars": 2460,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/",
+      "chars": 1244,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madisoncountyarts.com/education/",
+      "chars": 5972,
+      "method": "fetch"
+    },
+    {
+      "url": "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/ical/",
+      "chars": 1496,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/ical/",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/ical/\nCall log:\n\u001b[2m  - navigating to \"webcal://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/ical/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/ical/",
+      "chars": 515,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://madisoncountyarts.com/events-calendar/jam-beginners-camp/ical/",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://madisoncountyarts.com/events-calendar/jam-beginners-camp/ical/\nCall log:\n\u001b[2m  - navigating to \"webcal://madisoncountyarts.com/events-calendar/jam-beginners-camp/ical/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://madisoncountyarts.com/",
+      "chars": 1690,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Madison County Arts Council",
+    "website_url": "https://madisoncountyarts.com/",
+    "notes": "No 2027 camp information or registration milestones were found. First Stage and JAM event pages still show only 2025 dates; those dates, hours and age eligibility have not been carried forward. The education page continues to describe both summer camps. Two additional Art Camp weeks are posted for 2026, but their pages do not state ages or the meeting location. No camp drop-off venue is explicitly identified; the provider's office address has not been assumed to be a camp site.",
+    "excluded": [
+      {
+        "name": "First Stage Youth Theatre after-school programs",
+        "reason": "School-year after-school theater programs, rather than finite summer camps."
+      },
+      {
+        "name": "Junior Appalachian Musicians after-school classes",
+        "reason": "Thursday-afternoon instruction during the school year."
+      }
+    ],
+    "cards": [
+      {
+        "name": "First Stage Youth Theatre Summer Camp",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "A one-week theater and drama camp in Marshall. First Stage programs give participants opportunities to perform and create their own scripts.",
+        "camp_page_url": "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "There are tuition assistance programs available for all of the kids programs offered by the MCAC."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://madisoncountyarts.com/education/",
+          "https://madisoncountyarts.com/events-calendar/first-stage-youth-theatre-summer-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "JAM Beginners Camp",
+        "type": "day",
+        "categories": ["music"],
+        "description": "A one-week summer camp associated with Junior Appalachian Musicians, a program centered on the traditional music of the county and region.",
+        "camp_page_url": "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "There are tuition assistance programs available for all of the kids programs offered by the MCAC."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://madisoncountyarts.com/education/",
+          "https://madisoncountyarts.com/events-calendar/jam-beginners-camp/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Art Camp w Val and Andy Clark",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "An art camp with Val and Andy Clark, offered in two five-day sessions.",
+        "camp_page_url": "https://madisoncountyarts.com/events-calendar/art-camp-w-val-and-andy-clark-july-27-31/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "10:00",
+          "end": "13:00",
+          "text": "10:00 am - 1:00 pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "July 27-31",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Aug 3-7",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://madisoncountyarts.com/events-calendar/art-camp-w-val-and-andy-clark-july-27-31/",
+          "https://madisoncountyarts.com/events-calendar/art-camp-w-val-and-andy-clark-aug-3-7/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Both official event pages plainly state 2026 dates and hours but contain no activity description, youth eligibility, price, registration instructions or camp venue. Confirm that this is a supervised youth offering before publishing. Half-day format is inferred from the three-hour schedule."
+      }
+    ]
+  }
+}

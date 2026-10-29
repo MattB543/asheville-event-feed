@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "the-young-writer",
+    "name": "The Young Writer",
+    "urls": ["https://youngwriterretreat.com/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:36:22.391Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ce394114e01d8cc027143ccb195b1fb308ff73d60418e4fed08b9eda6e891acc",
+  "response": {
+    "searches": [
+      "site:youngwriterretreat.com 2027 retreat ages",
+      "open https://youngwriterretreat.com/home-post-registration/",
+      "site:youngwriterretreat.com \"2026\"",
+      "site:youngwriterretreat.com/home-post-registration \"age\""
+    ],
+    "usage": {
+      "inputTokens": 14320,
+      "cachedInputTokens": 8223,
+      "outputTokens": 801,
+      "reasoningTokens": 285
+    },
+    "status": "completed",
+    "ms": 25747,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://youngwriterretreat.com/",
+      "chars": 520,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Young Writer",
+    "website_url": "https://youngwriterretreat.com/",
+    "notes": "The homepage announces August 9–13, 2027 in Asheville but provides no venue, ages, prices or registration milestones. Registration, post-registration and accessibility pages returned empty bodies when opened; search results exposed limited text. Undated legacy pages mention Encounter Cove and an August 6 age check, so those details were not treated as 2027 facts.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Young Writer Retreat",
+        "type": "overnight",
+        "categories": ["academic"],
+        "description": "Young writers meet fellow writers and their instructors for a retreat focused on writing motivation.",
+        "camp_page_url": "https://youngwriterretreat.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-09",
+          "end": "2027-08-13",
+          "text": "August 9-13, 2027 | Asheville, NC"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If there is something you feel might hinder your experience, safety, learning, or ability to interact with others, we would love to know so we can make this event"
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://youngwriterretreat.com/",
+          "https://youngwriterretreat.com/saving-guide/",
+          "https://youngwriterretreat.com/accessibility-policy/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the 2027 overnight format and supervision arrangements; overnight lodging is described only on the undated saving guide. Confirm the venue, eligible ages and current registration link when fuller 2027 details appear. Accessibility wording was available only through an official-page search excerpt, which ended mid-sentence."
+      }
+    ]
+  }
+}

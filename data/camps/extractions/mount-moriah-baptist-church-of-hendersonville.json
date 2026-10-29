@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "mount-moriah-baptist-church-of-hendersonville",
+    "name": "Mount Moriah Baptist Church of Hendersonville",
+    "urls": [
+      "https://www.mmbchnc.org/vbs2026",
+      "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:17.737Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "07450d2cadca34373e6cefec10abe24b16d72a0eedec17dfce14414cf645c8ec",
+  "response": {
+    "searches": ["site:mmbchnc.org VBS 2027"],
+    "usage": {
+      "inputTokens": 13446,
+      "cachedInputTokens": 8223,
+      "outputTokens": 736,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 18181,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.mmbchnc.org/vbs2026",
+      "chars": 1022,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
+      "chars": 996,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.mmbchnc.org/",
+      "chars": 572,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Moriah Baptist Church of Hendersonville",
+    "website_url": "https://www.mmbchnc.org/",
+    "notes": "No 2027 VBS dates or registration announcements found. The card retains the official 2026 event details. Ages, cost and registration opening date were not stated.",
+    "excluded": [
+      {
+        "name": "Thrive Youth Service",
+        "reason": "Recurring Sunday youth service, not a finite summer program."
+      },
+      {
+        "name": "Sunday School Classes",
+        "reason": "Year-round classes, not a summer camp."
+      },
+      {
+        "name": "Trunk or Treat",
+        "reason": "October event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Illumination Station VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about Jesus through Bible lessons and explore how light brightens, illuminates, reflects and reveals.",
+        "camp_page_url": "https://www.mmbchnc.org/vbs2026",
+        "registration_url": "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "MMBC",
+            "address": "635 Gilliam Mountain Rd",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:00",
+          "end": "20:30",
+          "text": "Jul 13, 2026, 5:00 PM – Jul 17, 2026, 8:30 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mmbchnc.org/vbs2026",
+          "https://www.mmbchnc.org/event-details-registration/vbs-2026-illumination-station",
+          "https://www.mmbchnc.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event page states a date-range start time of 5:00 PM and end time of 8:30 PM, but does not explicitly confirm those hours for each evening. Verify daily hours with the church."
+      }
+    ]
+  }
+}

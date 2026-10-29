@@ -1,0 +1,369 @@
+{
+  "provider": {
+    "key": "asheville-taasc",
+    "name": "Asheville TAASC",
+    "urls": ["https://ashevilletaasc.com/summer-2026-experiences/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:53:04.146Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a119346bba95b4c4af4d09f0c9a8a8a9891036cbb8f9668ce00831878830de34",
+  "response": {
+    "searches": [
+      "site:ashevilletaasc.com \"2027\"",
+      "open https://ashevilletaasc.com/asheville-taasc-groups/",
+      "site:ashevilletaasc.com/asheville-taasc-groups/ Aspens Oaks Coyotes ages"
+    ],
+    "usage": {
+      "inputTokens": 23699,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3003,
+      "reasoningTokens": 197
+    },
+    "status": "completed",
+    "ms": 63137,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilletaasc.com/summer-2026-experiences/",
+      "chars": 7845,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletaasc.com/news-updates/",
+      "chars": 6683,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletaasc.com/registration/",
+      "chars": 3812,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletaasc.com/payment-options/",
+      "chars": 3888,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletaasc.com/about-us/faq/",
+      "chars": 6726,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilletaasc.com/",
+      "chars": 3884,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville TAASC",
+    "website_url": "https://ashevilletaasc.com/",
+    "notes": "No official summer 2027 information was found. Summer dates below are from the Summer 2026 Experiences page. Summer drop-off locations and prices were not published in the pages reviewed; Evergreen is identified only for year-round weekly meetings, not summer drop-off. The registration page says all groups are full, but does not establish summer-trip availability. Group ages were available through official search results, although the Our Groups page returned no readable body when opened.",
+    "excluded": [
+      {
+        "name": "Weekly Meetings",
+        "reason": "Year-round outdoor skills meetings, not a finite summer camp."
+      },
+      {
+        "name": "Weekend Adventures",
+        "reason": "Recurring trips within the year-round membership program; no separate summer offering with dates was identified."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Aspens Canoe Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Girls canoe and camp on Lake Jocassee, exploring coves and waterfalls and practicing paddling skills. The trip concludes with a service project in Brevard.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages come from the official Our Groups search result, not the summer page. Confirm summer eligibility and drop-off location with the provider."
+      },
+      {
+        "name": "Coyotes Backpacking Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Boys undertake a five-day backpacking expedition through Grayson Highlands. The route includes summiting Mount Rogers and hiking on the Appalachian Trail.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages come from the official Our Groups search result, not the summer page. Confirm summer eligibility and drop-off location with the provider."
+      },
+      {
+        "name": "Oaks 5-Day Adventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Girls take daily outings for canoeing, swimming, climbing, hiking and exploring, returning home each evening. Activities also include shelter and fire building, navigation and wilderness first aid.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "17:00",
+          "text": "The Camp will go from 8.30 am – 5.00 pm each day."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages come from the official Our Groups search result, not the summer page. The two year-round Oaks meeting groups are not identified as separate summer bands. Confirm summer eligibility and drop-off location."
+      },
+      {
+        "name": "Foxes & Wolves 5-day Adventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Boys take daily adventures including canoeing, swimming, climbing and hiking. Campers return home each evening.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "08:30",
+          "end": "17:00",
+          "text": "The Camp will go from 8.30 am – 5.00 pm each day."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Both groups are ages 8–11 in the official Our Groups search result. The summer page describes one combined offering, not separate bands. Confirm summer eligibility and drop-off location."
+      },
+      {
+        "name": "Dogwoods Canoeing Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Boys canoe across Lake Jocassee and camp at paddle-in campsites in Devils Fork State Park. The expedition includes exploring waterfalls and traveling to the lake's northernmost point.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages come from the official Our Groups search result, not the summer page. Confirm summer eligibility and drop-off location with the provider."
+      },
+      {
+        "name": "Redwood Girls Backpacking Expedition",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Girls undertake a five-day backpacking expedition through Grayson Highlands. The route includes summiting Mount Rogers and hiking on the Appalachian Trail.",
+        "camp_page_url": "https://ashevilletaasc.com/summer-2026-experiences/",
+        "registration_url": "https://ashevilletaasc.com/registration/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "no",
+          "text": "Please note that there is Limited Financial Aid available and it does not apply to the summer quarter"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "You will need to provide your own food and clothing."
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilletaasc.com/summer-2026-experiences/",
+          "https://ashevilletaasc.com/asheville-taasc-groups/",
+          "https://ashevilletaasc.com/registration/",
+          "https://ashevilletaasc.com/financial-aid/",
+          "https://ashevilletaasc.com/about-us/faq/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Ages come from the official Our Groups search result, not the summer page. Confirm summer eligibility and drop-off location with the provider."
+      }
+    ]
+  }
+}

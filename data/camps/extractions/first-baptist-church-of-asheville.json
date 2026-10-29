@@ -1,0 +1,230 @@
+{
+  "provider": {
+    "key": "first-baptist-church-of-asheville",
+    "name": "First Baptist Church of Asheville",
+    "urls": ["https://fbca.net/firstshine-summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:29.798Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e4e3d4856e86226a57bfc946b3f9cff5992352ad86dffe740c1bd59f441ba41a",
+  "response": {
+    "searches": [
+      "site:fbca.net summer 2027 camp FirstShine",
+      "site:fbca.net \"2026\" \"Vacation Bible\"",
+      "site:fbca.net \"Via Karis Camp\" \"2026\"",
+      "site:fbca.net \"Via Karis Camp\" \"June\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 27219,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1957,
+      "reasoningTokens": 284
+    },
+    "status": "completed",
+    "ms": 49463,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fbca.net/firstshine-summer-camp/",
+      "chars": 2150,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fbca.net/",
+      "chars": 2003,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Baptist Church of Asheville",
+    "website_url": "https://fbca.net/",
+    "notes": "No summer 2027 dates or registration announcements found. The children's ministry page still refers to Summer 2023; its grade ranges were not reused as 2026 facts. Discovery Camp and PassportKids appear only in those older materials and could not be confirmed for 2026. The Vacation Bible School page lists June 24-27 without a year, so those dates and its free price were not assigned to 2026. Official 2026 bulletin PDFs were accessible only through search-indexed text.",
+    "excluded": [
+      {
+        "name": "Child Development Center",
+        "reason": "Year-round full-time childcare, not a finite summer program."
+      },
+      {
+        "name": "First Kids Preschool",
+        "reason": "School-year preschool; the 2026-2027 handbook lists August through May."
+      },
+      {
+        "name": "FBCA Youth Fall Retreat",
+        "reason": "October 23-25, 2026 is outside summer."
+      },
+      {
+        "name": "Agape Kids",
+        "reason": "Recurring school-year ministry rather than a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "FirstShine Summer Camp",
+        "type": "day",
+        "categories": ["general", "special_needs"],
+        "description": "Teenagers and young adults with special needs participate in activities adapted to their interests, including swimming outings, games, and crafts.",
+        "camp_page_url": "https://fbca.net/firstshine-summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Asheville",
+            "address": "5 Oak Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": "9:00 a.m. to 3:00 p.m. each day"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "yes",
+          "text": "FirstShine is a traditional summer day camp for teenagers and young adults with special needs in our greater community."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "We also welcome volunteer nurses, special education teachers, and Bible Study classes to help provide camp meals."
+        },
+        "transportation": null,
+        "sources": ["https://fbca.net/firstshine-summer-camp/", "https://fbca.net/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Via Karis Camp",
+        "type": "day",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible stories through the themes Water, Word, Table, Body, and Creation. The 2026 camp focuses on the creation story.",
+        "camp_page_url": "https://fbca.net/childrens-ministry/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fbca.net/wp-content/uploads/2026/06/200607web.pdf",
+          "https://fbca.net/wp-content/uploads/2026/06/260621web.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 22-26 dates come from search-indexed text of the June 2026 bulletin PDF; the PDF could not be read directly. Confirm hours, eligibility, and drop-off venue. The children's ministry grade range belongs to its older Summer 2023 section."
+      },
+      {
+        "name": "Advocacy Camp",
+        "type": "day",
+        "categories": ["faith_based"],
+        "description": "The church lists Advocacy Camp as a summer program for children.",
+        "camp_page_url": "https://fbca.net/childrens-ministry/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-03",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fbca.net/wp-content/uploads/2026/06/200607web.pdf",
+          "https://fbca.net/childrens-ministry/"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 29-July 3 dates come from search-indexed text of the June 2026 bulletin PDF; the PDF could not be read directly. Format is provisionally classified as day camp; confirm activities, hours, eligibility, and drop-off venue."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn Bible stories, play games, eat snacks, make crafts, and do science experiments.",
+        "camp_page_url": "https://fbca.net/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "First Baptist Church of Asheville",
+            "address": "5 Oak Street",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9:00-Noon"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://fbca.net/vacation-bible-school/", "https://fbca.net/"],
+        "confidence": "medium",
+        "review_notes": "The official page was readable only through search results and lists June 24-27 without a year. It says the event is free and registration required, but neither dates nor price can safely be labeled 2026 or 2027. Confirm whether this is an older offering or the same program now named Via Karis Camp."
+      }
+    ]
+  }
+}

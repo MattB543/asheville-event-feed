@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "newport-seventh-day-adventist-church",
+    "name": "Newport Seventh-day Adventist Church",
+    "urls": ["https://newporttn.adventistchurch.org/ministries/vacation-bible-school/"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:59.245Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ff60b042ec604ffbfd262a3c31f265a52a0487212632d7a5399dc2cfcbfb3031",
+  "response": {
+    "searches": ["site:newporttn.adventistchurch.org \"2027\" \"Vacation\""],
+    "usage": {
+      "inputTokens": 14458,
+      "cachedInputTokens": 8223,
+      "outputTokens": 619,
+      "reasoningTokens": 84
+    },
+    "status": "completed",
+    "ms": 14887,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://newporttn.adventistchurch.org/ministries/vacation-bible-school/",
+      "chars": 3507,
+      "method": "fetch"
+    },
+    {
+      "url": "https://newporttn.adventistchurch.org/",
+      "chars": 4742,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport Seventh-day Adventist Church",
+    "website_url": "https://newporttn.adventistchurch.org/",
+    "notes": "No 2027 camp information or registration dates were found. The official VBS page still lists June 15–20, 2026. Ages, fees, evening end times and a registration destination were not provided.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend Vacation Bible School on weekday evenings. A Saturday closing program welcomes family and friends.",
+        "camp_page_url": "https://newporttn.adventistchurch.org/ministries/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-20",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Newport Seventh-day Adventist Church",
+            "address": "125 Hedrick Drive",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": null,
+          "text": "Monday–Friday evenings beginning at 5:30 pm; Saturday closing program at 11 am."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "The closing program will be held on Saturday, June 20th at 11 am, with Family and Friends welcome. A meal will be provided."
+        },
+        "transportation": null,
+        "sources": [
+          "https://newporttn.adventistchurch.org/ministries/vacation-bible-school/",
+          "https://newporttn.adventistchurch.org/",
+          "https://newporttn.adventistchurch.org/contact/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

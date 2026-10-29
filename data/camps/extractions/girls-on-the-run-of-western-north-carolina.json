@@ -1,0 +1,124 @@
+{
+  "provider": {
+    "key": "girls-on-the-run-of-western-north-carolina",
+    "name": "Girls on the Run of Western North Carolina",
+    "urls": ["https://www.gotrwnc.org/camp-program-details"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:15:15.809Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c44a7f6974354a86f8433e5ee534949d1177974158a5ff2c90f7cff54e5d3f11",
+  "response": {
+    "searches": [
+      "site.gotrwnc.org camp 2027",
+      "open https://www.christmount.org/",
+      "site.christmount.org \"Girls on the Run\"",
+      "open https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp"
+    ],
+    "usage": {
+      "inputTokens": 19456,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1068,
+      "reasoningTokens": 226
+    },
+    "status": "completed",
+    "ms": 39333,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gotrwnc.org/camp-program-details",
+      "chars": 6355,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gotrwnc.org/",
+      "chars": 4153,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Girls on the Run of Western North Carolina",
+    "website_url": "https://www.gotrwnc.org/",
+    "notes": "Christmount's official homepage lists July 13–17 under July 2027 for Camp Brooke / Girls on the Run Day Camp. GOTR WNC's camp page still describes summer 2026. Christmount pages were readable through official search results, but direct opens returned no text. No 2027 registration milestones were found.",
+    "excluded": [
+      {
+        "name": "3rd-5th Grade Program",
+        "reason": "School-year seasonal running program, not a finite summer camp."
+      },
+      {
+        "name": "Heart & Sole",
+        "reason": "School-year seasonal program for older girls, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp GOTR",
+        "type": "day",
+        "categories": ["sports", "general"],
+        "description": "Girls participate in movement games, creative activities and lessons about friendship. Mornings use Girls on the Run curriculum, and afternoons include traditional summer camp activities.",
+        "camp_page_url": "https://www.gotrwnc.org/camp-program-details",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-13",
+          "end": "2027-07-17",
+          "text": "July 2027: July 13-17 - Camp Brooke / Girls on the Run Day Camp"
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Christmount Christian Assembly",
+            "address": "222 Fern Way",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "2026: 9 am - 5 pm daily"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "2026 full-price, full-day registration",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "There are ample scholarships available and no girl is turned away from participating in the program due to family finances. The registration page has a self-reporting financial aid section and a pay-what-you-can option."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A healthy snack & lunch at Camp"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.gotrwnc.org/camp-program-details",
+          "https://www.christmount.org/",
+          "https://www.christmount.org/camp-brooke-/-girls-on-the-run-camp"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the 2027 dates with GOTR WNC: Christmount's homepage search result explicitly places July 13–17 under July 2027, but those dates duplicate GOTR's 2026 dates and fall Tuesday–Saturday in 2027. Grades, hours, price, financial aid and lunch are retained from GOTR's explicitly labeled 2026 page; 2027 details are not confirmed. Christmount calls the collaborative offering Camp Brooke / Girls on the Run. Its program page could only be read through a search snippet."
+      }
+    ]
+  }
+}

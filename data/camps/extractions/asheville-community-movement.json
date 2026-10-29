@@ -1,0 +1,319 @@
+{
+  "provider": {
+    "key": "asheville-community-movement",
+    "name": "Asheville Community Movement",
+    "urls": [
+      "https://www.ashevillecommunitymovement.com/summer-camp",
+      "http://www.ashevillecommunitymovement.com/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:52.016Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b441825d314283fbc298c6e8f7b06edc9bfb779c386757bc5660ecd86121a51c",
+  "response": {
+    "searches": [
+      "site:ashevillecommunitymovement.com \"2027\" camp",
+      "site:ashevillecommunitymovement.com/summer-camp \"Hiking\" \"June\""
+    ],
+    "usage": {
+      "inputTokens": 23526,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2419,
+      "reasoningTokens": 180
+    },
+    "status": "completed",
+    "ms": 53150,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ashevillecommunitymovement.com/summer-camp",
+      "chars": 28411,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.ashevillecommunitymovement.com/",
+      "chars": 1913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ashevillecommunitymovement.com/intercession-and-school-break",
+      "chars": 1369,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Community Movement",
+    "website_url": "https://www.ashevillecommunitymovement.com/",
+    "notes": "No summer 2027 information found. The summer page still identifies its offerings as summer 2026. Direct web access was blocked by robots.txt; supplied official page text and official search results were used. Weekly tuition and Adventure Camp dates were not present in the readable materials.",
+    "excluded": [
+      {
+        "name": "Day Camps",
+        "reason": "School-break, holiday and teacher-workday camps; no summer sessions identified."
+      },
+      {
+        "name": "Movers and Shakers After School Program",
+        "reason": "School-year afterschool childcare, not a finite summer program."
+      },
+      {
+        "name": "Gymnastics",
+        "reason": "Ongoing classes rather than finite summer camps. A gymnastics intensive is mentioned in the summer FAQ, but no identifiable summer intensive offering or schedule was found."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Movers and Shakers Summer Camp",
+        "type": "day",
+        "categories": ["general", "sports", "arts", "nature_outdoor"],
+        "description": "Campers participate in movement activities, group games, arts and crafts, outdoor water play, team building and conflict mediation. Weekly themes add activities such as cooking, music, building and nature-based art.",
+        "camp_page_url": "https://www.ashevillecommunitymovement.com/summer-camp",
+        "registration_url": "https://portal.iclasspro.com/ashevillecm",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Community Movement",
+            "address": "812 Riverside Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "18:00",
+          "text": "Full Day: 8:00am–6:00pm, with pickup anytime between 3:00 and 6:00. Short Day: 9:00am–3:00pm, with pickup ending at 3:15."
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:45",
+          "late_pickup_end": null,
+          "cost_text": "Full Day early drop-off 7:45–8:00: $25/week. Short Day early drop-off 8:00–9:00: $50/week."
+        },
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 1 | Wild Week: Children Ye Art Loosed",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2 | Art in Nature",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3 | Make Some Noise!",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4 | Revolution: Start a Movement",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5 | Around the World",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6 | Fairy Magical Week",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7 | Grub Week",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8 | Brilliant Builders and Magical Makers",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9 | RADical Art in Appalachia",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10 | Desert Island Survival",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 11 | I Like to Move It, Move It!",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-01",
+          "time": "00:00",
+          "text": "Enrollment for camp opens at 12:00am on March 1st.",
+          "url": "https://www.ashevillecommunitymovement.com/summer-camp"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "We are open to arranging financial assistance or alternative payment plans depending on need. This is done on a case by case basis and is arranged directly with the office."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "We do not provide lunch, parents are asked to send their child to camp with a lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillecommunitymovement.com/summer-camp",
+          "https://www.ashevillecommunitymovement.com/contact",
+          "https://portal.iclasspro.com/ashevillecm"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and registration opening year come from the SUMMER CAMP 2026 heading. The page describes separate groups ages 5–7 and 8+, but does not provide separate dated schedules for those bands. The oldest campers are generally 12–13, not a stated maximum eligibility age. Check missing weekly tuition. A $25 annual registration fee and $100/week deposit applied to tuition are stated. Transportation is described for optional swim field trips only, not home-to-camp service."
+      },
+      {
+        "name": "Movers and Shakers Adventure Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts", "sports", "general"],
+        "description": "Campers participate in themed activities involving hiking and orienteering, Appalachian art, plants and animals, water, games and movement. The program includes weekly field trips, which may require additional fees.",
+        "camp_page_url": "https://www.ashevillecommunitymovement.com/summer-camp",
+        "registration_url": "https://portal.iclasspro.com/ashevillecm",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Community Movement",
+            "address": "812 Riverside Drive",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-01",
+          "time": "00:00",
+          "text": "Enrollment for camp opens at 12:00am on March 1st.",
+          "url": "https://www.ashevillecommunitymovement.com/summer-camp"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ashevillecommunitymovement.com/summer-camp",
+          "https://www.ashevillecommunitymovement.com/contact",
+          "https://portal.iclasspro.com/ashevillecm"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official page announces six themed weeks in 2026: Hiking and Orienteering, Art in Appalachia, Flora & Fauna, Water, Game and Move it. It refers readers to weekly themes for dates, but the readable weekly list only supplies the regular camp's eleven themes; Adventure dates could not be established. Check Adventure-specific hours, tuition and whether general camp FAQ provisions apply. Registration opening year is taken from the SUMMER CAMP 2026 heading."
+      }
+    ]
+  }
+}

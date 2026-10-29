@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "spruce-pine-montessori-school",
+    "name": "Spruce Pine Montessori School",
+    "urls": ["https://www.sprucepinemontessori.org/summer-program"],
+    "area": "Spruce Pine, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:48.523Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "25b426474b42250e05b41af325f5a2ffc6efc79eebbaa74f24078cc02ddfbea9",
+  "response": {
+    "searches": [
+      "site:sprucepinemontessori.org summer 2027 2026",
+      "open https://www.sprucepinemontessori.org/forms"
+    ],
+    "usage": {
+      "inputTokens": 13972,
+      "cachedInputTokens": 8223,
+      "outputTokens": 914,
+      "reasoningTokens": 134
+    },
+    "status": "completed",
+    "ms": 36287,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.sprucepinemontessori.org/summer-program",
+      "chars": 2773,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.sprucepinemontessori.org/",
+      "chars": 1083,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spruce Pine Montessori School",
+    "website_url": "https://www.sprucepinemontessori.org/",
+    "notes": "No summer-specific 2027 or 2026 dates, prices, or registration opening dates were found. The summer page is undated and says exact dates are determined each spring. The Forms page lists 2026-27 tuition, handbook, and calendar documents, but their linked contents were not accessible in the retrieved page.",
+    "excluded": [
+      {
+        "name": "Toddler Program",
+        "reason": "Regular school-year childcare program; its summer participation is included under Summer Camp."
+      },
+      {
+        "name": "Primary Program",
+        "reason": "Regular school-year education program; its summer participation is included under Summer Camp."
+      },
+      {
+        "name": "Elementary Program",
+        "reason": "Regular school-year education program, not a separately listed summer offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "arts", "nature_outdoor"],
+        "description": "Toddlers continue the regular Montessori curriculum. Primary students participate in weekly themed lessons, hands-on projects, art, storytelling, outdoor games, woodland explorations, and water play.",
+        "camp_page_url": "https://www.sprucepinemontessori.org/summer-program",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Exact dates are determined each spring."
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spruce Pine Montessori School",
+            "address": "67 Walnut Avenue",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "14:45",
+          "text": "Regular Hours: 8:30-2:45. The typical daily schedule instead lists arrival at 8:15-8:45am and pick-up at 2:45-3pm."
+        },
+        "extended_care": {
+          "early_dropoff_start": "07:30",
+          "late_pickup_end": "17:30",
+          "cost_text": null
+        },
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.sprucepinemontessori.org/summer-program",
+          "https://www.sprucepinemontessori.org/our-school/location/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The undated summer page gives regular hours of 8:30-2:45 but its typical schedule lists arrival at 8:15-8:45 and pickup at 2:45-3; confirm actual drop-off and pickup times. The school address is verified on its Contact Us page, but the summer page does not explicitly identify the drop-off location. Toddler and primary groups are described without summer-specific numerical ages or dated sessions, so ages and session rows are omitted. Enrollment is first come, first served, with currently enrolled students offered enrollment first; no opening date is stated."
+      }
+    ]
+  }
+}

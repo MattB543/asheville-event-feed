@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "key": "appalachian-stars-gymnastics",
+    "name": "Appalachian Stars Gymnastics",
+    "urls": ["https://appstarsgym.com/"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:23:45.491Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c3cbae5a780a6d3ae7977e158a725eaaf47ea41b7fb6bd7da0f120705305e31f",
+  "response": {
+    "searches": [
+      "site:appstarsgym.com summer camp 2026 2027",
+      "open https://appstarsgym.com/events-news/",
+      "site:appstarsgym.com \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 17788,
+      "cachedInputTokens": 8223,
+      "outputTokens": 627,
+      "reasoningTokens": 159
+    },
+    "status": "completed",
+    "ms": 24419,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://appstarsgym.com/",
+      "chars": 4110,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Stars Gymnastics",
+    "website_url": "https://appstarsgym.com/",
+    "notes": "No summer camp offering or 2026/2027 camp details could be verified on official pages. Third-party directories mention summer camps but do not establish a current named program. The Events & News search result contains an unrelated Swimtastic La Vista customer-portal embed; it should not be used for this provider. Direct opens of the homepage, Classes and Events & News pages returned no readable text, although official search snippets and the supplied homepage text were available. No camp cards created rather than guessing a program name or details.",
+    "excluded": [
+      {
+        "name": "Sweet Peas",
+        "reason": "Regular gymnastics classes, not an identified finite summer program."
+      },
+      {
+        "name": "Recreational Gymnastics",
+        "reason": "Regular gymnastics classes, not an identified finite summer program."
+      },
+      {
+        "name": "Homeschool",
+        "reason": "Listed as a regular class offering; no finite summer program verified."
+      },
+      {
+        "name": "Ninja Stars",
+        "reason": "Listed as a regular class offering; no finite summer program verified."
+      },
+      {
+        "name": "Tumbling/Cheer",
+        "reason": "Regular tumbling classes, not an identified finite summer program."
+      },
+      {
+        "name": "Axel Strength Training",
+        "reason": "Listed as a regular training offering; no finite summer program verified."
+      },
+      {
+        "name": "Competitive Teams",
+        "reason": "Competitive team training, not a finite summer camp."
+      },
+      {
+        "name": "Shooting Star Invitational",
+        "reason": "Gymnastics competition, not a supervised summer camp or skill clinic."
+      },
+      {
+        "name": "Gatsby at the Greenbrier Classic",
+        "reason": "Gymnastics competition, not a supervised summer camp or skill clinic."
+      },
+      {
+        "name": "Birthday Parties",
+        "reason": "Private birthday celebrations, not summer camp programs."
+      }
+    ],
+    "cards": []
+  }
+}

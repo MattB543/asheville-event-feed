@@ -1,0 +1,100 @@
+{
+  "provider": {
+    "key": "ac-reynolds-high-school",
+    "name": "A.C. Reynolds High School",
+    "urls": [
+      "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:09.536Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c89791aa59cf9ba2f0f80708743739985ade125ba5c52ea44741577c3441f5d8",
+  "response": {
+    "searches": [
+      "site:acrhs.buncombeschools.org \"2027\" \"camp\"",
+      "open https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed-bcc5-4554-9a16-d66b756c29a8/2026-AC-Reynolds-Rockets-Youth-Camps-%282%29.pdf?disposition=inline",
+      "\"2026 AC Reynolds\" \"Volleyball\" \"camp\"",
+      "site:files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed \"camp\"",
+      "\"2026 AC Reynolds Rockets Youth Camps\" cost",
+      "open https://acrhs.buncombeschools.org/o/acrhs/article/2844393"
+    ],
+    "usage": {
+      "inputTokens": 31324,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1177,
+      "reasoningTokens": 511
+    },
+    "status": "completed",
+    "ms": 47851,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465",
+      "chars": 2046,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.buncombeschools.org/o/bcs/page/enrollment",
+      "chars": 3286,
+      "method": "browser"
+    },
+    {
+      "url": "https://acrhs.buncombeschools.org/",
+      "chars": 5719,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "A.C. Reynolds High School",
+    "website_url": "https://acrhs.buncombeschools.org/",
+    "notes": "No official summer 2027 information was found. The official document directory lists a 2026 youth camps PDF, but attempts to open it returned no readable contents and the screenshot tool could not render it. Its official search excerpt confirms summer sports camps staffed by coaches and varsity players and recommends kindergarten through eighth grade. The card is a provisional umbrella entry; individual sports offerings, dates, hours and fees require review of the PDF. The April 27, 2026 announcement offers mail-in and online registration but does not explicitly state a registration opening date.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "AC Reynolds Rockets Youth Camps",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Youth participate in summer sports camps staffed by A.C. Reynolds coaches and varsity players.",
+        "camp_page_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+        "registration_url": "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "unspecified"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://acrhs.buncombeschools.org/o/acrhs/documents/athletics/youth-summer-camps/334465",
+          "https://acrhs.buncombeschools.org/o/acrhs/article/2844393",
+          "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/3100/Acrhs/38f4a7ed-bcc5-4554-9a16-d66b756c29a8/2026-AC-Reynolds-Rockets-Youth-Camps-%282%29.pdf?disposition=inline"
+        ],
+        "confidence": "low",
+        "review_notes": "Read the 2026 PDF to identify separately named sports programs and their dates, prices, hours, drop-off venues and registration links; replace this provisional umbrella card as appropriate. The grade recommendation is visible only in the official PDF's search excerpt, which also says exceptions can be made. The school's published address is 1 Rocket Drive, Asheville, NC, but the readable announcement does not explicitly identify camp drop-off locations, so sites are left empty."
+      }
+    ]
+  }
+}

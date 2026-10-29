@@ -1,0 +1,87 @@
+{
+  "provider": {
+    "key": "homemade-pasta-noodles",
+    "name": "Homemade Pasta Noodles",
+    "urls": [
+      "https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138",
+      "https://www.homemadepastanoodles.com/",
+      "https://www.homemadepastanoodles.com/classes"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: thin page (22 chars); browser: soft 404 (\"404 Page not found | Homemade Pasta Noodles\")"
+  },
+  "extractedAt": "2026-10-29T15:05:46.573Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "79d80a44fce20bba696a7ef0906ac94685923ed0c1b1674d774e3c03d95692d3",
+  "response": {
+    "searches": [
+      "site:homemadepastanoodles.com \"camp\"",
+      "\"Homemade Pasta\" \"summer camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23974,
+      "cachedInputTokens": 8223,
+      "outputTokens": 695,
+      "reasoningTokens": 270
+    },
+    "status": "completed",
+    "ms": 47815,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.homemadepastanoodles.com/product/july-16-pasta-summer-camp/138",
+      "chars": 0,
+      "error": "fetch: thin page (22 chars); browser: soft 404 (\"404 Page not found | Homemade Pasta Noodles\")"
+    },
+    {
+      "url": "https://www.homemadepastanoodles.com/",
+      "chars": 3454,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.homemadepastanoodles.com/classes",
+      "chars": 1866,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Homemade Pasta Noodles",
+    "website_url": "https://www.homemadepastanoodles.com/",
+    "notes": "No 2027 summer camp information was found. The supplied July 16 Pasta Summer Camp product URL returned no readable content. Search also found an official July 23 Kids Cooking Camp at the Hendersonville Community Co-op product URL, but that page likewise returned no readable content. Neither URL establishes the summer year, dates, ages, hours, price, or current offering, so no camp cards were created rather than assigning unsupported facts. A reviewer should obtain the camp details directly from the provider. The provider's contact page publishes its business address as 719 Maple St, Hendersonville, NC, but this could not be confirmed as a summer camp drop-off location.",
+    "excluded": [
+      {
+        "name": "Kids’ Holiday Pie & Pastry Workshop with The Pasta Lady",
+        "reason": "Scheduled December 29, 2026; outside summer."
+      },
+      {
+        "name": "Fettuccine Class",
+        "reason": "Recurring general cooking classes, not an identified finite summer youth program."
+      },
+      {
+        "name": "Ravioli Class",
+        "reason": "Recurring general cooking classes, not an identified finite summer youth program."
+      },
+      {
+        "name": "Cookie Decorating Class",
+        "reason": "Listed November 21 and December 12, 2026; outside summer."
+      },
+      {
+        "name": "Eggplant Parmesan Class",
+        "reason": "Listed November 12, 2026; outside summer."
+      },
+      {
+        "name": "Sourdough Starter Class",
+        "reason": "General cooking class without an identified supervised youth summer offering."
+      },
+      {
+        "name": "Private Pasta Class Experience",
+        "reason": "Year-round private group class, not an identified summer youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "provider": {
+    "key": "lakeshore-christian-fellowship",
+    "name": "Lakeshore Christian Fellowship",
+    "urls": ["https://lakeshorecf.com/event/lycsummercamp2025/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:50.321Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e61b3e8e5a2d6ba264a2d4820352a37e885e21cbd5bf0dd6e97b9c57d92f3a4e",
+  "response": {
+    "searches": ["site:lakeshorecf.com \"camp\" \"2026\"", "site:lakeshorecf.com \"2026\" \"VBS\""],
+    "usage": {
+      "inputTokens": 22244,
+      "cachedInputTokens": 8223,
+      "outputTokens": 770,
+      "reasoningTokens": 129
+    },
+    "status": "completed",
+    "ms": 24444,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lakeshorecf.com/event/lycsummercamp2025/",
+      "chars": 3095,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://lakeshorecf.com/event/lycsummercamp2025/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://lakeshorecf.com/venue/ridge-haven-camp/",
+      "chars": 1102,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lakeshorecf.com/",
+      "chars": 1516,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lakeshore Christian Fellowship",
+    "website_url": "https://lakeshorecf.com/",
+    "notes": "No Lakeshore 2027 summer camp information found. The official 2026 Youth Summer Camp page supersedes the supplied 2025 event. Older children's camp pages were found for 2022 and 2024, but no 2026 or 2027 children's camp details were found; these are not included as current cards. Ridge Haven's independently advertised 2027 camps are not Lakeshore programs.",
+    "excluded": [
+      {
+        "name": "Lakeshore Youth Fall Retreat 2026",
+        "reason": "October 23–25, 2026; outside summer."
+      },
+      {
+        "name": "Lakeshore Christian Preschool",
+        "reason": "School-year preschool, not a finite summer camp."
+      },
+      {
+        "name": "Lakeshore Kids",
+        "reason": "Recurring Sunday children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Men’s Retreat",
+        "reason": "Adult retreat outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Summer Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students attend a Christian overnight camp at Ridge Haven focused on faith and community.",
+        "camp_page_url": "https://lakeshorecf.com/event/youth-summer-camp-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-15",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 300,
+            "unit": "program",
+            "label": "Camp; transportation costs $80 separately",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp",
+          "text": "Registration is closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Transportation costs will be sent separately from camp registration. This year we will be traveling by a 52-passenger bus."
+        },
+        "sources": [
+          "https://lakeshorecf.com/event/youth-summer-camp-2026/",
+          "https://www.ridgehaven.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

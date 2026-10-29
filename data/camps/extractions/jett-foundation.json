@@ -1,0 +1,188 @@
+{
+  "provider": {
+    "key": "jett-foundation",
+    "name": "Jett Foundation",
+    "urls": ["https://www.jettfoundation.org/camp-promise/"],
+    "area": "Marietta, SC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:54.452Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3f1a2c5b97caace2e569b1e204da5fcc819f4f73b699ddab58f9198660407227",
+  "response": {
+    "searches": [
+      "site.jettfoundation.org Camp Promise Southeast 2027 applications",
+      "open https://greenvillerec.com/camp-spearhead/"
+    ],
+    "usage": {
+      "inputTokens": 29748,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1277,
+      "reasoningTokens": 138
+    },
+    "status": "completed",
+    "ms": 28500,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/",
+      "chars": 9799,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/about-the-camp/",
+      "chars": 8027,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/campers/",
+      "chars": 11947,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.jettfoundation.org/wp-content/uploads/2024/07/Camper-Handbook-2024.pdf",
+      "chars": 0,
+      "error": "fetch: HTTP 403; chrome-tls: HTTP 403; browser: HTTP 403"
+    },
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/volunteers/",
+      "chars": 17542,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/connect/",
+      "chars": 6441,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.jettfoundation.org/camp-promise/support-the-camp/",
+      "chars": 7057,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.jettfoundation.org/event/camp-promise-game-night-blockbuster-movie-trivia/",
+      "chars": 4669,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.jettfoundation.org/event/camp-promise-game-night-jackbox-games/",
+      "chars": 4675,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jett Foundation",
+    "website_url": "https://www.jettfoundation.org/",
+    "notes": "Local card covers the Marietta, SC offering. Other youth Camp Promise locations in Washington, Colorado and Pennsylvania are outside this directory's Asheville-area scope. The main page posts 2027 dates, while the camper FAQ and application pages still list explicitly identified 2026 dates. No dated 2027 registration opening was found; the application-process page says to check back soon for 2027 applications.",
+    "excluded": [
+      {
+        "name": "Camp Promise – Ohio",
+        "reason": "Adult-only offering for ages 18 and older."
+      },
+      {
+        "name": "Camp Promise – Arizona",
+        "reason": "Adult-only retreat for ages 18 and older."
+      },
+      {
+        "name": "Camp Promise – SoCal",
+        "reason": "Adult-only offering for ages 18 and older."
+      },
+      {
+        "name": "Camp Promise Connect",
+        "reason": "Year-round virtual programming, rather than a finite summer camp."
+      },
+      {
+        "name": "CP Virtual Weekend",
+        "reason": "The posted 2026 weekend was May 15–17, outside summer; 2027 dates remain TBD."
+      },
+      {
+        "name": "Camp Promise Game Night: Blockbuster Movie Trivia!",
+        "reason": "November 5, 2026 event, outside summer."
+      },
+      {
+        "name": "Camp Promise Game Night: Jackbox Games 18+",
+        "reason": "Adult-only November 19, 2026 event, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Promise",
+        "type": "overnight",
+        "categories": ["general", "special_needs", "nature_outdoor", "arts"],
+        "description": "Campers with muscular dystrophy or eligible neuromuscular disorders participate in adapted traditional camp activities. Southeast activities have included zip lining, fishing, field games, and arts and crafts.",
+        "camp_page_url": "https://www.jettfoundation.org/camp-promise/",
+        "registration_url": "https://www.jettfoundation.org/camp-promise/apply-today/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-08-12",
+          "end": "2027-08-15",
+          "text": "All Camp Promise dates and locations are subject to change."
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Spearhead at Pleasant Ridge Camp & Retreat Center",
+            "address": "4232 Hwy 11",
+            "town": "Marietta",
+            "state": "SC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free to all campers",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Camp Promise – Southeast",
+            "start": "2027-08-12",
+            "end": "2027-08-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Camp is provided FREE of charge to all campers, thanks to the generosity of our wonderful donors, volunteers, and fundraising team."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "Camp Promise accepts campers ages 13 years or older who have muscular dystrophy or another eligible neuromuscular disorder."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jettfoundation.org/camp-promise/",
+          "https://www.jettfoundation.org/camp-promise/campers/",
+          "https://www.jettfoundation.org/camp-promise/campers/application-process/",
+          "https://www.jettfoundation.org/camp-promise/apply-today/",
+          "https://www.jettfoundation.org/blog/recapping-camp-promise-southeast-2026/",
+          "https://greenvillerec.com/camp-spearhead/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the 2027 drop-off venue: the main page names Marietta but does not specify a facility. Camp Spearhead is identified in the supplied Southeast 2025 recap text; its official venue page publishes 4232 Hwy 11, Marietta, SC. The 2027 dates come from the main page's explicit 2027 heading, not the older 2026 application pages. No calendar deadline was inferred from the application page's ten-week documentation rule."
+      }
+    ]
+  }
+}

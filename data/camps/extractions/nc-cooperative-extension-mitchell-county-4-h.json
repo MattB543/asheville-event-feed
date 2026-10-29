@@ -1,0 +1,487 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-mitchell-county-4-h",
+    "name": "N.C. Cooperative Extension — Mitchell County 4-H",
+    "urls": ["https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:54.985Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "47cc886bb380a6d290f4db2558e6feabec1111baea070804cd3dea62b75536ac",
+  "response": {
+    "searches": [
+      "site:mitchell.ces.ncsu.edu 2027 summer camp",
+      "site:mitchell.ces.ncsu.edu/event/ \"2026\" \"Camp\" \"Jul\"",
+      "site:mitchell.ces.ncsu.edu/event \"2026\" \"Kitchen Chemistry\""
+    ],
+    "usage": {
+      "inputTokens": 28321,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3580,
+      "reasoningTokens": 382
+    },
+    "status": "completed",
+    "ms": 91322,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+      "chars": 4779,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/mitchell-county-4-h/4honline-enrollment/",
+      "chars": 6241,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/search/?tag=summer-fun",
+      "chars": 2722,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mitchell.ces.ncsu.edu/",
+      "chars": 4329,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Mitchell County 4-H",
+    "website_url": "https://mitchell.ces.ncsu.edu/",
+    "notes": "No summer 2027 information was found. The 2026 Summer Fun offerings are grouped as themed sessions of the county's summer program. Registration is in person at 10 S Mitchell Ave, Bakersville; this registration location is not assumed to be every camp's meeting location. Full camp descriptions are available upon request. The page says registration is now open but does not establish its actual opening date. Some calendar listings use different names from the summer schedule; uncertain matches have not been used to assign sites or hours.",
+    "excluded": [
+      {
+        "name": "4-H Online Enrollment",
+        "reason": "Annual membership enrollment, not a finite summer camp or camp registration."
+      },
+      {
+        "name": "Livestock Club",
+        "reason": "Recurring year-round club meetings."
+      },
+      {
+        "name": "4-H Gourmet Gang Meeting",
+        "reason": "Recurring club meeting rather than a summer-only program."
+      },
+      {
+        "name": "Presentation Workday",
+        "reason": "April program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "4-H Summer Fun",
+        "type": "day",
+        "categories": ["cooking", "arts", "stem", "nature_outdoor", "sports"],
+        "description": "Youth participate in themed camps covering cooking and food preservation, crafts, photography, electricity, robotics, shooting sports, and horticulture.",
+        "camp_page_url": "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-03",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "N.C. Cooperative Extension, Mitchell County Center",
+            "address": "10 S Mitchell Ave",
+            "town": "Bakersville",
+            "state": "NC"
+          },
+          {
+            "name": "Bowman Middle School",
+            "address": "410 S Mitchell Ave",
+            "town": "Bakersville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Food Preservation the Old Timey Way",
+            "start": "2026-06-03",
+            "end": "2026-06-04",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 40,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Future Photographers Camp",
+            "start": "2026-06-05",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": "N.C. Cooperative Extension, Mitchell County Center",
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 15,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Teen Cuisine: Cook Camp — June 8-9",
+            "start": "2026-06-08",
+            "end": "2026-06-09",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Sewing Seeds Camp",
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 10,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Teen Cuisine: Cook Camp — June 15-16",
+            "start": "2026-06-15",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Homeade Jams and Jellies",
+            "start": "2026-06-16",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Teen Cuisine: Cook Camp — June 22-23",
+            "start": "2026-06-22",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Electricity Explorers Camp",
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": "N.C. Cooperative Extension, Mitchell County Center",
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 30,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Camp Cook and Play — June 29-30",
+            "start": "2026-06-29",
+            "end": "2026-06-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Robotics Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-06",
+            "year": 2026,
+            "site": "N.C. Cooperative Extension, Mitchell County Center",
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Camp Cook and Play — July 6-7",
+            "start": "2026-07-06",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cloverbud Craft Camp",
+            "start": "2026-07-08",
+            "end": "2026-07-09",
+            "year": 2026,
+            "site": "Bowman Middle School",
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Sharp Shoooters Camp",
+            "start": "2026-07-10",
+            "end": "2026-07-11",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Camp Cook and Play — July 13-14",
+            "start": "2026-07-13",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 7
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Junior Craft Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-13",
+            "year": 2026,
+            "site": "Bowman Middle School",
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 25,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Wood and Nature Crafts",
+            "start": "2026-07-14",
+            "end": "2026-07-14",
+            "year": 2026,
+            "site": "Bowman Middle School",
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "15:00"
+            },
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Kitchen Chemistry",
+            "start": "2026-07-28",
+            "end": "2026-07-28",
+            "year": 2026,
+            "site": "N.C. Cooperative Extension, Mitchell County Center",
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": {
+              "start": "09:00",
+              "end": "12:00"
+            },
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Seed to Seasoning: Horticulture Camp",
+            "start": "2026-07-30",
+            "end": "2026-07-30",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 20,
+              "unit": "session",
+              "label": null,
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "In compliance with the Americans with Disabilities Act, N.C. Cooperative Extension will honor requests for reasonable accommodations made by individuals with disabilities."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://mitchell.ces.ncsu.edu/news/mitchell-county-2026-4-h-summer-fun/",
+          "https://mitchell.ces.ncsu.edu/event/109261/",
+          "https://mitchell.ces.ncsu.edu/event/109276/",
+          "https://mitchell.ces.ncsu.edu/event/109279/",
+          "https://mitchell.ces.ncsu.edu/event/109283/",
+          "https://mitchell.ces.ncsu.edu/event/109286/",
+          "https://mitchell.ces.ncsu.edu/event/109288/",
+          "https://mitchell.ces.ncsu.edu/event/109290/",
+          "https://www.mcsnc.org/o/bms"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm whether the named camps should be maintained as separate programs rather than themes of Summer Fun. The schedule quotes $30 for Teen Cuisine: Cook Camp and $30 for Camp Cook and Play across three date pairs each, without clarifying whether that covers all six days or each pair; these prices were left unassigned. Calendar listings call these EFNEP Cook Camp - Juniors and EFNEP Cook Camp - Cloverbud at Bakersville Fire Department, but their equivalence needs confirmation. Photography Camp, Junior Crafts, and Cloverbud Crafts calendar listings were matched to corresponding schedule themes by dates and activity; their site/hour facts were obtained through official search snippets. Only July 9 hours were found for Cloverbud Crafts, so whole-session hours remain null. Shooting Sports Camp calendar entries show 555 Landfill Rd, Burnsville, with July 10 hours 09:00-15:00 and July 11 hours 08:30-14:30; verify the venue's published location and match to Sharp Shoooters Camp before assigning it. The main page requests accommodation notice at least 10 days in advance; calendar boilerplate says 14 days."
+      }
+    ]
+  }
+}

@@ -1,0 +1,638 @@
+{
+  "provider": {
+    "key": "the-wilds-christian-association",
+    "name": "The Wilds Christian Association",
+    "urls": [
+      "https://wildsnc.org/camps/",
+      "https://wildsnc.org/camps/youth/",
+      "https://wildsnc.org/camps/summer-teen-camp/",
+      "https://wildsnc.org/",
+      "https://wilds.org/camps/north-carolina/",
+      "https://wilds.org/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:26.485Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d48944d0b16c3ecc62879fed365ba39b3c633628851f2894f0f756b6aa72dfec",
+  "response": {
+    "searches": [
+      "site:wildsnc.org 2027 CIT registration opens summer",
+      "site:wildsnc.org/camps/junior-boot-camp \"2027\" \"eligibility\"",
+      "site:wildsnc.org/camps/junior-boot-camp \"Registered\""
+    ],
+    "usage": {
+      "inputTokens": 41258,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3424,
+      "reasoningTokens": 280
+    },
+    "status": "completed",
+    "ms": 71176,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://wildsnc.org/camps/",
+      "chars": 6393,
+      "method": "fetch"
+    },
+    {
+      "url": "https://wildsnc.org/camps/youth/",
+      "chars": 5871,
+      "method": "fetch"
+    },
+    {
+      "url": "https://wildsnc.org/camps/summer-teen-camp/",
+      "chars": 13521,
+      "method": "fetch"
+    },
+    {
+      "url": "https://wildsnc.org/",
+      "chars": 8317,
+      "method": "fetch"
+    },
+    {
+      "url": "http://wildsnc.org/camps/youth/",
+      "chars": 5871,
+      "method": "fetch"
+    },
+    {
+      "url": "http://wildsnc.org/camps/adult-family/",
+      "chars": 6221,
+      "method": "fetch"
+    },
+    {
+      "url": "http://wildsnc.org/camps/",
+      "chars": 6393,
+      "method": "fetch"
+    },
+    {
+      "url": "http://wildsnc.org/faqs/",
+      "chars": 27413,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Wilds Christian Association",
+    "website_url": "https://wildsnc.org/",
+    "notes": "Summer 2027 programs are posted. Some additional program pages returned empty bodies when opened but were readable in official search results. The Summer 2027 brochure link was listed in the supplied calendar text, but its PDF was not retrieved. Sponsor-child waiting lists are not camper waiting lists; these do not indicate that youth sessions are full. Registration opening dates were not found.",
+    "excluded": [
+      {
+        "name": "Senior Class Trip",
+        "reason": "School trips scheduled April–May, outside summer."
+      },
+      {
+        "name": "Spiritual Emphasis Week",
+        "reason": "School-year program scheduled September–October."
+      },
+      {
+        "name": "Teen Adventure Weekend",
+        "reason": "November program, outside summer."
+      },
+      {
+        "name": "Summer Staff",
+        "reason": "Employment program rather than a youth camp."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only camp, including Summer Family Camp."
+      },
+      {
+        "name": "Campamento de fin de Semana para Familias",
+        "reason": "Family-only retreat outside summer."
+      },
+      {
+        "name": "Father/Son Campout",
+        "reason": "Family-only program scheduled spring and fall."
+      },
+      {
+        "name": "Mother/Daughter Retreat",
+        "reason": "Family-only retreat scheduled in September."
+      },
+      {
+        "name": "Men’s Retreat",
+        "reason": "March retreat, outside summer."
+      },
+      {
+        "name": "Ladies’ Retreat",
+        "reason": "April retreats, outside summer."
+      },
+      {
+        "name": "College & Career Retreat",
+        "reason": "College-age program scheduled spring and fall, outside summer."
+      },
+      {
+        "name": "Couples’ Conference",
+        "reason": "Adult couples-only retreat."
+      },
+      {
+        "name": "Sweetheart Overnight Getaway",
+        "reason": "Adult couples-only getaway."
+      },
+      {
+        "name": "Senior Adult Conference",
+        "reason": "Adult-only conference."
+      },
+      {
+        "name": "Youth Workers’ Conference",
+        "reason": "Conference for youth workers, not youth campers."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Teen Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "sports"],
+        "description": "Teens participate in Bible study, chapel, cabin discussions, team games, water activities, sports and hiking.",
+        "camp_page_url": "https://wildsnc.org/camps/summer-teen-camp/",
+        "registration_url": "https://wildsregistration.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in Monday 2:30–4:30 p.m.; departure Saturday after breakfast at 8:00 a.m. for Jr. High and 9:00 a.m. for Sr. High."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 415,
+            "unit": "week",
+            "label": "Registered by February 2, 2027",
+            "year": 2027
+          },
+          {
+            "amount": 430,
+            "unit": "week",
+            "label": "Registered by March 2, 2027",
+            "year": 2027
+          },
+          {
+            "amount": 455,
+            "unit": "week",
+            "label": "Registered after March 2, 2027",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-05",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9",
+            "start": "2027-08-02",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-02-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registered by Feb 2, 2027 $415",
+            "url": "https://wildsnc.org/camps/summer-teen-camp/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2027-03-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Registered by Mar 2, 2027 $430",
+            "url": "https://wildsnc.org/camps/summer-teen-camp/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All meals are included in the price of camp."
+        },
+        "transportation": null,
+        "sources": [
+          "https://wildsnc.org/camps/summer-teen-camp/",
+          "https://wildsnc.org/about/faqs/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Junior Boot Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "sports"],
+        "description": "Campers participate in Bible teaching, team competitions, crafts, lake activities and hiking with their counselors.",
+        "camp_page_url": "https://wildsnc.org/camps/junior-boot-camp/",
+        "registration_url": "https://wildsregistration.org/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": null
+        },
+        "grades": {
+          "min": 4,
+          "max": 7,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 405,
+            "unit": "week",
+            "label": "from; camper",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-14",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-21",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-28",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-05",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-12",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-19",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8",
+            "start": "2027-07-26",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9",
+            "start": "2027-08-02",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "All meals are included in the price of camp."
+        },
+        "transportation": null,
+        "sources": [
+          "https://wildsnc.org/camps/youth/",
+          "https://wildsnc.org/camps/",
+          "https://wildsnc.org/camps/junior-boot-camp/",
+          "https://wildsnc.org/about/faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility was readable through official search results only: at least 9 by September 1, 2027 and entering grades 4–7. Check the full Junior Boot Camp page for complete pricing tiers. It states Saturday departure at 8:00 a.m., while the supplied general FAQ says finished by 8:20 a.m.; hours omitted."
+      },
+      {
+        "name": "CIT: Camper-In-Training",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "This two-week leadership program combines Bible instruction, one-on-one discipleship and practical application of servant-leadership principles.",
+        "camp_page_url": "https://wildsnc.org/camps/camper-in-training/",
+        "registration_url": "https://cit.wilds.org/apply/twnc",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-21",
+          "end": "2027-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": null
+        },
+        "grades": {
+          "min": 11,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "The Wilds of North Carolina",
+            "address": "1000 Wilds Ridge Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Check-in Monday 2:30–4:30 p.m.; departure at 9 a.m. after breakfast of the second Saturday."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 770,
+            "unit": "session",
+            "label": "Per camper; two weeks",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2027-07-19",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-01-31",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "The application, including all three recommendation references, must be submitted by January 31 in order to be considered for the program.",
+            "url": "https://wildsnc.org/camps/camper-in-training/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://wildsnc.org/camps/camper-in-training/",
+          "https://wildsnc.org/camps/youth/",
+          "https://cit.wilds.org/apply/twnc"
+        ],
+        "confidence": "medium",
+        "review_notes": "Program details were readable in official search results, but direct opening returned an empty body. January 31 is interpreted within the page's 2027 program context. Eligibility also includes 2027 high school graduates. Applicants are notified of acceptance by early March; no exact notification date is stated."
+      }
+    ]
+  }
+}

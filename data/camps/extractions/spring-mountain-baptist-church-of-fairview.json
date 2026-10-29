@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "key": "spring-mountain-baptist-church-of-fairview",
+    "name": "Spring Mountain Baptist Church of Fairview",
+    "urls": ["https://www.facebook.com/springmountainbaptistchurch"],
+    "area": "Fairview, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:37:30.817Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Spring Mountain Baptist Church Fairview vacation bible school 2026",
+      "site:facebook.com \"Spring Mountain\" \"2026\" \"V.B.S\"",
+      "\"Spring Mountain Baptist\" \"June 22\""
+    ],
+    "usage": {
+      "inputTokens": 29170,
+      "cachedInputTokens": 8223,
+      "outputTokens": 775,
+      "reasoningTokens": 235
+    },
+    "status": "completed",
+    "ms": 31505,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/springmountainbaptistchurch",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Spring Mountain Baptist Church of Fairview",
+    "website_url": null,
+    "notes": "No standalone official website or summer 2027 information was found. The supplied Facebook page returned no readable content. Third-party event listings identify a 2026 V.B.S. on June 22–26, starting at 6 pm nightly, at 11 Spring Mountain Road, Fairview, NC, but the church's original announcement could not be read. These details need official confirmation before publication.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "V.B.S.",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "An evening Vacation Bible School offering; specific activities were not available in readable official materials.",
+        "camp_page_url": "https://www.facebook.com/springmountainbaptistchurch",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Spring Mountain Baptist Church",
+            "address": "11 Spring Mountain Road",
+            "town": "Fairview",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": null,
+          "text": "Starting 6pm nightly"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Official Facebook content could not be read. Dates and nightly start time appear only in the search result for https://happeningnext.com/event/vbs-eid3a0do385en; the address is corroborated by https://allevents.in/fairview/vbs/200030094585655 and a church directory, not a readable venue-published location. Confirm dates, address, youth eligibility, activities and registration directly with the church. No registration milestone was inferred from third-party listings."
+      }
+    ]
+  }
+}

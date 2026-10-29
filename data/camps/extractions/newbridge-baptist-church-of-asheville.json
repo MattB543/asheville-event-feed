@@ -1,0 +1,143 @@
+{
+  "provider": {
+    "key": "newbridge-baptist-church-of-asheville",
+    "name": "Newbridge Baptist Church of Asheville",
+    "urls": ["https://newbridgebaptist.org/children/", "https://newbridgebaptist.org/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:06.521Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "98dd60e8f935ebb76ed83e1ebd4748c9f58b3f32e0c02dba5d802979b8636f1b",
+  "response": {
+    "searches": [
+      "site:newbridgebaptist.org \"2027\" \"Bible\"",
+      "site:facebook.com \"Newbridge Baptist Church\" \"2026\" \"July\""
+    ],
+    "usage": {
+      "inputTokens": 21599,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1105,
+      "reasoningTokens": 200
+    },
+    "status": "completed",
+    "ms": 33766,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://newbridgebaptist.org/children/",
+      "chars": 2696,
+      "method": "fetch"
+    },
+    {
+      "url": "https://newbridgebaptist.org/",
+      "chars": 2333,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newbridge Baptist Church of Asheville",
+    "website_url": "https://newbridgebaptist.org/",
+    "notes": "No 2027 summer information found. Third-party event listings advertise VBS July 19–22, 2026, 6:00–8:30pm, but those dates were not confirmed on an official page and are omitted. An indexed version of the official children's page describes a different recurring July schedule that is absent from the supplied current text. The youth page describes an annual summer mission trip but provides no year-specific details.",
+    "excluded": [
+      {
+        "name": "Children's Ministry",
+        "reason": "Recurring Sunday children's activities and classes, not a finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Year-round religious classes."
+      },
+      {
+        "name": "Youth Activities",
+        "reason": "General year-round youth activities; no separately scheduled summer lock-in or retreat was found."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn about the gospel through themed messages, songs, games, crafts, and fellowship. A meal is provided each night.",
+        "camp_page_url": "https://newbridgebaptist.org/children/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Newbridge Baptist Church",
+            "address": "199 Elkwood Avenue",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A meal is provided each night."
+        },
+        "transportation": null,
+        "sources": ["https://newbridgebaptist.org/children/", "https://newbridgebaptist.org/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Mission Trip",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "The youth group takes a week-long summer mission trip to serve people in need. Participants serve together and take part in recreational activities.",
+        "camp_page_url": "https://newbridgebaptist.org/Youth/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://newbridgebaptist.org/Youth/"],
+        "confidence": "medium",
+        "review_notes": "The official youth page was readable only through indexed search text. It describes an annual week-long summer mission trip without explicit 2026 or 2027 dates; overnight format is inferred from the week-long trip. Confirm format, eligibility, departure location, and whether registration is open to youth outside the church."
+      }
+    ]
+  }
+}

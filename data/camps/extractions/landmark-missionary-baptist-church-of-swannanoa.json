@@ -1,0 +1,68 @@
+{
+  "provider": {
+    "key": "landmark-missionary-baptist-church-of-swannanoa",
+    "name": "Landmark Missionary Baptist Church of Swannanoa",
+    "urls": [
+      "https://www.landmarkmbcs.com/",
+      "https://www.landmarkmbcs.com/about",
+      "http://landmarkswannanoa.com/"
+    ],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:13:24.067Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "10edcba9660962973f4bd752967e4c6764a933d8e1f9fb5e1d4deca4d76d9be7",
+  "response": {
+    "searches": [
+      "Landmark Swannanoa vacation bible school 2026 2027",
+      "\"Landmark\" \"Swannanoa\" \"Emerald\"",
+      "\"Landmark Missionary Baptist Church\" \"Vacation\""
+    ],
+    "usage": {
+      "inputTokens": 28903,
+      "cachedInputTokens": 8223,
+      "outputTokens": 471,
+      "reasoningTokens": 258
+    },
+    "status": "completed",
+    "ms": 27449,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.landmarkmbcs.com/",
+      "chars": 1716,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.landmarkmbcs.com/about",
+      "chars": 1578,
+      "method": "fetch"
+    },
+    {
+      "url": "http://landmarkswannanoa.com/",
+      "chars": 1716,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Landmark Missionary Baptist Church of Swannanoa",
+    "website_url": "https://www.landmarkmbcs.com/",
+    "notes": "No summer 2027 announcement or verifiable official 2026 camp announcement was found. AllEvents lists Emerald Crossing VBS at 5 Jordan Rd, Swannanoa, with a July 15, 2026 occurrence at 6 pm, but the listing could not be read fully and no corresponding church announcement was found; this is insufficient for a camp card. The official youth page was available only through a search snippet and describes ongoing FIRESTARTERS ministries rather than a finite summer program. The legacy landmarkswannanoa.com site returned no readable content.",
+    "excluded": [
+      {
+        "name": "FIRESTARTERS Youth Ministries",
+        "reason": "Ongoing church youth ministries; no finite summer camp dates or summer-only program are stated."
+      },
+      {
+        "name": "Sunday School and Wednesday Night Youth Bible Study",
+        "reason": "Recurring year-round church classes, not finite summer programs."
+      }
+    ],
+    "cards": []
+  }
+}

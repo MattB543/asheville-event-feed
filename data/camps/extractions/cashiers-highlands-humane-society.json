@@ -1,0 +1,190 @@
+{
+  "provider": {
+    "key": "cashiers-highlands-humane-society",
+    "name": "Cashiers-Highlands Humane Society",
+    "urls": ["https://chhumanesociety.org/crittercamp2025"],
+    "area": "Cashiers, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:14.264Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "683f0bc27e666920df3e863cf954e3282e92097148ba92b4dc8616e8965812a1",
+  "response": {
+    "searches": [
+      "site:chhumanesociety.org \"Critter\" \"2027\"",
+      "open https://chhumanesociety.org/crittercamp2026"
+    ],
+    "usage": {
+      "inputTokens": 15353,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1395,
+      "reasoningTokens": 95
+    },
+    "status": "completed",
+    "ms": 31169,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://chhumanesociety.org/crittercamp2025",
+      "chars": 5888,
+      "method": "fetch"
+    },
+    {
+      "url": "https://chhumanesociety.org/crittercamp2025/critter-camp-session-1-june-22-26/download-ical",
+      "chars": 454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://chhumanesociety.org/crittercamp2025/critter-camp-session-2-july-6-10/download-ical",
+      "chars": 453,
+      "method": "fetch"
+    },
+    {
+      "url": "https://chhumanesociety.org/crittercamp2025/critter-camp-session-3-july-20-24/download-ical",
+      "chars": 454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://chhumanesociety.org/",
+      "chars": 2469,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cashiers-Highlands Humane Society",
+    "website_url": "https://chhumanesociety.org/",
+    "notes": "No summer 2027 camp information found. Official 2026 camp pages retain conflicting $250 descriptive pricing while the dated session listings show $300.",
+    "excluded": [
+      {
+        "name": "Humane Education programs",
+        "reason": "Ongoing community outreach to schoolchildren, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Critter Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Campers take part in humane education lessons, animal-related guest presentations, time with shelter animals, arts and crafts, and games. Each session ends with a hike with shelter dogs.",
+        "camp_page_url": "https://chhumanesociety.org/crittercamp2026",
+        "registration_url": "https://chhumanesociety.org/crittercamp2026",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 5,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Cashiers-Highlands Humane Society (CHHS)",
+            "address": "200 Gable Drive",
+            "town": "Sapphire",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "15:30",
+          "text": "Drop-Off: 9:15am-9:30am; Activities: 9:30am-3:30pm; Pick-Up: 3:30pm-3:45pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Critter Camp: Session 1 (June 22-26)",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 300,
+              "unit": "session",
+              "label": "Dated event listing price",
+              "year": 2026
+            },
+            "status": "full"
+          },
+          {
+            "label": "Critter Camp: Session 2 (July 6-10)",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 300,
+              "unit": "session",
+              "label": "Dated event listing price",
+              "year": 2026
+            },
+            "status": "full"
+          },
+          {
+            "label": "Critter Camp: Session 3 (July 20-24)",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 300,
+              "unit": "session",
+              "label": "Dated event listing price",
+              "year": 2026
+            },
+            "status": "full"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-04-08",
+          "time": "06:00",
+          "text": "Regisration opens Wednesday, April 8, 2026 at 6am and cuts off once the session is fully booked at 10 campers.",
+          "url": "https://chhumanesociety.org/crittercamp2025"
+        },
+        "availability": {
+          "status": "full",
+          "scope": "All three 2026 sessions",
+          "text": "Sorry, the event is now full and we could not accept more registration"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "There are a limited number of scholarships available for each session."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "CHHS will provide a morning and afternoon snack, but please send your camper with a packed lunch and water bottle each day!"
+        },
+        "transportation": null,
+        "sources": [
+          "https://chhumanesociety.org/crittercamp2025",
+          "https://chhumanesociety.org/crittercamp2026",
+          "https://chhumanesociety.org/crittercamp2025/critter-camp-session-1-june-22-26/download-ical",
+          "https://chhumanesociety.org/crittercamp2025/critter-camp-session-2-july-6-10/download-ical",
+          "https://chhumanesociety.org/crittercamp2025/critter-camp-session-3-july-20-24/download-ical",
+          "https://chhumanesociety.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify pricing: the dated 2026 session listings show $300 each, but the camp description on both the supplied 2025 page and indexed 2026 page says $250. The supplied page retains a 2025 heading and opening date above explicitly dated 2026 events; the 2026 event dates and April 8 opening are used here. The direct 2026 page open returned no readable text; its indexed official text was available."
+      }
+    ]
+  }
+}

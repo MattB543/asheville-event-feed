@@ -1,0 +1,116 @@
+{
+  "provider": {
+    "key": "hendersonville-church-of-christ",
+    "name": "Hendersonville Church of Christ",
+    "urls": ["https://hvlcoc.org/children/"],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:12.304Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c97b805b858ed486fabd0659a8f812bb0cc13d2982800c4dc5cb8ad536b93224",
+  "response": {
+    "searches": ["site:hvlcoc.org VBS 2027"],
+    "usage": {
+      "inputTokens": 13626,
+      "cachedInputTokens": 8223,
+      "outputTokens": 750,
+      "reasoningTokens": 70
+    },
+    "status": "completed",
+    "ms": 17084,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://hvlcoc.org/children/",
+      "chars": 3375,
+      "method": "fetch"
+    },
+    {
+      "url": "https://hvlcoc.org/",
+      "chars": 1018,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Church of Christ",
+    "website_url": "https://hvlcoc.org/",
+    "notes": "No summer 2027 information was found. The card uses the explicitly labeled 2026 VBS information. Camp attendance at Palmetto Bible Camp is mentioned, but no distinct church-operated summer camp offering or session details are provided.",
+    "excluded": [
+      {
+        "name": "Shoots and Sprouts Children’s Ministry",
+        "reason": "Year-round children's ministry, including weekly Bible classes and children's worship, rather than a finite summer program."
+      },
+      {
+        "name": "Community Playdate",
+        "reason": "Recurring year-round parent/caregiver playdates on the second and fourth Wednesdays, not a summer camp."
+      },
+      {
+        "name": "2026 Church Retreat",
+        "reason": "Church retreat scheduled October 2–4, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "SPLASH! Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in activities and classes themed around Jesus' living water. Nursery care is provided for newborns through age 2, and lunch follows the activities.",
+        "camp_page_url": "https://hvlcoc.org/children/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-06-12",
+          "text": null
+        },
+        "ages": {
+          "min": 0,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Hendersonville Church of Christ",
+            "address": "1975 Haywood Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:30",
+          "end": "11:30",
+          "text": "9:30 am until 11:30am with lunch provided directly after."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "REGISTRATION CLOSED!!!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Parents/Caregivers welcome to come and eat with their child(ren)."
+        },
+        "transportation": null,
+        "sources": ["https://hvlcoc.org/children/", "https://hvlcoc.org/"],
+        "confidence": "medium",
+        "review_notes": "Format check: ages 0 outside 2-19."
+      }
+    ]
+  }
+}

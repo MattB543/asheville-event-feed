@@ -1,0 +1,130 @@
+{
+  "provider": {
+    "key": "asheville-racquet-club",
+    "name": "Asheville Racquet Club",
+    "urls": ["https://ashevilleracquetclub.com/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:26.381Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "61d262131910437e480317439d6e14504d25d6b0883e234eb84748a9b759095c",
+  "response": {
+    "searches": [
+      "site:ashevilleracquetclub.com \"2026\" \"camp\"",
+      "open https://ashevilleracquetclub.com/summer-camp/",
+      "site:ashevilleracquetclub.com \"South\" \"200\""
+    ],
+    "usage": {
+      "inputTokens": 26386,
+      "cachedInputTokens": 8223,
+      "outputTokens": 865,
+      "reasoningTokens": 240
+    },
+    "status": "completed",
+    "ms": 27370,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevilleracquetclub.com/summer-camp/",
+      "chars": 7749,
+      "method": "fetch"
+    },
+    {
+      "url": "http://ashevilleracquetclub.com/wp-content/uploads/2025/01/Summer-Camp-Flyer-2025-Final.pdf",
+      "chars": 1341,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleracquetclub.com/schedules/",
+      "chars": 4969,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevilleracquetclub.com/",
+      "chars": 5728,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Racquet Club",
+    "website_url": "https://ashevilleracquetclub.com/",
+    "notes": "No summer 2027 information or 2026 camp dates and tuition were found. The supplied flyer is explicitly for 2025; its dates, hours and prices have not been carried forward. Direct browser opens of the camp, contact and junior pickleball pages returned no readable text; supplied camp text and official search results were used. An archived camp page describes 2019 offerings and was not treated as a current program list.",
+    "excluded": [
+      {
+        "name": "Childcare",
+        "reason": "Ongoing club childcare limited to 2.5 hours per day, not a finite summer-only program."
+      },
+      {
+        "name": "South Junior Development",
+        "reason": "School-year tennis classes, with listed 2026–2027 sessions running September through May."
+      },
+      {
+        "name": "Pickleball 101",
+        "reason": "Recurring Saturday instruction, not a summer-only youth program."
+      },
+      {
+        "name": "Swim Team",
+        "reason": "Team season rather than a summer camp or finite skill clinic."
+      }
+    ],
+    "cards": [
+      {
+        "name": "All Sports Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers learn and practice tennis and pickleball, participate in other sports, and spend time in the pool. Children are grouped with others of the same age; half-day and full-day options are offered.",
+        "camp_page_url": "https://ashevilleracquetclub.com/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Racquet Club South",
+            "address": "200 Racquet Club Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-02-02",
+          "time": null,
+          "text": "2026 All Sports Summer Camp registration will open to members on February 2nd and nonmembers on February 9th.",
+          "url": "https://ashevilleracquetclub.com/summer-camp/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "EQUIPMENT NEEDED FOR CAMP: Lunch"
+        },
+        "transportation": null,
+        "sources": [
+          "https://ashevilleracquetclub.com/summer-camp/",
+          "https://ashevilleracquetclub.com/events/list/?tribe-bar-date=2022-09-21"
+        ],
+        "confidence": "medium",
+        "review_notes": "ARC South's address is published in official event search results, rather than a readable contact page. The 2026 public/nonmember opening was February 9; the single last-year opening field records the earlier member opening. No 2026 dates, hours or tuition were found; do not use the 2025 flyer for these fields."
+      }
+    ]
+  }
+}

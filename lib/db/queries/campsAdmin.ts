@@ -10,6 +10,7 @@ import {
   cardHash,
   effectiveCard,
   liveCamp,
+  queryCamps,
   setOverride,
   type CampReviewItem,
   type UnpinnedSite,
@@ -235,8 +236,26 @@ async function adminCamps(where: SQL, limit?: number): Promise<AdminCamp[]> {
 }
 
 /** Live camps short of high confidence that Matt hasn't confirmed in their current form. */
+/** Review order, by what parents act on: a wrong registration date is the worst mistake. */
+export const REVIEW_TIERS = [
+  'A registration date short of high confidence',
+  'Low confidence',
+  'Medium confidence, 2027 facts',
+  'Medium confidence, 2026 facts only (shown labelled 2026)',
+] as const;
+
+export function reviewTier(card: CampCard): number {
+  if (card.registration.some((milestone) => milestone.confidence !== 'high')) return 0;
+  if (card.confidence === 'low') return 1;
+  return card.season.year >= 2027 ? 2 : 3;
+}
+
+/** Unconfirmed camps short of high confidence that parents can see (in the D3 radius), by tier. */
 export async function adminReviewQueue(): Promise<AdminCamp[]> {
-  return (await adminCamps(liveCamp)).filter((camp) => needsReview(camp.card) && !camp.confirmed);
+  const shown = new Set((await queryCamps()).map((camp) => camp.id));
+  return (await adminCamps(liveCamp))
+    .filter((camp) => shown.has(camp.id) && needsReview(camp.card) && !camp.confirmed)
+    .sort((a, b) => reviewTier(a.card) - reviewTier(b.card));
 }
 
 /** The most camps a search shows; a broader one is asked to narrow down. */

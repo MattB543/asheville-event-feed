@@ -1,0 +1,542 @@
+{
+  "provider": {
+    "key": "south-mountain-baptist-camp",
+    "name": "South Mountain Baptist Camp",
+    "urls": ["https://www.southmountainbaptistcamp.com/"],
+    "area": "Connelly Springs, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:20.098Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "eed2aadedf90b8661cdac5aebd53ae3c28871d758d631a895677ee0c61a4bb38",
+  "response": {
+    "searches": [
+      "site:southmountainbaptistcamp.com 2027 day camp hours",
+      "open https://www.southmountainbaptistcamp.com/forms/"
+    ],
+    "usage": {
+      "inputTokens": 23778,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3714,
+      "reasoningTokens": 104
+    },
+    "status": "completed",
+    "ms": 58423,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.southmountainbaptistcamp.com/",
+      "chars": 5272,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/camp-registration/",
+      "chars": 3292,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/camp-registration/childrens-retreat/",
+      "chars": 3468,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/youth-winter-retreat-registration/",
+      "chars": 6374,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+      "chars": 10543,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/home/smbc-medical-release-form-2/",
+      "chars": 6492,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/summer-camp/",
+      "chars": 6547,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southmountainbaptistcamp.com/retreats-and-rentals/",
+      "chars": 3615,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "South Mountain Baptist Camp",
+    "website_url": "https://www.southmountainbaptistcamp.com/",
+    "notes": "2027 summer dates and fees are posted. Registration is through church groups, which must supply chaperones at a minimum ratio of one adult per six students. Returning 2026 groups can already register, but no dated opening for them is stated. Public registration opens November 9, 2026 at 4:00pm. The Forms & Downloads page returned no readable content when opened; search results listed forms and a 2026 children's camp menu but no additional 2027 packet.",
+    "excluded": [
+      {
+        "name": "Children’s Retreat",
+        "reason": "Held October 2-3 and October 9-10, 2026, outside summer."
+      },
+      {
+        "name": "Youth Winter Retreats",
+        "reason": "December and January retreats, outside summer."
+      },
+      {
+        "name": "Retreats & Rentals",
+        "reason": "Facility rentals rather than a finite supervised youth camp; the retreat center is adult-only."
+      },
+      {
+        "name": "Summer Camp Staff",
+        "reason": "Employment positions rather than camper programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Children's Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Campers participate in Bible study, chapel, group games, swimming and afternoon activities. Children's camp also includes a talent show and a campfire service.",
+        "camp_page_url": "https://www.southmountainbaptistcamp.com/summer-camp/",
+        "registration_url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-07-30",
+          "text": "2027 Summer Camp Schedule"
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "South Mountain Baptist Camp",
+            "address": "3558 Baptist Camp Rd.",
+            "town": "Connelly Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 205,
+            "unit": "session",
+            "label": "5 days / 4 nights; campers and chaperones pay the same rate",
+            "year": 2027
+          },
+          {
+            "amount": 165,
+            "unit": "session",
+            "label": "4 days / 3 nights; campers and chaperones pay the same rate",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1 - Children's Camp",
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 2 - Children's Camp",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 3 - Children's Camp",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 5 - Children's Camp",
+            "start": "2027-07-06",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": "4 days / 3 nights",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 8 - Children's Camp",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 9 - Children's Camp",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-09",
+            "time": "16:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration will open to the public November 9, 2026 at 4:00pm.",
+            "url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Our meals are planned with child favorites and nutrition in mind. If you have special dietary needs, please contact us at least 2 weeks in advance!"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.southmountainbaptistcamp.com/summer-camp/",
+          "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+          "https://www.southmountainbaptistcamp.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The schedule recommends grades 1-6, while the reservation form explicitly accepts completed K-6; the card uses the form's eligibility range. Five-day bunkhouse groups receive a $10/person discount and four-day groups a $5/person discount."
+      },
+      {
+        "name": "All Ages Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "nature_outdoor", "general"],
+        "description": "Church groups participate in Bible study, chapel, group recreation, swimming and afternoon activities. Campers receive grade-level quiet-time booklets and have evening church-group devotion time.",
+        "camp_page_url": "https://www.southmountainbaptistcamp.com/summer-camp/",
+        "registration_url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-08-05",
+          "text": "2027 Summer Camp Schedule"
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "South Mountain Baptist Camp",
+            "address": "3558 Baptist Camp Rd.",
+            "town": "Connelly Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Week 4 - All Ages Camp",
+            "start": "2027-06-27",
+            "end": "2027-06-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 165,
+              "unit": "session",
+              "label": "4 days / 3 nights; campers and chaperones",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Week 10 - All Ages Camp",
+            "start": "2027-08-01",
+            "end": "2027-08-05",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 205,
+              "unit": "session",
+              "label": "5 days / 4 nights; campers and chaperones",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-09",
+            "time": "16:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration will open to the public November 9, 2026 at 4:00pm.",
+            "url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Our meals are planned with child favorites and nutrition in mind. If you have special dietary needs, please contact us at least 2 weeks in advance!"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.southmountainbaptistcamp.com/summer-camp/",
+          "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+          "https://www.southmountainbaptistcamp.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Youth Mission Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Youth participate in offsite mission projects along with Bible study, chapel and camp recreation. Church chaperones help transport and supervise students at mission sites.",
+        "camp_page_url": "https://www.southmountainbaptistcamp.com/summer-camp/",
+        "registration_url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-11",
+          "end": "2027-07-16",
+          "text": "2027 Summer Camp Schedule"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "South Mountain Baptist Camp",
+            "address": "3558 Baptist Camp Rd.",
+            "town": "Connelly Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 265,
+            "unit": "session",
+            "label": "6 days / 5 nights; campers and chaperones",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 6 - Youth Mission Camp",
+            "start": "2027-07-11",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-09",
+            "time": "16:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration will open to the public November 9, 2026 at 4:00pm.",
+            "url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Our meals are planned with child favorites and nutrition in mind. If you have special dietary needs, please contact us at least 2 weeks in advance!"
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Youth Mission Camp chaperones are also responsible for helping transport and supervise students on mission sites."
+        },
+        "sources": [
+          "https://www.southmountainbaptistcamp.com/summer-camp/",
+          "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+          "https://www.southmountainbaptistcamp.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Day Camp",
+        "type": "day",
+        "categories": ["faith_based", "general"],
+        "description": "Children attend a three-day church-group camp led by SMBC staff, with Bible study and recreation.",
+        "camp_page_url": "https://www.southmountainbaptistcamp.com/summer-camp/",
+        "registration_url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-13",
+          "end": "2027-07-15",
+          "text": "2027 Summer Camp Schedule"
+        },
+        "ages": {
+          "min": 5,
+          "max": null
+        },
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "South Mountain Baptist Camp",
+            "address": "3558 Baptist Camp Rd.",
+            "town": "Connelly Springs",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 60,
+            "unit": "session",
+            "label": "3 days; campers and chaperones",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 7 - Day Camp",
+            "start": "2027-07-13",
+            "end": "2027-07-15",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-11-09",
+            "time": "16:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration will open to the public November 9, 2026 at 4:00pm.",
+            "url": "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southmountainbaptistcamp.com/summer-camp/",
+          "https://www.southmountainbaptistcamp.com/2027-camp-reservation/",
+          "https://www.southmountainbaptistcamp.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The schedule recommends K-2, but the registration form labels participating campers as ages 5 through completed 6th grade; confirm eligibility with camp. No daily hours were found. The form's lunch wording concerns underage accompanying children, so it was not used to establish regular camper lunch."
+      }
+    ]
+  }
+}

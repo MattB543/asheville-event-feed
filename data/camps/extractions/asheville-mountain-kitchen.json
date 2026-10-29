@@ -1,0 +1,275 @@
+{
+  "provider": {
+    "key": "asheville-mountain-kitchen",
+    "name": "Asheville Mountain Kitchen",
+    "urls": [
+      "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
+      "https://ashevillemountainkitchen.com/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:52:49.398Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cadeca058fc5e9bd8ea65095f88d5811ea47fddd6eb17040a0679f162dee1a95",
+  "response": {
+    "searches": ["site:ashevillemountainkitchen.com \"2027\" camp"],
+    "usage": {
+      "inputTokens": 18244,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1906,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 37768,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
+      "chars": 2980,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/",
+      "chars": 5848,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/faq/",
+      "chars": 3207,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/event/cooking-camp-mediterranean-week/",
+      "chars": 2375,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/event/cooking-camp-world-cuisine-week-2/",
+      "chars": 2326,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/event/italian-cooking-camp-week-3/",
+      "chars": 2337,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/event/cooking-camp-world-cuisine-week-4-2/",
+      "chars": 2203,
+      "method": "fetch"
+    },
+    {
+      "url": "https://ashevillemountainkitchen.com/event/cooking-camp-asian-week/",
+      "chars": 2207,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville Mountain Kitchen",
+    "website_url": "https://ashevillemountainkitchen.com/",
+    "notes": "No official 2027 camp dates or registration announcements were found. The 2026 camp overview, homepage and individual event pages disagree on some dates and themes; individual event pages were preferred where supplied.",
+    "excluded": [
+      {
+        "name": "Homestyle cooking classes and private classes",
+        "reason": "Ongoing public and private classes, not a finite summer-only youth program."
+      },
+      {
+        "name": "Dumplings from around the world-Sold Out",
+        "reason": "The listed October 24 class is outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Hands-On Kids Cooking and Baking Camp",
+        "type": "day",
+        "categories": ["cooking"],
+        "description": "Campers practice kitchen skills and prepare a full meal, including dessert, each day. Weekly menus explore different cuisines and baking using seasonal ingredients.",
+        "camp_page_url": "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
+        "registration_url": "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-08-21",
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "St. John's Church",
+            "address": "290 Old Haw Creek Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": "9:00 am to 2:00 pm; 8:30 drop off is fine."
+        },
+        "extended_care": {
+          "early_dropoff_start": "08:30",
+          "late_pickup_end": null,
+          "cost_text": null
+        },
+        "prices": [
+          {
+            "amount": 460,
+            "unit": "week",
+            "label": "15% sibling discount on one purchase",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Cooking camp-Mediterranean week 1",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Cooking camp- World Cuisine-week 2-CANCELLED",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Cooking Camp-Italian Week 3",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Cooking camp- Asian-week 4",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Cooking camp Asian week 5",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Week 6-Cuisines from around the world",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7-Baking camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8-Cuisine from around the world",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9-Italian week",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10-Baking",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://ashevillemountainkitchen.com/hands-on-kids-cooking-and-baking-camp/",
+          "https://ashevillemountainkitchen.com/",
+          "https://ashevillemountainkitchen.com/event/cooking-camp-mediterranean-week/",
+          "https://ashevillemountainkitchen.com/event/cooking-camp-world-cuisine-week-2/",
+          "https://ashevillemountainkitchen.com/event/italian-cooking-camp-week-3/",
+          "https://ashevillemountainkitchen.com/event/cooking-camp-world-cuisine-week-4-2/",
+          "https://ashevillemountainkitchen.com/event/cooking-camp-asian-week/",
+          "https://www.stjohnsasheville.org/contact-us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Week 2 ends June 25 on the camp overview but June 26 on its event page and homepage; the event page says CANCELLED while still displaying six tickets available. Recorded June 26 and closed. Week 4 is World cuisine on the overview but Asian on its event page; used the event-page theme. The homepage omits June 29–July 3 and August 17–21, both listed on the camp overview. Individual event dates omit the year; assigned 2026 from the explicit Summer 2026 overview, not the copyright. The overview states $460 and individual events describe five days of camp for $460. Preparing a meal does not explicitly establish whether lunch is provided, so lunch remains null."
+      }
+    ]
+  }
+}

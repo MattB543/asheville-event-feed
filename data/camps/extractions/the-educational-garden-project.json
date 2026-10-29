@@ -1,0 +1,497 @@
+{
+  "provider": {
+    "key": "the-educational-garden-project",
+    "name": "The Educational Garden Project",
+    "urls": ["https://www.theeducationalgardenproject.org/summer-camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:32.533Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b1e5b4825e31eb5de9f5399854315d717a204adf9eaed666d0a33de8d58fe242",
+  "response": {
+    "searches": [
+      "site:theeducationalgardenproject.org \"2027\"",
+      "Land of the Sky United Church Christ address official"
+    ],
+    "usage": {
+      "inputTokens": 23517,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3306,
+      "reasoningTokens": 156
+    },
+    "status": "completed",
+    "ms": 66032,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.theeducationalgardenproject.org/summer-camp",
+      "chars": 5076,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theeducationalgardenproject.org/how-to-register",
+      "chars": 3049,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theeducationalgardenproject.org/winter-camp",
+      "chars": 4328,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theeducationalgardenproject.org/faq",
+      "chars": 7084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theeducationalgardenproject.org/camps",
+      "chars": 4328,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.theeducationalgardenproject.org/",
+      "chars": 6407,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Educational Garden Project",
+    "website_url": "https://www.theeducationalgardenproject.org/",
+    "notes": "The official calendar search result says '2027 DATES COMING SOON'; the calendar returned no readable text when opened. Summer details remain for 2026. The homepage's general program ages (Garden Camp 5–10; CIT 11–15) differ from the summer-specific page and FAQ (6–10; 11–16); summer-specific ages are used. No dated 2027 registration announcement was found.",
+    "excluded": [
+      {
+        "name": "Winter Camp",
+        "reason": "December program, outside summer."
+      },
+      {
+        "name": "Homeschool",
+        "reason": "School-year homeschool programming, not a summer camp."
+      },
+      {
+        "name": "Spring camp sessions",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Garden Camp",
+        "type": "day",
+        "categories": ["nature_outdoor", "cooking", "arts"],
+        "description": "Campers garden, cook, make nature crafts, explore outdoors, and learn about animals and insects. Activities include supervised use of hand tools.",
+        "camp_page_url": "https://www.theeducationalgardenproject.org/summer-camp",
+        "registration_url": "https://www.theeducationalgardenproject.org/how-to-register",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": "2027 DATES COMING SOON"
+        },
+        "ages": {
+          "min": 6,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Land of the Sky United Church of Christ",
+            "address": "15 Overbrook Place",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "Monday–Friday | 9:00am–3:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 125,
+            "unit": "day",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 500,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Baby Animals",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Bees + Bugs",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Birds",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Herbal Remedies (new!)",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Wild Animals of Appalachia",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Outdoor Skills and Tools (new!)",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Trees",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Flowers",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9: Fungi",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10: Butterflies",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 11: Farm Animals",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Possibly, as long as your child (regardless of diagnosis) can follow our guidelines, communicate their needs, use the bathroom independently, and feed themselves. A phone call to introduce your child’s unique circumstances is required to better understand if Garden Camp is a possibility. Please call 828-989-9647"
+        },
+        "lunch": {
+          "value": "no",
+          "text": "For all of our programs we have a lunch scheduled and you send a hearty lunch and two snacks."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "No, The Educational Garden Project will never transport your children to any location other than where they were dropped off."
+        },
+        "sources": [
+          "https://www.theeducationalgardenproject.org/summer-camp",
+          "https://www.theeducationalgardenproject.org/faq",
+          "https://www.theeducationalgardenproject.org/how-to-register",
+          "https://www.theeducationalgardenproject.org/policies",
+          "https://www.theeducationalgardenproject.org/calendar",
+          "https://www.theeducationalgardenproject.org/",
+          "https://landoftheskychurch.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2027 announcement on the calendar; it was readable only in an official search snippet. Confirm minimum age: summer page and FAQ say 6, homepage general program description says 5. The summer page's combined K–10 statement is not allocated between Garden Camp and CIT, so grades are left null. Registration URL is an instruction page rather than the unverified Jumbula destination."
+      },
+      {
+        "name": "CIT Program",
+        "type": "day",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Counselors in training work alongside a director or senior staff member to help younger campers participate in activities. Participants practice teaching, leading, and working with children.",
+        "camp_page_url": "https://www.theeducationalgardenproject.org/summer-camp",
+        "registration_url": "https://www.theeducationalgardenproject.org/how-to-register",
+        "season": {
+          "year": 2026,
+          "status": "coming_soon",
+          "start": "2026-06-08",
+          "end": "2026-08-21",
+          "text": "2027 DATES COMING SOON"
+        },
+        "ages": {
+          "min": 11,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Land of the Sky United Church of Christ",
+            "address": "15 Overbrook Place",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:30",
+          "text": "Monday–Friday | 9:00am–3:30pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 70,
+            "unit": "day",
+            "label": null,
+            "year": 2026
+          },
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Baby Animals",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Bees + Bugs",
+            "start": "2026-06-15",
+            "end": "2026-06-19",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Birds",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Herbal Remedies (new!)",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Wild Animals of Appalachia",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Outdoor Skills and Tools (new!)",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Trees",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Flowers",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9: Fungi",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 10: Butterflies",
+            "start": "2026-08-10",
+            "end": "2026-08-14",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 11: Farm Animals",
+            "start": "2026-08-17",
+            "end": "2026-08-21",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "For all of our programs we have a lunch scheduled and you send a hearty lunch and two snacks."
+        },
+        "transportation": {
+          "value": "no",
+          "text": "No, The Educational Garden Project will never transport your children to any location other than where they were dropped off."
+        },
+        "sources": [
+          "https://www.theeducationalgardenproject.org/summer-camp",
+          "https://www.theeducationalgardenproject.org/faq",
+          "https://www.theeducationalgardenproject.org/how-to-register",
+          "https://www.theeducationalgardenproject.org/policies",
+          "https://www.theeducationalgardenproject.org/calendar",
+          "https://www.theeducationalgardenproject.org/",
+          "https://landoftheskychurch.org/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm 2027 announcement on the calendar; it was readable only in an official search snippet. Summer page and FAQ say CIT ages 11–16, while the homepage general description says 11–15 and grades 6 through high school. Grades are left null because that general description conflicts with the summer page's combined K–10 statement. Registration URL is an instruction page rather than the unverified Jumbula destination."
+      }
+    ]
+  }
+}

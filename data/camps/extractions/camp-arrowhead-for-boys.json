@@ -1,0 +1,211 @@
+{
+  "provider": {
+    "key": "camp-arrowhead-for-boys",
+    "name": "Camp Arrowhead for Boys",
+    "urls": ["https://camparrowhead.com/", "https://camparrowhead.com/dates-rates"],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:30.241Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f74dcc0c35052343129e9abf93fd3d010d0228a759bfa28ef973581349423064",
+  "response": {
+    "searches": [
+      "site.camparrowhead.com 2027 Maker Camp dates rates",
+      "site:camparrowhead.com \"2027\" \"June\"",
+      "site:camparrowhead.com \"June 6\""
+    ],
+    "usage": {
+      "inputTokens": 37108,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1773,
+      "reasoningTokens": 312
+    },
+    "status": "completed",
+    "ms": 47570,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://camparrowhead.com/",
+      "chars": 3682,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camparrowhead.com/dates-rates",
+      "chars": 5281,
+      "method": "fetch"
+    },
+    {
+      "url": "https://arrowhead.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://arrowhead.campintouch.com/ui/forms/application/person/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://camparrowhead.com/registration-policies",
+      "chars": 5084,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camparrowhead.com/our-mission",
+      "chars": 4118,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camparrowhead.com/leadership",
+      "chars": 7344,
+      "method": "fetch"
+    },
+    {
+      "url": "https://camparrowhead.com/blog",
+      "chars": 8634,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Arrowhead for Boys",
+    "website_url": "https://camparrowhead.com/",
+    "notes": "The official site has a Summer 2027 program list and says enrollment is open. Its accessible Dates & Rates text does not expose session dates, numeric age bands, or tuition amounts. Direct browser opens returned empty content; additional official pages were readable through search results. A third-party directory lists 2027 dates and rates, but these were not used because they could not be verified on official pages. Mini Camp and Sessions 1 and 2 are grouped as the traditional overnight program; Maker Camp Week is a separate specialized offering. Session rows are empty because verified dates are required for rows.",
+    "excluded": [
+      {
+        "name": "Family Camp",
+        "reason": "Family-only weekend retreat, July 30–August 1, 2027, rather than an independently attended youth camp."
+      },
+      {
+        "name": "Being a Counselor",
+        "reason": "Summer staff employment opportunity, not a youth camp program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Arrowhead for Boys",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts", "sports", "general"],
+        "description": "Boys participate in blacksmithing, woodworking, archery, outdoor skills, camping trips, and camp-wide games. Mini Camp introduces younger boys to activities with their cabin groups; longer sessions allow campers to select activities and develop skills.",
+        "camp_page_url": "https://camparrowhead.com/dates-rates",
+        "registration_url": "https://arrowhead.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Summer 2027"
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Arrowhead",
+            "address": "1415 Cabin Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [
+          {
+            "audience": "early_bird",
+            "kind": "deadline",
+            "date": "2026-11-01",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "Early Bird Discount- Register by November 1, 2026, to receive $150 off eligible 2027 tuition.",
+            "url": "https://camparrowhead.com/dates-rates",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Enrollment is open and is filling fast!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cabin accommodations and meals"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "If your son is flying to camp, we are happy to pick him up in Asheville, NC (AVL) or Greenville, SC (GSP)."
+        },
+        "sources": [
+          "https://camparrowhead.com/",
+          "https://camparrowhead.com/dates-rates",
+          "https://camparrowhead.com/registration-policies",
+          "https://camparrowhead.com/faq",
+          "https://camparrowhead.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "Check the visual session table or registration application for 2027 dates, age bands, and tuition for Mini Camp, Session 1, and Session 2's two- and three-week options. The 2027 offerings are announced, but no calendar dates were recoverable from official text; season.status is not_posted to indicate dates were not verified. Transportation wording was available through an official search result."
+      },
+      {
+        "name": "Maker Camp Week",
+        "type": "overnight",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Boys work with guest makers and camp staff on blacksmithing, woodworking, leatherwork, bushcraft, and other hands-on projects. The week can be attended independently or added after the three-week session.",
+        "camp_page_url": "https://camparrowhead.com/maker-camp-week",
+        "registration_url": "https://arrowhead.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "Summer 2027"
+        },
+        "ages": {
+          "min": 12,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Arrowhead",
+            "address": "1415 Cabin Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Enrollment is open and is filling fast!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Cabin accommodations and meals"
+        },
+        "transportation": null,
+        "sources": [
+          "https://camparrowhead.com/maker-camp-week",
+          "https://camparrowhead.com/dates-rates",
+          "https://camparrowhead.com/registration-policies",
+          "https://camparrowhead.com/contact"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official Maker Camp Week search result states ages 12 and up for stand-alone attendance; eligibility for younger three-week campers staying for the add-on is not stated. Verify 2027 dates, maximum age, and tuition in the visual Dates & Rates table or registration application. Session 2 three-week campers receive a 50% Maker Camp tuition discount. The $150 early-bird discount applies to eligible tuition, but Maker Camp eligibility is not specified, so no deadline was assigned to this card."
+      }
+    ]
+  }
+}

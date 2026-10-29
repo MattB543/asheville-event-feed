@@ -1,0 +1,493 @@
+{
+  "provider": {
+    "key": "lifeway-fuge-camps",
+    "name": "Lifeway — FUGE Camps",
+    "urls": [
+      "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+      "https://studentlife.lifeway.com/camp/27unca01/",
+      "https://fugecamps.lifeway.com/camp/ridgecrest-june-28-july-2-2026/",
+      "https://fugecamps.lifeway.com/camp/carson-springs-june-1-june-5-2026/",
+      "https://fugecamps.lifeway.com/camp/milligan-university-july-6-july-10-2026/",
+      "https://fugecamps.lifeway.com/camp/north-greenville-university-june-29-july-4-2026/"
+    ],
+    "area": "Black Mountain (Ridgecrest), NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:15:22.654Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4a0b2880869b383e417addc162ba90e8fc1f70e939afa742fa331775bc681acb",
+  "response": {
+    "searches": [
+      "site.fugecamps.lifeway.com 2027 registration opens SLA Ridgecrest",
+      "open https://fugecamps.lifeway.com/sla/",
+      "site:fugecamps.lifeway.com \"2027\" \"June 1\" registration",
+      "site:fugecamps.lifeway.com/product/27mfrcc01 \"$394\""
+    ],
+    "usage": {
+      "inputTokens": 41652,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3553,
+      "reasoningTokens": 427
+    },
+    "status": "completed",
+    "ms": 84200,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+      "chars": 15794,
+      "method": "fetch"
+    },
+    {
+      "url": "https://studentlife.lifeway.com/camp/27unca01/",
+      "chars": 4023,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fugecamps.lifeway.com/camp/ridgecrest-june-28-july-2-2026/",
+      "chars": 17006,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fugecamps.lifeway.com/camp/carson-springs-june-1-june-5-2026/",
+      "chars": 16344,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fugecamps.lifeway.com/camp/ridgecrest-may-31-june-4-2027/",
+      "chars": 16858,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fugecamps.lifeway.com/product/27cfrcc01-may-31-june-4/",
+      "chars": 9975,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lifeway — FUGE Camps",
+    "website_url": "https://fugecamps.lifeway.com/",
+    "notes": "Cards cover Ridgecrest and the supplied Asheville Student Life offering. Registration is through church groups, not individual parent enrollment. No dated 2027 registration opening announcement was found. Carson Springs, Milligan University, North Greenville University and the SLA locations are outside the requested Asheville/Black Mountain area and are not included. MFuge with Your Church is an option within MFuge. The Black Church Leadership and Family Conference FUGE session is included as a Centrifuge row because the venue lists it as a youth camp offering.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Centrifuge",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students participate in Bible study, worship, recreation and activity tracks such as sports, crafts, drama and outdoor activities. Recreation and Bible study groups are organized by grade completed.",
+        "camp_page_url": "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+        "registration_url": "https://fugecamps.lifeway.com/product/27cfrcc01-may-31-june-4/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Ridgecrest Conference Center",
+            "address": "1 Ridgecrest Drive",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "May 31–June 4",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 379,
+              "unit": "session",
+              "label": "Per participant; maximum occupancy",
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "June 7–June 12",
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 14–June 18",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 19–June 23",
+            "start": "2027-06-19",
+            "end": "2027-06-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 24–June 28",
+            "start": "2027-06-24",
+            "end": "2027-06-28",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 29–July 3",
+            "start": "2027-06-29",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "July 4–July 8",
+            "start": "2027-07-04",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 9–July 13",
+            "start": "2027-07-09",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "July 14–July 18",
+            "start": "2027-07-14",
+            "end": "2027-07-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "July 19–July 23",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 379,
+              "unit": "session",
+              "label": "Per participant",
+              "year": 2027
+            },
+            "status": "waitlist"
+          },
+          {
+            "label": "Black Church Leadership and Family Conference FUGE Camps",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 379,
+              "unit": "session",
+              "label": "Per participant",
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "However, when accommodations are possible, we maintain a posture of openness and partnership with church groups, desiring that every student have the opportunity to respond to the gospel message at camp."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+          "https://fugecamps.lifeway.com/camp/ridgecrest-may-31-june-4-2027/",
+          "https://fugecamps.lifeway.com/product/27cfrcc01-may-31-june-4/",
+          "https://fugecamps.lifeway.com/centrifuge/",
+          "https://fugecamps.lifeway.com/frequently-asked-questions/",
+          "https://ridgecrestconferencecenter.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "MFuge",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students participate in Bible study, worship and community ministry tracks, including children's activities, games and recreation, social ministry, and painting, construction or yardwork. MFuge with Your Church keeps a church's students together for Bible study and ministry work.",
+        "camp_page_url": "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+        "registration_url": "https://fugecamps.lifeway.com/product/27mfrcc01-may-31-june-4/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-05-31",
+          "end": "2027-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Ridgecrest Conference Center",
+            "address": "1 Ridgecrest Drive",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "May 31–June 4",
+            "start": "2027-05-31",
+            "end": "2027-06-04",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "June 7–June 12",
+            "start": "2027-06-07",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 14–June 18",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 19–June 23",
+            "start": "2027-06-19",
+            "end": "2027-06-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 24–June 28",
+            "start": "2027-06-24",
+            "end": "2027-06-28",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "June 29–July 3",
+            "start": "2027-06-29",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "July 4–July 8",
+            "start": "2027-07-04",
+            "end": "2027-07-08",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July 9–July 13",
+            "start": "2027-07-09",
+            "end": "2027-07-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          },
+          {
+            "label": "July 14–July 18",
+            "start": "2027-07-14",
+            "end": "2027-07-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "waitlist"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "However, when accommodations are possible, we maintain a posture of openness and partnership with church groups, desiring that every student have the opportunity to respond to the gospel message at camp."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fugecamps.lifeway.com/venue/ridgecrest-conference-center/",
+          "https://fugecamps.lifeway.com/camp/ridgecrest-may-31-june-4-2027/",
+          "https://fugecamps.lifeway.com/mfuge/",
+          "https://fugecamps.lifeway.com/frequently-asked-questions/",
+          "https://ridgecrestconferencecenter.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Rec Camp",
+        "type": "overnight",
+        "categories": ["faith_based", "general"],
+        "description": "Students participate in worship, biblical teaching, Life Group Bible study and recreation. Church leaders lead their students' small groups and join activities.",
+        "camp_page_url": "https://studentlife.lifeway.com/camp/27unca01/",
+        "registration_url": "https://studentlife.lifeway.com/camp/27unca01/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-12",
+          "end": "2027-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "University of North Carolina – Asheville",
+            "address": "1 University Heights",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 449,
+            "unit": "session",
+            "label": "Per participant",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The cost per person includes meals, lodging, a camp T-shirt, Bible study material, and all Student Life programming."
+        },
+        "transportation": null,
+        "sources": [
+          "https://studentlife.lifeway.com/camp/27unca01/",
+          "https://studentlife.lifeway.com/rec/",
+          "https://studentlife.lifeway.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

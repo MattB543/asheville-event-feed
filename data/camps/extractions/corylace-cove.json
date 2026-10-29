@@ -1,0 +1,478 @@
+{
+  "provider": {
+    "key": "corylace-cove",
+    "name": "Corylace Cove",
+    "urls": ["https://www.corylacecove.com/summer-camps"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:09.324Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c9f0b2b3a1f72a62c4e450a0de7aa784f6e8d21270ee721c3d52067d4a1f0b1d",
+  "response": {
+    "searches": ["site:corylacecove.com 2027", "\"Corylace Cove\" \"address\""],
+    "usage": {
+      "inputTokens": 26187,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3313,
+      "reasoningTokens": 268
+    },
+    "status": "completed",
+    "ms": 72219,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.corylacecove.com/summer-camps",
+      "chars": 6172,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition",
+      "chars": 1363,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/woodgnomescamp26",
+      "chars": 2575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/wildonescamp26",
+      "chars": 2715,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/craftgnomescamp26",
+      "chars": 2461,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/knifemakingcamp26",
+      "chars": 2083,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/metalsmithingcamp26",
+      "chars": 3129,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.corylacecove.com/tuition/p/crittersofthecreekcamp26",
+      "chars": 3049,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Corylace Cove",
+    "website_url": "https://www.corylacecove.com/",
+    "notes": "No 2027 information or registration opening dates found. Dates and tuition below are from the explicitly labeled 2026 summer schedule. The provider identifies its property in the Beech Glen neighborhood of Mars Hill but no published street address was found. Store 'from' amounts reflect deposit/payment options rather than full camp tuition. Older standalone pages for Teen Overnight Camp, Craft Camp and Blacksmithing Camp appeared in search but returned no readable content; their season could not be established, so they are not included.",
+    "excluded": [
+      {
+        "name": "Wild Crafters",
+        "reason": "Fall homeschool program, not a summer camp."
+      },
+      {
+        "name": "Craft Guild - Fall 2026",
+        "reason": "Fall homeschool program."
+      },
+      {
+        "name": "Wood Gnomes - Fall 2026",
+        "reason": "Fall homeschool program."
+      },
+      {
+        "name": "Hearth & Harvest - Spring 2026",
+        "reason": "Spring program outside summer."
+      },
+      {
+        "name": "Craft Guild - Spring 2026",
+        "reason": "Spring program outside summer."
+      },
+      {
+        "name": "Wood Gnomes - Spring 2026",
+        "reason": "Spring forest kindergarten outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Wood Gnomes Camp",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "arts", "music"],
+        "description": "Children participate in outdoor imaginative play, stories, group music, crafts and creek exploration. They also explore edible plants and practical outdoor skills.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition/p/woodgnomescamp26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": "Full tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/woodgnomescamp26",
+          "https://www.corylacecove.com/contact",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Wild Ones Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers learn fire safety, tracking, wayfinding, safe tool use, plant identification and animal ecology. Activities include awareness games and quiet forest observation.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition/p/wildonescamp26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Full tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/wildonescamp26",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Craft Gnomes Camp",
+        "type": "day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers make crafts inspired by gnome and faerie stories using wool, silk and forest materials. The outdoor program includes imaginative play and creek exploration.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition/p/craftgnomescamp26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-23",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": "Tuesday–Thursday, 3 Day Camp"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 200,
+            "unit": "session",
+            "label": "Full tuition; three-day camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/craftgnomescamp26",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Craft Guild",
+        "type": "day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Teens learn forging, safe tool use and metalworking through knife-making or metalsmithing sessions. Projects include steel knives with handles and sheaths, or objects made from steel and copper.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-29",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 11,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": "Monday–Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 400,
+            "unit": "week",
+            "label": "Full tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Craft Guild: Knife Making",
+            "start": "2026-06-29",
+            "end": "2026-07-03",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Craft Guild: Metalsmithing",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/knifemakingcamp26",
+          "https://www.corylacecove.com/tuition/p/metalsmithingcamp26",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Critters of the Creek",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Children explore the creek, study salamanders and crawdads, and learn to recognize tracks and other animal signs. They practice moving through rocky creek terrain and forest hillsides.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition/p/crittersofthecreekcamp26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": "Full tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "2026 camp",
+          "text": "Only 3 spaces left!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/crittersofthecreekcamp26",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page still says 'Only 3 spaces left!' for a session that ended July 31, 2026. Treat this as stale 2026 availability, not 2027 availability."
+      },
+      {
+        "name": "Craft Camp: Copper, Clay & Carving",
+        "type": "day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Campers forge copper objects, shape and campfire-fire clay pottery, and learn wood carving and knife safety. The week also includes creek time, games and nature exploration.",
+        "camp_page_url": "https://www.corylacecove.com/summer-camps",
+        "registration_url": "https://www.corylacecove.com/tuition/p/craftcampcopperclayandcarving26",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-27",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Corylace Cove",
+            "address": null,
+            "town": "Mars Hill",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Full tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "2026 camp",
+          "text": "Only 2 spaces left!"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.corylacecove.com/summer-camps",
+          "https://www.corylacecove.com/tuition/p/craftcampcopperclayandcarving26",
+          "https://www.corylacecove.com/about"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer page still says 'Only 2 spaces left!' for a session that ended July 31, 2026. Treat this as stale 2026 availability, not 2027 availability."
+      }
+    ]
+  }
+}

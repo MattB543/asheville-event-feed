@@ -1,0 +1,110 @@
+{
+  "provider": {
+    "key": "bricks-4-kidz",
+    "name": "Bricks 4 Kidz",
+    "urls": [
+      "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+      "https://www.bricks4kidz.com/northcarolina-asheville-arden/program-events/camps/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["macaroni_kid", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:25.669Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e56b68bce3e1fd88640535effcd75f2a4ac1e0b682e60044464a32286b8f70e1",
+  "response": {
+    "searches": [
+      "Bricks 4 Kidz Asheville summer camp 2026 2027",
+      "\"Bricks\" \"Asheville\" \"2026\" \"summer\" \"camp\""
+    ],
+    "usage": {
+      "inputTokens": 22445,
+      "cachedInputTokens": 8223,
+      "outputTokens": 811,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 28814,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+      "chars": 2832,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bricks4kidz.com/northcarolina-asheville-arden/program-events/camps/",
+      "chars": 2832,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bricks4kidz.us/",
+      "chars": 4640,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bricks4kidz.com/",
+      "chars": 4207,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bricks 4 Kidz",
+    "website_url": "https://bricks4kidz.us/northcarolina-asheville-arden/",
+    "notes": "No 2027 summer dates or registration milestones found. The local camp page describes camps but supplies no summer sessions, prices, hours or drop-off locations. Its schedule could not load in the supplied crawl; the current search index says no classes are available on that page. The local homepage search index lists fall 2026 offerings only. The legacy .com camp URL returned no readable text. Third-party summer listings have no reliable season year and were not used to populate dates or locations.",
+    "excluded": [
+      {
+        "name": "After-School Programs",
+        "reason": "School-year after-school classes, not summer camps; the local homepage lists fall 2026 programs at Estes, Glen Arden and Fairview elementary schools."
+      },
+      {
+        "name": "Bricks-4-Kidz BRICK LAB",
+        "reason": "The listed sessions run September–December 2026 and are outside summer."
+      },
+      {
+        "name": "November 3rd Election Day SCHOOL'S OUT Camp",
+        "reason": "One-day school holiday camp on November 3, 2026, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camps",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Children build LEGO models, play games and explore engineering, architecture, robotics, coding, video game design and animated movie-making.",
+        "camp_page_url": "https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 13
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://bricks4kidz.us/northcarolina-asheville-arden/our-programs/camps/"],
+        "confidence": "medium",
+        "review_notes": "The local page provides an undated general camp description and ages 5–13, but no season-specific summer offering details. Confirm the summer program name and day versus half-day format when the local schedule is published; no 2026 or 2027 session dates were recoverable."
+      }
+    ]
+  }
+}

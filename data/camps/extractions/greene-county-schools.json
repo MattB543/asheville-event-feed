@@ -1,0 +1,147 @@
+{
+  "provider": {
+    "key": "greene-county-schools",
+    "name": "Greene County Schools",
+    "urls": [
+      "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535"
+    ],
+    "area": "Greeneville / Mosheim, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:35.053Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "78db1915cd30d1fc53fb1113da1b328d5671956a1e4a6b6570053001cdeb5a87",
+  "response": {
+    "searches": [
+      "site.greenek12.org ESP summer 2026 2027",
+      "site.greenek12.org \"ESP\" \"summer\" \"2026\" handbook",
+      "site:doak.greenek12.org \"Address\" \"TN\""
+    ],
+    "usage": {
+      "inputTokens": 32239,
+      "cachedInputTokens": 8223,
+      "outputTokens": 972,
+      "reasoningTokens": 318
+    },
+    "status": "completed",
+    "ms": 38991,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535",
+      "chars": 5390,
+      "method": "fetch"
+    },
+    {
+      "url": "http://www.greenek12.org/apps/pages/index.jsp?uREC_ID=1288862&type=d&pREC_ID=2160969",
+      "chars": 4322,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greenek12.org/apps/pages/index.jsp?uREC_ID=1288564&type=d&pREC_ID=1497063",
+      "chars": 11163,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greenek12.org/apps/pages/index.jsp?uREC_ID=1312535&type=d&pREC_ID=1513072",
+      "chars": 2401,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greenek12.org/apps/maps",
+      "chars": 1402,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.greenek12.org/",
+      "chars": 2578,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greene County Schools",
+    "website_url": "https://www.greenek12.org/",
+    "notes": "No summer 2027 dates or registration milestones were found. The ESP page confirms a full summer program but does not date that description. Linked 2026-27 handbook, application and closure documents could not be retrieved from the accessible page text. School contact pages did not expose street addresses in the retrieved text; these remain unverified. School-year kindergarten registration is not summer ESP registration.",
+    "excluded": [
+      {
+        "name": "Extended School Program before- and after-school care",
+        "reason": "Year-round school-day childcare; only the separately stated full summer program is included."
+      },
+      {
+        "name": "Extended School Program school-break care",
+        "reason": "Non-summer school-break childcare."
+      },
+      {
+        "name": "Online Employment Application",
+        "reason": "Employment application, not a supervised youth summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Extended School Program",
+        "type": "day",
+        "categories": ["general", "arts"],
+        "description": "Children participate in art, music, drama, crafts, storytelling, recreation and other educational activities supervised by trained staff.",
+        "camp_page_url": "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Doak Elementary",
+            "address": null,
+            "town": null,
+            "state": null
+          },
+          {
+            "name": "Mosheim Elementary",
+            "address": null,
+            "town": null,
+            "state": null
+          },
+          {
+            "name": "South Greene High School",
+            "address": null,
+            "town": null,
+            "state": null
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "ESP accepts payment from the state of TN Child Care Certificate Programs."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.greenek12.org/apps/pages/index.jsp?pREC_ID=1513040&type=d&uREC_ID=1312535",
+          "https://doak.greenek12.org/apps/pages/index.jsp?type=d&uREC_ID=1254162",
+          "https://mosheim.greenek12.org/apps/pages/index.jsp?type=d&uREC_ID=1254494",
+          "https://sghs.greenek12.org/apps/pages/index.jsp?pREC_ID=1609110&type=d&uREC_ID=1255449"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer offering and ages appear in an undated ESP description; 2026 is a fallback season label, not an explicitly dated summer schedule. Verify summer dates, pricing, application requirements and addresses for all three schools with the provider. The displayed 5:30-7:30 morning and 15:00-18:00 after-school hours are not summer hours and were not used. The $10 annual registration fee is stated for before/after-school enrollment and was not assigned to summer."
+      }
+    ]
+  }
+}

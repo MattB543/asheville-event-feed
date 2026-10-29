@@ -1,0 +1,755 @@
+{
+  "provider": {
+    "key": "gwynn-valley",
+    "name": "Gwynn Valley",
+    "urls": [
+      "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+      "https://gwynnvalley.com/summer-camp/activities/",
+      "https://gwynnvalley.com/"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:02:16.605Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b6eed5aba33844791b6bb7f10ca477e983620f14d2792bfca85d47f6c5df8a7a",
+  "response": {
+    "searches": [
+      "open https://gwynnvalley.com/summer-camp/programs/",
+      "site:gwynnvalley.com \"Riverside\" \"Young Leaders\" \"leadership\"",
+      "site:gwynnvalley.com/summer-camp/programs/ \"Riverside\" \"finishing\""
+    ],
+    "usage": {
+      "inputTokens": 43592,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5359,
+      "reasoningTokens": 277
+    },
+    "status": "completed",
+    "ms": 94579,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+      "chars": 8584,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/summer-camp/activities/",
+      "chars": 15474,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/",
+      "chars": 10078,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/summer-camp/registration/",
+      "chars": 11162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/summer-camp/dates-and-rates/?s=",
+      "chars": 8584,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+      "chars": 9721,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/who-we-are/camp-history/",
+      "chars": 7462,
+      "method": "fetch"
+    },
+    {
+      "url": "https://gwynnvalley.com/summer-camp/programs/",
+      "chars": 8935,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Gwynn Valley",
+    "website_url": "https://gwynnvalley.com/",
+    "notes": "2027 dates, rates and registration openings are posted. Starter Camp is included as a Main Camp session, as the provider lists it within that program. Availability indicators were not readable in the supplied text. Additional official pages opened without readable content; search results supplemented program and travel information.",
+    "excluded": [
+      {
+        "name": "Staff in Training",
+        "reason": "Listed under staff employment applications, rather than camper enrollment."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Main Camp",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "arts", "sports", "horses"],
+        "description": "Campers choose activities including farm work, crafts, climbing, horseback riding, swimming and blacksmithing. They live in cabin groups and participate in evening programs.",
+        "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
+        "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-05",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 6,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Gwynn Valley",
+            "address": "301 Gwynn Valley Trail",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session A",
+            "start": "2027-06-05",
+            "end": "2027-06-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3700,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session B",
+            "start": "2027-06-16",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3700,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session C",
+            "start": "2027-06-27",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5875,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session C1",
+            "start": "2027-06-27",
+            "end": "2027-07-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3700,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session C2",
+            "start": "2027-07-07",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3700,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Session D",
+            "start": "2027-07-18",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 4650,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Starter Camp - New Campers Only",
+            "start": "2027-07-24",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 6,
+              "max": 8
+            },
+            "grades": {
+              "min": 0,
+              "max": 2,
+              "basis": "completed"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2575,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "E Session",
+            "start": "2027-08-01",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2575,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for the 2027 summer will open for returning campers and their siblings on August 26 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-11",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for new campers will open on September 11 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships range from 10% to a full scholarship depending on financial need."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:45 PM Lunch"
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
+        },
+        "sources": [
+          "https://gwynnvalley.com/summer-camp/programs/",
+          "https://gwynnvalley.com/summer-camp/activities/",
+          "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/registration/",
+          "https://gwynnvalley.com/parents/travel-to-gv/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the dates-and-rates page's 2027 registration context. Transportation information was available through an official search result. Starter Camp requires both completed K–2 and ages 6–8 per registration page, despite the rates table saying 'or'."
+      },
+      {
+        "name": "Mountainside",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "general"],
+        "description": "Campers participate in outdoor adventures including backpacking, climbing, biking and paddling, alongside activities at camp.",
+        "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
+        "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-05",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 8,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Gwynn Valley",
+            "address": "301 Gwynn Valley Trail",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "MS1-A",
+            "start": "2027-06-05",
+            "end": "2027-06-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3825,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MS1-B",
+            "start": "2027-06-16",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3825,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MS2",
+            "start": "2027-06-27",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "MS3",
+            "start": "2027-07-18",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 6000,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for the 2027 summer will open for returning campers and their siblings on August 26 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "deadline",
+            "date": "2026-09-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "If your camper is applying for one of our Older Programs (Mountainside, Riverside, or Young Leaders) remember to mark August 26th through September 2nd on your calendar. Only applications we receive within that window will be considered all together for our first round of placements.",
+            "url": "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-11",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for new campers will open on September 11 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships range from 10% to a full scholarship depending on financial need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
+        },
+        "sources": [
+          "https://gwynnvalley.com/summer-camp/programs/",
+          "https://gwynnvalley.com/summer-camp/activities/",
+          "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/registration/",
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+          "https://gwynnvalley.com/parents/travel-to-gv/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates take their year from the dates-and-rates page's 2027 context. Transportation was read through an official search result. September 2 is the first-round placement deadline, not the final application deadline."
+      },
+      {
+        "name": "Riverside",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Campers train for outdoor adventures including backpacking and whitewater canoeing. Activities also include climbing and the high ropes course.",
+        "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
+        "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-05",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 8,
+          "max": 9,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Gwynn Valley",
+            "address": "301 Gwynn Valley Trail",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 6700,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "RS1",
+            "start": "2027-06-05",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "RS2",
+            "start": "2027-06-27",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "RS3",
+            "start": "2027-07-18",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for the 2027 summer will open for returning campers and their siblings on August 26 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "deadline",
+            "date": "2026-09-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "If your camper is applying for one of our Older Programs (Mountainside, Riverside, or Young Leaders) remember to mark August 26th through September 2nd on your calendar. Only applications we receive within that window will be considered all together for our first round of placements.",
+            "url": "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-11",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for new campers will open on September 11 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships range from 10% to a full scholarship depending on financial need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
+        },
+        "sources": [
+          "https://gwynnvalley.com/summer-camp/programs/",
+          "https://gwynnvalley.com/summer-camp/activities/",
+          "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/registration/",
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+          "https://gwynnvalley.com/parents/travel-to-gv/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Grades use the stated 2026–2027 school-year basis. Dates take their year from the page's 2027 context. Transportation was read through an official search result. September 2 is only the first-round placement deadline."
+      },
+      {
+        "name": "Young Leaders",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Participants develop leadership skills, assist with camp activities and take part in outdoor adventures. They also participate in community service trips.",
+        "camp_page_url": "https://gwynnvalley.com/summer-camp/programs/",
+        "registration_url": "https://gwynnvalley.com/summer-camp/registration/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-05",
+          "end": "2027-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 10,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Gwynn Valley",
+            "address": "301 Gwynn Valley Trail",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 4850,
+            "unit": "session",
+            "label": null,
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "YL1",
+            "start": "2027-06-05",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "YL2",
+            "start": "2027-06-27",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "YL3",
+            "start": "2027-07-18",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2026-08-26",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for the 2027 summer will open for returning campers and their siblings on August 26 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "returning",
+            "kind": "deadline",
+            "date": "2026-09-02",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "If your camper is applying for one of our Older Programs (Mountainside, Riverside, or Young Leaders) remember to mark August 26th through September 2nd on your calendar. Only applications we receive within that window will be considered all together for our first round of placements.",
+            "url": "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-09-11",
+            "time": "10:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration for new campers will open on September 11 at 10 AM EST.",
+            "url": "https://gwynnvalley.com/summer-camp/registration/",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships range from 10% to a full scholarship depending on financial need."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "Your child or children will be picked up in a camp car or van depending on the number of campers and transported directly to camp or to the airport on closing day."
+        },
+        "sources": [
+          "https://gwynnvalley.com/summer-camp/programs/",
+          "https://gwynnvalley.com/summer-camp/dates-and-rates/",
+          "https://gwynnvalley.com/summer-camp/registration/",
+          "https://gwynnvalley.com/2027-registration-opens-next-wednesday-for-returning-campers/",
+          "https://gwynnvalley.com/parents/travel-to-gv/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Young Leaders description and transportation were supplemented through official search results because direct opens returned no readable text. Grades use the stated 2026–2027 school-year basis. Dates take their year from the page's 2027 context. September 2 is only the first-round placement deadline."
+      }
+    ]
+  }
+}

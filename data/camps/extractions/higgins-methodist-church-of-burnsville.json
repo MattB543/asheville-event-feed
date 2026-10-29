@@ -1,0 +1,149 @@
+{
+  "provider": {
+    "key": "higgins-methodist-church-of-burnsville",
+    "name": "Higgins Methodist Church of Burnsville",
+    "urls": ["https://www.higginsmethodist.com/vbs.html"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:07.353Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e88110ccccc702efe198a2190fde718c44a85bf209735be34b0784362ea14ade",
+  "response": {
+    "searches": ["site:higginsmethodist.com VBS 2027 2026"],
+    "usage": {
+      "inputTokens": 13371,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1055,
+      "reasoningTokens": 106
+    },
+    "status": "completed",
+    "ms": 34794,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.higginsmethodist.com/vbs.html",
+      "chars": 1708,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.higginsmethodist.com/",
+      "chars": 1654,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Higgins Methodist Church of Burnsville",
+    "website_url": "https://www.higginsmethodist.com/",
+    "notes": "No official 2027 information found. The VBS page is headed 2026, but its Sunday July 13–Thursday July 17 weekday labels match 2025, not 2026. Dates below use the printed 2026 heading and require verification. Third-party 2026 listings describe a different age range and ending time; those details were not substituted for the official page.",
+    "excluded": [
+      {
+        "name": "Adult VBS study groups",
+        "reason": "Adult-only component of VBS; the card includes only the youth offering."
+      },
+      {
+        "name": "Sunday School and Kingdom Kidz",
+        "reason": "Recurring church programs, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Youth participate in activities and study groups organized for elementary students, middle school students, and high school students.",
+        "camp_page_url": "https://www.higginsmethodist.com/vbs.html",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Higgins Methodist Church",
+            "address": "101 N Main Street",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": "5:30 - 8:00pm"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "1st - 5th Groups",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Middle School",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "High School",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "A light dinner will be provided"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.higginsmethodist.com/vbs.html",
+          "https://www.higginsmethodist.com/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Verify the year and schedule: the official page heading says 2026, but July 13 and July 17 are Monday and Friday in 2026, rather than the printed Sunday and Thursday. The year for the dates is taken from the heading. Middle School and High School are stated without numerical grades, so the overall maximum grade is unknown. The page says online registration is possible but no current registration destination was verified."
+      }
+    ]
+  }
+}

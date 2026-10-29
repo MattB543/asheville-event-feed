@@ -1,0 +1,143 @@
+{
+  "provider": {
+    "key": "dutch-cove-baptist-church-of-canton",
+    "name": "Dutch Cove Baptist Church of Canton",
+    "urls": [
+      "https://dutchcove.org/vbs-parent-handbook",
+      "https://dutchcove.org/vbs-amp-summer-summit",
+      "https://dutchcove.org/"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:19.159Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e30f2e11e69d7d7d9062dac4f70673d02cf8331a89ae40617c6a2a39bd2beb6c",
+  "response": {
+    "searches": [
+      "site:dutchcove.org VBS 2027 summer summit ages",
+      "open https://dutchcove.org/summer-summit-registration"
+    ],
+    "usage": {
+      "inputTokens": 15714,
+      "cachedInputTokens": 8223,
+      "outputTokens": 939,
+      "reasoningTokens": 115
+    },
+    "status": "completed",
+    "ms": 23178,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://dutchcove.org/vbs-parent-handbook",
+      "chars": 7508,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dutchcove.org/vbs-amp-summer-summit",
+      "chars": 756,
+      "method": "fetch"
+    },
+    {
+      "url": "https://dutchcove.org/",
+      "chars": 1563,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn",
+      "chars": 1297,
+      "method": "fetch"
+    },
+    {
+      "url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register",
+      "chars": 630,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Dutch Cove Baptist Church of Canton",
+    "website_url": "https://dutchcove.org/",
+    "notes": "No 2027 summer program information or registration milestones were found. Summer Summit is named in page titles, but its pages provide no readable program details, dates or eligibility; no card was created for that unverified offering.",
+    "excluded": [
+      {
+        "name": "The Beehive",
+        "reason": "Year-round Sunday children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Kids Cove",
+        "reason": "Year-round Sunday children's ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Emerald Crossing Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Psalm 23 through Bible lessons, songs, crafts and games with an Ireland-themed setting. Each evening includes dinner and opening and closing assemblies.",
+        "camp_page_url": "https://dutchcove.org/vbs-parent-handbook",
+        "registration_url": "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Dutch Cove Baptist Church",
+            "address": "4161 Dutch Cove Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "6:00 pm to 8:30 pm - Every Night!"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "case_by_case",
+          "text": "For transportation needs, call (828) 648-0406"
+        },
+        "sources": [
+          "https://dutchcove.org/vbs-parent-handbook",
+          "https://dutchcove.org/",
+          "https://dutchcove.org/vbs-registration",
+          "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn",
+          "https://subsplash.com/dutchcovebaptistchurch/lb/ev/+z7n6smn/register"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBS registration page's search snippet states eligibility as '4 Years Old - 5th Grade' but could not be read when opened. That snippet says 'Sunday, June 13th - Thursday, June 18th' without a year, conflicting with the handbook and official Subsplash event, which explicitly give June 14-18, 2026; the latter dates were used. The registration page's 5:30 pm nightly registration time was not treated as extended care or a season registration opening. Dinner is stated in the handbook, but lunch is not."
+      }
+    ]
+  }
+}

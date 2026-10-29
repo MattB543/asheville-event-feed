@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "point-pleasant-baptist-church-of-newport",
+    "name": "Point Pleasant Baptist Church of Newport",
+    "urls": ["https://www.facebook.com/groups/597934280977480"],
+    "area": "Newport, TN",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:25:58.146Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "\"Point Pleasant Baptist Church\" \"Newport\" \"VBS\"",
+      "site:facebook.com/groups/597934280977480 \"VBS\" \"2026\"",
+      "open https://form.jotform.com/260428490456057"
+    ],
+    "usage": {
+      "inputTokens": 17543,
+      "cachedInputTokens": 8223,
+      "outputTokens": 943,
+      "reasoningTokens": 220
+    },
+    "status": "completed",
+    "ms": 33546,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/groups/597934280977480",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Point Pleasant Baptist Church of Newport",
+    "website_url": null,
+    "notes": "No standalone church website or 2027 summer information found. The church's Facebook group could not be read. Indexed church registration forms identify a July 6–10 Vacation Bible School but omit the year; a third-party event listing dates it to 2026. Registration forms were readable only through search results.",
+    "excluded": [
+      {
+        "name": "Point Pleasant Baptist Church Easter Egg Hunt",
+        "reason": "March 21 event outside summer."
+      },
+      {
+        "name": "Sunday School/Kids Church",
+        "reason": "Regular church programming, not a finite summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend the church's Vacation Bible School in the evening. A meal is served before the program.",
+        "camp_page_url": "https://www.facebook.com/groups/597934280977480",
+        "registration_url": "https://form.jotform.com/260428490456057",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-06",
+          "end": "2026-07-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Point Pleasant Baptist Church",
+            "address": "3330 Point Pleasant Rd",
+            "town": "Newport",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": "Meal served at 5:30 for those attending and VBS is 6:30-8:30."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Meal served at 5:30 for those attending"
+        },
+        "transportation": null,
+        "sources": [
+          "https://form.jotform.com/260428490456057",
+          "https://form.jotform.com/260429435420048"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the year and location with the church. Official registration form search results state July 6–10 without a year; 2026 comes from https://allevents.in/lowland/point-pleasant-baptist-church-vbs/200030095404545. Address is supported by that listing and the SBC church directory, rather than a readable church-published address. The third-party event starts at 5:30 p.m.; the official form distinguishes the 5:30 meal from VBS at 6:30–8:30. The form asks for sensory issues and ways to support children but does not state an accommodation policy. Its bus-route question concerns Sunday School/Kids Church, not VBS transportation."
+      }
+    ]
+  }
+}

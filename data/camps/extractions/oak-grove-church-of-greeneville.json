@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "oak-grove-church-of-greeneville",
+    "name": "Oak Grove Church of Greeneville",
+    "urls": ["https://vbspro.events/p/8e9d81"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:25:25.190Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "1fc1af04b02257bd16e2b6361b0535d4bcbedcb5a27cf429207bf5fc7e3e424a",
+  "response": {
+    "searches": ["Oak Grove FWB Church Greeneville official VBS 2027"],
+    "usage": {
+      "inputTokens": 13597,
+      "cachedInputTokens": 8223,
+      "outputTokens": 591,
+      "reasoningTokens": 52
+    },
+    "status": "completed",
+    "ms": 15909,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/8e9d81",
+      "chars": 2552,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Oak Grove Church of Greeneville",
+    "website_url": "https://www.oakgrovegreeneville.com/",
+    "notes": "No 2027 summer program information was found. The VBS card uses the explicitly dated 2026 registration page.",
+    "excluded": [
+      {
+        "name": "AWANA Kid's Club",
+        "reason": "Regular Wednesday children's ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Oak Grove VBS: Rainforest Falls",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and what it means to be rooted in a relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "camp_page_url": "https://vbspro.events/p/8e9d81",
+        "registration_url": "https://vbspro.events/p/8e9d81",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Oak Grove FWB Church",
+            "address": "2320 Old Tusculum Road",
+            "town": "Greeneville",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:45",
+          "text": "5:30pm (EDT) to 8:45pm (EDT)"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "2026 VBS",
+          "text": "Event Registration is closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/8e9d81",
+          "https://www.oakgrovegreeneville.com/contact-us.html"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

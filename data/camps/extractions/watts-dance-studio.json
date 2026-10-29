@@ -1,0 +1,133 @@
+{
+  "provider": {
+    "key": "watts-dance-studio",
+    "name": "Watts Dance Studio",
+    "urls": ["https://www.wattsdancestudio.com/schedule-n-calendar"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:37.729Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d325b11c070b82573010c74f8fb5602fd699763d4af440c947ded0f2eac8faaa",
+  "response": {
+    "searches": [
+      "site:wattsdancestudio.com summer 2027 camp",
+      "\"Watts\" \"2026\" \"summer\" \"Intensive\" dance"
+    ],
+    "usage": {
+      "inputTokens": 23257,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1019,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 26126,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+      "chars": 4162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.wattsdancestudio.com/register",
+      "chars": 1575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.wattsdancestudio.com/",
+      "chars": 2751,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Watts Dance Studio",
+    "website_url": "https://www.wattsdancestudio.com/",
+    "notes": "No summer 2027 information was found. The schedule page names a summer camp and an Intensive, but the Bristol and Elizabethton summer schedule documents could not be retrieved; their ages, prices, hours and detailed offerings remain unverified. The five-week summer class program is mentioned separately, but insufficient details were available to establish whether it is a qualifying supervised summer program rather than regular dance classes.",
+    "excluded": [
+      {
+        "name": "Fall to Spring Dance Program",
+        "reason": "Regular school-year dance classes, not a finite summer camp."
+      },
+      {
+        "name": "Showcase Show and Recital",
+        "reason": "Spring performances, not summer supervised youth programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Intensive",
+        "type": "clinic",
+        "categories": ["dance"],
+        "description": "A five-day summer dance intensive.",
+        "camp_page_url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+        "registration_url": "https://www.wattsdancestudio.com/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wattsdancestudio.com/schedule-n-calendar",
+          "https://www.wattsdancestudio.com/register"
+        ],
+        "confidence": "medium",
+        "review_notes": "The calendar explicitly dates the Intensive June 1–5, 2026, but does not specify eligibility, meeting location, hours or curriculum. Retrieve the linked city summer schedules to verify youth eligibility and whether the intensive takes place at one or both studios."
+      },
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["dance"],
+        "description": "The studio offers a summer dance camp.",
+        "camp_page_url": "https://www.wattsdancestudio.com/schedule-n-calendar",
+        "registration_url": "https://www.wattsdancestudio.com/register",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.wattsdancestudio.com/schedule-n-calendar",
+          "https://www.wattsdancestudio.com/register"
+        ],
+        "confidence": "low",
+        "review_notes": "The 2026 summer section mentions 'our summer camp' without dates, eligibility, hours or location. Day format is provisional. Retrieve the Bristol and Elizabethton summer schedules to determine its exact name and whether this refers to the separately listed Intensive; merge the cards if they are the same offering."
+      }
+    ]
+  }
+}

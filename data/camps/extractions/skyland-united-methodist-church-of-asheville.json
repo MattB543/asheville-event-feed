@@ -1,0 +1,167 @@
+{
+  "provider": {
+    "key": "skyland-united-methodist-church-of-asheville",
+    "name": "Skyland United Methodist Church of Asheville",
+    "urls": [
+      "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:13:23.815Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "3fe4e3ff8efea34a56b7e786f4bd2482c95c870387f76600cb879a06e724836e",
+  "response": {
+    "searches": [
+      "site:skylandumc.com VBS 2027 2026 Rainforest Falls",
+      "site:skylandumc.com \"2026\" \"Music Camp\"",
+      "open https://www.skylandumc.com/wp-content/uploads/2026/05/5-21-26.pdf",
+      "site:skylandumc.com \"Bridges\" \"camp\" \"2026\" \"children\""
+    ],
+    "usage": {
+      "inputTokens": 22899,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1478,
+      "reasoningTokens": 302
+    },
+    "status": "completed",
+    "ms": 44182,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+      "chars": 2542,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.skylandumc.com/",
+      "chars": 4747,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Skyland United Methodist Church of Asheville",
+    "website_url": "https://www.skylandumc.com/",
+    "notes": "No summer 2027 camp dates or registration announcements found. The 2026 VBS registration form says registration closes June 15 or when capacity is reached; this is not a 2027 milestone. Older Music Camp materials were found for 2023 and 2024, but no 2026 or 2027 offering was verified. Several official pages and newsletter PDFs returned no readable text when opened; newsletter information below was available through official search results.",
+    "excluded": [
+      {
+        "name": "Around the Son Preschool",
+        "reason": "Preschool offering, not identified as a finite summer-only program."
+      },
+      {
+        "name": "Wednesday after-school program",
+        "reason": "Recurring weekly after-school program, not a summer camp."
+      },
+      {
+        "name": "Bridges Reading Programs",
+        "reason": "Regular school-year reading enrichment programs are excluded; the separately announced summer literacy camp is included."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore Bible teachings through experiments, games, music and activities. The 2026 theme is Rainforest Falls.",
+        "camp_page_url": "https://www.skylandumc.com/vbs-camper-form/",
+        "registration_url": "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Skyland United Methodist Church",
+            "address": "1984 Hendersonville Road",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "9 am – 12 noon"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 10,
+            "unit": "program",
+            "label": "Registration fee per child; $25 maximum per family",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.skylandumc.com/wp-content/uploads/2026/03/2026-VBS-RainfForest-Falls-registration-form-camper.pdf",
+          "https://www.skylandumc.com/",
+          "https://www.skylandumc.com/wp-content/uploads/2026/05/5-7-26.pdf",
+          "https://www.skylandumc.com/vbs-camper-form/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Bridges Summer Literacy Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Children participate in a summer literacy camp associated with the church's Bridges reading enrichment program.",
+        "camp_page_url": "https://www.skylandumc.com/wp-content/uploads/2026/05/5-28-26.pdf",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-13",
+          "end": "2026-07-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "17:00",
+          "text": "The camp runs from 9:00 a.m. to 5:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.skylandumc.com/wp-content/uploads/2026/05/5-28-26.pdf",
+          "https://www.skylandumc.com/wp-content/uploads/2026/05/5-21-26.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates and hours were readable only in official newsletter search snippets; PDF opens returned no readable text. The year is taken from the newsletter's 2026 title. Confirm summer camper eligibility, drop-off location and registration process with the church; school-year Bridges locations and grades were not assumed to apply to this camp."
+      }
+    ]
+  }
+}

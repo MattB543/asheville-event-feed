@@ -1,0 +1,122 @@
+{
+  "provider": {
+    "key": "greene-county-ymca",
+    "name": "Greene County YMCA",
+    "urls": ["https://greenecounty-ymca.org/summer-camp/"],
+    "area": "Greeneville, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:23:17.560Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "b5bcbcc78cb04f3ca70de71b630e9e46e532b5f2f56ce7b19792b120b6b57782",
+  "response": {
+    "searches": [
+      "Greene County YMCA Greeneville summer camp 2026",
+      "site:greenecounty-ymca.org \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 23720,
+      "cachedInputTokens": 8223,
+      "outputTokens": 938,
+      "reasoningTokens": 158
+    },
+    "status": "completed",
+    "ms": 28329,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://greenecounty-ymca.org/summer-camp/",
+      "chars": 587,
+      "method": "browser"
+    },
+    {
+      "url": "https://greenecounty-ymca.org/",
+      "chars": 586,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Greene County YMCA",
+    "website_url": "https://greenecounty-ymca.org/",
+    "notes": "The supplied fetch showed an expired, parked domain, but web search and opening the summer-camp URL returned official camp text. No summer 2027 announcement or dated 2026 camp schedule was found. The only dated camp handbook found was for 2023 and was not used for current logistics. A third-party listing mentions a June 2026 Summer Lacrosse Camp, but no official supporting page was found, so it was not extracted.",
+    "excluded": [
+      {
+        "name": "Spring Soccer",
+        "reason": "Sports league season, not a finite camp or clinic."
+      },
+      {
+        "name": "Flag Football",
+        "reason": "Sports league season, not a finite camp or clinic."
+      },
+      {
+        "name": "T-Ball/ Coach-Pitch",
+        "reason": "Sports league season, not a finite camp or clinic."
+      },
+      {
+        "name": "Fall Soccer",
+        "reason": "Sports league season, not a finite camp or clinic."
+      },
+      {
+        "name": "Indoor Soccer",
+        "reason": "Sports league season outside summer."
+      },
+      {
+        "name": "Youth Basketball",
+        "reason": "Sports league season, not a finite camp or clinic."
+      },
+      {
+        "name": "Swim Lessons",
+        "reason": "Ongoing lessons; no summer-only finite program was stated."
+      },
+      {
+        "name": "After-School Care & Childwatch",
+        "reason": "Ongoing childcare rather than summer-only camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Day Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in supervised activities including craft projects, reading and board games.",
+        "camp_page_url": "https://greenecounty-ymca.org/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 8,
+          "basis": "rising"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://greenecounty-ymca.org/summer-camp/",
+          "https://greenecounty-ymca.org/volunteer/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page is undated and states up-and-coming kindergarten through eighth grade. Confirm that eligibility remains current. It lists $100/week for members, $140/week for non-members and a $10 same-week sibling discount, but no season year is stated, so prices were omitted rather than assigned to 2026 or 2027. Confirm dates, hours, registration and drop-off location directly with the provider. YMCA of the USA lists the facility at 404 Y St, Greeneville, TN, but the available camp text does not identify it as the camp drop-off site."
+      }
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "odyssey-clayworks",
+    "name": "Odyssey ClayWorks",
+    "urls": [
+      "https://www.odysseyclayworks.com/clay-camp",
+      "https://www.odysseyclayworks.com/kids-classes",
+      "https://www.odysseyclayworks.com/summer-session",
+      "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "our_db", "grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:57.262Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "57e51a2f2dd30f92f676c9149f2929d6ffa8d79929211985b568e20ab685254d",
+  "response": {
+    "searches": [
+      "site.hisawyer.com/odyssey-clayworks 2026 camp",
+      "site.hisawyer.com \"Odyssey\" \"camp\" \"2026\" \"9\""
+    ],
+    "usage": {
+      "inputTokens": 26637,
+      "cachedInputTokens": 8223,
+      "outputTokens": 765,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 26092,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.odysseyclayworks.com/clay-camp",
+      "chars": 1122,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.odysseyclayworks.com/kids-classes",
+      "chars": 1125,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.odysseyclayworks.com/summer-session",
+      "chars": 1127,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?schedule_id=camps&location_id%5B%5D=13730&ageGradeFilterTab=age_ranges%5B%5D",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=all",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=drop-ins",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730",
+      "chars": 355,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=camps",
+      "chars": 355,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Odyssey ClayWorks",
+    "website_url": "https://www.odysseyclayworks.com/",
+    "notes": "No official 2027 camp dates or registration announcements were found. The supplied Clay Camp, Kids Classes and Summer Session pages contain navigation and contact information but no readable program details. Search results for the official Clay Camp page show a Sawyer loading error. Searches did not locate readable official 2026 camp listings or a camp brochure.",
+    "excluded": [
+      {
+        "name": "Adult pottery semester classes",
+        "reason": "The official Sawyer provider listing identifies these as adult semester classes, not supervised youth summer programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Clay Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "A clay camp offered by Odyssey ClayWorks, an educational pottery studio.",
+        "camp_page_url": "https://www.odysseyclayworks.com/clay-camp",
+        "registration_url": "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=camps",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.odysseyclayworks.com/clay-camp",
+          "https://www.hisawyer.com/odyssey-clayworks/schedules?location_id%5B%5D=13730&schedule_id=camps",
+          "https://www.hisawyer.com/providers/odyssey-clayworks"
+        ],
+        "confidence": "low",
+        "review_notes": "Only the official Clay Camp page title and registration destination could be confirmed. Check the Sawyer camp listings for the program description, day versus half-day format, dates, ages, prices and drop-off venue. The provider footer publishes 236 Clingman Avenue Ext., Asheville, NC, but readable camp content does not confirm that camp meets there, so sites is empty."
+      }
+    ]
+  }
+}

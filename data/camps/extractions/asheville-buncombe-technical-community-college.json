@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "asheville-buncombe-technical-community-college",
+    "name": "Asheville-Buncombe Technical Community College",
+    "urls": ["https://abtech.edu/summercamps"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:10:12.977Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e820d8332b43faf7ba4b51d704dfb3322ed0f5d52f7d1d41e62bf475e25c29f6",
+  "response": {
+    "searches": ["site:abtech.edu \"camp\" \"2026\"", "\"A-B Tech\" \"2026\" \"summer camp\""],
+    "usage": {
+      "inputTokens": 29844,
+      "cachedInputTokens": 8223,
+      "outputTokens": 632,
+      "reasoningTokens": 136
+    },
+    "status": "completed",
+    "ms": 21231,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://abtech.edu/summercamps",
+      "chars": 4840,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://abtech.edu/becoming-student/registration",
+      "chars": 4565,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://abtech.edu/events/types/deadlines",
+      "chars": 5130,
+      "method": "browser"
+    },
+    {
+      "url": "https://abtech.edu/records-and-registration-overview",
+      "chars": 7215,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://abtech.edu/tuition-and-fees",
+      "chars": 6264,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://abtech.edu/about/campus-safety/parking-decals",
+      "chars": 5178,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://abtech.edu/about/campus-safety",
+      "chars": 5723,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://selfservice.abtech.edu/Student/Courses",
+      "chars": 498,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Asheville-Buncombe Technical Community College",
+    "website_url": "https://abtech.edu/",
+    "notes": "No summer 2027 camp information found. The official summer camps page describes a free, week-long 2026 Allied Health camp but does not publish dates, participant eligibility, daily hours, a meeting location, or a registration link. General college registration and tuition information were not treated as camp information.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Allied Health Summer Camp",
+        "type": "day",
+        "categories": ["stem", "academic"],
+        "description": "Students explore healthcare careers through interactive labs and activities with medical professionals. Areas covered include dental assisting and hygiene, medical laboratory technology, occupational therapy, radiography, sonography, surgical technology, and veterinary technology.",
+        "camp_page_url": "https://abtech.edu/summercamps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "Free week-long camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch and t-shirts will be provided."
+        },
+        "transportation": null,
+        "sources": ["https://abtech.edu/summercamps"],
+        "confidence": "medium",
+        "review_notes": "Confirm youth eligibility and day-camp format with the provider; the page says students and week-long camp but gives no ages, grades, or daily schedule. Confirm dates, drop-off location, and registration process. The college's footer address is not explicitly identified as the camp meeting location."
+      }
+    ]
+  }
+}

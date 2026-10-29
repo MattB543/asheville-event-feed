@@ -1,0 +1,835 @@
+{
+  "provider": {
+    "key": "southwestern-community-college",
+    "name": "Southwestern Community College",
+    "urls": [
+      "https://www.southwesterncc.edu/summer-camps/",
+      "https://www.southwesterncc.edu/upward-bound/services/"
+    ],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:17.679Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e3dd354241afcd6b809a8585e12f3f9af43fd3882b061a8d8b7931655a6b3850",
+  "response": {
+    "searches": [
+      "site.southwesterncc.edu summer camps 2026 2027",
+      "site.southwesterncc.edu \"2026\" \"Kids Craft\"",
+      "site.southwesterncc.edu \"Summer\" \"2026\" \"Sperger\"",
+      "site.southwesterncc.edu \"Upward Bound\" \"six\" \"summer\"",
+      "site.southwesterncc.edu/upward-bound/faqs"
+    ],
+    "usage": {
+      "inputTokens": 53090,
+      "cachedInputTokens": 8223,
+      "outputTokens": 6737,
+      "reasoningTokens": 538
+    },
+    "status": "completed",
+    "ms": 131238,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.southwesterncc.edu/summer-camps/",
+      "chars": 17603,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/upward-bound/services/",
+      "chars": 2937,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/admissions/tuition-fees-and-payments",
+      "chars": 4908,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/wp-content/uploads/7.01.03-Tuition.and_.Fees_.Refund.Policy-APPROVED.2014.Jul_.pdf",
+      "chars": 3131,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/wp-content/uploads/Astro20Camp20Flyer202023.pdf",
+      "chars": 661,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/wp-content/uploads/SCC-Jackson-Campus-Map-2026.pdf",
+      "chars": 2377,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/completing-our-online-enrollment-process/",
+      "chars": 3152,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.southwesterncc.edu/admissions",
+      "chars": 13958,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southwestern Community College",
+    "website_url": "https://www.southwesterncc.edu/",
+    "notes": "No official summer 2027 camp announcement was found. The supplied summer-camps page is headed Summer 2025, but many arts workshop weekday/date combinations match 2026 instead; their dates and prices are withheld pending year verification. The STEM and healthcare listings appear only under the 2025 heading, so their older dates and prices are not carried into the requested 2026 fallback. An official Small Business Center registration listing confirms 2026 entrepreneurship camp dates. Live attempts to open the summer-camps and heritage-arts pages returned no readable text; the supplied fetched text was used.",
+    "excluded": [
+      {
+        "name": "Cherokee Language Printing",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Quick Sketch",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Drawing with Markers",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Drawing with Quills",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Beginning Watercolors",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Beginning Drawing",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Intro to Model Railroading",
+        "reason": "General class with a minimum age of 16, rather than an identified youth camp or clinic."
+      },
+      {
+        "name": "Christmas in July",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Intro to Clay",
+        "reason": "General personal-enrichment class; not identified as a supervised youth offering."
+      },
+      {
+        "name": "Upward Bound academic-year services",
+        "reason": "Year-round tutoring and college-preparatory services; the separately named Summer Institute is included."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids Craft Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers work on textiles, two-dimensional art and ceramics in SCC's arts and crafts studios.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Participants should bring a water bottle, lunch, and some snacks."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer 2025 heading conflicts with MTWTh June 15–18, which matches 2026. Verify the year and $250 price before publishing dates or price. Listed course hours also differ from the daily schedule."
+      },
+      {
+        "name": "Wilderness Survival for Kids",
+        "type": "clinic",
+        "categories": ["nature_outdoor"],
+        "description": "Students learn wilderness survival skills, including starting a fire and building a basic shelter.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Come dressed to be outside for the day and bring your lunch."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer 2025 heading conflicts with Thursday August 6, which matches 2026. Verify the year and $75 price; no age range is stated."
+      },
+      {
+        "name": "Basic Baskets for Kids",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Children create a simple basket from start to finish. Parents may also register.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer 2025 heading conflicts with Thursday July 2, which matches 2026. Verify the year and $37 price."
+      },
+      {
+        "name": "Hand Sewing Stuffed Animals",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students make stuffed animal projects in two-day sewing workshops. The younger group learns hand stitches; the older group's description specifies machine sewing.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "12:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Separate age bands are 8–14 and 5–10. Dates are withheld because the 2025 heading conflicts with weekday/date combinations matching 2026. Older-band dates are June 8–9 and June 29–July 1; younger-band dates are July 6–8. Both list $65, materials not included, but descriptions say supplies provided. Older-band title says hand sewing while description says machine sewing."
+      },
+      {
+        "name": "Bags, Bags, and More Bags",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students learn machine sewing while making drawstring bags, tote bags and zipper pouches. Experienced students may choose more advanced projects.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer 2025 heading conflicts with Monday–Tuesday June 8–9, which matches 2026. Verify year and $87 price."
+      },
+      {
+        "name": "Teen Machine Sewing",
+        "type": "clinic",
+        "categories": ["arts"],
+        "description": "Beginning students make a pillowcase, tote bag and pajama bottoms. More experienced students make a messenger bag and select garment projects.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Two formats are listed: ages 13–18, June 16–July 2, Tuesdays/Thursdays 17:30–20:00, $166; and ages 13–17, July 14–16, Tuesdays/Thursdays 11:00–17:00, $155. The 2025 heading conflicts with dates matching 2026. Verify year, session formats and course-hour discrepancies before creating rows."
+      },
+      {
+        "name": "Fashion Design/Makeover",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students learn fashion design, construct a garment with their own design elements and remake an existing garment. Independent sewing-machine experience is required.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "12:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The 2025 heading conflicts with Monday/Wednesday June 29–July 8, matching 2026. Verify year and $120 price. Description begins with apparently misplaced stuffed-animal wording."
+      },
+      {
+        "name": "Sleepover Sewing",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students learn machine sewing while making a pillowcase, sleep mask and pajama bottoms. This is a drop-off workshop, not an overnight program.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Listed sessions are June 30–July 2, 13:00–16:00, labeled Monday/Wednesday; and July 7–9, 10:00–13:00, Tuesday/Thursday. The first weekday label fits neither 2025 nor 2026. Verify year and dates. The $76 line says materials not included, while the description says all supplies provided."
+      },
+      {
+        "name": "Skirts or Shorts",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "Students sew a skirt or shorts and add a design element to customize the garment. Prior formal sewing instruction and independent machine operation are required.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": "https://ss.southwesterncc.edu/Student/InstantEnrollment/Search",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Swain Center",
+            "address": "60 Almond School Road",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "12:30",
+          "end": "16:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/scc-locations/swain-center-driving-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The Summer 2025 heading conflicts with Monday/Wednesday July 13–15, matching 2026. Verify year, $93 price and listed 14 course hours versus eight scheduled hours."
+      },
+      {
+        "name": "Be a Trep! Youth Entrepreneurship Camp",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Students develop business ideas, meet entrepreneurs and pitch their ideas to judges. Activities teach business skills, teamwork and problem solving.",
+        "camp_page_url": "https://www.ncsbc.net/workshop.aspx?ekey=490460045",
+        "registration_url": "https://www.ncsbc.net/workshop.aspx?ekey=490460045",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-20",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Southwestern Community College, Burrell 102A",
+            "address": "447 College Drive",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ncsbc.net/workshop.aspx?ekey=490460045",
+          "https://www.southwesterncc.edu/admissions/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Robotics Camp",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Middle school students participate in a robotics camp led by Smoky Mountain High School's First Lego team.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Balsam Center, room 253",
+            "address": "447 College Drive",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/admissions/",
+          "https://www.southwesterncc.edu/wp-content/uploads/SCC-Jackson-Campus-Map-2026.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only the Summer 2025 listing was found: June 2–6 and $50. No confirmed 2026 or 2027 dates or price found. Eligibility says middle school students without numeric grades."
+      },
+      {
+        "name": "AstroCamp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Students complete NASA engineering challenges, a dissection and other STEM activities. They work in teams to earn badges.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Smokey Mountain Elementary School",
+            "address": null,
+            "town": null,
+            "state": null
+          }
+        ],
+        "hours": {
+          "start": "08:00",
+          "end": "13:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Includes breakfast and lunch."
+        },
+        "transportation": null,
+        "sources": ["https://www.southwesterncc.edu/summer-camps/"],
+        "confidence": "medium",
+        "review_notes": "Only the Summer 2025 listing was found: June 2–13, free, for middle school students. The linked flyer is explicitly 2023 and was not used for current eligibility, dates or price. School website returned no readable address; verify drop-off address."
+      },
+      {
+        "name": "Above & Beyond",
+        "type": "overnight",
+        "categories": ["stem"],
+        "description": "High school campers conduct space-science research using scientific tools and guidance from professionals. Projects investigate astronomical data and develop research conclusions.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Pisgah Astronomical Research Institute",
+            "address": "1 PARI Drive",
+            "town": "Rosman",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.pari.edu/contact/"
+        ],
+        "confidence": "medium",
+        "review_notes": "SCC's listing is under Summer 2025 and gives July 7–18, a $50 registration fee plus transportation, and a required teacher recommendation. Eligibility is high school students in Jackson, Macon and Swain counties and the Qualla Boundary. Verify continued SCC sponsorship and overnight format before publication; no 2026 or 2027 SCC-specific offering was confirmed."
+      },
+      {
+        "name": "Sylva Healthcare Careers",
+        "type": "day",
+        "categories": ["academic", "stem"],
+        "description": "Students explore healthcare careers through hands-on patient simulations. They follow patient scenarios across healthcare disciplines with SCC instructors.",
+        "camp_page_url": "https://www.southwesterncc.edu/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Don Tomas Health Sciences Center",
+            "address": "447 College Drive",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": "M – Th: 9A – 4P, F: 9A – 12:30P"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Lunch will be provided"
+        },
+        "transportation": {
+          "value": "no",
+          "text": "Parents will be responsible for providing transportation"
+        },
+        "sources": [
+          "https://www.southwesterncc.edu/summer-camps/",
+          "https://www.southwesterncc.edu/admissions/",
+          "https://www.southwesterncc.edu/wp-content/uploads/SCC-Jackson-Campus-Map-2026.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Only Summer 2025 dates, July 7–11, were found. Eligibility is restricted to Jackson County Public Schools. Wording says rising 9th and 12th grade students, not an unambiguous 9th–12th range; numeric grades withheld pending clarification."
+      },
+      {
+        "name": "Summer Institute",
+        "type": "pre_college",
+        "categories": ["academic"],
+        "description": "Summer Institute is the summer component of SCC's Upward Bound college-preparatory services for area high school students.",
+        "camp_page_url": "https://www.southwesterncc.edu/upward-bound/services/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.southwesterncc.edu/upward-bound/services/",
+          "https://www.southwesterncc.edu/upward-bound/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Services page names Summer Institute but does not provide summer-specific dates, meeting location, hours, format or eligibility details. Confirm these directly with Upward Bound; general program information was not used to fill summer-specific fields."
+      }
+    ]
+  }
+}

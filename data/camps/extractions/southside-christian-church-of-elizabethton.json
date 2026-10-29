@@ -1,0 +1,50 @@
+{
+  "provider": {
+    "key": "southside-christian-church-of-elizabethton",
+    "name": "Southside Christian Church of Elizabethton",
+    "urls": ["https://sscchurch.net/"],
+    "area": "Elizabethton, TN",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); chrome-tls: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); browser: page.goto: net::ERR_CERT_AUTHORITY"
+  },
+  "extractedAt": "2026-10-29T15:37:58.772Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": ["site:sscchurch.net VBS 2026", "site:sscchurch.net kids"],
+    "usage": {
+      "inputTokens": 22001,
+      "cachedInputTokens": 8223,
+      "outputTokens": 385,
+      "reasoningTokens": 162
+    },
+    "status": "completed",
+    "ms": 17261,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sscchurch.net/",
+      "chars": 0,
+      "error": "fetch: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); chrome-tls: fetch failed (self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca); browser: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://sscchurch.net/\nCall log:\n\u001b[2m  - navigating to \"https://sscchurch.net/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Southside Christian Church of Elizabethton",
+    "website_url": "https://sscchurch.net/",
+    "notes": "No 2027 or 2026 summer program could be verified. The official website blocked direct access with robots.txt; indexed official pages were available only through search snippets. Searches found a third-party listing for VBS 2025, but no corresponding 2026 or 2027 official announcement, so no VBS card was created. The official missions page promotes Camp ACC, operated by Appalachian Christian Camp rather than this church; it was not treated as a church-operated program.",
+    "excluded": [
+      {
+        "name": "Children's Ministry",
+        "reason": "The official children page describes ongoing classes, groups and nursery care, not a finite summer program."
+      },
+      {
+        "name": "Student Ministry",
+        "reason": "The official students page describes an ongoing ministry rather than a finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

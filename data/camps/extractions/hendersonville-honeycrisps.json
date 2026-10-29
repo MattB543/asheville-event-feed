@@ -1,0 +1,112 @@
+{
+  "provider": {
+    "key": "hendersonville-honeycrisps",
+    "name": "Hendersonville Honeycrisps",
+    "urls": ["https://www.playnsports.com/organization/hendersonville-honeycrisps/"],
+    "area": "East Flat Rock, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:36:23.969Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "fcf9154f02d25fd3875dc8979ef5be94634f5b7903b8f5d2a1bfa628b6024bda",
+  "response": {
+    "searches": [
+      "Hendersonville Honeycrisps youth camp 2026 2027",
+      "\"East Henderson High\" \"150\" address",
+      "\"Honeycrisps\" \"camp\" \"2027\""
+    ],
+    "usage": {
+      "inputTokens": 39936,
+      "cachedInputTokens": 8223,
+      "outputTokens": 939,
+      "reasoningTokens": 284
+    },
+    "status": "completed",
+    "ms": 34013,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+      "chars": 5653,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/coaches-create-an-event/",
+      "chars": 9230,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/find-camps-clinics/",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.playnsports.com/",
+      "chars": 12079,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Hendersonville Honeycrisps",
+    "website_url": "https://www.hendersonvillehoneycrisps.com/",
+    "notes": "No dated 2027 or clearly year-labeled 2026 camp schedule was found. Play'n Sports retains undated event pages and a 2022 camp page; historical dates and hours were not carried forward. The team's facilities page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Honeycrisps baseball season",
+        "reason": "Collegiate team season and spectator games, not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Hendersonville Honeycrisps Youth Baseball Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice hitting, pitching, fielding, base running and position-specific skills with collegiate players and coaches. Activities include games, team drills, relay races and player autograph and question-and-answer sessions.",
+        "camp_page_url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+        "registration_url": "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 6,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Henderson High School",
+            "address": "150 Eagle Pride Drive",
+            "town": "East Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.playnsports.com/organization/hendersonville-honeycrisps/",
+          "https://www.hendersoncountypublicschoolsnc.org/ehh/general-information/",
+          "https://www.playnsports.com/event/hendersonville-honeycrisps-baseball-camp-july-6th-to-8th/",
+          "https://www.playnsports.com/event/hendersonville-honeycrisps-baseball-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The organization page states ages 6–14 and the meeting address but does not identify a summer year or schedule. East Henderson High School's official page confirms the venue at that address. Confirm the 2027 venue and format: undated event pages mention morning hours, but these cannot safely be assigned to 2026 or 2027. No dated sessions or prices were extracted."
+      }
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "key": "claying-around",
+    "name": "Claying Around",
+    "urls": ["https://www.clayingaround.com/copy-of-kids-summer-camp"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:50.454Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f05bc96c11f7cd31e8489fa2e0256628a64d1f78e53db3379205055fe2076d7e",
+  "response": {
+    "searches": [
+      "site:clayingaround.com \"camp\" \"2026\"",
+      "\"Claying Around\" \"2026\" \"summer camp\""
+    ],
+    "usage": {
+      "inputTokens": 21462,
+      "cachedInputTokens": 8223,
+      "outputTokens": 898,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 22733,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.clayingaround.com/copy-of-kids-summer-camp",
+      "chars": 889,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clayingaround.com/faq-1",
+      "chars": 937,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clayingaround.com/book-online?category=6b70ebb4-683e-4f48-a16e-08d37c4c555c",
+      "chars": 1305,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clayingaround.com/",
+      "chars": 1311,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Claying Around",
+    "website_url": "https://www.clayingaround.com/",
+    "notes": "No 2027 or 2026 summer camp information was found. The official Art Camps page still names 2025 Kids Summer Art Camp, and the camp booking category says nothing is available to book. The historical camp is retained with unknown dates; its continued offering needs confirmation. The Kids Clay Club page lists June and July evenings without a year, so those dates cannot safely be assigned to 2026 or 2027.",
+    "excluded": [
+      {
+        "name": "Kids Clay Club",
+        "reason": "Recurring evening clay classes; the page does not establish a summer-only finite program or identify the year of its June and July dates."
+      },
+      {
+        "name": "Pottery Wheel Lessons",
+        "reason": "Year-round lessons, not a summer-specific youth program."
+      },
+      {
+        "name": "Kids Parties",
+        "reason": "Year-round private birthday parties, not summer camp programs."
+      },
+      {
+        "name": "POTTERY PAINTING AND BINGO!",
+        "reason": "October 30, 2026 event outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kids Summer Art Camp",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Children participate in a summer art camp at Claying Around.",
+        "camp_page_url": "https://www.clayingaround.com/copy-of-kids-summer-camp",
+        "registration_url": "https://www.clayingaround.com/book-online?category=6b70ebb4-683e-4f48-a16e-08d37c4c555c",
+        "season": {
+          "year": 2025,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Claying Around",
+            "address": "1378 Hendersonville Road, Suite D",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.clayingaround.com/copy-of-kids-summer-camp",
+          "https://www.clayingaround.com/book-online?category=6b70ebb4-683e-4f48-a16e-08d37c4c555c",
+          "https://www.clayingaround.com/contact"
+        ],
+        "confidence": "low",
+        "review_notes": "The camp page only supplies a 2025 heading and booking link, without readable camp dates, ages, prices, hours or activity details. Confirm whether the program will return in 2027 and whether it is full-day or half-day. The studio address is published on the official contact page, but no separate camp drop-off location is stated."
+      }
+    ]
+  }
+}

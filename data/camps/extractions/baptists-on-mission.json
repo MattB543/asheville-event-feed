@@ -1,0 +1,203 @@
+{
+  "provider": {
+    "key": "baptists-on-mission",
+    "name": "Baptists on Mission",
+    "urls": ["https://baptistsonmission.org/camps/deep-impact/"],
+    "area": "Marion; Spruce Pine, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:37:11.402Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "168a9a2c75df6b2a39e3446c9b6569041c80d630cb7b58857a017561de2bf50b",
+  "response": {
+    "searches": [
+      "site:baptistsonmission.org \"2027\" \"Deep Impact\" \"cost\"",
+      "open https://baptistsonmission.org/camps/deep-impact/",
+      "site:baptistsonmission.org \"2027 Deep Impact Marion\""
+    ],
+    "usage": {
+      "inputTokens": 29599,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1388,
+      "reasoningTokens": 216
+    },
+    "status": "completed",
+    "ms": 36311,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://baptistsonmission.org/camps/deep-impact/",
+      "chars": 10151,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/wp-content/uploads/2026/09/2027-DI-Week-Mission-Schedule.pdf",
+      "chars": 704,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/",
+      "chars": 7881,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/charity-mission-camp/",
+      "chars": 9092,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/red-springs-mission-camp/",
+      "chars": 9454,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/camps/shelby-mission-camp/",
+      "chars": 9373,
+      "method": "fetch"
+    },
+    {
+      "url": "https://baptistsonmission.org/",
+      "chars": 12213,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Baptists on Mission",
+    "website_url": "https://baptistsonmission.org/",
+    "notes": "2027 Deep Impact dates are posted. Included the Marion, Black Mountain and Spruce Pine sessions near Asheville; the same program also has sessions in Shelby and Rose Hill. Additional official pages returned no readable text, and searches did not establish prices or registration opening dates. DI Kids has no dated local summer offering on its current official page.",
+    "excluded": [
+      {
+        "name": "Charity Mission Camp",
+        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program."
+      },
+      {
+        "name": "Red Springs Mission Camp",
+        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program."
+      },
+      {
+        "name": "Shelby Mission Camp",
+        "reason": "Ongoing, flexible-length volunteer mission accommodation rather than a finite summer youth program; separately scheduled Deep Impact weeks are part of Deep Impact."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Deep Impact",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "Students and adult church leaders undertake construction and community-service mission projects at mission centers and rebuild sites. The overnight schedule includes worship, devotions and outdoor activities.",
+        "camp_page_url": "https://baptistsonmission.org/camps/deep-impact/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-07-23",
+          "text": "Dates have been set for the summer of 2027 and we look forward to serving with you!"
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Marion Rebuild Center",
+            "address": "325 Resistoflex Road",
+            "town": "Marion",
+            "state": "NC"
+          },
+          {
+            "name": "Black Mountain Rebuild Center",
+            "address": "1114 Montreat Road",
+            "town": "Black Mountain",
+            "state": "NC"
+          },
+          {
+            "name": "Spruce Pine Rebuild Center",
+            "address": "308 Harris Street",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday group check-in is 1:30–2:30 PM. Friday lunch is at noon, followed by debrief, packing and cleaning at 1:00 PM; a departure time is not stated."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "2027 Deep Impact Marion",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": "Marion Rebuild Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "2027 Deep Impact Black Mountain 1",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": "Black Mountain Rebuild Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "2027 Deep Impact Black Mountain 2",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": "Black Mountain Rebuild Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "2027 Deep Impact Spruce Pine",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": "Spruce Pine Rebuild Center",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "12:00 PM Lunch (on site)"
+        },
+        "transportation": null,
+        "sources": [
+          "https://baptistsonmission.org/camps/deep-impact/",
+          "https://baptistsonmission.org/wp-content/uploads/2026/09/2027-DI-Week-Mission-Schedule.pdf",
+          "https://baptistsonmission.org/camps/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

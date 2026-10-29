@@ -1,0 +1,125 @@
+{
+  "provider": {
+    "key": "cherokee-youth-center",
+    "name": "Cherokee Youth Center",
+    "urls": [
+      "https://www.cherokeeyouthcenter.com/summer-clubs",
+      "https://www.cherokeeyouthcenter.com/",
+      "https://www.ebci.gov/wp-content/uploads/2025/04/CYC-Parent-Handbook-2025-revised.pdf"
+    ],
+    "area": "Cherokee, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:39.729Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "81d27d72ab0f5e4e9a0ffc3366475c3d1e88255ec8cf5b0dfd2d56660365431b",
+  "response": {
+    "searches": [
+      "site.cherokeeyouthcenter.com summer 2026 2027",
+      "open https://www.cherokeeyouthcenter.com/join-a-club"
+    ],
+    "usage": {
+      "inputTokens": 25960,
+      "cachedInputTokens": 8223,
+      "outputTokens": 861,
+      "reasoningTokens": 165
+    },
+    "status": "completed",
+    "ms": 21634,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.cherokeeyouthcenter.com/summer-clubs",
+      "chars": 1913,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.cherokeeyouthcenter.com/",
+      "chars": 2963,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ebci.gov/wp-content/uploads/2025/04/CYC-Parent-Handbook-2025-revised.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ebci.gov/",
+      "chars": 4825,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cherokee Youth Center",
+    "website_url": "https://www.cherokeeyouthcenter.com/",
+    "notes": "No 2027 summer dates or registration announcements were found, and no dated 2026 summer schedule was found. The Summer Clubs page explicitly describes its activity list as 2024; those activities are not treated as a confirmed 2026 or 2027 lineup. The 2025 handbook was not used to populate current summer hours or support policies. Join A Club, the guessed orientation/parent portal URL, and the EBCI Cherokee Youth Center page returned no readable text.",
+    "excluded": [
+      {
+        "name": "After-school program",
+        "reason": "School-year childcare, not a summer camp. The published annual fees and waiting lists explicitly apply to after-school programming."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general"],
+        "description": "The youth center offers supervised summer youth programming. Staff choose summer clubs in which participants practice skills and pursue shared interests.",
+        "camp_page_url": "https://www.cherokeeyouthcenter.com/summer-clubs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": {
+          "min": 0,
+          "max": 12,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Cherokee Youth Center",
+            "address": "1570 Acquoni Road",
+            "town": "Cherokee",
+            "state": "NC"
+          },
+          {
+            "name": "Snowbird Youth Center",
+            "address": "60 Snowbird School Road",
+            "town": "Robbinsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.cherokeeyouthcenter.com/",
+          "https://www.cherokeeyouthcenter.com/summer-clubs",
+          "https://www.cherokeeyouthcenter.com/local-clubs",
+          "https://sccs.ebci-nsn.gov/snowbird-youth-center/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Summer programming and eligibility are described on undated official pages, not a dated 2026 or 2027 announcement. Confirm the current program name and summer drop-off locations. The Snowbird Youth Center's own official page publishes 60 Snowbird School Road, used here; the Cherokee Youth Center Local Clubs page instead lists 208 Snowbird Youth Cnetrer Road. No site rows could be created because no season dates were published."
+      }
+    ]
+  }
+}

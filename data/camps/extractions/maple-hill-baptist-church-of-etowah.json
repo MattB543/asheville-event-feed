@@ -1,0 +1,60 @@
+{
+  "provider": {
+    "key": "maple-hill-baptist-church-of-etowah",
+    "name": "Maple Hill Baptist Church of Etowah",
+    "urls": ["https://maplehillbc.wixsite.com/maple-hill"],
+    "area": "Etowah, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:17:49.460Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "0c7c5fa90538faaff2ead713a5bc40f0d36e467706387697cc59c864e50967ba",
+  "response": {
+    "searches": [
+      "\"Maple Hill Baptist\" \"Etowah\" \"VBS\"",
+      "\"Maple Hill Baptist Church of Etowah\" \"VBS\"",
+      "\"Maple Hill Baptist\" \"Etowah\" facebook",
+      "open https://www.findglocal.com/US/Etowah/689888051115683/Maple-Hill-Baptist-Church"
+    ],
+    "usage": {
+      "inputTokens": 28756,
+      "cachedInputTokens": 8223,
+      "outputTokens": 480,
+      "reasoningTokens": 284
+    },
+    "status": "completed",
+    "ms": 28405,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://maplehillbc.wixsite.com/maple-hill",
+      "chars": 1485,
+      "method": "fetch"
+    },
+    {
+      "url": "https://maplehillbc.wixsite.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error: Page Not Found | Wix.com\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Maple Hill Baptist Church of Etowah",
+    "website_url": "https://maplehillbc.wixsite.com/maple-hill",
+    "notes": "No 2027 summer program information was found. A third-party AllEvents listing mentions Vacation Bible School on June 11, 2026, but its page could not be read and no official summer announcement was located. This is insufficient to establish a camp card reliably; confirm VBS details directly with the church. The official Ministries page also returned no readable text. The supplied official homepage publishes the church location as 186 Holly Springs Rd, Etowah, NC 28729.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring weekly church program, not a finite summer camp."
+      },
+      {
+        "name": "Ice Cream Giveaway and VBS Registration!",
+        "reason": "Third-party listing describes a registration and giveaway event, not a supervised youth camp."
+      }
+    ],
+    "cards": []
+  }
+}

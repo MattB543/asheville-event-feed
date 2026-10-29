@@ -1,0 +1,118 @@
+{
+  "provider": {
+    "key": "snow-hill-baptist-church-of-bakersville",
+    "name": "Snow Hill Baptist Church of Bakersville",
+    "urls": ["https://www.snowhillbaptist.com/"],
+    "area": "Bakersville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (connect ECONNREFUSED 108.167.135.125:443); chrome-tls: fetch failed (connect ECONNREFUSED 108.167.135.125:443); browser: page.goto: net::ERR_CONNECTION_REFUSED at https://www.snowhillbaptist.com/"
+  },
+  "extractedAt": "2026-10-29T15:27:09.257Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "site:snowhillbaptist.com VBS 2026",
+      "\"Snow Hill\" \"Bakersville\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 19453,
+      "cachedInputTokens": 8223,
+      "outputTokens": 847,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 33991,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.snowhillbaptist.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (connect ECONNREFUSED 108.167.135.125:443); chrome-tls: fetch failed (connect ECONNREFUSED 108.167.135.125:443); browser: page.goto: net::ERR_CONNECTION_REFUSED at https://www.snowhillbaptist.com/\nCall log:\n\u001b[2m  - navigating to \"https://www.snowhillbaptist.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Snow Hill Baptist Church of Bakersville",
+    "website_url": "https://www.snowhillbaptist.com/",
+    "notes": "No 2027 information found. The website blocks direct access through robots.txt; official page text was available through search results. Its undated events list says Vacation Bible School: TBA and Caswell Youth Camp: July 27-31. The only visible year is the copyright year, which does not establish the events' summer year; consequently no calendar dates are assigned. The church publishes its location as 285 Slagle Rd.; a Baptist convention directory instead lists 265 Slagle Rd., and the church's contact page gives a separate mailing address.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round Bible classes, not a finite summer program."
+      },
+      {
+        "name": "Spring Revival",
+        "reason": "Spring event, not a summer youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church lists Vacation Bible School among its upcoming events. Activities and participant eligibility are not described.",
+        "camp_page_url": "https://www.snowhillbaptist.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.snowhillbaptist.com/"],
+        "confidence": "medium",
+        "review_notes": "Official search-indexed homepage says Vacation Bible School: TBA without an event year. Confirm whether this listing describes 2026 or another summer, and confirm the meeting location; the church address alone does not explicitly establish the VBS drop-off site."
+      },
+      {
+        "name": "Caswell Youth Camp",
+        "type": "overnight",
+        "categories": ["faith_based"],
+        "description": "The church lists a youth camp at Caswell. It does not describe the activities or participant eligibility.",
+        "camp_page_url": "https://www.snowhillbaptist.com/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.snowhillbaptist.com/"],
+        "confidence": "low",
+        "review_notes": "Official search-indexed homepage says Caswell Youth Camp: July 27-31 but does not give an event year. Dates are withheld rather than assigned from the copyright. Confirm the year, overnight format, eligibility, registration arrangements and drop-off location with the church; none of those details are explicitly supplied."
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "provider": {
+    "key": "cathey-s-creek-baptist-church-of-brevard",
+    "name": "Cathey’s Creek Baptist Church of Brevard",
+    "urls": ["https://www.catheyscreekbaptistchurch.com/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:29:26.816Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "243c43524e3b8e617e550883b55a99e89418e7b8f8d90e16d716b51cfc9d5e82",
+  "response": {
+    "searches": [
+      "site:catheyscreekbaptistchurch.com youth vacation bible school 2026 2027",
+      "\"Cathey’s Creek\" \"VBS\"",
+      "\"Cathey's Creek Baptist Church\" \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 27785,
+      "cachedInputTokens": 8223,
+      "outputTokens": 441,
+      "reasoningTokens": 242
+    },
+    "status": "completed",
+    "ms": 19053,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.catheyscreekbaptistchurch.com/",
+      "chars": 1356,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cathey’s Creek Baptist Church of Brevard",
+    "website_url": "https://www.catheyscreekbaptistchurch.com/",
+    "notes": "No 2027 or 2026 summer camp or Vacation Bible School offering could be verified on the church's official pages or indexed church social media. The Youth page describes monthly activities, not a finite summer program. A third-party 2025 VBS PDF lists this church, but it does not establish a 2026 or 2027 offering and was not used to create a card. Direct opens of the church website returned no readable text; official search results supplied the Youth and Contact page text, in addition to the supplied homepage text.",
+    "excluded": [
+      {
+        "name": "Youth ministry",
+        "reason": "Year-round monthly youth activities; no separately described finite summer program."
+      },
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a summer camp."
+      }
+    ],
+    "cards": []
+  }
+}

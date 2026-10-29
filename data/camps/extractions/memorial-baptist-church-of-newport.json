@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "key": "memorial-baptist-church-of-newport",
+    "name": "Memorial Baptist Church of Newport",
+    "urls": ["https://kideventpro.lifeway.com/myEvent/?id=71340"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page didn't load: fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://"
+  },
+  "extractedAt": "2026-10-29T15:32:29.531Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": ["Memorial Baptist Church Newport TN VBS 2026 2027", "\"71340\" \"VBS\""],
+    "usage": {
+      "inputTokens": 22084,
+      "cachedInputTokens": 8223,
+      "outputTokens": 413,
+      "reasoningTokens": 177
+    },
+    "status": "completed",
+    "ms": 27018,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://kideventpro.lifeway.com/myEvent/?id=71340",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/myEvent/?id=71340\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/myEvent/?id=71340\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://kideventpro.lifeway.com/",
+      "chars": 0,
+      "error": "fetch: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); chrome-tls: fetch failed (Connect Timeout Error (attempted addresses: 10.67.1.33:443, 10.67.2.52:443, timeout: 10000ms)); browser: page.goto: net::ERR_CONNECTION_TIMED_OUT at https://kideventpro.lifeway.com/\nCall log:\n\u001b[2m  - navigating to \"https://kideventpro.lifeway.com/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Memorial Baptist Church of Newport",
+    "website_url": "https://www.mbcnewport.org/",
+    "notes": "No verifiable 2026 or 2027 summer program details were found. The supplied Lifeway registration page https://kideventpro.lifeway.com/myEvent/?id=71340 returned no readable content, including when retried with a lowercase path. The church's official website and calendar did not provide summer camp or VBS details. An official July 2017 newsletter mentions Vacation Bible School, but it is too old to supply 2026 fallback information. No cards were created because a current offering could not be verified; this does not establish that the church offers no summer programs.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Regular weekly church programming, not a finite summer program."
+      },
+      {
+        "name": "Wednesday Evening Bible Study",
+        "reason": "Regular weekly church programming, not a finite summer program."
+      }
+    ],
+    "cards": []
+  }
+}

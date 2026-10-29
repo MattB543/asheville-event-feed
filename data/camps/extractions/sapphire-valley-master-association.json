@@ -1,0 +1,108 @@
+{
+  "provider": {
+    "key": "sapphire-valley-master-association",
+    "name": "Sapphire Valley Master Association",
+    "urls": ["https://sapphirevalleyresorts.com/event/mermaid-art-camp/"],
+    "area": "Sapphire, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:31:44.138Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "6ef3f5ab46e239b53a6c82132f1bfec17b52a12e659adf26c47d6e8871131bc8",
+  "response": {
+    "searches": [
+      "site:sapphirevalleyresorts.com camp 2026",
+      "\"Sapphire Valley\" \"camp\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21796,
+      "cachedInputTokens": 8223,
+      "outputTokens": 756,
+      "reasoningTokens": 185
+    },
+    "status": "completed",
+    "ms": 26516,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://sapphirevalleyresorts.com/event/mermaid-art-camp/",
+      "chars": 1380,
+      "method": "fetch"
+    },
+    {
+      "url": "webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1",
+      "chars": 0,
+      "error": "fetch: fetch failed (unknown scheme); chrome-tls: fetch failed (unknown scheme); browser: page.goto: net::ERR_ABORTED at webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1\nCall log:\n\u001b[2m  - navigating to \"webcal://sapphirevalleyresorts.com/event/mermaid-art-camp/?ical=1\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "url": "https://sapphirevalleyresorts.com/faq/amenity-card-policy/",
+      "chars": 6945,
+      "method": "fetch"
+    },
+    {
+      "url": "https://sapphirevalleyresorts.com/",
+      "chars": 1913,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Sapphire Valley Master Association",
+    "website_url": "https://sapphirevalleyresorts.com/",
+    "notes": "No official 2027 or 2026 youth camp information was found. The Mermaid Art Camp page describes a past event on July 15, 2025; its dates and hours have not been carried forward. A Kids Camp listing on sapphirevalleyresort.com is on an independent website that explicitly says it is not associated with the Master Association; its undated details were not used.",
+    "excluded": [
+      {
+        "name": "Arts & Crafts Festival",
+        "reason": "Family event, not a supervised youth camp."
+      },
+      {
+        "name": "WATER AEROBICS",
+        "reason": "Recurring classes rather than a finite summer youth program."
+      },
+      {
+        "name": "Nike Adult Pickleball Camp at Sapphire Valley Resort",
+        "reason": "Adult-only camp."
+      },
+      {
+        "name": "Nike Adult Tennis Camp at Sapphire Valley Resort",
+        "reason": "Adult-only camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "MERMAID ART CAMP!!",
+        "type": "half_day",
+        "categories": ["arts"],
+        "description": "A mermaid-themed art program for kids.",
+        "camp_page_url": "https://sapphirevalleyresorts.com/event/mermaid-art-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://sapphirevalleyresorts.com/event/mermaid-art-camp/"],
+        "confidence": "medium",
+        "review_notes": "Only the July 15, 2025 event is documented, running 13:00–16:00. Confirm whether this program will return in 2027, its drop-off venue, ages, price and registration details. The official event page does not identify a venue, so the association's mailing address was not used as a camp site."
+      }
+    ]
+  }
+}

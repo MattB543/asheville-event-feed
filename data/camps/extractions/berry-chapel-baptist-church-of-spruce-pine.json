@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "berry-chapel-baptist-church-of-spruce-pine",
+    "name": "Berry Chapel Baptist Church of Spruce Pine",
+    "urls": ["https://www.facebook.com/148986971866147/"],
+    "area": "Spruce Pine, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:22:08.333Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Berry Chapel Baptist Church Spruce Pine VBS 2026 2027",
+      "site:facebook.com \"Berry Chapel\" \"2026\" \"VBS\"",
+      "\"Berry Chapel\" \"Rome\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20739,
+      "cachedInputTokens": 8223,
+      "outputTokens": 795,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 33419,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/148986971866147/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Berry Chapel Baptist Church of Spruce Pine",
+    "website_url": null,
+    "notes": "No standalone church website or summer 2027 announcement was found. The church's Facebook page returned no readable content. The 2026 VBS dates and theme were found in the Mitchell Baptist Association's June 2026 newsletter. No registration opening date was verified.",
+    "excluded": [
+      {
+        "name": "Old Time Fall Festival",
+        "reason": "October event outside the summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Berry Chapel Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School with the theme Rome: Paul and the Underground Church.",
+        "camp_page_url": "https://www.facebook.com/148986971866147/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-27",
+          "end": "2026-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Berry Chapel Baptist Church",
+            "address": "280 Chapel St",
+            "town": "Spruce Pine",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": null,
+          "text": "6:00 PM Nightly"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.mymcba.org/uploads/1/7/1/7/17173172/june_2026.pdf",
+          "https://churchpop.bscnc.org/?orgid=190023038"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates, start time and theme come from the church association's June 2026 newsletter, not a readable church post. The year is supplied by the newsletter heading. Confirm ages, end time and registration details with the church. The NC Baptist directory publishes 280 Chapel St as the physical address; some third-party directories list 224 Chapel St. The church's Facebook page could not be read."
+      }
+    ]
+  }
+}

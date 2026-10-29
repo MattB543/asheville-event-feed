@@ -1,0 +1,82 @@
+{
+  "provider": {
+    "key": "st-francis-episcopal-church-of-rutherfordton",
+    "name": "St. Francis Episcopal Church of Rutherfordton",
+    "urls": ["https://www.stfrancisrutherfordton.org/gallery.html"],
+    "area": "Rutherfordton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:38:25.910Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "2e66f61c5c3d3689afa63335c1cfc69526646ec62e5d9d417fb1ca913341dd71",
+  "response": {
+    "searches": [
+      "site:stfrancisrutherfordton.org \"2026\" \"Vacation\"",
+      "\"St. Francis\" \"Rutherfordton\" \"VBS\" \"2026\"",
+      "site:stfrancisrutherfordton.org \"Vacation Bible School\""
+    ],
+    "usage": {
+      "inputTokens": 26650,
+      "cachedInputTokens": 8223,
+      "outputTokens": 740,
+      "reasoningTokens": 257
+    },
+    "status": "completed",
+    "ms": 26833,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.stfrancisrutherfordton.org/gallery.html",
+      "chars": 2628,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.stfrancisrutherfordton.org/",
+      "chars": 3846,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "St. Francis Episcopal Church of Rutherfordton",
+    "website_url": "https://www.stfrancisrutherfordton.org/",
+    "notes": "No 2027 or 2026 summer camp details were found in official web searches. The gallery documents Vacation Bible School on July 19, 2025 only; that historical date has not been used as a 2026 or 2027 date. Christian Living and St. Francis Day School pages returned no readable text. Search results for 2026 worship bulletin PDFs provided only partial text, insufficient to verify additional camp details.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church's gallery documents a Vacation Bible School event. Activities are not described in the available text.",
+        "camp_page_url": "https://www.stfrancisrutherfordton.org/gallery.html",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.stfrancisrutherfordton.org/gallery.html"],
+        "confidence": "low",
+        "review_notes": "Only the July 19, 2025 gallery entry establishes this offering. Confirm whether Vacation Bible School will return in 2027, its drop-off venue, dates, ages, activities and registration details directly with the church. The home page distinguishes a mailing address of 395 N Main St from the church office's physical address of 408 N Main St; neither is explicitly identified as the VBS venue."
+      }
+    ]
+  }
+}

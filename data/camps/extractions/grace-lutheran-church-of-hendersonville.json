@@ -1,0 +1,225 @@
+{
+  "provider": {
+    "key": "grace-lutheran-church-of-hendersonville",
+    "name": "Grace Lutheran Church of Hendersonville",
+    "urls": [
+      "https://www.gracehendersonville.com/preschool-programs",
+      "https://www.gracehendersonville.com/family-ministry"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:18:10.695Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "052c0704b966145eeb321587c6cf2b43ecf74df1603cdd626065faf1f6af21df",
+  "response": {
+    "searches": [
+      "site:gracehendersonville.com \"2026\" \"Bible\"",
+      "\"Operation Restoration\" \"2026\" \"Trinity\" Hendersonville VBS",
+      "site:gracehendersonville.com \"Operation Restoration\""
+    ],
+    "usage": {
+      "inputTokens": 35369,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1698,
+      "reasoningTokens": 283
+    },
+    "status": "completed",
+    "ms": 63263,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gracehendersonville.com/preschool-programs",
+      "chars": 15224,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/family-ministry",
+      "chars": 2855,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/registration",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Not Found\")"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/council",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Not Found\")"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/lenten-worship-service-schedule",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Not Found\")"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/campus-ministry-and-young-adults",
+      "chars": 2576,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gracehendersonville.com/",
+      "chars": 5390,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grace Lutheran Church of Hendersonville",
+    "website_url": "https://www.gracehendersonville.com/",
+    "notes": "No summer 2027 camp information found. Preschool Summer Camp information is undated; retained as a 2026 fallback, not confirmed for that year. The 2026 community VBS was jointly offered with Trinity Presbyterian and St. James Episcopal and met at Trinity. Lutheridge camps are operated by another provider; Grace lists scholarship support rather than its own camp offering. Preschool registration and preschool news pages returned no readable text.",
+    "excluded": [
+      {
+        "name": "Grace Lutheran Preschool",
+        "reason": "Academic-year preschool rather than a finite summer program."
+      },
+      {
+        "name": "Aftercare",
+        "reason": "Regular preschool aftercare rather than a separately offered summer program."
+      },
+      {
+        "name": "Grace Special Classes",
+        "reason": "Classes included in the regular preschool curriculum."
+      },
+      {
+        "name": "Sunday School, KiDD's Club, Nursery and Milestone Ministry",
+        "reason": "Ongoing ministry programs, not finite summer camps."
+      },
+      {
+        "name": "Campus Ministry & Young Adults",
+        "reason": "Ongoing fellowship for adults ages 18–30."
+      },
+      {
+        "name": "Lutheridge Summer Camp",
+        "reason": "External provider's camps; Grace advertises scholarships, not a separate Grace-operated program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["general", "arts"],
+        "description": "Children participate in arts and crafts, water and sand play, creative expression, group games and quiet times. Attendance is optional and requires advance sign-up; the program is for children registered at Grace Preschool.",
+        "camp_page_url": "https://www.gracehendersonville.com/preschool-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": "The undated page says the program runs from the end of May to the middle of August."
+        },
+        "ages": {
+          "min": 1.0833333333333333,
+          "max": 5
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grace Lutheran Preschool",
+            "address": "1245 6th Avenue West",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "13:00",
+          "text": "Tuesday, Wednesday, and Thursday from 8:30 a.m.-1 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 20,
+            "unit": "other",
+            "label": "Registration fee",
+            "year": 2026
+          },
+          {
+            "amount": 18,
+            "unit": "day",
+            "label": "3s through Pre-K",
+            "year": 2026
+          },
+          {
+            "amount": 21,
+            "unit": "day",
+            "label": "Walkers and 2s",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.gracehendersonville.com/preschool-programs"],
+        "confidence": "medium",
+        "review_notes": "The program page has no summer year or exact dates; prices and hours are undated fallback information assigned to 2026. Ages span the stated preschool groups, Walkers (13–24 months) through Pre-K (4–5 years). No dated age-band sessions were available. The same page says both 'Earlybirds is not offered' and 'Earlybirds drop-off at 8 a.m. is available for $1 per day'; extended care is therefore left null. Preschool and church footers disagree on ZIP code, but agree on street address. Format check: ages 1.0833333333333333 outside 2-19."
+      },
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend a community Vacation Bible School offered with Trinity Presbyterian Church and St. James Episcopal Church. The 2026 theme was Operation Restoration.",
+        "camp_page_url": "https://www.gracehendersonville.com/family-ministry",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-04",
+          "text": null
+        },
+        "ages": {
+          "min": 4,
+          "max": null
+        },
+        "grades": {
+          "min": -1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Trinity Presbyterian Church",
+            "address": "900 Blythe Street",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday, June 1, through Thursday, June 4, from 9:00 a.m. to noon each day."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.gracehendersonville.com/family-ministry",
+          "https://www.youtube.com/watch?v=cdVgpofxuFo",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-march-2026",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-may-2026",
+          "https://www.trinitypresnc.org/post/tidings-newsletter-june-2026",
+          "https://www.trinitypresnc.org/tidings"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and hours are corroborated by Grace's official YouTube announcement and the host church's newsletter search results. Rising Pre-K through sixth-grade eligibility and four-year-old minimum come from the host's March 2026 newsletter search snippet. Host newsletter says registration will open in May but provides no exact opening date; no 2027 milestone is posted."
+      }
+    ]
+  }
+}

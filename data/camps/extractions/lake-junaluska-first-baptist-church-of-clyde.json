@@ -1,0 +1,102 @@
+{
+  "provider": {
+    "key": "lake-junaluska-first-baptist-church-of-clyde",
+    "name": "Lake Junaluska First Baptist Church of Clyde",
+    "urls": ["https://www.ljfbc.org/vbs"],
+    "area": "Clyde, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:42.636Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "51f01a2787e9a4fdd1e3ea3e5f745937a5d29a29b24262ee0e23632c5abff832",
+  "response": {
+    "searches": [
+      "site:ljfbc.org VBS 2026 2027",
+      "open https://vbspro.events/p/a09024",
+      "site:vbspro.events/p/a09024 \"\""
+    ],
+    "usage": {
+      "inputTokens": 16317,
+      "cachedInputTokens": 8223,
+      "outputTokens": 775,
+      "reasoningTokens": 172
+    },
+    "status": "completed",
+    "ms": 27239,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ljfbc.org/vbs",
+      "chars": 512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ljfbc.org/",
+      "chars": 846,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lake Junaluska First Baptist Church of Clyde",
+    "website_url": "https://www.ljfbc.org/",
+    "notes": "No 2027 information found. The church's VBS page provides no dates or ages in readable text. A VBS Pro registration listing at the church's exact address lists 2026 dates, but its full page could not be read.",
+    "excluded": [
+      {
+        "name": "Sunday School and Wednesday Core Groups",
+        "reason": "Recurring year-round church programs, not finite summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend Vacation Bible School at Lake Junaluska First Baptist Church.",
+        "camp_page_url": "https://www.ljfbc.org/vbs",
+        "registration_url": "https://vbspro.events/p/a09024",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-28",
+          "end": "2026-07-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lake Junaluska First Baptist Church",
+            "address": "154 Sunset Ridge Rd",
+            "town": "Clyde",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": null,
+          "text": "The registration search snippet states 5:30pm (EDT) to 8:00am (EDT); the end time needs verification."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.ljfbc.org/vbs",
+          "https://www.ljfbc.org/",
+          "https://vbspro.events/p/a09024"
+        ],
+        "confidence": "medium",
+        "review_notes": "2026 dates and start time come only from the VBS Pro search snippet, titled VBS- The Great Rescue, at the church's exact address. The full registration page could not be read or its link from the church page confirmed. Verify the association and end time: the snippet prints 8:00am, which has not been silently corrected to evening. Ages, activities, prices and registration milestones were not available."
+      }
+    ]
+  }
+}

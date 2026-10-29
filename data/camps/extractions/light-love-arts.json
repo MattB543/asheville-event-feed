@@ -1,0 +1,140 @@
+{
+  "provider": {
+    "key": "light-love-arts",
+    "name": "Light + Love Arts",
+    "urls": ["https://www.lightandlovearts.com/classes"],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:13.384Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "957c83bd6897f39d6526511d3a4c5d13aa4e5c5c7744c9ce20230aec6e63ac4a",
+  "response": {
+    "searches": [
+      "site:lightandlovearts.com summer camp 2026 2027",
+      "site:hisawyer.com \"Light\" \"Summer\" \"2026\" \"Camp\"",
+      "\"site:hisawyer.com\" \"Light + Love Arts\" \"Summer Camp:\""
+    ],
+    "usage": {
+      "inputTokens": 31777,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1113,
+      "reasoningTokens": 271
+    },
+    "status": "completed",
+    "ms": 32693,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.lightandlovearts.com/classes",
+      "chars": 3841,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lightandlovearts.com/faq",
+      "chars": 3282,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.lightandlovearts.com/",
+      "chars": 3552,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Light + Love Arts",
+    "website_url": "https://www.lightandlovearts.com/",
+    "notes": "No 2027 summer dates or registration announcements were found. The supplied pages describe Summer Camp but do not list sessions or prices. Additional official pages and the Sawyer provider page returned no readable body text when opened; search snippets supplied limited additional information.",
+    "excluded": [
+      {
+        "name": "Seasonal Studio Art Classes",
+        "reason": "Recurring seasonal classes, not a summer camp offering."
+      },
+      {
+        "name": "Art Play",
+        "reason": "Caregiver-attended family programming; excluded as family-only, including the summer option mentioned on the about page."
+      },
+      {
+        "name": "Open Studio",
+        "reason": "Recurring family drop-in studio access, not a supervised summer youth camp."
+      },
+      {
+        "name": "Afterschool Art",
+        "reason": "School-year afterschool programming."
+      },
+      {
+        "name": "No School Day Camps",
+        "reason": "School-break programming outside summer; no summer sessions found."
+      },
+      {
+        "name": "Adult Craft Nights",
+        "reason": "Adult-only programming."
+      },
+      {
+        "name": "Birthday Parties + Special Events",
+        "reason": "Private parties and events, not listed as finite summer youth programs."
+      },
+      {
+        "name": "Halloween PARTY!",
+        "reason": "Outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "half_day",
+        "categories": ["arts", "nature_outdoor"],
+        "description": "Children explore art materials and techniques through instructor-guided projects, games and group activities. Activities include nature-inspired art, scavenger hunts and leaf prints.",
+        "camp_page_url": "https://www.lightandlovearts.com/classes",
+        "registration_url": "https://www.lightandlovearts.com/get-started",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "River Arts District Studio",
+            "address": "408 Depot Street #140",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Monday through Thursday mornings."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.lightandlovearts.com/classes",
+          "https://www.lightandlovearts.com/faq",
+          "https://www.lightandlovearts.com/about",
+          "https://www.lightandlovearts.com/get-started",
+          "https://www.hisawyer.com/providers/light-love-arts"
+        ],
+        "confidence": "medium",
+        "review_notes": "The about-page search snippet lists summer age bands Art Explorers ages 3-6 and Art Club ages 7-10, and Monday-through-Thursday mornings, without a season year. These bands are combined into one Summer Camp card. The same snippet inconsistently says nine weeks and 'Choose 1 week or all six'; no week count or dates were extracted. Verify ages, half-day format and hours against the summer registration schedule. No readable 2026 session schedule or 2027 announcement was found."
+      }
+    ]
+  }
+}

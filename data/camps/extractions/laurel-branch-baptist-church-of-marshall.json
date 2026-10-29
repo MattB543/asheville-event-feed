@@ -1,0 +1,97 @@
+{
+  "provider": {
+    "key": "laurel-branch-baptist-church-of-marshall",
+    "name": "Laurel Branch Baptist Church of Marshall",
+    "urls": [
+      "https://www.facebook.com/137656309608792/",
+      "https://www.facebook.com/Laurel-Branch-Baptist-Church-137656309608792/"
+    ],
+    "area": "Marshall, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:26:33.222Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Laurel Branch Baptist Church Marshall VBS 2026",
+      "site:facebook.com \"Laurel Branch\" \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 16196,
+      "cachedInputTokens": 8223,
+      "outputTokens": 795,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 27545,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/137656309608792/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/Laurel-Branch-Baptist-Church-137656309608792/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Laurel Branch Baptist Church of Marshall",
+    "website_url": null,
+    "notes": "No 2027 summer information was found. Both supplied Facebook URLs returned no readable content. A church directory lists laurelbranchchurch.org, but that domain also returned no readable content and could not be confirmed as the church's current website. The provisional VBS card uses matching 2026 event listings on AllEvents and HappeningNext; its details need official confirmation.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "An evening Vacation Bible School program. Specific activities could not be verified from the church's official pages.",
+        "camp_page_url": "https://www.facebook.com/137656309608792/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-12",
+          "end": "2026-07-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Laurel Branch Baptist Church",
+            "address": "1336 Silver Mill Rd",
+            "town": "Marshall",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:30",
+          "text": "The event listings give July 12 at 6:00 pm through July 16 at 8:30 pm; daily meeting hours require confirmation."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "Official Facebook pages could not be read. Confirm the program name, July 12–16, 2026 dates, daily hours, eligibility and address with the church. Dates and event endpoint times appear only in https://allevents.in/marshall/vbs-2026/200030251779635 and https://happeningnext.com/event/vbs-2026-eid3a0dritkd1. The address is also listed in the Southern Baptist Convention directory at https://churches.sbc.net/church/laurel-branch/, but a venue-published address could not be read. No registration date or 2027 announcement was verified."
+      }
+    ]
+  }
+}

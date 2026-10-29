@@ -1,0 +1,322 @@
+{
+  "provider": {
+    "key": "camp-highlander",
+    "name": "Camp Highlander",
+    "urls": [
+      "https://www.camphighlander.com/programs/arts",
+      "https://www.camphighlander.com/programs",
+      "https://www.camphighlander.com/",
+      "https://www.camphighlander.com/sessions/2027-sessions",
+      "https://www.camphighlander.com/sessions"
+    ],
+    "area": "Mills River, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:31.613Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "80c43d0c61e44681e0340aa2d561e77a0a7c62e5dd62fa1dd33a4012f9829cd5",
+  "response": {
+    "searches": [
+      "site:camphighlander.com \"Counselor in Training\"",
+      "open https://www.camphighlander.com/sessions/counselor-in-training"
+    ],
+    "usage": {
+      "inputTokens": 24611,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2171,
+      "reasoningTokens": 182
+    },
+    "status": "completed",
+    "ms": 45160,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.camphighlander.com/programs/arts",
+      "chars": 4080,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camphighlander.com/programs",
+      "chars": 2575,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camphighlander.com/",
+      "chars": 3783,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camphighlander.com/sessions/2027-sessions",
+      "chars": 2764,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camphighlander.com/sessions/dates-rates",
+      "chars": 5157,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.camphighlander.com/sessions/registration-policies",
+      "chars": 7162,
+      "method": "fetch"
+    },
+    {
+      "url": "https://highlander.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://www.camphighlander.com/about",
+      "chars": 2460,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Highlander",
+    "website_url": "https://www.camphighlander.com/",
+    "notes": "2027 dates and rates are posted for overnight camp and the Counselor in Training Program. Activity departments such as arts, sports and horseback riding are components of overnight camp, not separate camps. The homepage describes older session lengths; the explicit 2027 session table was used. Registration policies state a recurring September 1 opening but do not explicitly identify a 2027 registration opening, so no registration milestone was inferred.",
+    "excluded": [
+      {
+        "name": "Father Son Weekend",
+        "reason": "Family-only program."
+      },
+      {
+        "name": "Family Camp",
+        "reason": "Family-only program."
+      },
+      {
+        "name": "Mother Daughter Weekend",
+        "reason": "Family-only program held outside summer."
+      },
+      {
+        "name": "Staff Positions",
+        "reason": "Employment opportunities, not youth camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Highlander",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor", "sports", "arts", "horses", "cooking"],
+        "description": "Campers participate with their cabin groups in outdoor activities, sports, waterfront activities, horseback riding and arts. Longer sessions also include age-dependent off-camp trips, cabin overnights and evening programs.",
+        "camp_page_url": "https://www.camphighlander.com/sessions",
+        "registration_url": "https://highlander.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-27",
+          "text": "2027 Camp Sessions"
+        },
+        "ages": {
+          "min": 6,
+          "max": 16
+        },
+        "grades": {
+          "min": 0,
+          "max": 10,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "Camp Highlander",
+            "address": "42 Dalton Road",
+            "town": "Horse Shoe",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Kickoff - 6 Days",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 7,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 2475,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session A - 13 Days",
+            "start": "2027-06-13",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 10,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session B - 13 Days",
+            "start": "2027-06-27",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 0,
+              "max": 10,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5200,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session C - 17 Days",
+            "start": "2027-07-11",
+            "end": "2027-07-27",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 8,
+              "max": 16
+            },
+            "grades": {
+              "min": 3,
+              "max": 10,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 6300,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "Session BC - 31 Days",
+            "start": "2027-06-27",
+            "end": "2027-07-27",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 10,
+              "basis": "unspecified"
+            },
+            "hours": null,
+            "price": {
+              "amount": 11800,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "All five overnight camp sessions, boys and girls",
+          "text": "BOYS OPEN GIRLS OPEN"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camphighlander.com/",
+          "https://www.camphighlander.com/programs",
+          "https://www.camphighlander.com/programs/arts",
+          "https://www.camphighlander.com/sessions",
+          "https://www.camphighlander.com/sessions/2027-sessions",
+          "https://www.camphighlander.com/sessions/dates-rates",
+          "https://www.camphighlander.com/sessions/registration-policies"
+        ],
+        "confidence": "medium",
+        "review_notes": "The homepage describes an 8-day introductory session and two-week sessions, while the 2027 table specifies 6, 13, 17 and 31 days; the table controls this card. Registration policies require all 6-year-old campers to have completed kindergarten, while the session table lists K without a grade basis. Session BC has no separately stated age restriction; confirm eligibility with the provider."
+      },
+      {
+        "name": "Counselor in Training Program",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Teens participate in leadership training, service opportunities, team building and on- and off-camp activities. They later shadow staff, join cabins and help with activities and Color War, receiving 150 community service hours upon completion.",
+        "camp_page_url": "https://www.camphighlander.com/sessions/counselor-in-training",
+        "registration_url": "https://highlander.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-27",
+          "end": "2027-07-27",
+          "text": "The CIT program dates are June 27th - July 27th, 2027."
+        },
+        "ages": null,
+        "grades": {
+          "min": 11,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Camp Highlander",
+            "address": "42 Dalton Road",
+            "town": "Horse Shoe",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 5200,
+            "unit": "program",
+            "label": "Four and one half week program",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.camphighlander.com/sessions/counselor-in-training",
+          "https://www.camphighlander.com/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "west-end-baptist-church-of-newport",
+    "name": "West End Baptist Church of Newport",
+    "urls": ["https://www.webc.online/team-4", "https://www.webc.online/"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:23:21.062Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9fe434e5a27b02046c1108e682061865dd9bab8f8342a485a3604dbacf7f3733",
+  "response": {
+    "searches": [
+      "site:webc.online VBS 2027 2026",
+      "\"West End Baptist Church\" \"Newport\" \"Vacation Bible\""
+    ],
+    "usage": {
+      "inputTokens": 18276,
+      "cachedInputTokens": 8223,
+      "outputTokens": 522,
+      "reasoningTokens": 137
+    },
+    "status": "completed",
+    "ms": 19519,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.webc.online/team-4",
+      "chars": 1188,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.webc.online/",
+      "chars": 7832,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "West End Baptist Church of Newport",
+    "website_url": "https://www.webc.online/",
+    "notes": "No 2027 VBS information found. The official VBS 2026 page contains only its heading and church contact information; no dates, ages, activities, hours, prices or registration details were readable. Web searches did not locate additional official camp details.",
+    "excluded": [
+      {
+        "name": "Sunday School for all Ages",
+        "reason": "Recurring year-round religious classes, not a finite summer program."
+      },
+      {
+        "name": "Children's Christmas Program Practice",
+        "reason": "Outside summer; practice begins in October."
+      },
+      {
+        "name": "Fall Festival",
+        "reason": "Outside summer; listed for October 31."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church lists a Vacation Bible School offering. Specific activities are not described on the readable official page.",
+        "camp_page_url": "https://www.webc.online/team-4",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.webc.online/team-4", "https://www.webc.online/"],
+        "confidence": "low",
+        "review_notes": "The VBS 2026 page confirms only the program heading. Confirm dates, participant eligibility, activities and drop-off location with the church. Its published church address is 116 West End Street, Newport, TN, but the page does not explicitly identify it as the VBS meeting location."
+      }
+    ]
+  }
+}

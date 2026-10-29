@@ -1,0 +1,774 @@
+{
+  "provider": {
+    "key": "blue-ridge-community-college",
+    "name": "Blue Ridge Community College",
+    "urls": ["https://www.blueridge.edu/community/summer-camps/"],
+    "area": "Flat Rock, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:32.631Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "266f2970782f3d5d960bda53ca7286575718d653a12f865df720662aa948e11f",
+  "response": {
+    "searches": [
+      "site.blueridge.edu \"summer\" \"2027\"",
+      "open https://www.blueridge.edu/community/summer-camps/?x=1"
+    ],
+    "usage": {
+      "inputTokens": 35760,
+      "cachedInputTokens": 8223,
+      "outputTokens": 4928,
+      "reasoningTokens": 202
+    },
+    "status": "completed",
+    "ms": 86553,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.blueridge.edu/community/summer-camps/",
+      "chars": 11838,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridge.edu/services-support/academic-advising-registration/",
+      "chars": 11370,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridge.edu/admissions/residency/",
+      "chars": 6372,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridge.edu/paying-for-college/tuition-fees/",
+      "chars": 16397,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridge.edu/wp-content/uploads/2026/07/Courses-with-Additional-Fees-2026-2027.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.blueridge.edu/paying-for-college/tuition-fees/tuition-payment-plan/",
+      "chars": 4023,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Blue Ridge Community College",
+    "website_url": "https://www.blueridge.edu/",
+    "notes": "No official summer 2027 camp information was found. Cards use the 2026 camp listing; June dates take their year from the page's explicit 2026 registration period. Registration link destinations could not be retrieved, so registration_url is null. The supplied college advising, tuition and course-fee materials concern regular college enrollment, not camp registration.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "ArcStrong",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Students learn welding safety and introductory MIG and SMAW welding. They make a metal project to take home.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-09",
+          "end": "2026-06-16",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Brevard High School",
+            "address": "609 N. Country Club Rd.",
+            "town": "Brevard",
+            "state": "NC"
+          },
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-09",
+            "end": "2026-06-09",
+            "year": 2026,
+            "site": "Brevard High School",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-16",
+            "end": "2026-06-16",
+            "year": 2026,
+            "site": "Henderson County Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.blueridge.edu/community/summer-camps/",
+          "https://bhs.tcsnc.org/o/bhs/page/directions-to-bhs"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Amazing Race for Future Healthcare Heroes",
+        "type": "half_day",
+        "categories": ["stem"],
+        "description": "Campers participate in a team-based competition introducing healthcare skills, teamwork and healthcare careers. The camp is limited to 12 campers.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-18",
+          "end": "2026-06-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Health Sciences Center",
+            "address": "805 6th Avenue West",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "13:00",
+          "end": "17:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Automotive Refinishing Technology (ART)",
+        "type": "day",
+        "categories": ["stem", "arts"],
+        "description": "Middle school campers build and finish a model car and display their work at a closing ceremony. High school campers practice panel sanding, masking and automotive painting.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-06-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Middle School: 1-5 p.m.; High School: 10 a.m. – 4 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "Registration Fee; middle school or high school",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Middle School",
+            "start": "2026-06-16",
+            "end": "2026-06-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 7,
+              "max": 9,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "13:00",
+              "end": "17:00"
+            },
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "High School",
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 10,
+              "max": 12,
+              "basis": "rising"
+            },
+            "hours": {
+              "start": "10:00",
+              "end": "16:00"
+            },
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "C.A.R.",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Students explore car design, roadside safety and basic automotive maintenance through hands-on activities. Activities include changing oil, checking tire pressure, identifying parts and a Pit-Crew Challenge.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-06-10",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Transylvania County Campus",
+            "address": "45 Oak Park Dr.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-08",
+            "end": "2026-06-08",
+            "year": 2026,
+            "site": "Henderson County Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": "Transylvania County Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Hair Art and Design",
+        "type": "day",
+        "categories": ["arts"],
+        "description": "Campers explore hair design through hands-on mannequin work and individual interaction with the Cosmetology Department. The offering includes rising ninth through twelfth graders and 2026 high school graduates.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-22",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "14:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 20,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Please Bring your Own Lunch"
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Metal Makers Academy",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Students receive an introduction to computer-aided drafting, machining and manufacturing processes. They make a metal creation to take home.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-18",
+          "end": "2026-06-25",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 9,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-18",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-25",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Young Builders Camp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Students learn woodworking safety and carpentry skills, including measuring, cutting and assembling a small project. They take their completed creation home.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-22",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-15",
+            "end": "2026-06-15",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Reserved for HC B&G Club",
+            "start": "2026-06-22",
+            "end": "2026-06-22",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Young Engineers Experience (YEE)",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Campers participate in engineering projects and demonstrations involving robotics, electrical circuits, soldering, hydraulics and balsa wood bridge building. Activities emphasize problem solving and teamwork.",
+        "camp_page_url": "https://www.blueridge.edu/community/summer-camps/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-09",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 7,
+          "max": 9,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Henderson County Campus",
+            "address": "180 W. Campus Dr.",
+            "town": "Flat Rock",
+            "state": "NC"
+          },
+          {
+            "name": "Transylvania County Campus",
+            "address": "45 Oak Park Dr.",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 100,
+            "unit": "session",
+            "label": "Registration Fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-01",
+            "end": "2026-06-02",
+            "year": 2026,
+            "site": "Henderson County Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-06-08",
+            "end": "2026-06-09",
+            "year": 2026,
+            "site": "Transylvania County Campus",
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-02",
+          "time": null,
+          "text": "Space is limited. Register early at the links below starting March 2, 2026.",
+          "url": "https://www.blueridge.edu/community/summer-camps/"
+        },
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships Available"
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "Students are responsible for their lunches, drinks, and snacks throughout the day."
+        },
+        "transportation": null,
+        "sources": ["https://www.blueridge.edu/community/summer-camps/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

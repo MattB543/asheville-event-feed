@@ -1,0 +1,88 @@
+{
+  "provider": {
+    "key": "foothills-community-chapel-of-columbus",
+    "name": "Foothills Community Chapel of Columbus",
+    "urls": [
+      "https://www.foothillscommunitychapel.com/vbs",
+      "https://www.foothillscommunitychapel.com/"
+    ],
+    "area": "Columbus, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:12.476Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8fb2c0301dddf52ee7234270c31ed065a644eab489991db9fa27d10fc4105899",
+  "response": {
+    "searches": [
+      "site:foothillscommunitychapel.com VBS 2026 2027",
+      "site:facebook.com/foothillscommunitychapel \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 20595,
+      "cachedInputTokens": 8223,
+      "outputTokens": 628,
+      "reasoningTokens": 166
+    },
+    "status": "completed",
+    "ms": 21688,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.foothillscommunitychapel.com/vbs",
+      "chars": 505,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillscommunitychapel.com/",
+      "chars": 1793,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Foothills Community Chapel of Columbus",
+    "website_url": "https://www.foothillscommunitychapel.com/",
+    "notes": "No 2027 or 2026 VBS details were found. The current VBS page contains only navigation and the church address. Older official Facebook posts confirm a Vacation Bible School, but their dates and activities were not carried forward. The children and events pages returned no readable text.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children learn from the Bible.",
+        "camp_page_url": "https://www.foothillscommunitychapel.com/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.foothillscommunitychapel.com/vbs",
+          "https://www.facebook.com/foothillscommunitychapel/posts/1894339660630025/",
+          "https://www.foothillscommunitychapel.com/contact"
+        ],
+        "confidence": "low",
+        "review_notes": "Confirm that VBS will run in 2027 and obtain dates, eligibility, hours, registration details and drop-off location. The current VBS page has no program details; the description comes from an older official Facebook search result. The church publishes its physical address as 2720 Landrum Road, Columbus, NC, but no current camp meeting location is stated."
+      }
+    ]
+  }
+}

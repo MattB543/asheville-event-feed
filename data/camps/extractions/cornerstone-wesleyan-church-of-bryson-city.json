@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "cornerstone-wesleyan-church-of-bryson-city",
+    "name": "Cornerstone Wesleyan Church of Bryson City",
+    "urls": ["https://cornerstonewesleyan.wixsite.com/home"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:33:58.127Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "ae1d9a0e60c4474f2f5983161a4f8c5ec187946b25c343aaadf99d7d5e5557d3",
+  "response": {
+    "searches": [
+      "Cornerstone Wesleyan Bryson City vacation bible school 2026 2027",
+      "\"Cornerstone Wesleyan\" \"Bryson City\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 22938,
+      "cachedInputTokens": 8223,
+      "outputTokens": 393,
+      "reasoningTokens": 166
+    },
+    "status": "completed",
+    "ms": 15293,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://cornerstonewesleyan.wixsite.com/home",
+      "chars": 1549,
+      "method": "fetch"
+    },
+    {
+      "url": "https://cornerstonewesleyan.wixsite.com/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"404 Error: Page Not Found | Wix.com\")"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cornerstone Wesleyan Church of Bryson City",
+    "website_url": "https://cornerstonewesleyan.wixsite.com/home",
+    "notes": "No qualifying summer camp or Vacation Bible School could be verified for 2026 or 2027. The supplied homepage contains regular worship and Bible study information but no summer program announcement. Searches of the church's official website and indexed Facebook content did not locate a summer program. The Events, Bulletin Online, Calendar and Services pages returned no readable body text when opened; indexed Services text describes recurring youth and children's programs. Search results for similarly named churches' VBS programs were not attributed to this provider.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring Sunday religious instruction, not a finite summer program."
+      },
+      {
+        "name": "Wednesday youth and children's programs",
+        "reason": "The official Services search result describes recurring Wednesday evening programs, not a finite summer offering."
+      }
+    ],
+    "cards": []
+  }
+}

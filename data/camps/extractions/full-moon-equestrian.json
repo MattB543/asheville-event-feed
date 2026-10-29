@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "full-moon-equestrian",
+    "name": "Full Moon Equestrian",
+    "urls": ["https://fullmoonequestrian.com/camp"],
+    "area": "Leicester, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:42.716Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "58d6f453c440f9cf789e85410b9a4d25769f35280f7bf5bf5be79071f2deb9a5",
+  "response": {
+    "searches": [
+      "site:fullmoonequestrian.com camp 2026 2027",
+      "open https://fullmoonequestrian.com/camp"
+    ],
+    "usage": {
+      "inputTokens": 15011,
+      "cachedInputTokens": 8223,
+      "outputTokens": 761,
+      "reasoningTokens": 135
+    },
+    "status": "completed",
+    "ms": 20358,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://fullmoonequestrian.com/camp",
+      "chars": 1280,
+      "method": "fetch"
+    },
+    {
+      "url": "https://fullmoonequestrian.com/",
+      "chars": 2746,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Full Moon Equestrian",
+    "website_url": "https://fullmoonequestrian.com/",
+    "notes": "No official 2026 or 2027 camp dates were found. The supplied camp page advertises June 23–27, 2025, at $600 per week; those historical dates and prices are omitted rather than relabeled. Direct opens of the camp and contact pages returned no readable text; the supplied camp text and official search results were used.",
+    "excluded": [
+      {
+        "name": "Lessons",
+        "reason": "Ongoing horseback riding lessons, not a finite summer program."
+      },
+      {
+        "name": "Horse Leases",
+        "reason": "Ongoing horse leasing and riding arrangements, not a finite supervised summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["horses"],
+        "description": "Campers ride, care for horses, do barn chores and groundwork, and learn positive reinforcement training. Activities also include horse-related games and arts and crafts.",
+        "camp_page_url": "https://fullmoonequestrian.com/camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Blackberry Stables",
+            "address": "45 Elevacres Rd",
+            "town": "Leicester",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://fullmoonequestrian.com/camp",
+          "https://fullmoonequestrian.com/",
+          "https://fullmoonequestrian.com/contact",
+          "https://fullmoonequestrian.com/services"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm eligibility and continued operation for 2027. The camp page body specifies ages 8–12, while its introductory text and the services page say ages 6 and up; the narrower camp-body range is used here. The only dated camp information found is for 2025, including 9am–3pm hours, so dates, prices and hours are omitted. The venue address is stated in the official contact-page search result."
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "provider": {
+    "key": "erwin-hills-baptist-church-of-asheville",
+    "name": "Erwin Hills Baptist Church of Asheville",
+    "urls": ["https://www.facebook.com/ErwinHillsBaptist/"],
+    "area": "Asheville, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:12:46.046Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Erwin Hills Baptist Church Asheville vacation bible school 2026",
+      "site:facebook.com/ErwinHillsBaptist \"2026\" \"VBS\"",
+      "\"Erwin Hills Baptist\" \"VBS\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 25744,
+      "cachedInputTokens": 8223,
+      "outputTokens": 449,
+      "reasoningTokens": 244
+    },
+    "status": "completed",
+    "ms": 24011,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/ErwinHillsBaptist/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Erwin Hills Baptist Church of Asheville",
+    "website_url": null,
+    "notes": "No standalone church website was found. The church's Facebook page could not be read. Third-party event listings identify Wonder VBS 2026 beginning June 7, 2026 at 6:30 p.m. at 281 New Leicester Hwy, Asheville, NC, but no readable official announcement was found to verify the program details or its end date. No 2027 summer program or registration announcement was found. No cards were created because the official program information could not be verified. Reviewer should check the church's Facebook page directly. Discovery sources: https://allevents.in/org/erwin-hills-baptist-church/23381445 and https://happeningnext.com/event/wonder-vbs-2026-eid3a0dqavean.",
+    "excluded": [],
+    "cards": []
+  }
+}

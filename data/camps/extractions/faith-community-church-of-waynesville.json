@@ -1,0 +1,96 @@
+{
+  "provider": {
+    "key": "faith-community-church-of-waynesville",
+    "name": "Faith Community Church of Waynesville",
+    "urls": [
+      "https://vbspro.events/p/events/553ef3/details",
+      "https://www.faithcommunitychurch.cc/"
+    ],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:01.738Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "777c94bd89c56694543885860120cc5121694a45cbbacd9df3432ed1fe839a27",
+  "response": {
+    "searches": ["\"Faith Community Church\" \"Waynesville\" \"VBS\" \"2027\"", "\"553ef3\""],
+    "usage": {
+      "inputTokens": 22094,
+      "cachedInputTokens": 8223,
+      "outputTokens": 512,
+      "reasoningTokens": 141
+    },
+    "status": "completed",
+    "ms": 17658,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://vbspro.events/p/events/553ef3/details",
+      "chars": 2395,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faithcommunitychurch.cc/",
+      "chars": 1152,
+      "method": "fetch"
+    },
+    {
+      "url": "https://vbspro.events/",
+      "chars": 1940,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Faith Community Church of Waynesville",
+    "website_url": "https://www.faithcommunitychurch.cc/",
+    "notes": "No 2027 information found. The supplied VBS details page identifies the program and church location but does not state its dates, season year, ages, hours or price. The main VBS event URLs returned no readable content. No additional official schedule was found.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Rainforest Falls VBS @ Faith Community Church",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore the nature of God and their relationship with their creator through a rainforest-themed Vacation Bible School.",
+        "camp_page_url": "https://vbspro.events/p/events/553ef3/details",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Faith Community Church",
+            "address": "289 Industrial Park Drive",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://vbspro.events/p/events/553ef3/details",
+          "https://www.faithcommunitychurch.cc/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The VBS details page does not identify the event's season year or schedule; its 2026 copyright is not evidence of the event year. Confirm dates, ages, hours and participant registration with the church. Season year 2027 denotes the directory's target summer, not a confirmed offering."
+      }
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "provider": {
+    "key": "gabriel-s-creek-baptist-church-of-mars-hill",
+    "name": "Gabriel’s Creek Baptist Church of Mars Hill",
+    "urls": [
+      "https://www.facebook.com/gaberielscreekbc/",
+      "https://www.facebook.com/watch/gaberielscreekbc/"
+    ],
+    "area": "Mars Hill, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:26:41.616Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Gabriel’s Creek Baptist Church Mars Hill VBS 2026",
+      "site:facebook.com/gaberielscreekbc \"VBS\" \"2026\"",
+      "\"Gabriel’s Creek Baptist Church\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 26622,
+      "cachedInputTokens": 8223,
+      "outputTokens": 941,
+      "reasoningTokens": 264
+    },
+    "status": "completed",
+    "ms": 29128,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/gaberielscreekbc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/watch/gaberielscreekbc/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Gabriel’s Creek Baptist Church of Mars Hill",
+    "website_url": "https://www.gabrielscreekbc.com/",
+    "notes": "The church's Facebook search results identify www.gabrielscreekbc.com as its website, but that website and both supplied Facebook pages returned no readable content. No 2027 information was found. A 2026 VBS was found only in third-party event listings; its details require church confirmation. No official registration announcement was found.",
+    "excluded": [
+      {
+        "name": "Sunday School",
+        "reason": "Recurring year-round religious classes, not a finite summer camp."
+      },
+      {
+        "name": "Life of Christ drive-through presentation",
+        "reason": "December family event, outside summer and not a supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Vacation Bible School is listed for five evenings. Specific activities were not available in readable official materials.",
+        "camp_page_url": null,
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "18:30",
+          "end": "20:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [],
+        "confidence": "low",
+        "review_notes": "June 22–26, 2026 and 6:30–8:30 pm appear only in third-party listings at https://allevents.in/mars-hill/gabriel%E2%80%99s-creek-baptist-church-vbs-2026/200030251777002 and https://happeningnext.com/event/gabriel%E2%80%99s-creek-baptist-church-vbs-2026-eid3a0driti3k. Confirm the program name, dates, hours, youth eligibility and drop-off venue with the church before publishing. Sites are empty because the event listings specify only Mars Hill. An older official Facebook post gives 111 Gabriels Creek Church Road, Mars Hill, NC 28754, while third-party map listings give 132 Gabriels Creek Church Rd; the current camp location could not be confirmed. Official pages attempted: https://www.facebook.com/gaberielscreekbc/, https://www.facebook.com/watch/gaberielscreekbc/ and https://www.gabrielscreekbc.com/."
+      }
+    ]
+  }
+}

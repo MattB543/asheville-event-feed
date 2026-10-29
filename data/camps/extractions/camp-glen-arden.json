@@ -1,0 +1,256 @@
+{
+  "provider": {
+    "key": "camp-glen-arden",
+    "name": "Camp Glen Arden",
+    "urls": [
+      "https://campglenarden.com/dates-rates/",
+      "https://campglenarden.com/",
+      "https://campglenarden.com/activities/arts/"
+    ],
+    "area": "Zirconia, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:08:25.248Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "eef2c0f535a18ec0e08975712adb648800caabeddbdfedffb5cc025c69ae9c55",
+  "response": {
+    "searches": [
+      "site:campglenarden.com 2027 enrollment",
+      "open https://campglenarden.com/dates-rates/"
+    ],
+    "usage": {
+      "inputTokens": 20109,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1617,
+      "reasoningTokens": 171
+    },
+    "status": "completed",
+    "ms": 35839,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://campglenarden.com/dates-rates/",
+      "chars": 4484,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/",
+      "chars": 2476,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/activities/arts/",
+      "chars": 2693,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/dates-rates",
+      "chars": 4484,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/dates-rates/session-descriptions",
+      "chars": 1485,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/parents/enroll-policies",
+      "chars": 14331,
+      "method": "fetch"
+    },
+    {
+      "url": "https://campglenarden.com/request-information",
+      "chars": 947,
+      "method": "fetch"
+    },
+    {
+      "url": "https://glenarden.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Glen Arden",
+    "website_url": "https://campglenarden.com/",
+    "notes": "2027 dates and rates are posted, and the provider says enrollment for 2027 is now open without stating an opening date. Session lengths are grouped as one overnight program. The dated June and July listings specify grades 3–11, while the descriptive paragraphs on the same page say entering grades 1–11; the dated listings were used. Additional official pages opened during research returned no readable text.",
+    "excluded": [
+      {
+        "name": "Mother Daughter",
+        "reason": "Family-only mother/daughter weekend rather than an independently supervised youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Camp Glen Arden",
+        "type": "overnight",
+        "categories": [
+          "general",
+          "nature_outdoor",
+          "sports",
+          "horses",
+          "arts",
+          "music",
+          "theater",
+          "dance"
+        ],
+        "description": "Girls choose activities including horseback riding, paddling, hiking, sports, pottery, weaving, music, drama and dance. Campers live in cabins and participate in camp celebrations, outings and competitions.",
+        "camp_page_url": "https://campglenarden.com/dates-rates/",
+        "registration_url": "https://glenarden.campintouch.com/ui/login/Login",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-08-06",
+          "text": "Enrollment for 2027 is now open."
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 11,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Camp Glen Arden",
+            "address": "1261 Cabin Creek Road",
+            "town": "Zirconia",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "June Session",
+            "start": "2027-06-06",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 7350,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "July Session",
+            "start": "2027-06-27",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 3,
+              "max": 11,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 9050,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session I",
+            "start": "2027-06-06",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 5,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          },
+          {
+            "label": "Mini Session II",
+            "start": "2027-06-27",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": {
+              "min": 1,
+              "max": 6,
+              "basis": "rising"
+            },
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "August Session",
+            "start": "2027-07-25",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5500,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Mini Session II only",
+          "text": "Enroll (Limited Availability)"
+        },
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If there is a prior history of these kinds of needs or concerns in a particular situation, please call Erin in the Camp Office."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://campglenarden.com/dates-rates/",
+          "https://campglenarden.com/",
+          "https://campglenarden.com/activities/arts/",
+          "https://campglenarden.com/activities/",
+          "https://campglenarden.com/parents/enroll-policies",
+          "https://campglenarden.com/contact-glen-arden"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm June and July eligibility: the 2027 rate listings say grades 3–11, but their descriptive paragraphs say girls entering grades 1–11. Rising grade basis follows the descriptive wording 'entering.' Mini Session II's limited availability is recorded as available, not full or waitlisted. Special-needs wording concerns eating disorders and psychological conditions and requests discussion with the director; it does not promise accommodations. The enrollment policy contains conflicting payment deadlines, which were not extracted."
+      }
+    ]
+  }
+}

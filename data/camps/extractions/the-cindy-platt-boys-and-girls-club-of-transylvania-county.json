@@ -1,0 +1,148 @@
+{
+  "provider": {
+    "key": "the-cindy-platt-boys-and-girls-club-of-transylvania-county",
+    "name": "The Cindy Platt Boys & Girls Club of Transylvania County",
+    "urls": [
+      "https://www.bgctransylvania.org/our-mission",
+      "https://www.bgctransylvania.org/",
+      "https://www.bgctransylvania.org/academicsuccess"
+    ],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:22.889Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a729ab28b803727318c6908671bd2107f6fe80c447af8bded7f359a038da8696",
+  "response": {
+    "searches": [
+      "site:bgctransylvania.org summer 2026 2027 registration",
+      "open https://www.bgctransylvania.org/parent-portal"
+    ],
+    "usage": {
+      "inputTokens": 17764,
+      "cachedInputTokens": 8223,
+      "outputTokens": 960,
+      "reasoningTokens": 121
+    },
+    "status": "completed",
+    "ms": 33134,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.bgctransylvania.org/our-mission",
+      "chars": 3201,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgctransylvania.org/",
+      "chars": 1154,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgctransylvania.org/academicsuccess",
+      "chars": 6004,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgctransylvania.org/capital-campaign",
+      "chars": 5121,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgctransylvania.org/s/BHX_CCTT_071124_01_A_009_00_01_CC.pdf",
+      "chars": 2182,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.bgctransylvania.org/s/Summer-2023-Newsletter.pdf",
+      "chars": 5690,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "The Cindy Platt Boys & Girls Club of Transylvania County",
+    "website_url": "https://www.bgctransylvania.org/",
+    "notes": "No official 2027 summer dates or registration milestones were found. The mission page describes an eight-week summer program but does not give dated sessions, fees or registration instructions. The Parent Portal could not be read beyond its search-result introduction. Summer Reading Hour and Walking Classroom are components of the summer program, not separate camp cards. The 2023 newsletter's temporary teen location was not used as a current drop-off site.",
+    "excluded": [
+      {
+        "name": "Afterschool Program",
+        "reason": "School-year afterschool programming, not a finite summer camp."
+      },
+      {
+        "name": "Power Hour",
+        "reason": "Listed under school-year programming."
+      },
+      {
+        "name": "Tutoring",
+        "reason": "Listed under school-year programming."
+      },
+      {
+        "name": "S.T.E.M. (Science, Technology, Engineering, and Mathematics)",
+        "reason": "Listed under school-year programming, not as a separate summer camp."
+      },
+      {
+        "name": "Diplomas2Degrees",
+        "reason": "Listed under school-year programming, not as a finite summer pre-college program."
+      },
+      {
+        "name": "Flag Football",
+        "reason": "The newsletter describes a sports team and tournament season, not a camp or clinic."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general", "academic"],
+        "description": "Members participate in recreation, reading and activities supporting social, emotional, physical and academic development. Summer academic activities include group reading and walking with recorded lessons.",
+        "camp_page_url": "https://www.bgctransylvania.org/our-mission",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "The Cindy Platt Boys & Girls Club of Transylvania County",
+            "address": "11 Gallimore Road",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": "17:30",
+          "text": "The mission narrative states Monday-Friday, 7:30am-5:30pm; the same page's Hours of Operation states Summer Hours: 8am-5:30pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.bgctransylvania.org/our-mission",
+          "https://www.bgctransylvania.org/academicsuccess",
+          "https://www.bgctransylvania.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The mission page conflicts on opening time: its narrative says 7:30am, while its Hours of Operation says 8am. The eight-week duration, hours and membership ages are undated standing information, not an explicitly labeled 2026 schedule. Confirm summer eligibility and current drop-off arrangements for teens; the supplied 2023 newsletter mentions a temporary separate teen building, while the current campus expansion page describes a new Teen Center."
+      }
+    ]
+  }
+}

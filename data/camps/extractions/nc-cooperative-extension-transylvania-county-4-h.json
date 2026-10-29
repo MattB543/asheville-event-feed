@@ -1,0 +1,404 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-transylvania-county-4-h",
+    "name": "N.C. Cooperative Extension — Transylvania County 4-H",
+    "urls": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:29:57.323Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8ba20d6c866d48917f5883c58da32e85af8a4474e5cf3e346e9fab1f4ee8a674",
+  "response": {
+    "searches": [
+      "site:transylvania.ces.ncsu.edu \"2026\" \"Summer\" \"4-H\"",
+      "\"Transylvania\" \"Summer Fun\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 36240,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3282,
+      "reasoningTokens": 273
+    },
+    "status": "completed",
+    "ms": 66958,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+      "chars": 8066,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/4-h-youth-development/enrollment/",
+      "chars": 4512,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/documents/701/NEW-4-H_Enrollment_Packet_2021SPA.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/documents/3184/Welcome_Packet_1zyh8kx.pdf",
+      "chars": 5443,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/documents/3185/Family-Guide_-Family-Account_yCYtdNY.pdf",
+      "chars": 8239,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/documents/703/New_Volunteer_Enrollment_4HOnline2_ZupPqYI.0.pdf",
+      "chars": 4690,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/4-h-youth-development/overnight-camp/",
+      "chars": 3781,
+      "method": "fetch"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/residential-camp-2/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found\")"
+    },
+    {
+      "url": "https://transylvania.ces.ncsu.edu/",
+      "chars": 4650,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Transylvania County 4-H",
+    "website_url": "https://transylvania.ces.ncsu.edu/",
+    "notes": "No official summer 2027 or summer 2026 program information was found. The supplied Summer Fun announcement is explicitly dated March 18, 2025, and the overnight camp page still links 2025 applications. Cards below preserve identifiable programs from that historical list, not confirmed 2027 offerings. Historical dates, prices, eligibility, locations and services have not been presented as 2026 or 2027 facts. Confirm the program list with Sarah Holden before publication.",
+    "excluded": [
+      {
+        "name": "District Activity Day",
+        "reason": "Competitive presentation and talent-show event requiring prior qualification, rather than a supervised camp or instructional clinic."
+      },
+      {
+        "name": "Beginner Sewing Class",
+        "reason": "October–November 2026 program, outside summer."
+      },
+      {
+        "name": "Jr. Equine Science Class",
+        "reason": "October–November 2026 program, outside summer."
+      },
+      {
+        "name": "Sr. Equine Science Class",
+        "reason": "October–November 2026 program, outside summer."
+      },
+      {
+        "name": "4-H Unmounted Horse Clinic",
+        "reason": "The 2026 announcement describes a fall clinic, outside summer."
+      },
+      {
+        "name": "4-H Clubs",
+        "reason": "Ongoing youth clubs, not finite summer programs."
+      },
+      {
+        "name": "4-H Projects",
+        "reason": "Self-paced year-round projects, not finite supervised summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "West District Horsemanship Clinic",
+        "type": "clinic",
+        "categories": ["horses"],
+        "description": "The historical offering includes mounted instruction with equine professionals and unmounted activities such as grooming, leading, stall cleaning and mane braiding.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering was found. Confirm continuation, mounted/unmounted bands and drop-off location. The historical mounted listing gives June 16–17 but describes three days."
+      },
+      {
+        "name": "Kids & Chefs",
+        "type": "half_day",
+        "categories": ["cooking"],
+        "description": "Youth learn cooking skills with local chefs, including knife skills, food safety, meal planning and meal preparation.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering was found. Confirm continuation and current details, including whether camp still meets at the Cooperative Extension office and includes lunch."
+      },
+      {
+        "name": "Camp at Betsy Jeff Penn Center",
+        "type": "overnight",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in overnight camp activities including archery, rock climbing, kayaking and crafts.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/4-h-youth-development/overnight-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+          "https://transylvania.ces.ncsu.edu/4-h-youth-development/overnight-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The overnight page still offers 2025 applications. Confirm the county's 2027 session, eligibility, fees, transportation and actual family drop-off site rather than assuming drop-off at the residential center."
+      },
+      {
+        "name": "River Rangers",
+        "type": "half_day",
+        "categories": ["nature_outdoor", "stem"],
+        "description": "Youth explore streams and learn river stewardship, scientific fieldwork, natural-resource preservation and how to share research. The historical program includes a kayak trip.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering was found. Confirm continuation and current details. The historical location is only 'Varies'; no drop-off sites are identified."
+      },
+      {
+        "name": "Cloverbud Camp: 4-H on the Range",
+        "type": "half_day",
+        "categories": ["general", "arts"],
+        "description": "This western-themed Cloverbud camp uses crafts, snack-making and stories to introduce youth to 4-H.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering and theme were found. Confirm continuation, current theme and whether camp still meets at the Cooperative Extension office."
+      },
+      {
+        "name": "4-H Congress",
+        "type": "overnight",
+        "categories": ["general", "academic"],
+        "description": "Youth attend workshops, elections, a service project and social activities with 4-H participants from across North Carolina.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the county's 2025 listing was found. Confirm continuation, overnight arrangements and family drop-off location; the historical page names only Raleigh."
+      },
+      {
+        "name": "Around the World with 4-H and El Centro",
+        "type": "day",
+        "categories": ["arts", "cooking", "academic"],
+        "description": "Participants explore different countries' cultures and traditions through food, art, dance and language.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering was found. Confirm continuation, daily hours and the current drop-off venue before mapping El Centro."
+      },
+      {
+        "name": "Veterinary Science Camp",
+        "type": "day",
+        "categories": ["stem"],
+        "description": "Youth receive a hands-on introduction to veterinary work, including animal handling, safety and basic veterinary-science skills with large and small animals.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 offering was found. Confirm continuation and daily hours. The historical location is only 'Varies'; no drop-off sites are identified."
+      },
+      {
+        "name": "Youth Voice",
+        "type": "overnight",
+        "categories": ["academic", "general"],
+        "description": "Youth delegates attend leadership workshops at the North Carolina County Commissioners Conference and meet with Transylvania County commissioners.",
+        "camp_page_url": "https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://transylvania.ces.ncsu.edu/news/summer-fun-registration-now-open/"],
+        "confidence": "medium",
+        "review_notes": "Only the 2025 delegate program was found. Confirm continuation, selection requirements, accommodations, transportation and family drop-off location."
+      }
+    ]
+  }
+}

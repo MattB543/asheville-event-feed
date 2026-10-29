@@ -1,0 +1,286 @@
+{
+  "provider": {
+    "key": "growing-wild-forest-school",
+    "name": "Growing Wild Forest School",
+    "urls": [
+      "https://www.growingwildforestschool.org/camp",
+      "https://www.growingwildforestschool.org/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:27.665Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d6d270ab387b77115afd960a107cc22b630f9ae6cf69888d9a48922e72e5fbca",
+  "response": {
+    "searches": [
+      "site.growingwildforestschool.org \"address\"",
+      "\"Growing Wild Forest School\" \"Asheville\" address"
+    ],
+    "usage": {
+      "inputTokens": 21964,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1922,
+      "reasoningTokens": 126
+    },
+    "status": "completed",
+    "ms": 41877,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.growingwildforestschool.org/camp",
+      "chars": 4737,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.growingwildforestschool.org/",
+      "chars": 2593,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.growingwildforestschool.org/tuition-registration",
+      "chars": 7607,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.growingwildforestschool.org/frequently-asked-questions",
+      "chars": 8278,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.growingwildforestschool.org/openhouse-schedule-2026",
+      "chars": 1431,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Growing Wild Forest School",
+    "website_url": "https://www.growingwildforestschool.org/",
+    "notes": "2027 camp dates and registration milestones are posted. The camp page retains several 2026 labels despite explicit 2027 dates. No published campus street address was found; the FAQ describes private land along the Hominy Creek Greenway in West Asheville. The contact page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Growing Wild Forest School preschool",
+        "reason": "School-year preschool programming, not a finite summer camp."
+      },
+      {
+        "name": "Acorn Adventures Afternoons",
+        "reason": "Afternoon programming on the school-year calendar, not a summer-only offering."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["nature_outdoor"],
+        "description": "Campers explore weekly nature themes through songs, stories, games and crafts. Activities include free play on the wooded campus and daily splash time.",
+        "camp_page_url": "https://www.growingwildforestschool.org/camp",
+        "registration_url": "https://www.growingwildforestschool.org/camp",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-14",
+          "end": "2027-08-13",
+          "text": "SUMMER CAMP 2027"
+        },
+        "ages": {
+          "min": 3,
+          "max": 6
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Growing Wild Forest School West Asheville campus",
+            "address": null,
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "13:30",
+          "text": "8:30 am - 1:30 pm Monday through Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 375,
+            "unit": "week",
+            "label": "Tuition",
+            "year": 2027
+          },
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "One-time application fee for new students",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1: Plants & Herbs",
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2: Talking Trees",
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3: Beautiful Birds",
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4: Furry Friends",
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5: Wizards & Faeries",
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6: Bugs & Spiders",
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7: Wild Weather",
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 8: Excellent Elements",
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 9: Reptiles & Amphibians",
+            "start": "2027-08-09",
+            "end": "2027-08-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-02-01",
+            "time": "09:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "February 1, 2027 at 9am: camp registration opens",
+            "url": "https://www.growingwildforestschool.org/camp",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-02-27",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "February 27, 2027: nonrefundable deposits due",
+            "url": "https://www.growingwildforestschool.org/camp",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "deadline",
+            "date": "2027-04-30",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "April 30, 2027: tuition due in full",
+            "url": "https://www.growingwildforestschool.org/camp",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.growingwildforestschool.org/camp",
+          "https://www.growingwildforestschool.org/frequently-asked-questions",
+          "https://www.growingwildforestschool.org/tuition-registration",
+          "https://www.growingwildforestschool.org/school-calendar"
+        ],
+        "confidence": "medium",
+        "review_notes": "Dates without individual years are under the SUMMER CAMP 2027 heading. Use the camp page's 08:30–13:30 hours; the tuition page instead says 09:30–14:30. The FAQ says camp registration opens in March each year, while the camp page explicitly announces February 1, 2027 at 9am and the school calendar also says February 1. Camp page metadata says ages 3–8, but the 2027 body specifies ages 3–6. Confirm the campus street address and updated registration link; several application and signup labels still say 2026. Children must be fully potty trained. A $100 deposit per week is credited toward tuition, not an additional charge. Forestship assistance is described for school enrollment, but summer-camp eligibility is not explicit."
+      }
+    ]
+  }
+}

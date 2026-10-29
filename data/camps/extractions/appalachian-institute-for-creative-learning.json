@@ -1,0 +1,295 @@
+{
+  "provider": {
+    "key": "appalachian-institute-for-creative-learning",
+    "name": "Appalachian Institute for Creative Learning",
+    "urls": ["https://appalachianinstitute.org/summercamp/"],
+    "area": "Mars Hill, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:27:51.366Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "437f2d2b68ec2fae4c4d0ab7388191248b5481829ce47b6944da3224cb339e82",
+  "response": {
+    "searches": [
+      "site:appalachianinstitute.org leadership program 2027",
+      "open https://appalachianinstitute.org/leadership/"
+    ],
+    "usage": {
+      "inputTokens": 24333,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2297,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 48747,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://appalachianinstitute.org/summercamp/",
+      "chars": 7576,
+      "method": "fetch"
+    },
+    {
+      "url": "https://aicl.campintouch.com/ui/forms/application/camper/App",
+      "chars": 206,
+      "method": "browser"
+    },
+    {
+      "url": "https://appalachianinstitute.org/parent-information/",
+      "chars": 28796,
+      "method": "fetch"
+    },
+    {
+      "url": "https://appalachianinstitute.org/in-person-policy-guide/",
+      "chars": 9280,
+      "method": "fetch"
+    },
+    {
+      "url": "https://appalachianinstitute.org/",
+      "chars": 4434,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Appalachian Institute for Creative Learning",
+    "website_url": "https://appalachianinstitute.org/",
+    "notes": "The provider now lists Berea College in Berea, Kentucky, rather than Mars Hill, North Carolina. The summer page lists July dates beside its 2027 coming-soon announcement without explicitly printing a year with the dates or prices; these are recorded as 2027 with medium confidence. No dated 2027 registration opening was found. The scholarships page returned no readable text.",
+    "excluded": [
+      {
+        "name": "Camp Apprentices",
+        "reason": "A post-high-school mentored internship preparing participants for staff roles, rather than a youth camper program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Appalachian Institute Summer Camp",
+        "type": "overnight",
+        "categories": ["academic", "arts", "stem"],
+        "description": "Campers choose creative and academic classes and participate in counselor-led activities, clubs, and evening programs. Residential campers stay in campus dorms.",
+        "camp_page_url": "https://appalachianinstitute.org/summercamp/",
+        "registration_url": "https://aicl.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-31",
+          "text": "Registration for 2027 Coming Soon"
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Berea College",
+            "address": "101 Chestnut St",
+            "town": "Berea",
+            "state": "KY"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 959,
+            "unit": "week",
+            "label": "Residential",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We do have a robust scholarship program to eligible campers in need of financial assistance, but the amount we're able to offer varies year to year."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your camper has support needs staff should know about, please share them before camp begins."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Meals are provided during camp programming."
+        },
+        "transportation": {
+          "value": "case_by_case",
+          "text": "To support families moving with us from North Caroling to Kentucky, AICL intends to offer a free shuttle to Berea. If you are interested, please email us at info@appalachianinstitute.org."
+        },
+        "sources": [
+          "https://appalachianinstitute.org/summercamp/",
+          "https://appalachianinstitute.org/parent-information/",
+          "https://appalachianinstitute.org/in-person-policy-guide/",
+          "https://www.berea.edu/campus-maps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm that the unyeared July 18–24 and July 25–31 dates and $959 price on the summer page describe 2027. The year is taken from the adjacent 2027 announcement. Exact check-in building is emailed before camp."
+      },
+      {
+        "name": "Appalachian Institute Summer Camp",
+        "type": "day",
+        "categories": ["academic", "arts", "stem"],
+        "description": "Day campers take two morning and two afternoon classes, eat lunch in the campus cafeteria, and join afternoon activities.",
+        "camp_page_url": "https://appalachianinstitute.org/summercamp/",
+        "registration_url": "https://aicl.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-18",
+          "end": "2027-07-31",
+          "text": "Registration for 2027 Coming Soon"
+        },
+        "ages": {
+          "min": 8,
+          "max": 18
+        },
+        "grades": {
+          "min": 3,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Berea College",
+            "address": "101 Chestnut St",
+            "town": "Berea",
+            "state": "KY"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "17:00",
+          "text": "Weekday drop-off at 8:30 am and pickup at 5:00 pm. Monday arrival instructions conflict: one section says 8:30, another says 8:20. Saturday closing ceremony begins at 10:00 AM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 590,
+            "unit": "week",
+            "label": "Day",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-07-25",
+            "end": "2027-07-31",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "We do have a robust scholarship program to eligible campers in need of financial assistance, but the amount we're able to offer varies year to year."
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "If your camper has support needs staff should know about, please share them before camp begins."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "Campers will attend two classes in the morning, have lunch (which is included), and then two classes in the afternoon."
+        },
+        "transportation": null,
+        "sources": [
+          "https://appalachianinstitute.org/summercamp/",
+          "https://appalachianinstitute.org/parent-information/",
+          "https://appalachianinstitute.org/in-person-policy-guide/",
+          "https://www.berea.edu/campus-maps"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the year of the unyeared session dates and $590 price; 2027 is taken from the adjacent announcement. Session rows preserve the camp's advertised week ranges, not inferred weekday attendance dates. The family guide conflicts on Monday arrival time. Dining Hall drop-off location is to be confirmed by email."
+      },
+      {
+        "name": "Leaders-in-Training",
+        "type": "overnight",
+        "categories": ["academic", "general"],
+        "description": "Campers practice collaborative leadership through projects, discussion, planning, and reflection. Rising juniors and seniors can take LIT: Ignite the Night and help design and lead a Friday evening activity.",
+        "camp_page_url": "https://appalachianinstitute.org/leadership/",
+        "registration_url": "https://aicl.campintouch.com/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://appalachianinstitute.org/leadership/"],
+        "confidence": "medium",
+        "review_notes": "The leadership page describes this as a camper program but does not state a season year, separate dates, prices, venue, or residential versus day eligibility. Overnight classification reflects its camp-community and evening-activity context and needs confirmation. Leadership Lab is for ages 13+; LIT: Ignite the Night is restricted to rising juniors and seniors and offered during Week 1 and/or Week 2, without dated rows."
+      }
+    ]
+  }
+}

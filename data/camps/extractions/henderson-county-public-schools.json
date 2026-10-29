@@ -1,0 +1,231 @@
+{
+  "provider": {
+    "key": "henderson-county-public-schools",
+    "name": "Henderson County Public Schools",
+    "urls": [
+      "https://www.hendersoncountypublicschoolsnc.org/elementary-education/read-to-achieve-4/",
+      "https://www.hendersoncountypublicschoolsnc.org/child-care/overview-of-childcare-program/"
+    ],
+    "area": "Hendersonville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:45.443Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "275996b934597e869d0b30558f4decad910ef697bf8b5e36c01e0d2622528ec6",
+  "response": {
+    "searches": [
+      "site:hendersoncountypublicschoolsnc.org \"2026\" \"Summer PLUS\"",
+      "site:hendersoncountypublicschoolsnc.org \"Summer PLUS\" \"2026\" \"June\"",
+      "site:hendersoncountypublicschoolsnc.org/child-care/files/2026 \"Traditional\" \"Summer\""
+    ],
+    "usage": {
+      "inputTokens": 40438,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1681,
+      "reasoningTokens": 231
+    },
+    "status": "completed",
+    "ms": 38636,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/read-to-achieve-4/",
+      "chars": 5853,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/child-care/overview-of-childcare-program/",
+      "chars": 8882,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/kindergarten-registration/",
+      "chars": 8481,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/files/2025/10/Kindergarten-Registration-Frequently-Asked-Questions-1-1613764830_ADA_5_v2.pdf",
+      "chars": 5667,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/files/2025/07/Spanish-Kindergarten-Registration-Frequently-Asked-Questions-1613764783_ADA_3_v2.pdf",
+      "chars": 6236,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/kindergarten-registration/reaching-4-reading/",
+      "chars": 5407,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/child-care/home/child-care-fees/",
+      "chars": 7376,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.hendersoncountypublicschoolsnc.org/parents/enrollment/",
+      "chars": 7159,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Henderson County Public Schools",
+    "website_url": "https://www.hendersoncountypublicschoolsnc.org/",
+    "notes": "No complete summer 2027 schedule or dated registration announcement was found. The 2026 Flex Childcare Calendar identifies Summer PLUS at Hendersonville Elementary June 1–26; this is not necessarily the full districtwide summer schedule. The extracted 2026-2027 Flex Childcare Calendar ends at May and could not establish June 2027 programming.",
+    "excluded": [
+      {
+        "name": "PSAM (Before-School)",
+        "reason": "School-year before-school childcare, not a finite summer program."
+      },
+      {
+        "name": "PSPM (After-School)",
+        "reason": "School-year after-school childcare, not a finite summer program."
+      },
+      {
+        "name": "PLUS (Non-Student Days)",
+        "reason": "Teacher-workday, winter-break and other nonsummer care excluded; Summer PLUS is included separately."
+      },
+      {
+        "name": "Reaching 4 Reading Videos",
+        "reason": "Self-directed parent video resource, not a supervised youth program."
+      },
+      {
+        "name": "Kindergarten Registration",
+        "reason": "School enrollment, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer PLUS",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children participate in arts and crafts, games, indoor and outdoor physical activities, story time, science activities and dramatic play. Programming also includes pool visits, field trips and educational presenters.",
+        "camp_page_url": "https://www.hendersoncountypublicschoolsnc.org/child-care/overview-of-childcare-program/",
+        "registration_url": "https://www.hendersoncountypublicschoolsnc.org/child-care/home/annual-enrollment/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 12
+        },
+        "grades": {
+          "min": 0,
+          "max": 5,
+          "basis": "current"
+        },
+        "sites": [
+          {
+            "name": "Hendersonville Elementary",
+            "address": "1039 Randall Circle",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "06:30",
+          "end": "18:00",
+          "text": "Drop off time is no later than 9:00 am. Parents must be aware of field trip times and adjust drop off time accordingly."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 155,
+            "unit": "week",
+            "label": "Summer PLUS; 2026-2027 School Year fee schedule",
+            "year": 2027
+          },
+          {
+            "amount": 60,
+            "unit": "other",
+            "label": "Non-refundable enrollment fee per child; includes a field-trip T-shirt",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Summer Plus @ HES",
+            "start": "2026-06-01",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Checks, money orders, and DSS vouchers are also accepted. DSS funding is limited and is not always available."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "Students must bring or purchase their lunches. Students receiving Free or Reduced-Price lunches during the school year remain eligible through the Summer PLUS program."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/overview-of-childcare-program/",
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/home/annual-enrollment/",
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/home/child-care-fees/",
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/home/childcare-school-year/",
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/files/2026/02/2025-2026-Flex-Childcare-Calendar-021226_ADA.pdf",
+          "https://www.hendersoncountypublicschoolsnc.org/child-care/files/2026/04/HCPS-Childcare-Parent-Handbook-4.14.26_ADA.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 1–26 dates derive from the 2025-2026 Flex Childcare Calendar and cover the HES offering only; check for additional districtwide sites and weeks. The 2026-2027 School Year page lists $155/week, while the older Weekly Child Care Fees page lists $140/week. The $155 rate is labeled 2027 from the school-year heading; confirm its application to summer 2027. The $60 enrollment fee comes from an undated standing enrollment policy, not a summer-specific announcement."
+      },
+      {
+        "name": "Read to Achieve",
+        "type": "day",
+        "categories": ["academic"],
+        "description": "Summer reading camp provides intensive reading support for third-grade students who are not reading at grade level by the end of third grade.",
+        "camp_page_url": "https://www.hendersoncountypublicschoolsnc.org/elementary-education/read-to-achieve-4/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 3,
+          "max": 3,
+          "basis": "completed"
+        },
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.hendersoncountypublicschoolsnc.org/elementary-education/read-to-achieve-4/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

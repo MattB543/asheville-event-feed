@@ -1,0 +1,59 @@
+{
+  "provider": {
+    "key": "mount-zion-baptist-church-of-canton",
+    "name": "Mount Zion Baptist Church of Canton",
+    "urls": ["https://thechurchinthemount.com/"],
+    "area": "Canton, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:38:43.248Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "c56e349522f8038fe4ede35fde7e095567bf84897f69f84c9c12945cd885ebb4",
+  "response": {
+    "searches": [
+      "site:thechurchinthemount.com \"VBS\"",
+      "open https://thechurchinthemount.com/members",
+      "site:thechurchinthemount.com kids",
+      "open https://thechurchinthemount.com/kids"
+    ],
+    "usage": {
+      "inputTokens": 20904,
+      "cachedInputTokens": 8223,
+      "outputTokens": 461,
+      "reasoningTokens": 227
+    },
+    "status": "completed",
+    "ms": 24084,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://thechurchinthemount.com/",
+      "chars": 3410,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Mount Zion Baptist Church of Canton",
+    "website_url": "https://thechurchinthemount.com/",
+    "notes": "No qualifying summer camp or Vacation Bible School could be verified for 2026 or 2027. The supplied homepage describes recurring ministries and an October event, not summer programs. Official Kids and Youth pages were discoverable through search snippets, but opening those pages and the Events page returned no readable text. Searches for summer and VBS information did not identify a qualifying offering for this Canton church; similarly named churches' programs were not included.",
+    "excluded": [
+      {
+        "name": "Kids at the Mount",
+        "reason": "Recurring weekly children's ministry, not a finite summer program."
+      },
+      {
+        "name": "Youth ministry",
+        "reason": "Ongoing church ministry; no finite summer offering could be verified."
+      },
+      {
+        "name": "Trunk of Treats at the Mount!",
+        "reason": "October 31 event, outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

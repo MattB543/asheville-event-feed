@@ -1,0 +1,142 @@
+{
+  "provider": {
+    "key": "boys-and-girls-club-of-johnson-city-washington-county",
+    "name": "Boys & Girls Club of Johnson City / Washington County",
+    "urls": ["https://www.gokidz.org/our-programs"],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:22:47.488Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cc50e1ef9a50afb818ee6eb746872cf60ebc3e2051d5b5e4863e14c784036275",
+  "response": {
+    "searches": [
+      "site:gokidz.org summer 2027 registration",
+      "open https://www.gokidz.org/our-programs"
+    ],
+    "usage": {
+      "inputTokens": 16946,
+      "cachedInputTokens": 8223,
+      "outputTokens": 898,
+      "reasoningTokens": 109
+    },
+    "status": "completed",
+    "ms": 22364,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.gokidz.org/our-programs",
+      "chars": 5399,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gokidz.org/faq",
+      "chars": 8242,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.gokidz.org/",
+      "chars": 6703,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Boys & Girls Club of Johnson City / Washington County",
+    "website_url": "https://www.gokidz.org/",
+    "notes": "No 2027 summer dates or registration milestones were found. The Summer Program card uses the explicitly posted 2026 information. The website mentions free sports camps throughout the year but provides no specific summer offerings or dates. The programs page could not be reopened through the browser; the supplied official page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "After School Program",
+        "reason": "School-year afterschool childcare, not a summer program."
+      },
+      {
+        "name": "Trauma Informed Care",
+        "reason": "Staff and caregiver training and an ongoing care approach, not a finite supervised youth summer program."
+      },
+      {
+        "name": "Organized Sports",
+        "reason": "Sports leagues are excluded; the page states there are no current organized sports offerings."
+      },
+      {
+        "name": "Youth Development Professional",
+        "reason": "Employment opportunity, not a youth camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Program",
+        "type": "day",
+        "categories": ["general", "academic", "sports", "arts", "stem"],
+        "description": "Members participate in academic activities, healthy lifestyle programs, and themed activities during extended summer hours. The 2026 theme is a year of celebrations and holidays.",
+        "camp_page_url": "https://www.gokidz.org/our-programs",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": {
+          "min": 0,
+          "max": null,
+          "basis": "completed"
+        },
+        "sites": [
+          {
+            "name": "Boys & Girls Club of Johnson City / Washington County",
+            "address": "2210 West Market Street",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:30",
+          "text": "Monday through Friday 7:30 am - 5:30 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "week",
+            "label": "Weekly summer fee",
+            "year": 2026
+          },
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "Yearly membership fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Members receive meals for Breakfast, Lunch and Snack."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.gokidz.org/our-programs",
+          "https://www.gokidz.org/faq",
+          "https://www.gokidz.org/",
+          "https://www.gokidz.org/contact"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

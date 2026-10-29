@@ -1,0 +1,98 @@
+{
+  "provider": {
+    "key": "grace-baptist-church-of-marion",
+    "name": "Grace Baptist Church of Marion",
+    "urls": [
+      "https://www.facebook.com/939428689260906",
+      "https://www.facebook.com/GraceBaptistMarion/"
+    ],
+    "area": "Marion, NC",
+    "hint": "Found only on social media (Facebook / Instagram); look for its own website too.",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "review",
+    "status_reason": "first page is a social media page or video, which our fetcher can't read"
+  },
+  "extractedAt": "2026-10-29T15:21:51.869Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": null,
+  "response": {
+    "searches": [
+      "Grace Baptist Church Marion NC vacation bible school 2026",
+      "open https://gracebaptistmarionnc.myanswers.com/emerald-crossing",
+      "site:gracebaptistmarionnc.myanswers.com \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 22273,
+      "cachedInputTokens": 8223,
+      "outputTokens": 870,
+      "reasoningTokens": 254
+    },
+    "status": "completed",
+    "ms": 29904,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.facebook.com/939428689260906",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    },
+    {
+      "url": "https://www.facebook.com/GraceBaptistMarion/",
+      "chars": 0,
+      "error": "social page: not fetched (login wall)"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Grace Baptist Church of Marion",
+    "website_url": null,
+    "notes": "No 2027 summer information found. Both supplied Facebook pages and the MyAnswers VBS page returned no readable text. A third-party mirror of the church's VBS Facebook posts lists June 14–19, 2026 and a pre-registration form. A possible Weebly website was found but could not be verified as this Marion, NC church; similarly named churches in other states were not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church offers a summer Vacation Bible School for children.",
+        "camp_page_url": "https://www.facebook.com/939428689260906",
+        "registration_url": "https://gracebaptistmarionnc.myanswers.com/emerald-crossing",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grace Baptist Church",
+            "address": "930 Shady Lane",
+            "town": "Marion",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.facebook.com/939428689260906",
+          "https://www.facebook.com/GraceBaptistMarion/",
+          "https://gracebaptistmarionnc.myanswers.com/emerald-crossing"
+        ],
+        "confidence": "low",
+        "review_notes": "Verify dates, address, and registration destination directly with the church. Official Facebook and MyAnswers pages could not be read. Dates and address were found in https://www.findglocal.com/US/Marion/939428689260906/VBS-Grace-Baptist-Church, which mirrors a May 14, 2026 post saying June 14–19. The mirror also links the MyAnswers page and a Google pre-registration form. A third-party event listing gives a June 14 start at 5:30 PM, but hours were left null because official confirmation was unavailable. The ages 4–13 in an older official Facebook search result were not reused for 2026."
+      }
+    ]
+  }
+}

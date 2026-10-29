@@ -1,0 +1,202 @@
+{
+  "provider": {
+    "key": "eliada-homes",
+    "name": "Eliada Homes",
+    "urls": ["https://www.eliada.org/summer-camp/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:04:43.319Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "249f014e665f54af37f089a7727994809462ff333530ac2acc70de0579b24bde",
+  "response": {
+    "searches": ["site:eliada.org summer camp 2027 2026 Junior Volunteers"],
+    "usage": {
+      "inputTokens": 16260,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1457,
+      "reasoningTokens": 101
+    },
+    "status": "completed",
+    "ms": 34862,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.eliada.org/summer-camp/",
+      "chars": 2771,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eliada.org/counselingfaq/",
+      "chars": 5083,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eliada.org/campus-farm-program/",
+      "chars": 6061,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.eliada.org/",
+      "chars": 3322,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Eliada Homes",
+    "website_url": "https://www.eliada.org/",
+    "notes": "No 2027 camp dates or registration announcements were found. The current camp page is undated; its hours and fees are retained as 2026 fallback information, not confirmed 2027 terms. Registration is by contacting Summer Camp Coordinator Melody Gonzalez at mgonzalez@eliada.org or (828) 348-3360. A wait-list form is present, but the page does not explicitly say the camp is currently full.",
+    "excluded": [
+      {
+        "name": "Child Care and Pre-K",
+        "reason": "Year-round childcare and preschool, not a finite summer program."
+      },
+      {
+        "name": "After School Program",
+        "reason": "School-year after-school care, not a summer camp."
+      },
+      {
+        "name": "Campus Farm Program",
+        "reason": "Ongoing agricultural education, rather than a finite summer youth program."
+      },
+      {
+        "name": "Farm Tours",
+        "reason": "General-public guided tours, not supervised youth camps."
+      },
+      {
+        "name": "Farm Internships",
+        "reason": "Year-round internships, not summer camp programs."
+      },
+      {
+        "name": "Corn Maze + Fall Festival",
+        "reason": "Fall attraction outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Campers participate in organized activities and team-building games, with access to a swimming pool, hiking trails, gymnasium, ball field, farm animals and playground. Field trips are planned around campers' expressed interests.",
+        "camp_page_url": "https://www.eliada.org/summer-camp/",
+        "registration_url": "https://www.eliada.org/summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": null,
+          "max": 12
+        },
+        "grades": {
+          "min": 1,
+          "max": null,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Eliada Homes",
+            "address": "2 Compton Dr.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:00",
+          "end": "17:30",
+          "text": "Monday through Friday from 7:00am-5:30pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 50,
+            "unit": "other",
+            "label": "Registration fee",
+            "year": 2026
+          },
+          {
+            "amount": 275,
+            "unit": "week",
+            "label": "Private pay, full week",
+            "year": 2026
+          },
+          {
+            "amount": 0,
+            "unit": "week",
+            "label": "Subsidy: no additional cost",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "Eligibility/priority is determined by Eliada. First priority is given to unserved children, followed by underserved children."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.eliada.org/summer-camp/", "https://www.eliada.org/"],
+        "confidence": "medium",
+        "review_notes": "The camp page does not identify a season year or dates. Prices and hours are undated current-page facts retained under 2026. The published campus address is used; confirm the specific drop-off building. Eligibility is stated as rising 1st graders through youth age 12, so no minimum age or maximum grade was inferred. Private-pay parents receive a stated $5 discount for a second full-time child."
+      },
+      {
+        "name": "Junior Volunteers",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Youth ages 13–16 may serve as Junior Volunteers in Eliada's summer camp.",
+        "camp_page_url": "https://www.eliada.org/summer-camp/",
+        "registration_url": "https://www.eliada.org/summer-camp/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": 16
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Eliada Homes",
+            "address": "2 Compton Dr.",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 75,
+            "unit": "other",
+            "label": "Junior Volunteer; billing period not specified",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.eliada.org/summer-camp/", "https://www.eliada.org/"],
+        "confidence": "medium",
+        "review_notes": "The page lists Junior Volunteers ages 13–16 and a $75 fee but does not describe duties, supervision, dates, hours or the fee's billing period. Confirm that this is a structured summer youth program rather than informal volunteering. The fee is undated and retained under 2026. The campus address is published, but the specific drop-off building is not."
+      }
+    ]
+  }
+}

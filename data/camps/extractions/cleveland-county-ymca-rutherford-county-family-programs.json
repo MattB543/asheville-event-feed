@@ -1,0 +1,239 @@
+{
+  "provider": {
+    "key": "cleveland-county-ymca-rutherford-county-family-programs",
+    "name": "Cleveland County YMCA — Rutherford County Family Programs",
+    "urls": ["https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/"],
+    "area": "Forest City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:28:11.658Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "cc7c86f2ce8baed9cd7d378364065f094878f4583ed2474b1f068189967c9930",
+  "response": {
+    "searches": [
+      "site.clevecoymca.org Rutherford summer camp 2027 ages",
+      "\"ROC\" \"140 Old Caroleen\"",
+      "open https://roc.rcsnc.org/"
+    ],
+    "usage": {
+      "inputTokens": 19856,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1700,
+      "reasoningTokens": 158
+    },
+    "status": "completed",
+    "ms": 41229,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/",
+      "chars": 4371,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clevecoymca.org/all-things-ymca/",
+      "chars": 1034,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clevecoymca.org/home/more/special-schedules/",
+      "chars": 4847,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.clevecoymca.org/",
+      "chars": 2649,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Cleveland County YMCA — Rutherford County Family Programs",
+    "website_url": "https://www.clevecoymca.org/",
+    "notes": "The official camp page lists both 2027 and 2028 sessions. Only summer 2027 sessions are included. No 2027 summer registration opening date or camper ages were found. Older summer brochures surfaced in search but were not used to fill 2027 details. The venue's own website returned no readable text; the YMCA publishes the street address and town.",
+    "excluded": [
+      {
+        "name": "Spring Break Camp",
+        "reason": "Occurs outside summer."
+      },
+      {
+        "name": "Christmas Camp",
+        "reason": "School-break program outside summer, mentioned in the spring-break FAQ."
+      },
+      {
+        "name": "Rutherford County Schools Kids Day Out",
+        "reason": "Single-day school-year care referenced as an alternative to spring-break camp; no summer offering established."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Campers swim three days a week and take Tuesday field trips, weather permitting.",
+        "camp_page_url": "https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/",
+        "registration_url": "https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "The R.O.C.",
+            "address": "140 Old Caroleen Rd",
+            "town": "Forest City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:00",
+          "end": "18:00",
+          "text": "7:00 AM- 6:00 PM Monday-Friday"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 102,
+            "unit": "week",
+            "label": "Cost; subject to change",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2027-06-07",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-06-14",
+            "end": "2027-06-18",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-06-21",
+            "end": "2027-06-25",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-06-28",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-07-05",
+            "end": "2027-07-09",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-07-12",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-07-19",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-07-26",
+            "end": "2027-07-30",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": null,
+            "start": "2027-08-02",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": "All listed summer 2027 sessions",
+          "text": "Registration Closed"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "no",
+          "text": "What to Bring/Wear: 2 snacks, lunch, water bottle, sunscreen, bathing suit & towel, camp shirt (Tuesdays), closed-toe shoes, and play clothes."
+        },
+        "transportation": null,
+        "sources": ["https://www.clevecoymca.org/programs/23000024/rutherford-county-youth-camps/"],
+        "confidence": "medium",
+        "review_notes": "The $102 cost and hours appear in the general youth-camps introduction rather than a year-specific Summer Camp section; confirm that they apply to 2027. Weekly price unit is inferred from the statement that camp fees are drafted weekly. The section heading spans 2027 and 2028; season dates here use only the explicitly dated 2027 session rows. The venue website https://roc.rcsnc.org/ returned no readable text, so the address uses the YMCA's published location."
+      }
+    ]
+  }
+}

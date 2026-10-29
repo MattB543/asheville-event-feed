@@ -1,0 +1,137 @@
+{
+  "provider": {
+    "key": "jonesborough-united-methodist-church",
+    "name": "Jonesborough United Methodist Church",
+    "urls": ["https://www.jnsbrumc.org/vbs-2026.html"],
+    "area": "Jonesborough, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:24:53.159Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "9d38c278a9186a73139d3da96d324b1bc2c63d0d2b3aab4c628ab3342cb2131a",
+  "response": {
+    "searches": ["site:jnsbrumc.org \"2027\" VBS"],
+    "usage": {
+      "inputTokens": 17501,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1081,
+      "reasoningTokens": 151
+    },
+    "status": "completed",
+    "ms": 30123,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jnsbrumc.org/vbs-2026.html",
+      "chars": 1221,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jnsbrumc.org/summer-mission-trip.html",
+      "chars": 1301,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jnsbrumc.org/",
+      "chars": 3118,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jonesborough United Methodist Church",
+    "website_url": "https://www.jnsbrumc.org/",
+    "notes": "No summer 2027 information was found. The Summer Mission Trip page says the 2026 trip will be announced soon, but provides no dates, destination, ages or format; no card was created because a finite supervised program could not be confirmed. Camp Bays Mountain is promoted in church announcements but is a separate provider.",
+    "excluded": [
+      {
+        "name": "Adventure Kids",
+        "reason": "Recurring midweek program; the church explicitly says it does not operate during summer."
+      },
+      {
+        "name": "Children's Sunday School",
+        "reason": "Regular Sunday ministry, not a finite summer program."
+      },
+      {
+        "name": "Children’s Church",
+        "reason": "Regular worship-service ministry, not a finite summer program."
+      },
+      {
+        "name": "Toddler Program",
+        "reason": "Regular Sunday program, not summer-only childcare."
+      },
+      {
+        "name": "Nursery",
+        "reason": "Regular church childcare, not a finite summer program."
+      },
+      {
+        "name": "Resurrection",
+        "reason": "January 23–25, 2026 retreat, outside summer."
+      },
+      {
+        "name": "Family Night",
+        "reason": "Family pool event on June 25, rather than a supervised youth-only camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children attend three evenings of Vacation Bible School in the church Fellowship Hall. A meal is provided.",
+        "camp_page_url": "https://www.jnsbrumc.org/vbs-2026.html",
+        "registration_url": "https://www.jnsbrumc.org/vbs-2026.html",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-24",
+          "text": null
+        },
+        "ages": {
+          "min": 2,
+          "max": null
+        },
+        "grades": {
+          "min": null,
+          "max": 5,
+          "basis": "unspecified"
+        },
+        "sites": [
+          {
+            "name": "JUMC Fellowship Hall",
+            "address": "211 West Main Street",
+            "town": "Jonesborough",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "Starting at 6pm and ending at 8pm. There will be a meal at 6pm."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "There will be a meal at 6pm."
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.jnsbrumc.org/vbs-2026.html",
+          "https://www.jnsbrumc.org/uploads/8/7/5/7/8757305/june_14_insert.pdf",
+          "https://www.jnsbrumc.org/uploads/8/7/5/7/8757305/oct_25_1045_bulletin.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "The official VBS page's indexed embedded form explicitly states June 22–24, 2026, 6–8pm; the June bulletin corroborates the dates and hours. The page says Age 2–Grade 5, but its form includes Grade 6 among completed-grade options; verify the upper grade limit and grade basis. The meal is an evening meal, not lunch. Registration at 5:30pm Monday evening is check-in, not a stated registration opening date."
+      }
+    ]
+  }
+}

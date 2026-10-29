@@ -1,0 +1,312 @@
+{
+  "provider": {
+    "key": "emmanuel-lutheran-school",
+    "name": "Emmanuel Lutheran School",
+    "urls": [
+      "https://emmanuellutheranschool.org/summer/",
+      "https://emmanuellutheranschool.org/blog/asheville-summer-day-camp/"
+    ],
+    "area": "Asheville, NC",
+    "discovered_by": ["aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:02.995Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "f5f734d3fbc45136aa27620ec726bfce8b6a6af1a9cfe4e46595878819f08486",
+  "response": {
+    "searches": [
+      "site.emmanuellutheranschool.org summer 2027",
+      "open https://emmanuellutheranschool.org/uncategorised/summer/",
+      "\"Emmanuel\" \"Summer Rocks\" \"2026\" registration"
+    ],
+    "usage": {
+      "inputTokens": 32211,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2068,
+      "reasoningTokens": 207
+    },
+    "status": "completed",
+    "ms": 46193,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://emmanuellutheranschool.org/summer/",
+      "chars": 9589,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/blog/asheville-summer-day-camp/",
+      "chars": 11853,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/tour/",
+      "chars": 4806,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/elementary-school-k-5",
+      "chars": 10698,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/middle-school-6-8",
+      "chars": 12245,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/blog/summer/",
+      "chars": 11203,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/blog/family-summer-activities-asheville-nc/",
+      "chars": 6255,
+      "method": "fetch"
+    },
+    {
+      "url": "https://emmanuellutheranschool.org/blog/family-summer-activities-western-north-carolina/",
+      "chars": 7175,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Emmanuel Lutheran School",
+    "website_url": "https://emmanuellutheranschool.org/",
+    "notes": "No summer 2027 camp dates or registration announcements were found. The supplied camp pages do not explicitly print a season year; their dates are treated as 2026, consistent with the stated Friday, July 3 closure. Older family-activities articles list a different, undated schedule and Vacation Bible School; those were not used as current offerings. The web tool returned no readable body for the camp pages, so the supplied fetched text was used. The registration portal destination could not be verified.",
+    "excluded": [
+      {
+        "name": "Elementary School",
+        "reason": "Regular school-year education, not a finite summer camp."
+      },
+      {
+        "name": "Middle School",
+        "reason": "Regular school-year education, not a finite summer camp."
+      },
+      {
+        "name": "Before and After School Care",
+        "reason": "School-year childcare rather than a summer-only program."
+      },
+      {
+        "name": "Athletics",
+        "reason": "School sports teams and seasons, not summer camps or clinics."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Rocks",
+        "type": "day",
+        "categories": [
+          "general",
+          "arts",
+          "music",
+          "theater",
+          "stem",
+          "sports",
+          "cooking",
+          "faith_based"
+        ],
+        "description": "Campers participate in weekly themed activities including acting, cooking, music, sports, art, chemistry and LEGO building. Full-day campers also have afternoon outdoor play, gym games, crafts and team-building activities.",
+        "camp_page_url": "https://emmanuellutheranschool.org/summer/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-01",
+          "end": "2026-08-07",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 1,
+          "max": 6,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Emmanuel Lutheran School",
+            "address": "51 Wilburn Place",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "16:30",
+          "text": "Full-Day Camp: 8:30 am to 4:30 pm. Half-Day Camp: 9:00 am to 12:00 pm."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "week",
+            "label": "Half-Day Camp; except Water Week",
+            "year": 2026
+          },
+          {
+            "amount": 350,
+            "unit": "week",
+            "label": "Full-Day Camp; except Water Week",
+            "year": 2026
+          },
+          {
+            "amount": 140,
+            "unit": "session",
+            "label": "Water Week: half-day, four days",
+            "year": 2026
+          },
+          {
+            "amount": 280,
+            "unit": "session",
+            "label": "Water Week: full-day, four days",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Acting Camp",
+            "start": "2026-06-01",
+            "end": "2026-06-05",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cooking Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-12",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Music Camp",
+            "start": "2026-06-15",
+            "end": "2026-06-18",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Pickleball Camp",
+            "start": "2026-06-22",
+            "end": "2026-06-26",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Water Week Camp",
+            "start": "2026-06-29",
+            "end": "2026-07-02",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Art Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Tae Kwon Do Camp",
+            "start": "2026-07-13",
+            "end": "2026-07-17",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Basketball Camp",
+            "start": "2026-07-20",
+            "end": "2026-07-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Crazy Chemistry Camp",
+            "start": "2026-07-27",
+            "end": "2026-07-31",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LEGO's Camp",
+            "start": "2026-08-03",
+            "end": "2026-08-07",
+            "year": 2026,
+            "site": null,
+            "ages": {
+              "min": 5,
+              "max": 13
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "case_by_case",
+          "text": "All camps include a morning snack. Full-day campers receive lunch. Home lunch is allowed (no glass containers)."
+        },
+        "transportation": null,
+        "sources": [
+          "https://emmanuellutheranschool.org/summer/",
+          "https://emmanuellutheranschool.org/uncategorised/summer/",
+          "https://emmanuellutheranschool.org/blog/asheville-summer-day-camp/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Confirm the season year: neither camp page explicitly labels its dates with a year; 2026 is inferred from the Friday, July 3 closure. The uncategorised page's price summary says Jun 30-Jul 2 and four days, while its detailed Water Week listing and the main summer page say June 29-July 2; the detailed listing is used. Music Camp is explicitly June 15-18 at the regular weekly price. The LEGO description states ages 5-13, while overall eligibility is rising grades 1-6; confirm whether that age statement is contractor boilerplate or a separate eligibility rule. The first four dated themes appear only on the uncategorised page."
+      }
+    ]
+  }
+}

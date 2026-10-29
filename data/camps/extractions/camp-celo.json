@@ -1,0 +1,496 @@
+{
+  "provider": {
+    "key": "camp-celo",
+    "name": "Camp Celo",
+    "urls": ["https://www.campcelo.com/", "https://www.campcelo.com/information.htm"],
+    "area": "Burnsville, NC",
+    "discovered_by": ["news828", "grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:00:40.245Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "4971418f503a2bdfc8d5601ba09ed95f2f05106eb4d7edbe456ebafcdf1a7a1d",
+  "response": {
+    "searches": [
+      "site:campcelo.com adventure camp contact transportation program",
+      "open https://www.campcelo.com/information.htm",
+      "site:campcelo.com \"Adventure\" \"backpacking\""
+    ],
+    "usage": {
+      "inputTokens": 22462,
+      "cachedInputTokens": 8223,
+      "outputTokens": 3430,
+      "reasoningTokens": 238
+    },
+    "status": "completed",
+    "ms": 65782,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campcelo.com/",
+      "chars": 1052,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcelo.com/information.htm",
+      "chars": 2346,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcelo.com/pdf/campcelohealthform.pdf",
+      "chars": 2430,
+      "method": "fetch"
+    },
+    {
+      "url": "http://campcelo.com/information.htm",
+      "chars": 2346,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcelo.com/pdf/map.pdf",
+      "chars": 164,
+      "method": "fetch"
+    },
+    {
+      "url": "http://campcelo.com/pdf/campcelohealthform.pdf",
+      "chars": 2430,
+      "method": "fetch"
+    },
+    {
+      "url": "http://campcelo.com/pdf/map.pdf",
+      "chars": 164,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campcelo.com/index.htm",
+      "chars": 1052,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Camp Celo",
+    "website_url": "https://www.campcelo.com/",
+    "notes": "2027 dates and registration openings are posted, but the fee columns explicitly say 2026 Fee; all prices below retain year 2026. The homepage says Adventure Camp has three-week sessions, while the 2027 information page lists four-week sessions; the dated information page is used. Several direct page opens returned empty text; supplementary official pages were readable through search results.",
+    "excluded": [
+      {
+        "name": "Camp Celo Helpers",
+        "reason": "Explicitly described as a full-time job, including unpaid work-exchange and some paid positions, rather than a camper program."
+      },
+      {
+        "name": "Camp Celo Counselors",
+        "reason": "Employment positions, not youth camp enrollment."
+      },
+      {
+        "name": "Garden Staff",
+        "reason": "Listed under employment, not youth camp enrollment."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Junior Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts", "general", "faith_based"],
+        "description": "Campers care for farm animals, work in the garden, make crafts and wood-shop projects, perform skits, and swim or tube in the river. The program includes day hikes and overnight campouts.",
+        "camp_page_url": "https://www.campcelo.com/information.htm",
+        "registration_url": "https://www.campcelo.com/information.htm",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-14",
+          "text": "Dates and Rates for 2027"
+        },
+        "ages": {
+          "min": 7,
+          "max": 10
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Celo",
+            "address": "775 Hannah Branch Rd.",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Session A",
+            "start": "2027-06-13",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2150,
+              "unit": "session",
+              "label": "Two weeks; 2026 fee",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session B",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1425,
+              "unit": "session",
+              "label": "One week; 2026 fee",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session C",
+            "start": "2027-07-04",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2675,
+              "unit": "session",
+              "label": "Three weeks; 2026 fee",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session D",
+            "start": "2027-07-25",
+            "end": "2027-08-07",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2150,
+              "unit": "session",
+              "label": "Two weeks; 2026 fee",
+              "year": 2026
+            },
+            "status": null
+          },
+          {
+            "label": "Session E",
+            "start": "2027-08-08",
+            "end": "2027-08-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 1425,
+              "unit": "session",
+              "label": "One week; 2026 fee",
+              "year": 2026
+            },
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2027-01-05",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 5, 2027 - Registration for returning campers and their siblings will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Registration for first-time campers will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available through Friends of Camp Celo, Inc., a separate organization."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "We share with others what we have done during the morning, and sing together as we finish our meal."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "There is a fee of $125 per airport trip plus $25 per hour wait time for unaccompanied minors."
+        },
+        "sources": [
+          "https://www.campcelo.com/information.htm",
+          "https://www.campcelo.com/",
+          "https://www.campcelo.com/contact.htm",
+          "https://campcelo.com/transport.htm",
+          "https://www.campcelo.com/day.htm",
+          "https://www.campcelo.com/counselors.htm"
+        ],
+        "confidence": "medium",
+        "review_notes": "Address, transportation, typical-day meals and hiking details were read through official search results because direct opens returned empty text. Ages are generally considered as of June 1; campers with June–August birthdays may apply for either age group."
+      },
+      {
+        "name": "Senior Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts", "general", "faith_based"],
+        "description": "Campers care for animals, make handcrafts, create skits, play group games and spend time at the river. The program includes two-, three- and four-day backpacking trips.",
+        "camp_page_url": "https://www.campcelo.com/senior.htm",
+        "registration_url": "https://www.campcelo.com/information.htm",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-13",
+          "end": "2027-08-14",
+          "text": "Dates and Rates for 2027"
+        },
+        "ages": {
+          "min": 11,
+          "max": 12
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Celo",
+            "address": "775 Hannah Branch Rd.",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2900,
+            "unit": "session",
+            "label": "Three weeks; 2026 fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session 1",
+            "start": "2027-06-13",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 2",
+            "start": "2027-07-04",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session 3",
+            "start": "2027-07-25",
+            "end": "2027-08-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2027-01-05",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 5, 2027 - Registration for returning campers and their siblings will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Registration for first-time campers will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available through Friends of Camp Celo, Inc., a separate organization."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "There is a fee of $125 per airport trip plus $25 per hour wait time for unaccompanied minors."
+        },
+        "sources": [
+          "https://www.campcelo.com/information.htm",
+          "https://www.campcelo.com/senior.htm",
+          "https://www.campcelo.com/contact.htm",
+          "https://campcelo.com/transport.htm",
+          "https://www.campcelo.com/program.htm"
+        ],
+        "confidence": "medium",
+        "review_notes": "Senior program details, address and transportation were read through official search results because direct opens returned empty text. Ages are generally considered as of June 1; campers with June–August birthdays may apply for either age group."
+      },
+      {
+        "name": "Adventure Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Campers participate in overnight, five-day and seven-day backpacking trips during each session.",
+        "camp_page_url": "https://www.campcelo.com/information.htm",
+        "registration_url": "https://www.campcelo.com/information.htm",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-08-14",
+          "text": "Dates and Rates for 2027"
+        },
+        "ages": {
+          "min": 13,
+          "max": 14
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Celo",
+            "address": "775 Hannah Branch Rd.",
+            "town": "Burnsville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 3825,
+            "unit": "session",
+            "label": "Four weeks; 2026 fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Session Cardinal",
+            "start": "2027-06-20",
+            "end": "2027-07-16",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Session Sparrow",
+            "start": "2027-07-18",
+            "end": "2027-08-14",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "returning",
+            "kind": "opens",
+            "date": "2027-01-05",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 5, 2027 - Registration for returning campers and their siblings will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          },
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2027-01-15",
+            "time": null,
+            "precision": "date",
+            "certainty": "announced",
+            "text": "January 15, 2027 - Registration for first-time campers will open on this page.",
+            "url": "https://www.campcelo.com/information.htm",
+            "year": 2027,
+            "confidence": "high"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Need-based scholarships are available through Friends of Camp Celo, Inc., a separate organization."
+        },
+        "special_needs": null,
+        "lunch": null,
+        "transportation": {
+          "value": "yes",
+          "text": "There is a fee of $125 per airport trip plus $25 per hour wait time for unaccompanied minors."
+        },
+        "sources": [
+          "https://www.campcelo.com/information.htm",
+          "https://www.campcelo.com/",
+          "https://www.campcelo.com/counselors.htm",
+          "https://www.campcelo.com/contact.htm",
+          "https://campcelo.com/transport.htm"
+        ],
+        "confidence": "medium",
+        "review_notes": "Homepage says two three-week Adventure sessions, but the 2027 information page explicitly lists four weeks; dates follow the latter. Backpacking details, address and airport transportation were read through official search results. The attempted adventure.htm page returned no readable content. Ages are generally considered as of June 1; campers with June–August birthdays may apply for either age group."
+      }
+    ]
+  }
+}

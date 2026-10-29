@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "north-carolina-stage-company",
+    "name": "North Carolina Stage Company",
+    "urls": ["https://www.ncstage.org/education/"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:57:25.964Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "58fbbb1e0ba618997e8856168477c34f8a129710f33014c83d0bcdc123b424c3",
+  "response": {
+    "searches": [
+      "site:ncstage.org \"summer\" \"2026\"",
+      "site:ncstage.org \"Youth Summer Camps\"",
+      "open https://www.ncstage.org/",
+      "site:ncstage.org/education/ summer camps",
+      "site:ncstage.org \"Summer Camps\" -2015 -attachment -productions -blog"
+    ],
+    "usage": {
+      "inputTokens": 32247,
+      "cachedInputTokens": 8223,
+      "outputTokens": 837,
+      "reasoningTokens": 311
+    },
+    "status": "completed",
+    "ms": 39414,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.ncstage.org/education/",
+      "chars": 1119,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.ncstage.org/?page_id=4025",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found\")"
+    },
+    {
+      "url": "https://www.ncstage.org/education/youth-summer-camps/",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found\")"
+    },
+    {
+      "url": "https://www.ncstage.org/",
+      "chars": 1975,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Carolina Stage Company",
+    "website_url": "https://www.ncstage.org/",
+    "notes": "The education page lists Youth Summer Camps but provides no program details. Searches found no official 2026 or 2027 camp dates, prices, or registration announcements; only historical 2015 and 2016 offerings were found. Direct attempts to open the education page and possible camp subpages returned no readable text. The generic camp listing is retained below pending confirmation of the current offering. Historical camp details were not carried forward.",
+    "excluded": [
+      {
+        "name": "Youth Classes",
+        "reason": "Listed as classes rather than a finite summer program; no summer-only offering was documented."
+      },
+      {
+        "name": "Adult Classes",
+        "reason": "Adult-only classes."
+      },
+      {
+        "name": "Arts in Schools",
+        "reason": "School classroom residencies, not summer camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Youth Summer Camps",
+        "type": "day",
+        "categories": ["theater"],
+        "description": "NC Stage lists youth summer camps as part of its theatre education programming.",
+        "camp_page_url": "https://www.ncstage.org/education/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.ncstage.org/education/"],
+        "confidence": "low",
+        "review_notes": "Confirm whether Youth Summer Camps is currently offered and obtain its program name, format, venue, and season details. The education page only lists the category; day-camp format is not confirmed. The provider's published address is 15 Stage Lane, Asheville, NC, but no current camp drop-off location is stated, so it is not assigned as a camp site."
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "provider": {
+    "key": "first-presbyterian-church-of-morganton",
+    "name": "First Presbyterian Church of Morganton",
+    "urls": ["https://www.fpcmorganton.org/"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "review",
+    "status_reason": "page doesn't mention a kids' camp, summer program or VBS"
+  },
+  "extractedAt": "2026-10-29T15:20:23.964Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7b5ba39a1b3ae8e2d9ea30232b4c406d98e5bfb0590c0e0cc33bd94ebea98db3",
+  "response": {
+    "searches": [
+      "site:fpcmorganton.org \"2026\" \"Bible\"",
+      "site:fpcmorganton.org \"VBS\"",
+      "site:fpcmorganton.org \"summer\""
+    ],
+    "usage": {
+      "inputTokens": 21573,
+      "cachedInputTokens": 8223,
+      "outputTokens": 484,
+      "reasoningTokens": 218
+    },
+    "status": "completed",
+    "ms": 29956,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.fpcmorganton.org/",
+      "chars": 1069,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.fpcmorganton.org/fqa",
+      "chars": 960,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "First Presbyterian Church of Morganton",
+    "website_url": "https://www.fpcmorganton.org/",
+    "notes": "No qualifying summer program could be verified for 2026 or 2027. Searches of the official website and Church Center found no current camp or Vacation Bible School details. The children/youth ministries, events and weekly newsletter pages returned no readable body text when opened. A third-party listing mentions VBS in August 2023, but that is not sufficient to establish a current offering. Review the church's newsletter or contact the office before concluding that no summer program is offered.",
+    "excluded": [
+      {
+        "name": "All Church Retreat",
+        "reason": "An all-church retreat scheduled September 18–20, 2026, outside summer; not a supervised youth-only camp."
+      },
+      {
+        "name": "Confirmation",
+        "reason": "The official events page describes confirmation for grades 7–12 in February/March 2027, outside summer."
+      },
+      {
+        "name": "Adult Christian Education Opportunities",
+        "reason": "Ongoing Sunday adult classes, not a finite summer youth program."
+      }
+    ],
+    "cards": []
+  }
+}

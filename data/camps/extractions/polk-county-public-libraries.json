@@ -1,0 +1,226 @@
+{
+  "provider": {
+    "key": "polk-county-public-libraries",
+    "name": "Polk County Public Libraries",
+    "urls": [
+      "https://polklibrary.org/events/2025summerlearning/",
+      "https://polklibrary.org/slp2026/"
+    ],
+    "area": "Columbus and Saluda, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:27:54.490Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "32073320c3f67be187a1f5a63696018fe66c30085222836df49a7a495018b1bf",
+  "response": {
+    "searches": [
+      "site:polklibrary.org summer 2027 camp",
+      "site:polklibrary.libcal.com 2026 \"chemistry\"",
+      "site:polklibrary.libcal.com \"Teen\" \"250\"",
+      "site:polklibrary.libcal.com/event/16900388 \"Time\" \"Wednesday\""
+    ],
+    "usage": {
+      "inputTokens": 28307,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1783,
+      "reasoningTokens": 265
+    },
+    "status": "completed",
+    "ms": 44415,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://polklibrary.org/events/2025summerlearning/",
+      "chars": 3272,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polklibrary.org/slp2026/",
+      "chars": 1882,
+      "method": "fetch"
+    },
+    {
+      "url": "https://polklibrary.org/",
+      "chars": 3538,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Polk County Public Libraries",
+    "website_url": "https://polklibrary.org/",
+    "notes": "No 2027 summer information was found. The supervised, registration-required teen summer workshops are grouped as one program; the separate after-hours lock-in is another card. The 2026 summer landing page did not expose its embedded program details as readable text. The cupcake workshop's date and hours could not be verified, so it is described but omitted from dated session rows.",
+    "excluded": [
+      {
+        "name": "Summer Learning Program",
+        "reason": "Self-directed learning incentive challenge with library packet pickup and rewards, not a supervised camp or clinic."
+      },
+      {
+        "name": "Camp WannaRead",
+        "reason": "Exclusively for adults ages 18 and older."
+      },
+      {
+        "name": "Family programs",
+        "reason": "Family performances and events, not supervised youth-only camps or clinics."
+      },
+      {
+        "name": "Storytime",
+        "reason": "Year-round library program, not a summer-only camp."
+      },
+      {
+        "name": "Teen Scene",
+        "reason": "Year-round recurring teen program."
+      },
+      {
+        "name": "Teen Lunar New Year Cooking Class",
+        "reason": "February 17, 2026 program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Teen summer programs",
+        "type": "clinic",
+        "categories": ["stem", "arts", "cooking", "academic"],
+        "description": "Teens participate in chemistry, American-history activities, cupcake decorating, and a guided painting workshop. Adults other than library staff and presenters are not permitted to remain in the meeting room.",
+        "camp_page_url": "https://polklibrary.org/may-26-2026-spend-your-summer-at-the-library/",
+        "registration_url": "https://polklibrary.libcal.com/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-07-22",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Columbus Library",
+            "address": "1289 W. Mills St",
+            "town": "Columbus",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "14:00",
+          "end": "16:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "Teen Crazy Chemistry",
+            "start": "2026-06-10",
+            "end": "2026-06-10",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Teen America 250 Celebration",
+            "start": "2026-06-24",
+            "end": "2026-06-24",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          },
+          {
+            "label": "Teen Painting Workshop",
+            "start": "2026-07-22",
+            "end": "2026-07-22",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "closed"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://polklibrary.org/may-26-2026-spend-your-summer-at-the-library/",
+          "https://polklibrary.libcal.com/event/16900344",
+          "https://polklibrary.libcal.com/event/16900370",
+          "https://polklibrary.libcal.com/event/16900388",
+          "https://polklibrary.libcal.com/event/16900402",
+          "https://polklibrary.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Workshop details were available through official registration-platform search results, but direct event pages returned no readable text. Verify Teen Cupcake Decorating's date, hours, and venue at https://polklibrary.libcal.com/event/16900388; its dated row is missing. Card hours reflect the three verified sessions only."
+      },
+      {
+        "name": "Teen Lock-In",
+        "type": "evening",
+        "categories": ["general", "arts"],
+        "description": "Teens attend an after-hours library program with food, games, and crafts. Participants must register and provide a permission slip signed by a parent or guardian.",
+        "camp_page_url": "https://polklibrary.libcal.com/event/16896175",
+        "registration_url": "https://polklibrary.libcal.com/event/16896175",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-05",
+          "end": "2026-06-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 6,
+          "max": 12,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Columbus Library",
+            "address": "1289 W. Mills St",
+            "town": "Columbus",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "19:00",
+          "end": "22:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "closed",
+          "scope": null,
+          "text": "Registration has closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://polklibrary.libcal.com/event/16896175", "https://polklibrary.org/"],
+        "confidence": "medium",
+        "review_notes": "Details were read in the official LibCal search result. The 2026 registration deadline was Monday, June 1; no opening date or 2027 milestone was found."
+      }
+    ]
+  }
+}

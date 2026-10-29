@@ -1,0 +1,261 @@
+{
+  "provider": {
+    "key": "bethel-elementary-school",
+    "name": "Bethel Elementary School",
+    "urls": [
+      "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+      "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:04.028Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "36c8f28c70beb8d6da4037e2c709b5e33ce978dfccef023b214d85792bfb33c8",
+  "response": {
+    "searches": [
+      "site:bes.haywood.k12.nc.us \"2027\" \"summer\"",
+      "site:bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart \"opportunity\""
+    ],
+    "usage": {
+      "inputTokens": 66095,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1808,
+      "reasoningTokens": 183
+    },
+    "status": "completed",
+    "ms": 44453,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+      "chars": 3248,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+      "chars": 2875,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/faqs/",
+      "chars": 5191,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/document/d/1qHz-AOnR2rgb_A-MLvDihPqFFA8cwWJyznzCMQIkH0Q/edit?usp=sharing",
+      "chars": 0,
+      "error": "fetch: HTTP 410; browser: HTTP 410"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/wp-content/uploads/sites/2/2026/05/summer-camp.jpg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/wp-content/uploads/sites/2/2026/05/Summer-camp-Flyer.jpeg",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://bes.haywood.k12.nc.us/",
+      "chars": 2329,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Bethel Elementary School",
+    "website_url": "https://bes.haywood.k12.nc.us/",
+    "notes": "No summer 2027 information was found. The supplied 2026 pages were used; the official site blocked direct browsing of supplemental materials, including the summer camp flyer image. Kinder Kickstart Camp was also found in official search results.",
+    "excluded": [
+      {
+        "name": "After-School Program",
+        "reason": "School-year afterschool childcare, not a summer-only program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Bethel Elementary Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "Children attend supervised summer childcare Monday through Friday. Breakfast, lunch, and a daily snack are included.",
+        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+        "registration_url": "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-10",
+          "end": "2026-08-06",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bethel Elementary School",
+            "address": "4700 Old River Rd.",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "07:30",
+          "end": "17:00",
+          "text": "Monday through Friday, 7:30 a.m. until 5:00 p.m."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 160,
+            "unit": "week",
+            "label": "One child; no daily rates",
+            "year": 2026
+          },
+          {
+            "amount": 140,
+            "unit": "week",
+            "label": "Each additional child in the immediate family",
+            "year": 2026
+          },
+          {
+            "amount": 25,
+            "unit": "other",
+            "label": "Application fee per child, towards snacks",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Payment includes child care, breakfast, lunch, and a snack each day."
+        },
+        "transportation": null,
+        "sources": [
+          "https://bes.haywood.k12.nc.us/2026/05/10/new-bes-summer-camp-2026-packet/",
+          "https://bes.haywood.k12.nc.us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Summer Library Program",
+        "type": "half_day",
+        "categories": ["academic", "stem", "arts"],
+        "description": "Children read, build, solve story-based problems, craft, and check out books. The Storybook STEM program also encourages tracking summer reading.",
+        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-16",
+          "end": "2026-08-04",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 11
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Bethel Elementary Library",
+            "address": "4700 Old River Rd.",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "14:00",
+          "text": "Tuesdays, 10:00 am–2:00 pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Free",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-06-16",
+          "time": null,
+          "text": "Register your child @ Bethel Elementary Library beginning June 16.",
+          "url": "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/"
+        },
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bes.haywood.k12.nc.us/2026/05/10/summer-library-program-june-16-aug-4-2026/",
+          "https://bes.haywood.k12.nc.us/"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "Kinder Kickstart Camp",
+        "type": "half_day",
+        "categories": ["academic"],
+        "description": "Incoming kindergarten children attend camp and screening days before classroom assignment for the school year.",
+        "camp_page_url": "https://bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart-camp-8-4-8-5-26/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-04",
+          "end": "2026-08-05",
+          "text": null
+        },
+        "ages": null,
+        "grades": {
+          "min": 0,
+          "max": 0,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Bethel Elementary School",
+            "address": "4700 Old River Rd.",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "08:30",
+          "end": "12:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://bes.haywood.k12.nc.us/2026/07/28/kinder-kickstart-camp-8-4-8-5-26/",
+          "https://bes.haywood.k12.nc.us/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp details were available only through official search snippets because direct access was blocked. Check the full July 28, 2026 page for participation requirements and any additional logistics."
+      }
+    ]
+  }
+}

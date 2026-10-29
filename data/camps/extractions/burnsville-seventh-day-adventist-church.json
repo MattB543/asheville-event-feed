@@ -1,0 +1,101 @@
+{
+  "provider": {
+    "key": "burnsville-seventh-day-adventist-church",
+    "name": "Burnsville Seventh-day Adventist Church",
+    "urls": [
+      "https://burnsvillenc.adventistchurch.org/",
+      "https://burnsvillenc.adventistchurch.org/church-events/"
+    ],
+    "area": "Burnsville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:20:47.124Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "438edadcb8b2718435e3fa204302ef56784e0559726187f2fb0411cbf9ea0adc",
+  "response": {
+    "searches": ["site:burnsvillenc.adventistchurch.org VBS 2026 2027"],
+    "usage": {
+      "inputTokens": 14509,
+      "cachedInputTokens": 8223,
+      "outputTokens": 688,
+      "reasoningTokens": 108
+    },
+    "status": "completed",
+    "ms": 29315,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://burnsvillenc.adventistchurch.org/",
+      "chars": 4748,
+      "method": "fetch"
+    },
+    {
+      "url": "https://burnsvillenc.adventistchurch.org/church-events/",
+      "chars": 3587,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Burnsville Seventh-day Adventist Church",
+    "website_url": "https://burnsvillenc.adventistchurch.org/",
+    "notes": "The official website documents VBS 2025, with the homepage subtitle Hidden Treasure and an event photo gallery. Searches found no official 2026 or 2027 VBS announcement, registration page, or schedule. The card identifies the historical program only; its return in 2027 is unconfirmed.",
+    "excluded": [
+      {
+        "name": "Christmas Caroling",
+        "reason": "Christmas event outside summer."
+      },
+      {
+        "name": "Vibrant Family Life",
+        "reason": "Family seminar, not a supervised youth summer camp."
+      },
+      {
+        "name": "Sabbath School",
+        "reason": "Recurring year-round religious instruction, not a finite summer program."
+      },
+      {
+        "name": "Discovering Revelation / Prophecies of Hope",
+        "reason": "Sermon series, not a supervised youth summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "The church documents a Vacation Bible School event titled Hidden Treasure in its 2025 recent events.",
+        "camp_page_url": "https://burnsvillenc.adventistchurch.org/church-events/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://burnsvillenc.adventistchurch.org/",
+          "https://burnsvillenc.adventistchurch.org/church-events/"
+        ],
+        "confidence": "low",
+        "review_notes": "Only VBS 2025 is documented. Confirm whether VBS will return in summer 2027 and obtain its activities, dates, eligibility, hours, fees and registration details. The church publishes 283 Crest View Rd, Burnsville, NC, but does not explicitly identify it as the VBS drop-off location, so sites is empty."
+      }
+    ]
+  }
+}

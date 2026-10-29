@@ -1,0 +1,113 @@
+{
+  "provider": {
+    "key": "jonathan-valley-elementary-school",
+    "name": "Jonathan Valley Elementary School",
+    "urls": ["https://jve.haywood.k12.nc.us/parents/summer-camp/"],
+    "area": "Waynesville, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:16:44.061Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "19f8ecae11712316da0bd7f9b3e720e80fb2e847f7ad96b0f7cbb777c752a7a2",
+  "response": {
+    "searches": ["site:jve.haywood.k12.nc.us \"summer\" \"2026\""],
+    "usage": {
+      "inputTokens": 16704,
+      "cachedInputTokens": 8223,
+      "outputTokens": 702,
+      "reasoningTokens": 101
+    },
+    "status": "completed",
+    "ms": 23527,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://jve.haywood.k12.nc.us/parents/summer-camp/",
+      "chars": 1898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jve.haywood.k12.nc.us/school-improvement-team-updates/",
+      "chars": 3349,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jve.haywood.k12.nc.us/parents/after-school-caresummer-camp/",
+      "chars": 2502,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jve.haywood.k12.nc.us/faqs-forms-info-and-links/directionsmap/",
+      "chars": 2312,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jve.haywood.k12.nc.us/faqs-forms-info-and-links/",
+      "chars": 6038,
+      "method": "fetch"
+    },
+    {
+      "url": "https://jve.haywood.k12.nc.us/",
+      "chars": 1998,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Jonathan Valley Elementary School",
+    "website_url": "https://jve.haywood.k12.nc.us/",
+    "notes": "No 2027 camp details or dated 2026 camp schedule were found. The current camp page says registration opens each year right after spring break, but this recurring statement does not establish a 2027 registration date. Search also found a 2020 application announcement; its outdated details were not used. Direct web access to the school domain was blocked by robots.txt; supplied page text and official search results were used.",
+    "excluded": [
+      {
+        "name": "After School Care",
+        "reason": "School-year after-school childcare, not a summer-only program. Its hours and prices were not applied to Summer Camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "day",
+        "categories": ["general"],
+        "description": "The school offers summer care for children. Its current camp page does not describe specific activities.",
+        "camp_page_url": "https://jve.haywood.k12.nc.us/parents/summer-camp/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Jonathan Valley Elementary School",
+            "address": "410 Hall Dr.",
+            "town": "Waynesville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://jve.haywood.k12.nc.us/parents/summer-camp/",
+          "https://jve.haywood.k12.nc.us/faqs-forms-info-and-links/directionsmap/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page is undated and provides no season dates, eligibility, hours, prices or activity details. The school is treated as the camp venue from the school-hosted offering, but the page does not explicitly identify the drop-off location. Confirm the venue and 2027 details with director Michelle Mull through the front office at 828-926-3207. Season year 2026 is a fallback with no dated facts, not a year explicitly printed for the camp."
+      }
+    ]
+  }
+}

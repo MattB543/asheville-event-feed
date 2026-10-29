@@ -1,0 +1,711 @@
+{
+  "provider": {
+    "key": "montreat-college",
+    "name": "Montreat College",
+    "urls": [
+      "https://www.montreat.edu/athletics/camps/",
+      "https://www.montreat.edu/COMPASS/",
+      "https://www.montreat.edu/compass/",
+      "https://www.montreat.edu/compass/faq/",
+      "https://www.montreat.edu/compass/outdoor-recreation-studies/",
+      "https://www.montreatbaseballcamps.com/"
+    ],
+    "area": "Montreat, NC",
+    "discovered_by": ["news828", "grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:03:04.517Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "81ad806e06cbad58dd05460ddaa93b7984d408051a048fd5103bb5f3cb4024dc",
+  "response": {
+    "searches": [
+      "site.montreat.edu camps 2027 running",
+      "site.montreat.edu \"Women’s Soccer Camp\"",
+      "site.montreat.edu/athletics/camps/basketball \"Date\"",
+      "site.montreat.edu/athletics/camps/basketball/ \"April\""
+    ],
+    "usage": {
+      "inputTokens": 52547,
+      "cachedInputTokens": 8223,
+      "outputTokens": 5580,
+      "reasoningTokens": 549
+    },
+    "status": "completed",
+    "ms": 129608,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.montreat.edu/athletics/camps/",
+      "chars": 3593,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/COMPASS/",
+      "chars": 4844,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/compass/",
+      "chars": 4844,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/compass/faq/",
+      "chars": 6538,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/on-campus/tuition-aid/",
+      "chars": 8839,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/on-campus/visit/",
+      "chars": 3365,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/on-campus/",
+      "chars": 7080,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.montreat.edu/on-campus/degrees/?_degree_modality=on-campus",
+      "chars": 7740,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Montreat College",
+    "website_url": "https://www.montreat.edu/",
+    "notes": "COMPASS has posted June 20-24, 2027, but its FAQ still describes 2026 pricing and logistics. Sports camp pages could not be fully opened through the browser; official search excerpts supplied limited supplementary information. No verified 2026 or 2027 sports session dates or prices were found. The running page still lists July 8-13, 2024; those outdated dates and fees were not carried forward. Basketball, soccer and wrestling remain listed on the college's summer camps index, but their summer schedules and formats need confirmation. The baseball camp website did not expose a readable event schedule.",
+    "excluded": [
+      {
+        "name": "2026 Fall Montreat College Baseball ID Camp",
+        "reason": "Fall program, outside summer."
+      },
+      {
+        "name": "Unsigned Senior Men’s Basketball Camp",
+        "reason": "Official registration listing describes April 27, 2024, outside summer."
+      },
+      {
+        "name": "Montreat Womens Basketball April Prospect Camp",
+        "reason": "April program, outside summer."
+      },
+      {
+        "name": "On-Campus Degree Programs",
+        "reason": "Regular college degree programs, not finite summer youth camps."
+      },
+      {
+        "name": "Campus Visits, Discovery Day and Open House",
+        "reason": "Admissions visits and events, not supervised summer camp programs."
+      }
+    ],
+    "cards": [
+      {
+        "name": "COMPASS Summer Experience",
+        "type": "pre_college",
+        "categories": ["academic", "arts", "stem", "nature_outdoor", "music", "faith_based"],
+        "description": "Students explore an academic field through hands-on activities taught by college-level instructors and experience life on campus. Participants select one concurrent academic track.",
+        "camp_page_url": "https://www.montreat.edu/compass/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-20",
+          "end": "2027-06-24",
+          "text": "June 20-24, 2027"
+        },
+        "ages": null,
+        "grades": {
+          "min": 10,
+          "max": 13,
+          "basis": "rising"
+        },
+        "sites": [
+          {
+            "name": "Montreat College",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 895,
+            "unit": "week",
+            "label": "Includes meals, lodging and all scheduled activities",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Outdoor Recreation Studies",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Graphic Design",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Literature and Creative Writing",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Psychology",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Cybersecurity",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Exercise Science",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Herpetology",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Audio Production",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Criminal Justice",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "LOLogetics",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "History",
+            "start": "2027-06-20",
+            "end": "2027-06-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "public",
+            "kind": "opens",
+            "date": "2026-10-01",
+            "time": null,
+            "precision": "month",
+            "certainty": "announced",
+            "text": "Registration will open in October.",
+            "url": "https://www.montreat.edu/compass/",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "Pricing includes meals, lodging and all scheduled activities."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "Shuttles to and from campus will be offered based on your flight, if you fly into AVL."
+        },
+        "sources": ["https://www.montreat.edu/compass/", "https://www.montreat.edu/compass/faq/"],
+        "confidence": "medium",
+        "review_notes": "October's calendar year is inferred as October 2026 from the upcoming June 2027 program; the registration sentence does not print a year. Grade 13 represents incoming college freshmen. Meals, lodging, airport transportation and the $895 price are 2026 FAQ facts, not confirmed 2027 terms. The FAQ also inconsistently says car keys are returned Friday although its 2026 camp ends Thursday. Format check: grades 13 outside -1-12."
+      },
+      {
+        "name": "Nike Baseball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers practice hitting, fielding, base running and team play with Montreat College coaches and athletes.",
+        "camp_page_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search excerpt identifies boys day and overnight formats, ages 8-17, for 2026; full camp details and session schedule could not be read."
+      },
+      {
+        "name": "Nike Baseball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers practice hitting, fielding, base running and team play with Montreat College coaches and athletes.",
+        "camp_page_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.ussportscamps.com/baseball/nike/baseball-camp-montreat-college"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search excerpt identifies boys day and overnight formats, ages 8-17, for 2026; verify whether overnight eligibility differs from the overall age range."
+      },
+      {
+        "name": "Nike Softball Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers work on hitting, fielding, base running and team play through softball drills and game situations.",
+        "camp_page_url": "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Roxy Hines Memorial Softball Field",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college"
+        ],
+        "confidence": "medium",
+        "review_notes": "Official search excerpts identify girls day and overnight formats, ages 10-18. The platform says there are no active sessions, which is not evidence that future sessions are sold out or registration is closed."
+      },
+      {
+        "name": "Nike Softball Camp",
+        "type": "overnight",
+        "categories": ["sports"],
+        "description": "Campers work on hitting, fielding, base running and team play through softball drills and game situations.",
+        "camp_page_url": "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 10,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.ussportscamps.com/softball/nike/softball-camp-montreat-college"
+        ],
+        "confidence": "medium",
+        "review_notes": "Overnight format and overall ages are stated in official search excerpts; overnight check-in building and any format-specific age restrictions were not accessible."
+      },
+      {
+        "name": "Nike Lacrosse Camp",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Boys receive lacrosse instruction through fundamentals drills, position-specific training and competitive scrimmages.",
+        "camp_page_url": "https://www.ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college",
+        "registration_url": "https://www.ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Join the Priority List for 2027 Camp Updates"
+        },
+        "ages": {
+          "min": 9,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Montreat College",
+            "address": "310 Gaither Circle",
+            "town": "Montreat",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.ussportscamps.com/lacrosse/nike/nike-boys-lacrosse-camp-at-montreat-college"
+        ],
+        "confidence": "low",
+        "review_notes": "Official search excerpts provide ages and 2027 update wording, but the full details were inaccessible. Day format is provisional; confirm commuter and overnight options before publication."
+      },
+      {
+        "name": "Montreat Running Camp",
+        "type": "overnight",
+        "categories": ["sports", "faith_based"],
+        "description": "Runners participate in training, learning sessions and team activities, alongside Bible studies and worship.",
+        "camp_page_url": "https://www.montreat.edu/athletics/camps/running/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.montreat.edu/athletics/camps/running/"
+        ],
+        "confidence": "low",
+        "review_notes": "The index still lists this camp, but its detailed page describes only July 8-13, 2024. No 2026 or 2027 dates, eligibility, prices or check-in venue were verified."
+      },
+      {
+        "name": "Women’s Soccer Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players receive soccer training using the coaching staff's relationship-based approach to the game.",
+        "camp_page_url": "https://www.montreat.edu/athletics/camps/",
+        "registration_url": "https://www.playnsports.com/organization/129962/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.playnsports.com/organization/129962/"
+        ],
+        "confidence": "low",
+        "review_notes": "Summer index lists the program, but dated summer offerings and drop-off venue were not accessible. Clinic format needs confirmation."
+      },
+      {
+        "name": "Women’s Basketball Senior Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players develop basketball skills with coaches and prepare for opportunities to compete at the college level.",
+        "camp_page_url": "https://www.montreat.edu/athletics/camps/basketball/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.montreat.edu/athletics/camps/basketball/"
+        ],
+        "confidence": "low",
+        "review_notes": "Listed on the summer index; detailed page's official excerpt calls it Women’s Basketball Unsigned Senior Camp but does not expose dates. Confirm that this offering runs in summer rather than spring."
+      },
+      {
+        "name": "Montreat Men’s Soccer Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players train and compete alongside current Montreat players with instruction from the college coaching staff.",
+        "camp_page_url": "https://www.montreatsoccercamps.com/id-camps",
+        "registration_url": "https://www.montreatsoccercamps.com/",
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.montreatsoccercamps.com/id-camps"
+        ],
+        "confidence": "low",
+        "review_notes": "Official ID camp excerpt says eighth grade through high school but does not establish a summer year or dated offering. Verify summer schedule, eligibility and venue before publication."
+      },
+      {
+        "name": "Women’s Wrestling Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Participants receive technical training, live wrestling practice and recruiting sessions.",
+        "camp_page_url": "https://www.montreat.edu/athletics/camps/wrestling/",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.montreat.edu/athletics/camps/",
+          "https://www.montreat.edu/athletics/camps/wrestling/"
+        ],
+        "confidence": "low",
+        "review_notes": "Summer index lists this program, but full details could not be read. Dates, format, eligibility, venue and relationship to Mountain Forged Wrestling Camps need confirmation."
+      }
+    ]
+  }
+}

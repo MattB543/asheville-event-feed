@@ -1,0 +1,105 @@
+{
+  "provider": {
+    "key": "east-sylva-baptist-church-of-sylva",
+    "name": "East Sylva Baptist Church of Sylva",
+    "urls": ["https://eastsylvabaptist.org/events-calendar/vacation-bible-school/"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:55.155Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "5f0eaffc9c2e2c3b7e612336e035d6c69636ecff81d6a01f956b24a726361046",
+  "response": {
+    "searches": ["site:eastsylvabaptist.org \"2027\" \"Bible\""],
+    "usage": {
+      "inputTokens": 12947,
+      "cachedInputTokens": 8223,
+      "outputTokens": 669,
+      "reasoningTokens": 71
+    },
+    "status": "completed",
+    "ms": 43799,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://eastsylvabaptist.org/events-calendar/vacation-bible-school/",
+      "chars": 546,
+      "method": "fetch"
+    },
+    {
+      "url": "https://eastsylvabaptist.org/",
+      "chars": 3134,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "East Sylva Baptist Church of Sylva",
+    "website_url": "https://eastsylvabaptist.org/",
+    "notes": "No summer 2027 information or registration dates were found. The official event page lists the 2026 Vacation Bible School dates and theme but does not describe activities, eligibility, cost, or registration.",
+    "excluded": [
+      {
+        "name": "Sunday School Bible Classes",
+        "reason": "Recurring year-round religious classes, not a finite summer program."
+      },
+      {
+        "name": "Children and Youth Activities",
+        "reason": "Recurring Sunday evening activities, not a summer-only program."
+      },
+      {
+        "name": "Senior adult retreat at Fort Caswell",
+        "reason": "Adult-only retreat outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Vacation Bible School",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "An evening Vacation Bible School with the theme Faith On The Farm.",
+        "camp_page_url": "https://eastsylvabaptist.org/events-calendar/vacation-bible-school/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-14",
+          "end": "2026-06-17",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "East Sylva Baptist Church",
+            "address": "61 Faith Avenue",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "18:00",
+          "end": "20:00",
+          "text": "6:00 PM - 8:00 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://eastsylvabaptist.org/events-calendar/vacation-bible-school/",
+          "https://eastsylvabaptist.org/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The event page does not explicitly identify a meeting venue; the church's own address is used as the presumed site. Confirm that Vacation Bible School meets at the church. The event is marked Expired!, which is not treated as a stated registration availability status."
+      }
+    ]
+  }
+}

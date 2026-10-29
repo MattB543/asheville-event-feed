@@ -1,0 +1,985 @@
+{
+  "provider": {
+    "key": "north-carolina-outward-bound-school",
+    "name": "North Carolina Outward Bound School",
+    "urls": ["https://www.outwardbound.org/ncobs/", "https://www.ncobs.org/forms/25/561"],
+    "area": "Swannanoa, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:17:21.030Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "bcc7fdfc4c91a2c8dec7f444b575e55b4de6a3bb57fe5e26688888c1310d3147",
+  "response": {
+    "searches": [
+      "site:outwardbound.org \"Blue Ridge Mountains – Backpack\"",
+      "site:outwardbound.org/course/ \"Blue Ridge Mountains – Backpack, Whitewater\"",
+      "site:outwardbound.org/course/outer-banks-sea-kayak/ \"Getting\" \"Starting\""
+    ],
+    "usage": {
+      "inputTokens": 35163,
+      "cachedInputTokens": 8223,
+      "outputTokens": 6167,
+      "reasoningTokens": 353
+    },
+    "status": "completed",
+    "ms": 116071,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.outwardbound.org/ncobs/",
+      "chars": 5481,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ncobs.org/forms/25/561",
+      "chars": 0,
+      "error": "fetch: HTTP 522; chrome-tls: The operation was aborted due to timeout; browser: HTTP 522"
+    },
+    {
+      "url": "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+      "chars": 30000,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
+      "chars": 12037,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.outwardbound.org/",
+      "chars": 5050,
+      "method": "chrome-tls"
+    },
+    {
+      "url": "https://www.ncobs.org/",
+      "chars": 5481,
+      "method": "chrome-tls"
+    }
+  ],
+  "extraction": {
+    "provider_name": "North Carolina Outward Bound School",
+    "website_url": "https://www.outwardbound.org/ncobs/",
+    "notes": "Summer 2027 enrollment is advertised. The supplied national catalog did not actually filter to NCOBS; other schools' courses were not included. Included NCOBS youth expeditions; adult and family offerings were excluded. The three-activity Blue Ridge course page conflicts with the supplied catalog: it says dates are coming soon while the catalog lists 2027 sessions. The legacy forms/25/561 page returned no readable text. No dated 2027 registration-opening announcement was found.",
+    "excluded": [
+      {
+        "name": "Blue Ridge – Parent & Child – Backpack & Rock Climb",
+        "reason": "Family-only offering."
+      },
+      {
+        "name": "Ten Thousand Islands – Parent & Child – Canoe",
+        "reason": "Family-only offering, with sessions outside summer."
+      },
+      {
+        "name": "Blue Ridge Mountains – Backpack & Rock Climb (adult and young-adult sessions)",
+        "reason": "Sessions restricted to ages 18-24 or 25+ were excluded as adult-only offerings; youth sessions are included."
+      },
+      {
+        "name": "Outer Banks – Sea Kayak (young-adult session)",
+        "reason": "Restricted to ages 18-24; adult-only offering."
+      },
+      {
+        "name": "Blue Ridge – Veterans – Backpack & Whitewater Raft",
+        "reason": "Adult-only veterans program."
+      },
+      {
+        "name": "Blue Ridge – Veterans – Backpack and Rock Climb",
+        "reason": "Adult-only veterans program."
+      },
+      {
+        "name": "Blue Ridge Mountains – Pathfinder – Backpack Whitewater Canoe & Rock Climb",
+        "reason": "Ages 18-25; posted sessions are outside summer."
+      },
+      {
+        "name": "Patagonia to Florida & Blue Ridge – Leadership Semester",
+        "reason": "Posted session is outside summer and restricted to ages 18-25."
+      },
+      {
+        "name": "Blue Ridge Mountains to Florida & Patagonia – Leadership Semester",
+        "reason": "Posted session is outside summer and restricted to ages 18-25."
+      },
+      {
+        "name": "Blue Ridge – Outdoor Educator",
+        "reason": "Adult-only course outside summer."
+      },
+      {
+        "name": "Ten Thousand Islands – Sea Kayak",
+        "reason": "Adult-only courses outside summer."
+      },
+      {
+        "name": "Patagonia – Backpack & Service",
+        "reason": "Adult-only courses outside summer."
+      },
+      {
+        "name": "Professional Programs",
+        "reason": "Professional team programs, not finite summer youth camps."
+      },
+      {
+        "name": "Educators Initiative",
+        "reason": "Programs for educators rather than youth."
+      },
+      {
+        "name": "Work with NCOBS",
+        "reason": "Employment opportunities, not camps."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Blue Ridge Mountains – Backpack & Rock Climb",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Students backpack mountain trails, camp outdoors, and learn rock climbing and backcountry skills. Crews share responsibilities and practice teamwork and leadership.",
+        "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
+        "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-04",
+          "end": "2027-08-12",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Regional Airport",
+            "address": "61 Terminal Drive",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "14 days",
+            "start": "2027-06-04",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "6 days",
+            "start": "2027-06-06",
+            "end": "2027-06-11",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2495,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-06-07",
+            "end": "2027-06-15",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-06",
+            "end": "2027-07-14",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-06",
+            "end": "2027-07-14",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-09",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "14 days",
+            "start": "2027-07-13",
+            "end": "2027-07-26",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-15",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "14 days",
+            "start": "2027-07-23",
+            "end": "2027-08-05",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-27",
+            "end": "2027-08-04",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-27",
+            "end": "2027-08-04",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-29",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "6 days",
+            "start": "2027-08-03",
+            "end": "2027-08-08",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2495,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "6 days",
+            "start": "2027-08-07",
+            "end": "2027-08-12",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 2495,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Listed youth sessions",
+          "text": "Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are awarded to those with financial need on a first-come, first-served basis and as resources allow."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition you pay prior to course covers all of your food while on course"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.outwardbound.org/course/blue-ridge-backpack-rock-climb/",
+          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
+          "https://www2.flyavl.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Course-page meeting location and description were accessible through official search results only; direct opening returned no text. Session details are from the supplied official 2027 catalog."
+      },
+      {
+        "name": "Blue Ridge Mountains – Backpack & Whitewater Canoe",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Students backpack through the Blue Ridge Mountains and travel rivers by whitewater canoe. They learn outdoor living skills and share expedition responsibilities.",
+        "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
+        "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-04",
+          "end": "2027-08-06",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Asheville Regional Airport",
+            "address": "61 Terminal Drive",
+            "town": "Fletcher",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": "14 days",
+            "start": "2027-06-04",
+            "end": "2027-06-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-06-07",
+            "end": "2027-06-15",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-06-07",
+            "end": "2027-06-15",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-06-19",
+            "end": "2027-06-27",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "14 days",
+            "start": "2027-06-19",
+            "end": "2027-07-02",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-09",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-09",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "14 days",
+            "start": "2027-07-13",
+            "end": "2027-07-26",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-15",
+            "end": "2027-07-23",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "14 days",
+            "start": "2027-07-23",
+            "end": "2027-08-05",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 5145,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-27",
+            "end": "2027-08-04",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-29",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          },
+          {
+            "label": "9 days",
+            "start": "2027-07-29",
+            "end": "2027-08-06",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": {
+              "amount": 3770,
+              "unit": "session",
+              "label": null,
+              "year": 2027
+            },
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": null,
+          "text": "Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are awarded to those with financial need on a first-come, first-served basis and as resources allow."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition you pay prior to course covers all of your food while on course"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe/",
+          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/ncobs/about-our-school/faqs/",
+          "https://www2.flyavl.com/contact-us"
+        ],
+        "confidence": "medium",
+        "review_notes": "Course-page meeting location and description were accessible through official search results only; direct opening returned no text. Session details are from the supplied official 2027 catalog."
+      },
+      {
+        "name": "Blue Ridge Mountains – Backpack, Whitewater Canoe & Rock Climb",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Students backpack forest trails, climb rock faces, and paddle whitewater rivers. They practice navigation, campcraft, teamwork, and leadership.",
+        "camp_page_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
+        "registration_url": "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-08",
+          "end": "2027-08-05",
+          "text": null
+        },
+        "ages": {
+          "min": 14,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 6995,
+            "unit": "session",
+            "label": "22 days",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "22 days",
+            "start": "2027-06-08",
+            "end": "2027-06-29",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "22 days",
+            "start": "2027-06-28",
+            "end": "2027-07-19",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 14,
+              "max": 16
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "22 days",
+            "start": "2027-06-28",
+            "end": "2027-07-19",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "22 days",
+            "start": "2027-07-15",
+            "end": "2027-08-05",
+            "year": 2027,
+            "site": null,
+            "ages": {
+              "min": 16,
+              "max": 18
+            },
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "2027 sessions in supplied catalog",
+          "text": "Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are awarded to those with financial need on a first-come, first-served basis and as resources allow."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition you pay prior to course covers all of your food while on course"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.outwardbound.org/course/blue-ridge-backpack-whitewater-canoe-rock-climb/",
+          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/ncobs/about-our-school/faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "The supplied official catalog lists four open 2027 sessions at $6,995. The official course page's search result instead says no upcoming sessions, dates coming this fall, tuition TBA, and meeting location TBA. Confirm the catalog sessions and meeting site with NCOBS."
+      },
+      {
+        "name": "Outer Banks – Sea Kayak",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Students travel coastal waters by sea kayak, navigate tides and currents, and camp on remote islands and beaches. Crews practice kayaking, navigation, and campcraft.",
+        "camp_page_url": "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
+        "registration_url": "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-07",
+          "end": "2027-06-27",
+          "text": null
+        },
+        "ages": {
+          "min": 16,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 2945,
+            "unit": "session",
+            "label": "7 days",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "7 days",
+            "start": "2027-06-07",
+            "end": "2027-06-13",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          },
+          {
+            "label": "7 days",
+            "start": "2027-06-21",
+            "end": "2027-06-27",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": "available"
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "available",
+          "scope": "Listed youth sessions",
+          "text": "Open"
+        },
+        "financial_aid": {
+          "value": "yes",
+          "text": "Scholarships are awarded to those with financial need on a first-come, first-served basis and as resources allow."
+        },
+        "special_needs": null,
+        "lunch": {
+          "value": "yes",
+          "text": "The tuition you pay prior to course covers all of your food while on course"
+        },
+        "transportation": null,
+        "sources": [
+          "https://www.outwardbound.org/course/outer-banks-sea-kayak/",
+          "https://www.outwardbound.org/find-a-program/enroll-in-a-course/full-course-catalog/?schoolfilter=north-carolina-outward-bound-school",
+          "https://www.outwardbound.org/ncobs/about-our-school/faqs/"
+        ],
+        "confidence": "medium",
+        "review_notes": "This NCOBS course is on the coast, not near Asheville. The official course search result states New Bern, NC for getting there but did not identify a precise meeting venue; sites is therefore empty. Direct course-page opening returned no readable text."
+      }
+    ]
+  }
+}

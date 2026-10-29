@@ -1,0 +1,145 @@
+{
+  "provider": {
+    "key": "foothills-little-explorers",
+    "name": "Foothills Little Explorers",
+    "urls": ["https://www.foothillslittleexplorers.org/summer-camps-1"],
+    "area": "Morganton, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:21:29.623Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "7ada1fae201b6f5a95da692c13292e1b2e50829c1fcf2cb624917f19902d7af1",
+  "response": {
+    "searches": ["site:foothillslittleexplorers.org summer 2027 registration"],
+    "usage": {
+      "inputTokens": 14697,
+      "cachedInputTokens": 8223,
+      "outputTokens": 818,
+      "reasoningTokens": 50
+    },
+    "status": "completed",
+    "ms": 18384,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.foothillslittleexplorers.org/summer-camps-1",
+      "chars": 728,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillslittleexplorers.org/summercamp-details",
+      "chars": 2438,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillslittleexplorers.org/shop/p/july-nature-summer-camp-gzd3g",
+      "chars": 592,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillslittleexplorers.org/shop/p/july-nature-summer-camp-gzd3g-m9kjk",
+      "chars": 592,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillslittleexplorers.org/faq",
+      "chars": 3102,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.foothillslittleexplorers.org/",
+      "chars": 1138,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Foothills Little Explorers",
+    "website_url": "https://www.foothillslittleexplorers.org/",
+    "notes": "Summer 2027 June and July offerings are listed, but dates remain TBD. Both product pages currently say sold out; this may be a placeholder while dates are pending. No 2027 registration opening date was found. Sessions are empty because neither offering has exact dates.",
+    "excluded": [
+      {
+        "name": "Busy Bumblebees",
+        "reason": "Academic-year nature school class, not a summer camp."
+      },
+      {
+        "name": "Wildflowers",
+        "reason": "Academic-year nature school class, not a summer camp."
+      },
+      {
+        "name": "Forest Detectives",
+        "reason": "Academic-year nature school class, not a summer camp."
+      },
+      {
+        "name": "Drop-In Play Sessions",
+        "reason": "Caregiver-and-me nature play rather than a supervised drop-off summer youth program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Nature Camps",
+        "type": "half_day",
+        "categories": ["nature_outdoor"],
+        "description": "Children hike, take part in guided activities and trail lessons, and explore through open-ended outdoor play.",
+        "camp_page_url": "https://www.foothillslittleexplorers.org/summer-camps-1",
+        "registration_url": "https://www.foothillslittleexplorers.org/shop",
+        "season": {
+          "year": 2027,
+          "status": "coming_soon",
+          "start": null,
+          "end": null,
+          "text": "Summer 2027 dates TBD"
+        },
+        "ages": {
+          "min": 5,
+          "max": 7
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Oak Hill Community Park and Forest",
+            "address": "820 NC-126",
+            "town": "Morganton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "4 camp days; 9:00am-12:00pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 180,
+            "unit": "session",
+            "label": "Four camp days; June or July",
+            "year": 2027
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": {
+          "status": "full",
+          "scope": "June and July 2027 product listings",
+          "text": "sold out"
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.foothillslittleexplorers.org/summer-camps-1",
+          "https://www.foothillslittleexplorers.org/summercamp-details",
+          "https://www.foothillslittleexplorers.org/shop/p/july-nature-summer-camp-gzd3g",
+          "https://www.foothillslittleexplorers.org/shop/p/july-nature-summer-camp-gzd3g-m9kjk"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

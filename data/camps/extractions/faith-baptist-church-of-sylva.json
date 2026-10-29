@@ -1,0 +1,91 @@
+{
+  "provider": {
+    "key": "faith-baptist-church-of-sylva",
+    "name": "Faith Baptist Church of Sylva",
+    "urls": ["https://www.faithbaptistsylva.org/vbs"],
+    "area": "Sylva, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:33:48.140Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "702e7ea025cf07826cd5327ee638200f7f04ebb40bfc29463a8ce63be44c5100",
+  "response": {
+    "searches": [
+      "site:faithbaptistsylva.org \"address\"",
+      "site:facebook.com/faithbaptistsylva \"2026\" \"VBS\""
+    ],
+    "usage": {
+      "inputTokens": 16881,
+      "cachedInputTokens": 8223,
+      "outputTokens": 714,
+      "reasoningTokens": 189
+    },
+    "status": "completed",
+    "ms": 24607,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.faithbaptistsylva.org/vbs",
+      "chars": 851,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.faithbaptistsylva.org/",
+      "chars": 615,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Faith Baptist Church of Sylva",
+    "website_url": "https://www.faithbaptistsylva.org/",
+    "notes": "No official 2027 information or verified official 2026 schedule was found. The VBS page lists Sunday July 11 through Wednesday July 14 without a year; those weekdays do not match 2026 or 2027, so these dates were not entered. A third-party listing reports VBS June 22–25, 2026, but this could not be confirmed on official pages and was not used.",
+    "excluded": [],
+    "cards": [
+      {
+        "name": "Destination Dig VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children explore archaeological finds and Bible events through a junior-archaeologist theme, with lessons about Jesus and Jeremiah 29:13.",
+        "camp_page_url": "https://www.faithbaptistsylva.org/vbs",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Faith Baptist Church",
+            "address": "714 Webster Road",
+            "town": "Sylva",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.faithbaptistsylva.org/vbs",
+          "https://www.faithbaptistsylva.org/contact-us"
+        ],
+        "confidence": "low",
+        "review_notes": "The official VBS page appears stale: it gives July 11–14 with Sunday–Wednesday weekdays but no year. Confirm whether Destination Dig remains the program name and obtain the 2027 schedule, ages, hours, registration details, and meeting location directly from the church. The site address is the church's published contact address."
+      }
+    ]
+  }
+}

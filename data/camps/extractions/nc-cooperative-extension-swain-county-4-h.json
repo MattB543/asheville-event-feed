@@ -1,0 +1,246 @@
+{
+  "provider": {
+    "key": "nc-cooperative-extension-swain-county-4-h",
+    "name": "N.C. Cooperative Extension — Swain County 4-H",
+    "urls": ["https://swain.ces.ncsu.edu/event/108549/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:35:21.643Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "51a2020ccea744550356bb37533529387d2a71167f572d1e6f0fc26ec570f164",
+  "response": {
+    "searches": [
+      "site:swain.ces.ncsu.edu 2026 4-H summer camp",
+      "site:swain.ces.ncsu.edu \"Fun with 4-H @ Rec Camp\" \"2026\"",
+      "site:swain.ces.ncsu.edu \"2026\" \"camp\" \"Penn\""
+    ],
+    "usage": {
+      "inputTokens": 33010,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2372,
+      "reasoningTokens": 454
+    },
+    "status": "completed",
+    "ms": 55212,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://swain.ces.ncsu.edu/event/108549/",
+      "chars": 2784,
+      "method": "fetch"
+    },
+    {
+      "url": "https://swain.ces.ncsu.edu/",
+      "chars": 4659,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "N.C. Cooperative Extension — Swain County 4-H",
+    "website_url": "https://swain.ces.ncsu.edu/",
+    "notes": "No 2027 summer program dates or registration milestones were found. Official event pages frequently returned empty text when opened; additional facts were available in official search results. The newsletter page says a summer program newsletter is mailed annually, but no 2026 or 2027 newsletter PDF was found. The 2026 enrollment page mentions county participation at Betsy-Jeff Penn and Fur, Fish, and Game at Millstone, without county-specific dates or enrollment details; these overnight opportunities need further verification.",
+    "excluded": [
+      {
+        "name": "Bullets & Bows 4-H Club",
+        "reason": "Ongoing shooting-sports club practices and competition season, not a finite summer camp or standalone clinic."
+      },
+      {
+        "name": "Swain County 4-H Livestock Club & Bronc Busters 4-H Club",
+        "reason": "Ongoing clubs. The Rabbits and Chickens calendar entries do not establish separate summer-only programs."
+      },
+      {
+        "name": "Swain County 4-H Explore Series: Garden Seeding",
+        "reason": "March 26, 2026 program, outside summer."
+      },
+      {
+        "name": "4-H Pullet Project - Informational Meeting",
+        "reason": "Informational meeting about fair participation and upcoming clinics, rather than a supervised summer skill program."
+      },
+      {
+        "name": "Swain Co. 4-H Farm Tour: Walnut Creek Farm",
+        "reason": "Calendar-only tour listing does not establish a supervised youth drop-off program rather than a club or family outing."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Fun with 4-H @ Rec Camp",
+        "type": "half_day",
+        "categories": ["general"],
+        "description": "4-H provides activities at Rec Camp. The calendar does not describe the specific activities.",
+        "camp_page_url": "https://swain.ces.ncsu.edu/event/108549/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-23",
+          "end": "2026-08-04",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": "09:00",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [
+          {
+            "label": null,
+            "start": "2026-06-23",
+            "end": "2026-06-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-07-07",
+            "end": "2026-07-07",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": null,
+            "start": "2026-08-04",
+            "end": "2026-08-04",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://swain.ces.ncsu.edu/event/108541/",
+          "https://swain.ces.ncsu.edu/event/108544/",
+          "https://swain.ces.ncsu.edu/event/108549/"
+        ],
+        "confidence": "medium",
+        "review_notes": "June 23 and July 7 dates and hours were read through official search results. Confirm whether these are activities for children already enrolled in a separate recreation camp, and obtain the complete schedule, eligibility, registration process and drop-off venue. The Extension office footer is not identified as the camp location."
+      },
+      {
+        "name": "Swain Co. 4-H: Hunter Safety Course",
+        "type": "clinic",
+        "categories": ["nature_outdoor"],
+        "description": "Youth participate in a 4-H hunter safety course.",
+        "camp_page_url": "https://swain.ces.ncsu.edu/event/113724/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-18",
+          "end": "2026-07-18",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "N.C. Cooperative Extension | Swain County Center",
+            "address": "60 Almond School Rd",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "15:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://swain.ces.ncsu.edu/event/113724/", "https://swain.ces.ncsu.edu/"],
+        "confidence": "medium",
+        "review_notes": "The official calendar search result states the 2026 date, hours and venue, but provides no course description, age eligibility or registration details. Verify those details with the county office."
+      },
+      {
+        "name": "4-H Pullet Project Showmanship Clinic",
+        "type": "clinic",
+        "categories": ["nature_outdoor"],
+        "description": "Youth learn how to prepare poultry for the county fair, including show-day expectations, health checks, fair requirements and what to bring.",
+        "camp_page_url": "https://swain.ces.ncsu.edu/event/114724/",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-08",
+          "end": "2026-08-08",
+          "text": null
+        },
+        "ages": {
+          "min": 5,
+          "max": 18
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Great Smoky Mountains Event Park",
+            "address": "1130 Hyatt Creek Rd",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "10:30",
+          "end": "11:30",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Individuals with disabilities are invited to request reasonable accommodations to participate in Extension sponsored programs and events."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://swain.ces.ncsu.edu/event/114724/"],
+        "confidence": "medium",
+        "review_notes": "Details were read through an official search result. The page specifies youth ages 5–18 who plan to exhibit poultry at the fair and says registration is required, with questions directed to (828) 788-0846; no online registration URL or opening date is provided."
+      }
+    ]
+  }
+}

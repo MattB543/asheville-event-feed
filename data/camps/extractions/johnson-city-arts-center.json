@@ -1,0 +1,221 @@
+{
+  "provider": {
+    "key": "johnson-city-arts-center",
+    "name": "Johnson City Arts Center",
+    "urls": [
+      "https://www.jcartscenter.com/summer",
+      "https://www.jcartscenter.com/princess-ballerina-camp"
+    ],
+    "area": "Johnson City, TN",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:06:11.094Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "8b69bbbed14df61ec3100395c6dc261573da8069d897e8f355cb3fff8f4ab325",
+  "response": {
+    "searches": ["site:jcartscenter.com \"2027\" \"summer\""],
+    "usage": {
+      "inputTokens": 18025,
+      "cachedInputTokens": 8223,
+      "outputTokens": 1540,
+      "reasoningTokens": 129
+    },
+    "status": "completed",
+    "ms": 35341,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.jcartscenter.com/summer",
+      "chars": 1373,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/princess-ballerina-camp",
+      "chars": 2898,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/register",
+      "chars": 1220,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/tuition",
+      "chars": 2885,
+      "method": "fetch"
+    },
+    {
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSeBSVML18XWKVj_5k4ShwJuuYMxHrMN0IjeYmXXzoea54ImZA/viewform?usp=header",
+      "chars": 1727,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/dance-schedule",
+      "chars": 2655,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/_files/ugd/078d81_1e58f59be8744d3d9c5ce40c4fea73d5.pdf",
+      "chars": 2493,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.jcartscenter.com/summer-dance",
+      "chars": 2928,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Johnson City Arts Center",
+    "website_url": "https://www.jcartscenter.com/",
+    "notes": "No summer 2027 information was found. Cards use summer 2026 information. Regular summer drop-in dance classes and individually scheduled music lessons are continuations of ongoing classes, rather than finite camp programs.",
+    "excluded": [
+      {
+        "name": "Summer Dance Classes",
+        "reason": "Regular drop-in dance classes continuing the provider's ongoing instruction, not a finite camp or clinic. The separately named Tap Intensive is included."
+      },
+      {
+        "name": "Summer Music Lessons",
+        "reason": "Individually scheduled private lessons continuing year-round music instruction, not a camp."
+      },
+      {
+        "name": "Academic-year dance, music, and art classes",
+        "reason": "Ongoing academic-year classes outside the summer camp rule."
+      },
+      {
+        "name": "Adult Dance",
+        "reason": "Adult-only classes."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Princess Ballerina Camp",
+        "type": "half_day",
+        "categories": ["arts", "dance", "music"],
+        "description": "Girls participate in ballet, music activities, princess-themed crafts, dress-up, and creative play. Activities introduce friendship and leadership through princess and ballet characters.",
+        "camp_page_url": "https://www.jcartscenter.com/princess-ballerina-camp",
+        "registration_url": "https://docs.google.com/forms/d/e/1FAIpQLSeBSVML18XWKVj_5k4ShwJuuYMxHrMN0IjeYmXXzoea54ImZA/closedform",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-15",
+          "end": "2026-06-19",
+          "text": null
+        },
+        "ages": {
+          "min": 3,
+          "max": 8
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Arts Center",
+            "address": "909 Chase Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": null
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 175,
+            "unit": "session",
+            "label": "Early bird: register before May 1 and pay by May 4",
+            "year": 2026
+          },
+          {
+            "amount": 225,
+            "unit": "session",
+            "label": "Regular tuition",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": {
+          "date": "2026-03-21",
+          "time": null,
+          "text": "Registration Opens March 21",
+          "url": "https://www.jcartscenter.com/princess-ballerina-camp"
+        },
+        "availability": {
+          "status": "closed",
+          "scope": "2026 camp registration",
+          "text": "Registration for this event has closed."
+        },
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jcartscenter.com/summer",
+          "https://www.jcartscenter.com/princess-ballerina-camp",
+          "https://docs.google.com/forms/d/e/1FAIpQLSeBSVML18XWKVj_5k4ShwJuuYMxHrMN0IjeYmXXzoea54ImZA/closedform"
+        ],
+        "confidence": "medium",
+        "review_notes": "The camp page says registration was full as of April 29; the registration form says April 28 and now explicitly says registration has closed. Availability follows the closed form. The form adds a May 4 payment deadline for early bird tuition that is not stated on the camp page. A mid-morning snack and juice are provided, but lunch is not addressed."
+      },
+      {
+        "name": "Tap Intensive",
+        "type": "clinic",
+        "categories": ["dance"],
+        "description": "Dancers who do not currently take tap receive four days of tap instruction. Participants may subsequently join Intermediate Tap for the fall term without taking the beginner-level class.",
+        "camp_page_url": "https://www.jcartscenter.com/summer-dance",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-28",
+          "end": "2026-07-31",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Johnson City Arts Center",
+            "address": "909 Chase Drive",
+            "town": "Johnson City",
+            "state": "TN"
+          }
+        ],
+        "hours": {
+          "start": "16:00",
+          "end": "18:00",
+          "text": "Classes are 4:00-6:00 daily."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 80,
+            "unit": "session",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.jcartscenter.com/summer",
+          "https://www.jcartscenter.com/summer-dance"
+        ],
+        "confidence": "medium",
+        "review_notes": "The summer-dance page does not print a year beside July 28-31; 2026 is taken from the linking Summer 2026 page. Eligibility is stated as dancers in levels 3-7, or new students age 10+, who do not currently take tap. Ages are left null because the age minimum applies only to new students and no overall age range is stated. The intensive's registration destination could not be recovered."
+      }
+    ]
+  }
+}

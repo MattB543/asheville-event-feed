@@ -1,0 +1,94 @@
+{
+  "provider": {
+    "key": "lakewood-church-of-black-mountain",
+    "name": "Lakewood Church of Black Mountain",
+    "urls": ["https://lakewoodbmt.com/events/vbs"],
+    "area": "Black Mountain, NC",
+    "discovered_by": ["seed_sheet"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:54:15.970Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "2808821ed55905e2aa1f2995d5ccc54c2f862ad38842fefb74f70d17d2626923",
+  "response": {
+    "searches": ["site:lakewoodbmt.com VBS 2027"],
+    "usage": {
+      "inputTokens": 13657,
+      "cachedInputTokens": 8223,
+      "outputTokens": 605,
+      "reasoningTokens": 94
+    },
+    "status": "completed",
+    "ms": 14793,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://lakewoodbmt.com/events/vbs",
+      "chars": 1445,
+      "method": "fetch"
+    },
+    {
+      "url": "https://lakewoodbmt.com/",
+      "chars": 1977,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Lakewood Church of Black Mountain",
+    "website_url": "https://lakewoodbmt.com/",
+    "notes": "No summer 2027 information was found. The card uses the explicitly dated 2026 event page. The Church Center registration link opened but returned no readable text, so ages, prices and registration milestones could not be verified there.",
+    "excluded": [
+      {
+        "name": "Youth Ministry",
+        "reason": "Recurring Sunday youth ministry, not a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Kingdom Quest - VBS",
+        "type": "vbs",
+        "categories": ["faith_based"],
+        "description": "Children participate in Bible lessons, worship, games, crafts and activities exploring what it means to follow Jesus and live for His Kingdom.",
+        "camp_page_url": "https://lakewoodbmt.com/events/vbs",
+        "registration_url": "https://lakewood-church-488490.churchcenter.com/calendar/event/213858799",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-26",
+          "end": "2026-07-30",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Lakewood Church",
+            "address": "41 Byrd Road",
+            "town": "Black Mountain",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "17:30",
+          "end": "20:00",
+          "text": "July 26–30 from 5:30 PM–8:00 PM each evening"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://lakewoodbmt.com/events/vbs", "https://lakewoodbmt.com/"],
+        "confidence": "high",
+        "review_notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "provider": {
+    "key": "d-bat-asheville",
+    "name": "D-Bat Asheville",
+    "urls": ["https://www.dbatasheville.com/camps"],
+    "area": "Asheville, NC",
+    "discovered_by": ["seed_sheet", "macaroni_kid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T14:56:28.295Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "df60f902996efa6afeb5981a0e82d2957d9c995d7be32357b8bdd0d74fb97572",
+  "response": {
+    "searches": [
+      "site.dbatasheville.com summer camp 2026 2027",
+      "open https://www.dbatasheville.com/",
+      "open https://dbat.com/index.php/camps",
+      "\"D-BAT Asheville\" \"summer\" \"2026\""
+    ],
+    "usage": {
+      "inputTokens": 21147,
+      "cachedInputTokens": 8223,
+      "outputTokens": 723,
+      "reasoningTokens": 198
+    },
+    "status": "completed",
+    "ms": 26518,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.dbatasheville.com/camps",
+      "chars": 1053,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.dbatasheville.com/",
+      "chars": 2322,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "D-Bat Asheville",
+    "website_url": "https://www.dbatasheville.com/",
+    "notes": "No 2027 dates or registration milestones were found. The official camps page confirms summer camps but provides no readable flyers, session dates, ages, prices or camp hours. Attempts to open the official pages and national registration directory returned empty page text; searches did not reveal additional official summer schedules or PDFs. No dated 2026 details could be verified.",
+    "excluded": [
+      {
+        "name": "Spring/Holiday Break Camps",
+        "reason": "School-break programs outside summer."
+      },
+      {
+        "name": "Lessons",
+        "reason": "Ongoing instruction rather than a finite summer program."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps",
+        "type": "day",
+        "categories": ["sports"],
+        "description": "Campers work on baseball and softball skills while school is out.",
+        "camp_page_url": "https://www.dbatasheville.com/camps",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "D-BAT Asheville",
+            "address": "1262 Hendersonville Rd",
+            "town": "Asheville",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.dbatasheville.com/camps", "https://www.dbatasheville.com/"],
+        "confidence": "medium",
+        "review_notes": "The official page describes Summer Camps only generically. Verify the program's exact flyer name, day versus half-day format, and drop-off location when flyers or registration listings become accessible. The facility address is published on the homepage, but the camps page does not explicitly identify the meeting location."
+      }
+    ]
+  }
+}

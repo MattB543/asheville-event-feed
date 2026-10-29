@@ -1,0 +1,107 @@
+{
+  "provider": {
+    "key": "transylvania-county-jam",
+    "name": "Transylvania County JAM",
+    "urls": ["https://www.transylvaniacountyjam.org/summer-camps"],
+    "area": "Brevard, NC",
+    "discovered_by": ["aggregator"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:34:22.187Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "e2524939e0cf334cd01bfec9635c4d0316ab966b9d5cc11c4d4b3cfb24785138",
+  "response": {
+    "searches": ["site:transylvaniacountyjam.org camp 2027 2026"],
+    "usage": {
+      "inputTokens": 13776,
+      "cachedInputTokens": 8223,
+      "outputTokens": 857,
+      "reasoningTokens": 134
+    },
+    "status": "completed",
+    "ms": 23351,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.transylvaniacountyjam.org/summer-camps",
+      "chars": 1529,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacountyjam.org/faq",
+      "chars": 1494,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.transylvaniacountyjam.org/",
+      "chars": 2951,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Transylvania County JAM",
+    "website_url": "https://www.transylvaniacountyjam.org/",
+    "notes": "No 2027 information was found. The summer camp page lists June 15–18 and July 13–16 without a year; neither 2026 nor 2027 could be verified, so dated sessions are omitted. The provider's site blocked browser access, but supplied page text and official search results were available. Level One and Level Two are grouped as experience bands of the same half-day music camp.",
+    "excluded": [
+      {
+        "name": "JAM Discovery",
+        "reason": "Introductory class within the ongoing afternoon program; not identified as a summer-only camp."
+      },
+      {
+        "name": "Instrument classes and Ensemble Class",
+        "reason": "Ongoing music classes, not finite summer programs."
+      },
+      {
+        "name": "Interns and student-teachers",
+        "reason": "Student teaching pathway, not identified as a finite supervised summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camps!",
+        "type": "half_day",
+        "categories": ["music"],
+        "description": "Students form stringbands, practice playing together, study music theory, and perform for friends and families at the end of camp. Level One serves students in their first two years in JAM; Level Two serves students with three or more years and includes harmony, improvisation, and arranging songs.",
+        "camp_page_url": "https://www.transylvaniacountyjam.org/summer-camps",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "St. Philip's Episcopal Church",
+            "address": "256 E Main St",
+            "town": "Brevard",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Both levels meet 9am-Noon."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.transylvaniacountyjam.org/summer-camps"],
+        "confidence": "medium",
+        "review_notes": "Verify the year of Level One Camp (June 15–18) and Level Two Camp (July 13–16) before creating dated rows. The page prints no year; season.year 2026 is a fallback container, not confirmation that these dates describe 2026. Camp-specific ages and prices are not stated. The ongoing program's ages 9–18 and free-class policy were not applied to summer camp. Registration is by email to jamkidstc@gmail.com with the child's name and preferred contact information; no opening date is stated."
+      }
+    ]
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "provider": {
+    "key": "adventure-amputee-camp",
+    "name": "Adventure Amputee Camp",
+    "urls": ["https://adventureamputeecamp.org/summer-camp-1/"],
+    "area": "Bryson City, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:19:27.046Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "a963355fab6e5373c3e7a8b4db9cbb3bc75c5110f1297b44979161c90e95068a",
+  "response": {
+    "searches": [
+      "site:adventureamputeecamp.org \"2027\"",
+      "open https://adventureamputeecamp.org/camper-registration"
+    ],
+    "usage": {
+      "inputTokens": 16747,
+      "cachedInputTokens": 8223,
+      "outputTokens": 955,
+      "reasoningTokens": 104
+    },
+    "status": "completed",
+    "ms": 23501,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://adventureamputeecamp.org/summer-camp-1/",
+      "chars": 2276,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/",
+      "chars": 414,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/search",
+      "chars": 379,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/donate",
+      "chars": 2068,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/our-mission-1",
+      "chars": 1361,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/board-of-directors",
+      "chars": 7511,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/history-1",
+      "chars": 1975,
+      "method": "fetch"
+    },
+    {
+      "url": "https://adventureamputeecamp.org/partners-donors",
+      "chars": 1499,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Adventure Amputee Camp",
+    "website_url": "https://adventureamputeecamp.org/",
+    "notes": "No 2027 summer dates or registration milestones were found. The camper-registration page's official search result states an age-at-start date of July 8, 2026, but the page returned no readable text when opened. No explicit 2026 end date was found.",
+    "excluded": [
+      {
+        "name": "Winter Camp",
+        "reason": "Held in January or February, outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Summer Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports", "special_needs"],
+        "description": "Children with amputations or limb differences participate in rafting, ropes courses, zip-lining, swimming and adaptive water sports. Campers stay at Nantahala Outdoor Center.",
+        "camp_page_url": "https://adventureamputeecamp.org/summer-camp-1/",
+        "registration_url": "https://adventureamputeecamp.org/camper-registration",
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-07-08",
+          "end": null,
+          "text": "Summer Camp is held for 5 days during the 2nd week in July."
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Nantahala Outdoor Center",
+            "address": "13077 U.S. 19 West",
+            "town": "Bryson City",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 0,
+            "unit": "program",
+            "label": "Campers never pay a fee",
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "yes",
+          "text": "Campers never pay a fee. Families never receive a bill."
+        },
+        "special_needs": {
+          "value": "yes",
+          "text": "All activities are modified as necessary to meet the ability and interest level of each camper."
+        },
+        "lunch": {
+          "value": "yes",
+          "text": "These funds help cover camper lodging, meals, activities, transportation (including charter bus from Atlanta), gear, volunteer support, and rising costs due to inflation."
+        },
+        "transportation": {
+          "value": "yes",
+          "text": "These funds help cover camper lodging, meals, activities, transportation (including charter bus from Atlanta), gear, volunteer support, and rising costs due to inflation."
+        },
+        "sources": [
+          "https://adventureamputeecamp.org/summer-camp-1/",
+          "https://adventureamputeecamp.org/camper-registration",
+          "https://adventureamputeecamp.org/donate",
+          "https://adventureamputeecamp.org/our-mission-1",
+          "https://noc.com/locations/nantahala-nc/"
+        ],
+        "confidence": "medium",
+        "review_notes": "July 8, 2026 comes from the official camper-registration search snippet: Age at start of camp (7/8/26). The page could not be read when opened. Confirm the end date and 2027 schedule with AAC. The summer page's typical itinerary lists Tuesday between Wednesday and Friday; no dates were inferred from that itinerary. Free attendance, meals and Atlanta transportation are described in the 2025–2026 giving campaign rather than a summer-specific registration document."
+      }
+    ]
+  }
+}

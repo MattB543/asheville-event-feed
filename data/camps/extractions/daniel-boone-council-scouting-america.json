@@ -1,0 +1,1104 @@
+{
+  "provider": {
+    "key": "daniel-boone-council-scouting-america",
+    "name": "Daniel Boone Council, Scouting America",
+    "urls": [
+      "https://www.campdanielboone.org/summer-programs/",
+      "https://www.campdanielboone.org/Register/",
+      "https://www.campdanielboone.org/",
+      "https://www.danielboonecouncil.org/cubdaycamp"
+    ],
+    "area": "Canton, NC",
+    "discovered_by": ["grid", "aggregator", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:10:34.750Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "d3656a2054ef966b1c0b825b53c790cf493d573f4a0425a10977d2717a453dad",
+  "response": {
+    "searches": [
+      "open https://www.danielboonecouncil.org/cubdaycamp",
+      "site.campdanielboone.org \"Rapids\" \"2027\"",
+      "site.danielboonecouncil.org \"Cub\" \"camp\" \"2026\"",
+      "site.mycouncil.danielboonecouncil.org \"2027 Webelos Woods\"",
+      "site.mycouncil.danielboonecouncil.org/Event/WW2027 \"Pricing\""
+    ],
+    "usage": {
+      "inputTokens": 56101,
+      "cachedInputTokens": 8223,
+      "outputTokens": 8232,
+      "reasoningTokens": 573
+    },
+    "status": "completed",
+    "ms": 155437,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.campdanielboone.org/summer-programs/",
+      "chars": 3144,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campdanielboone.org/Register/",
+      "chars": 3729,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campdanielboone.org/",
+      "chars": 4057,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.danielboonecouncil.org/cubdaycamp",
+      "chars": 0,
+      "error": "fetch: HTTP 404; browser: soft 404 (\"Page not found - Daniel Boone Council\")"
+    },
+    {
+      "url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf",
+      "chars": 30000,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campdanielboone.org/register/",
+      "chars": 3729,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.campdanielboone.org/2027-camp-webinars/",
+      "chars": 2494,
+      "method": "fetch"
+    },
+    {
+      "url": "https://mycouncil.danielboonecouncil.org/Program/1",
+      "chars": 1312,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Daniel Boone Council, Scouting America",
+    "website_url": "https://www.danielboonecouncil.org/",
+    "notes": "Camp Daniel Boone has posted its 2027 program list, dates and prices. Its homepage availability table is headed 2027 but labels the individual dates 2026; availability was not transferred from that table. Several official pages and both PDFs returned no readable body through the browser; supplied fetched text was used. The supplied PDFs end before their final pages. Cub Day Camp information was recoverable only through official search snippets and remains incomplete. Webelos Woods is listed for July 30–August 1, 2027, but its event page could not be read. Goin’ Great, merit badge classes, Stockton Farms classes and day rafting are components or add-ons of Base Camp rather than separate camp registrations. The Leader’s Guide conflicts internally on merit badge registration: March 30 versus April 6–8; the Program Guide supports April 6–8. No camp registration opening date was inferred from those class-selection dates.",
+    "excluded": [
+      {
+        "name": "Camp Staff",
+        "reason": "Employment program, not a camper offering."
+      },
+      {
+        "name": "Adult Leader Programs",
+        "reason": "Adult-only training and activities."
+      },
+      {
+        "name": "2027 Camp Webinars",
+        "reason": "Camp-planning webinars, not supervised youth summer programs."
+      },
+      {
+        "name": "Cub-Parent Weekend",
+        "reason": "Family-only weekends outside summer."
+      },
+      {
+        "name": "Operation Snowshoe",
+        "reason": "February program outside summer."
+      },
+      {
+        "name": "Council Camporee",
+        "reason": "April–May program outside summer."
+      },
+      {
+        "name": "Rock Fest",
+        "reason": "October program outside summer."
+      },
+      {
+        "name": "Klondike Derby",
+        "reason": "November program outside summer."
+      },
+      {
+        "name": "Falling Waters Merit Badge Midway",
+        "reason": "January program outside summer."
+      },
+      {
+        "name": "Lees-McRae Merit Badge College",
+        "reason": "April program outside summer."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Base Camp",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "Scouts take merit badge classes and participate in outdoor activities and evening programs. First-year campers can work on rank requirements through Goin’ Great.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "Sunday arrival at 1:00 PM; Saturday departure at 9:00 AM."
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 490,
+            "unit": "week",
+            "label": "Youth participant; some classes have additional fees. A separate non-refundable $220 unit deposit is required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [
+          {
+            "audience": "member",
+            "kind": "opens",
+            "date": "2026-06-12",
+            "time": "00:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Starts 6/12/2026 (Fri) 12:00 AM Eastern Daylight Time",
+            "url": "https://mycouncil.danielboonecouncil.org/Event/3",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "member",
+            "kind": "closes",
+            "date": "2027-05-30",
+            "time": "00:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Ends 5/30/2027 (Sun) 12:00 AM Eastern Daylight Time",
+            "url": "https://mycouncil.danielboonecouncil.org/Event/3",
+            "year": 2027,
+            "confidence": "medium"
+          },
+          {
+            "audience": "member",
+            "kind": "closes",
+            "date": "2027-06-06",
+            "time": "00:00",
+            "precision": "datetime",
+            "certainty": "announced",
+            "text": "Registration Ends 6/6/2027 (Sun) 12:00 AM Eastern Daylight Time",
+            "url": "https://mycouncil.danielboonecouncil.org/Event/10",
+            "year": 2027,
+            "confidence": "medium"
+          }
+        ],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": {
+          "value": "case_by_case",
+          "text": "2027 Campership Assistance Form (Daniel Boone Council scouts only)"
+        },
+        "special_needs": {
+          "value": "case_by_case",
+          "text": "Mobility accommodations can be made, please contact the Camp Director prior to your arrival to discuss options."
+        },
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/Register/",
+          "https://www.campdanielboone.org/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://mycouncil.danielboonecouncil.org/Event/3",
+          "https://mycouncil.danielboonecouncil.org/Event/10",
+          "https://www.campdanielboone.org/resources/",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-Leaders-Guide.pdf",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration milestones were available only in official search snippets. May 30 closing applies to Week 1 and June 6 closing applies to Week 2; other weeks' closing dates were not recovered. All participants must be registered Scouting America members. Verify the conflicting homepage availability year and class-selection dates before publishing availability or merit badge registration reminders."
+      },
+      {
+        "name": "Boonesboro Village",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "arts"],
+        "description": "Scouts experience late-1700s life skills and crafts, work with craftspeople and cook over an open flame.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/boonesboro-village/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 525,
+            "unit": "week",
+            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/summer-programs/boonesboro-village/",
+          "https://www.campdanielboone.org/summer-programs/",
+          "https://www.campdanielboone.org/Register/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration page requires high-adventure youth to be 13 by June 1, 2027; Program Guide says June 1 is preferred and permits age 13 by arrival. Confirm which cutoff applies to Boonesboro Village. Weeks follow the common summer camp schedule; program-specific capacity was not readable."
+      },
+      {
+        "name": "Backpacking Treks",
+        "type": "overnight",
+        "categories": ["nature_outdoor"],
+        "description": "Scouts take staff-led backcountry treks and practice hiking, camping, navigation and low-impact outdoor skills.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/backpacking-treks/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 515,
+            "unit": "week",
+            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/summer-programs/the-outpost/backpacking-treks/",
+          "https://www.campdanielboone.org/Register/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Shining Rock Wilderness and Panthertown Valley are named trek options, but their week-by-week assignments were not recovered. Weeks use the common summer schedule; confirm route offerings and capacities."
+      },
+      {
+        "name": "R.O.P.E.S. Trek",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Scouts practice climbing equipment use, belaying, rappelling and climbing techniques, then use those skills at climbing sites during the week.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/ropes-trek/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 590,
+            "unit": "week",
+            "label": "Participant; $50 minimum reservation payment and separate $220 unit deposit required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/summer-programs/the-outpost/ropes-trek/",
+          "https://www.campdanielboone.org/Register/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Program-page description was available only through an official search snippet. Weeks use the common summer schedule; program-specific capacity was not recovered."
+      },
+      {
+        "name": "Rapids Adventure Program",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Scouts participate in a week of whitewater rafting through the camp’s high-adventure program.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 695,
+            "unit": "week",
+            "label": "Provisional participant price; not final until December 2026 pending outfitter pricing. $50 minimum reservation payment and separate $220 unit deposit required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/summer-programs/",
+          "https://www.campdanielboone.org/summer-programs/the-outpost/",
+          "https://www.campdanielboone.org/Register/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://mycouncil.danielboonecouncil.org/Event/summercamp-week5",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Recheck provisional price after December 2026. Weeks use the common summer schedule; program-specific capacities were not recovered."
+      },
+      {
+        "name": "5 Day Adventure Trek",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "sports"],
+        "description": "Scouts take part in whitewater rafting, ziplining and a caving expedition during a week-long high-adventure camp.",
+        "camp_page_url": "https://www.campdanielboone.org/summer-programs/the-outpost/5-days-adventure-trek/",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Program/1",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-06-06",
+          "end": "2027-07-24",
+          "text": null
+        },
+        "ages": {
+          "min": 13,
+          "max": null
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Camp Daniel Boone",
+            "address": "3647 Little East Fork Rd",
+            "town": "Canton",
+            "state": "NC"
+          }
+        ],
+        "hours": null,
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 750,
+            "unit": "week",
+            "label": "Provisional participant price; not final until December 2026 pending outfitter pricing. $50 minimum reservation payment and separate $220 unit deposit required.",
+            "year": 2027
+          }
+        ],
+        "sessions": [
+          {
+            "label": "Week 1",
+            "start": "2027-06-06",
+            "end": "2027-06-12",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 2",
+            "start": "2027-06-13",
+            "end": "2027-06-19",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 3",
+            "start": "2027-06-20",
+            "end": "2027-06-26",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 4",
+            "start": "2027-06-27",
+            "end": "2027-07-03",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 5",
+            "start": "2027-07-04",
+            "end": "2027-07-10",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 6",
+            "start": "2027-07-11",
+            "end": "2027-07-17",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "Week 7",
+            "start": "2027-07-18",
+            "end": "2027-07-24",
+            "year": 2027,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.campdanielboone.org/summer-programs/the-outpost/5-days-adventure-trek/",
+          "https://www.campdanielboone.org/Register/",
+          "https://mycouncil.danielboonecouncil.org/Program/1",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/CDB-High-Adventure-Trifold-27.pdf",
+          "https://www.campdanielboone.org/wp-content/uploads/sites/2/2026/10/2027-CDB-Program-Guide.pdf"
+        ],
+        "confidence": "medium",
+        "review_notes": "Registration page requires age 13 by June 1, 2027; Program Guide permits age 13 by arrival. Recheck provisional price after December 2026. Program description was supplemented by official search snippets. Weeks use the common summer schedule; program-specific capacities were not recovered."
+      },
+      {
+        "name": "Twilight Camp",
+        "type": "evening",
+        "categories": ["general", "nature_outdoor"],
+        "description": "Cub Scouts attend a five-evening camp at Grandad’s Apples.",
+        "camp_page_url": "https://www.danielboonecouncil.org/cubdaycamp",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-22",
+          "end": "2026-06-26",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Grandad’s Apples",
+            "address": "2951 Chimney Rock Road",
+            "town": "Hendersonville",
+            "state": "NC"
+          }
+        ],
+        "hours": {
+          "start": "16:30",
+          "end": "20:00",
+          "text": "4:30-8 PM"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.danielboonecouncil.org/cubdaycamp",
+          "https://grandadsapples.com/contact-directions/"
+        ],
+        "confidence": "medium",
+        "review_notes": "Camp dates, venue and hours were available only in an official search snippet. The snippet explicitly says June 22–26, 2026 but the page description mentions 2025. No 2027 Cub Day Camp list was found; the 2027 Camp Daniel Boone list does not establish replacement of council day camps. Confirm ages, price and activities."
+      },
+      {
+        "name": "Webelos Woods",
+        "type": "overnight",
+        "categories": ["nature_outdoor", "general"],
+        "description": "The council lists a summer Webelos Woods event running from Friday morning through Sunday noon.",
+        "camp_page_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
+        "registration_url": "https://mycouncil.danielboonecouncil.org/Event/WW2027",
+        "season": {
+          "year": 2027,
+          "status": "posted",
+          "start": "2027-07-30",
+          "end": "2027-08-01",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [],
+        "hours": {
+          "start": null,
+          "end": null,
+          "text": "July 30 at 8:00 AM to August 1 at 12:00 PM."
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.danielboonecouncil.org/calendar/programcalendar/",
+          "https://mycouncil.danielboonecouncil.org/Event/WW2027"
+        ],
+        "confidence": "low",
+        "review_notes": "Only the official calendar search snippet supplied dates and event times. The event page body could not be read. Confirm supervised youth format, activity description, eligibility, meeting site, fees and registration milestones before publication."
+      }
+    ]
+  }
+}

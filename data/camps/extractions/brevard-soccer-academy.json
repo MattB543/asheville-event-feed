@@ -1,0 +1,277 @@
+{
+  "provider": {
+    "key": "brevard-soccer-academy",
+    "name": "Brevard Soccer Academy",
+    "urls": ["https://www.brevardsoccer.org/bsa-summer-camps2026"],
+    "area": "Brevard, NC",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:32:26.025Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "10f07bda564bf8fe808af1507c0d4a66a195bd1224e64de5699e35fdcc952a00",
+  "response": {
+    "searches": [
+      "site.brevardsoccer.org summer camps 2027",
+      "open https://www.brevardsoccer.org/camps",
+      "site.brevardsoccer.org \"FUTSAL\" \"June\" \"2026\"",
+      "site.brevardsoccer.org \"FUTSAL CAMPS\"",
+      "open https://www.brevardsoccer.org/futsal-summer-camps"
+    ],
+    "usage": {
+      "inputTokens": 33932,
+      "cachedInputTokens": 8223,
+      "outputTokens": 2137,
+      "reasoningTokens": 429
+    },
+    "status": "completed",
+    "ms": 60668,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.brevardsoccer.org/bsa-summer-camps2026",
+      "chars": 2207,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/camps",
+      "chars": 923,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/copy-of-winter-camps",
+      "chars": 1905,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/futsalfallcamps",
+      "chars": 1531,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.brevardsoccer.org/",
+      "chars": 3492,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Brevard Soccer Academy",
+    "website_url": "https://www.brevardsoccer.org/",
+    "notes": "Location mismatch: this provider serves Brevard County, Florida, not Brevard, North Carolina. These cards should not be published as Asheville-area camps. No summer 2027 information or registration dates were found. Registration links were not exposed in the readable camp pages. The futsal summer pages currently list only November dates.",
+    "excluded": [
+      {
+        "name": "BSA FALL CAMP",
+        "reason": "December 17–20, 2026; outside summer."
+      },
+      {
+        "name": "FUTSAL FALL CAMPS",
+        "reason": "November 23–25, 2026; outside summer."
+      },
+      {
+        "name": "FUTSAL SUMMER CAMPS",
+        "reason": "Despite the summer heading, the current page lists only November 23–25; no summer session could be verified."
+      },
+      {
+        "name": "BSA Shooting Camp (January)",
+        "reason": "January 10–11, 2026; outside summer. The separate August offering is included."
+      },
+      {
+        "name": "COMPETITIVE SOCCER",
+        "reason": "League and team-season program, not a finite summer camp."
+      },
+      {
+        "name": "RECREATIONAL SOCCER",
+        "reason": "League program, not a finite summer camp."
+      },
+      {
+        "name": "FUTSAL",
+        "reason": "Regular sports program, distinct from finite camps."
+      },
+      {
+        "name": "BRIDGE ACADEMY",
+        "reason": "Supplemental fall-season training, not a summer camp."
+      }
+    ],
+    "cards": [
+      {
+        "name": "Brevard Soccer Summer Camps",
+        "type": "half_day",
+        "categories": ["sports"],
+        "description": "Players practice ball-control skills and play small-sided soccer games in teams of five or six. Each three-week session includes team standings and a final-day playoff.",
+        "camp_page_url": "https://www.brevardsoccer.org/bsa-summer-camps2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-06-08",
+          "end": "2026-07-23",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Flutie Fields",
+            "address": "2101 Oak St",
+            "town": "Melbourne Beach",
+            "state": "FL"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "12:00",
+          "text": "Monday - Thursday, 9am-12pm"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 220,
+            "unit": "session",
+            "label": "3 weeks of camp",
+            "year": 2026
+          }
+        ],
+        "sessions": [
+          {
+            "label": "June Camp",
+            "start": "2026-06-08",
+            "end": "2026-06-25",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          },
+          {
+            "label": "July Camp",
+            "start": "2026-07-06",
+            "end": "2026-07-23",
+            "year": 2026,
+            "site": null,
+            "ages": null,
+            "grades": null,
+            "hours": null,
+            "price": null,
+            "status": null
+          }
+        ],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.brevardsoccer.org/bsa-summer-camps2026",
+          "https://www.brevardsoccer.org/flutie-fields"
+        ],
+        "confidence": "medium",
+        "review_notes": "Eligibility is stated as U9–U17, not numeric ages; ages were left null. The introduction says 'at Gemini' but the explicit location section says Flutie Fields; confirm the drop-off location. Provider is in Florida."
+      },
+      {
+        "name": "BSA Shooting Camp",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Players practice one-on-one and two-on-one attacking situations, dribbling, and shooting techniques, including shot timing and decision-making.",
+        "camp_page_url": "https://www.brevardsoccer.org/bsasummershooting-camp2026",
+        "registration_url": null,
+        "season": {
+          "year": 2026,
+          "status": "not_posted",
+          "start": "2026-08-01",
+          "end": "2026-08-02",
+          "text": null
+        },
+        "ages": null,
+        "grades": null,
+        "sites": [
+          {
+            "name": "Flutie Park",
+            "address": "2101 Oak St",
+            "town": "Melbourne Beach",
+            "state": "FL"
+          }
+        ],
+        "hours": {
+          "start": "10:00",
+          "end": "11:30",
+          "text": "August 1 & 2: 10am - 11:30am"
+        },
+        "extended_care": null,
+        "prices": [
+          {
+            "amount": 65,
+            "unit": "program",
+            "label": null,
+            "year": 2026
+          }
+        ],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": [
+          "https://www.brevardsoccer.org/bsasummershooting-camp2026",
+          "https://www.brevardsoccer.org/flutie-fields"
+        ],
+        "confidence": "high",
+        "review_notes": null
+      },
+      {
+        "name": "BSA GOALKEEPER SUMMER CAMP",
+        "type": "clinic",
+        "categories": ["sports"],
+        "description": "Goalkeepers practice catching, jumping, handling crosses, throwing, shooting, footwork, agility, and positioning in game situations.",
+        "camp_page_url": "https://www.brevardsoccer.org/bsasummergoalkeeper-camp",
+        "registration_url": null,
+        "season": {
+          "year": 2027,
+          "status": "not_posted",
+          "start": null,
+          "end": null,
+          "text": null
+        },
+        "ages": {
+          "min": 8,
+          "max": 17
+        },
+        "grades": null,
+        "sites": [
+          {
+            "name": "Southwest Park",
+            "address": null,
+            "town": "Melbourne",
+            "state": "FL"
+          }
+        ],
+        "hours": {
+          "start": "09:00",
+          "end": "10:30",
+          "text": "Monday to Friday: 90 Minutes Training Session 9am to 10:30am"
+        },
+        "extended_care": null,
+        "prices": [],
+        "sessions": [],
+        "registration": [],
+        "last_year_registration_opened": null,
+        "availability": null,
+        "financial_aid": null,
+        "special_needs": null,
+        "lunch": null,
+        "transportation": null,
+        "sources": ["https://www.brevardsoccer.org/bsasummergoalkeeper-camp"],
+        "confidence": "medium",
+        "review_notes": "The undated page lists June 29–July 3 and $125 per goalkeeper, but does not establish the summer year; dates and price were withheld. Confirm these details for 2026 or 2027. Southwest Park's official address could not be verified; third-party results disagree between 397 and 400 W Florida Ave. Shooting camp eligibility is U9–U12, which was not converted to numeric ages."
+      }
+    ]
+  }
+}

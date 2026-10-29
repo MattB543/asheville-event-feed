@@ -1,0 +1,82 @@
+{
+  "provider": {
+    "key": "us-baseball-academy",
+    "name": "U.S. Baseball Academy",
+    "urls": ["https://usbaseballacademy.com/usba-summer-camps/", "https://usbaseballacademy.com/"],
+    "area": "Weaverville, NC",
+    "discovered_by": ["grid", "gap_fill"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:12:23.648Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "81b758892687f9427f505eb18f2e6d80e7aadf08012ac1b85c0d00e19d5f415f",
+  "response": {
+    "searches": [
+      "site:usbaseballacademy.com Weaverville summer",
+      "\"U.S. Baseball Academy\" \"Weaverville\" camp"
+    ],
+    "usage": {
+      "inputTokens": 41434,
+      "cachedInputTokens": 8223,
+      "outputTokens": 308,
+      "reasoningTokens": 123
+    },
+    "status": "completed",
+    "ms": 18956,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://usbaseballacademy.com/usba-summer-camps/",
+      "chars": 7770,
+      "method": "fetch"
+    },
+    {
+      "url": "https://usbaseballacademy.com/",
+      "chars": 3724,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.usbaseballacademy.com/",
+      "chars": 25614,
+      "method": "browser"
+    },
+    {
+      "url": "https://usbaseballacademy.com/about-us-baseball-academy-summer-camps/",
+      "chars": 3628,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.usbaseballacademy.com/camps",
+      "chars": 25614,
+      "method": "browser"
+    },
+    {
+      "url": "https://usbaseballacademy.com/host-a-camp/",
+      "chars": 2838,
+      "method": "fetch"
+    },
+    {
+      "url": "https://app.usbaseballacademy.com/baseball/camps",
+      "chars": 10812,
+      "method": "browser"
+    }
+  ],
+  "extraction": {
+    "provider_name": "U.S. Baseball Academy",
+    "website_url": "https://usbaseballacademy.com/",
+    "notes": "No summer camp in Weaverville or the Asheville area could be verified on current official pages. The supplied summer directory lists North Carolina locations only in Belville, Broadway and Charlotte. A third-party listing mentions an Asheville-Weaverville summer camp, but no official 2026 dates or 2027 offering could be found to substantiate it, so no local card is returned. The official site's announcement that Spring Training 2027 registration is open is not a summer registration announcement. Generic promotional deadlines lack reliable season years and were not extracted.",
+    "excluded": [
+      {
+        "name": "Winter Baseball Camps / Spring Training",
+        "reason": "Winter and spring training programs are outside summer."
+      },
+      {
+        "name": "Winter Break Camps",
+        "reason": "Winter-break programs are outside summer."
+      }
+    ],
+    "cards": []
+  }
+}

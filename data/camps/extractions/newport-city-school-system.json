@@ -1,0 +1,58 @@
+{
+  "provider": {
+    "key": "newport-city-school-system",
+    "name": "Newport City School System",
+    "urls": ["https://www.newportcityschools.org/afterschoolprograms"],
+    "area": "Newport, TN",
+    "discovered_by": ["grid"],
+    "status": "ok"
+  },
+  "extractedAt": "2026-10-29T15:30:25.618Z",
+  "fingerprint": "8143a69ad3b4045deebc382c437b2f51c5f9398fb341bffbd8729ebbad54611d",
+  "sourceHash": "443d70b9518ff1413a617d05d3388ed849846e6c3ac7012f7bd3209856d5306d",
+  "response": {
+    "searches": [
+      "site:newportcityschools.org summer 2026 programs",
+      "\"Newport Grammar\" \"summer\" \"2026\" camp"
+    ],
+    "usage": {
+      "inputTokens": 21828,
+      "cachedInputTokens": 8223,
+      "outputTokens": 364,
+      "reasoningTokens": 168
+    },
+    "status": "completed",
+    "ms": 24389,
+    "model": "gpt-6.1-sol",
+    "attempts": 1
+  },
+  "bundle": [
+    {
+      "url": "https://www.newportcityschools.org/afterschoolprograms",
+      "chars": 1946,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newportcityschools.org/sys/account/register",
+      "chars": 1662,
+      "method": "fetch"
+    },
+    {
+      "url": "https://www.newportcityschools.org/",
+      "chars": 4151,
+      "method": "fetch"
+    }
+  ],
+  "extraction": {
+    "provider_name": "Newport City School System",
+    "website_url": "https://www.newportcityschools.org/",
+    "notes": "The official After School & Summer Programs page has a Summer Programs 2026 heading but no identifiable summer offerings, descriptions, dates, eligibility, prices or camp registration links in the supplied text or searchable official content. Searches found no 2027 summer announcements or summer-program PDFs. Direct browser opens returned no readable content. No cards were created because the heading alone does not establish a specific program or format. The school office phone listed for summer-program inquiries is (423) 623-3811. The supplied Connect Suite registration page creates a website notification account, not a camp enrollment. Reviewer should ask the school for its summer program flyer or schedule.",
+    "excluded": [
+      {
+        "name": "After School Programs 2025-2026",
+        "reason": "School-year after-school programs, not finite summer programs."
+      }
+    ],
+    "cards": []
+  }
+}

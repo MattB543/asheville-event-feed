@@ -13,6 +13,7 @@ import {
   TARGET_SEASON,
   TYPE_LABELS,
   campSearchText,
+  searchTerms,
   formatDate,
   gradeLabel,
   inTargetSeason,
@@ -28,6 +29,7 @@ import {
   type SupportKey,
 } from '@/lib/camps/display';
 import { kidName, parseKid, type Kid } from '@/lib/camps/chat/context';
+import { CAMPS_LIST_KEY } from './BackToCamps';
 import CampCard from './CampCard';
 import CampChatButton from './CampChatButton';
 import SavedCalendar from './SavedCalendar';
@@ -454,7 +456,13 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   ).toString();
 
   // replaceState, not router.replace: filtering is client-side, so no server round trip.
+  // A camp page's "All camps" link comes back to this view (BackToCamps).
   useEffect(() => {
+    try {
+      sessionStorage.setItem(CAMPS_LIST_KEY, listKey);
+    } catch {
+      // Blocked storage: "All camps" opens the plain directory.
+    }
     const params = new URLSearchParams(window.location.search);
     const own = new URLSearchParams(listKey);
     for (const key of URL_KEYS) {
@@ -513,9 +521,17 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   // Typing stays quick: the list catches up with the search box a moment later, and a keystroke
   // only re-runs the text match (the rows are judged when the other filters change).
   const searchQuery = useDeferredValue(query);
-  const terms = useMemo(
-    () => searchQuery.toLowerCase().split(/\s+/).filter(Boolean),
-    [searchQuery]
+  const terms = useMemo(() => searchTerms(searchQuery), [searchQuery]);
+  // Camps the search alone matches, so an empty list can say the other filters hide them
+  const searchMatches = useMemo(
+    () =>
+      terms.length === 0
+        ? 0
+        : camps.filter((camp) => {
+            const text = searchTexts.get(camp.id)!;
+            return terms.every((term) => text.includes(term));
+          }).length,
+    [camps, searchTexts, terms]
   );
   const filters = useMemo(() => {
     const band = PRICE_BANDS.find((option) => option.value === price) ?? null;
@@ -652,8 +668,8 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     ].filter(Boolean).length + needs.length;
   const filtered = filterCount > 0 || !!query.trim() || kids.length > 0 || savedOnly;
 
-  function clearFilters() {
-    setQuery('');
+  function clearFilters({ keepSearch = false } = {}) {
+    if (!keepSearch) setQuery('');
     updateKids([]);
     setKidsMode('any');
     setType('all');
@@ -699,7 +715,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       {filtered && (
         <>
           {' · '}
-          <button type="button" onClick={clearFilters} className={textButtonClasses}>
+          <button type="button" onClick={() => clearFilters()} className={textButtonClasses}>
             Clear filters
           </button>
         </>
@@ -1036,10 +1052,27 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
       {shown.length === 0 ? (
         <p className="mt-4 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400">
-          No camps match these filters.{' '}
-          <button type="button" onClick={clearFilters} className={textButtonClasses}>
-            Clear filters
-          </button>
+          {searchMatches > 0 ? (
+            <>
+              {searchMatches === 1 ? '1 camp matches' : `${searchMatches} camps match`} “
+              {searchQuery.trim()}”, but your other filters hide{' '}
+              {searchMatches === 1 ? 'it' : 'them'}.{' '}
+              <button
+                type="button"
+                onClick={() => clearFilters({ keepSearch: true })}
+                className={textButtonClasses}
+              >
+                Clear the other filters
+              </button>
+            </>
+          ) : (
+            <>
+              No camps match these filters.{' '}
+              <button type="button" onClick={() => clearFilters()} className={textButtonClasses}>
+                Clear filters
+              </button>
+            </>
+          )}
         </p>
       ) : grouped ? (
         <div className="mt-4 space-y-8">

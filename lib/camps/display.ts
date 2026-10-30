@@ -1118,20 +1118,45 @@ export interface CampCardData {
   reminders: ReminderDate[];
 }
 
-/** Everything the search box matches for a camp, lowercased. */
+/** Words a search can leave out: every listing is a summer camp. */
+const SEARCH_FILLER = new Set(['a', 'an', 'and', 'of', 'the', 'for', 'summer', 'camp']);
+
+/** Text as the search box compares it: lowercase, no accents or apostrophes, "theatre" as "theater". */
+function searchForm(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/([a-z])tre(s?)\b/g, '$1ter$2');
+}
+
+/**
+ * The search box's words, each of which a camp's text must contain. A plural is searched as its
+ * singular ("camps", "theatres"), so it matches both.
+ */
+export function searchTerms(query: string): string[] {
+  return searchForm(query)
+    .split(/[^a-z0-9]+/)
+    .map((word) => (word.length > 3 ? word.replace(/s$/, '') : word))
+    .filter((word) => word && !SEARCH_FILLER.has(word));
+}
+
+/** Everything the search box matches for a camp, in `searchForm`. */
 export function campSearchText(camp: CampCardData): string {
-  return [
-    camp.name,
-    camp.providerName,
-    TYPE_LABELS[camp.type],
-    ...camp.categories.map((category) => CATEGORY_LABELS[category]),
-    ...camp.sites.map((site) => site.town),
-    camp.summary,
-    camp.search,
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase();
+  return searchForm(
+    [
+      camp.name,
+      camp.providerName,
+      TYPE_LABELS[camp.type],
+      ...camp.categories.map((category) => CATEGORY_LABELS[category]),
+      ...camp.sites.map((site) => site.town),
+      camp.summary,
+      camp.search,
+    ]
+      .filter(Boolean)
+      .join(' ')
+  );
 }
 
 export function supportKeys(card: CampListCard): SupportKey[] {

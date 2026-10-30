@@ -3,10 +3,11 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { connection } from 'next/server';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Eye, MapPin } from 'lucide-react';
+import { ExternalLink, Eye, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
 import AiNotice from '@/components/camps/AiNotice';
+import BackToCamps from '@/components/camps/BackToCamps';
 import { CampViewBeacon, CampWebsiteLink } from '@/components/camps/CampLinks';
 import CampReminderOffer from '@/components/camps/CampReminderOffer';
 import ReminderMenu from '@/components/camps/ReminderMenu';
@@ -325,13 +326,7 @@ export default async function CampPage({ params }: PageProps) {
 
       <div className="flex-grow">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-6 pb-10">
-          <Link
-            href="/camps"
-            className="inline-flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-          >
-            <ArrowLeft size={16} aria-hidden="true" />
-            All camps
-          </Link>
+          <BackToCamps />
 
           <AiNotice
             className="mt-4"

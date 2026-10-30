@@ -2,7 +2,7 @@
 
 import { useId, useRef, useState } from 'react';
 import Image from 'next/image';
-import { BellPlus, ChevronDown } from 'lucide-react';
+import { CalendarPlus, ChevronDown } from 'lucide-react';
 import type { Audience } from '@/lib/camps/contract';
 import type { ReminderDate } from '@/lib/camps/display';
 import { useDismiss } from '@/lib/hooks/useDismiss';
@@ -62,7 +62,7 @@ export default function ReminderMenu({
         }}
         className={`${className} cursor-pointer`}
       >
-        <BellPlus size={14} aria-hidden="true" />
+        <CalendarPlus size={14} aria-hidden="true" />
         {label}
         <ChevronDown
           size={13}

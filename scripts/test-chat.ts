@@ -124,6 +124,25 @@ async function offline() {
   );
   await session.execute('search_events', { nextPage: true });
   assert.equal(params.length, 2, 'Exhausted searches do not start over.');
+  assert.equal(
+    session.followUp,
+    session.state,
+    '"Show more" on the first search moves it forward.'
+  );
+  await session.execute('search_events', { ...nullArgs, maxPrice: 50, nextPage: false });
+  assert.equal(session.state.filters.maxPrice, 50);
+  assert.equal(
+    session.followUp.filters.maxPrice,
+    30,
+    'A later, looser search is an alternative; follow-ups build on the first one.'
+  );
+  // A first "show more" on an exhausted saved search still fixes the follow-up state
+  const exhausted = createChatToolSession({}, session.followUp, {
+    query: () => Promise.resolve(emptyPage),
+  });
+  await exhausted.execute('search_events', { nextPage: true });
+  await exhausted.execute('search_events', { ...nullArgs, maxPrice: 50, nextPage: false });
+  assert.equal(exhausted.followUp.filters.maxPrice, 30);
 
   const responses = [
     call('search_events', { dateStart: '2026-02-30', nextPage: false }),
@@ -316,7 +335,7 @@ async function live() {
         return Promise.resolve();
       },
     });
-    const searchFilters = searches[searches.length - 1];
+    const searchFilters = searches[0];
     assert(searchFilters, 'Model must call the search tool.');
     assert.equal(searchFilters.dateStart, '2026-11-01');
     assert.equal(searchFilters.dateEnd, '2026-11-30');
@@ -353,7 +372,7 @@ async function live() {
       { role: 'assistant' as const, content: text },
       { role: 'user' as const, content: 'How about May 2027 instead?' },
     ];
-    const changed = createChatToolSession({}, session.state, {
+    const changed = createChatToolSession({}, session.followUp, {
       query: (filters) => {
         searches.push(filters);
         return Promise.resolve(emptyPage);
@@ -367,11 +386,15 @@ async function live() {
       onSearch: () => Promise.resolve(),
       onToken: () => Promise.resolve(),
     });
-    assert.equal(changed.state.filters.dateStart, '2027-05-01');
-    assert.equal(changed.state.filters.dateEnd, '2027-05-31');
-    assert.deepEqual(changed.state.filters.days, [5]);
-    assert.equal(changed.state.filters.maxPrice, searchFilters.maxPrice);
-    assert(changed.state.filters.venue?.toLowerCase().includes('orange peel'));
+    const followUp = changed.followUp.filters;
+    assert.equal(followUp.dateStart, '2027-05-01');
+    assert.equal(followUp.dateEnd, '2027-05-31');
+    assert.deepEqual(followUp.days, [5]);
+    // "Under $30" may be restated as 29.99 or 30; either keeps the budget.
+    assert(
+      followUp.maxPrice !== undefined && followUp.maxPrice >= 29.99 && followUp.maxPrice <= 30
+    );
+    assert(followUp.venue?.toLowerCase().includes('orange peel'));
     console.log(
       `${provider} follow-up smoke test passed (May 2027, preserving Friday, venue and budget).`
     );

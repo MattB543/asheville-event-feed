@@ -95,19 +95,18 @@ export async function POST(request: NextRequest) {
             await runEventChat({
               ...body,
               model: createChatModel(provider, signal),
-              onSearch: (state, count) => {
+              onSearch: ({ filters }, count, followUp) => {
                 send({
                   type: 'searchState',
                   data: {
-                    ...state,
+                    ...followUp,
                     eventCount: count,
                     displayMessage:
-                      state.filters.dateStart || state.filters.dateEnd
-                        ? `Checking events ${state.filters.dateStart || 'today'} through ${state.filters.dateEnd || 'all upcoming dates'}`
-                        : state.filters.dateFilter === 'today' ||
-                            state.filters.dateFilter === 'tomorrow'
-                          ? `Searching events ${state.filters.dateFilter}`
-                          : state.filters.dateFilter === 'weekend'
+                      filters.dateStart || filters.dateEnd
+                        ? `Checking events ${filters.dateStart || 'today'} through ${filters.dateEnd || 'all upcoming dates'}`
+                        : filters.dateFilter === 'today' || filters.dateFilter === 'tomorrow'
+                          ? `Searching events ${filters.dateFilter}`
+                          : filters.dateFilter === 'weekend'
                             ? 'Searching events this weekend'
                             : 'Searching all upcoming events',
                   },

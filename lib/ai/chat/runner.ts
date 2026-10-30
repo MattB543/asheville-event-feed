@@ -21,7 +21,8 @@ export async function runEventChat(options: {
   previousState?: ChatSearchState;
   model: ChatModel;
   session?: ReturnType<typeof createChatToolSession>;
-  onSearch: (state: ChatSearchState, count: number) => Promise<void>;
+  /** search is the one just run; followUp is what the next turn starts from. */
+  onSearch: (search: ChatSearchState, count: number, followUp: ChatSearchState) => Promise<void>;
   onToken: (token: string) => Promise<void>;
 }) {
   const session = options.session ?? createChatToolSession(options.filters, options.previousState);
@@ -64,7 +65,7 @@ export async function runEventChat(options: {
             Array.isArray(result.events)
               ? result.events.length
               : 0;
-          await options.onSearch(session.state, count);
+          await options.onSearch(session.state, count, session.followUp);
         }
       } catch (error) {
         result = {

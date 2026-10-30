@@ -497,6 +497,7 @@ missing data. Policy, as of 2026-10-14:
 | ---------------------------- | -------- | -------------------------------------------------------------------------- |
 | `/api/health`                | GET      | Health check (DB status, event count)                                      |
 | `/api/chat`                  | POST     | AI conversational event discovery (rate limited)                           |
+| `/api/camps/chat`            | POST     | AI camp finder for `/camps` (SSE, rate limited)                            |
 | `/api/export/json`           | GET      | Public events API (`format=compact` for AI agents)                         |
 | `/api/export/markdown`       | GET      | Markdown export (same filters as the JSON export)                          |
 | `/openapi.json`              | GET      | OpenAPI 3.1 spec for the two exports                                       |
@@ -662,10 +663,21 @@ static `/asheville-default.jpg` placeholder to events with no image.
 ### AI Chat (`app/api/chat/route.ts`)
 
 - **Primary**: Azure OpenAI (validated function tools + streamed answers; GPT-6 tool planning uses `reasoning_effort: 'none'` for Chat Completions compatibility)
-- **Fallback**: OpenRouter (`google/gemini-2.5-flash`, overridable with `OPENROUTER_CHAT_MODEL`)
+- **Fallback**: OpenRouter (DeepSeek V4.1 Flash, `deepseek/deepseek-v4.1-flash`, overridable with `OPENROUTER_CHAT_MODEL`); the camps chat shares it
 - **Tools** (`lib/ai/chat/`): `search_events`, `get_search_filters`, `get_event_details`. Search combines literal keywords (all/any/exclusions), dates, weekdays, time, budget, tags, cities/ZIPs, venues and organizers. All upcoming dates are searchable; no two-week default horizon.
-- **State**: The modal sends feed filters and the last validated search/cursor. Null tool fields retain filters; empty strings/arrays clear them; `nextPage` continues the saved search. Search pages contain at most 50 results and expose `hasMore`, not an approximate total.
+- **State**: The modal sends feed filters and the saved search/cursor: the first validated search of each turn (later ones in the turn are alternatives, which DeepSeek in particular runs after an empty result; `nextPage` on that first search moves it on). Null tool fields retain filters; empty strings/arrays clear them; `nextPage` continues the saved search. Search pages contain at most 50 results and expose `hasMore`, not an approximate total.
 - **Validation**: `npm run test:chat` runs offline regressions; `npx tsx scripts/test-chat.ts --live` adds read-only database and Azure smoke tests; add `--openrouter` to test the fallback.
+
+### Camps AI Chat (`app/api/camps/chat/route.ts`)
+
+"Ask AI" on `/camps` (plan: `docs/camps/06-ai-chat-plan.md`): parents describe what they need, with no sign-in or kid profile, and the assistant searches the stored camp facts and links to `/camps/<slug>` and each camp's own site. It books nothing, reads no website and writes nothing, except that a "Camp website" click on a chat card counts a camp view, as on the directory cards.
+
+- **Endpoint**: `POST /api/camps/chat` with `{messages, directory, lastSearch}`: 1-40 user/assistant messages (the last one the user's), 4,000 chars each and 32,000 in all, in a body of at most 128 KiB counted as it is read (413). `directory` is the directory's URL filters (CampDirectory's `listKey`), read by `lib/camps/chat/context.ts` (client-safe; the modal shows the same lines). The reply is the events chat's SSE format plus one `campResults` frame (`CampTurnEvidence`) right before the answer tokens, so a provider that failed first never shows its cards. Providers as in the events chat: Azure, then OpenRouter, switching only before any token. `maxDuration` 300 with a 240s abort; Stop or a disconnect ends the model work.
+- **Tools** (`lib/camps/chat/tools.ts`, strict schemas): `search_camps`, complete and stateless (null clears a filter and never inherits; 20 a page with exact candidate totals), and `get_camp_details` (1-3 slugs or `/camps/<slug>` links). The loop (`lib/camps/chat/runner.ts`) allows 4 planning rounds and 6 executed calls a turn, answers every tool call (budget errors past 6) and streams one tools-free answer. The model reads each result without ids, slugs, display-only fields or empty values (`forModel`; a 20-camp page is about 6-9k tokens), while the browser's cards get it whole. The first successful search of a turn is the follow-up state the browser sends back as `lastSearch`; later searches are alternatives, and a details-only turn keeps the previous one.
+- **Data**: every camp `queryCamps()` lists, indexed in memory per server instance (a 10-minute memo keyed by the Eastern date; `camps` tag invalidation doesn't clear it, so an admin edit can take 10 minutes to reach the chat). The rate limits are per instance too, 1 per 2s and 60 an hour per IP: a brake, not a spending cap.
+- **Registration**: answers and cards use the public registration line (`registrationLine`'s default); the `registration` filter is the directory's status (the earliest opening for any audience; "open" includes "opened", which is history). Opening dates keep their audience, summer, precision, wording and "unconfirmed".
+- **Historical and unknown facts**: a 2026 schedule matches a 2027 week through `inTargetSeason` and says so ("based on its 2026 schedule"); registration, prices and availability are never projected. A camp missing dates, hours, price or location fails that filter unless `includeUnknown` names it (flagged; it never rescues a known failure). A missing price is never free; may-fit eligibility, conditional prices and case-by-case support keep their caveats, and every answer ends by telling parents to confirm with the camp.
+- **Tests**: `npm run test:camps-chat` runs the search suite, then the runtime's offline checks (fake models and sessions, no database or model); `npm run test:camps-chat -- --live` adds read-only database and Azure smoke tests through the route, and `-- --live --openrouter` tests the fallback alone.
 
 ---
 
@@ -716,6 +728,7 @@ AZURE_OPENAI_API_VERSION=    # default: 2024-12-01-preview
 # ===========================================
 
 OPENROUTER_API_KEY=
+OPENROUTER_CHAT_MODEL=       # default: deepseek/deepseek-v4.1-flash
 
 # ===========================================
 # OPTIONAL - Supabase Auth

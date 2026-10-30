@@ -339,10 +339,17 @@ export function createChatToolSession(
     hasMore: false,
   };
   const seenEvents = new Map<string, ChatEvent>();
+  // The turn's first search is the user's request and is what follow-ups build on;
+  // later searches are alternatives. Only "show more" on it moves it forward.
+  let followUp: ChatSearchState | null = null;
+  let triedAlternative = false;
 
   return {
     get state() {
       return state;
+    },
+    get followUp() {
+      return followUp ?? state;
     },
     async execute(name: string, args: unknown): Promise<unknown> {
       if (!isRecord(args)) throw new Error('Tool arguments must be an object.');
@@ -366,6 +373,7 @@ export function createChatToolSession(
         throw new Error('nextPage requires unchanged filters (set all filter fields to null).');
       }
       if (nextPage && (!state.hasMore || !state.nextCursor)) {
+        followUp ??= state;
         return {
           events: [],
           hasMore: false,
@@ -380,6 +388,8 @@ export function createChatToolSession(
         cursor: nextPage ? (state.nextCursor ?? undefined) : undefined,
       });
       state = { filters, nextCursor: result.nextCursor, hasMore: result.hasMore };
+      if (!followUp || (nextPage && !triedAlternative)) followUp = state;
+      else triedAlternative = true;
       for (const event of result.events) seenEvents.set(event.id, event);
       return {
         events: result.events.map((event) => formatChatEvent(event)),

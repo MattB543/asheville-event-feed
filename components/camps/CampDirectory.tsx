@@ -27,7 +27,9 @@ import {
   type RegistrationStatus,
   type SupportKey,
 } from '@/lib/camps/display';
+import { kidName, parseKid, type Kid } from '@/lib/camps/chat/context';
 import CampCard from './CampCard';
+import CampChatButton from './CampChatButton';
 import SavedCalendar from './SavedCalendar';
 import { useSavedCamps } from './savedCamps';
 
@@ -48,23 +50,7 @@ const MAX_KIDS = 4;
 /** Cards shown at first and per "Show more": all of them is ~1,000 cards and a slow page. */
 const PAGE_SIZE = 30;
 
-/**
- * A kid as the URL and this browser keep it: "7" is age 7 next summer, "g3" a rising 3rd grader
- * (grade in fall 2027; pre-K is g-1, kindergarten g0).
- */
-interface Kid {
-  age: number | null;
-  grade: number | null;
-}
-
-function parseKid(token: string): Kid | null {
-  const match = /^(g?)(-?\d{1,2})$/.exec(token);
-  if (!match) return null;
-  const value = Number(match[2]);
-  if (match[1]) return value >= -1 && value <= 12 ? { age: null, grade: value } : null;
-  return value >= 2 && value <= 19 ? { age: value, grade: null } : null;
-}
-
+/** The valid kid tokens ("7" is age 7, "g3" a rising 3rd grader: see parseKid), up to four. */
 function validKids(tokens: unknown): string[] {
   if (!Array.isArray(tokens)) return [];
   return [
@@ -72,18 +58,6 @@ function validKids(tokens: unknown): string[] {
       tokens.filter((token): token is string => typeof token === 'string' && !!parseKid(token))
     ),
   ].slice(0, MAX_KIDS);
-}
-
-function gradeKid(grade: number): string {
-  if (grade < 0) return 'rising pre-K';
-  if (grade === 0) return 'rising kindergartner';
-  return `rising ${gradeLabel(grade)} grader`;
-}
-
-/** "age 7", "rising 3rd grader" */
-function kidName(token: string): string {
-  const kid = parseKid(token)!;
-  return kid.age !== null ? `age ${kid.age}` : gradeKid(kid.grade!);
 }
 
 const AGE_OPTIONS = Array.from({ length: 16 }, (_, index) => index + 3);
@@ -755,11 +729,12 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
             />
           </label>
 
-          <div className="flex items-start gap-2">
+          {/* The buttons drop under the kids, to the right, when a narrow phone can't fit both */}
+          <div className="flex flex-wrap items-start gap-2">
             <div
               role="group"
               aria-label="Your kids (kept in this browser)"
-              className="flex min-w-0 flex-1 flex-wrap items-center gap-2"
+              className="flex min-w-0 grow basis-40 flex-wrap items-center gap-2"
             >
               {kids.map((token) => (
                 <button
@@ -821,20 +796,23 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
                 </label>
               )}
             </div>
-            <button
-              type="button"
-              aria-expanded={filtersOpen}
-              aria-controls={filtersId}
-              onClick={() => setFiltersOpen((open) => !open)}
-              className={`inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
-                filterCount > 0 || filtersOpen
-                  ? 'border-brand-500 bg-brand-50 text-brand-700 dark:border-brand-500 dark:bg-brand-950/50 dark:text-brand-300'
-                  : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-brand-400 dark:hover:border-brand-500'
-              }`}
-            >
-              <SlidersHorizontal size={15} aria-hidden="true" />
-              Filters{filterCount > 0 && ` (${filterCount})`}
-            </button>
+            <div className="ml-auto flex shrink-0 gap-2">
+              <button
+                type="button"
+                aria-expanded={filtersOpen}
+                aria-controls={filtersId}
+                onClick={() => setFiltersOpen((open) => !open)}
+                className={`inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-2.5 text-sm font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
+                  filterCount > 0 || filtersOpen
+                    ? 'border-brand-500 bg-brand-50 text-brand-700 dark:border-brand-500 dark:bg-brand-950/50 dark:text-brand-300'
+                    : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-brand-400 dark:hover:border-brand-500'
+                }`}
+              >
+                <SlidersHorizontal size={15} aria-hidden="true" />
+                Filters{filterCount > 0 && ` (${filterCount})`}
+              </button>
+              <CampChatButton directory={listKey} totalCount={camps.length} />
+            </div>
           </div>
         </div>
 

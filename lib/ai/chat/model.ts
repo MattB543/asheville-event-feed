@@ -1,10 +1,22 @@
 import OpenAI from 'openai';
+import type { ChatCompletionTool } from 'openai/resources/chat/completions';
 import { getAzureClient, getAzureDeploymentName } from '@/lib/ai/provider-clients';
 import { CHAT_TOOLS } from './tools';
 import type { ChatModel } from './runner';
 import { SITE_URL } from '@/lib/seo/site';
 
-export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortSignal): ChatModel {
+/** OpenRouter's model when OPENROUTER_CHAT_MODEL is unset (events and camps chats). */
+export const DEFAULT_OPENROUTER_CHAT_MODEL = 'deepseek/deepseek-v4.1-flash';
+
+/** `tools` and `title` default to the events chat's; the camps chat passes its own. */
+export function createChatModel(
+  provider: 'azure' | 'openrouter',
+  signal: AbortSignal,
+  {
+    tools = CHAT_TOOLS,
+    title = 'AVL GO Event Finder',
+  }: { tools?: ChatCompletionTool[]; title?: string } = {}
+): ChatModel {
   const client =
     provider === 'azure'
       ? getAzureClient()
@@ -13,7 +25,7 @@ export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortS
           baseURL: 'https://openrouter.ai/api/v1',
           defaultHeaders: {
             'HTTP-Referer': SITE_URL,
-            'X-Title': 'AVL GO Event Finder',
+            'X-Title': title,
           },
           maxRetries: 0,
         });
@@ -21,7 +33,7 @@ export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortS
   const model =
     provider === 'azure'
       ? getAzureDeploymentName()
-      : process.env.OPENROUTER_CHAT_MODEL || 'google/gemini-2.5-flash';
+      : process.env.OPENROUTER_CHAT_MODEL || DEFAULT_OPENROUTER_CHAT_MODEL;
   const requestOptions = { signal, timeout: 60_000, maxRetries: 0 };
   return {
     async plan(messages, requireTool) {
@@ -29,7 +41,7 @@ export function createChatModel(provider: 'azure' | 'openrouter', signal: AbortS
         {
           model,
           messages,
-          tools: CHAT_TOOLS,
+          tools,
           tool_choice: requireTool ? 'required' : 'auto',
           parallel_tool_calls: false,
           max_completion_tokens: 4000,

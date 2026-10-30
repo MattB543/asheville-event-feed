@@ -19,6 +19,7 @@ import {
   TYPE_LABELS,
   type CampCardData,
 } from '@/lib/camps/display';
+import MoreTagsChip from './MoreTagsChip';
 import ReminderMenu from './ReminderMenu';
 import SaveCampButton from './SaveCampButton';
 import { UnconfirmedTag, YearTag } from './YearTag';
@@ -120,13 +121,21 @@ export default memo(function CampCard({
           <SaveCampButton campId={camp.id} campName={camp.name} />
         </div>
 
-        <p className="mt-1.5 flex h-5 gap-1 overflow-hidden">
+        {/* Two categories at most, then "+N" for the rest. Not overflow-hidden, or the "+N" list
+            would be cut off: the category chips shrink and truncate instead */}
+        <p className="mt-1.5 flex h-5 min-w-0 gap-1">
           <span className={`${chipClasses} shrink-0`}>{TYPE_LABELS[camp.type] ?? camp.type}</span>
           {camp.categories.slice(0, 2).map((value) => (
             <span key={value} className={chipClasses}>
               {CATEGORY_LABELS[value] ?? value}
             </span>
           ))}
+          {camp.categories.length > 2 && (
+            <MoreTagsChip
+              labels={camp.categories.slice(2).map((value) => CATEGORY_LABELS[value] ?? value)}
+              chipClasses={chipClasses}
+            />
+          )}
         </p>
 
         <p

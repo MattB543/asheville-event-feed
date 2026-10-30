@@ -133,32 +133,15 @@ export const CATEGORY_LABELS: Record<string, string> = {
   special_needs: 'Special needs',
 };
 
-/** Chip order after the type chip: faith, then the activity, then further details. */
-const CATEGORY_CHIP_ORDER = [
-  'faith_based',
-  'nature_outdoor',
-  'sports',
-  'arts',
-  'music',
-  'theater',
-  'dance',
-  'stem',
-  'horses',
-  'cooking',
-  'academic',
-  'special_needs',
-];
-
 /**
- * The categories the pages show, always in `CATEGORY_CHIP_ORDER` (the extraction lists them in
- * any order). "General" tells a parent nothing, so it's left off the chips and the Category filter
- * (the data and the exports keep it).
+ * The categories the pages show, after the type chip: Faith-based first, then the activities in the
+ * extraction's order (it tends to list the main one first), then Special needs. "General" tells a
+ * parent nothing, so it's left off the chips and the Category filter (the data and the exports
+ * keep it).
  */
 export function shownCategories<C extends string>(categories: C[]): C[] {
-  const rank = (category: string) => {
-    const index = CATEGORY_CHIP_ORDER.indexOf(category);
-    return index === -1 ? CATEGORY_CHIP_ORDER.length : index;
-  };
+  const rank = (category: string) =>
+    category === 'faith_based' ? 0 : category === 'special_needs' ? 2 : 1;
   return categories.filter((category) => category !== 'general').sort((a, b) => rank(a) - rank(b));
 }
 

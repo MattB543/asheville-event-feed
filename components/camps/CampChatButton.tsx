@@ -37,8 +37,7 @@ export default function CampChatButton({
         className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-brand-400 dark:hover:border-brand-500 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
       >
         <Sparkles size={15} aria-hidden="true" className="text-brand-600 dark:text-brand-400" />
-        <span className="sm:hidden">AI</span>
-        <span className="hidden sm:inline">Ask AI</span>
+        Ask AI
       </button>
       {open && (
         <CampChatModal

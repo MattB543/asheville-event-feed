@@ -26,14 +26,14 @@ export default function AiNotice({
       >
         <Sparkles size={16} aria-hidden="true" className="mt-0.5 shrink-0" />
         <span>
-          Info pulled by AI. Double-check with the camp before booking anything.{' '}
+          Info gathered by AI. Double-check before booking.{' '}
           <button
             type="button"
             onClick={() => setFeedbackOpen(true)}
             className="text-left hover:text-amber-700 dark:hover:text-amber-100 rounded cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           >
             <span className="underline underline-offset-2">Click here</span> to give feedback or
-            report missing / wrong data
+            report wrong data.
           </button>
         </span>
       </p>

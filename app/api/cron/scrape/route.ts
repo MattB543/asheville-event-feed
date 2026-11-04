@@ -30,11 +30,12 @@ import { scrapeBuncombeCounty } from '@/lib/scrapers/buncombecounty';
 import { scrapeAshevilleParksRec } from '@/lib/scrapers/ashevilleparksrec';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { inArray, eq, sql, and, isNull, or, type SQL } from 'drizzle-orm';
+import { eq, sql, and, isNull, or, type SQL } from 'drizzle-orm';
 import type { AnyPgColumn } from 'drizzle-orm/pg-core';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import { env, isFacebookEnabled, isLocalScrapeRuntime } from '@/lib/config/env';
-import { findDuplicates, getIdsToRemove, getFieldUpdates } from '@/lib/utils/deduplication';
+import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
+import { applyDuplicateGroup } from '@/lib/db/dedupWrites';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
@@ -159,7 +160,7 @@ export async function GET(request: Request) {
       updated: 0,
       bySource: {} as Record<string, { inserted: number; updated: number; failed: number }>,
     },
-    dedup: { removed: 0, byMethod: {} as Record<string, number> },
+    dedup: { removed: 0, failedGroups: 0, byMethod: {} as Record<string, number> },
     dbEventsBefore: 0,
     dbEventsAfter: 0,
   };
@@ -368,6 +369,12 @@ export async function GET(request: Request) {
             const newEvent = sql`${events.title} IS DISTINCT FROM ${event.title}::text`;
             const unlessNewEvent = (column: AnyPgColumn, fresh: SQL = sql`NULL`) =>
               sql`CASE WHEN ${newEvent} THEN ${fresh} ELSE ${column} END`;
+            // A duplicate verdict was about the old title and start time. When either
+            // changes (a reschedule, or a new event on the URL), the row is live again
+            // and this run's dedup pass judges it afresh; if it still matches a row, it
+            // is removed again. Otherwise a rescheduled event stays hidden behind a
+            // stale copy that never moved.
+            const dedupStale = sql`${newEvent} OR ${events.startDate} IS DISTINCT FROM ${event.startDate.toISOString()}::timestamptz`;
             const upsertResult = await db
               .insert(events)
               .values({
@@ -427,6 +434,7 @@ export async function GET(request: Request) {
                   verifyNextAttemptAt: unlessNewEvent(events.verifyNextAttemptAt),
                   // The scraper just saw this URL live with a new event on it
                   deadAt: unlessNewEvent(events.deadAt),
+                  dedupedAt: sql`CASE WHEN ${dedupStale} THEN NULL ELSE ${events.dedupedAt} END`,
                 },
               })
               // xmax = 0 only for a freshly inserted row; on the update path it holds
@@ -508,8 +516,6 @@ export async function GET(request: Request) {
 
     const duplicateGroups = findDuplicates(allDbEvents);
     const duplicateIdsToRemove = getIdsToRemove(duplicateGroups);
-    const fieldUpdates = getFieldUpdates(duplicateGroups);
-    stats.dedup.removed = duplicateIdsToRemove.length;
 
     // Count duplicates by method
     for (const group of duplicateGroups) {
@@ -529,39 +535,50 @@ export async function GET(request: Request) {
       }
     }
 
-    // Salvage the losers' data onto the winner before soft-deleting them, so a
-    // failure here cannot strand an image or price on a now-hidden row.
-    if (fieldUpdates.length > 0) {
+    // Salvage the losers' data onto the winner and soft-delete them (deduped_at,
+    // so a bad merge can be recovered by clearing it + setting dedup_skip=true),
+    // one transaction per group. A group whose rows changed since they were read
+    // is skipped or trimmed (applyDuplicateGroup) and judged again next run.
+    if (duplicateIdsToRemove.length > 0) {
+      const dedupedAt = new Date();
       const mergedFieldCounts: Record<string, number> = {};
-      for (const update of fieldUpdates) {
-        await db.update(events).set(update.fields).where(eq(events.id, update.id));
-        eventsChanged = true;
-        for (const field of Object.keys(update.fields)) {
-          mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
+      let mergedGroups = 0;
+      let removed = 0;
+      for (const group of duplicateGroups) {
+        // A failed group rolls back alone and is judged again next run
+        try {
+          const result = await applyDuplicateGroup(group, dedupedAt);
+          if (result.removed > 0) eventsChanged = true;
+          removed += result.removed;
+          if (result.merged) {
+            mergedGroups++;
+            for (const field of Object.keys(result.merged)) {
+              mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
+            }
+          }
+        } catch (error) {
+          stats.dedup.failedGroups++;
+          console.error(
+            `[Scrape] Dedup group failed for keep ${group.keep.id.substring(0, 8)}: ${error instanceof Error ? error.message : String(error)}`
+          );
         }
       }
-      const fieldSummary = Object.entries(mergedFieldCounts)
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([field, count]) => `${field}=${count}`)
-        .join(', ');
-      console.log(
-        `[Scrape] Deduplication: merged data into ${fieldUpdates.length} kept events (${fieldSummary}).`
-      );
-    }
-
-    if (duplicateIdsToRemove.length > 0) {
-      // Soft-delete (set deduped_at) rather than hard-delete so a bad merge can
-      // be recovered by clearing deduped_at + setting dedup_skip=true.
-      await db
-        .update(events)
-        .set({ dedupedAt: new Date() })
-        .where(inArray(events.id, duplicateIdsToRemove));
-      eventsChanged = true;
+      stats.dedup.removed = removed;
+      if (mergedGroups > 0) {
+        const fieldSummary = Object.entries(mergedFieldCounts)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([field, count]) => `${field}=${count}`)
+          .join(', ');
+        console.log(
+          `[Scrape] Deduplication: merged data into ${mergedGroups} kept events (${fieldSummary}).`
+        );
+      }
       const methodSummary = Object.entries(stats.dedup.byMethod)
         .map(([m, c]) => `${m}=${c}`)
         .join(', ');
+      const skipped = duplicateIdsToRemove.length - removed;
       console.log(
-        `[Scrape] Deduplication: soft-deleted ${duplicateIdsToRemove.length} duplicates in ${formatDuration(Date.now() - dedupStartTime)} (by method: ${methodSummary})`
+        `[Scrape] Deduplication: soft-deleted ${removed} duplicates in ${formatDuration(Date.now() - dedupStartTime)} (by method: ${methodSummary})${skipped > 0 ? `; ${skipped} not removed (changed since read or group failed)` : ''}${stats.dedup.failedGroups > 0 ? `; ${stats.dedup.failedGroups} groups failed` : ''}`
       );
     } else {
       console.log(

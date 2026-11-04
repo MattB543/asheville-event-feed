@@ -8,7 +8,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
-import { and, eq, gte, inArray, isNull, lte, or } from 'drizzle-orm';
+import { and, eq, gte, isNull, lte, or } from 'drizzle-orm';
 import { env } from '@/lib/config/env';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
@@ -19,6 +19,7 @@ import {
 } from '@/lib/ai/aiDeduplication';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { softDeleteDuplicates } from '@/lib/db/dedupWrites';
 
 export const maxDuration = 300; // 5 minutes
 
@@ -155,24 +156,21 @@ export async function GET(request: Request) {
 
     // Soft-delete duplicates (set deduped_at instead of hard-deleting, so a bad
     // merge can be recovered by clearing deduped_at + setting dedup_skip=true).
+    // softDeleteDuplicates re-checks at write time: a row hidden, removed or
+    // rescheduled while the AI ran is left alone.
+    let removed = 0;
     if (result.idsToRemove.length > 0) {
       try {
         console.log(`[Dedup] Soft-deleting ${result.idsToRemove.length} duplicate events...`);
         const deleteStart = Date.now();
-        await db
-          .update(events)
-          .set({ dedupedAt: new Date() })
-          .where(
-            and(
-              inArray(events.id, result.idsToRemove),
-              // Re-check at write time: a row hidden while the job was running
-              // must not be touched by a decision made before that.
-              or(isNull(events.hidden), eq(events.hidden, false))
-            )
-          );
+        const toRemove = new Set(result.idsToRemove);
+        removed = await softDeleteDuplicates(
+          allEvents.filter((e) => toRemove.has(e.id)),
+          new Date()
+        );
         const deleteDuration = ((Date.now() - deleteStart) / 1000).toFixed(1);
         console.log(
-          `[Dedup] Soft-deleted ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`
+          `[Dedup] Soft-deleted ${removed} of ${result.idsToRemove.length} duplicate events in ${deleteDuration}s`
         );
       } catch (deleteErr) {
         const errMsg = deleteErr instanceof Error ? deleteErr.message : String(deleteErr);
@@ -189,7 +187,7 @@ export async function GET(request: Request) {
     const durationSec = (duration / 1000).toFixed(1);
     console.log('[Dedup] ────────────────────────────────────────────────');
     console.log(
-      `[Dedup] Complete in ${durationSec}s: ${result.daysProcessed} days processed, ${result.idsToRemove.length} removed, ${result.totalTokensUsed} tokens used`
+      `[Dedup] Complete in ${durationSec}s: ${result.daysProcessed} days processed, ${removed} removed (${result.idsToRemove.length} proposed), ${result.totalTokensUsed} tokens used`
     );
     console.log('[Dedup] ════════════════════════════════════════════════');
 
@@ -200,7 +198,8 @@ export async function GET(request: Request) {
 
     const jobResult = {
       daysProcessed: result.daysProcessed,
-      duplicatesRemoved: result.idsToRemove.length,
+      duplicatesRemoved: removed,
+      duplicatesProposed: result.idsToRemove.length,
       tokensUsed: result.totalTokensUsed,
       errors: result.errors,
     };

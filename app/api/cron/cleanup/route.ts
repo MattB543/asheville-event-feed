@@ -13,6 +13,7 @@ import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { createChromeDispatcher, probeAsChrome } from '@/lib/scrapers/fetchAsChrome';
 import { buncombeCountyPageStatus, isBuncombeCountyUrl } from '@/lib/scrapers/buncombecounty';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { applyDuplicateGroup } from '@/lib/db/dedupWrites';
 
 export const maxDuration = 300; // 5 minutes max
 
@@ -483,7 +484,8 @@ export async function GET(request: Request) {
     // Merge the losers' salvageable data into the winner and soft-delete them,
     // one transaction per group: a mid-run failure must not leave a merged
     // winner whose losers are still live. Soft-delete (deduped_at) rather than
-    // DELETE so a bad merge stays recoverable, matching the scrape cron.
+    // DELETE so a bad merge stays recoverable, matching the scrape cron. Rows a
+    // scrape changed since they were read are left for the next pass.
     const dedupedAt = new Date();
     let mergeSuccesses = 0;
     let mergeFailures = 0;
@@ -497,20 +499,15 @@ export async function GET(request: Request) {
 
       // Gap #8: a failed group is logged and skipped, not fatal to the run
       try {
-        await db.transaction(async (tx) => {
-          if (group.fieldUpdates) {
-            await tx.update(events).set(group.fieldUpdates).where(eq(events.id, group.keep.id));
-          }
-          await tx.update(events).set({ dedupedAt }).where(inArray(events.id, removeIds));
-        });
+        const result = await applyDuplicateGroup(group, dedupedAt);
         eventsChanged = true;
-        if (group.fieldUpdates) {
+        if (result.merged) {
           mergeSuccesses++;
-          for (const field of Object.keys(group.fieldUpdates)) {
+          for (const field of Object.keys(result.merged)) {
             mergedFieldCounts[field] = (mergedFieldCounts[field] || 0) + 1;
           }
         }
-        softDeletedCount += removeIds.length;
+        softDeletedCount += result.removed;
       } catch (error) {
         groupFailures++;
         if (group.fieldUpdates) mergeFailures++;

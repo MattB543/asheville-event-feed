@@ -218,7 +218,7 @@ PostgreSQL database hosted on Supabase with pgvector extension.
   aiSummary: text (1-2 sentence structured summary),
   embedding: vector(1536) (Gemini embedding for semantic search),
   // Dedup soft-delete (dedup no longer hard-deletes)
-  dedupedAt: timestamp (set when removed as a duplicate; NULL = live; excluded from feed + dedup input),
+  dedupedAt: timestamp (set when removed as a duplicate; NULL = live; excluded from feed + dedup input; cleared by the scrape upsert when the title or start changes),
   dedupSkip: boolean (manual "never auto-dedup this row" flag; to restore a bad merge set dedupedAt=NULL and dedupSkip=true),
   // Dead-URL soft-delete (cleanup no longer hard-deletes dead events)
   deadAt: timestamp (set when the source URL 404s; NULL = live; excluded from feed; restore with deadAt=NULL)
@@ -451,6 +451,26 @@ only unambiguous cases. **Known gap:** the AI dedup path
 (`/api/cron/dedup`) still merges nothing - its prompt returns removals with no
 keeper, so there is no winner to merge into. It accounted for 1 of 68 losses
 measured on 2026-09-18, versus 62 from scrape and 27 from cleanup.
+
+A duplicate verdict is about a row's title and start time, so **the scrape
+upsert clears `dedupedAt` when either changes**, and that run's dedup pass judges
+the row again (removing it again if it still matches). Before 2026-11-04 a verdict
+was permanent: a rescheduled event's copy moved to the new date while staying
+removed, and the copy it lost to stayed live on the old date ("Mystery Spirit
+ReMix", Nov 3). Dedup reads a snapshot and writes later, so every removal goes
+through `lib/db/dedupWrites.ts`, which applies only to rows still live with the
+title and start it judged (a rule-based group is skipped whole if its winner
+changed). `scripts/restore-stranded-dedups.ts` (dry run by default, `--apply`)
+finds removed rows that are still scraped and no longer match anything live; it
+leaves AI-dedup removals alone, since rules can't re-check those, and lists live
+rows that day with similar titles so the dry run can be read before `--apply
+--skip <idPrefix,...>`. **Known gaps:** nothing wakes a removed row whose winner
+dies, is hidden or goes stale while the row itself stays unchanged; and a row
+the rules can't re-match (an AI removal, or a title like "Books & Babes" vs
+"Books & Baddies") shows as a duplicate once its date changes, until the AI
+dedup catches it (Top events only). On 2026-11-04 about half of the stuck rows
+the audit found were such duplicates. A visible duplicate was judged better than
+a missing event.
 
 The verify job checks each eligible event once against its source page
 (`lib/ai/eventVerification.ts`; `scripts/verify-event.ts <idPrefix> [--update]`

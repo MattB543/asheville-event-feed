@@ -3,8 +3,9 @@
 
     news    scripts/news/run-local.ts --loop   every 6h at 1:10 / 7:10 / 13:10 / 19:10,
             clear of the prod news crons (:40/:55 UTC)
-    events  scripts/run-local-events.ts        nightly at 23:30 (only the local-only scrapers:
-            MountainX, NC Stage, Parks & Rec, Facebook; Vercel does the rest + AI),
+    events  scripts/run-local-events.ts        nightly at 00:00 (only the local-only scrapers:
+            NC Stage, Parks & Rec, Facebook; Vercel does the rest + AI; Mountain Xpress
+            needs a person to click, so it runs by hand: npm run scrape:mountainx),
             then the camps refresh in what's left of the hour (browser-only camp pages,
             the weekly WebTrac catalog: scripts/camps/refresh.ts --webtrac)
 
@@ -53,7 +54,7 @@ if ($Install) {
     while ($start -lt (Get-Date)) { $start = $start.AddHours(6) }
     $trigger = New-ScheduledTaskTrigger -Once -At $start -RepetitionInterval (New-TimeSpan -Hours 6)
   } else {
-    $trigger = New-ScheduledTaskTrigger -Daily -At '23:30'
+    $trigger = New-ScheduledTaskTrigger -Daily -At '00:00'
   }
 
   $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries `

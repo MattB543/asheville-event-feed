@@ -66,6 +66,8 @@ export interface NewsSourceModule {
   method: NewsFetchMethod;
   /** True if the source blocks Vercel's egress or needs a browser (see MountainX in CLAUDE.md). */
   localOnly?: boolean;
+  /** Why the source is off everywhere, local runs included (a site that has blocked us outright). */
+  paused?: string;
   /** Cheap listing pass (feed / API). Runs every cron. */
   scrape(ctx: ScrapeContext): Promise<ScrapedArticle[]>;
   /**

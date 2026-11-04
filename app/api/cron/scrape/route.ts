@@ -64,6 +64,12 @@ interface ScraperDef {
   // need a real browser or an IP the origin doesn't block, so the Vercel cron
   // skips them and a local pipeline run keeps them fresh.
   localOnly?: boolean;
+  // If true, runs only when named with ?source=: the site needs a person at the browser
+  // to click Cloudflare's checkbox, so no scheduled or full run tries it.
+  attended?: boolean;
+  // Why the source is off everywhere, local runs included. For a site that has
+  // blocked us outright, where every run would only hit the block again.
+  paused?: string;
 }
 
 const SCRAPERS: ScraperDef[] = [
@@ -80,7 +86,9 @@ const SCRAPERS: ScraperDef[] = [
   // from Vercel's egress while the same code kept working locally. So both
   // fetchAsChrome consumers (this and NC Stage) are local-only again and refresh
   // via scripts/run-full-cron-local.ts. If you retry Vercel, watch result.scrapers.
-  { name: 'Mountain Xpress', fn: scrapeMountainX, localOnly: true },
+  // Since 2026-11-03 it is also attended: only a person's click gets past the
+  // challenge, so it runs only from `npm run scrape:mountainx` (scripts/run-mountainx.ts).
+  { name: 'Mountain Xpress', fn: scrapeMountainX, localOnly: true, attended: true },
   { name: 'UNCA', fn: scrapeUncaEvents },
   { name: 'Static Age', fn: scrapeStaticAge },
   { name: 'Revolve', fn: scrapeRevolve },
@@ -168,10 +176,34 @@ export async function GET(request: Request) {
     // Skip local-only sources when running on Vercel (see isLocalScrapeRuntime).
     // ?only=local runs just the local-only sources (+ Facebook) and leaves the rest
     // to the Vercel cron: the nightly local run (scripts/run-local-events.ts).
-    const onlyLocal = new URL(request.url).searchParams.get('only') === 'local';
+    // ?source=<registry name> runs that one scraper and no Facebook: a hand-run retry of one
+    // source, and the only way an `attended` source (Mountain Xpress) runs at all.
+    const searchParams = new URL(request.url).searchParams;
+    const onlyLocal = searchParams.get('only') === 'local';
+    const onlySource = searchParams.get('source');
     const runLocalOnly = isLocalScrapeRuntime();
-    const activeScrapers = SCRAPERS.filter((s) => (s.localOnly ? runLocalOnly : !onlyLocal));
-    const skippedSources = SCRAPERS.filter((s) => s.localOnly && !runLocalOnly).map((s) => s.name);
+    const pausedSources = SCRAPERS.filter((s) => s.paused).map((s) => s.name);
+    const activeScrapers = SCRAPERS.filter(
+      (s) =>
+        !s.paused &&
+        (onlySource
+          ? s.name === onlySource && (!s.localOnly || runLocalOnly)
+          : !s.attended && (s.localOnly ? runLocalOnly : !onlyLocal))
+    );
+    if (onlySource && activeScrapers.length === 0) {
+      throw new Error(`?source=${onlySource} matches no scraper that can run here`);
+    }
+    const skippedSources = SCRAPERS.filter((s) => !s.paused && s.localOnly && !runLocalOnly).map(
+      (s) => s.name
+    );
+    for (const s of SCRAPERS.filter((s) => s.paused)) {
+      console.log(`[Scrape] Paused: ${s.name} - ${s.paused}`);
+    }
+    if (!onlySource) {
+      for (const s of SCRAPERS.filter((s) => s.attended && !s.paused)) {
+        console.log(`[Scrape] Not run (needs a person at the browser): ${s.name}`);
+      }
+    }
     if (skippedSources.length > 0) {
       console.log(
         `[Scrape] Skipping ${skippedSources.length} local-only source(s) on Vercel: ${skippedSources.join(', ')}`
@@ -273,7 +305,7 @@ export async function GET(request: Request) {
     }
 
     // Facebook scraping (separate due to browser requirements)
-    if (isFacebookEnabled()) {
+    if (isFacebookEnabled() && !onlySource) {
       const fbStart = Date.now();
       try {
         console.log('[Scrape] Attempting Facebook scrape...');
@@ -574,6 +606,7 @@ export async function GET(request: Request) {
       duplicatesRemoved: stats.dedup.removed,
       ...(onlyLocal && { onlyLocal: true }),
       skippedSources,
+      pausedSources,
       scrapers: scraperStats,
       insertedBySource: Object.fromEntries(
         Object.entries(stats.upsert.bySource)

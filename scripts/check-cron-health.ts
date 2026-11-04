@@ -215,7 +215,10 @@ async function staleSources() {
   }
   for (const r of rows) {
     console.log(`${r.source.padEnd(24)} ${fmtAge(r.age_hours).padEnd(8)} ${r.total} events`);
-    problems.push(`Source ${r.source} has not refreshed in ${fmtAge(r.age_hours)}.`);
+    problems.push(
+      `Source ${r.source} has not refreshed in ${fmtAge(r.age_hours)}.` +
+        (r.source === 'MOUNTAIN_X' ? ' It only runs by hand: npm run scrape:mountainx.' : '')
+    );
   }
 }
 
@@ -342,10 +345,10 @@ NEWS — last ${DAYS} days`);
     problems.push(`News source "${name}" failed ${n}x: ${error.slice(0, 60)}`);
   }
 
-  // Only modules still in the registry, and only outlets not taken down.
+  // Only modules still in the registry and not paused, and only outlets not taken down.
   // Local-only sources go stale whenever nobody runs news:local, which is an
   // errand rather than a broken scraper, so they're reported apart.
-  const registered = NEWS_SOURCES.map((m) => m.key);
+  const registered = NEWS_SOURCES.filter((m) => !m.paused).map((m) => m.key);
   const localOnly = new Set(NEWS_SOURCES.filter((m) => m.localOnly).map((m) => m.key));
   const stale = await sql<{ source: string; age_hours: number }[]>`
     select a.source, (extract(epoch from (now() - max(a.last_seen_at))) / 3600)::float8 as age_hours

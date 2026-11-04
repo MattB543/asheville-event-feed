@@ -141,6 +141,9 @@ const mountainXpress: NewsSourceModule = {
   kind: 'outlet',
   method: 'wp-json',
   localOnly: true,
+  // Plain HTTP, so a person clicking Cloudflare's checkbox (how the events calendar
+  // still gets through) can't help it. Unpause if Mountain Xpress allowlists us.
+  paused: 'Cloudflare 403s every request since 2026-10-31 (blocked outright from 2026-11-03)',
   async scrape({ deadline }) {
     let feedArticles: ScrapedArticle[] = [];
     try {

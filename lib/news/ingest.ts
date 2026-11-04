@@ -60,6 +60,8 @@ export interface NewsIngestResult {
   skippedSources: string[];
   /** Modules whose own domain is disabled. */
   disabledSources: string[];
+  /** Modules switched off in code (`paused`). */
+  pausedSources: string[];
   failures: { upsert: number; scrapers: number };
   msByStep: { scrape: number; upsert: number; fulltext: number };
   /** The deadline stopped the upsert before every row was written; the next run picks them up. */
@@ -400,8 +402,10 @@ export async function runNewsIngest(opts: {
 
   const skippedSources: string[] = [];
   const disabledSources: string[] = [];
+  const pausedSources: string[] = [];
   const modules = NEWS_SOURCES.filter((m) => {
-    if (m.localOnly && !opts.includeLocalOnly) skippedSources.push(m.name);
+    if (m.paused) pausedSources.push(m.name);
+    else if (m.localOnly && !opts.includeLocalOnly) skippedSources.push(m.name);
     else if (disabled.has(moduleDomain(m))) disabledSources.push(m.name);
     else return true;
     return false;
@@ -411,6 +415,9 @@ export async function runNewsIngest(opts: {
   }
   if (disabledSources.length > 0) {
     console.log(`[NewsScrape] Skipping disabled source(s): ${disabledSources.join(', ')}`);
+  }
+  for (const m of NEWS_SOURCES.filter((m) => m.paused)) {
+    console.log(`[NewsScrape] Paused: ${m.name} - ${m.paused}`);
   }
 
   // 1. Scrape every module in parallel.
@@ -568,6 +575,7 @@ export async function runNewsIngest(opts: {
     scrapers,
     skippedSources,
     disabledSources,
+    pausedSources,
     failures: { upsert: upsertFailed, scrapers: scrapers.filter((s) => !s.ok).length },
     msByStep: { scrape: scrapeMs, upsert: upsertMs, fulltext: fulltextMs },
     hitDeadline,

@@ -41,6 +41,17 @@ export const JSON_ACCEPT = 'application/json';
 export const HTML_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 
 export const CHALLENGE_TITLE = /just a moment/i;
+/**
+ * Cloudflare's block page ("Attention Required!"). Unlike the "Just a moment..."
+ * challenge, this is the site's own security rules refusing us (mountainx.com served
+ * it to Matt's home IP for a few hours on 2026-11-03), so no retry or browser gets past it.
+ */
+export const BLOCK_PAGE = /sorry, you have been blocked/i;
+
+/** Thrown at once, without retrying, when a site serves `BLOCK_PAGE`. */
+export class SiteBlockedError extends Error {
+  name = 'SiteBlockedError';
+}
 
 const HTTP_ATTEMPTS = 4;
 const HTTP_RETRY_BASE_MS = 2000;
@@ -54,7 +65,8 @@ export async function createChromeDispatcher(): Promise<Dispatcher> {
  * Cloudflare's 403 here is usually a transient reputation check rather than a
  * standing block - the same URL and handshake that is challenged one second is
  * served the next - so every request gets a few spaced-out attempts before we
- * give up on this path.
+ * give up on this path. A block page is the exception: it throws
+ * `SiteBlockedError` on the first attempt.
  */
 export async function fetchAsChrome(
   url: string,
@@ -77,6 +89,12 @@ export async function fetchAsChrome(
     });
 
     const body = await response.text();
+
+    if (BLOCK_PAGE.test(body)) {
+      throw new SiteBlockedError(
+        `Blocked by the site's Cloudflare rules (HTTP ${response.status}, Ray ID ${response.headers.get('cf-ray') ?? 'unknown'}): ${url}`
+      );
+    }
 
     if (response.status === 200 && !CHALLENGE_TITLE.test(readTitle(body))) {
       return body;

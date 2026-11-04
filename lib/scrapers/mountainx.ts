@@ -10,8 +10,15 @@
  *   2. Month-view HTML over the same dispatcher, read as JSON-LD.
  *   3. Month-view HTML through a real, visible patchright browser. Since
  *      ~2026-10-17 Cloudflare challenges the two paths above on every request,
- *      and a headless browser never clears the challenge either, so this path
- *      opens a Chrome window (the nightly task runs only while Matt is logged in).
+ *      and no browser clears the challenge on its own (headless never, headed
+ *      only once a person clicks the checkbox), so this source runs only by
+ *      hand: `npm run scrape:mountainx` (scripts/run-mountainx.ts), never from
+ *      the nightly task.
+ *
+ * A Cloudflare block page (`SiteBlockedError`) on any path ends the scrape at
+ * once: it is the site refusing us, and the other paths would only hit it again.
+ * Matt's home IP got one on 2026-11-03, lifted within hours and back that
+ * afternoon. No click gets past a block page; only waiting does.
  *
  * Nothing is evaluated inside the browser page. tsx transpiles this file with
  * esbuild, which wraps named inner functions in its `__name` helper, and a
@@ -22,9 +29,11 @@
 import { type ScrapedEvent } from './types';
 import { findJsonLdEvents } from './jsonld';
 import {
+  BLOCK_PAGE,
   CHALLENGE_TITLE,
   HTML_ACCEPT,
   JSON_ACCEPT,
+  SiteBlockedError,
   createChromeDispatcher,
   fetchAsChrome,
 } from './fetchAsChrome';
@@ -44,8 +53,8 @@ const API_DELAY_MS = 200;
 const MONTH_DELAY_MS = 400;
 const MONTH_NAV_TIMEOUT_MS = 60000;
 const CHALLENGE_ATTEMPTS = 3;
-// A headed browser clears the challenge in ~10s; give it room before renavigating.
-const CHALLENGE_WAIT_MS = 30000;
+// Time for the person at the window to click Cloudflare's checkbox before renavigating.
+const CHALLENGE_WAIT_MS = 120000;
 const CHALLENGE_POLL_MS = 1000;
 
 // No userAgent override: the browser's own UA matches its version and client
@@ -166,7 +175,9 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
     const api = await scrapeMountainXViaApi(window, dispatcher);
     allEvents = api.events;
 
-    if (api.error === undefined) {
+    if (api.error instanceof SiteBlockedError) {
+      throw api.error;
+    } else if (api.error === undefined) {
       console.log(`[MountainX] API path returned ${allEvents.length} events`);
     } else {
       // Cloudflare can challenge page 7 after pages 1-6 went through. Those pages
@@ -179,7 +190,7 @@ export async function scrapeMountainX(): Promise<ScrapedEvent[]> {
       try {
         allEvents = [...api.events, ...(await scrapeMountainXFromMonthViews(window, dispatcher))];
       } catch (error) {
-        if (api.events.length === 0) throw error;
+        if (api.events.length === 0 || error instanceof SiteBlockedError) throw error;
         console.warn(
           `[MountainX] Month-view fallback failed too (${describeError(error)}) - keeping the ${api.events.length} API events`
         );
@@ -281,6 +292,7 @@ async function scrapeMountainXFromMonthViews(
   try {
     return collectMonthEvents(await fetchMonthPagesWithHttp(monthTargets, dispatcher), window);
   } catch (error) {
+    if (error instanceof SiteBlockedError) throw error;
     console.warn(`[MountainX] Month-view HTTP fetch failed: ${describeError(error)}`);
     console.warn('[MountainX] Falling back to a real browser session...');
     return collectMonthEvents(await fetchMonthPagesWithBrowser(monthTargets), window);
@@ -425,16 +437,22 @@ async function fetchMonthHtmlWithBrowser(page: Page, target: MonthTarget): Promi
     });
 
     const status = response?.status() ?? 0;
+    if (BLOCK_PAGE.test(await page.content())) {
+      throw new SiteBlockedError(
+        `Blocked by the site's Cloudflare rules (HTTP ${status}): ${target.targetUrl}`
+      );
+    }
     if (status === 200 && !CHALLENGE_TITLE.test(await page.title())) {
       return page.content();
     }
 
     console.warn(
-      `[MountainX] Month ${target.monthKey} challenged (status=${status}, attempt ${attempt}/${CHALLENGE_ATTEMPTS}). Waiting for it to clear...`
+      `[MountainX] Month ${target.monthKey} challenged (status=${status}, attempt ${attempt}/${CHALLENGE_ATTEMPTS}). ` +
+        `Click "Verify you are human" in the Chrome window (waiting ${CHALLENGE_WAIT_MS / 1000}s)...`
     );
 
-    // Cloudflare's interstitial solves itself in a real browser and then loads
-    // the calendar; give it time before burning another navigation on the URL.
+    // Once the checkbox is clicked Cloudflare loads the calendar; give the person
+    // time before burning another navigation on the URL.
     const html = await waitForCalendar(page);
     if (html !== null) {
       return html;

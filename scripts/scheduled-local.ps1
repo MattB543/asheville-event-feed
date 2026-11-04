@@ -5,7 +5,7 @@
             clear of the prod news crons (:40/:55 UTC)
     events  scripts/run-local-events.ts        nightly at 00:00 (only the local-only scrapers:
             NC Stage, Parks & Rec, Facebook; Vercel does the rest + AI; Mountain Xpress
-            needs a person to click, so it runs by hand: npm run scrape:mountainx),
+            needs a person to click, so it runs by hand through Windscribe: npm run scrape:mountainx),
             then the camps refresh in what's left of the hour (browser-only camp pages,
             the weekly WebTrac catalog: scripts/camps/refresh.ts --webtrac)
 

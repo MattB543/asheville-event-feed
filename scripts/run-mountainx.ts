@@ -6,7 +6,8 @@
  *
  * Since 2026-11-03 the site blocks Matt's home IP outright ("Sorry, you have
  * been blocked"), so the run goes out through Windscribe: it connects to one
- * location (Atlanta unless --vpn says otherwise), runs, and puts Windscribe back
+ * server (Atlanta "Peachtree" unless --vpn says otherwise; "Magic City", what plain "Atlanta"
+ * picks, connects but carries no traffic), runs, and puts Windscribe back
  * the way it was, Ctrl+C included. A block on that IP too ends the run; it never
  * moves on to another server. --no-vpn runs from the home IP.
  *
@@ -28,7 +29,7 @@ import { env } from '../lib/config/env';
 import { GET as scrapeCron } from '../app/api/cron/scrape/route';
 
 const WINDSCRIBE_CLI = 'C:\\Program Files\\Windscribe\\windscribe-cli.exe';
-const DEFAULT_VPN_PLACE = 'Atlanta';
+const DEFAULT_VPN_PLACE = 'Peachtree';
 
 type ScrapeStats = {
   inserted?: number;
@@ -42,10 +43,21 @@ interface WindscribeState {
   firewallOn: boolean;
 }
 
+// windscribe-cli sometimes hangs (it can't rotate its own cli.log while the app holds
+// it) and then answers at once on the next try, so each call gets a short timeout and
+// a few attempts. Connecting is the only call that legitimately takes a while.
 function windscribe(...args: string[]): string {
-  const run = spawnSync(WINDSCRIBE_CLI, args, { encoding: 'utf8', timeout: 120_000 });
-  if (run.error) throw new Error(`windscribe-cli ${args.join(' ')}: ${run.error.message}`);
-  return `${run.stdout ?? ''}${run.stderr ?? ''}`.trim();
+  const timeout = args[0] === 'connect' ? 60_000 : 20_000;
+  let error: Error | undefined;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const run = spawnSync(WINDSCRIBE_CLI, args, { encoding: 'utf8', timeout });
+    if (!run.error) return `${run.stdout ?? ''}${run.stderr ?? ''}`.trim();
+    error = run.error;
+    console.warn(
+      `[run-mountainx] windscribe-cli ${args.join(' ')} attempt ${attempt}: ${error.message}`
+    );
+  }
+  throw new Error(`windscribe-cli ${args.join(' ')}: ${error?.message}`);
 }
 
 function readWindscribe(): WindscribeState {

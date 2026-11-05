@@ -4,7 +4,8 @@ import { generateEventSlug } from '@/lib/utils/slugify';
 import EventPageClient from './EventPageClient';
 import { getEventBySlug, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
+import { LOCKED_FIELDS } from '@/lib/events/edits';
 import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
 import { buildEventJsonLd, buildEventMetaDescription, isLiveEvent } from '@/lib/seo/eventJsonLd';
 import { SITE_URL } from '@/lib/seo/site';
@@ -87,7 +88,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  */
 export default async function EventPage({ params }: PageProps) {
   const { slug } = await params;
-  const event = await getEventBySlug(slug);
+
+  // Check user permissions for score viewing/editing
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const viewerIsAdmin = isAdmin(user?.id);
+
+  const event = await getEventBySlug(slug, { includeHidden: viewerIsAdmin });
 
   if (!event) {
     notFound();
@@ -102,18 +111,11 @@ export default async function EventPage({ params }: PageProps) {
 
   const eventUrl = `${SITE_URL}/events/${expectedSlug}`;
 
-  // Check user permissions for score viewing/editing
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const viewerIsSuperAdmin = isSuperAdmin(user?.id);
   const viewerIsVerifiedCurator = user?.id ? await isUserVerifiedCurator(user.id) : false;
 
   // Determine score permissions
-  const canViewScores = viewerIsSuperAdmin || viewerIsVerifiedCurator;
-  const canEditScores = viewerIsSuperAdmin;
+  const canViewScores = viewerIsAdmin || viewerIsVerifiedCurator;
+  const canEditScores = viewerIsAdmin;
 
   // Fetch similar events
   const similarEvents = await getSimilarEvents(event.id);
@@ -140,6 +142,14 @@ export default async function EventPage({ params }: PageProps) {
         similarEvents={similarEvents}
         canViewScores={canViewScores}
         canEditScores={canEditScores}
+        admin={
+          viewerIsAdmin
+            ? {
+                hidden: event.hidden === true,
+                edited: LOCKED_FIELDS.filter((field) => field in event.editedFields),
+              }
+            : undefined
+        }
       />
     </>
   );

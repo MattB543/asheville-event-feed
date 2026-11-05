@@ -84,7 +84,7 @@ export async function getOwnSignature(userId: string): Promise<OwnSignature | nu
   return toOwnSignature(row);
 }
 
-/** Public signatures for the super admin: pending oldest first, the rest newest first */
+/** Public signatures for the admin: pending oldest first, the rest newest first */
 export async function getReviewQueue(): Promise<ReviewQueue> {
   const rows = await db
     .select({
@@ -228,7 +228,7 @@ export async function deleteSignature(userId: string): Promise<boolean> {
 }
 
 /**
- * The super admin's review of a public signature, applied only if it is still the
+ * The admin's review of a public signature, applied only if it is still the
  * version they saw (`revision`) and still public. False when it has changed or gone,
  * so an Approve clicked on an old name never publishes a newer, unreviewed one.
  */

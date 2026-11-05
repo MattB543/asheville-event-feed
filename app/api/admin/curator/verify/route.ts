@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { setCuratorVerification, getCuratorProfileByUserId } from '@/lib/supabase/curatorProfile';
 import { isRecord, isString } from '@/lib/utils/validation';
 
@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Check if user is super admin
-    if (!isSuperAdmin(user.id)) {
-      return NextResponse.json({ error: 'Forbidden - Super admin only' }, { status: 403 });
+    // Check if user is admin
+    if (!isAdmin(user.id)) {
+      return NextResponse.json({ error: 'Forbidden - Admins only' }, { status: 403 });
     }
 
     // Parse request body

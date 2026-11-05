@@ -6,7 +6,7 @@ import { db } from '@/lib/db';
 import { curatorProfiles, curatedEvents, events } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import Header from '@/components/Header';
 import CuratorProfileCard from '@/components/CuratorProfileCard';
 import CuratedEventList from '@/components/CuratedEventList';
@@ -61,11 +61,11 @@ export default async function CuratorProfilePage({ params }: PageProps) {
   // Check if this is the owner viewing their own profile
   const isOwner = user?.id === profile.userId;
 
-  // Check if viewer is super admin
-  const viewerIsSuperAdmin = isSuperAdmin(user?.id);
+  // Check if viewer is admin
+  const viewerIsAdmin = isAdmin(user?.id);
 
-  // If profile is private and viewer is not the owner (and not super admin), show not found
-  if (!profile.isPublic && !isOwner && !viewerIsSuperAdmin) {
+  // If profile is private and viewer is not the owner (and not admin), show not found
+  if (!profile.isPublic && !isOwner && !viewerIsAdmin) {
     notFound();
   }
 
@@ -139,7 +139,7 @@ export default async function CuratorProfilePage({ params }: PageProps) {
             showProfilePicture={profile.showProfilePicture}
             avatarUrl={profile.avatarUrl}
             isVerified={profile.isVerified}
-            showVerifyToggle={viewerIsSuperAdmin}
+            showVerifyToggle={viewerIsAdmin}
             curatorUserId={profile.userId}
           />
           <CuratedEventList curations={curations} />

@@ -28,6 +28,7 @@ import { scrapeLibraries } from '@/lib/scrapers/library';
 import { scrapeCityOfAsheville } from '@/lib/scrapers/cityofasheville';
 import { scrapeBuncombeCounty } from '@/lib/scrapers/buncombecounty';
 import { scrapeAshevilleParksRec } from '@/lib/scrapers/ashevilleparksrec';
+import type { LockedField } from '@/lib/events/edits';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { eq, sql, and, isNull, or, type SQL } from 'drizzle-orm';
@@ -366,7 +367,8 @@ export async function GET(request: Request) {
             // processed afresh. Manual moderation (hidden, score overrides)
             // stays. Date changes alone don't count: rolling events move their
             // date every run.
-            const newEvent = sql`${events.title} IS DISTINCT FROM ${event.title}::text`;
+            // An admin-edited title is compared as the source had it.
+            const newEvent = sql`COALESCE(${events.editedFields} ->> 'title', ${events.title}) IS DISTINCT FROM ${event.title}::text`;
             const unlessNewEvent = (column: AnyPgColumn, fresh: SQL = sql`NULL`) =>
               sql`CASE WHEN ${newEvent} THEN ${fresh} ELSE ${column} END`;
             // A duplicate verdict was about the old title and start time. When either
@@ -375,6 +377,9 @@ export async function GET(request: Request) {
             // is removed again. Otherwise a rescheduled event stays hidden behind a
             // stale copy that never moved.
             const dedupStale = sql`${newEvent} OR ${events.startDate} IS DISTINCT FROM ${event.startDate.toISOString()}::timestamptz`;
+            // A field an admin edited stays as they left it, until a new event takes the URL
+            const unlessEdited = (field: LockedField, column: AnyPgColumn, scraped: SQL) =>
+              sql`CASE WHEN NOT (${newEvent}) AND ${events.editedFields} -> ${field}::text IS NOT NULL THEN ${column} ELSE ${scraped} END`;
             const upsertResult = await db
               .insert(events)
               .values({
@@ -398,7 +403,7 @@ export async function GET(request: Request) {
               .onConflictDoUpdate({
                 target: events.url,
                 set: {
-                  title: event.title,
+                  title: unlessEdited('title', events.title, sql`${event.title}::text`),
                   // Keep the longer description — the verify cron fills thin
                   // descriptions, so a raw re-scrape must not overwrite that with
                   // shorter text
@@ -407,12 +412,24 @@ export async function GET(request: Request) {
                   // Moves with startDate, so a placeholder time never reads as a real one (or
                   // the reverse). Many scrapers never set it; their undefined keeps the row's value.
                   timeUnknown: sql`COALESCE(${event.timeUnknown ?? null}::boolean, ${events.timeUnknown})`,
-                  location: sql`COALESCE(NULLIF(trim(${event.location ?? null}::text), ''), ${events.location})`,
+                  location: unlessEdited(
+                    'location',
+                    events.location,
+                    sql`COALESCE(NULLIF(trim(${event.location ?? null}::text), ''), ${events.location})`
+                  ),
                   zip: sql`COALESCE(NULLIF(trim(${event.zip ?? null}::text), ''), ${events.zip})`,
                   organizer: sql`COALESCE(NULLIF(trim(${event.organizer ?? null}::text), ''), ${events.organizer})`,
                   // Don't let a null/Unknown scrape clobber a verified price
-                  price: sql`CASE WHEN ${newEvent} THEN ${event.price ?? null}::text WHEN NULLIF(trim(${event.price ?? null}::text), '') IS NULL OR lower(trim(${event.price ?? null}::text)) = 'unknown' THEN COALESCE(${events.price}, ${event.price ?? null}::text) ELSE ${event.price ?? null}::text END`,
-                  imageUrl: sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`,
+                  price: unlessEdited(
+                    'price',
+                    events.price,
+                    sql`CASE WHEN ${newEvent} THEN ${event.price ?? null}::text WHEN NULLIF(trim(${event.price ?? null}::text), '') IS NULL OR lower(trim(${event.price ?? null}::text)) = 'unknown' THEN COALESCE(${events.price}, ${event.price ?? null}::text) ELSE ${event.price ?? null}::text END`
+                  ),
+                  imageUrl: unlessEdited(
+                    'imageUrl',
+                    events.imageUrl,
+                    sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`
+                  ),
                   interestedCount: event.interestedCount,
                   goingCount: event.goingCount,
                   lastSeenAt: new Date(),
@@ -435,6 +452,7 @@ export async function GET(request: Request) {
                   // The scraper just saw this URL live with a new event on it
                   deadAt: unlessNewEvent(events.deadAt),
                   dedupedAt: sql`CASE WHEN ${dedupStale} THEN NULL ELSE ${events.dedupedAt} END`,
+                  editedFields: sql`CASE WHEN ${newEvent} THEN '{}'::jsonb ELSE ${events.editedFields} END`,
                 },
               })
               // xmax = 0 only for a freshly inserted row; on the update path it holds

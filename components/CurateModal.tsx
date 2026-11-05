@@ -15,7 +15,7 @@ interface CurateModalProps {
   onClose: () => void;
   onConfirm: (note?: string, scoreBoost?: ScoreBoost) => void;
   eventTitle: string;
-  // Score boost props (optional - only shown for verified curators / super admin)
+  // Score boost props (optional - only shown for verified curators / admin)
   canBoostScore?: boolean;
   currentScores?: {
     rarity: number | null;
@@ -110,7 +110,7 @@ function CurateModalForm({
         </p>
       </div>
 
-      {/* Score Boost Section (only for verified curators / super admin with scored events) */}
+      {/* Score Boost Section (only for verified curators / admin with scored events) */}
       {showBoostSection && (
         <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
           <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">

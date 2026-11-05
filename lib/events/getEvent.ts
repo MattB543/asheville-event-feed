@@ -61,7 +61,10 @@ export interface SerializedEvent {
  * title (a rolling event's date moves, and its slug with it), then the oldest row,
  * which is the one any link made before the collision pointed at.
  */
-export async function getEventBySlug(slug: string): Promise<DbEvent | null> {
+export async function getEventBySlug(
+  slug: string,
+  { includeHidden = false } = {}
+): Promise<DbEvent | null> {
   if (!process.env.DATABASE_URL) {
     return null;
   }
@@ -84,7 +87,8 @@ export async function getEventBySlug(slug: string): Promise<DbEvent | null> {
     .where(
       // Hidden events 404 here as they do everywhere else. This is the takedown
       // path for a denied poster, so the page must not keep serving its text.
-      sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid AND ${events.hidden} IS NOT TRUE`
+      // Admins still see them, to show one again.
+      sql`${events.id} >= ${lower}::uuid AND ${events.id} <= ${upper}::uuid AND (${includeHidden} OR ${events.hidden} IS NOT TRUE)`
     )
     .orderBy(events.createdAt);
 

@@ -72,7 +72,7 @@ asheville-event-feed/
 │   │   │   └── [slug]/           # Public curator data
 │   │   ├── posters/
 │   │   │   ├── upload/           # Poster upload + inline pipeline
-│   │   │   └── [id]/moderate/    # Approve/deny (super admin)
+│   │   │   └── [id]/moderate/    # Approve/deny (admins)
 │   │   └── health/route.ts       # Health check
 │   ├── admin/posters/page.tsx    # Poster moderation queue (unlisted)
 │   ├── posters/page.tsx          # Community poster feed
@@ -322,7 +322,7 @@ run on the live database by hand; queries in `lib/db/queries/letterSignatures.ts
 types in `lib/letter/outagePlan.ts`). One row per `letter` and `user_id` (a Supabase auth
 user, so the email is already verified and stays in `auth.users`). `status` is `pending` |
 `approved` | `rejected`: private signatures are approved at once, public ones wait for the
-super admin, and an edit that changes a public signature's name, neighborhood or role puts
+admins, and an edit that changes a public signature's name, neighborhood or role puts
 it back to `pending`. A rejection survives the signer's edits and their removal: removing a
 rejected signature empties its name but keeps the row as a marker, so signing again stays rejected. The page counts every row
 that isn't rejected and shows only public, approved names, read fresh on every request (no
@@ -506,7 +506,15 @@ missing data. Policy, as of 2026-10-14:
   listing's description, price and image, and drops the old event's AI
   enrichment (tags, summary, embedding, scores), verification state and
   `deadAt`, so everything is redone. `hidden` and `scoreOverride` stay (they may
-  be manual moderation). Date-only changes don't count.
+  be manual moderation). Date-only changes don't count. An admin-edited title is
+  compared as the source had it, and a new event on the URL clears every admin edit.
+- **Admin edits** (event pages): admins get an Admin panel on each event's page to
+  edit the title, venue or price, hide or show it (admins can still open a hidden
+  event's page), upload a poster, or undo their edits, through `POST
+/api/admin/events`. `events.edited_fields` (migration `drizzle/0028_event_edits.sql`,
+  run on the live database by hand before deploying) maps each edited field to its
+  value before the first edit, which Undo puts back; the scrape upsert keeps an
+  edited field as the admin left it (`unlessEdited`). Fields: `lib/events/edits.ts`.
 - Each run's `cron_job_runs.result.outcomes` lists every event it judged: id,
   `outcome` (kept / updated / hidden / dead / unverifiable / deferred / stale /
   write_failed), reason, confidence and, for updates, each field's `from`/`to`.
@@ -569,7 +577,7 @@ day of its first showing that passes the date filter, not its first start date.
 | `/api/posters/upload`        | POST        | Upload a poster photo (multipart, 20/day/user) |
 | `/api/plan/sign`             | POST/DELETE | Sign/edit or remove your `/plan` signature     |
 
-### Admin APIs (require `SUPER_ADMIN`)
+### Admin APIs (require an admin)
 
 | Route                        | Method | Purpose                                                  |
 | ---------------------------- | ------ | -------------------------------------------------------- |
@@ -578,9 +586,13 @@ day of its first showing that passes the date filter, not its first start date.
 | `/api/posters/[id]/moderate` | POST   | Approve or deny a poster upload                          |
 | `/api/admin/plan-signatures` | POST   | Approve/reject a public `/plan` signature                |
 | `/api/admin/camps`           | POST   | Confirm (at a card hash; 409 if changed), hide, fix, pin |
+| `/api/admin/events`          | POST   | Edit, hide/show, poster or undo edits on one event       |
+| `/api/admin/season-picks`    | POST   | Hand edits to a holiday page                             |
 
+There is one admin level: everyone listed in `SUPER_ADMIN` (comma-separated user
+IDs; `isAdmin` in `lib/utils/admin.ts`) gets every admin tool.
 Poster moderation guard is the canonical one: `getUser()` → 401, then
-`isSuperAdmin(user.id)` → 403. Both actions accept `pending_review` **or**
+`isAdmin(user.id)` → 403. Both actions accept `pending_review` **or**
 `published` uploads — approve re-runs promotion (the retry path), deny is a
 takedown that deletes the public image, clears `publicImageUrl`, and hides
 linked events. Deny only hides events from `outcome='created'` extractions whose
@@ -761,12 +773,9 @@ SUPABASE_SERVICE_ROLE_KEY=
 # Google OAuth Client ID
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=
 
-# Supabase auth UUID of the single super admin (score overrides, curator
-# verification, /admin/posters). Server-only - never exposed to the client.
+# Admins: comma-separated Supabase auth user IDs, each of whom gets every admin
+# tool (lib/utils/admin.ts). Server-only - never exposed to the client.
 SUPER_ADMIN=
-
-# Comma-separated user IDs who may hand-edit holiday pages (/halloween) and nothing else
-SEASON_EDITORS=
 
 # ===========================================
 # OPTIONAL - Notifications
@@ -841,7 +850,7 @@ FB_XS=
 - Images land in the **private** `poster-uploads` bucket first. Only a safe (or admin-approved) upload is copied to the public `event-images` bucket at `posters/{uploadId}.jpg`; flagged images are rendered in the admin queue via 1h signed URLs
 - Public feed at `/posters` (newest 30 published uploads), rendered as a full-width masonry "poster wall": CSS multi-column tiles showing nothing but the image, each with a seeded tilt and tape (see `lib/posters/posterDisplay.ts` — all jitter is derived from the upload id via FNV-1a, never `Math.random`, or SSR and the client draw different walls). Tapping a tile opens a fullscreen lightbox with the poster and its extracted events underneath. Poster events link back with `https://avlgo.com/posters?p={extractionId}`, which opens that poster directly
 - The wall's CSS deliberately avoids blend modes, backdrop filters and CSS filters — each one promotes every tile to its own composited layer and repaints it on scroll. Tiles carry no transform (the tilt is on the inner `.poster-paper`) so they open no stacking context, which is what lets a tape strip paint over the neighbouring column
-- Moderation queue at `/admin/posters` (super admin only, unlisted — no nav link): flagged uploads oldest-first plus recent failures
+- Moderation queue at `/admin/posters` (admins only, unlisted — no nav link): flagged uploads oldest-first plus recent failures
 - A denied upload's public image is deleted and its created events are hidden; hidden events 404 on `/events/[slug]` and are excluded from similar-event recommendations
 
 ### Weekly Spotify Playlist
@@ -854,7 +863,7 @@ Needs `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_PLAYLIST_ID` and `S
 
 ### Halloween page (`/halloween`)
 
-Halloween-season events (`lib/db/queries/halloween.ts`: events with the `Halloween` tag, plus title words for events the AI hasn't tagged yet; in-person only, like the feed) from today through Oct 31 ET. The tagging prompt adds `Halloween` to Halloween-themed events as they're enriched, and `npx tsx scripts/tag-halloween.ts [--apply]` re-judges every event from today through Oct 31 with the AI (2026-10-23: 242 of 1,280), so the page and its "See all Halloween events" link (`tagsInclude=Halloween` in both views: the feed's tag filter is any-of, so it can't also require Family) cover the same events. The page is open only while the season runs (Oct 1-31); the rest of the year it says when it's back. The default "After dark" view leaves out Family-tagged events and picks the wildest by `scoreAshevilleWeird`; `?for=family` shows only Family-tagged events, picked by score. The family view drops the blood and glowing eyes. Either way the picks are shown by date unless `?sort=ranked`. The two nights ending Oct 31 get a taped poster wall (top 10, dealt round-robin into two columns on phones and four from md, so the ranking reads across); earlier days show up to 3 cards each under a tombstone (on phones the tombstone and each card's poster sit above the text, which gets the full width; from lg the card posters are 220px, not 170). Posters show at their own shape (we store no image sizes, so the wall settles as they load); ones that won't load turn into a drawn flyer (`components/halloween/Poster.tsx`). The super admin, and anyone in `SEASON_EDITORS` (comma-separated user IDs; `canEditSeason` in `lib/utils/superAdmin.ts`, which grants nothing else), gets small buttons on the page: hide an event, upload a poster for it, and (above the wall) search that weekend's events to add one to the wall, After dark only. They are rows in `season_picks` (migration `drizzle/0023_season_picks.sql`, which must be run on the live database by hand), written through `POST /api/admin/season-picks` (getUser → 401, canEditSeason → 403). An event deduped into another row loses its edits. The page is always dark (`DARK_ONLY` in `components/ThemeProvider.tsx`, which also hides the theme toggle there). Decorations live in `components/halloween/` and animate only transform/opacity; reduced motion stops them and hides the ones that only make sense moving (`hw-float`, `hw-moving`). Through October (the `SEASONS` list in `lib/seasons.ts`, built so other holidays can join) every page's header shows an orange banner, a pumpkin beside the logo and a Halloween item in the Events menu, all linking here and drawn still, since their animations live in the page's own stylesheet. A season's dates are `MM-DD` (every year) or `YYYY-MM-DD` (that year only): the `/plan` letter's dark gray banner runs Nov 1-2, 2026 only, the two days before Election Day, with no logo badge or menu item (a season gets those only when its `LOOK` in `components/seasonal/SeasonalLinks.tsx` has them). The root layout takes the Eastern date once per render (`RenderDateProvider`); `useSeason` hydrates the season and the banner text from that date, then switches to the browser's own, so a page cached across Oct 1 or Nov 1 hydrates cleanly and then gains or drops the links (the header can render inside a client component, where the browser's date alone would disagree with the HTML).
+Halloween-season events (`lib/db/queries/halloween.ts`: events with the `Halloween` tag, plus title words for events the AI hasn't tagged yet; in-person only, like the feed) from today through Oct 31 ET. The tagging prompt adds `Halloween` to Halloween-themed events as they're enriched, and `npx tsx scripts/tag-halloween.ts [--apply]` re-judges every event from today through Oct 31 with the AI (2026-10-23: 242 of 1,280), so the page and its "See all Halloween events" link (`tagsInclude=Halloween` in both views: the feed's tag filter is any-of, so it can't also require Family) cover the same events. The page is open only while the season runs (Oct 1-31); the rest of the year it says when it's back. The default "After dark" view leaves out Family-tagged events and picks the wildest by `scoreAshevilleWeird`; `?for=family` shows only Family-tagged events, picked by score. The family view drops the blood and glowing eyes. Either way the picks are shown by date unless `?sort=ranked`. The two nights ending Oct 31 get a taped poster wall (top 10, dealt round-robin into two columns on phones and four from md, so the ranking reads across); earlier days show up to 3 cards each under a tombstone (on phones the tombstone and each card's poster sit above the text, which gets the full width; from lg the card posters are 220px, not 170). Posters show at their own shape (we store no image sizes, so the wall settles as they load); ones that won't load turn into a drawn flyer (`components/halloween/Poster.tsx`). Admins (`isAdmin` in `lib/utils/admin.ts`) get small buttons on the page: hide an event, upload a poster for it, and (above the wall) search that weekend's events to add one to the wall, After dark only. They are rows in `season_picks` (migration `drizzle/0023_season_picks.sql`, which must be run on the live database by hand), written through `POST /api/admin/season-picks` (getUser → 401, isAdmin → 403). An event deduped into another row loses its edits. The page is always dark (`DARK_ONLY` in `components/ThemeProvider.tsx`, which also hides the theme toggle there). Decorations live in `components/halloween/` and animate only transform/opacity; reduced motion stops them and hides the ones that only make sense moving (`hw-float`, `hw-moving`). Through October (the `SEASONS` list in `lib/seasons.ts`, built so other holidays can join) every page's header shows an orange banner, a pumpkin beside the logo and a Halloween item in the Events menu, all linking here and drawn still, since their animations live in the page's own stylesheet. A season's dates are `MM-DD` (every year) or `YYYY-MM-DD` (that year only): the `/plan` letter's dark gray banner runs Nov 1-2, 2026 only, the two days before Election Day, with no logo badge or menu item (a season gets those only when its `LOOK` in `components/seasonal/SeasonalLinks.tsx` has them). The root layout takes the Eastern date once per render (`RenderDateProvider`); `useSeason` hydrates the season and the banner text from that date, then switches to the browser's own, so a page cached across Oct 1 or Nov 1 hydrates cleanly and then gains or drops the links (the header can render inside a client component, where the browser's date alone would disagree with the HTML).
 
 ### Summer Camps (`/camps`)
 

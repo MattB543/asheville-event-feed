@@ -589,7 +589,7 @@ export async function sendPlaylistFailedNotification(error: unknown): Promise<bo
   );
 }
 
-/** A public signature on the /plan letter is waiting for the super admin's review */
+/** A public signature on the /plan letter is waiting for the admin's review */
 export async function sendLetterSignatureNotification(signature: {
   name: string;
   neighborhood: string | null;

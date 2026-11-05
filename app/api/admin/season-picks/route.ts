@@ -1,12 +1,12 @@
 /**
- * Hand edits to a holiday page (super admin or a season editor): add an event to the weekend wall, hide one,
+ * Hand edits to a holiday page (admins only): add an event to the weekend wall, hide one,
  * or give it a poster. JSON to add/hide; multipart (`season`, `eventId`, `poster` file) for a poster.
  */
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { revalidateTag } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
-import { canEditSeason } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { SEASONS } from '@/lib/seasons';
 import { SEASON_PICKS_TAG, setSeasonPick } from '@/lib/db/queries/seasonPicks';
 import { normalizeImage } from '@/lib/posters/processUpload';
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Sign in required' }, { status: 401 });
-  if (!canEditSeason(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  if (!isAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   try {
     if (request.headers.get('content-type')?.startsWith('multipart/form-data')) {

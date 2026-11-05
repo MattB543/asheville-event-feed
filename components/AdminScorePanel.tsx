@@ -17,7 +17,7 @@ interface AdminScorePanelProps {
   };
   scoreReason: string | null;
   scoreOverride: ScoreOverride | null;
-  canEdit: boolean; // true for super admin, false for verified curators (read-only)
+  canEdit: boolean; // true for admin, false for verified curators (read-only)
   onScoreUpdate?: (newOverride: ScoreOverride) => void;
 }
 

@@ -6,7 +6,7 @@
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { setSignatureStatus } from '@/lib/db/queries/letterSignatures';
 import { isRecord, isString } from '@/lib/utils/validation';
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Sign in required' }, { status: 401 });
-  if (!isSuperAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  if (!isAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   let body: unknown;
   try {

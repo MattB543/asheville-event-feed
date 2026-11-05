@@ -24,7 +24,7 @@ import {
   type ReviewQueue,
 } from '@/lib/letter/outagePlan';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { SITE_URL } from '@/lib/seo/site';
 
 const pageUrl = `${SITE_URL}/plan`;
@@ -73,7 +73,7 @@ export default async function PlanPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const admin = isSuperAdmin(user?.id);
+  const admin = isAdmin(user?.id);
 
   const [data, ownSignature, reviewQueue] = await Promise.all([
     getLetterPageData().catch((error: unknown): LetterPageData | null => {

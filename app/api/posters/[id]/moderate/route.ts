@@ -13,7 +13,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { and, eq, inArray, isNull, or } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { db } from '@/lib/db';
 import { events, posterExtractions, posterUploads } from '@/lib/db/schema';
 import { promoteExtractions } from '@/lib/posters/promoteExtractions';
@@ -155,8 +155,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!isSuperAdmin(user.id)) {
-      return NextResponse.json({ error: 'Forbidden - Super admin only' }, { status: 403 });
+    if (!isAdmin(user.id)) {
+      return NextResponse.json({ error: 'Forbidden - Admins only' }, { status: 403 });
     }
 
     const { id } = await params;

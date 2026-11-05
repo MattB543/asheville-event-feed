@@ -92,13 +92,9 @@ export const env = {
   get EVENTBRITE_API_TOKEN() {
     return process.env.EVENTBRITE_API_TOKEN;
   },
-  // Super Admin (for verified curator management and score overrides)
+  // Admins (lib/utils/admin.ts): comma-separated user IDs, each of whom gets every admin tool
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
-  },
-  // Comma-separated user IDs who may hand-edit holiday pages (besides the super admin)
-  get SEASON_EDITORS() {
-    return process.env.SEASON_EDITORS;
   },
 } as const;
 

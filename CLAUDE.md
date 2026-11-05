@@ -1133,7 +1133,7 @@ curl http://localhost:3000/api/cron/scrape -H "Authorization: Bearer YOUR_CRON_S
 ## Code Quality Notes
 
 - **TypeScript strict mode**: Enabled
-- **No test framework**: Uses manual script-based testing
+- **Tests**: `npm test` runs Vitest (`*.test.ts`, under `TZ=UTC` like Vercel) on pure logic plus the chat scripts' offline checks; `*.db.test.ts` files run against their own local Postgres database, `avlgo_test` (`TEST_DATABASE_URL` to change it; `test/database.ts` refuses any name not ending in `_test`), which the run creates and pushes the schema into. Never point `DATABASE_URL=... npx drizzle-kit` at another database: `lib/config/env.ts` lets `.env` override it. Scrapers are still checked by hand with `npm run test:<scraper>`
 - **Component styling**: Inline Tailwind classes
 - **State management**: React hooks + Supabase for persistence
 - **Theme**: next-themes for dark mode support

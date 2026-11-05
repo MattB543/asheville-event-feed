@@ -31,3 +31,10 @@ export const db: DbType = new Proxy({} as DbType, {
     return Reflect.get(_db, prop) as DbType[keyof DbType];
   },
 });
+
+/** Closes the connection pool, so a process that is done with the database can exit. */
+export async function closeDb(): Promise<void> {
+  await _client?.end();
+  _client = null;
+  _db = null;
+}

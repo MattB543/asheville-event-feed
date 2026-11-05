@@ -5,7 +5,7 @@ import EventPageClient from './EventPageClient';
 import { getEventBySlug, getSimilarEvents, serializeEvent } from '@/lib/events/getEvent';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
-import { LOCKED_FIELDS } from '@/lib/events/edits';
+import { editedList } from '@/lib/events/edits';
 import { isUserVerifiedCurator } from '@/lib/supabase/curatorProfile';
 import { buildEventJsonLd, buildEventMetaDescription, isLiveEvent } from '@/lib/seo/eventJsonLd';
 import { SITE_URL } from '@/lib/seo/site';
@@ -146,7 +146,7 @@ export default async function EventPage({ params }: PageProps) {
           viewerIsAdmin
             ? {
                 hidden: event.hidden === true,
-                edited: LOCKED_FIELDS.filter((field) => field in event.editedFields),
+                edited: editedList(event.editedFields),
               }
             : undefined
         }

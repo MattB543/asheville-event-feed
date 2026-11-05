@@ -1,5 +1,5 @@
 /**
- * Admin edits from an event's own page. JSON: `{eventId, hidden}`, `{eventId, edit: {title?,
+ * Admin edits to one event. GET `?eventId=` reads what the admin panel shows. POST JSON: `{eventId, hidden}`, `{eventId, edit: {title?,
  * location?, price?}}` or `{eventId, undo: true}`; multipart (`eventId`, `poster` file) for a poster.
  * Edited fields are recorded in `edited_fields` so the scrape leaves them alone.
  */
@@ -12,7 +12,7 @@ import { isAdmin } from '@/lib/utils/admin';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
-import { LOCKED_FIELDS, TEXT_EDIT_FIELDS, type LockedField } from '@/lib/events/edits';
+import { editedList, LOCKED_FIELDS, TEXT_EDIT_FIELDS, type LockedField } from '@/lib/events/edits';
 import { normalizeImage } from '@/lib/posters/processUpload';
 import { uploadEventImage } from '@/lib/supabase/storage';
 import { isRecord } from '@/lib/utils/validation';
@@ -44,13 +44,43 @@ const RETURNING = {
   editedFields: events.editedFields,
 };
 
-export async function POST(request: NextRequest) {
+/** The 401 or 403 to send, or null for an admin. */
+async function refuseNonAdmin(): Promise<NextResponse | null> {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Sign in required' }, { status: 401 });
   if (!isAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  return null;
+}
+
+// The event preview pop-up has no server render to read this from
+export async function GET(request: NextRequest) {
+  const refusal = await refuseNonAdmin();
+  if (refusal) return refusal;
+
+  const eventId = request.nextUrl.searchParams.get('eventId');
+  if (!eventId || !UUID_PATTERN.test(eventId)) {
+    return NextResponse.json({ error: 'Unknown event' }, { status: 400 });
+  }
+  try {
+    const [row] = await db.select(RETURNING).from(events).where(eq(events.id, eventId));
+    if (!row) return NextResponse.json({ error: 'Event not found' }, { status: 404 });
+    return NextResponse.json({
+      values: { title: row.title, location: row.location, price: row.price },
+      hidden: row.hidden === true,
+      edited: editedList(row.editedFields),
+    });
+  } catch (error) {
+    console.error('[AdminEvents] Read failed:', error);
+    return NextResponse.json({ error: 'Could not load that event' }, { status: 500 });
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const refusal = await refuseNonAdmin();
+  if (refusal) return refusal;
 
   try {
     let eventId: string;

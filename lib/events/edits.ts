@@ -8,3 +8,8 @@ export type TextEditField = (typeof TEXT_EDIT_FIELDS)[number];
 
 /** Each edited field's value before its first edit, which "Undo edits" puts back. */
 export type EditedFields = Partial<Record<LockedField, string | null>>;
+
+/** The fields an admin has edited, in form order. */
+export function editedList(edited: EditedFields): LockedField[] {
+  return LOCKED_FIELDS.filter((field) => field in edited);
+}

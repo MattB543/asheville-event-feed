@@ -1,10 +1,12 @@
 'use client';
 
 import { useRef, useState, useTransition } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, ImageUp, Pencil, Undo2 } from 'lucide-react';
 import { TEXT_EDIT_FIELDS, type LockedField, type TextEditField } from '@/lib/events/edits';
 import { shrinkForUpload } from '@/lib/utils/shrinkForUpload';
+import { useAuth } from '@/components/AuthProvider';
 
 interface AdminEventPanelProps {
   eventId: string;
@@ -12,6 +14,8 @@ interface AdminEventPanelProps {
   hidden: boolean;
   /** Fields an admin has edited, which the scrape now leaves alone */
   edited: LockedField[];
+  /** After a save; the event page re-renders from the server instead */
+  onSaved?: () => void;
 }
 
 const LABELS: Record<LockedField, string> = {
@@ -27,7 +31,13 @@ const INPUT =
   'w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-2.5 py-1.5 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
 /** Admins only: fix an event's details, hide it, or give it a poster, kept through later scrapes */
-export default function AdminEventPanel({ eventId, values, hidden, edited }: AdminEventPanelProps) {
+export default function AdminEventPanel({
+  eventId,
+  values,
+  hidden,
+  edited,
+  onSaved,
+}: AdminEventPanelProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +56,8 @@ export default function AdminEventPanel({ eventId, values, hidden, edited }: Adm
         return;
       }
       setEditing(false);
-      router.refresh();
+      if (onSaved) onSaved();
+      else router.refresh();
     });
 
   const sendJson = (body: object) =>
@@ -189,5 +200,35 @@ export default function AdminEventPanel({ eventId, values, hidden, edited }: Adm
         </p>
       )}
     </div>
+  );
+}
+
+type AdminState = Pick<AdminEventPanelProps, 'values' | 'hidden' | 'edited'>;
+
+/**
+ * The panel for the event preview pop-up, which has no server render: asks the server, and shows
+ * nothing unless the signed-in viewer is an admin.
+ */
+export function AdminEventPanelForPreview({ eventId }: { eventId: string }) {
+  const { user } = useAuth();
+  const { data, refetch } = useQuery({
+    queryKey: ['admin-event', eventId],
+    queryFn: async (): Promise<AdminState | null> => {
+      const response = await fetch(`/api/admin/events?eventId=${eventId}`);
+      return response.ok ? ((await response.json()) as AdminState) : null;
+    },
+    enabled: !!user,
+    retry: false,
+  });
+
+  if (!user || !data) return null;
+  // Keyed on the loaded state, so the form starts from the latest values after each save
+  return (
+    <AdminEventPanel
+      key={JSON.stringify(data)}
+      eventId={eventId}
+      {...data}
+      onSaved={() => void refetch()}
+    />
   );
 }

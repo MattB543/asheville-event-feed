@@ -66,35 +66,42 @@ export function EventFeedSkeleton() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-[calc(100vh-200px)]">
       <FilterBarSkeleton />
 
-      <div className="flex flex-col gap-6">
-        {/* Today's events group */}
-        <div className="flex flex-col gap-2">
-          <div className="h-7 w-40 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
-          <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-          </div>
-        </div>
+      <EventListSkeleton />
+    </div>
+  );
+}
 
-        {/* Tomorrow's events group */}
-        <div className="flex flex-col gap-2">
-          <div className="h-7 w-48 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
-          <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-          </div>
+/** The feed's list placeholder, also shown while a filtered first page loads. */
+export function EventListSkeleton() {
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Today's events group */}
+      <div className="flex flex-col gap-2">
+        <div className="h-7 w-40 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+        <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <EventCardSkeleton />
+          <EventCardSkeleton />
+          <EventCardSkeleton />
+          <EventCardSkeleton />
         </div>
+      </div>
 
-        {/* Third day group */}
-        <div className="flex flex-col gap-2">
-          <div className="h-7 w-44 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
-          <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <EventCardSkeleton />
-            <EventCardSkeleton />
-          </div>
+      {/* Tomorrow's events group */}
+      <div className="flex flex-col gap-2">
+        <div className="h-7 w-48 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+        <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <EventCardSkeleton />
+          <EventCardSkeleton />
+          <EventCardSkeleton />
+        </div>
+      </div>
+
+      {/* Third day group */}
+      <div className="flex flex-col gap-2">
+        <div className="h-7 w-44 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+        <div className="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <EventCardSkeleton />
+          <EventCardSkeleton />
         </div>
       </div>
     </div>

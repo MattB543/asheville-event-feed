@@ -872,7 +872,7 @@ read "unconfirmed" until Matt confirms the camp. Camp events join the main feed 
 hidden from All events, exports, digests and chat unless the "Summer Camp" tag is selected, never
 in Top 30, exempt from non-NC cleanup and dedup. **Run `npx tsx scripts/camps/sync-feed-events.ts
 --apply` only after this code is deployed**: older code doesn't hide camp events. The header's
-"More" menu (Playlist, Summer camps) and the camps season banner (Nov 5 - Mar 31) link here.
+"More" menu (Playlist, Summer camps) and the camps season banner (Jan 10 - Mar 31; held back from Nov 5 to leave December for a Christmas banner) link here.
 
 ### Local News (`/news`)
 

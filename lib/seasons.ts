@@ -32,10 +32,10 @@ export const SEASONS = [
     short: 'Sign the letter asking AVL leaders for food & water resilience',
     banner: 'Sign the letter asking AVL leaders for food & water resilience',
   },
-  // Every year, from when camps start opening registration through spring
+  // Every year, from after the holidays through spring
   {
     key: 'camps',
-    start: '11-05',
+    start: '01-10',
     end: '03-31',
     href: '/camps',
     label: 'Summer camps',

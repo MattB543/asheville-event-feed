@@ -35,6 +35,17 @@ function withBaselines(fields: LockedField[]): SQL {
   return sql`jsonb_build_object(${sql.join(pairs, sql`, `)}) || ${events.editedFields}`;
 }
 
+/** A new title makes the AI summary and search data stale; clearing them has the AI job redo them. */
+function redoAiForTitle(title: string | SQL): PgUpdateSetSource<typeof events> {
+  const changed = sql`${events.title} IS DISTINCT FROM (${title})::text`;
+  return {
+    aiSummary: sql`CASE WHEN ${changed} THEN NULL ELSE ${events.aiSummary} END`,
+    embedding: sql`CASE WHEN ${changed} THEN NULL ELSE ${events.embedding} END`,
+    aiAttempts: sql`CASE WHEN ${changed} THEN 0 ELSE ${events.aiAttempts} END`,
+    aiNextAttemptAt: sql`CASE WHEN ${changed} THEN NULL ELSE ${events.aiNextAttemptAt} END`,
+  };
+}
+
 const RETURNING = {
   title: events.title,
   location: events.location,
@@ -178,7 +189,11 @@ export async function POST(request: NextRequest) {
 
     const [row] = await db
       .update(events)
-      .set({ ...set, updatedAt: new Date() })
+      .set({
+        ...set,
+        ...(set.title === undefined ? {} : redoAiForTitle(set.title as string | SQL)),
+        updatedAt: new Date(),
+      })
       .where(eq(events.id, eventId))
       .returning(RETURNING);
     if (!row) return NextResponse.json({ error: 'Event not found' }, { status: 404 });

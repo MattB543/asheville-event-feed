@@ -95,6 +95,21 @@ describe('admin event edits', () => {
     expect(row.price).toBeNull();
   });
 
+  it('a new title has the AI redo its summary, and other edits keep it', async () => {
+    await db
+      .update(events)
+      .set({ aiSummary: 'A jam.', aiAttempts: 3 })
+      .where(eq(events.id, eventId));
+    await post({ eventId, edit: { price: '$12', title: 'Bluegrass Jam' } });
+    let [row] = await db.select().from(events).where(eq(events.id, eventId));
+    expect(row.aiSummary).toBe('A jam.');
+
+    await post({ eventId, edit: { title: 'Old-Time Fiddle Night' } });
+    [row] = await db.select().from(events).where(eq(events.id, eventId));
+    expect(row.aiSummary).toBeNull();
+    expect(row.aiAttempts).toBe(0);
+  });
+
   it('refuses an empty title', async () => {
     expect((await post({ eventId, edit: { title: '  ' } })).status).toBe(400);
   });

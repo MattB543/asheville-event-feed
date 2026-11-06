@@ -222,6 +222,7 @@ PostgreSQL database hosted on Supabase with pgvector extension.
   dedupSkip: boolean (manual "never auto-dedup this row" flag; to restore a bad merge set dedupedAt=NULL and dedupSkip=true),
   // Dead-URL soft-delete (cleanup no longer hard-deletes dead events)
   deadAt: timestamp (set when the source URL 404s; NULL = live; excluded from feed; restore with deadAt=NULL)
+  editedFields: jsonb (admin-edited field -> its value before the first edit; the scrape, verify and dedup leave those fields alone)
 }
 ```
 
@@ -514,7 +515,7 @@ missing data. Policy, as of 2026-10-14:
 /api/admin/events`. `events.edited_fields` (migration `drizzle/0028_event_edits.sql`,
   run on the live database by hand before deploying) maps each edited field to its
   value before the first edit, which Undo puts back (hiding has its own Show button, so Undo leaves it); the scrape upsert keeps an
-  edited field as the admin left it (`unlessEdited`), and so do verify's updates and dedup's gap fills. Fields: `lib/events/edits.ts`.
+  edited field as the admin left it (`unlessEdited`), and so do verify's updates and dedup's gap fills. A title change (edit or Undo) clears the AI summary and embedding so the AI cron redoes them from the new title. Fields: `lib/events/edits.ts`.
 - Each run's `cron_job_runs.result.outcomes` lists every event it judged: id,
   `outcome` (kept / updated / hidden / dead / unverifiable / deferred / stale /
   write_failed), reason, confidence and, for updates, each field's `from`/`to`.

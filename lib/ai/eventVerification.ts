@@ -13,6 +13,7 @@ import { THIN_DESCRIPTION_LENGTH } from '@/lib/config/verification';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import type { EditedFields } from '@/lib/events/edits';
+import { DEAD_STALE_HOURS, DEAD_STATUSES, isOverDeadCap } from '@/lib/utils/deadLinks';
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 /**
@@ -52,22 +53,6 @@ function isThinDescription(description: string | null): boolean {
  * mutate an event (hide it or overwrite its details).
  */
 export const HIDE_CONFIDENCE_THRESHOLD = 0.8;
-
-/**
- * A page that answers 404/410 is only treated as the event being gone once the
- * scrapers have also stopped listing it for this long - the same rule the
- * cleanup cron's dead-URL pass uses. Until then the event is retried with
- * backoff, so it is marked dead once its source drops it.
- */
-const DEAD_STALE_HOURS = 24;
-
-/**
- * Same circuit breaker as the cleanup cron's dead-URL pass: if more than this
- * share of a source's judged pages 404 in one run, that is a site change or an
- * outage, not removals, so none of that source's events are marked dead.
- */
-const DEAD_SOURCE_MAX_SHARE = 0.2;
-const DEAD_SOURCE_MIN_CHECKED = 5;
 
 /** Retry delays for results that didn't land (fetch failed, AI error, low confidence). */
 const VERIFY_BACKOFF_MS = [6 * 60 * 60 * 1000, 24 * 60 * 60 * 1000, 7 * 24 * 60 * 60 * 1000];
@@ -314,7 +299,7 @@ export async function fetchPageContent(url: string): Promise<PageFetch> {
     const targetStatus = Number(
       content.match(/^Warning: Target URL returned error (\d{3})/m)?.[1] ?? 0
     );
-    if (targetStatus === 404 || targetStatus === 410) {
+    if (DEAD_STATUSES.has(targetStatus)) {
       return { kind: 'missing', status: targetStatus };
     }
     // A block or an outage says nothing about the event, and the AI may read
@@ -856,7 +841,7 @@ export async function runVerification(
   for (const { event, result } of deadCandidates) {
     const judged = judgedBySource.get(event.source) ?? 0;
     const missing = missingBySource.get(event.source) ?? 0;
-    const overCap = judged >= DEAD_SOURCE_MIN_CHECKED && missing / judged > DEAD_SOURCE_MAX_SHARE;
+    const overCap = isOverDeadCap(missing, judged);
     record(await applyVerification(event, result, now, { allowDead: !overCap }));
   }
 

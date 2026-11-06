@@ -513,7 +513,7 @@ missing data. Policy, as of 2026-10-14:
   event's page), upload a poster, or undo their edits, through `POST
 /api/admin/events`. `events.edited_fields` (migration `drizzle/0028_event_edits.sql`,
   run on the live database by hand before deploying) maps each edited field to its
-  value before the first edit, which Undo puts back; the scrape upsert keeps an
+  value before the first edit, which Undo puts back (hiding has its own Show button, so Undo leaves it); the scrape upsert keeps an
   edited field as the admin left it (`unlessEdited`), and so do verify's updates and dedup's gap fills. Fields: `lib/events/edits.ts`.
 - Each run's `cron_job_runs.result.outcomes` lists every event it judged: id,
   `outcome` (kept / updated / hidden / dead / unverifiable / deferred / stale /

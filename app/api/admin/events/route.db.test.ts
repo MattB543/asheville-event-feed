@@ -90,4 +90,15 @@ describe('admin event edits', () => {
   it('refuses an empty title', async () => {
     expect((await post({ eventId, edit: { title: '  ' } })).status).toBe(400);
   });
+
+  it('answers a malformed request with 400, not a server error', async () => {
+    const response = await POST(
+      new NextRequest('http://localhost/api/admin/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{not json',
+      })
+    );
+    expect(response.status).toBe(400);
+  });
 });

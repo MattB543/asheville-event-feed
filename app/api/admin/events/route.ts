@@ -117,7 +117,10 @@ export async function POST(request: NextRequest) {
       if (typeof id !== 'string' || !UUID_PATTERN.test(id)) {
         return NextResponse.json({ error: 'Unknown event' }, { status: 400 });
       }
-      if (!(poster instanceof File) || poster.size === 0 || poster.size > MAX_POSTER_BYTES) {
+      if (!(poster instanceof File) || poster.size === 0) {
+        return NextResponse.json({ error: 'Choose an image to upload' }, { status: 400 });
+      }
+      if (poster.size > MAX_POSTER_BYTES) {
         return NextResponse.json({ error: 'That image is too large to upload' }, { status: 400 });
       }
       const image = await normalizeImage(Buffer.from(await poster.arrayBuffer()));
@@ -127,7 +130,7 @@ export async function POST(request: NextRequest) {
       // A new upload keeps the same path, so the query string makes browsers fetch it fresh
       set = { editedFields: withBaselines(['imageUrl']), imageUrl: `${url}?v=${Date.now()}` };
     } else {
-      const body: unknown = await request.json();
+      const body: unknown = await request.json().catch(() => null);
       if (!isRecord(body) || typeof body.eventId !== 'string' || !UUID_PATTERN.test(body.eventId)) {
         return NextResponse.json({ error: 'Unknown event' }, { status: 400 });
       }

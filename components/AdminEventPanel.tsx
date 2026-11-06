@@ -1,12 +1,14 @@
 'use client';
 
-import { useRef, useState, useTransition } from 'react';
+import { useRef, useState, useTransition, type ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, ImageUp, Pencil, Undo2 } from 'lucide-react';
 import { TEXT_EDIT_FIELDS, type LockedField, type TextEditField } from '@/lib/events/edits';
 import { shrinkForUpload } from '@/lib/utils/shrinkForUpload';
 import { useAuth } from '@/components/AuthProvider';
+import AdminScorePanel from '@/components/AdminScorePanel';
+import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
 
 interface AdminEventPanelProps {
   eventId: string;
@@ -16,6 +18,8 @@ interface AdminEventPanelProps {
   edited: LockedField[];
   /** After a save; the event page re-renders from the server instead */
   onSaved?: () => void;
+  /** Further admin sections inside the same box (the score panel) */
+  children?: ReactNode;
 }
 
 const LABELS: Record<LockedField, string> = {
@@ -37,6 +41,7 @@ export default function AdminEventPanel({
   hidden,
   edited,
   onSaved,
+  children,
 }: AdminEventPanelProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -165,20 +170,23 @@ export default function AdminEventPanel({
             save();
           }}
         >
-          {TEXT_EDIT_FIELDS.map((field) => (
-            <label key={field} className="block">
-              <span className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
-                {LABELS[field]}
-              </span>
-              <input
-                className={INPUT}
-                value={draft[field] ?? ''}
-                required={field === 'title'}
-                maxLength={300}
-                onChange={(e) => setDraft({ ...draft, [field]: e.target.value })}
-              />
-            </label>
-          ))}
+          {/* Titles run long; venue and price share a row from sm up */}
+          <div className="grid gap-2 sm:grid-cols-[1fr_9rem]">
+            {TEXT_EDIT_FIELDS.map((field) => (
+              <label key={field} className={field === 'title' ? 'block sm:col-span-2' : 'block'}>
+                <span className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  {LABELS[field]}
+                </span>
+                <input
+                  className={INPUT}
+                  value={draft[field] ?? ''}
+                  required={field === 'title'}
+                  maxLength={300}
+                  onChange={(e) => setDraft({ ...draft, [field]: e.target.value })}
+                />
+              </label>
+            ))}
+          </div>
           <div className="flex gap-2 pt-1">
             <button
               type="submit"
@@ -199,11 +207,20 @@ export default function AdminEventPanel({
           {error}
         </p>
       )}
+
+      {children}
     </div>
   );
 }
 
-type AdminState = Pick<AdminEventPanelProps, 'values' | 'hidden' | 'edited'>;
+type AdminState = Pick<AdminEventPanelProps, 'values' | 'hidden' | 'edited'> & {
+  /** Null when the event has no AI score yet, as on the event page */
+  scores: {
+    aiScores: { rarity: number | null; unique: number | null; magnitude: number | null };
+    scoreReason: string | null;
+    scoreOverride: ScoreOverride | null;
+  } | null;
+};
 
 /**
  * The panel for the event preview pop-up, which has no server render: asks the server, and shows
@@ -222,13 +239,25 @@ export function AdminEventPanelForPreview({ eventId }: { eventId: string }) {
   });
 
   if (!user || !data) return null;
-  // Keyed on the loaded state, so the form starts from the latest values after each save
+  const { scores, ...panel } = data;
+  // Keyed on the loaded state, so the form starts from the latest values after a save; the score
+  // panel keeps its own state through a save, so it stays open
   return (
     <AdminEventPanel
-      key={JSON.stringify(data)}
+      key={JSON.stringify(panel)}
       eventId={eventId}
-      {...data}
+      {...panel}
       onSaved={() => void refetch()}
-    />
+    >
+      {scores && (
+        <AdminScorePanel
+          eventId={eventId}
+          {...scores}
+          canEdit
+          onScoreUpdate={() => void refetch()}
+          embedded
+        />
+      )}
+    </AdminEventPanel>
   );
 }

@@ -84,6 +84,17 @@ export default function EventPageClient({
   const isFavorited = favoriteIds.includes(event.id);
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
   const [scoreOverride, setScoreOverride] = useState<ScoreOverride | null>(event.scoreOverride);
+  const scorePanelProps = {
+    eventId: event.id,
+    aiScores: {
+      rarity: event.scoreRarity,
+      unique: event.scoreUnique,
+      magnitude: event.scoreMagnitude,
+    },
+    scoreReason: event.scoreReason,
+    scoreOverride,
+    onScoreUpdate: setScoreOverride,
+  };
 
   // Similar event modal state
   type ModalEvent = {
@@ -174,33 +185,27 @@ export default function EventPageClient({
           className="mb-8"
         />
 
-        {admin && (
+        {/* Admins get the scores inside their panel; verified curators see them on their own */}
+        {admin ? (
           <div className="px-4 sm:px-0">
             <AdminEventPanel
               eventId={event.id}
               values={{ title: event.title, location: event.location, price: event.price }}
               hidden={admin.hidden}
               edited={admin.edited}
-            />
+            >
+              {event.score !== null && (
+                <AdminScorePanel {...scorePanelProps} canEdit={canEditScores} embedded />
+              )}
+            </AdminEventPanel>
           </div>
-        )}
-
-        {/* Admin Score Panel - only show if event has scores and user has permission */}
-        {canViewScores && event.score !== null && (
-          <div className="px-4 sm:px-0">
-            <AdminScorePanel
-              eventId={event.id}
-              aiScores={{
-                rarity: event.scoreRarity,
-                unique: event.scoreUnique,
-                magnitude: event.scoreMagnitude,
-              }}
-              scoreReason={event.scoreReason}
-              scoreOverride={scoreOverride}
-              canEdit={canEditScores}
-              onScoreUpdate={setScoreOverride}
-            />
-          </div>
+        ) : (
+          canViewScores &&
+          event.score !== null && (
+            <div className="px-4 sm:px-0">
+              <AdminScorePanel {...scorePanelProps} canEdit={canEditScores} />
+            </div>
+          )
         )}
 
         {/* Similar Events */}

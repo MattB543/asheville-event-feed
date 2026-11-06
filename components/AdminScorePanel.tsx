@@ -19,6 +19,8 @@ interface AdminScorePanelProps {
   scoreOverride: ScoreOverride | null;
   canEdit: boolean; // true for admin, false for verified curators (read-only)
   onScoreUpdate?: (newOverride: ScoreOverride) => void;
+  /** Inside the admin panel's box, as one of its sections */
+  embedded?: boolean;
 }
 
 export default function AdminScorePanel({
@@ -28,8 +30,10 @@ export default function AdminScorePanel({
   scoreOverride,
   canEdit,
   onScoreUpdate,
+  embedded = false,
 }: AdminScorePanelProps) {
-  const [isExpanded, setIsExpanded] = useState(true);
+  // Inside the admin panel it starts folded: admins mostly come to fix details
+  const [isExpanded, setIsExpanded] = useState(!embedded);
   const [isSaving, setIsSaving] = useState(false);
 
   // Override form state
@@ -131,7 +135,13 @@ export default function AdminScorePanel({
   };
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
+    <div
+      className={
+        embedded
+          ? '-mx-4 -mb-3 border-t border-gray-200 dark:border-gray-700'
+          : 'bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-6'
+      }
+    >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between px-4 py-3 text-left cursor-pointer"
@@ -194,8 +204,9 @@ export default function AdminScorePanel({
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Override scores (leave blank to use AI + curator boosts):
               </p>
-              <div className="grid grid-cols-3 gap-3">
-                <div>
+              {/* Scores are 0-10, so small boxes; the reason takes the rest of the row */}
+              <div className="flex flex-wrap gap-3">
+                <div className="w-24">
                   <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
                     Rarity
                   </label>
@@ -209,7 +220,7 @@ export default function AdminScorePanel({
                     className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                   />
                 </div>
-                <div>
+                <div className="w-24">
                   <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
                     Unique
                   </label>
@@ -223,7 +234,7 @@ export default function AdminScorePanel({
                     className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                   />
                 </div>
-                <div>
+                <div className="w-24">
                   <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
                     Magnitude
                   </label>
@@ -237,18 +248,18 @@ export default function AdminScorePanel({
                     className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                   />
                 </div>
-              </div>
-              <div>
-                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
-                  Reason (optional)
-                </label>
-                <input
-                  type="text"
-                  value={overrideReason}
-                  onChange={(e) => setOverrideReason(e.target.value)}
-                  placeholder="Why are you overriding?"
-                  className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                />
+                <div className="flex-1 min-w-48">
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    Reason (optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={overrideReason}
+                    onChange={(e) => setOverrideReason(e.target.value)}
+                    placeholder="Why are you overriding?"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                  />
+                </div>
               </div>
               <div className="flex gap-2">
                 <button

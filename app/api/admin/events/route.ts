@@ -65,12 +65,36 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unknown event' }, { status: 400 });
   }
   try {
-    const [row] = await db.select(RETURNING).from(events).where(eq(events.id, eventId));
+    const [row] = await db
+      .select({
+        ...RETURNING,
+        score: events.score,
+        scoreRarity: events.scoreRarity,
+        scoreUnique: events.scoreUnique,
+        scoreMagnitude: events.scoreMagnitude,
+        scoreReason: events.scoreReason,
+        scoreOverride: events.scoreOverride,
+      })
+      .from(events)
+      .where(eq(events.id, eventId));
     if (!row) return NextResponse.json({ error: 'Event not found' }, { status: 404 });
     return NextResponse.json({
       values: { title: row.title, location: row.location, price: row.price },
       hidden: row.hidden === true,
       edited: editedList(row.editedFields),
+      // For the score panel, which the event page fills from its own render
+      scores:
+        row.score === null
+          ? null
+          : {
+              aiScores: {
+                rarity: row.scoreRarity,
+                unique: row.scoreUnique,
+                magnitude: row.scoreMagnitude,
+              },
+              scoreReason: row.scoreReason,
+              scoreOverride: row.scoreOverride,
+            },
     });
   } catch (error) {
     console.error('[AdminEvents] Read failed:', error);

@@ -143,6 +143,7 @@ export async function POST(request: NextRequest) {
         set = { editedFields: sql`'{}'::jsonb` };
         for (const field of LOCKED_FIELDS) {
           const column = COLUMNS[field];
+          // An empty baseline is stored as JSON null, so `->` still finds it and `->>` restores NULL
           set[field] =
             sql`CASE WHEN ${events.editedFields} -> ${field}::text IS NOT NULL THEN ${events.editedFields} ->> ${field}::text ELSE ${column} END`;
         }

@@ -87,6 +87,14 @@ describe('admin event edits', () => {
     expect(row.editedFields).toEqual({});
   });
 
+  it('Undo empties a field that was empty before the edit', async () => {
+    await db.update(events).set({ price: null }).where(eq(events.id, eventId));
+    await post({ eventId, edit: { price: '$12' } });
+    await post({ eventId, undo: true });
+    const [row] = await db.select().from(events).where(eq(events.id, eventId));
+    expect(row.price).toBeNull();
+  });
+
   it('refuses an empty title', async () => {
     expect((await post({ eventId, edit: { title: '  ' } })).status).toBe(400);
   });

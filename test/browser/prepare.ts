@@ -37,6 +37,17 @@ const SAMPLE_EVENTS = [
     price: 'Free',
     tags: ['Fitness'],
     days: 3,
+    // Fixed ids, so the tests can open these pages by URL (a URL ends in the id's first 6 characters)
+    id: 'b0b0b0b0-0000-4000-8000-000000000001',
+  },
+  {
+    title: 'Sample Hidden Event',
+    location: 'Grey Eagle, 185 Clingman Ave, Asheville, NC',
+    price: '$20',
+    tags: ['Live Music'],
+    days: 2,
+    id: 'a0a0a0a0-0000-4000-8000-000000000001',
+    hidden: true,
   },
 ];
 
@@ -47,6 +58,8 @@ async function prepare() {
   await db.execute(sql`TRUNCATE events CASCADE`);
   await db.insert(events).values(
     SAMPLE_EVENTS.map((event, i) => ({
+      id: event.id,
+      hidden: event.hidden,
       sourceId: `sample-${i}`,
       source: 'AVL_TODAY',
       title: event.title,

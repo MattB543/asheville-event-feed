@@ -11,6 +11,9 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     // The Chrome already installed, so nothing is downloaded
     channel: 'chrome',
+    // What CI keeps when a test fails
+    screenshot: 'only-on-failure',
+    trace: 'retain-on-failure',
   },
   webServer: {
     // A production build, which can run beside your own `npm run dev`

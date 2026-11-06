@@ -30,3 +30,18 @@ test('an event opens in the preview, and its own page loads', async ({ page }) =
   await page.goto(href!);
   await expect(page.getByRole('heading', { name: 'Sample Yoga in the Park' })).toBeVisible();
 });
+
+test('a hidden event stays off the feed and its page is not found', async ({ page }) => {
+  // The page is found by the id at the end of its URL; the visible event is the control
+  await page.goto('/events/sample-yoga-in-the-park-2026-01-01-b0b0b0');
+  await expect(page.getByRole('heading', { name: 'Sample Yoga in the Park' })).toBeVisible();
+
+  // The page streams, so it answers 200 with a noindex tag rather than a 404 status
+  await page.goto('/events/sample-hidden-event-2026-01-01-a0a0a0');
+  await expect(page.getByRole('heading', { name: 'Event Not Found' })).toBeVisible();
+  await expect(page.getByText('Sample Hidden Event')).toHaveCount(0);
+
+  await page.goto('/events');
+  await expect(eventLink(page, 'Sample Yoga in the Park')).toBeVisible();
+  await expect(page.getByText('Sample Hidden Event')).toHaveCount(0);
+});

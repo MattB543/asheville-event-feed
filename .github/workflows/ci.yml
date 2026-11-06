@@ -76,8 +76,10 @@ jobs:
         env:
           TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/avlgo_test
 
+      # A fork's pull request gets a read-only token, so posting can fail; the tests still decide
       - name: Comment on the pull request
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         run: |
           npx tsx scripts/ci/test-result-comment.ts vitest.json "$RUN_URL" > comment.md
 

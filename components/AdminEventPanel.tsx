@@ -191,7 +191,7 @@ export default function AdminEventPanel({
             <button
               type="submit"
               disabled={pending}
-              className="rounded-md bg-brand-600 hover:bg-brand-700 px-3 py-1.5 text-sm font-medium text-white cursor-pointer disabled:opacity-50"
+              className="rounded-md bg-brand-600 hover:bg-brand-700 px-3 py-1.5 text-sm font-medium text-white border border-brand-600 hover:border-brand-700 cursor-pointer disabled:opacity-50"
             >
               Save
             </button>

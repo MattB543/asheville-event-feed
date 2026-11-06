@@ -118,7 +118,7 @@ jobs:
       cancel-in-progress: true
     permissions:
       contents: read
-      # Posts the review itself with this token, as Care Management does
+      # The review posts its comment with this token
       pull-requests: write
       issues: read
       id-token: write

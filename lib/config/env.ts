@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { SITE_URL } from '@/lib/seo/site';
+import { assertTestDatabase } from '../../test/database';
 
 // Load .env file with override:true to always prefer local .env over OS env vars
 // This ensures consistent behavior between development and scripts
@@ -8,6 +9,12 @@ dotenv.config({
   path: path.resolve(process.cwd(), '.env'),
   override: true,
 });
+
+// A test run names its own database, which must win over .env's local copy above
+if (process.env.TEST_DATABASE_URL) {
+  assertTestDatabase(process.env.TEST_DATABASE_URL);
+  process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
+}
 
 // Export typed environment variables
 export const env = {

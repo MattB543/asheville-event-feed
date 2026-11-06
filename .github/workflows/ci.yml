@@ -118,7 +118,8 @@ jobs:
       cancel-in-progress: true
     permissions:
       contents: read
-      pull-requests: read
+      # Posts the review itself with this token, as Care Management does
+      pull-requests: write
       issues: read
       id-token: write
 
@@ -133,6 +134,9 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The Claude app's own token is refused whenever a PR changes this file, so the review
+          # silently skipped those PRs; the built-in token has no such check
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}

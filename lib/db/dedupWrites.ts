@@ -3,6 +3,7 @@ import { db } from './index';
 import { events } from './schema';
 import { liveEvent } from './liveEvent';
 import { mergeFields, type DuplicateGroup, type MergedFields } from '@/lib/utils/deduplication';
+import { editedList } from '@/lib/events/edits';
 
 type Tx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
@@ -73,6 +74,7 @@ export async function applyDuplicateGroup(
         imageUrl: events.imageUrl,
         interestedCount: events.interestedCount,
         goingCount: events.goingCount,
+        editedFields: events.editedFields,
       })
       .from(events)
       .where(unchangedSince(group.keep))
@@ -84,7 +86,12 @@ export async function applyDuplicateGroup(
       keeper,
       group.remove.filter((e) => removedIds.has(e.id))
     );
-    if (merged) await tx.update(events).set(merged).where(eq(events.id, keeper.id));
+    // A field an admin edited stays as they left it, even emptied
+    for (const field of editedList(keeper.editedFields)) {
+      if (merged && field in merged) delete merged[field as keyof MergedFields];
+    }
+    if (!merged || Object.keys(merged).length === 0) return { removed: removedIds.size };
+    await tx.update(events).set(merged).where(eq(events.id, keeper.id));
     return { removed: removedIds.size, merged };
   });
 }

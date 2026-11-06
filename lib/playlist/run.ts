@@ -8,11 +8,11 @@ import { normalizeName } from '@/lib/utils/venueName';
 import { isMusicEvent } from './music';
 import { matchEvents } from './matchEvents';
 import { findSoldOut } from './soldOut';
-import { explainGenres, mainGenre } from './genreNotes';
+import { explainGenres } from './genreNotes';
 import { replacePlaylist } from './spotify';
 import { liveEvent } from '@/lib/db/liveEvent';
+import { mainGenre, WINDOW_DAYS } from './week';
 
-export const WINDOW_DAYS = 8; // Sunday through the next Sunday
 const CANDIDATES = 25; // Wider than the playlist: skipped shows would otherwise eat slots
 const PLAYLIST_SHOWS = 25;
 

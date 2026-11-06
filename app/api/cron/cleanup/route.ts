@@ -11,6 +11,7 @@ import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracke
 import { formatDuration } from '@/lib/utils/cron';
 import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 import { createChromeDispatcher, probeAsChrome } from '@/lib/scrapers/fetchAsChrome';
+import { DEAD_STALE_HOURS, DEAD_STATUSES, removableDeadLinks } from '@/lib/utils/deadLinks';
 import { buncombeCountyPageStatus, isBuncombeCountyUrl } from '@/lib/scrapers/buncombecounty';
 import { liveEvent } from '@/lib/db/liveEvent';
 import { applyDuplicateGroup } from '@/lib/db/dedupWrites';
@@ -43,23 +44,6 @@ interface DeadEvent {
   source: string;
   status: number;
 }
-
-/** Only these mean "gone". A block is a 403/429/5xx and must never delete. */
-const DEAD_STATUSES = new Set([404, 410]);
-
-/**
- * Events the scrapers confirmed this recently are alive by definition - the
- * scraper just fetched them - so checking them is wasted requests. Scrapes run
- * every 6h, so this is "missed by the last four runs".
- */
-const DEAD_CHECK_STALE_HOURS = 24;
-
-/**
- * If this share of a source's checked events look dead at once, that is a site
- * redesign or an outage, not individual removals. Skip the source entirely.
- */
-const DEAD_SOURCE_MAX_SHARE = 0.2;
-const DEAD_SOURCE_MIN_CHECKED = 5;
 
 async function checkUrl(url: string): Promise<number> {
   // www.buncombenc.gov answers 403 to everything but a real browser; read it via the CivicPlus host
@@ -134,7 +118,7 @@ export async function GET(request: Request) {
     // Camp events link to our own /camps pages, and syncCampEvents (lib/camps/feedEvents.ts)
     // soft-deletes them (deadAt) when their camp goes, so they are never checked.
     const queryStart = Date.now();
-    const staleCutoff = new Date(Date.now() - DEAD_CHECK_STALE_HOURS * 60 * 60 * 1000);
+    const staleCutoff = new Date(Date.now() - DEAD_STALE_HOURS * 60 * 60 * 1000);
     const candidates = await db
       .select({
         id: events.id,
@@ -151,14 +135,13 @@ export async function GET(request: Request) {
         AND ${events.source} <> 'CAMPS'
       `);
     console.log(
-      `[Cleanup] Queried ${candidates.length} unconfirmed events (not seen in ${DEAD_CHECK_STALE_HOURS}h) in ${formatDuration(Date.now() - queryStart)} (${label})`
+      `[Cleanup] Queried ${candidates.length} unconfirmed events (not seen in ${DEAD_STALE_HOURS}h) in ${formatDuration(Date.now() - queryStart)} (${label})`
     );
 
-    const deadEvents: DeadEvent[] = [];
+    const confirmedDead: DeadEvent[] = [];
     const batchSize = 10;
     const statusCodeCounts = new Map<number, number>();
     const checkedBySource = new Map<string, number>();
-    const deadBySource = new Map<string, DeadEvent[]>();
     let networkErrorCount = 0;
     let falsePositiveCount = 0;
 
@@ -200,17 +183,13 @@ export async function GET(request: Request) {
             continue;
           }
 
-          const dead: DeadEvent = {
+          confirmedDead.push({
             id: event.id,
             title: event.title,
             url: event.url,
             source: event.source,
             status: confirmed,
-          };
-          deadEvents.push(dead);
-          const forSource = deadBySource.get(event.source) || [];
-          forSource.push(dead);
-          deadBySource.set(event.source, forSource);
+          });
         }
 
         if (batchNum % 5 === 0 || batchNum === totalBatches) {
@@ -248,20 +227,15 @@ export async function GET(request: Request) {
 
     // A source losing a big share of its events at once is a redesign or an
     // outage, not real removals. Drop the whole source rather than cascade.
-    const skippedSources: string[] = [];
-    for (const [source, dead] of deadBySource) {
-      const checked = checkedBySource.get(source) || 0;
-      const share = checked > 0 ? dead.length / checked : 0;
-      if (checked >= DEAD_SOURCE_MIN_CHECKED && share > DEAD_SOURCE_MAX_SHARE) {
-        console.warn(
-          `[Cleanup] SKIPPING ${source}: ${dead.length}/${checked} (${Math.round(share * 100)}%) look dead, over the ${Math.round(DEAD_SOURCE_MAX_SHARE * 100)}% cap. Likely a site change, not removals - nothing removed for this source.`
-        );
-        skippedSources.push(source);
-        for (const event of dead) {
-          const idx = deadEvents.indexOf(event);
-          if (idx !== -1) deadEvents.splice(idx, 1);
-        }
-      }
+    const { removable: deadEvents, skippedSources } = removableDeadLinks(
+      confirmedDead,
+      checkedBySource
+    );
+    for (const source of skippedSources) {
+      const dead = confirmedDead.filter((e) => e.source === source).length;
+      console.warn(
+        `[Cleanup] SKIPPING ${source}: ${dead}/${checkedBySource.get(source)} look dead, over the per-source cap. Likely a site change, not removals - nothing removed for this source.`
+      );
     }
 
     // Soft-delete: set dead_at rather than DELETE, so a bad call is one UPDATE

@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import Header from '@/components/Header';
 import AdminPosterQueue, { type AdminQueueUpload } from '@/components/posters/AdminPosterQueue';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import {
   queryAllPosters,
   queryFailedPosters,
@@ -80,7 +80,7 @@ export default async function AdminPostersPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!isSuperAdmin(user?.id)) {
+  if (!isAdmin(user?.id)) {
     redirect('/');
   }
 

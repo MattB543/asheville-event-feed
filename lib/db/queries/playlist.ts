@@ -3,9 +3,8 @@ import { db } from '@/lib/db';
 import { events, eventTracks, genreNotes, playlistPicks } from '@/lib/db/schema';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
 import { normalizeName, venueFor } from '@/lib/utils/venueName';
-import { WINDOW_DAYS } from '@/lib/playlist/run';
 import { liveEvent } from '@/lib/db/liveEvent';
-import { mainGenre } from '@/lib/playlist/genreNotes';
+import { mainGenre, WINDOW_DAYS } from '@/lib/playlist/week';
 
 export interface PlaylistShowRow {
   eventId: string;

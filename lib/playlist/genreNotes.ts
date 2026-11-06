@@ -2,13 +2,7 @@ import { inArray } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { genreNotes } from '@/lib/db/schema';
 import { parseJsonFromModel } from '@/lib/ai/provider-clients';
-import { OFFICIAL_TAGS_SET } from '@/lib/config/tagCategories';
 import { playlistAiText } from './match';
-
-/** The show's genre: official tags are broad ("Live Music"), so the AI's own first tag */
-export function mainGenre(tags: string[] | null): string | null {
-  return (tags ?? []).find((tag) => !OFFICIAL_TAGS_SET.has(tag)) ?? null;
-}
 
 const GENRE_SYSTEM = `You explain music genre names to people browsing local concert listings.
 For each genre in the JSON array, decide whether a typical concertgoer already knows it.

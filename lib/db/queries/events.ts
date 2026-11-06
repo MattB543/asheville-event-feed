@@ -34,9 +34,9 @@ import { campOptIn, liveEvent, notCampEvent } from '@/lib/db/liveEvent';
 // Verbose per-request query logging, dev only
 const DEBUG_QUERY_LOGS = process.env.NODE_ENV !== 'production';
 
-// Type for events without server-side-only fields: the embedding vector and the AI
-// and verify retry bookkeeping columns, which only their crons read and which nothing
-// in the feed or UI consumes (selecting them would bloat every feed row for no benefit).
+// Type for events without server-side-only fields: the embedding vector, the AI and verify
+// retry bookkeeping columns and admin edit baselines, which only their writers read and which
+// nothing in the feed or UI consumes (selecting them would bloat every feed row for no benefit).
 export type DbEvent = Omit<
   InferSelectModel<typeof events>,
   | 'embedding'
@@ -45,6 +45,7 @@ export type DbEvent = Omit<
   | 'aiNextAttemptAt'
   | 'verifyAttempts'
   | 'verifyNextAttemptAt'
+  | 'editedFields'
 >;
 
 // Filter parameters accepted by the API

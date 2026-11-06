@@ -17,6 +17,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 import type { CampCard } from '../camps/contract';
+import type { EditedFields } from '../events/edits';
 
 export const events = pgTable(
   'events',
@@ -56,6 +57,8 @@ export const events = pgTable(
     scoreMagnitude: integer('score_magnitude'), // 0-10: Production scale/talent level
     scoreReason: text('score_reason'), // One-sentence AI reasoning for the score
     scoreOverride: jsonb('score_override'), // Admin overrides and curator boosts - see ScoreOverride type
+    // Fields an admin edited, each mapped to its value before the edit; the scrape leaves them alone
+    editedFields: jsonb('edited_fields').$type<EditedFields>().default({}).notNull(),
     // Secondary score dimensions (1-10, for future "Top 30" lists, not used for display/filtering)
     scoreAshevilleWeird: integer('score_asheville_weird'), // 1-10: How "Asheville weird" is this event
     scoreSocial: integer('score_social'), // 1-10: How good is this for meeting new people
@@ -425,10 +428,10 @@ export const curatorProfiles = pgTable(
     isPublic: boolean('is_public').default(false).notNull(),
     showProfilePicture: boolean('show_profile_picture').default(false).notNull(),
     avatarUrl: text('avatar_url'), // stored from auth provider when showProfilePicture is enabled
-    // Verified curator status (super admin controlled)
+    // Verified curator status (admin controlled)
     isVerified: boolean('is_verified').default(false).notNull(),
     verifiedAt: timestamp('verified_at', { withTimezone: true }),
-    verifiedBy: uuid('verified_by'), // User ID of super admin who verified
+    verifiedBy: uuid('verified_by'), // User ID of admin who verified
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
@@ -834,7 +837,7 @@ export const letterSignatures = pgTable(
     status: text('status').default('pending').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
-    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // Set when the super admin sets a status
+    reviewedAt: timestamp('reviewed_at', { withTimezone: true }), // Set when the admin sets a status
     // Goes up on every edit and review, so a review applies only to the version the admin saw
     revision: integer('revision').default(0).notNull(),
   },

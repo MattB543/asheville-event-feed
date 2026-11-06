@@ -9,9 +9,11 @@ import FooterCredit from '@/components/FooterCredit';
 import EventContent from '@/components/EventContent';
 import SimilarEventsSection from '@/components/SimilarEventsSection';
 import AdminScorePanel from '@/components/AdminScorePanel';
+import AdminEventPanel from '@/components/AdminEventPanel';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import { useFavoritesSync } from '@/lib/hooks/usePreferenceSync';
 import type { ScoreOverride } from '@/lib/utils/scoreCalculation';
+import type { LockedField } from '@/lib/events/edits';
 
 // Lazy load modal to reduce initial JS bundle
 const EventDetailModal = dynamic(() => import('@/components/EventDetailModal'), { ssr: false });
@@ -65,6 +67,8 @@ interface EventPageClientProps {
   similarEvents?: SimilarEvent[];
   canViewScores?: boolean;
   canEditScores?: boolean;
+  /** Set only for admins */
+  admin?: { hidden: boolean; edited: LockedField[] };
 }
 
 export default function EventPageClient({
@@ -73,12 +77,24 @@ export default function EventPageClient({
   similarEvents = [],
   canViewScores = false,
   canEditScores = false,
+  admin,
 }: EventPageClientProps) {
   useFavoritesSync();
   const { favoriteIds, toggleFavorite } = useFavorites();
   const isFavorited = favoriteIds.includes(event.id);
   const [favoriteCount, setFavoriteCount] = useState(event.favoriteCount);
   const [scoreOverride, setScoreOverride] = useState<ScoreOverride | null>(event.scoreOverride);
+  const scorePanelProps = {
+    eventId: event.id,
+    aiScores: {
+      rarity: event.scoreRarity,
+      unique: event.scoreUnique,
+      magnitude: event.scoreMagnitude,
+    },
+    scoreReason: event.scoreReason,
+    scoreOverride,
+    onScoreUpdate: setScoreOverride,
+  };
 
   // Similar event modal state
   type ModalEvent = {
@@ -169,22 +185,27 @@ export default function EventPageClient({
           className="mb-8"
         />
 
-        {/* Admin Score Panel - only show if event has scores and user has permission */}
-        {canViewScores && event.score !== null && (
+        {/* Admins get the scores inside their panel; verified curators see them on their own */}
+        {admin ? (
           <div className="px-4 sm:px-0">
-            <AdminScorePanel
+            <AdminEventPanel
               eventId={event.id}
-              aiScores={{
-                rarity: event.scoreRarity,
-                unique: event.scoreUnique,
-                magnitude: event.scoreMagnitude,
-              }}
-              scoreReason={event.scoreReason}
-              scoreOverride={scoreOverride}
-              canEdit={canEditScores}
-              onScoreUpdate={setScoreOverride}
-            />
+              values={{ title: event.title, location: event.location, price: event.price }}
+              hidden={admin.hidden}
+              edited={admin.edited}
+            >
+              {event.score !== null && (
+                <AdminScorePanel {...scorePanelProps} canEdit={canEditScores} embedded />
+              )}
+            </AdminEventPanel>
           </div>
+        ) : (
+          canViewScores &&
+          event.score !== null && (
+            <div className="px-4 sm:px-0">
+              <AdminScorePanel {...scorePanelProps} canEdit={canEditScores} />
+            </div>
+          )
         )}
 
         {/* Similar Events */}

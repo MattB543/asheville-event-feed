@@ -32,3 +32,127 @@ jobs:
 
       - name: Check Prettier formatting
         run: npx prettier --check "app/**" "components/**" "lib/**" "scripts/**/*.ts" ".github/**/*.yml" "*.json" "*.md" "*.ts" "*.mjs"
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # The results go on the pull request as a comment
+      pull-requests: write
+
+    # The *.db.test.ts files need Postgres with pgvector; the run creates avlgo_test in it
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This job can write to the pull request, so don't leave the token for a later step
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Allowed to fail so the results can still be posted; the last step fails the job
+      - id: vitest
+        name: Run tests
+        continue-on-error: true
+        run: npm test -- --reporter=default --reporter=json --outputFile.json=vitest.json
+        env:
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/avlgo_test
+
+      - name: Comment on the pull request
+        if: github.event_name == 'pull_request'
+        run: |
+          npx tsx scripts/ci/test-result-comment.ts vitest.json "$RUN_URL" > comment.md
+
+          # Post fresh so the latest result is the newest comment; earlier ones fold to a line
+          OLD=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            --jq '[.[] | select(.body | startswith("<!-- test-suite-result -->")) | .id] | join(" ")')
+
+          gh api --method POST "repos/$REPO/issues/$PR/comments" -F body=@comment.md
+
+          for id in $OLD; do
+            printf '%s\n<details><summary>Earlier test results</summary>\n\n' \
+              '<!-- test-suite-result-superseded -->' > superseded.md
+            gh api "repos/$REPO/issues/comments/$id" --jq .body >> superseded.md
+            printf '\n</details>\n' >> superseded.md
+            gh api --method PATCH "repos/$REPO/issues/comments/$id" -F body=@superseded.md || true
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Fail if the tests failed
+        if: steps.vitest.outcome == 'failure'
+        run: exit 1
+
+  # Reviewing code whose tests fail wastes a run, so the review waits for them
+  review:
+    name: Claude review
+    needs: test
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    # A burst of pushes should cost one review, not one per commit
+    concurrency:
+      group: claude-review-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Review this pull request for bugs, security problems, performance issues,
+            and code quality. Use the repository's CLAUDE.md for style and conventions.
+
+            The test suite already ran and passed before this review started, so don't
+            try to run it and don't mention not running it.
+
+            Before reviewing, read the earlier reviews and replies on this PR with
+            `gh pr view --comments`. Do not raise a point again if a later commit fixed
+            it or the author already declined it, and do not contradict an earlier
+            review's advice without saying so and why.
+
+            Start the comment with one verdict line: "Ready to merge" or "Needs changes".
+            Then list each point once, labelled **Must fix**, **Suggestion** or **FYI**.
+            Only a Must fix makes the verdict "Needs changes". If there is nothing new
+            to say, say that in one line instead of repeating earlier reviews.
+
+            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+
+          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
+          # or https://code.claude.com/docs/en/cli-reference for available options
+          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'

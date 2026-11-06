@@ -109,6 +109,7 @@ export async function GET(request: Request) {
         source: events.source,
         lastSeenAt: events.lastSeenAt,
         verifyAttempts: events.verifyAttempts,
+        editedFields: events.editedFields,
       })
       .from(events)
       .where(

@@ -12,6 +12,7 @@ import { env } from '@/lib/config/env';
 import { THIN_DESCRIPTION_LENGTH } from '@/lib/config/verification';
 import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
+import type { EditedFields } from '@/lib/events/edits';
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 
 /**
@@ -104,6 +105,8 @@ export interface EventForVerification {
   source: string;
   lastSeenAt: Date | null;
   verifyAttempts: number;
+  /** Fields an admin edited, which verify leaves as they are */
+  editedFields: EditedFields;
 }
 
 /**
@@ -337,7 +340,7 @@ export async function fetchPageContent(url: string): Promise<PageFetch> {
  * description is only taken when the stored one is thin (see THIN_DESCRIPTION_LENGTH)
  * and the new one is longer. Returns undefined when nothing is left.
  */
-function realUpdates(
+export function realUpdates(
   event: EventForVerification,
   proposed: VerificationAIResponse['updates']
 ): VerificationResult['updates'] {
@@ -346,11 +349,15 @@ function realUpdates(
     typeof next === 'string' && next.trim() !== '' && next.trim() !== (current ?? '').trim();
 
   const updates: NonNullable<VerificationResult['updates']> = {};
+  // An admin's edit outranks the source page, even an edit that emptied the field
+  const edited = (field: 'price' | 'location') => field in event.editedFields;
   // "Unknown" is our own placeholder for no price, not something to write
-  if (changed(price, event.price) && price.trim().toLowerCase() !== 'unknown') {
+  if (!edited('price') && changed(price, event.price) && price.trim().toLowerCase() !== 'unknown') {
     updates.price = price.trim();
   }
-  if (changed(location, event.location)) updates.location = location.trim();
+  if (!edited('location') && changed(location, event.location)) {
+    updates.location = location.trim();
+  }
   if (
     isThinDescription(event.description) &&
     changed(description, event.description) &&

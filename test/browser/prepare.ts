@@ -4,6 +4,7 @@
  */
 import { rmSync } from 'node:fs';
 import { sql } from 'drizzle-orm';
+import { assertTestDatabase, TEST_DATABASE_URL } from '../database';
 import setup from '../dbGlobalSetup';
 import { db, closeDb } from '../../lib/db';
 import { events } from '../../lib/db/schema';
@@ -52,6 +53,10 @@ const SAMPLE_EVENTS = [
 ];
 
 async function prepare() {
+  // Run by hand without TEST_DATABASE_URL, `db` would otherwise use .env's database and empty it
+  assertTestDatabase(TEST_DATABASE_URL);
+  process.env.DATABASE_URL = TEST_DATABASE_URL;
+
   // The last run's cached feed would outlive the reseed (its ids no longer exist)
   rmSync('.next/cache/fetch-cache', { recursive: true, force: true });
   await setup();

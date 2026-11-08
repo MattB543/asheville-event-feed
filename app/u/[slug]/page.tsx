@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Settings } from 'lucide-react';
 import { db } from '@/lib/db';
 import { curatorProfiles, curatedEvents, events } from '@/lib/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { and, eq, desc } from 'drizzle-orm';
+import { liveEvent } from '@/lib/db/liveEvent';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
 import Header from '@/components/Header';
@@ -92,7 +93,7 @@ export default async function CuratorProfilePage({ params }: PageProps) {
     })
     .from(curatedEvents)
     .innerJoin(events, eq(curatedEvents.eventId, events.id))
-    .where(eq(curatedEvents.userId, profile.userId))
+    .where(and(eq(curatedEvents.userId, profile.userId), liveEvent))
     .orderBy(desc(curatedEvents.curatedAt));
 
   return (

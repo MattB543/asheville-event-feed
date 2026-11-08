@@ -15,7 +15,7 @@ export const NEIGHBORHOOD_MAX = 80;
 export const ROLE_MAX = 80;
 
 /**
- * pending: a public signature waiting for the super admin's review (counted, not shown).
+ * pending: a public signature waiting for the admin's review (counted, not shown).
  * approved: shown if public; private signatures are approved as soon as they're made.
  * rejected: neither counted nor shown.
  */
@@ -49,7 +49,7 @@ export interface OwnSignature {
   createdAt: string;
 }
 
-/** One public signature in the super admin's review list */
+/** One public signature in the admin's review list */
 export interface ReviewRow {
   id: string;
   name: string;

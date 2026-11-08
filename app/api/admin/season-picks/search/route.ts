@@ -2,7 +2,7 @@
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { canEditSeason } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { searchEventsBetween } from '@/lib/db/queries/halloween';
 import { addDaysToDateString } from '@/lib/utils/dateFilters';
 import { getDayBoundariesEastern, getTodayStringEastern } from '@/lib/utils/timezone';
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'Sign in required' }, { status: 401 });
-  if (!canEditSeason(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  if (!isAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const query = (request.nextUrl.searchParams.get('q') ?? '').slice(0, 100);
   // The wall's two nights: Oct 30 and 31 of this year, Eastern

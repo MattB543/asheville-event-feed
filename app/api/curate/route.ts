@@ -8,7 +8,7 @@ import {
   isUserVerifiedCurator,
 } from '@/lib/supabase/curatorProfile';
 import { isRecord, isString, isNumber } from '@/lib/utils/validation';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { db } from '@/lib/db';
 import { events, curatedEvents } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -40,8 +40,8 @@ export async function GET() {
       getUserCurations(user.id),
       isUserVerifiedCurator(user.id),
     ]);
-    const isAdmin = isSuperAdmin(user.id);
-    const canBoostScore = isVerified || isAdmin;
+    const viewerIsAdmin = isAdmin(user.id);
+    const canBoostScore = isVerified || viewerIsAdmin;
 
     return NextResponse.json({ curations, canBoostScore });
   } catch (error) {
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Handle score boost for verified curators and super admin
+// Handle score boost for verified curators and admin
 async function handleScoreBoost(
   userId: string,
   eventId: string,
@@ -110,9 +110,9 @@ async function handleScoreBoost(
 ): Promise<void> {
   // Check if user can boost scores
   const isVerified = await isUserVerifiedCurator(userId);
-  const isAdmin = isSuperAdmin(userId);
+  const viewerIsAdmin = isAdmin(userId);
 
-  if (!isVerified && !isAdmin) {
+  if (!isVerified && !viewerIsAdmin) {
     // Silently ignore boost from non-verified users
     return;
   }

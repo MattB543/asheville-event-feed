@@ -127,7 +127,7 @@ export async function removeCuration(userId: string, eventId: string) {
     .where(and(eq(curatedEvents.userId, userId), eq(curatedEvents.eventId, eventId)));
 }
 
-// Set curator verification status (super admin only)
+// Set curator verification status (admin only)
 export async function setCuratorVerification(
   curatorUserId: string,
   verified: boolean,

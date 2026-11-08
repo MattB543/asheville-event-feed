@@ -1,5 +1,5 @@
 /**
- * Camp review for the super admin (docs/camps/04-v2-plan.md §1.2). Unlisted by design - there is
+ * Camp review for the admin (docs/camps/04-v2-plan.md §1.2). Unlisted by design - there is
  * no nav link to it. Confirm, hide or fix the camps short of high confidence, find any other camp
  * to fix it (`?q=`), and pin the sites the geocoder couldn't place.
  */
@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 import Header from '@/components/Header';
 import CampAdmin, { type CampAdminData } from '@/components/camps/admin/CampAdmin';
 import { createClient } from '@/lib/supabase/server';
-import { isSuperAdmin } from '@/lib/utils/superAdmin';
+import { isAdmin } from '@/lib/utils/admin';
 import { sitesWithoutPin } from '@/lib/db/queries/camps';
 import {
   CAMP_CARD_KEYS,
@@ -38,7 +38,7 @@ export default async function AdminCampsPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!isSuperAdmin(user?.id)) {
+  if (!isAdmin(user?.id)) {
     redirect('/');
   }
 

@@ -13,7 +13,7 @@ import type {
 import ActiveFilters, { type ActiveFilter } from './ActiveFilters';
 import { parse, isValid } from 'date-fns';
 import dynamic from 'next/dynamic';
-import { EventFeedSkeleton } from './EventCardSkeleton';
+import { EventFeedSkeleton, EventListSkeleton } from './EventCardSkeleton';
 import {
   useEventQuery,
   useInfiniteScrollTrigger,
@@ -2532,6 +2532,12 @@ export default function EventFeed({
       {/* All Events Feed */}
       {activeTab === 'all' && (
         <>
+          {/* A filtered first page has no SSR data; hold the list's height so the page doesn't jump */}
+          {events.length === 0 && isFetching && (
+            <div className="mt-3">
+              <EventListSkeleton />
+            </div>
+          )}
           <div
             className={`flex flex-col gap-10 mt-3 transition-opacity duration-150 ${
               isFilterPending ? 'opacity-50' : 'opacity-100'

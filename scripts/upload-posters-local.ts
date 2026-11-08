@@ -8,7 +8,7 @@
  * Run with: npx tsx scripts/upload-posters-local.ts <image-or-directory> [...more]
  *           POSTER_USER_ID=<uuid> npx tsx scripts/upload-posters-local.ts ...
  *
- * The uploads are attributed to POSTER_USER_ID, falling back to SUPER_ADMIN.
+ * The uploads are attributed to POSTER_USER_ID, falling back to the first SUPER_ADMIN id.
  */
 
 import 'dotenv/config';
@@ -47,7 +47,7 @@ async function main() {
     process.exit(1);
   }
 
-  const userId = process.env.POSTER_USER_ID ?? env.SUPER_ADMIN;
+  const userId = process.env.POSTER_USER_ID ?? env.SUPER_ADMIN?.split(',')[0]?.trim();
   if (!userId) {
     console.error('Set POSTER_USER_ID (or SUPER_ADMIN) to the Supabase auth UUID to upload as.');
     process.exit(1);

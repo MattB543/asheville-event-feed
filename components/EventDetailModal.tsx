@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import { useFavorites } from '@/lib/hooks/useFavorites';
 import EventContent from './EventContent';
+import { AdminEventPanelForPreview } from './AdminEventPanel';
 import SimilarEventsSection from './SimilarEventsSection';
 import { useModal } from '@/lib/hooks/useModal';
 
@@ -210,6 +211,10 @@ export default function EventDetailModal({
               onToggleFavorite={onToggleFavorite}
               showTitle={true}
             />
+
+            <div className="mt-8 px-4 sm:px-0">
+              <AdminEventPanelForPreview eventId={event.id} />
+            </div>
 
             {/* Similar Events Section */}
             {(similarEvents.length > 0 || similarEventsLoading) && (

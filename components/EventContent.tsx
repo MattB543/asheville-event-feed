@@ -339,7 +339,7 @@ export default function EventContent({
             <div className="relative" ref={calendarMenuRef}>
               <button
                 onClick={() => setCalendarMenuOpen(!calendarMenuOpen)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm rounded-lg font-medium transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm rounded-lg border border-brand-600 hover:border-brand-700 font-medium transition-colors cursor-pointer"
               >
                 <CalendarPlus2 size={15} />
                 Calendar
@@ -423,7 +423,7 @@ export default function EventContent({
               <Link
                 key={program.program}
                 href={program.path}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-brand-600 text-white rounded-lg hover:bg-brand-700 border border-brand-600 hover:border-brand-700 transition-colors"
               >
                 <Users size={15} />
                 {program.eventCtaLabel}

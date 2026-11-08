@@ -28,6 +28,9 @@ function countTone(available: number): string {
   return 'text-gray-900 dark:text-white';
 }
 
+// The feed's 4 city and 2 county garages
+const PLACEHOLDER_DECKS = 6;
+
 const CARD = 'rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900';
 
 /**
@@ -87,11 +90,22 @@ export default function LiveGarages() {
             </li>
           ))}
         </ul>
+      ) : loading ? (
+        // Rows the size of the real ones, so the guide below doesn't jump when the counts land
+        <ul aria-label="Checking the garages…" className="mt-3 grid gap-2 sm:grid-cols-2">
+          {Array.from({ length: PLACEHOLDER_DECKS }, (_, i) => (
+            <li
+              key={i}
+              className="rounded-lg border border-gray-100 px-3 py-2.5 dark:border-gray-800"
+            >
+              <span className="block h-5 w-32 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+              <span className="mt-1 block h-3 w-40 animate-pulse rounded bg-gray-100 dark:bg-gray-800" />
+            </li>
+          ))}
+        </ul>
       ) : (
         <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-          {loading
-            ? 'Checking the garages…'
-            : "The city's live garage counts aren't available right now."}
+          The city&apos;s live garage counts aren&apos;t available right now.
         </p>
       )}
 

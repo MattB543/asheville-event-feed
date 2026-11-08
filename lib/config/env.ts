@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { SITE_URL } from '@/lib/seo/site';
+import { assertTestDatabase } from '../../test/database';
 
 // Load .env file with override:true to always prefer local .env over OS env vars
 // This ensures consistent behavior between development and scripts
@@ -8,6 +9,12 @@ dotenv.config({
   path: path.resolve(process.cwd(), '.env'),
   override: true,
 });
+
+// A test run names its own database, which must win over .env's local copy above
+if (process.env.TEST_DATABASE_URL) {
+  assertTestDatabase(process.env.TEST_DATABASE_URL);
+  process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
+}
 
 // Export typed environment variables
 export const env = {
@@ -92,13 +99,9 @@ export const env = {
   get EVENTBRITE_API_TOKEN() {
     return process.env.EVENTBRITE_API_TOKEN;
   },
-  // Super Admin (for verified curator management and score overrides)
+  // Admins (lib/utils/admin.ts): comma-separated user IDs, each of whom gets every admin tool
   get SUPER_ADMIN() {
     return process.env.SUPER_ADMIN;
-  },
-  // Comma-separated user IDs who may hand-edit holiday pages (besides the super admin)
-  get SEASON_EDITORS() {
-    return process.env.SEASON_EDITORS;
   },
 } as const;
 

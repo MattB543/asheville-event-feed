@@ -198,7 +198,7 @@ export async function POST(request: NextRequest) {
       .returning(RETURNING);
     if (!row) return NextResponse.json({ error: 'Event not found' }, { status: 404 });
 
-    invalidateEventsCache();
+    invalidateEventsCache({ immediately: true });
     return NextResponse.json({ ok: true, event: row });
   } catch (error) {
     console.error('[AdminEvents] Update failed:', error);

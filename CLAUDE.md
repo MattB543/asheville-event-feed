@@ -517,7 +517,7 @@ missing data. Policy, as of 2026-10-14:
 /api/admin/events`. `events.edited_fields` (migration `drizzle/0028_event_edits.sql`,
   run on the live database by hand before deploying) maps each edited field to its
   value before the first edit, which Undo puts back (hiding has its own Show button, so Undo leaves it); the scrape upsert keeps an
-  edited field as the admin left it (`unlessEdited`), and so do verify's updates and dedup's gap fills. A title change (edit or Undo) clears the AI summary and embedding so the AI cron redoes them from the new title. Fields: `lib/events/edits.ts`.
+  edited field as the admin left it (`unlessEdited`), and so do verify's updates and dedup's gap fills. Dedup never removes a row with edits (`softDeleteUnchanged`), so an edited row can show as a duplicate until Undo. A title change (edit or Undo) clears the AI summary and embedding so the AI cron redoes them from the new title. Fields: `lib/events/edits.ts`.
 - Each run's `cron_job_runs.result.outcomes` lists every event it judged: id,
   `outcome` (kept / updated / hidden / dead / unverifiable / deferred / stale /
   write_failed), reason, confidence and, for updates, each field's `from`/`to`.

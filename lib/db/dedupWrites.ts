@@ -31,7 +31,10 @@ function unchangedSince(row: JudgedRow) {
   )!;
 }
 
-/** Returns the ids actually soft-deleted. */
+/**
+ * Returns the ids actually soft-deleted. A row an admin edited is never removed: the copy left
+ * behind wouldn't have the correction, and a visible duplicate beats losing it.
+ */
 async function softDeleteUnchanged(
   writer: Tx | typeof db,
   rows: JudgedRow[],
@@ -41,7 +44,7 @@ async function softDeleteUnchanged(
   const removed = await writer
     .update(events)
     .set({ dedupedAt })
-    .where(or(...rows.map(unchangedSince)))
+    .where(and(or(...rows.map(unchangedSince)), sql`${events.editedFields} = '{}'::jsonb`))
     .returning({ id: events.id });
   return removed.map((r) => r.id);
 }

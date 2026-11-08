@@ -431,6 +431,8 @@ logged with its status, source, title and URL plus a ready-to-paste restore
 statement. Every live-event query uses `liveEvent` from `lib/db/liveEvent.ts`
 (not hidden, deduped or dead; `isLiveEvent` is the same rule for a loaded row),
 so a new query gets all three and a new removal flag is added in one place.
+Events whose title starts with "Cancelled" are soft-deleted the same way, so the
+next scrape can't insert them again as live; non-NC events are still hard-deleted.
 
 Rule-based dedup **merges before it removes** (`mergeFields` in
 `lib/utils/deduplication.ts`). Which row wins rules 1-3 is unrelated to which

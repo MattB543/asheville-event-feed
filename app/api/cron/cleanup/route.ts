@@ -283,6 +283,7 @@ export async function GET(request: Request) {
         title: events.title,
         location: events.location,
         source: events.source,
+        deadAt: events.deadAt,
       })
       .from(events);
     console.log(
@@ -350,7 +351,7 @@ export async function GET(request: Request) {
     const cancelledEventTitles: string[] = [];
 
     for (const event of allEvents) {
-      if (event.title.trim().toUpperCase().startsWith('CANCELLED')) {
+      if (!event.deadAt && event.title.trim().toUpperCase().startsWith('CANCELLED')) {
         cancelledEventIds.push(event.id);
         cancelledEventTitles.push(event.title);
       }
@@ -364,26 +365,20 @@ export async function GET(request: Request) {
       }
     }
 
-    // Delete cancelled events in batches
+    // Soft-delete, like dead links: a hard delete let the next scrape insert the same URL again as
+    // a live event, losing any admin edit that marked it cancelled
     if (cancelledEventIds.length > 0) {
-      const deleteBatchSize = 50;
-      const totalDeleteBatches = Math.ceil(cancelledEventIds.length / deleteBatchSize);
-      for (let i = 0; i < cancelledEventIds.length; i += deleteBatchSize) {
-        const batch = cancelledEventIds.slice(i, i + deleteBatchSize);
-        await db.delete(events).where(inArray(events.id, batch));
-        eventsChanged = true;
-        // Gap #11: Log batch progress for large sets
-        if (totalDeleteBatches > 1) {
-          const batchNum = Math.floor(i / deleteBatchSize) + 1;
-          console.log(`[Cleanup] Deleted cancelled batch ${batchNum}/${totalDeleteBatches}`);
-        }
-      }
-      console.log(`[Cleanup] Deleted ${cancelledEventIds.length} cancelled events.`);
+      await db
+        .update(events)
+        .set({ deadAt: new Date() })
+        .where(inArray(events.id, cancelledEventIds));
+      eventsChanged = true;
+      console.log(`[Cleanup] Soft-deleted ${cancelledEventIds.length} cancelled events.`);
     }
 
     // Gap #3: Log phase 3 duration
     console.log(
-      `[Cleanup] Phase 3 (cancelled) complete in ${formatDuration(Date.now() - phase3Start)}. Deleted ${cancelledEventIds.length} cancelled events.`
+      `[Cleanup] Phase 3 (cancelled) complete in ${formatDuration(Date.now() - phase3Start)}. Soft-deleted ${cancelledEventIds.length} cancelled events.`
     );
 
     // === Phase 4: Deduplication ===

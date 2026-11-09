@@ -5,13 +5,15 @@
 import 'dotenv/config';
 import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
-import { and, eq, inArray, isNull, or } from 'drizzle-orm';
+import { and, eq, inArray, isNull, or, sql } from 'drizzle-orm';
 
-// Exclude rows already soft-deleted as duplicates, and rows flagged to never auto-dedup
+// Exclude rows already soft-deleted as duplicates, rows flagged to never auto-dedup, and rows an
+// admin edited (this script writes directly, so it can't use lib/db/dedupWrites.ts's guards)
 const dedupEligible = and(
   isNull(events.dedupedAt),
   isNull(events.deadAt),
-  or(isNull(events.dedupSkip), eq(events.dedupSkip, false))
+  or(isNull(events.dedupSkip), eq(events.dedupSkip, false)),
+  sql`${events.editedFields} = '{}'::jsonb`
 );
 import { findDuplicates, getIdsToRemove, getFieldUpdates } from '../lib/utils/deduplication';
 import {

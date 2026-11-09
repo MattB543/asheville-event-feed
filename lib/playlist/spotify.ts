@@ -1,6 +1,9 @@
 import { env } from '@/lib/config/env';
 import { fetchWithRetry, HttpResponseError } from '@/lib/utils/retry';
 import { isRateLimited } from '@/lib/utils/rate-limit';
+import { sql } from 'drizzle-orm';
+import { db } from '@/lib/db';
+import { sendSpotifyLoginNotification } from '@/lib/notifications/slack';
 
 const API = 'https://api.spotify.com/v1';
 
@@ -36,7 +39,7 @@ async function accessToken(): Promise<string> {
   const basic = Buffer.from(`${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`).toString(
     'base64'
   );
-  const response = await fetchWithRetry('https://accounts.spotify.com/api/token', {
+  const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     headers: {
       Authorization: `Basic ${basic}`,
@@ -46,7 +49,18 @@ async function accessToken(): Promise<string> {
       grant_type: 'refresh_token',
       refresh_token: env.SPOTIFY_REFRESH_TOKEN ?? '',
     }),
+    signal: AbortSignal.timeout(15_000),
   });
+  if (!response.ok) {
+    // Spotify's reason is in the body; a 400 means the saved login itself was refused
+    const body = (await response.json().catch(() => ({}))) as {
+      error?: string;
+      error_description?: string;
+    };
+    const reason = `${response.status} ${body.error ?? ''} ${body.error_description ?? ''}`.trim();
+    if (response.status === 400) await reportLoginRefused(reason);
+    throw new Error(`Spotify token exchange failed: ${reason}`);
+  }
   const data = (await response.json()) as {
     access_token: string;
     expires_in: number;
@@ -59,6 +73,23 @@ async function accessToken(): Promise<string> {
   }
   cachedToken = { value: data.access_token, expiresAt: Date.now() + data.expires_in * 1000 };
   return cachedToken.value;
+}
+
+// Sign-ins last 6 months, so this fires twice a year at least; one Slack post a day is enough
+async function reportLoginRefused(reason: string): Promise<void> {
+  try {
+    const [row] = await db.execute<{ id: string }>(sql`
+      INSERT INTO cron_job_runs (job_name, status, completed_at, result)
+      SELECT 'spotify-login', 'failed', now(), ${JSON.stringify({ error: reason })}::jsonb
+      WHERE NOT EXISTS (
+        SELECT 1 FROM cron_job_runs
+        WHERE job_name = 'spotify-login' AND started_at > now() - interval '1 day'
+      )
+      RETURNING id`);
+    if (row) await sendSpotifyLoginNotification(reason);
+  } catch (error) {
+    console.error('[Spotify] Could not report the refused login:', error);
+  }
 }
 
 async function spotifyFetch(path: string, init: RequestInit = {}): Promise<Response> {

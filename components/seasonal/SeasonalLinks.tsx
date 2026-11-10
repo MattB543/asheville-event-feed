@@ -102,7 +102,7 @@ export function BannerIcon({ season }: { season: Pick<Season, 'key' | 'icon'> })
   );
 }
 
-/** The banner itself: a link on every page, or a still preview on the admins' seasons page */
+/** The banner itself: a link on every page, or a still preview on the admins' Promotions page */
 export function BannerBar({
   season,
   banner,

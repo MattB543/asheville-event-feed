@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { CalendarRange, Image, Tent } from 'lucide-react';
 
 const AREAS = [
-  { href: '/admin/banners', label: 'Banners', icon: CalendarRange },
+  { href: '/admin/promotions', label: 'Promotions', icon: CalendarRange },
   { href: '/admin/camps', label: 'Camp review', icon: Tent },
   { href: '/admin/posters', label: 'Posters', icon: Image },
 ] as const;

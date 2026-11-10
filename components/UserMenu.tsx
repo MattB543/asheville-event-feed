@@ -57,14 +57,14 @@ function UserMenuContent({ query }: { query: string }) {
 
   useDismiss(isOpen, () => setIsOpen(false), [menuRef], buttonRef);
 
-  // Asked once the menu is first opened, so other visitors never send it
+  // Asked as soon as someone signs in, so the link is there when the menu opens
   const { data: admin } = useQuery({
     queryKey: ['admin-me', user?.id],
     queryFn: async () => {
       const response = await fetch('/api/admin/me');
       return response.ok && ((await response.json()) as { admin: boolean }).admin;
     },
-    enabled: !!user && isOpen,
+    enabled: !!user,
     staleTime: Infinity,
     retry: false,
   });

@@ -10,7 +10,7 @@ import {
  * link when its look in SeasonalLinks has them. MM-DD dates repeat every year; YYYY-MM-DD
  * ones don't. An MM-DD season whose end comes before its start runs across Jan 1. The first
  * season listed wins where two overlap. These are the defaults: admins can change a season's
- * dates and banner at /admin/banners (lib/db/queries/seasonSettings.ts).
+ * dates and banner at /admin/promotions (lib/db/queries/seasonSettings.ts).
  */
 export const SEASONS = [
   {

@@ -1,5 +1,5 @@
 /**
- * Season dates, banners and on/off for the admins, linked from an admin's account menu.
+ * When each promoted page runs, with its banner, for the admins (linked from the account menu).
  */
 
 import type { Metadata } from 'next';
@@ -13,14 +13,14 @@ import { loadSeasons } from '@/lib/db/queries/seasonSettings';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 export const metadata: Metadata = {
-  title: 'Banners',
+  title: 'Promotions',
   robots: { index: false, follow: false },
 };
 
 // A save has to show on the very next request
 export const dynamic = 'force-dynamic';
 
-export default async function AdminBannersPage() {
+export default async function AdminPromotionsPage() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -31,11 +31,11 @@ export default async function AdminBannersPage() {
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       <Header />
 
-      <div className="flex-grow w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <AdminNav current="/admin/banners" />
+      <div className="flex-grow w-full max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <AdminNav current="/admin/promotions" />
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          While a season runs, every page shows its banner. Where two overlap, the one higher up
-          wins.
+          While a promotion runs, its page is open and every page shows its banner. Where two
+          overlap, the one higher up wins.
         </p>
         <SeasonAdmin seasons={await loadSeasons()} today={getTodayStringEastern()} />
       </div>

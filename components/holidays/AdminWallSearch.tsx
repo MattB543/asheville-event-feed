@@ -24,7 +24,7 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
     if (q.length < 2) return undefined;
     const controller = new AbortController();
     const timer = setTimeout(() => {
-      fetch(`/api/admin/season-picks/search?q=${encodeURIComponent(q)}`, {
+      fetch(`/api/admin/season-picks/search?season=${season}&q=${encodeURIComponent(q)}`, {
         signal: controller.signal,
       })
         .then((response) =>
@@ -39,7 +39,7 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
       clearTimeout(timer);
       controller.abort();
     };
-  }, [query]);
+  }, [query, season]);
 
   const add = (eventId: string) =>
     startTransition(async () => {

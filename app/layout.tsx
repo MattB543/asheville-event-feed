@@ -4,7 +4,8 @@ import './globals.css';
 import Providers from '@/components/Providers';
 import { JsonLd } from '@/components/JsonLd';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_OPEN_GRAPH, SITE_TITLE, SITE_URL } from '@/lib/seo/site';
-import { RenderDateProvider } from '@/components/seasonal/useSeason';
+import { SeasonProvider } from '@/components/seasonal/useSeason';
+import { getSeasons } from '@/lib/db/queries/seasonSettings';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -116,7 +117,7 @@ const themeScript = `
   })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -129,9 +130,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {/* The one date the page renders with; useSeason hydrates from it */}
-        <RenderDateProvider today={getTodayStringEastern()}>
+        <SeasonProvider today={getTodayStringEastern()} seasons={await getSeasons()}>
           <Providers>{children}</Providers>
-        </RenderDateProvider>
+        </SeasonProvider>
       </body>
     </html>
   );

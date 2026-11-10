@@ -5,14 +5,11 @@ import { CalendarDays, Candy, Moon, Skull, Star, type LucideIcon } from 'lucide-
 import { connection } from 'next/server';
 import Header from '@/components/Header';
 import FooterCredit from '@/components/FooterCredit';
-import Sky from '@/components/halloween/Sky';
-import Poster from '@/components/halloween/Poster';
-import HeartButton, { FavoritesSync } from '@/components/halloween/HeartButton';
-import AdminControls from '@/components/halloween/AdminControls';
-import AdminWallSearch from '@/components/halloween/AdminWallSearch';
-import { getSeasonPicks, type SeasonPick } from '@/lib/db/queries/seasonPicks';
-import { createClient } from '@/lib/supabase/server';
-import { isAdmin } from '@/lib/utils/admin';
+import Sky from '@/components/holidays/halloween/Sky';
+import Poster from '@/components/holidays/Poster';
+import HeartButton, { FavoritesSync } from '@/components/holidays/HeartButton';
+import AdminControls from '@/components/holidays/AdminControls';
+import AdminWallSearch from '@/components/holidays/AdminWallSearch';
 import {
   BatSwarm,
   BloodDrips,
@@ -31,27 +28,20 @@ import {
   Spider,
   Specter,
   Bat,
-} from '@/components/halloween/Decor';
-import { creepster, fraunces } from '@/components/halloween/fonts';
-import {
-  getCachedHalloweenEvents,
-  getEventsForWall,
-  type HalloweenAudience,
-  type HalloweenEvent,
-} from '@/lib/db/queries/halloween';
-import { addDaysToDateString } from '@/lib/utils/dateFilters';
+} from '@/components/holidays/halloween/Decor';
+import { creepster, fraunces } from '@/components/holidays/halloween/fonts';
+import type { HolidayEvent as HalloweenEvent } from '@/lib/holidays/events';
+import { loadHolidayPage } from '@/lib/holidays/page';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { generateEventSlug } from '@/lib/utils/slugify';
 import {
   formatDateEastern,
-  getDateStringEastern,
   getDayBoundariesEastern,
   getTodayStringEastern,
 } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
 import { SITE_URL } from '@/lib/seo/site';
-import { currentSeason } from '@/lib/seasons';
 import './halloween.css';
 
 const title = 'Halloween in Asheville';
@@ -75,6 +65,12 @@ export function generateMetadata(): Metadata {
     twitter: { card: 'summary_large_image', title: `${title} ${year}`, description },
   };
 }
+
+// The stand-in flyer for an event with no poster
+const HALLOWEEN_FLYER = {
+  flyerTitleClass: `${creepster.className} text-[#ff9a3c]`,
+  flyerBackground: 'radial-gradient(circle at 50% 35%, #2b1640, #0a0610 75%)',
+};
 
 const WEEKEND_PICKS = 10;
 const PER_DAY = 3;
@@ -129,6 +125,7 @@ function WallPoster({
             venue={venueLine(event)}
             sizes="(min-width: 1024px) 280px, (min-width: 768px) 22vw, 45vw"
             flyerTextClass="text-[20px] sm:text-[28px]"
+            {...HALLOWEEN_FLYER}
           />
           <div className="pt-[9px] text-[#1a1416]">
             <div className="text-xs font-bold uppercase tracking-wide text-[#b4470c]">{when}</div>
@@ -172,6 +169,7 @@ function EventCard({
           title={event.title}
           sizes="(min-width: 1024px) 220px, 170px"
           flyerTextClass="text-[20px] lg:text-[24px]"
+          {...HALLOWEEN_FLYER}
         />
       </Link>
       <div className="flex min-w-0 flex-col gap-1.5 sm:flex-1">
@@ -278,8 +276,7 @@ export default async function HalloweenPage({
   searchParams: Promise<{ for?: string; sort?: string }>;
 }) {
   const params = await searchParams;
-  const audience: HalloweenAudience = params.for === 'family' ? 'family' : 'wild';
-  const family = audience === 'family';
+  const family = params.for === 'family';
   // The picks are always the top-ranked ones; the sort only changes the order they're shown in
   const byDate = params.sort !== 'ranked';
   const pageHref = (forFamily: boolean, ranked: boolean) => {
@@ -289,95 +286,41 @@ export default async function HalloweenPage({
     const q = query.toString();
     return `/halloween${q ? `?${q}` : ''}`;
   };
-  const chronological = (a: HalloweenEvent, b: HalloweenEvent) =>
-    a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
   // Per request: the countdown and "before the big night" move with the date
   await connection();
 
-  const today = getTodayStringEastern();
-  const halloween = `${today.slice(0, 4)}-10-31`;
-  const eve = addDaysToDateString(halloween, -1);
-  // Open through October; the rest of the year it only says when it's back
-  const open = currentSeason(today)?.key === 'halloween';
-  const over = today > halloween;
+  const {
+    today,
+    lastDay: halloween,
+    open,
+    over,
+    failed,
+    admin,
+    addedIds,
+    isHidden,
+    wallStart: bigStart,
+    picks,
+    beforeDays,
+    hiddenHere,
+  } = await loadHolidayPage('halloween', {
+    audience: family ? 'family' : 'wild',
+    byDate,
+    wallSize: WEEKEND_PICKS,
+    perDay: PER_DAY,
+  });
   const daysLeft = Math.round(
     (Date.parse(`${halloween}T12:00:00Z`) - Date.parse(`${today}T12:00:00Z`)) / 86_400_000
   );
-
-  let events: HalloweenEvent[] = [];
-  let failed = false;
-  if (open) {
-    try {
-      events = await getCachedHalloweenEvents(today, audience);
-    } catch (error) {
-      console.error('[Halloween] Failed to load events:', error);
-      failed = true;
-    }
-  }
-
-  // Hand edits: a missing table or failed read just means none, never a broken page
-  const seasonPicks = await getSeasonPicks('halloween').catch((error: unknown) => {
-    console.error('[Halloween] Failed to load hand edits:', error);
-    return new Map<string, SeasonPick>();
-  });
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const admin = isAdmin(user?.id);
-  // Events added to the wall by hand, which may not match the Halloween words at all
-  // After dark only: nothing vets a hand-added event as family-friendly. Hidden ones load
-  // too, so they stay in the admin's hidden list instead of vanishing
-  const addedIds = family
-    ? []
-    : [...seasonPicks.values()].filter((p) => p.added).map((p) => p.eventId);
-  const pageStart = getDayBoundariesEastern(today).start;
-  const pageEnd = getDayBoundariesEastern(halloween).end;
-  // Kept to the page's dates, so one that has passed or been moved drops off like the rest
-  const handAdded = (
-    await getEventsForWall(addedIds).catch((error: unknown) => {
-      console.error('[Halloween] Failed to load hand-added events:', error);
-      return [] as HalloweenEvent[];
-    })
-  ).filter((e) => e.startDate >= pageStart && e.startDate <= pageEnd);
-  const withEdits = [...handAdded, ...events.filter((e) => !addedIds.includes(e.id))].map((e) => {
-    const posterUrl = seasonPicks.get(e.id)?.posterUrl;
-    return posterUrl ? { ...e, imageUrl: posterUrl } : e;
-  });
-  // Hidden ones come off the page and are only listed for an admin
-  const shown = withEdits.filter((e) => !seasonPicks.get(e.id)?.hidden);
-  const hiddenHere = withEdits.filter((e) => seasonPicks.get(e.id)?.hidden);
   const controlsFor = (e: HalloweenEvent, variant: 'inline' | 'overlay' = 'inline') =>
     admin ? (
       <AdminControls
         season="halloween"
         eventId={e.id}
         added={addedIds.includes(e.id)}
-        hidden={seasonPicks.get(e.id)?.hidden === true}
+        hidden={isHidden(e.id)}
         variant={variant}
       />
     ) : undefined;
-
-  const bigStart = getDayBoundariesEastern(eve).start;
-  const weekendShown = shown.filter((e) => e.startDate >= bigStart);
-  // Hand-added events come first and don't use up the ranked spots
-  const ranked = [
-    ...weekendShown.filter((e) => addedIds.includes(e.id)),
-    ...weekendShown.filter((e) => !addedIds.includes(e.id)).slice(0, WEEKEND_PICKS),
-  ];
-  const picks = byDate ? [...ranked].sort(chronological) : ranked;
-  const days = new Map<string, HalloweenEvent[]>();
-  for (const e of shown.filter((e) => e.startDate < bigStart)) {
-    const key = getDateStringEastern(e.startDate);
-    const list = days.get(key) ?? [];
-    if (list.length < PER_DAY) days.set(key, [...list, e]);
-  }
-  const beforeDays = [...days.entries()]
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([day, list]): [string, HalloweenEvent[]] => [
-      day,
-      byDate ? [...list].sort(chronological) : list,
-    ]);
 
   const halloweenDate = getDayBoundariesEastern(halloween).start;
   const weekendHeading = ['Sat', 'Sun'].includes(

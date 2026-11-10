@@ -820,6 +820,20 @@ export const seasonPicks = pgTable(
   })
 );
 
+// An admin's dates and banner for a season, over the defaults in lib/seasons.ts (drizzle/0029)
+export const seasonSettings = pgTable('season_settings', {
+  key: text('key').primaryKey(),
+  startDay: text('start_day').notNull(),
+  endDay: text('end_day').notNull(),
+  short: text('short').notNull(),
+  banner: text('banner').notNull(),
+  enabled: boolean('enabled').default(true).notNull(),
+  color: text('color').notNull(),
+  fade: boolean('fade').default(false).notNull(),
+  icon: text('icon'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
 // Signatures on an open letter (/plan), one per letter and user (drizzle/0024).
 // Counted unless rejected; shown only when public and approved.
 export const letterSignatures = pgTable(

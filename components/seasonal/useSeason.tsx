@@ -1,14 +1,23 @@
 'use client';
 
 import { createContext, useContext, useSyncExternalStore, type ReactNode } from 'react';
-import { currentSeason, seasonBanner, type Season } from '@/lib/seasons';
+import { DEFAULT_SEASONS, currentSeason, seasonBanner, type Season } from '@/lib/seasons';
 import { getTodayStringEastern } from '@/lib/utils/timezone';
 
-// The Eastern date the page was rendered on, taken once by the root layout
-const RenderDate = createContext<string | null>(null);
+// The Eastern date the page was rendered on and the seasons as admins set them, both
+// taken once by the root layout
+const Seasons = createContext<{ today: string; seasons: readonly Season[] } | null>(null);
 
-export function RenderDateProvider({ today, children }: { today: string; children: ReactNode }) {
-  return <RenderDate.Provider value={today}>{children}</RenderDate.Provider>;
+export function SeasonProvider({
+  today,
+  seasons,
+  children,
+}: {
+  today: string;
+  seasons: readonly Season[];
+  children: ReactNode;
+}) {
+  return <Seasons.Provider value={{ today, seasons }}>{children}</Seasons.Provider>;
 }
 
 const subscribe = () => () => {};
@@ -20,12 +29,12 @@ const subscribe = () => () => {};
  * own date, so a page cached before Nov 1 still drops its links once the season is over.
  */
 export function useSeason(): { season: Season; banner: string } | null {
-  const rendered = useContext(RenderDate);
+  const rendered = useContext(Seasons);
   const today = useSyncExternalStore(
     subscribe,
     getTodayStringEastern,
-    () => rendered ?? getTodayStringEastern()
+    () => rendered?.today ?? getTodayStringEastern()
   );
-  const season = currentSeason(today);
+  const season = currentSeason(rendered?.seasons ?? DEFAULT_SEASONS, today);
   return season ? { season, banner: seasonBanner(season, today) } : null;
 }

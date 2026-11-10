@@ -9,6 +9,7 @@ import { getStartOfTodayEastern } from '@/lib/utils/timezone';
 import { liveEvent } from '@/lib/db/liveEvent';
 import { SITE_URL } from '@/lib/seo/site';
 import { currentSeason } from '@/lib/seasons';
+import { getSeasons } from '@/lib/db/queries/seasonSettings';
 
 // An async sitemap is otherwise rendered once at build time and never refreshed. Hourly:
 // each regeneration writes ~1.1 MB, and crawlers read it far less often than every 5 minutes
@@ -71,7 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // A holiday page is listed while its season runs (once: /plan is listed all year)
-  const season = currentSeason();
+  const season = currentSeason(await getSeasons());
   const seasonUrl = season && `${SITE_URL}${season.href}`;
   if (seasonUrl && !staticPages.some((page) => page.url === seasonUrl)) {
     staticPages.push({ url: seasonUrl, changeFrequency: 'daily', priority: 0.8 });

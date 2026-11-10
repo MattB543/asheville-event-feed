@@ -8,6 +8,7 @@
 import { azureChatCompletion, isAzureAIEnabled, parseJsonFromModel } from './provider-clients';
 import { normalizeTagFromAI, tryExtractOfficialTag } from '@/lib/utils/formatTag';
 import { ALL_KNOWN_TAGS, TAG_CATEGORIES, TAG_GUIDANCE } from '@/lib/config/tagCategories';
+import { HOLIDAYS } from '@/lib/holidays/config';
 
 export interface EventData {
   title: string;
@@ -86,6 +87,12 @@ function buildAllowedTagsSection(): string {
   }).join('\n\n');
 }
 
+// One rule per holiday page, numbered after the six above; each page lists exactly the events with its tag
+const HOLIDAY_RULES = HOLIDAYS.map(
+  (h, i) =>
+    `${7 + i}. ${h.tag.toUpperCase()}: include the custom tag "${h.tag.toLowerCase()}" ${h.rule}`
+).join('\n');
+
 const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You will analyze events and provide two things:
 
 1. TAGS - Assign tags in two categories:
@@ -107,7 +114,7 @@ ${buildAllowedTagsSection()}
 4. Custom tags: lowercase, descriptive, specific, and MAX 3 WORDS (e.g., "jazz", "beginner friendly", "rooftop venue").
 5. DEDUPLICATION: Custom tags must provide NEW information not found in the Official tags. If the official tag is "Live Music," do not use "live music" as a custom tag; use "honky-tonk" or "psych-rock" instead.
 6. Custom tags should NOT contain hyphens or dashes. Use spaces instead (e.g., "all ages" not "all-ages").
-7. HALLOWEEN: when the event itself is Halloween-themed (a Halloween or costume party, trick-or-treating, haunted house or trail, ghost tour, a horror show billed for the season, a "spooky" edition of a regular event, Day of the Dead), include the custom tag "halloween". Not for events that merely fall in late October. The /halloween page lists exactly the events with this tag.
+${HOLIDAY_RULES}
 
 ## SUMMARY RULES:
 - LENGTH: 1 to 2 descriptive sentences (approx 25-35 words).

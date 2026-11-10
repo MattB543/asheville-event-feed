@@ -2,7 +2,8 @@
 
 import { Suspense, useState, useRef, useMemo, useId, type FocusEvent } from 'react';
 import { useAuth } from './AuthProvider';
-import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { User, LogOut, ChevronDown, UserCircle, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useDismiss } from '@/lib/hooks/useDismiss';
@@ -55,6 +56,18 @@ function UserMenuContent({ query }: { query: string }) {
   }, [pathname, query]);
 
   useDismiss(isOpen, () => setIsOpen(false), [menuRef], buttonRef);
+
+  // Asked once the menu is first opened, so other visitors never send it
+  const { data: admin } = useQuery({
+    queryKey: ['admin-me', user?.id],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/me');
+      return response.ok && ((await response.json()) as { admin: boolean }).admin;
+    },
+    enabled: !!user && isOpen,
+    staleTime: Infinity,
+    retry: false,
+  });
 
   // A disclosure, not an ARIA menu: Tab moves through the links, so close once focus leaves it.
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
@@ -142,6 +155,12 @@ function UserMenuContent({ query }: { query: string }) {
             <UserCircle className="w-4 h-4" />
             Profile
           </Link>
+          {admin && (
+            <Link href="/admin" onClick={() => setIsOpen(false)} className={MENU_ITEM_CLASS}>
+              <Shield className="w-4 h-4" />
+              Admin
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => void handleSignOut()}

@@ -4,17 +4,10 @@ import { db } from '@/lib/db';
 import { events } from '@/lib/db/schema';
 import { liveEvent } from '@/lib/db/liveEvent';
 import { getDayBoundariesEastern } from '@/lib/utils/timezone';
-
-// An event is on the page when it has the "Halloween" tag, which the AI gives it when
-// enriching (and `scripts/tag-halloween.ts` backfills), so the page and its "See all"
-// link (`tagsInclude=Halloween`) cover the same events. Until the AI has tagged a new
-// event, these title words stand in, matched at the start of a word so "Witches" counts
-// and "Switchyard" doesn't
-const HALLOWEEN_TITLE =
-  '\\m(hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|nosferatu|goth|dracula|creep|seance|séance|masquerade|day of the dead|muertos|trick.or.treat|boo\\M)';
+import type { Holiday } from './config';
 
 // What the page shows of an event, shared by the automatic picks and the hand-added ones
-const HALLOWEEN_COLUMNS = {
+const HOLIDAY_COLUMNS = {
   id: events.id,
   title: events.title,
   startDate: events.startDate,
@@ -27,19 +20,24 @@ const HALLOWEEN_COLUMNS = {
   aiSummary: events.aiSummary,
 };
 
-export type HalloweenEvent = Awaited<ReturnType<typeof getHalloweenEvents>>[number];
+export type HolidayEvent = Awaited<ReturnType<typeof getHolidayEvents>>[number];
 
-export type HalloweenAudience = 'wild' | 'family';
+/** `all` for a holiday with one view; Halloween splits into After dark (`wild`) and Family */
+export type HolidayAudience = 'all' | 'wild' | 'family';
 
 /**
- * Halloween events between two instants. The default is the strange and the
- * after-dark, wildest first, with family events left out; `family` is the reverse,
- * only family events, best-scored first.
+ * A holiday's events between two instants, best first. Halloween's After dark is ranked by
+ * how weird each one is and leaves family events out; its Family view is only those.
  */
-export async function getHalloweenEvents(from: Date, to: Date, audience: HalloweenAudience) {
+export async function getHolidayEvents(
+  holiday: Holiday,
+  from: Date,
+  to: Date,
+  audience: HolidayAudience
+) {
   const family = sql`'Family' = ANY(COALESCE(${events.tags}, '{}'))`;
   return db
-    .select(HALLOWEEN_COLUMNS)
+    .select(HOLIDAY_COLUMNS)
     .from(events)
     .where(
       and(
@@ -51,13 +49,14 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
           isNull(events.location),
           and(notIlike(events.location, '%online%'), notIlike(events.location, '%virtual%'))
         ),
-        sql`('Halloween' = ANY(COALESCE(${events.tags}, '{}'))
-          OR (COALESCE(cardinality(${events.tags}), 0) = 0 AND ${events.title} ~* ${HALLOWEEN_TITLE}))`,
-        audience === 'family' ? family : sql`NOT ${family}`
+        sql`(${holiday.tag} = ANY(COALESCE(${events.tags}, '{}'))
+          OR (COALESCE(cardinality(${events.tags}), 0) = 0 AND ${events.title} ~* ${holiday.titleWords}))`,
+        holiday.minScore === undefined ? undefined : gte(events.score, holiday.minScore),
+        audience === 'family' ? family : audience === 'wild' ? sql`NOT ${family}` : undefined
       )
     )
     .orderBy(
-      ...(audience === 'family' ? [] : [sql`${events.scoreAshevilleWeird} DESC NULLS LAST`]),
+      ...(audience === 'wild' ? [sql`${events.scoreAshevilleWeird} DESC NULLS LAST`] : []),
       sql`${events.score} DESC NULLS LAST`,
       events.startDate,
       // Ties can't trade places across the per-day and poster cutoffs
@@ -67,24 +66,27 @@ export async function getHalloweenEvents(from: Date, to: Date, audience: Hallowe
 }
 
 // Bump when the cached rows' shape or the filter changes: Vercel's data cache survives deploys
-const HALLOWEEN_CACHE_SHAPE = 'v3';
+const HOLIDAY_CACHE_SHAPE = 'v5';
 
 /**
- * From the start of `today` (Eastern) through Oct 31, cached per day and view. The
+ * From the start of `today` (Eastern) through `lastDay`, cached per day and view. The
  * scrape job's `events` invalidation refreshes it, so new events show after each scrape.
  */
-export async function getCachedHalloweenEvents(
+export async function getCachedHolidayEvents(
+  holiday: Holiday,
   today: string,
-  audience: HalloweenAudience
-): Promise<HalloweenEvent[]> {
+  lastDay: string,
+  audience: HolidayAudience
+): Promise<HolidayEvent[]> {
   const rows = await unstable_cache(
     () =>
-      getHalloweenEvents(
+      getHolidayEvents(
+        holiday,
         getDayBoundariesEastern(today).start,
-        getDayBoundariesEastern(`${today.slice(0, 4)}-10-31`).end,
+        getDayBoundariesEastern(lastDay).end,
         audience
       ),
-    ['halloween-events', HALLOWEEN_CACHE_SHAPE, today, audience],
+    ['holiday-events', HOLIDAY_CACHE_SHAPE, holiday.key, today, lastDay, audience],
     { tags: ['events'], revalidate: 3600 }
   )();
   // A cache hit comes back through JSON, dates as strings
@@ -92,10 +94,10 @@ export async function getCachedHalloweenEvents(
 }
 
 /** Live events by id, for the ones an admin added to the wall by hand */
-export async function getEventsForWall(ids: string[]): Promise<HalloweenEvent[]> {
+export async function getEventsForWall(ids: string[]): Promise<HolidayEvent[]> {
   if (ids.length === 0) return [];
   return db
-    .select(HALLOWEEN_COLUMNS)
+    .select(HOLIDAY_COLUMNS)
     .from(events)
     .where(and(liveEvent, inArray(events.id, ids)));
 }

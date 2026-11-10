@@ -1,11 +1,10 @@
-/** Season-editor search for events to add to a holiday page's weekend wall */
+/** Admin search for events to add to a holiday page's wall (`?season=` and `?q=`) */
 
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
-import { searchEventsBetween } from '@/lib/db/queries/halloween';
-import { addDaysToDateString } from '@/lib/utils/dateFilters';
-import { getDayBoundariesEastern, getTodayStringEastern } from '@/lib/utils/timezone';
+import { HOLIDAYS, holidayWallRange } from '@/lib/holidays/config';
+import { searchEventsBetween } from '@/lib/holidays/events';
 import { venueLine } from '@/lib/utils/venueName';
 
 export async function GET(request: NextRequest) {
@@ -17,17 +16,13 @@ export async function GET(request: NextRequest) {
   if (!isAdmin(user.id)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const query = (request.nextUrl.searchParams.get('q') ?? '').slice(0, 100);
-  // The wall's two nights: Oct 30 and 31 of this year, Eastern
-  // (from today on, since the page drops anything earlier)
-  const today = getTodayStringEastern();
-  const halloween = `${today.slice(0, 4)}-10-31`;
-  const eve = addDaysToDateString(halloween, -1);
+  const season = request.nextUrl.searchParams.get('season');
+  const holiday = HOLIDAYS.find((h) => h.key === season);
+  if (!holiday) return NextResponse.json({ error: 'Unknown season' }, { status: 400 });
+  // Only the wall's days, from today on
+  const { start, end } = holidayWallRange(holiday.key);
   try {
-    const rows = await searchEventsBetween(
-      query,
-      getDayBoundariesEastern(today > eve ? today : eve).start,
-      getDayBoundariesEastern(halloween).end
-    );
+    const rows = await searchEventsBetween(query, start, end);
     return NextResponse.json({
       results: rows.map((row) => ({
         id: row.id,

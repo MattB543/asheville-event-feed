@@ -168,8 +168,9 @@ export default function Toast() {
       if (on || all.length > 0) frameId.current = requestAnimationFrame(frame);
       else {
         drawing.current = false;
-        // Covers a party whose track never started (the browser blocked it)
-        setPartying(false);
+        // Covers a party whose track never started (the browser blocked it). A track still
+        // playing ends the party itself (iOS doesn't know its length until then)
+        if (track.current?.paused !== false) setPartying(false);
       }
     };
     frameId.current = requestAnimationFrame(frame);

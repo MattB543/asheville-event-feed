@@ -166,12 +166,12 @@ export function seasonBanner(season: Season, today = getTodayStringEastern()): s
 const MONTH_DAY = /^(\d{2})-(\d{2})$/;
 const FULL_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** A real MM-DD (Feb 29 allowed) or YYYY-MM-DD date */
+/** A real MM-DD or YYYY-MM-DD date */
 function isSeasonDate(date: string): boolean {
   const full = FULL_DATE.test(date);
   if (!full && !MONTH_DAY.test(date)) return false;
-  // A leap year, so an every-year Feb 29 passes
-  const iso = full ? date : `2024-${date}`;
+  // A non-leap year, so an every-year Feb 29 fails: three years in four it wouldn't exist
+  const iso = full ? date : `2025-${date}`;
   const parsed = new Date(`${iso}T00:00:00Z`);
   return !Number.isNaN(parsed.getTime()) && parsed.toISOString().startsWith(iso);
 }
@@ -194,7 +194,11 @@ export function checkSeasonSettings(
     typeof input[field] === 'string' ? input[field].trim() : ''
   );
   if (!isSeasonDate(start) || !isSeasonDate(end)) {
-    return { ok: false, error: 'Dates are MM-DD (every year) or YYYY-MM-DD (that year only)' };
+    return {
+      ok: false,
+      error:
+        "Dates are MM-DD (every year) or YYYY-MM-DD (that year only); every year can't use Feb 29",
+    };
   }
   if (isFullDate(start) !== isFullDate(end)) {
     return { ok: false, error: 'Give both dates with a year, or neither' };

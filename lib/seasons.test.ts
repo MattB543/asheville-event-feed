@@ -15,7 +15,7 @@ const form = {
 describe('checkSeasonSettings', () => {
   it('accepts every-year and one-year dates', () => {
     expect(checkSeasonSettings(form).ok).toBe(true);
-    expect(checkSeasonSettings({ ...form, start: '02-29', end: '03-01' }).ok).toBe(true);
+    expect(checkSeasonSettings({ ...form, start: '2028-02-29', end: '2028-03-01' }).ok).toBe(true);
     expect(checkSeasonSettings({ ...form, start: '2026-12-01', end: '2026-12-31' }).ok).toBe(true);
     // An every-year season can run across Jan 1
     expect(checkSeasonSettings({ ...form, start: '12-20', end: '01-05' }).ok).toBe(true);
@@ -24,6 +24,8 @@ describe('checkSeasonSettings', () => {
   it('refuses dates that are not real or do not pair up', () => {
     for (const dates of [
       { start: '02-30', end: '03-01' },
+      // Most years have no Feb 29
+      { start: '02-29', end: '03-01' },
       { start: '13-01', end: '12-31' },
       { start: '12-1', end: '12-31' },
       { start: '2026-12-01', end: '12-31' },

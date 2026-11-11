@@ -90,7 +90,9 @@ async function accessToken(): Promise<string> {
 // accepted counts as said, and a failed post is tried again at most every 15 minutes
 async function reportLoginRefused(reason: string): Promise<void> {
   try {
-    await db.transaction(async (tx) => {
+    // The attempt is recorded in a short transaction and Slack is asked after it, with no
+    // connection held: a slow post would keep one, and every lookup waiting on the lock another
+    const id = await db.transaction(async (tx) => {
       // Requests failing at the same moment would otherwise each post
       await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('spotify-login'))`);
       const [recent] = await tx.execute<{ id: string }>(sql`
@@ -99,12 +101,18 @@ async function reportLoginRefused(reason: string): Promise<void> {
           AND (started_at > now() - interval '15 minutes'
             OR (started_at > now() - interval '1 day' AND (result->>'notified')::boolean))
         LIMIT 1`);
-      if (recent) return;
-      const notified = await sendSpotifyLoginNotification(reason);
-      await tx.execute(sql`
+      if (recent) return null;
+      const [attempt] = await tx.execute<{ id: string }>(sql`
         INSERT INTO cron_job_runs (job_name, status, completed_at, result)
-        VALUES ('spotify-login', 'failed', now(), ${JSON.stringify({ error: reason, notified })}::jsonb)`);
+        VALUES ('spotify-login', 'failed', now(), ${JSON.stringify({ error: reason, notified: false })}::jsonb)
+        RETURNING id`);
+      return attempt.id;
     });
+    if (id && (await sendSpotifyLoginNotification(reason))) {
+      await db.execute(sql`
+        UPDATE cron_job_runs SET result = jsonb_set(result, '{notified}', 'true')
+        WHERE id = ${id}`);
+    }
   } catch (error) {
     console.error('[Spotify] Could not report the refused login:', error);
   }

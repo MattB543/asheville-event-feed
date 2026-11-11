@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "sh -c 'mkdir -p logs && next dev \"$@\" 2>&1 | tee -a logs/dev.log' --",
+    "dev": "next dev",
+    "dev:log": "sh -c 'mkdir -p logs && next dev \"$@\" 2>&1 | tee -a logs/dev.log' --",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

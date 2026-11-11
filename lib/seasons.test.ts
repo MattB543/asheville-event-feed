@@ -42,6 +42,9 @@ describe('checkSeasonSettings', () => {
     expect(checkSeasonSettings({ ...form, icon: '🎄' }).ok).toBe(true);
     expect(checkSeasonSettings({ ...form, icon: '🎄🎄' }).ok).toBe(false);
     expect(checkSeasonSettings({ ...form, icon: 'x' }).ok).toBe(false);
+    expect(checkSeasonSettings({ ...form, icon: '👨‍👩‍👧‍👦' }).ok).toBe(true);
+    // Looks like one tree, but carries 2,000 stacked accents
+    expect(checkSeasonSettings({ ...form, icon: '🎄' + '\u0301'.repeat(2000) }).ok).toBe(false);
   });
 
   it('refuses an empty or too-long banner', () => {

@@ -178,7 +178,12 @@ function isSeasonDate(date: string): boolean {
 
 function isOneEmoji(text: string): boolean {
   const graphemes = [...new Intl.Segmenter().segment(text)];
-  return graphemes.length === 1 && /\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(text);
+  // One symbol on screen can hide any number of stacked marks; real emoji need at most 11 units
+  return (
+    text.length <= 16 &&
+    graphemes.length === 1 &&
+    /\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(text)
+  );
 }
 
 /** An admin's form, checked: the settings to save, or what to fix */

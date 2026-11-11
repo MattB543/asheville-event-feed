@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
     await saveSeasonSettings(body.key, settings);
     // Expired at once, so the admin's next page already has the new dates
     revalidateTag(SEASONS_TAG, { expire: 0 });
-    return NextResponse.json({ ok: true });
+    // What was stored (trimmed), so the form shows exactly that
+    return NextResponse.json({ ok: true, settings });
   } catch (error) {
     console.error('[Seasons] Update failed:', error);
     return NextResponse.json({ error: 'Could not save that change' }, { status: 500 });

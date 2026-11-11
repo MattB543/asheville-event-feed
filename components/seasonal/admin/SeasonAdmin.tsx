@@ -274,7 +274,10 @@ function SeasonRow({
         setError(json?.error ?? `Could not save that (${response.status})`);
         return;
       }
-      onSaved(settings);
+      const json = (await response.json().catch(() => null)) as {
+        settings?: SeasonSettings | null;
+      } | null;
+      onSaved(json?.settings ?? settings);
       // The header's banner on this page follows too
       startTransition(() => router.refresh());
     } catch {

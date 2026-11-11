@@ -1,6 +1,6 @@
 /**
- * A season's dates and banner (admins only): `{key, start, end, short, banner}` to save,
- * `{key, reset: true}` to put it back to its defaults.
+ * A season's settings (admins only): `{key, start, end, short, banner, enabled, color, fade,
+ * icon}` to save (checked by checkSeasonSettings), `{key, reset: true}` for its defaults.
  */
 
 import { NextResponse, type NextRequest } from 'next/server';

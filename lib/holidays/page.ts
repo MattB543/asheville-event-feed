@@ -15,6 +15,7 @@ import {
   holidayWall,
   type HolidayKey,
 } from './config';
+import { byTime } from './format';
 import {
   getCachedHolidayEvents,
   getEventsForWall,
@@ -23,9 +24,6 @@ import {
 } from './events';
 
 export type DayList = [day: string, events: HolidayEvent[]];
-
-const chronological = (a: HolidayEvent, b: HolidayEvent) =>
-  a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
 
 /** Each day's top `perDay`, in date order, each day by time when `byDate` */
 function topPerDay(list: HolidayEvent[], perDay: number, byDate: boolean): DayList[] {
@@ -37,7 +35,7 @@ function topPerDay(list: HolidayEvent[], perDay: number, byDate: boolean): DayLi
   }
   return [...days.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([day, picks]): DayList => [day, byDate ? [...picks].sort(chronological) : picks]);
+    .map(([day, picks]): DayList => [day, byDate ? [...picks].sort(byTime) : picks]);
 }
 
 /**
@@ -144,7 +142,7 @@ export async function loadHolidayPage(
     wallEnd,
     // The wall's last day, as YYYY-MM-DD (Halloween itself, on that page)
     wallLastDay: wall.to,
-    picks: byDate ? [...ranked].sort(chronological) : ranked,
+    picks: byDate ? [...ranked].sort(byTime) : ranked,
     beforeDays: topPerDay(
       shown.filter((e) => e.startDate < wallStart),
       perDay,

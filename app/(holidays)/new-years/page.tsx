@@ -15,13 +15,13 @@ import Countdown from '@/components/holidays/newyear/Countdown';
 import Toast from '@/components/holidays/newyear/Toast';
 import { josefin, limelight } from '@/components/holidays/newyear/fonts';
 import type { HolidayEvent } from '@/lib/holidays/events';
+import { eventHref, eventTime, longDay, byTime } from '@/lib/holidays/format';
 import { loadHolidayPage, type DayList } from '@/lib/holidays/page';
 import { holidayWall } from '@/lib/holidays/config';
 import { getSeasons } from '@/lib/db/queries/seasonSettings';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
-import { generateEventSlug } from '@/lib/utils/slugify';
-import { formatDateEastern } from '@/lib/utils/timezone';
+
 import { venueLine } from '@/lib/utils/venueName';
 import { SITE_URL } from '@/lib/seo/site';
 
@@ -67,17 +67,9 @@ const HEART = {
 const titleLink =
   'font-semibold leading-snug text-[#fff6d6] decoration-[#e9cf8a] decoration-2 underline-offset-4 hover:underline';
 
-const eventHref = (e: HolidayEvent) => `/events/${generateEventSlug(e.title, e.startDate, e.id)}`;
-const time = (e: HolidayEvent) =>
-  e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
-const longDay = (d: Date) =>
-  formatDateEastern(d, { weekday: 'long', month: 'long', day: 'numeric' });
-const byTime = (a: HolidayEvent, b: HolidayEvent) =>
-  a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
-
 /** The event's popup: an invitation card with its poster, when and where, and what it is */
 function Details({ event }: { event: HolidayEvent }) {
-  const when = time(event);
+  const when = eventTime(event);
   const price = event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : null;
   return (
     <EventDialog
@@ -129,7 +121,7 @@ function Details({ event }: { event: HolidayEvent }) {
 
 /** One event in a day's list: a small poster beside its title, time and place */
 function Row({ event, controls }: { event: HolidayEvent; controls?: ReactNode }) {
-  const when = time(event);
+  const when = eventTime(event);
   return (
     <li className="flex gap-3">
       <Details event={event} />
@@ -319,7 +311,7 @@ export default async function NewYearsPage({
                   {admin && <AdminWallSearch season="newyear" onWall={picks.map((e) => e.id)} />}
                   <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
                     {picks.map((e) => {
-                      const when = time(e);
+                      const when = eventTime(e);
                       return (
                         <li key={e.id} className="flex flex-col">
                           <Details event={e} />

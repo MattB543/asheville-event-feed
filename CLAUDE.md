@@ -528,6 +528,7 @@ missing data. Policy, as of 2026-10-14:
 | Route                        | Method   | Purpose                                                                    |
 | ---------------------------- | -------- | -------------------------------------------------------------------------- |
 | `/api/health`                | GET      | Health check (DB status, event count)                                      |
+| `/api/admin/me`              | GET      | Whether the viewer is an admin (account menu link; anyone may ask)         |
 | `/api/chat`                  | POST     | AI conversational event discovery (rate limited)                           |
 | `/api/camps/chat`            | POST     | AI camp finder for `/camps` (SSE, rate limited)                            |
 | `/api/export/json`           | GET      | Public events API (`format=compact` for AI agents)                         |
@@ -593,7 +594,6 @@ day of its first showing that passes the date filter, not its first start date.
 | `/api/admin/events`          | POST   | Edit, hide/show, poster or undo edits on one event       |
 | `/api/admin/season-picks`    | POST   | Hand edits to a holiday page                             |
 | `/api/admin/seasons`         | POST   | A season's dates and banner, or reset to the defaults    |
-| `/api/admin/me`              | GET    | Whether the viewer is an admin (account menu link)       |
 
 There is one admin level: everyone listed in `SUPER_ADMIN` (comma-separated user
 IDs; `isAdmin` in `lib/utils/admin.ts`) gets every admin tool.

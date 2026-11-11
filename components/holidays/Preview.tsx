@@ -21,10 +21,17 @@ function PreviewButton({
 }
 
 /** On a closed holiday page, for an admin or a dev server: open it anyway */
-export function PreviewLink({ className }: { className: string }) {
+export function PreviewLink({
+  className,
+  href = '?preview=1',
+}: {
+  className: string;
+  /** Where the preview opens, for a page whose view lives in its query */
+  href?: string;
+}) {
   return (
     <span className="mt-5 block">
-      <PreviewButton href="?preview=1" className={className}>
+      <PreviewButton href={href} className={className}>
         Preview it
       </PreviewButton>
     </span>

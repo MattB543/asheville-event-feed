@@ -17,9 +17,9 @@ import MusicToggle from '@/components/holidays/christmas/MusicToggle';
 import SendSanta from '@/components/holidays/christmas/SendSanta';
 import { bodoni } from '@/components/holidays/christmas/fonts';
 import type { HolidayEvent } from '@/lib/holidays/events';
+import { eventHref, eventTime, longDay, byTime } from '@/lib/holidays/format';
 import { loadHolidayPage, type DayList } from '@/lib/holidays/page';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
-import { generateEventSlug } from '@/lib/utils/slugify';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { formatDateEastern, getTodayStringEastern } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
@@ -61,14 +61,6 @@ const FLYER = {
   flyerBackground: 'linear-gradient(160deg, #9f1239, #5f0a22)',
 };
 
-const eventHref = (e: HolidayEvent) => `/events/${generateEventSlug(e.title, e.startDate, e.id)}`;
-const time = (e: HolidayEvent) =>
-  e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
-const longDay = (d: Date) =>
-  formatDateEastern(d, { weekday: 'long', month: 'long', day: 'numeric' });
-const byTime = (a: HolidayEvent, b: HolidayEvent) =>
-  a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
-
 const HEART = {
   onClass: 'border-[#9f1239] bg-[#9f1239] text-white',
   offClass: 'border-[#10291f]/20 text-[#4b5b52] hover:border-[#9f1239] hover:text-[#9f1239]',
@@ -76,7 +68,7 @@ const HEART = {
 
 /** The event's popup: its poster large, then when, where, the price and what it is */
 function Details({ event }: { event: HolidayEvent }) {
-  const when = time(event);
+  const when = eventTime(event);
   const price = event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : null;
   return (
     <EventDialog
@@ -145,7 +137,7 @@ function Door({
       </p>
       <ul className="mt-3 flex flex-col gap-4">
         {[...list].sort(byTime).map((e) => {
-          const when = time(e);
+          const when = eventTime(e);
           return (
             <li key={e.id} className="flex gap-3">
               <Details event={e} />
@@ -339,7 +331,7 @@ export default async function ChristmasPage({
                   {admin && <AdminWallSearch season="christmas" onWall={picks.map((e) => e.id)} />}
                   <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
                     {picks.map((e) => {
-                      const when = time(e);
+                      const when = eventTime(e);
                       return (
                         <li key={e.id} className="flex flex-col">
                           <Details event={e} />

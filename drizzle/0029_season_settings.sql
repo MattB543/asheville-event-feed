@@ -1,4 +1,4 @@
--- A season's dates, banner (text, colour and icon) and on/off switch as an admin set them at /admin/seasons. A season with no row
+-- A season's dates, banner (text, colour and icon) and on/off switch as an admin set them at /admin/promotions. A season with no row
 -- uses the defaults in lib/seasons.ts, so the site reads the same until someone edits one.
 --
 -- Additive only, and idempotent. The site falls back to the defaults while it's missing.

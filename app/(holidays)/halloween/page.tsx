@@ -33,10 +33,10 @@ import {
 } from '@/components/holidays/halloween/Decor';
 import { creepster, fraunces } from '@/components/holidays/halloween/fonts';
 import type { HolidayEvent as HalloweenEvent } from '@/lib/holidays/events';
+import { eventHref, eventTime } from '@/lib/holidays/format';
 import { loadHolidayPage } from '@/lib/holidays/page';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
-import { generateEventSlug } from '@/lib/utils/slugify';
 import {
   formatDateEastern,
   getDayBoundariesEastern,
@@ -89,12 +89,9 @@ const TILTS = [
   '1.8deg',
 ];
 
-const eventHref = (e: HalloweenEvent) => `/events/${generateEventSlug(e.title, e.startDate, e.id)}`;
 const image = (e: HalloweenEvent) => (hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null);
 const price = (e: HalloweenEvent) =>
   e.price && e.price !== 'Unknown' ? formatPriceDisplay(e.price) : null;
-const time = (e: HalloweenEvent) =>
-  e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
 
 function WallPoster({
   event,
@@ -106,7 +103,7 @@ function WallPoster({
   controls?: ReactNode;
 }) {
   const day = formatDateEastern(event.startDate, { weekday: 'short' });
-  const when = time(event) ? `${day} ${time(event)}` : day;
+  const when = eventTime(event) ? `${day} ${eventTime(event)}` : day;
   const cost = price(event);
   return (
     <div className="group relative">
@@ -176,7 +173,9 @@ function EventCard({
       </Link>
       <div className="flex min-w-0 flex-col gap-1.5 sm:flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          {time(event) && <span className="text-sm font-bold text-[#ffb35c]">{time(event)}</span>}
+          {eventTime(event) && (
+            <span className="text-sm font-bold text-[#ffb35c]">{eventTime(event)}</span>
+          )}
         </div>
         <Link
           href={eventHref(event)}
@@ -285,6 +284,8 @@ export default async function HalloweenPage({
     const query = new URLSearchParams();
     if (forFamily) query.set('for', 'family');
     if (ranked) query.set('sort', 'ranked');
+    // Switching views keeps a preview going
+    if (params.preview === '1') query.set('preview', '1');
     const q = query.toString();
     return `/halloween${q ? `?${q}` : ''}`;
   };
@@ -474,7 +475,10 @@ export default async function HalloweenPage({
                 See what&apos;s on {over ? 'next' : 'now'}
               </Link>
               {canPreview && (
-                <PreviewLink className="bg-[#ff8a1f] text-[#1a0a00] hover:bg-[#ff9d45]" />
+                <PreviewLink
+                  className="bg-[#ff8a1f] text-[#1a0a00] hover:bg-[#ff9d45]"
+                  href={`${pageHref(family, !byDate)}${family || !byDate ? '&' : '?'}preview=1`}
+                />
               )}
             </p>
           ) : failed ? (

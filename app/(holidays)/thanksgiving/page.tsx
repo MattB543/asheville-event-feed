@@ -15,11 +15,11 @@ import { Flourish, Fork, Knife } from '@/components/holidays/thanksgiving/Tablew
 import SquawkingTurkey from '@/components/holidays/thanksgiving/SquawkingTurkey';
 import { fraunces } from '@/components/holidays/thanksgiving/fonts';
 import type { HolidayEvent } from '@/lib/holidays/events';
+import { eventHref, eventTime, longDay, byTime } from '@/lib/holidays/format';
 import { loadHolidayPage, type DayList } from '@/lib/holidays/page';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
-import { generateEventSlug } from '@/lib/utils/slugify';
-import { formatDateEastern, getTodayStringEastern } from '@/lib/utils/timezone';
+import { getTodayStringEastern } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
 import { SITE_URL } from '@/lib/seo/site';
 
@@ -58,17 +58,9 @@ const FLYER = {
   flyerBackground: 'linear-gradient(160deg, #2f3b36, #1d2622)',
 };
 
-const eventHref = (e: HolidayEvent) => `/events/${generateEventSlug(e.title, e.startDate, e.id)}`;
-const time = (e: HolidayEvent) =>
-  e.timeUnknown ? null : formatDateEastern(e.startDate, { hour: 'numeric', minute: '2-digit' });
-const longDay = (d: Date) =>
-  formatDateEastern(d, { weekday: 'long', month: 'long', day: 'numeric' });
-const byTime = (a: HolidayEvent, b: HolidayEvent) =>
-  a.startDate.getTime() - b.startDate.getTime() || a.id.localeCompare(b.id);
-
 /** The event's popup: a card off the menu, with its poster, when and where, and what it is */
 function Details({ event }: { event: HolidayEvent }) {
-  const when = time(event);
+  const when = eventTime(event);
   const price = event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : null;
   return (
     <EventDialog
@@ -143,7 +135,7 @@ function Dish({
   // A menu never leaves a price blank
   const cost =
     event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : 'Market price';
-  const when = time(event);
+  const when = eventTime(event);
   return (
     <li className="flex gap-4 py-5 sm:gap-6">
       <Details event={event} />

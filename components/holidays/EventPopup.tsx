@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { MouseEvent, ReactNode } from 'react';
+import { useRef, type MouseEvent, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 
 const dialogId = (eventId: string) => `holiday-event-${eventId}`;
@@ -62,12 +62,17 @@ export function EventDialog({
   closeClass: string;
   children: ReactNode;
 }) {
+  const downOnBackdrop = useRef(false);
   return (
     <dialog
       id={dialogId(eventId)}
       aria-label={title}
+      // A click on the backdrop closes it, but not a text selection dragged out of the card
+      onPointerDown={(e) => {
+        downOnBackdrop.current = e.target === e.currentTarget;
+      }}
       onClick={(e) => {
-        if (e.target === e.currentTarget) e.currentTarget.close();
+        if (downOnBackdrop.current && e.target === e.currentTarget) e.currentTarget.close();
       }}
       className={`m-auto translate-y-0 opacity-100 transition-[opacity,translate] duration-200 ease-out starting:open:translate-y-3 starting:open:opacity-0 motion-reduce:transition-none max-h-[calc(100dvh-2rem)] w-[min(40rem,calc(100vw-2rem))] overflow-y-auto rounded-sm p-0 shadow-[0_30px_80px_rgba(0,0,0,.6)] ${className}`}
     >

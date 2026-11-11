@@ -94,7 +94,6 @@ function Details({ event }: { event: HolidayEvent }) {
             title={event.title}
             sizes="200px"
             flyerTextClass="text-lg"
-            eager
             {...FLYER}
           />
         </div>

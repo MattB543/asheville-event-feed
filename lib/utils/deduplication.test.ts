@@ -43,6 +43,25 @@ describe('findDuplicates', () => {
     const camp = (id: string) => event({ id, title: 'Summer Camp Week', source: 'CAMPS' });
     expect(findDuplicates([camp('one'), camp('two')])).toEqual([]);
   });
+
+  it('keeps one organizer’s same-named events at different places apart', () => {
+    const workday = (id: string, title: string, location: string, source = 'BOUNTIFUL_CITIES') =>
+      event({ id, title, location, source, organizer: 'Bountiful Cities', price: 'Free' });
+    const herring = workday('herring', 'Herring Garden Workdays', '32 Harnett St, Asheville, NC');
+    const fletcher = workday(
+      'fletcher',
+      'Hall Fletcher Garden Workdays',
+      'Hall Fletcher Elementary School, 60 Ridgelawn Rd, Asheville, NC'
+    );
+    expect(findDuplicates([herring, fletcher])).toEqual([]);
+    // The same pair from a source without the guard does merge
+    expect(
+      findDuplicates([
+        { ...herring, source: 'MEETUP' },
+        { ...fletcher, source: 'MEETUP' },
+      ])
+    ).toHaveLength(1);
+  });
 });
 
 describe('mergeFields', () => {

@@ -369,14 +369,20 @@ function isSameLocation(loc1: string, loc2: string): boolean {
   return venue1.size === venue2.size && isSubsetOf(venue1, venue2);
 }
 
+// Sources where one organizer runs same-named events at several places at the same hour.
+const MULTI_SITE_SOURCES = new Set(['LIBRARY', 'BOUNTIFUL_CITIES']);
+
 /**
- * LIBRARY rows only merge with a row that is clearly at the same place. Every
- * branch runs "Toddler Story Time" at 10:30 under one system organizer, and
- * methods A, C and E would otherwise collapse branches into each other (or into
- * other sources' toddler programs). An unknown location never counts as a match.
+ * Rows from a multi-site source only merge with a row that is clearly at the
+ * same place. Every library branch runs "Toddler Story Time" at 10:30 under one
+ * system organizer (and Bountiful Cities runs "Garden Workdays" at several
+ * school gardens), and methods A, C and E would otherwise collapse them into
+ * each other (or into other sources' toddler programs). An unknown location
+ * never counts as a match.
  */
-function isLibraryLocationConflict(event1: EventForDedup, event2: EventForDedup): boolean {
-  if (event1.source !== 'LIBRARY' && event2.source !== 'LIBRARY') return false;
+function isMultiSiteLocationConflict(event1: EventForDedup, event2: EventForDedup): boolean {
+  if (!MULTI_SITE_SOURCES.has(event1.source ?? '') && !MULTI_SITE_SOURCES.has(event2.source ?? ''))
+    return false;
   const loc1 = event1.location?.trim();
   const loc2 = event2.location?.trim();
   if (!loc1 || !loc2) return true;
@@ -660,8 +666,8 @@ export function findDuplicates(events: EventForDedup[]): DuplicateGroup[] {
         // Checked against every row already in the group, so a third-party copy
         // can't pull two branches into one group.
         if (
-          isLibraryLocationConflict(event1, event2) ||
-          duplicates.some(({ event }) => isLibraryLocationConflict(event, event2))
+          isMultiSiteLocationConflict(event1, event2) ||
+          duplicates.some(({ event }) => isMultiSiteLocationConflict(event, event2))
         ) {
           continue;
         }

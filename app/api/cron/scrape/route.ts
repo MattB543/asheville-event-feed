@@ -13,6 +13,7 @@ import { scrapeStaticAge } from '@/lib/scrapers/staticage';
 import { scrapeRevolve } from '@/lib/scrapers/revolve';
 import { scrapeBMCMuseum } from '@/lib/scrapers/bmcmuseum';
 import { scrapeAshevilleOnBikes } from '@/lib/scrapers/ashevilleonbikes';
+import { scrapeBountifulCities } from '@/lib/scrapers/bountifulcities';
 import { scrapeExploreAsheville } from '@/lib/scrapers/exploreasheville';
 import { scrapeMisfitImprov } from '@/lib/scrapers/misfitimprov';
 import { scrapeUDharma } from '@/lib/scrapers/udharma';
@@ -112,6 +113,7 @@ const SCRAPERS: ScraperDef[] = [
   // Keep this after AVL Today: upserts run in registry order, and the later write wins.
   { name: 'City of Asheville', fn: scrapeCityOfAsheville },
   { name: 'Buncombe County', fn: scrapeBuncombeCounty },
+  { name: 'Bountiful Cities', fn: scrapeBountifulCities },
   // City Parks & Rec's WebTrac site is behind Cloudflare: Node's fetch is 403'd
   // and only the fetchAsChrome dispatcher gets in, so assume the same Vercel
   // egress block as Mountain Xpress and NC Stage. Untested from Vercel.

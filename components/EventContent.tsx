@@ -199,6 +199,8 @@ export default function EventContent({
         return 'City of Asheville';
       case 'BUNCOMBE_COUNTY':
         return 'Buncombe County';
+      case 'BOUNTIFUL_CITIES':
+        return 'Bountiful Cities';
       case 'ASHEVILLE_PARKS_REC':
         return 'Asheville Parks & Rec';
       case 'POSTER':

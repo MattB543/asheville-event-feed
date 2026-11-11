@@ -32,6 +32,8 @@ export type EventSource =
   // Government calendars - see lib/scrapers/cityofasheville.ts and lib/scrapers/buncombecounty.ts
   | 'CITY_OF_ASHEVILLE'
   | 'BUNCOMBE_COUNTY'
+  // Bountiful Cities' public Google Calendar - see lib/scrapers/bountifulcities.ts
+  | 'BOUNTIFUL_CITIES'
   // Not scraped - created from a user-uploaded poster (lib/posters/promoteExtractions.ts)
   | 'POSTER';
 

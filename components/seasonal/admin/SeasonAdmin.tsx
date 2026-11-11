@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import { buttonClass, buttonTones } from '@/components/camps/admin/useCampAdminAction';
 import { BannerBar, BannerIcon, bannerStyle } from '@/components/seasonal/SeasonalLinks';
+import { HOLIDAYS } from '@/lib/holidays/config';
 import {
   BANNER_MAX,
   DEFAULT_SEASONS,
@@ -32,16 +33,18 @@ interface Form {
   icon: string | null;
 }
 
-function toForm(season: SeasonSettings, year: number): Form {
+function toForm(season: SeasonSettings, today: string): Form {
   const everyYear = season.start.length === 5;
   if (!everyYear) return { ...season, everyYear };
-  // An every-year season that runs across Jan 1 ends the next year
-  const endYear = season.start > season.end ? year + 1 : year;
+  // An every-year season that runs across Jan 1 ends the next year, and in its January part
+  // the run under way started last year
+  const acrossNewYear = season.start > season.end;
+  const year = Number(today.slice(0, 4)) - (acrossNewYear && today.slice(5) <= season.end ? 1 : 0);
   return {
     ...season,
     everyYear,
     start: `${year}-${season.start}`,
-    end: `${endYear}-${season.end}`,
+    end: `${acrossNewYear ? year + 1 : year}-${season.end}`,
   };
 }
 
@@ -106,7 +109,7 @@ const inputClass =
 export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; today: string }) {
   const year = Number(today.slice(0, 4));
   const [saved, setSaved] = useState<SeasonSettings[]>(seasons);
-  const [forms, setForms] = useState(() => seasons.map((s) => toForm(s, year)));
+  const [forms, setForms] = useState(() => seasons.map((s) => toForm(s, today)));
   const running = currentSeason(
     seasons.map((s, i) => ({ ...s, ...saved[i] })),
     today
@@ -222,9 +225,8 @@ export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; tod
             onChange={(change) => setForm(i, change)}
             onSaved={(settings) => {
               setSaved((all) => all.map((s, j) => (j === i ? settings : s)));
-              setForm(i, toForm(settings, year));
+              setForm(i, toForm(settings, today));
             }}
-            year={year}
             today={today}
           />
         ))}
@@ -240,7 +242,6 @@ function SeasonRow({
   running,
   onChange,
   onSaved,
-  year,
   today,
 }: {
   season: Season;
@@ -249,7 +250,6 @@ function SeasonRow({
   running: boolean;
   onChange: (change: Partial<Form>) => void;
   onSaved: (settings: SeasonSettings) => void;
-  year: number;
   today: string;
 }) {
   const router = useRouter();
@@ -361,7 +361,9 @@ function SeasonRow({
         </div>
         {!form.enabled && (
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Off: no banner anywhere, and the page stays closed.
+            {HOLIDAYS.some((h) => h.key === season.key)
+              ? 'Off: no banner anywhere, and the page stays closed.'
+              : 'Off: no banner anywhere. The page itself stays open.'}
           </p>
         )}
 
@@ -498,7 +500,7 @@ function SeasonRow({
             <button
               type="button"
               disabled={busy}
-              onClick={() => onChange(toForm(saved, year))}
+              onClick={() => onChange(toForm(saved, today))}
               className={`${buttonClass} ${buttonTones.plain}`}
             >
               Cancel

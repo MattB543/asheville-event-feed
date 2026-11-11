@@ -93,17 +93,25 @@ export default function Toast() {
   };
 
   const start = () => {
+    // Less motion asked for: the music plays, with no bounce and no confetti
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const sound = track.current;
     if (sound) {
       sound.currentTime = 0;
       // Blocked sound is fine: the confetti still flies, for a while
       sound.play().catch(() => {
         partyUntil.current = Math.min(partyUntil.current, performance.now() + QUIET_PARTY_MS);
+        // With no confetti either there is no party to stop
+        if (still) setPartying(false);
       });
     }
     partyUntil.current =
       performance.now() + (sound?.duration ? sound.duration * 1000 : QUIET_PARTY_MS);
     setPartying(true);
+
+    const el = canvas.current;
+    const ctx = el?.getContext('2d');
+    if (!el || !ctx || still) return;
     ball.current?.animate(
       [
         { transform: 'scale(1)' },
@@ -112,10 +120,6 @@ export default function Toast() {
       ],
       { duration: 350, easing: 'ease-out' }
     );
-
-    const el = canvas.current;
-    const ctx = el?.getContext('2d');
-    if (!el || !ctx || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const dpr = devicePixelRatio || 1;
     el.width = innerWidth * dpr;
     el.height = innerHeight * dpr;
@@ -173,7 +177,9 @@ export default function Toast() {
 
   return (
     <>
-      <audio ref={track} src={TRACK} preload="auto" />
+      {/* Only its length is fetched with the page (it sets how long the confetti falls); the
+          track itself waits for a tap */}
+      <audio ref={track} src={TRACK} preload="metadata" />
       <button
         ref={ball}
         type="button"

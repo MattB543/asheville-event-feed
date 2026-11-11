@@ -74,14 +74,13 @@ export default function AdventDoor({
 
   return (
     <li data-snow-surface className="relative [perspective:1400px]">
-      <div className="isolate h-full rounded-sm bg-[#f6efe2] p-4 text-[#10291f] shadow-[inset_0_0_0_1px_rgba(16,41,31,.1),0_10px_24px_rgba(0,0,0,.35)] sm:p-5">
-        {children}
-      </div>
       <button
         type="button"
         onClick={openDoor}
         data-open={open}
         aria-expanded={open}
+        // Swung open it is invisible, so Tab skips it and goes on into the day's events
+        tabIndex={open ? -1 : undefined}
         aria-label={`Open ${weekday} the ${number}`}
         className="xmas-door absolute inset-0 z-10 cursor-pointer rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e7c873]"
       >
@@ -116,6 +115,13 @@ export default function AdventDoor({
           className="xmas-face xmas-back absolute inset-0 rounded-sm bg-[#0b1f17] shadow-[inset_0_0_0_2px_rgba(231,200,115,.35)]"
         />
       </button>
+      {/* Behind a closed door nothing can be reached, by Tab or by a screen reader */}
+      <div
+        inert={!open}
+        className="isolate h-full rounded-sm bg-[#f6efe2] p-4 text-[#10291f] shadow-[inset_0_0_0_1px_rgba(16,41,31,.1),0_10px_24px_rgba(0,0,0,.35)] sm:p-5"
+      >
+        {children}
+      </div>
     </li>
   );
 }

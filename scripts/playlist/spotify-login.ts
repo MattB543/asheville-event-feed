@@ -50,7 +50,12 @@ async function run() {
     show_dialog: 'true',
   }).toString();
   console.log(`\nOpening Spotify. If no browser opens, visit:\n${authorize.href}\n`);
-  execFile('open', [authorize.href]);
+  // Each system's own way to open a link; if it fails, the printed link is the way in
+  const [opener, ...openerArgs] =
+    process.platform === 'win32'
+      ? ['rundll32', 'url.dll,FileProtocolHandler']
+      : [process.platform === 'darwin' ? 'open' : 'xdg-open'];
+  execFile(opener, [...openerArgs, authorize.href], () => {});
 
   const code = await codePromise;
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');

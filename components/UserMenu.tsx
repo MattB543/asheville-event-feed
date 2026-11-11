@@ -62,7 +62,9 @@ function UserMenuContent({ query }: { query: string }) {
     queryKey: ['admin-me', user?.id],
     queryFn: async () => {
       const response = await fetch('/api/admin/me');
-      return response.ok && ((await response.json()) as { admin: boolean }).admin;
+      // A failed check is an error, not "not an admin", which would be kept for the whole visit
+      if (!response.ok) throw new Error(`Admin check failed (${response.status})`);
+      return ((await response.json()) as { admin: boolean }).admin;
     },
     enabled: !!user,
     staleTime: Infinity,

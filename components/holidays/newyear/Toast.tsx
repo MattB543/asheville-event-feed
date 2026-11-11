@@ -50,6 +50,7 @@ export default function Toast() {
   // One set of pieces and one drawing loop, even if a new party starts while the last falls
   const pieces = useRef<Piece[]>([]);
   const drawing = useRef(false);
+  const frameId = useRef(0);
   const [partying, setPartying] = useState(false);
 
   // The track ending ends the party
@@ -60,7 +61,14 @@ export default function Toast() {
       setPartying(false);
     };
     el?.addEventListener('ended', end);
-    return () => el?.removeEventListener('ended', end);
+    return () => {
+      el?.removeEventListener('ended', end);
+      // Leaving the page ends the party, rather than drawing on for the rest of the track
+      partyUntil.current = 0;
+      pieces.current = [];
+      cancelAnimationFrame(frameId.current);
+      drawing.current = false;
+    };
   }, []);
 
   const burstFromBall = (count: number) => {
@@ -89,7 +97,9 @@ export default function Toast() {
     if (sound) {
       sound.currentTime = 0;
       // Blocked sound is fine: the confetti still flies, for a while
-      sound.play().catch(() => {});
+      sound.play().catch(() => {
+        partyUntil.current = Math.min(partyUntil.current, performance.now() + QUIET_PARTY_MS);
+      });
     }
     partyUntil.current =
       performance.now() + (sound?.duration ? sound.duration * 1000 : QUIET_PARTY_MS);
@@ -151,10 +161,14 @@ export default function Toast() {
         ctx.restore();
       }
       // Once the party's over, the last pieces finish falling
-      if (on || all.length > 0) requestAnimationFrame(frame);
-      else drawing.current = false;
+      if (on || all.length > 0) frameId.current = requestAnimationFrame(frame);
+      else {
+        drawing.current = false;
+        // Covers a party whose track never started (the browser blocked it)
+        setPartying(false);
+      }
     };
-    requestAnimationFrame(frame);
+    frameId.current = requestAnimationFrame(frame);
   };
 
   return (

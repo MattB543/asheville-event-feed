@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -135,6 +142,7 @@ export function sendFlyby(key: SeasonKey) {
 export function SeasonalFlyby() {
   const current = useSeason()?.season.key;
   const [pass, setPass] = useState<{ n: number; key: SeasonKey } | null>(null);
+  const landed = useCallback(() => setPass(null), []);
 
   useEffect(() => {
     // An admin's send works in any season and even with reduced motion: they asked for it
@@ -166,13 +174,15 @@ export function SeasonalFlyby() {
   if (!pass || !look) return null;
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-40 overflow-hidden">
-      <Flight key={pass.n}>{look}</Flight>
+      <Flight key={pass.n} onLanded={landed}>
+        {look}
+      </Flight>
     </div>
   );
 }
 
 /** One pass: across the window at one steady speed, bobbing up and down as it goes */
-function Flight({ children }: { children: ReactNode }) {
+function Flight({ children, onLanded }: { children: ReactNode; onLanded: () => void }) {
   const across = useRef<HTMLDivElement>(null);
   const bob = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -180,6 +190,8 @@ function Flight({ children }: { children: ReactNode }) {
       [{ transform: 'translateX(-220px)' }, { transform: `translateX(${innerWidth + 40}px)` }],
       { duration: 9000, easing: 'linear', fill: 'forwards' }
     );
+    // Off the far side, it's gone, rather than bobbing out of sight forever
+    flight?.finished.then(onLanded, () => {});
     const bobbing = bob.current?.animate(
       [
         { transform: 'translateY(6px)' },
@@ -192,7 +204,7 @@ function Flight({ children }: { children: ReactNode }) {
       flight?.cancel();
       bobbing?.cancel();
     };
-  }, []);
+  }, [onLanded]);
   return (
     <div ref={across} className="absolute left-0 top-1" style={{ transform: 'translateX(-220px)' }}>
       <div ref={bob} className="text-gray-800 dark:text-gray-200">

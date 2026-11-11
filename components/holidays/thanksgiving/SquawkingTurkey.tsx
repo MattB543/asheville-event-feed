@@ -11,11 +11,15 @@ const SCREAM =
 /** The hidden one: tap the turkey and it screams and flaps */
 export default function SquawkingTurkey() {
   const turkey = useRef<HTMLSpanElement>(null);
+  const scream = useRef<HTMLAudioElement>(null);
 
   const squawk = () => {
-    const sound = new Audio(SCREAM);
-    // Blocked sound is fine: the turkey still flaps
-    sound.play().catch(() => {});
+    const sound = scream.current;
+    if (sound) {
+      sound.currentTime = 0;
+      // Blocked sound is fine: the turkey still flaps
+      sound.play().catch(() => {});
+    }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     turkey.current?.animate(
       [
@@ -36,6 +40,8 @@ export default function SquawkingTurkey() {
       aria-label="Squawk"
       className="mx-auto block cursor-pointer rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8f1d2c]"
     >
+      {/* Fetched with the page, so the first tap screams at once instead of after a download */}
+      <audio ref={scream} src={SCREAM} preload="auto" />
       <span ref={turkey} className="block">
         <Turkey size={72} />
       </span>

@@ -53,7 +53,7 @@ export default function MusicToggle() {
   };
 
   return (
-    <div className="absolute right-4 top-4 z-10 flex items-center gap-1 rounded-full bg-[#9f1239] py-2 pl-2 pr-2 text-[#e7c873] shadow-[0_6px_16px_rgba(0,0,0,.4)] ring-2 ring-[#c9a24a] sm:right-6 sm:top-6">
+    <div className="mx-auto mb-6 flex w-fit items-center gap-1 rounded-full bg-[#9f1239] py-2 pl-2 pr-2 text-[#e7c873] shadow-[0_6px_16px_rgba(0,0,0,.4)] ring-2 ring-[#c9a24a] sm:absolute sm:right-6 sm:top-6 sm:z-10 sm:mb-0">
       <audio ref={audio} src={SOUNDS[0].src} loop preload="none" />
       {/* The record, which turns while a sound plays; its shine shows it turning */}
       <span

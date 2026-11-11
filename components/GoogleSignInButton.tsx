@@ -85,6 +85,10 @@ export function GoogleSignInButton({ className, redirectTo = '/events' }: Google
       return;
     }
 
+    // Browsers only offer hashing on https and localhost, so a phone opening the dev server
+    // by its network address has none; Google wouldn't accept that address anyway
+    if (!crypto.subtle) return;
+
     initializedRef.current = true;
 
     const supabase = createClient();

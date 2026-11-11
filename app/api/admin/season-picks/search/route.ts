@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
 import { HOLIDAYS, holidayWallRange } from '@/lib/holidays/config';
 import { searchEventsBetween } from '@/lib/holidays/events';
+import { getSeasons } from '@/lib/db/queries/seasonSettings';
 import { venueLine } from '@/lib/utils/venueName';
 
 export async function GET(request: NextRequest) {
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
   const holiday = HOLIDAYS.find((h) => h.key === season);
   if (!holiday) return NextResponse.json({ error: 'Unknown season' }, { status: 400 });
   // Only the wall's days, from today on
-  const { start, end } = holidayWallRange(holiday.key);
+  const { start, end } = holidayWallRange(holiday.key, await getSeasons());
   try {
     const rows = await searchEventsBetween(query, start, end);
     return NextResponse.json({

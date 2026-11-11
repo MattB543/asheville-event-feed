@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 import { buttonClass, buttonTones } from '@/components/camps/admin/useCampAdminAction';
 import { BannerBar, BannerIcon, bannerStyle } from '@/components/seasonal/SeasonalLinks';
 import {
@@ -17,8 +18,6 @@ import {
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAY_MS = 86_400_000;
-// Shorter than this, a season's bar is too thin for its emoji, which sits on a pin above it
-const PIN_DAYS = 12;
 
 /** The form keeps full dates for the pickers, and a box for "every year" */
 interface Form {
@@ -102,7 +101,6 @@ function statusOf(form: Form, running: boolean, today: string): string | null {
 
 const inputClass =
   'rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:[color-scheme:dark]';
-const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
 
 /** A year's timeline of every season, and a form for each one's dates and banner */
 export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; today: string }) {
@@ -115,14 +113,12 @@ export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; tod
   )?.key;
 
   const daysInYear = (Date.UTC(year + 1, 0, 1) - Date.UTC(year, 0, 1)) / DAY_MS;
-  const pct = (day: number) => `${(day / daysInYear) * 100}%`;
   const monthStart = (m: number) => (Date.UTC(year, m, 1) - Date.UTC(year, 0, 1)) / DAY_MS;
-  const todayIndex = (Date.parse(`${today}T00:00:00Z`) - Date.UTC(year, 0, 1)) / DAY_MS;
 
   const setForm = (i: number, change: Partial<Form>) =>
     setForms((all) => all.map((f, j) => (j === i ? { ...f, ...change } : f)));
 
-  // The season's name, dates and status, shown over its bar or pin on hover or focus
+  // The season's name, dates and status, shown over its bar on hover or focus
   const tip = (season: Season) => {
     const i = seasons.indexOf(season);
     const status = statusOf(forms[i], season.key === running, today);
@@ -142,84 +138,75 @@ export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; tod
     const i = seasons.indexOf(season);
     const look = bannerStyle(forms[i]);
     const faded = forms[i].enabled ? '' : 'opacity-30';
-    return segments(forms[i], year).map(([s, e]) => ({
-      season,
-      s,
-      e,
-      look,
-      faded,
-      pin: e - s + 1 < PIN_DAYS,
-    }));
+    return segments(forms[i], year).map(([s, e]) => ({ season, s, e, look, faded }));
   });
+
+  // Half a year to a row, so short seasons get room: Jan-Jun, then Jul-Dec
+  const halves = [
+    { from: 0, to: monthStart(6), months: [0, 1, 2, 3, 4, 5] },
+    { from: monthStart(6), to: daysInYear, months: [6, 7, 8, 9, 10, 11] },
+  ];
 
   return (
     <>
-      <div className="mt-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
-        <div className="relative h-5 text-xs text-gray-500 dark:text-gray-400">
-          {MONTHS.map((month, m) => (
-            <span key={month} className="absolute top-0 pl-1" style={{ left: pct(monthStart(m)) }}>
-              <span className="hidden sm:inline">{month}</span>
-              <span className="sm:hidden">{month[0]}</span>
-            </span>
-          ))}
-        </div>
-        {drawn.some((d) => d.pin) && (
-          <div className="relative mt-1 h-8">
-            {drawn
-              .filter((d) => d.pin)
-              .map(({ season, s, e, look, faded }) => (
-                <a
-                  key={`${season.key}-${s}`}
-                  href={`#season-${season.key}`}
-                  aria-label={season.label}
-                  className={`group absolute bottom-1 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full text-sm shadow ring-2 ring-white dark:ring-gray-900 ${faded}`}
-                  style={{ ...look, left: pct((s + e + 1) / 2) }}
-                >
-                  <BannerIcon
-                    season={{ key: season.key, icon: forms[seasons.indexOf(season)].icon }}
+      <div className="mt-6 space-y-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
+        {halves.map(({ from, to, months }) => {
+          const pct = (day: number) => `${((day - from) / (to - from)) * 100}%`;
+          // Each season's part of this half
+          const here = drawn.flatMap((d) => {
+            const s = Math.max(d.s, from);
+            const e = Math.min(d.e, to - 1);
+            return s > e ? [] : [{ ...d, s, e }];
+          });
+          return (
+            <div key={from}>
+              <div className="relative h-5 text-xs text-gray-500 dark:text-gray-400">
+                {months.map((m) => (
+                  <span
+                    key={m}
+                    className="absolute top-0 pl-1"
+                    style={{ left: pct(monthStart(m)) }}
+                  >
+                    {MONTHS[m]}
+                  </span>
+                ))}
+              </div>
+              <div className="relative mt-1 h-10 rounded-md bg-gray-100 dark:bg-gray-800">
+                {months.slice(1).map((m) => (
+                  <span
+                    key={m}
+                    aria-hidden="true"
+                    className="absolute inset-y-0 w-px bg-gray-200 dark:bg-gray-700"
+                    style={{ left: pct(monthStart(m)) }}
                   />
-                  {tip(season)}
-                </a>
-              ))}
-          </div>
-        )}
-        <div className="relative mt-1 h-10 rounded-md bg-gray-100 dark:bg-gray-800">
-          {MONTHS.slice(1).map((month, m) => (
-            <span
-              key={month}
-              aria-hidden="true"
-              className="absolute inset-y-0 w-px bg-gray-200 dark:bg-gray-700"
-              style={{ left: pct(monthStart(m + 1)) }}
-            />
-          ))}
-          {drawn.map(({ season, s, e, look, faded, pin }) => (
-            <a
-              key={`${season.key}-${s}`}
-              href={`#season-${season.key}`}
-              aria-label={season.label}
-              className={`group absolute inset-y-1 flex min-w-1 items-center justify-center rounded-sm text-sm ${faded}`}
-              style={{ ...look, left: pct(s), width: pct(e - s + 1) }}
-            >
-              {!pin && (
-                <BannerIcon
-                  season={{ key: season.key, icon: forms[seasons.indexOf(season)].icon }}
-                />
-              )}
-              {!pin && tip(season)}
-            </a>
-          ))}
-        </div>
-        <div className="relative h-5">
-          <span
-            className="absolute top-1 -translate-x-1/2 rounded bg-red-500 px-1.5 text-xs font-semibold text-white"
-            style={{ left: pct(todayIndex) }}
-          >
-            Today
-          </span>
-        </div>
+                ))}
+                {here.map(({ season, s, e, look, faded }) => (
+                  <a
+                    key={`${season.key}-${s}`}
+                    href={`#season-${season.key}`}
+                    aria-label={season.label}
+                    className={`group absolute inset-y-1 flex items-center justify-center rounded-sm text-sm ${faded}`}
+                    // Never narrower than its icon, and kept inside the row: a short season
+                    // shows a little longer than it really is
+                    style={{
+                      ...look,
+                      left: `clamp(0px, ${pct(s)}, calc(100% - 1.75rem))`,
+                      width: `max(${pct(from + e - s + 1)}, 1.75rem)`,
+                    }}
+                  >
+                    <BannerIcon
+                      season={{ key: season.key, icon: forms[seasons.indexOf(season)].icon }}
+                    />
+                    {tip(season)}
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-8 space-y-8">
         {seasons.map((season, i) => (
           <SeasonRow
             key={season.key}
@@ -302,6 +289,15 @@ function SeasonRow({
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => onChange({ [name]: e.target.value }),
   });
 
+  const counter = (value: string, max: number) => (
+    <span
+      className={`text-xs tabular-nums ${value.length > max - 10 ? 'text-amber-600 dark:text-amber-400' : 'text-gray-400'}`}
+    >
+      {value.length}/{max}
+    </span>
+  );
+  const rowLabel = 'pt-1.5 text-sm font-medium text-gray-500 dark:text-gray-400';
+
   return (
     <form
       id={`season-${season.key}`}
@@ -309,71 +305,88 @@ function SeasonRow({
         e.preventDefault();
         void send(toSettings(form), false);
       }}
-      className="scroll-mt-24 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+      className="scroll-mt-24 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900"
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{season.label}</h2>
-        <Link
-          href={season.href}
-          className="text-sm text-blue-600 hover:underline dark:text-blue-400"
-        >
-          {season.href}
-        </Link>
-        {running && (
-          <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800 dark:bg-green-900/40 dark:text-green-300">
-            Running now
-          </span>
+      {/* The banner itself leads the card, as visitors will see it */}
+      <div className={form.enabled ? '' : 'opacity-40 grayscale'}>
+        <BannerBar season={preview} banner={previewText} />
+      </div>
+
+      <div className="p-4 sm:p-5">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <h2 className="flex items-center gap-1.5 text-lg font-bold text-gray-900 dark:text-gray-100">
+            {season.label}
+            <Link
+              href={season.href}
+              aria-label={`Open the ${season.label} page`}
+              className="rounded text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+            >
+              <ExternalLink size={16} aria-hidden="true" />
+            </Link>
+          </h2>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{dateRange(form)}</span>
+          {running && (
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800 dark:bg-green-900/40 dark:text-green-300">
+              Running now
+            </span>
+          )}
+          <div className="ml-auto flex items-center gap-4">
+            <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+              {form.enabled ? 'On' : 'Off'}
+              <button
+                type="button"
+                role="switch"
+                aria-checked={form.enabled}
+                aria-label={`${season.label} on`}
+                onClick={() => onChange({ enabled: !form.enabled })}
+                className={`relative h-6 w-11 cursor-pointer rounded-full transition-colors ${form.enabled ? 'bg-green-600' : 'bg-gray-300 dark:bg-gray-700'}`}
+              >
+                <span
+                  className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${form.enabled ? 'translate-x-5' : ''}`}
+                />
+              </button>
+            </label>
+          </div>
+        </div>
+        {!form.enabled && (
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Off: no banner anywhere, and the page stays closed.
+          </p>
         )}
-        <label className="ml-auto inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-          {form.enabled ? 'On' : 'Off'}
-          <button
-            type="button"
-            role="switch"
-            aria-checked={form.enabled}
-            aria-label={`${season.label} on`}
-            onClick={() => onChange({ enabled: !form.enabled })}
-            className={`relative h-6 w-11 cursor-pointer rounded-full transition-colors ${form.enabled ? 'bg-green-600' : 'bg-gray-300 dark:bg-gray-700'}`}
-          >
-            <span
-              className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${form.enabled ? 'translate-x-5' : ''}`}
+
+        <div className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-[7rem_1fr]">
+          <span className={rowLabel}>Dates</span>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <input
+              type="date"
+              aria-label="Starts"
+              value={form.start}
+              onChange={(e) => onChange({ start: e.target.value })}
+              className={`${inputClass} w-36`}
             />
-          </button>
-        </label>
-      </div>
+            <span>to</span>
+            <input
+              type="date"
+              aria-label="Ends"
+              value={form.end}
+              onChange={(e) => onChange({ end: e.target.value })}
+              className={`${inputClass} w-36`}
+            />
+            <label className="ml-1 inline-flex items-center gap-1.5">
+              <input
+                type="checkbox"
+                checked={form.everyYear}
+                onChange={(e) => onChange({ everyYear: e.target.checked })}
+                className="h-4 w-4"
+              />
+              Every year
+            </label>
+          </div>
 
-      <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-        <input
-          type="date"
-          aria-label="Starts"
-          value={form.start}
-          onChange={(e) => onChange({ start: e.target.value })}
-          className={`${inputClass} w-36`}
-        />
-        <span>to</span>
-        <input
-          type="date"
-          aria-label="Ends"
-          value={form.end}
-          onChange={(e) => onChange({ end: e.target.value })}
-          className={`${inputClass} w-36`}
-        />
-        <label className="ml-1 inline-flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={form.everyYear}
-            onChange={(e) => onChange({ everyYear: e.target.checked })}
-            className="h-4 w-4"
-          />
-          Every year
-        </label>
-      </div>
-
-      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3">
-        <div>
-          <label htmlFor={`${season.key}-color`} className={labelClass}>
-            Banner colour
+          <label htmlFor={`${season.key}-color`} className={rowLabel}>
+            Colour
           </label>
-          <div className="mt-1 flex items-center gap-2 text-sm">
+          <div className="flex flex-wrap items-center gap-2 text-sm">
             <input
               id={`${season.key}-color`}
               type="color"
@@ -400,18 +413,17 @@ function SeasonRow({
               </button>
             )}
           </div>
-        </div>
-        <div>
-          <label htmlFor={`${season.key}-icon`} className={labelClass}>
-            Banner icon
+
+          <label htmlFor={`${season.key}-icon`} className={rowLabel}>
+            Icon
           </label>
-          <div className="mt-1 flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 text-sm">
             <span className="relative">
               <input
                 id={`${season.key}-icon`}
                 value={form.icon ?? ''}
                 onChange={(e) => onChange({ icon: e.target.value.trim() || null })}
-                className={`${inputClass} w-16 text-center text-base`}
+                className={`${inputClass} w-12 text-center text-base`}
               />
               {/* Empty means the drawn icon, so it shows in the box like a placeholder */}
               {!form.icon && (
@@ -430,65 +442,76 @@ function SeasonRow({
               </button>
             )}
           </div>
+
+          <label htmlFor={`${season.key}-banner`} className={rowLabel}>
+            Banner
+          </label>
+          <div>
+            <input
+              id={`${season.key}-banner`}
+              {...text('banner')}
+              maxLength={BANNER_MAX}
+              className={`${inputClass} w-full py-1.5`}
+            />
+            <div className="mt-1 flex justify-between gap-2 text-xs text-gray-400">
+              <span>
+                <code>{'{end}'}</code> becomes the last day
+              </span>
+              {counter(form.banner, BANNER_MAX)}
+            </div>
+          </div>
+
+          <label htmlFor={`${season.key}-short`} className={rowLabel}>
+            On phones
+          </label>
+          <div>
+            <input
+              id={`${season.key}-short`}
+              {...text('short')}
+              maxLength={SHORT_MAX}
+              className={`${inputClass} w-full py-1.5`}
+            />
+            <div className="mt-1 flex justify-end">{counter(form.short, SHORT_MAX)}</div>
+          </div>
         </div>
-      </div>
 
-      <label className={`${labelClass} mt-3`}>
-        Banner
-        <input
-          {...text('banner')}
-          maxLength={BANNER_MAX}
-          className={`${inputClass} mt-1 w-full py-1.5`}
-        />
-      </label>
-
-      <label className={`${labelClass} mt-3`}>
-        Banner on phones
-        <input
-          {...text('short')}
-          maxLength={SHORT_MAX}
-          className={`${inputClass} mt-1 w-full py-1.5`}
-        />
-      </label>
-
-      <p className={`${labelClass} mt-3`}>Preview</p>
-      <div className="mt-1 overflow-hidden rounded-md">
-        <BannerBar season={preview} banner={previewText} />
-      </div>
-
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        <button
-          type="submit"
-          disabled={busy || !changed}
-          className={`${buttonClass} ${buttonTones.primary}`}
-        >
-          {busy ? 'Saving…' : 'Save'}
-        </button>
-        {changed && (
+        <div className="mt-5 flex flex-wrap items-center gap-2">
           <button
-            type="button"
-            disabled={busy}
-            onClick={() => onChange(toForm(saved, year))}
-            className={`${buttonClass} ${buttonTones.plain}`}
+            type="submit"
+            disabled={busy || !changed}
+            className={`${buttonClass} ${buttonTones.primary}`}
           >
-            Cancel
+            {busy ? 'Saving…' : 'Save'}
           </button>
-        )}
-        {edited && !changed && (
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => void send(defaults, true)}
-            className={`${buttonClass} ${buttonTones.plain}`}
-          >
-            Reset to default
-          </button>
-        )}
-        {error && (
-          <span role="alert" className="text-sm text-red-600 dark:text-red-400">
-            {error}
-          </span>
-        )}
+          {changed && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => onChange(toForm(saved, year))}
+              className={`${buttonClass} ${buttonTones.plain}`}
+            >
+              Cancel
+            </button>
+          )}
+          {edited && !changed && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => void send(defaults, true)}
+              className={`${buttonClass} ${buttonTones.plain}`}
+            >
+              Reset to default
+            </button>
+          )}
+          {changed && !error && (
+            <span className="text-sm text-amber-700 dark:text-amber-400">Unsaved changes</span>
+          )}
+          {error && (
+            <span role="alert" className="text-sm text-red-600 dark:text-red-400">
+              {error}
+            </span>
+          )}
+        </div>
       </div>
     </form>
   );

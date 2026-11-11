@@ -8,11 +8,25 @@ import {
  * Holidays and other seasons that get a page of their own. While one is on (Eastern dates,
  * inclusive), every page shows its banner, plus a badge beside the logo and an Events menu
  * link when its look in SeasonalLinks has them. MM-DD dates repeat every year; YYYY-MM-DD
- * ones don't. An MM-DD season whose end comes before its start runs across Jan 1. The first
- * season listed wins where two overlap. These are the defaults: admins can change a season's
- * dates and banner at /admin/promotions (lib/db/queries/seasonSettings.ts).
+ * ones don't. An MM-DD season whose end comes before its start runs across Jan 1. They're
+ * listed in calendar order, and the first one listed wins where two overlap. These are the
+ * defaults: admins can change a season's dates and banner at /admin/promotions
+ * (lib/db/queries/seasonSettings.ts).
  */
 export const SEASONS = [
+  // Every year, from after the holidays through spring
+  {
+    key: 'camps',
+    start: '01-10',
+    end: '03-31',
+    href: '/camps',
+    label: 'Summer camps',
+    // Fits one line on a 360px phone
+    short: 'Summer camp registration is opening',
+    banner: 'Summer camp registration is opening: dates and reminders',
+    color: '#065f46',
+    fade: true,
+  },
   {
     key: 'halloween',
     start: '10-01',
@@ -25,6 +39,18 @@ export const SEASONS = [
     color: '#f97316',
     fade: true,
   },
+  // 2026 only: the open letter, the two days before Election Day (Tue Nov 3)
+  {
+    key: 'plan',
+    start: '2026-11-01',
+    end: '2026-11-02',
+    href: '/plan',
+    label: 'Disaster Plan',
+    short: 'Sign the letter asking AVL leaders for food & water resilience',
+    banner: 'Sign the letter asking AVL leaders for food & water resilience',
+    color: '#1f2937',
+    fade: true,
+  },
   {
     key: 'thanksgiving',
     start: '11-09',
@@ -34,7 +60,7 @@ export const SEASONS = [
     short: 'Thanksgiving in Asheville',
     banner: 'Thanksgiving in Asheville: feasts, turkey trots and Friendsgivings through {end}',
     color: '#b45309',
-    fade: false,
+    fade: true,
   },
   {
     key: 'christmas',
@@ -47,30 +73,17 @@ export const SEASONS = [
     color: '#1f5c3a',
     fade: true,
   },
-  // 2026 only: the open letter, the two days before Election Day (Tue Nov 3)
+  // Across Jan 1: Christmas hands over to New Year's the day after
   {
-    key: 'plan',
-    start: '2026-11-01',
-    end: '2026-11-02',
-    href: '/plan',
-    label: 'Disaster Plan',
-    short: 'Sign the letter asking AVL leaders for food & water resilience',
-    banner: 'Sign the letter asking AVL leaders for food & water resilience',
-    color: '#1f2937',
-    fade: false,
-  },
-  // Every year, from after the holidays through spring
-  {
-    key: 'camps',
-    start: '01-10',
-    end: '03-31',
-    href: '/camps',
-    label: 'Summer camps',
-    // Fits one line on a 360px phone
-    short: 'Summer camp registration is opening',
-    banner: 'Summer camp registration is opening: dates and reminders',
-    color: '#065f46',
-    fade: false,
+    key: 'newyear',
+    start: '12-26',
+    end: '01-01',
+    href: '/new-years',
+    label: "New Year's",
+    short: "New Year's Eve in Asheville",
+    banner: "New Year's Eve in Asheville: where to ring in the new year, through {end}",
+    color: '#1e1b4b',
+    fade: true,
   },
 ] as const;
 

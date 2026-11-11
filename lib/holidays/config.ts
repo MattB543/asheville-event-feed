@@ -68,6 +68,14 @@ export const HOLIDAYS = [
     wall: christmasWeekend,
     minScore: 15,
   },
+  {
+    key: 'newyear',
+    tag: 'New Year',
+    titleWords: '\\m(new year|nye\\M|ball drop|auld lang|countdown to (midnight|202))',
+    rule: "when the event itself is about New Year's (a New Year's Eve party, show, dinner or countdown, a ball drop, a New Year's Day hike, plunge or brunch). Not for events that merely fall on Dec 31 or Jan 1.",
+    wall: (year) => ({ from: `${year}-12-31`, to: `${year}-12-31` }),
+    minScore: 15,
+  },
 ] satisfies Holiday[];
 
 export type HolidayKey = (typeof HOLIDAYS)[number]['key'];
@@ -76,7 +84,16 @@ export function getHoliday(key: HolidayKey): Holiday {
   return HOLIDAYS.find((h) => h.key === key)!;
 }
 
-/** The season's last day this year, from `seasons` as admins set them; this year's, so a
+/** The year the season's current or next run starts in: last year's for a season that runs
+ * across Jan 1 when today is in its January part */
+function seasonYear(season: Season, today: string): number {
+  const year = Number(today.slice(0, 4));
+  if (season.start.length === 10) return Number(season.start.slice(0, 4));
+  const crossesNewYear = season.start > season.end;
+  return crossesNewYear && today.slice(5) <= season.end ? year - 1 : year;
+}
+
+/** The season's last day in its current or next run, from `seasons` as admins set them, so a
  * page can tell when its season is over */
 export function holidayLastDay(
   key: HolidayKey,
@@ -84,12 +101,27 @@ export function holidayLastDay(
   today = getTodayStringEastern()
 ): string {
   const season = seasons.find((s) => s.key === key)!;
-  return season.end.length === 10 ? season.end : `${today.slice(0, 4)}-${season.end}`;
+  if (season.end.length === 10) return season.end;
+  const year = seasonYear(season, today);
+  return `${season.start > season.end ? year + 1 : year}-${season.end}`;
 }
 
-/** The wall's days this year, from today on (the page drops anything earlier) */
-export function holidayWallRange(key: HolidayKey, today = getTodayStringEastern()) {
-  const wall = getHoliday(key).wall(Number(today.slice(0, 4)));
+/** The wall's days in the season's current or next run */
+export function holidayWall(
+  key: HolidayKey,
+  seasons: readonly Season[],
+  today = getTodayStringEastern()
+) {
+  return getHoliday(key).wall(seasonYear(seasons.find((s) => s.key === key)!, today));
+}
+
+/** The wall's days from today on (the page drops anything earlier) */
+export function holidayWallRange(
+  key: HolidayKey,
+  seasons: readonly Season[],
+  today = getTodayStringEastern()
+) {
+  const wall = holidayWall(key, seasons, today);
   return {
     start: getDayBoundariesEastern(today > wall.from ? today : wall.from).start,
     end: getDayBoundariesEastern(wall.to).end,

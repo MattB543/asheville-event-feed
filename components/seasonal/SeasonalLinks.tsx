@@ -3,11 +3,21 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Ghost, Leaf, ScrollText, Snowflake, Tent, TreePine, type LucideIcon } from 'lucide-react';
+import {
+  Ghost,
+  Leaf,
+  ScrollText,
+  Snowflake,
+  Sparkles,
+  Tent,
+  TreePine,
+  type LucideIcon,
+} from 'lucide-react';
 import { Bat, Pumpkin } from '@/components/holidays/halloween/Decor';
 import Turkey from '@/components/holidays/thanksgiving/Turkey';
 import Fir from '@/components/holidays/christmas/Fir';
 import SantaSleigh from '@/components/holidays/christmas/SantaSleigh';
+import Glasses from '@/components/holidays/newyear/Glasses';
 import type { Season, SeasonKey } from '@/lib/seasons';
 import HoverTip from '@/components/ui/HoverTip';
 import { useSeason } from './useSeason';
@@ -76,6 +86,12 @@ const LOOK: Record<
     endMark: <span aria-hidden="true">→</span>,
     icon: TreePine,
     flyby: <SantaSleigh className="h-7 w-auto sm:h-9" />,
+  },
+  newyear: {
+    badge: <Glasses size={26} />,
+    mark: <Sparkles size={16} aria-hidden="true" className="shrink-0" />,
+    endMark: <span aria-hidden="true">→</span>,
+    icon: Sparkles,
   },
   // Disaster Plan already has its own header tab
   plan: {

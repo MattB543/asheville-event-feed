@@ -8,7 +8,7 @@ import {
   getDayBoundariesEastern,
   getTodayStringEastern,
 } from '@/lib/utils/timezone';
-import { getHoliday, holidayLastDay, type HolidayKey } from './config';
+import { getHoliday, holidayLastDay, holidayWall, type HolidayKey } from './config';
 import {
   getCachedHolidayEvents,
   getEventsForWall,
@@ -103,7 +103,7 @@ export async function loadHolidayPage(
   const shown = withEdits.filter((e) => !seasonPicks.get(e.id)?.hidden);
   const hiddenHere = withEdits.filter((e) => seasonPicks.get(e.id)?.hidden);
 
-  const wall = holiday.wall(Number(today.slice(0, 4)));
+  const wall = holidayWall(key, seasons, today);
   const wallStart = getDayBoundariesEastern(wall.from).start;
   const wallEnd = getDayBoundariesEastern(wall.to).end;
   const onWall = shown.filter((e) => e.startDate >= wallStart && e.startDate <= wallEnd);

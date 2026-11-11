@@ -17,10 +17,10 @@ import { Bat, Pumpkin } from '@/components/holidays/halloween/Decor';
 import Turkey from '@/components/holidays/thanksgiving/Turkey';
 import Fir from '@/components/holidays/christmas/Fir';
 import SantaSleigh from '@/components/holidays/christmas/SantaSleigh';
-import Glasses from '@/components/holidays/newyear/Glasses';
+import DiscoBall from '@/components/holidays/newyear/DiscoBall';
 import type { Season, SeasonKey } from '@/lib/seasons';
 import HoverTip from '@/components/ui/HoverTip';
-import { useSeason } from './useSeason';
+import { usePreviewing, useSeason } from './useSeason';
 
 // Halloween's original fade, as a step in hue, saturation and lightness: from #f97316 in the
 // middle to #c2410c at the ends
@@ -88,7 +88,7 @@ const LOOK: Record<
     flyby: <SantaSleigh className="h-7 w-auto sm:h-9" />,
   },
   newyear: {
-    badge: <Glasses size={26} />,
+    badge: <DiscoBall size={28} />,
     mark: <Sparkles size={16} aria-hidden="true" className="shrink-0" />,
     endMark: <span aria-hidden="true">→</span>,
     icon: Sparkles,
@@ -253,10 +253,13 @@ export function BannerBar({
 export function SeasonalBanner() {
   const current = useSeason();
   const pathname = usePathname();
+  const previewing = usePreviewing();
   if (!current) return null;
   const { season, banner } = current;
-  // Not on the season's own pages (a camp's page sits under /camps)
-  if (pathname === season.href || pathname.startsWith(`${season.href}/`)) return null;
+  // Not on the season's own pages (a camp's page sits under /camps), except in a preview,
+  // which shows everything the season will
+  const ownPage = pathname === season.href || pathname.startsWith(`${season.href}/`);
+  if (ownPage && !previewing) return null;
   return <BannerBar season={season} banner={banner} href={season.href} />;
 }
 

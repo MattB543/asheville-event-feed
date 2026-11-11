@@ -8,10 +8,12 @@ import Poster from '@/components/holidays/Poster';
 import HeartButton, { FavoritesSync } from '@/components/holidays/HeartButton';
 import AdminControls from '@/components/holidays/AdminControls';
 import AdminWallSearch from '@/components/holidays/AdminWallSearch';
+import { PreviewLink, PreviewNotice } from '@/components/holidays/Preview';
+import { SeasonPreview } from '@/components/seasonal/useSeason';
 import { EventDialog, PopupLink } from '@/components/holidays/EventPopup';
 import Countdown from '@/components/holidays/newyear/Countdown';
 import Toast from '@/components/holidays/newyear/Toast';
-import { limelight } from '@/components/holidays/newyear/fonts';
+import { josefin, limelight } from '@/components/holidays/newyear/fonts';
 import type { HolidayEvent } from '@/lib/holidays/events';
 import { loadHolidayPage, type DayList } from '@/lib/holidays/page';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
@@ -207,13 +209,19 @@ function Section({
   );
 }
 
-export default async function NewYearsPage() {
+export default async function NewYearsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ preview?: string }>;
+}) {
   // Per request: the countdown's night and the lists move with the date
   await connection();
   const {
     today,
     lastDay,
     open,
+    previewing,
+    canPreview,
     over,
     failed,
     admin,
@@ -230,6 +238,7 @@ export default async function NewYearsPage() {
     byDate: true,
     wallSize: WALL_SIZE,
     perDay: PER_DAY,
+    preview: (await searchParams).preview === '1',
   });
   const controlsFor = (e: HolidayEvent) =>
     admin ? (
@@ -248,130 +257,146 @@ export default async function NewYearsPage() {
   const midnight = new Date(wallEnd.getTime() + 1).toISOString();
 
   return (
-    <main className="flex min-h-screen flex-col overflow-x-clip text-[#fff6d6]" style={SKY}>
-      <FavoritesSync />
-      <Header />
+    <SeasonPreview seasonKey={previewing ? 'newyear' : null}>
+      <main className="flex min-h-screen flex-col overflow-x-clip text-[#fff6d6]" style={SKY}>
+        <FavoritesSync />
+        <Header />
+        {previewing && (
+          <PreviewNotice
+            path="/new-years"
+            className="bg-[#e9cf8a] text-[#0b1026] hover:bg-[#f3dc8c]"
+          />
+        )}
 
-      <div className="mx-auto w-full max-w-6xl flex-grow px-4 py-10 sm:px-6 sm:py-16">
-        <header className="text-center">
-          <Toast />
-          <h1
-            className={`${limelight.className} mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-[1] text-[#fff6d6]`}
-          >
-            New Year&apos;s Eve
-            <br />
-            in Asheville
-          </h1>
-          {open && <Countdown midnight={midnight} />}
-        </header>
+        <div
+          className={`${josefin.className} mx-auto w-full max-w-6xl flex-grow px-4 py-10 sm:px-6 sm:py-16`}
+        >
+          <header className="text-center">
+            <Toast />
+            <h1
+              className={`${limelight.className} mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-[1] text-[#fff6d6]`}
+            >
+              New Year&apos;s Eve
+              <br />
+              in Asheville
+            </h1>
+            {open && <Countdown midnight={midnight} />}
+          </header>
 
-        {!open ? (
-          <p className="py-14 text-center text-lg">
-            {over
-              ? "That's a wrap on New Year's for this year."
-              : "New Year's plans go up on December 26."}{' '}
-            <Link href="/events" className={link}>
-              See what&apos;s on now
-            </Link>
-          </p>
-        ) : failed ? (
-          <p className="py-14 text-center">The page didn&apos;t load. Reload it in a minute.</p>
-        ) : empty ? (
-          <p className="py-14 text-center">
-            Nothing planned yet.{' '}
-            <Link href="/events" className={link}>
-              See what&apos;s on now
-            </Link>
-          </p>
-        ) : (
-          <>
-            {beforeDays.length > 0 && (
-              <Section heading="Before the big night" note="The best of each day until then">
-                <Days days={beforeDays} controlsFor={controlsFor} />
-              </Section>
-            )}
-
-            {picks.length > 0 && (
-              <Section heading="New Year's Eve" note={longDay(wallStart)}>
-                {admin && <AdminWallSearch season="newyear" onWall={picks.map((e) => e.id)} />}
-                <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
-                  {picks.map((e) => {
-                    const when = time(e);
-                    return (
-                      <li key={e.id} className="flex flex-col">
-                        <Details event={e} />
-                        <PopupLink
-                          eventId={e.id}
-                          href={eventHref(e)}
-                          hidden
-                          className="block border-[6px] border-[#e9cf8a] bg-[#e9cf8a] shadow-[0_12px_28px_rgba(0,0,0,.5)]"
-                        >
-                          <Poster
-                            src={hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null}
-                            title={e.title}
-                            sizes="(min-width: 1024px) 360px, 45vw"
-                            flyerTextClass="text-lg sm:text-xl"
-                            {...FLYER}
-                          />
-                        </PopupLink>
-                        <PopupLink
-                          eventId={e.id}
-                          href={eventHref(e)}
-                          className={`mt-3 ${titleLink}`}
-                        >
-                          {e.title}
-                        </PopupLink>
-                        <p className="mt-0.5 text-sm text-[#c9cfdc]">
-                          {when ?? 'All day'}, {venueLine(e)}
-                        </p>
-                        <div className="mt-2 flex flex-wrap items-center gap-2">
-                          <HeartButton eventId={e.id} title={e.title} {...HEART} />
-                          {controlsFor(e)}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Section>
-            )}
-
-            {afterDays.length > 0 && (
-              <Section heading="New Year's Day" note="Hikes, plunges and brunch to start the year">
-                <Days days={afterDays} controlsFor={controlsFor} />
-              </Section>
-            )}
-
-            <p className="pt-14 text-center">
-              <Link
-                href={moreHref}
-                className="inline-flex rounded-full bg-[#e9cf8a] px-6 py-3 font-semibold text-[#0b1026] hover:bg-[#f3dc8c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fff6d6]"
-              >
-                See every New Year&apos;s event
+          {!open ? (
+            <p className="py-14 text-center text-lg">
+              {over
+                ? "That's a wrap on New Year's for this year."
+                : "New Year's plans go up on December 26."}{' '}
+              <Link href="/events" className={link}>
+                See what&apos;s on now
+              </Link>
+              {canPreview && (
+                <PreviewLink className="bg-[#e9cf8a] text-[#0b1026] hover:bg-[#f3dc8c]" />
+              )}
+            </p>
+          ) : failed ? (
+            <p className="py-14 text-center">The page didn&apos;t load. Reload it in a minute.</p>
+          ) : empty ? (
+            <p className="py-14 text-center">
+              Nothing planned yet.{' '}
+              <Link href="/events" className={link}>
+                See what&apos;s on now
               </Link>
             </p>
-          </>
-        )}
+          ) : (
+            <>
+              {beforeDays.length > 0 && (
+                <Section heading="Before the big night" note="The best of each day until then">
+                  <Days days={beforeDays} controlsFor={controlsFor} />
+                </Section>
+              )}
 
-        {admin && hiddenHere.length > 0 && (
-          <section className="mt-14 rounded-sm border border-[#e9cf8a]/20 bg-white/[.04] p-5">
-            <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
-            <ul className="mt-3 flex flex-col gap-3">
-              {hiddenHere.map((e) => (
-                <li key={e.id} className="rounded border border-[#e9cf8a]/20 p-3">
-                  <Link href={eventHref(e)} className="font-semibold hover:underline">
-                    {e.title}
-                  </Link>
-                  <span className="ml-2 text-sm text-[#c9cfdc]">{longDay(e.startDate)}</span>
-                  {controlsFor(e)}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
-      <footer className="bg-[#05081a] py-8 text-center text-sm text-[#c9cfdc]">
-        <FooterCredit />
-      </footer>
-    </main>
+              {picks.length > 0 && (
+                <Section heading="New Year's Eve" note={longDay(wallStart)}>
+                  {admin && <AdminWallSearch season="newyear" onWall={picks.map((e) => e.id)} />}
+                  <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
+                    {picks.map((e) => {
+                      const when = time(e);
+                      return (
+                        <li key={e.id} className="flex flex-col">
+                          <Details event={e} />
+                          <PopupLink
+                            eventId={e.id}
+                            href={eventHref(e)}
+                            hidden
+                            className="block border-[6px] border-[#e9cf8a] bg-[#e9cf8a] shadow-[0_12px_28px_rgba(0,0,0,.5)]"
+                          >
+                            <Poster
+                              src={hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null}
+                              title={e.title}
+                              sizes="(min-width: 1024px) 360px, 45vw"
+                              flyerTextClass="text-lg sm:text-xl"
+                              {...FLYER}
+                            />
+                          </PopupLink>
+                          <PopupLink
+                            eventId={e.id}
+                            href={eventHref(e)}
+                            className={`mt-3 ${titleLink}`}
+                          >
+                            {e.title}
+                          </PopupLink>
+                          <p className="mt-0.5 text-sm text-[#c9cfdc]">
+                            {when ?? 'All day'}, {venueLine(e)}
+                          </p>
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <HeartButton eventId={e.id} title={e.title} {...HEART} />
+                            {controlsFor(e)}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Section>
+              )}
+
+              {afterDays.length > 0 && (
+                <Section
+                  heading="New Year's Day"
+                  note="Hikes, plunges and brunch to start the year"
+                >
+                  <Days days={afterDays} controlsFor={controlsFor} />
+                </Section>
+              )}
+
+              <p className="pt-14 text-center">
+                <Link
+                  href={moreHref}
+                  className="inline-flex rounded-full bg-[#e9cf8a] px-6 py-3 font-semibold text-[#0b1026] hover:bg-[#f3dc8c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fff6d6]"
+                >
+                  See every New Year&apos;s event
+                </Link>
+              </p>
+            </>
+          )}
+
+          {admin && hiddenHere.length > 0 && (
+            <section className="mt-14 rounded-sm border border-[#e9cf8a]/20 bg-white/[.04] p-5">
+              <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
+              <ul className="mt-3 flex flex-col gap-3">
+                {hiddenHere.map((e) => (
+                  <li key={e.id} className="rounded border border-[#e9cf8a]/20 p-3">
+                    <Link href={eventHref(e)} className="font-semibold hover:underline">
+                      {e.title}
+                    </Link>
+                    <span className="ml-2 text-sm text-[#c9cfdc]">{longDay(e.startDate)}</span>
+                    {controlsFor(e)}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+        <footer className="bg-[#05081a] py-8 text-center text-sm text-[#c9cfdc]">
+          <FooterCredit />
+        </footer>
+      </main>
+    </SeasonPreview>
   );
 }

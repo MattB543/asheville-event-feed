@@ -8,6 +8,8 @@ import Poster from '@/components/holidays/Poster';
 import HeartButton, { FavoritesSync } from '@/components/holidays/HeartButton';
 import AdminControls from '@/components/holidays/AdminControls';
 import AdminWallSearch from '@/components/holidays/AdminWallSearch';
+import { PreviewLink, PreviewNotice } from '@/components/holidays/Preview';
+import { SeasonPreview } from '@/components/seasonal/useSeason';
 import { EventDialog, PopupLink } from '@/components/holidays/EventPopup';
 import { Flourish, Fork, Knife } from '@/components/holidays/thanksgiving/Tableware';
 import SquawkingTurkey from '@/components/holidays/thanksgiving/SquawkingTurkey';
@@ -266,13 +268,19 @@ function Days({
   );
 }
 
-export default async function ThanksgivingPage() {
+export default async function ThanksgivingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ preview?: string }>;
+}) {
   // Per request: the courses move with the date
   await connection();
   const {
     today,
     lastDay,
     open,
+    previewing,
+    canPreview,
     over,
     failed,
     admin,
@@ -289,6 +297,7 @@ export default async function ThanksgivingPage() {
     byDate: false,
     wallSize: WALL_SIZE,
     perDay: PER_DAY,
+    preview: (await searchParams).preview === '1',
   });
   const chefsPick = picks.find((e) => !addedIds.includes(e.id))?.id;
   const controlsFor = (e: HolidayEvent) =>
@@ -306,127 +315,138 @@ export default async function ThanksgivingPage() {
   const link = 'font-semibold text-[#8f1d2c] underline decoration-[#c8702a] underline-offset-4';
 
   return (
-    <main className="flex min-h-screen flex-col overflow-x-clip" style={GINGHAM}>
-      <FavoritesSync />
-      <Header />
-
-      <div className="relative mx-auto w-full max-w-[820px] flex-grow px-3 py-8 sm:px-6 sm:py-14">
-        {/* Laid either side of the menu and kept there as the page scrolls */}
-        <Fork className="fixed left-[calc(50%-410px-4rem)] top-40 hidden h-72 w-10 rotate-[-4deg] drop-shadow-md xl:block" />
-        <Knife className="fixed right-[calc(50%-410px-4rem)] top-44 hidden h-72 w-10 rotate-[3deg] drop-shadow-md xl:block" />
-
-        <article className="relative rounded-sm bg-[#fffaf0] px-4 py-8 text-[#2a1a14] shadow-[0_24px_48px_rgba(70,20,20,.35)] sm:px-12 sm:py-12">
-          {/* The menu's double border */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-2 border-[3px] border-double border-[#8f1d2c]/60 sm:inset-4"
+    <SeasonPreview seasonKey={previewing ? 'thanksgiving' : null}>
+      <main className="flex min-h-screen flex-col overflow-x-clip" style={GINGHAM}>
+        <FavoritesSync />
+        <Header />
+        {previewing && (
+          <PreviewNotice
+            path="/thanksgiving"
+            className="bg-[#8f1d2c] text-[#fffaf0] hover:bg-[#a32437]"
           />
+        )}
 
-          <header className="relative text-center">
-            <SquawkingTurkey />
-            <h1
-              className={`${fraunces.className} mt-3 text-[clamp(2.4rem,8vw,4.5rem)] font-black leading-[0.95] tracking-tight`}
-            >
-              Thanksgiving
-              <br />
-              in Asheville
-            </h1>
-            <p className={`${fraunces.className} mt-3 text-lg italic text-[#6b5a50]`}>
-              Served now through the long weekend
-            </p>
-          </header>
+        <div className="relative mx-auto w-full max-w-[820px] flex-grow px-3 py-8 sm:px-6 sm:py-14">
+          {/* Laid either side of the menu and kept there as the page scrolls */}
+          <Fork className="fixed left-[calc(50%-410px-4rem)] top-40 hidden h-72 w-10 rotate-[-4deg] drop-shadow-md xl:block" />
+          <Knife className="fixed right-[calc(50%-410px-4rem)] top-44 hidden h-72 w-10 rotate-[3deg] drop-shadow-md xl:block" />
 
-          {!open ? (
-            <p className="relative py-12 text-center text-lg">
-              {over
-                ? 'The kitchen is closed for this year.'
-                : 'Thanksgiving events go on the menu in November.'}{' '}
-              <Link href="/events" className={link}>
-                See what&apos;s on now
-              </Link>
-            </p>
-          ) : failed ? (
-            <p className="relative py-12 text-center">
-              The menu didn&apos;t load. Reload the page in a minute.
-            </p>
-          ) : empty ? (
-            <p className="relative py-12 text-center">
-              Nothing on the menu yet.{' '}
-              <Link href="/events" className={link}>
-                See what&apos;s on now
-              </Link>
-            </p>
-          ) : (
-            <div className="relative">
-              {beforeDays.length > 0 && (
-                <Course name="Appetizers" note={`The days before, ${PER_DAY} a day`}>
-                  <Days days={beforeDays} controlsFor={controlsFor} />
-                </Course>
-              )}
+          <article className="relative rounded-sm bg-[#fffaf0] px-4 py-8 text-[#2a1a14] shadow-[0_24px_48px_rgba(70,20,20,.35)] sm:px-12 sm:py-12">
+            {/* The menu's double border */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-2 border-[3px] border-double border-[#8f1d2c]/60 sm:inset-4"
+            />
 
-              {picks.length > 0 && (
-                <Course name="The Main Course" note={longDay(wallStart)}>
-                  {admin && (
-                    <AdminWallSearch
-                      season="thanksgiving"
-                      onWall={picks.map((e) => e.id)}
-                      tone="light"
-                    />
-                  )}
-                  <ul className="mt-4 divide-y divide-dashed divide-[#2a1a14]/15">
-                    {[...picks].sort(byTime).map((e) => (
-                      <Dish
-                        key={e.id}
-                        event={e}
-                        big
-                        chefsPick={e.id === chefsPick}
-                        controls={controlsFor(e)}
+            <header className="relative text-center">
+              <SquawkingTurkey />
+              <h1
+                className={`${fraunces.className} mt-3 text-[clamp(2.4rem,8vw,4.5rem)] font-black leading-[0.95] tracking-tight`}
+              >
+                Thanksgiving
+                <br />
+                in Asheville
+              </h1>
+              <p className={`${fraunces.className} mt-3 text-lg italic text-[#6b5a50]`}>
+                Served now through the long weekend
+              </p>
+            </header>
+
+            {!open ? (
+              <p className="relative py-12 text-center text-lg">
+                {over
+                  ? 'The kitchen is closed for this year.'
+                  : 'Thanksgiving events go on the menu in November.'}{' '}
+                <Link href="/events" className={link}>
+                  See what&apos;s on now
+                </Link>
+                {canPreview && (
+                  <PreviewLink className="bg-[#8f1d2c] text-[#fffaf0] hover:bg-[#a32437]" />
+                )}
+              </p>
+            ) : failed ? (
+              <p className="relative py-12 text-center">
+                The menu didn&apos;t load. Reload the page in a minute.
+              </p>
+            ) : empty ? (
+              <p className="relative py-12 text-center">
+                Nothing on the menu yet.{' '}
+                <Link href="/events" className={link}>
+                  See what&apos;s on now
+                </Link>
+              </p>
+            ) : (
+              <div className="relative">
+                {beforeDays.length > 0 && (
+                  <Course name="Appetizers" note={`The days before, ${PER_DAY} a day`}>
+                    <Days days={beforeDays} controlsFor={controlsFor} />
+                  </Course>
+                )}
+
+                {picks.length > 0 && (
+                  <Course name="The Main Course" note={longDay(wallStart)}>
+                    {admin && (
+                      <AdminWallSearch
+                        season="thanksgiving"
+                        onWall={picks.map((e) => e.id)}
+                        tone="light"
                       />
-                    ))}
-                  </ul>
-                </Course>
-              )}
+                    )}
+                    <ul className="mt-4 divide-y divide-dashed divide-[#2a1a14]/15">
+                      {[...picks].sort(byTime).map((e) => (
+                        <Dish
+                          key={e.id}
+                          event={e}
+                          big
+                          chefsPick={e.id === chefsPick}
+                          controls={controlsFor(e)}
+                        />
+                      ))}
+                    </ul>
+                  </Course>
+                )}
 
-              {afterDays.length > 0 && (
-                <Course name="Leftovers" note="The long weekend">
-                  <Days days={afterDays} controlsFor={controlsFor} />
-                </Course>
-              )}
+                {afterDays.length > 0 && (
+                  <Course name="Leftovers" note="The long weekend">
+                    <Days days={afterDays} controlsFor={controlsFor} />
+                  </Course>
+                )}
 
-              <Course name="Dessert" note="Still hungry?">
-                <p className="mt-4 text-center">
-                  <Link
-                    href={moreHref}
-                    className="inline-flex rounded-full bg-[#8f1d2c] px-6 py-3 font-semibold text-[#fffaf0] hover:bg-[#a32437] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2a1a14]"
-                  >
-                    See every Thanksgiving event
-                  </Link>
-                </p>
-              </Course>
-            </div>
-          )}
-
-          {admin && hiddenHere.length > 0 && (
-            <section className="relative mt-12">
-              <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
-              <ul className="mt-3 flex flex-col gap-3">
-                {hiddenHere.map((e) => (
-                  <li key={e.id} className="rounded border border-[#2a1a14]/15 p-3">
-                    <Link href={eventHref(e)} className="font-semibold hover:underline">
-                      {e.title}
+                <Course name="Dessert" note="Still hungry?">
+                  <p className="mt-4 text-center">
+                    <Link
+                      href={moreHref}
+                      className="inline-flex rounded-full bg-[#8f1d2c] px-6 py-3 font-semibold text-[#fffaf0] hover:bg-[#a32437] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2a1a14]"
+                    >
+                      See every Thanksgiving event
                     </Link>
-                    <span className="ml-2 text-sm text-[#6b5a50]">{longDay(e.startDate)}</span>
-                    {controlsFor(e)}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-        </article>
-      </div>
-      <footer className="bg-[#fffaf0]/90 py-8 text-center text-sm text-[#6b5a50]">
-        <FooterCredit />
-      </footer>
-    </main>
+                  </p>
+                </Course>
+              </div>
+            )}
+
+            {admin && hiddenHere.length > 0 && (
+              <section className="relative mt-12">
+                <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
+                <ul className="mt-3 flex flex-col gap-3">
+                  {hiddenHere.map((e) => (
+                    <li key={e.id} className="rounded border border-[#2a1a14]/15 p-3">
+                      <Link href={eventHref(e)} className="font-semibold hover:underline">
+                        {e.title}
+                      </Link>
+                      <span className="ml-2 text-sm text-[#6b5a50]">{longDay(e.startDate)}</span>
+                      {controlsFor(e)}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </article>
+        </div>
+        <footer className="bg-[#fffaf0]/90 py-8 text-center text-sm text-[#6b5a50]">
+          <FooterCredit />
+        </footer>
+      </main>
+    </SeasonPreview>
   );
 }

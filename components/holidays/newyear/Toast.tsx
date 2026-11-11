@@ -1,17 +1,100 @@
 'use client';
 
-import { useRef } from 'react';
-import Glasses from './Glasses';
+import { useEffect, useRef, useState } from 'react';
+import DiscoBall from './DiscoBall';
 
 const COLORS = ['#e9cf8a', '#fff6d6', '#c9cfdc', '#f3a6c8', '#b58a2a'];
+// A disco track, played from Pixabay's site (its licence needs no credit)
+const TRACK =
+  'https://cdn.pixabay.com/download/audio/2026/01/24/audio_7ea9c9f394.mp3?filename=faultycrimal1-disco-party-472764.mp3';
+// Without sound (blocked, or reduced to nothing), the party still lasts this long
+const QUIET_PARTY_MS = 10_000;
 
-/** The hidden one: clink the glasses and confetti bursts out of them */
+type Piece = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  spin: number;
+  turn: number;
+  flutter: number;
+  w: number;
+  color: string;
+};
+
+// Random only after a tap, never during render, so the server and browser agree
+function piece(x: number, y: number, angle: number, speed: number): Piece {
+  return {
+    x,
+    y,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    spin: Math.random() * Math.PI,
+    turn: (Math.random() - 0.5) * 0.2,
+    flutter: Math.random() * Math.PI * 2,
+    w: 5 + Math.random() * 5,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+  };
+}
+
+/**
+ * The hidden one: tap the disco ball and the party starts. The track plays and confetti
+ * keeps falling until it ends, with a burst from the ball every few seconds; another tap
+ * stops it.
+ */
 export default function Toast() {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const glasses = useRef<HTMLButtonElement>(null);
+  const ball = useRef<HTMLButtonElement>(null);
+  const track = useRef<HTMLAudioElement>(null);
+  const partyUntil = useRef(0);
+  // One set of pieces and one drawing loop, even if a new party starts while the last falls
+  const pieces = useRef<Piece[]>([]);
+  const drawing = useRef(false);
+  const [partying, setPartying] = useState(false);
 
-  const burst = () => {
-    glasses.current?.animate(
+  // The track ending ends the party
+  useEffect(() => {
+    const el = track.current;
+    const end = () => {
+      partyUntil.current = 0;
+      setPartying(false);
+    };
+    el?.addEventListener('ended', end);
+    return () => el?.removeEventListener('ended', end);
+  }, []);
+
+  const burstFromBall = (count: number) => {
+    const from = ball.current?.getBoundingClientRect();
+    if (!from || from.bottom < 0) return;
+    for (let i = 0; i < count; i++) {
+      pieces.current.push(
+        piece(
+          from.left + from.width / 2,
+          from.top + from.height / 3,
+          -Math.PI / 2 + (Math.random() - 0.5) * 2.2,
+          3 + Math.random() * 10
+        )
+      );
+    }
+  };
+
+  const stop = () => {
+    track.current?.pause();
+    partyUntil.current = 0;
+    setPartying(false);
+  };
+
+  const start = () => {
+    const sound = track.current;
+    if (sound) {
+      sound.currentTime = 0;
+      // Blocked sound is fine: the confetti still flies, for a while
+      sound.play().catch(() => {});
+    }
+    partyUntil.current =
+      performance.now() + (sound?.duration ? sound.duration * 1000 : QUIET_PARTY_MS);
+    setPartying(true);
+    ball.current?.animate(
       [
         { transform: 'scale(1)' },
         { transform: 'scale(1.15) rotate(-4deg)' },
@@ -19,40 +102,47 @@ export default function Toast() {
       ],
       { duration: 350, easing: 'ease-out' }
     );
+
     const el = canvas.current;
     const ctx = el?.getContext('2d');
-    const from = glasses.current?.getBoundingClientRect();
-    if (!el || !ctx || !from || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el || !ctx || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const dpr = devicePixelRatio || 1;
     el.width = innerWidth * dpr;
     el.height = innerHeight * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // Random only after a tap, never during render, so the server and browser agree
-    const pieces = Array.from({ length: 140 }, () => {
-      const angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.6;
-      const speed = 6 + Math.random() * 9;
-      return {
-        x: from.left + from.width / 2,
-        y: from.top + from.height / 3,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        spin: Math.random() * Math.PI,
-        turn: (Math.random() - 0.5) * 0.3,
-        w: 5 + Math.random() * 5,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      };
-    });
-    const started = performance.now();
+
+    burstFromBall(600);
+    if (drawing.current) return;
+    drawing.current = true;
+    let lastBurst = performance.now();
     const frame = (time: number) => {
-      const age = time - started;
+      const on = time < partyUntil.current;
+      if (on) {
+        // A steady fall from the top of the window, and another burst every few seconds
+        for (let i = 0; i < 3; i++) {
+          pieces.current.push(
+            piece(Math.random() * innerWidth, -10, Math.PI / 2, 0.5 + Math.random())
+          );
+        }
+        if (time - lastBurst > 4000) {
+          burstFromBall(250);
+          lastBurst = time;
+        }
+      }
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      ctx.globalAlpha = Math.max(0, 1 - age / 3200);
-      for (const p of pieces) {
-        p.vy += 0.25;
-        p.vx *= 0.99;
-        p.x += p.vx;
+      const all = pieces.current;
+      for (let i = all.length - 1; i >= 0; i--) {
+        const p = all[i];
+        // Light gravity and plenty of air, so it drifts down like paper
+        p.vy = Math.min(p.vy + 0.08, 1.6);
+        p.vx *= 0.985;
+        p.x += p.vx + Math.sin(time / 300 + p.flutter) * 0.6;
         p.y += p.vy;
         p.spin += p.turn;
+        if (p.y > innerHeight + 20) {
+          all.splice(i, 1);
+          continue;
+        }
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.spin);
@@ -60,22 +150,25 @@ export default function Toast() {
         ctx.fillRect(-p.w / 2, -p.w / 4, p.w, p.w / 2);
         ctx.restore();
       }
-      if (age < 3200) requestAnimationFrame(frame);
-      else ctx.clearRect(0, 0, innerWidth, innerHeight);
+      // Once the party's over, the last pieces finish falling
+      if (on || all.length > 0) requestAnimationFrame(frame);
+      else drawing.current = false;
     };
     requestAnimationFrame(frame);
   };
 
   return (
     <>
+      <audio ref={track} src={TRACK} preload="auto" />
       <button
-        ref={glasses}
+        ref={ball}
         type="button"
-        onClick={burst}
-        aria-label="Cheers"
+        onClick={partying ? stop : start}
+        aria-label={partying ? 'Stop the party' : 'Start the party'}
+        aria-pressed={partying}
         className="mx-auto block cursor-pointer rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e9cf8a]"
       >
-        <Glasses size={84} />
+        <DiscoBall size={96} spin />
       </button>
       <canvas
         ref={canvas}

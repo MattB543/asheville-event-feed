@@ -45,18 +45,29 @@ export async function loadHolidayPage(
     byDate,
     wallSize,
     perDay,
+    preview = false,
   }: {
     audience: HolidayAudience;
     byDate: boolean;
     wallSize: number;
     perDay: number;
+    /** `?preview=1`: an admin, or anyone on a dev server, sees a closed page as if it were open */
+    preview?: boolean;
   }
 ) {
   const holiday = getHoliday(key);
   const today = getTodayStringEastern();
   const seasons = await getSeasons();
   const lastDay = holidayLastDay(key, seasons, today);
-  const open = currentSeason(seasons, today)?.key === key;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const admin = isAdmin(user?.id);
+  const canPreview = admin || process.env.NODE_ENV === 'development';
+  const running = currentSeason(seasons, today)?.key === key;
+  const previewing = !running && preview && canPreview;
+  const open = running || previewing;
 
   let events: HolidayEvent[] = [];
   let failed = false;
@@ -74,11 +85,6 @@ export async function loadHolidayPage(
     console.error(`[Holiday:${key}] Failed to load hand edits:`, error);
     return new Map<string, SeasonPick>();
   });
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const admin = isAdmin(user?.id);
   // Events added to the wall by hand, which may not match the holiday's words at all.
   // Never in Halloween's Family view: nothing vets a hand-added event as family-friendly.
   // Hidden ones load too, so they stay in the admin's hidden list instead of vanishing
@@ -117,6 +123,9 @@ export async function loadHolidayPage(
     today,
     lastDay,
     open,
+    // A closed page shown anyway, and whether this viewer may ask for that
+    previewing,
+    canPreview,
     over: today > lastDay,
     failed,
     admin,

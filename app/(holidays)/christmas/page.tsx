@@ -8,6 +8,8 @@ import Poster from '@/components/holidays/Poster';
 import HeartButton, { FavoritesSync } from '@/components/holidays/HeartButton';
 import AdminControls from '@/components/holidays/AdminControls';
 import AdminWallSearch from '@/components/holidays/AdminWallSearch';
+import { PreviewLink, PreviewNotice } from '@/components/holidays/Preview';
+import { SeasonPreview } from '@/components/seasonal/useSeason';
 import AdventDoor from '@/components/holidays/christmas/AdventDoor';
 import SnowyFir from '@/components/holidays/christmas/SnowyFir';
 import { EventDialog, PopupLink } from '@/components/holidays/EventPopup';
@@ -227,13 +229,19 @@ function Section({
   );
 }
 
-export default async function ChristmasPage() {
+export default async function ChristmasPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ preview?: string }>;
+}) {
   // Per request: the calendar moves with the date
   await connection();
   const {
     today,
     lastDay,
     open,
+    previewing,
+    canPreview,
     over,
     failed,
     admin,
@@ -250,6 +258,7 @@ export default async function ChristmasPage() {
     byDate: true,
     wallSize: WALL_SIZE,
     perDay: PER_DAY,
+    preview: (await searchParams).preview === '1',
   });
   const controlsFor = (e: HolidayEvent) =>
     admin ? (
@@ -267,143 +276,156 @@ export default async function ChristmasPage() {
   const weekend = `${formatDateEastern(wallStart, { month: 'long', day: 'numeric' })} to ${formatDateEastern(wallEnd, { day: 'numeric' })}`;
 
   return (
-    <main className="flex min-h-screen flex-col overflow-x-clip text-[#f6efe2]" style={SNOW}>
-      <FavoritesSync />
-      <Header />
+    <SeasonPreview seasonKey={previewing ? 'christmas' : null}>
+      <main className="flex min-h-screen flex-col overflow-x-clip text-[#f6efe2]" style={SNOW}>
+        <FavoritesSync />
+        <Header />
+        {previewing && (
+          <PreviewNotice
+            path="/christmas"
+            className="bg-[#9f1239] text-[#f6efe2] hover:bg-[#b3153f]"
+          />
+        )}
 
-      <div className="relative mx-auto w-full max-w-6xl flex-grow px-4 py-10 sm:px-6 sm:py-16">
-        <MusicToggle />
-        <header className="text-center">
-          <SnowyFir />
-          <h1
-            className={`${bodoni.className} mt-4 text-[clamp(2.6rem,9vw,5.5rem)] font-bold leading-[0.95]`}
-          >
-            Christmas
-            <br />
-            in Asheville
-          </h1>
-          <p className={`${bodoni.className} mx-auto mt-4 max-w-lg text-2xl italic text-[#e7c873]`}>
-            Lights, markets, Nutcrackers and Santa, a day at a time through Christmas
-          </p>
-          {admin && <SendSanta />}
-        </header>
+        <div className="relative mx-auto w-full max-w-6xl flex-grow px-4 py-10 sm:px-6 sm:py-16">
+          <MusicToggle />
+          <header className="text-center">
+            <SnowyFir />
+            <h1
+              className={`${bodoni.className} mt-4 text-[clamp(2.6rem,9vw,5.5rem)] font-bold leading-[0.95]`}
+            >
+              Christmas
+              <br />
+              in Asheville
+            </h1>
+            <p
+              className={`${bodoni.className} mx-auto mt-4 max-w-lg text-2xl italic text-[#e7c873]`}
+            >
+              Lights, markets, Nutcrackers and Santa, a day at a time through Christmas
+            </p>
+            {admin && <SendSanta />}
+          </header>
 
-        {!open ? (
-          <p className="py-14 text-center text-lg">
-            {over ? 'Christmas is over for this year.' : 'The calendar opens on December 1.'}{' '}
-            <Link href="/events" className={link}>
-              See what&apos;s on now
-            </Link>
-          </p>
-        ) : failed ? (
-          <p className="py-14 text-center">
-            The calendar didn&apos;t load. Reload the page in a minute.
-          </p>
-        ) : empty ? (
-          <p className="py-14 text-center">
-            Nothing on the calendar yet.{' '}
-            <Link href="/events" className={link}>
-              See what&apos;s on now
-            </Link>
-          </p>
-        ) : (
-          <>
-            {beforeDays.length > 0 && (
-              <Section heading="Counting down" note="A door a day, each hiding that day's best">
-                <Doors days={beforeDays} today={today} controlsFor={controlsFor} />
-              </Section>
-            )}
+          {!open ? (
+            <p className="py-14 text-center text-lg">
+              {over ? 'Christmas is over for this year.' : 'The calendar opens on December 1.'}{' '}
+              <Link href="/events" className={link}>
+                See what&apos;s on now
+              </Link>
+              {canPreview && (
+                <PreviewLink className="bg-[#9f1239] text-[#f6efe2] hover:bg-[#b3153f]" />
+              )}
+            </p>
+          ) : failed ? (
+            <p className="py-14 text-center">
+              The calendar didn&apos;t load. Reload the page in a minute.
+            </p>
+          ) : empty ? (
+            <p className="py-14 text-center">
+              Nothing on the calendar yet.{' '}
+              <Link href="/events" className={link}>
+                See what&apos;s on now
+              </Link>
+            </p>
+          ) : (
+            <>
+              {beforeDays.length > 0 && (
+                <Section heading="Counting down" note="A door a day, each hiding that day's best">
+                  <Doors days={beforeDays} today={today} controlsFor={controlsFor} />
+                </Section>
+              )}
 
-            {picks.length > 0 && (
-              <Section heading="The weekend before Christmas" note={weekend}>
-                {admin && <AdminWallSearch season="christmas" onWall={picks.map((e) => e.id)} />}
-                <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
-                  {picks.map((e) => {
-                    const when = time(e);
-                    return (
-                      <li key={e.id} className="flex flex-col">
-                        <Details event={e} />
-                        <div data-snow-surface>
+              {picks.length > 0 && (
+                <Section heading="The weekend before Christmas" note={weekend}>
+                  {admin && <AdminWallSearch season="christmas" onWall={picks.map((e) => e.id)} />}
+                  <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-3">
+                    {picks.map((e) => {
+                      const when = time(e);
+                      return (
+                        <li key={e.id} className="flex flex-col">
+                          <Details event={e} />
+                          <div data-snow-surface>
+                            <PopupLink
+                              eventId={e.id}
+                              href={eventHref(e)}
+                              hidden
+                              className="block border-[6px] border-[#c9a24a] bg-[#c9a24a] shadow-[0_12px_28px_rgba(0,0,0,.45)]"
+                            >
+                              <Poster
+                                src={hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null}
+                                title={e.title}
+                                sizes="(min-width: 1024px) 360px, 45vw"
+                                flyerTextClass="text-lg sm:text-xl"
+                                {...FLYER}
+                              />
+                            </PopupLink>
+                          </div>
                           <PopupLink
                             eventId={e.id}
                             href={eventHref(e)}
-                            hidden
-                            className="block border-[6px] border-[#c9a24a] bg-[#c9a24a] shadow-[0_12px_28px_rgba(0,0,0,.45)]"
+                            className="mt-3 font-semibold leading-snug decoration-[#c9a24a] decoration-2 underline-offset-4 hover:underline"
                           >
-                            <Poster
-                              src={hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null}
-                              title={e.title}
-                              sizes="(min-width: 1024px) 360px, 45vw"
-                              flyerTextClass="text-lg sm:text-xl"
-                              {...FLYER}
-                            />
+                            {e.title}
                           </PopupLink>
-                        </div>
-                        <PopupLink
-                          eventId={e.id}
-                          href={eventHref(e)}
-                          className="mt-3 font-semibold leading-snug decoration-[#c9a24a] decoration-2 underline-offset-4 hover:underline"
-                        >
-                          {e.title}
-                        </PopupLink>
-                        <p className="mt-0.5 text-sm text-[#f6efe2]/75">
-                          {formatDateEastern(e.startDate, { weekday: 'long' })}
-                          {when && ` ${when}`}, {venueLine(e)}
-                        </p>
-                        <div className="mt-2 flex flex-wrap items-center gap-2">
-                          <HeartButton
-                            eventId={e.id}
-                            title={e.title}
-                            onClass="border-[#9f1239] bg-[#9f1239] text-white"
-                            offClass="border-[#f6efe2]/30 text-[#f6efe2] hover:border-[#e7c873] hover:text-[#e7c873]"
-                          />
-                          {controlsFor(e)}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </Section>
-            )}
+                          <p className="mt-0.5 text-sm text-[#f6efe2]/75">
+                            {formatDateEastern(e.startDate, { weekday: 'long' })}
+                            {when && ` ${when}`}, {venueLine(e)}
+                          </p>
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <HeartButton
+                              eventId={e.id}
+                              title={e.title}
+                              onClass="border-[#9f1239] bg-[#9f1239] text-white"
+                              offClass="border-[#f6efe2]/30 text-[#f6efe2] hover:border-[#e7c873] hover:text-[#e7c873]"
+                            />
+                            {controlsFor(e)}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </Section>
+              )}
 
-            {afterDays.length > 0 && (
-              <Section heading="The last days" note="Through Christmas Day">
-                <Doors days={afterDays} today={today} controlsFor={controlsFor} />
-              </Section>
-            )}
+              {afterDays.length > 0 && (
+                <Section heading="The last days" note="Through Christmas Day">
+                  <Doors days={afterDays} today={today} controlsFor={controlsFor} />
+                </Section>
+              )}
 
-            <p className="pt-14 text-center">
-              <Link
-                href={moreHref}
-                data-snow-surface
-                className="inline-flex rounded-full bg-[#9f1239] px-6 py-3 font-semibold text-[#f6efe2] hover:bg-[#b3153f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e7c873]"
-              >
-                See every Christmas event
-              </Link>
-            </p>
-          </>
-        )}
+              <p className="pt-14 text-center">
+                <Link
+                  href={moreHref}
+                  data-snow-surface
+                  className="inline-flex rounded-full bg-[#9f1239] px-6 py-3 font-semibold text-[#f6efe2] hover:bg-[#b3153f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e7c873]"
+                >
+                  See every Christmas event
+                </Link>
+              </p>
+            </>
+          )}
 
-        {admin && hiddenHere.length > 0 && (
-          <section className="mt-14 rounded-sm bg-[#f6efe2] p-5 text-[#10291f]">
-            <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
-            <ul className="mt-3 flex flex-col gap-3">
-              {hiddenHere.map((e) => (
-                <li key={e.id} className="rounded border border-[#10291f]/15 p-3">
-                  <Link href={eventHref(e)} className="font-semibold hover:underline">
-                    {e.title}
-                  </Link>
-                  <span className="ml-2 text-sm opacity-75">{longDay(e.startDate)}</span>
-                  {controlsFor(e)}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
-      <footer className="bg-[#0b1f17] py-8 text-center text-sm text-[#f6efe2]/70">
-        <FooterCredit />
-      </footer>
-    </main>
+          {admin && hiddenHere.length > 0 && (
+            <section className="mt-14 rounded-sm bg-[#f6efe2] p-5 text-[#10291f]">
+              <h2 className="text-lg font-bold">Hidden from this page (admin only)</h2>
+              <ul className="mt-3 flex flex-col gap-3">
+                {hiddenHere.map((e) => (
+                  <li key={e.id} className="rounded border border-[#10291f]/15 p-3">
+                    <Link href={eventHref(e)} className="font-semibold hover:underline">
+                      {e.title}
+                    </Link>
+                    <span className="ml-2 text-sm opacity-75">{longDay(e.startDate)}</span>
+                    {controlsFor(e)}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+        <footer className="bg-[#0b1f17] py-8 text-center text-sm text-[#f6efe2]/70">
+          <FooterCredit />
+        </footer>
+      </main>
+    </SeasonPreview>
   );
 }

@@ -1,12 +1,15 @@
 'use client';
 
-import type { CSSProperties, ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Ghost, Leaf, ScrollText, Tent, type LucideIcon } from 'lucide-react';
+import { Ghost, Leaf, ScrollText, Snowflake, Tent, TreePine, type LucideIcon } from 'lucide-react';
 import { Bat, Pumpkin } from '@/components/holidays/halloween/Decor';
 import Turkey from '@/components/holidays/thanksgiving/Turkey';
+import Fir from '@/components/holidays/christmas/Fir';
+import SantaSleigh from '@/components/holidays/christmas/SantaSleigh';
 import type { Season, SeasonKey } from '@/lib/seasons';
+import HoverTip from '@/components/ui/HoverTip';
 import { useSeason } from './useSeason';
 
 // Halloween's original fade, as a step in hue, saturation and lightness: from #f97316 in the
@@ -46,7 +49,14 @@ export function bannerStyle({ color, fade }: Pick<Season, 'color' | 'fade'>): CS
 // The badge and the menu icon are each optional; a season with neither shows only its banner
 const LOOK: Record<
   SeasonKey,
-  { badge?: ReactNode; mark: ReactNode; endMark: ReactNode; icon?: LucideIcon }
+  {
+    badge?: ReactNode;
+    mark: ReactNode;
+    endMark: ReactNode;
+    icon?: LucideIcon;
+    /** Crosses the header now and then while the season runs */
+    flyby?: ReactNode;
+  }
 > = {
   halloween: {
     badge: <Pumpkin size={24} glow still />,
@@ -59,6 +69,13 @@ const LOOK: Record<
     mark: <Leaf size={16} aria-hidden="true" className="shrink-0" />,
     endMark: <span aria-hidden="true">→</span>,
     icon: Leaf,
+  },
+  christmas: {
+    badge: <Fir size={26} />,
+    mark: <Snowflake size={16} aria-hidden="true" className="shrink-0" />,
+    endMark: <span aria-hidden="true">→</span>,
+    icon: TreePine,
+    flyby: <SantaSleigh className="h-7 w-auto sm:h-9" />,
   },
   // Disaster Plan already has its own header tab
   plan: {
@@ -83,11 +100,89 @@ export function SeasonalBadge() {
     <Link
       href={season.href}
       aria-label={banner}
-      title={season.label}
-      className="-ml-0.5 shrink-0 transition-transform hover:scale-110 lg:-ml-2"
+      className="group/tip relative -ml-0.5 shrink-0 lg:-ml-2"
     >
-      {badge}
+      <span className="block transition-transform group-hover/tip:scale-110">{badge}</span>
+      <HoverTip>{`View our special ${season.label} page`}</HoverTip>
     </Link>
+  );
+}
+
+const FLYBY_EVENT = 'season-flyby';
+
+/** Sends a season's flyby across this tab's header right away (an admin's button) */
+export function sendFlyby(key: SeasonKey) {
+  window.dispatchEvent(new CustomEvent<SeasonKey>(FLYBY_EVENT, { detail: key }));
+}
+
+/** Now and then, the season's flyby (Santa's sleigh) crosses the header; never on page load */
+export function SeasonalFlyby() {
+  const current = useSeason()?.season.key;
+  const [pass, setPass] = useState<{ n: number; key: SeasonKey } | null>(null);
+
+  useEffect(() => {
+    // An admin's send works in any season and even with reduced motion: they asked for it
+    const onSend = (event: Event) =>
+      setPass((p) => ({ n: (p?.n ?? 0) + 1, key: (event as CustomEvent<SeasonKey>).detail }));
+    window.addEventListener(FLYBY_EVENT, onSend);
+    if (
+      !current ||
+      !LOOK[current].flyby ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      return () => window.removeEventListener(FLYBY_EVENT, onSend);
+    }
+    // First pass after 20-40 seconds, then every one to two minutes
+    let timer = setTimeout(
+      function next() {
+        setPass((p) => ({ n: (p?.n ?? 0) + 1, key: current }));
+        timer = setTimeout(next, 60_000 + Math.random() * 60_000);
+      },
+      20_000 + Math.random() * 20_000
+    );
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener(FLYBY_EVENT, onSend);
+    };
+  }, [current]);
+
+  const look = pass && LOOK[pass.key].flyby;
+  if (!pass || !look) return null;
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-40 overflow-hidden">
+      <Flight key={pass.n}>{look}</Flight>
+    </div>
+  );
+}
+
+/** One pass: across the window at one steady speed, bobbing up and down as it goes */
+function Flight({ children }: { children: ReactNode }) {
+  const across = useRef<HTMLDivElement>(null);
+  const bob = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const flight = across.current?.animate(
+      [{ transform: 'translateX(-220px)' }, { transform: `translateX(${innerWidth + 40}px)` }],
+      { duration: 9000, easing: 'linear', fill: 'forwards' }
+    );
+    const bobbing = bob.current?.animate(
+      [
+        { transform: 'translateY(6px)' },
+        { transform: 'translateY(0)' },
+        { transform: 'translateY(6px)' },
+      ],
+      { duration: 2200, easing: 'ease-in-out', iterations: Infinity }
+    );
+    return () => {
+      flight?.cancel();
+      bobbing?.cancel();
+    };
+  }, []);
+  return (
+    <div ref={across} className="absolute left-0 top-1" style={{ transform: 'translateX(-220px)' }}>
+      <div ref={bob} className="text-gray-800 dark:text-gray-200">
+        {children}
+      </div>
+    </div>
   );
 }
 

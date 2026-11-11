@@ -36,6 +36,17 @@ export const SEASONS = [
     color: '#b45309',
     fade: false,
   },
+  {
+    key: 'christmas',
+    start: '12-01',
+    end: '12-25',
+    href: '/christmas',
+    label: 'Christmas',
+    short: 'Christmas in Asheville',
+    banner: 'Christmas in Asheville: lights, markets, Nutcrackers and Santa through {end}',
+    color: '#1f5c3a',
+    fade: true,
+  },
   // 2026 only: the open letter, the two days before Election Day (Tue Nov 3)
   {
     key: 'plan',

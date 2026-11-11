@@ -29,6 +29,13 @@ export function thanksgivingDate(year: number): string {
   return `${year}-11-${String(firstThursday + 21).padStart(2, '0')}`;
 }
 
+/** The Friday to Sunday before Christmas Day, which has the month's most Christmas events */
+export function christmasWeekend(year: number): { from: string; to: string } {
+  const christmasWeekday = new Date(Date.UTC(year, 11, 25)).getUTCDay();
+  const sunday = 25 - (christmasWeekday || 7);
+  return { from: `${year}-12-${sunday - 2}`, to: `${year}-12-${sunday}` };
+}
+
 export const HOLIDAYS = [
   {
     key: 'halloween',
@@ -49,6 +56,16 @@ export const HOLIDAYS = [
       return { from: day, to: day };
     },
     // The feed's Top Events cutoff, which leaves out takeout orders and small classes
+    minScore: 15,
+  },
+  {
+    key: 'christmas',
+    tag: 'Christmas',
+    // "carols" but not "Carolina"
+    titleWords:
+      '\\m(christmas|xmas|santa|nutcracker|carols?\\M|caroling|jingle|grinch|ugly sweater|gingerbread|yule|mistletoe|reindeer|sleigh|tree lighting|winter lights)',
+    rule: "when the event itself is about Christmas or the holiday season around it (Christmas lights, Santa visits, The Nutcracker or A Christmas Carol, carols and Christmas concerts, holiday markets and craft fairs, tree lightings, ugly sweater parties, Christmas Eve services or dinners). Not for events that merely fall in December, or that are only about another holiday (Hanukkah, Kwanzaa, New Year's Eve).",
+    wall: christmasWeekend,
     minScore: 15,
   },
 ] satisfies Holiday[];

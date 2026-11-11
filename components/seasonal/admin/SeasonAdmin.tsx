@@ -133,8 +133,13 @@ export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; tod
     );
   };
 
-  // Drawn last-first, so where two overlap the one that wins is on top
-  const drawn = [...seasons].reverse().flatMap((season) => {
+  // Drawn last-first, so where two overlap the one that wins is on top, and switched-off
+  // ones first of all, since they never win
+  const order = [...seasons].reverse();
+  const drawn = [
+    ...order.filter((s) => !forms[seasons.indexOf(s)].enabled),
+    ...order.filter((s) => forms[seasons.indexOf(s)].enabled),
+  ].flatMap((season) => {
     const i = seasons.indexOf(season);
     const look = bannerStyle(forms[i]);
     const faded = forms[i].enabled ? '' : 'opacity-30';

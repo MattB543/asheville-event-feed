@@ -85,12 +85,24 @@ export function getHoliday(key: HolidayKey): Holiday {
 }
 
 /** The year the season's current or next run starts in: last year's for a season that runs
- * across Jan 1 when today is in its January part */
+ * across Jan 1 when today is in its January part, next year's once this year's run is over */
 function seasonYear(season: Season, today: string): number {
   const year = Number(today.slice(0, 4));
   if (season.start.length === 10) return Number(season.start.slice(0, 4));
-  const crossesNewYear = season.start > season.end;
-  return crossesNewYear && today.slice(5) <= season.end ? year - 1 : year;
+  const day = today.slice(5);
+  if (season.start > season.end) return day <= season.end ? year - 1 : year;
+  return day > season.end ? year + 1 : year;
+}
+
+/** The season's first day in its current or next run */
+export function holidayFirstDay(
+  key: HolidayKey,
+  seasons: readonly Season[],
+  today = getTodayStringEastern()
+): string {
+  const season = seasons.find((s) => s.key === key)!;
+  if (season.start.length === 10) return season.start;
+  return `${seasonYear(season, today)}-${season.start}`;
 }
 
 /** The season's last day in its current or next run, from `seasons` as admins set them, so a

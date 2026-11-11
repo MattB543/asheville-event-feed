@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { withSettings } from '@/lib/seasons';
-import { christmasWeekend, holidayLastDay, holidayWall } from './config';
+import { christmasWeekend, holidayFirstDay, holidayLastDay, holidayWall } from './config';
 
 describe('christmasWeekend', () => {
   it('is the Friday to Sunday before Christmas Day', () => {
@@ -28,5 +28,20 @@ describe("New Year's, which runs across Jan 1", () => {
       to: '2026-12-31',
     });
     expect(holidayWall('newyear', seasons, '2026-12-27').from).toBe('2026-12-31');
+  });
+});
+
+describe('a season that is over for this year', () => {
+  const seasons = withSettings(new Map());
+
+  it('looks ahead to next year’s run', () => {
+    expect(holidayFirstDay('halloween', seasons, '2026-11-10')).toBe('2027-10-01');
+    expect(holidayLastDay('halloween', seasons, '2026-11-10')).toBe('2027-10-31');
+    expect(holidayWall('halloween', seasons, '2026-11-10').to).toBe('2027-10-31');
+  });
+
+  it('stays on this year’s run while it runs and before it starts', () => {
+    expect(holidayLastDay('halloween', seasons, '2026-10-31')).toBe('2026-10-31');
+    expect(holidayFirstDay('christmas', seasons, '2026-11-10')).toBe('2026-12-01');
   });
 });

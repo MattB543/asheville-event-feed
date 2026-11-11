@@ -293,7 +293,8 @@ export default async function HalloweenPage({
 
   const {
     today,
-    lastDay: halloween,
+    lastDay,
+    wallLastDay: halloween,
     open,
     previewing,
     canPreview,
@@ -335,7 +336,7 @@ export default async function HalloweenPage({
     : 'Halloween eve and night';
   // Every event this page draws from, both views: the feed filtered to the Halloween tag
   // over the same dates (its tag filter is any-of, so it can't also require Family)
-  const moreHref = `/events?tagsInclude=Halloween&dateFilter=custom&dateStart=${today}&dateEnd=${halloween}`;
+  const moreHref = `/events?tagsInclude=Halloween&dateFilter=custom&dateStart=${today}&dateEnd=${lastDay}`;
   const longDay = (d: Date) =>
     formatDateEastern(d, { weekday: 'long', month: 'short', day: 'numeric' });
 

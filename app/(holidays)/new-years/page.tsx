@@ -16,10 +16,12 @@ import Toast from '@/components/holidays/newyear/Toast';
 import { josefin, limelight } from '@/components/holidays/newyear/fonts';
 import type { HolidayEvent } from '@/lib/holidays/events';
 import { loadHolidayPage, type DayList } from '@/lib/holidays/page';
+import { holidayWall } from '@/lib/holidays/config';
+import { getSeasons } from '@/lib/db/queries/seasonSettings';
 import { hasLoadableEventImage } from '@/lib/utils/eventImages';
 import { formatPriceDisplay } from '@/lib/utils/priceDisplay';
 import { generateEventSlug } from '@/lib/utils/slugify';
-import { formatDateEastern, getTodayStringEastern } from '@/lib/utils/timezone';
+import { formatDateEastern } from '@/lib/utils/timezone';
 import { venueLine } from '@/lib/utils/venueName';
 import { SITE_URL } from '@/lib/seo/site';
 
@@ -27,8 +29,9 @@ const title = "New Year's Eve in Asheville";
 const description =
   "New Year's Eve parties, shows, dinners and countdowns in Asheville, plus New Year's Day hikes and brunches.";
 
-export function generateMetadata(): Metadata {
-  const year = Number(getTodayStringEastern().slice(0, 4));
+export async function generateMetadata(): Promise<Metadata> {
+  // The year being rung in, from the run's New Year's Eve, so Jan 1 still names it
+  const year = Number(holidayWall('newyear', await getSeasons()).from.slice(0, 4));
   return {
     title: `${title}: Where to Ring In ${year + 1}`,
     description,

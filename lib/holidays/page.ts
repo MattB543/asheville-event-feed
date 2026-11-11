@@ -8,7 +8,13 @@ import {
   getDayBoundariesEastern,
   getTodayStringEastern,
 } from '@/lib/utils/timezone';
-import { getHoliday, holidayLastDay, holidayWall, type HolidayKey } from './config';
+import {
+  getHoliday,
+  holidayFirstDay,
+  holidayLastDay,
+  holidayWall,
+  type HolidayKey,
+} from './config';
 import {
   getCachedHolidayEvents,
   getEventsForWall,
@@ -59,6 +65,9 @@ export async function loadHolidayPage(
   const today = getTodayStringEastern();
   const seasons = await getSeasons();
   const lastDay = holidayLastDay(key, seasons, today);
+  // From today, or from the first day of a run that hasn't started (a preview)
+  const firstDay = holidayFirstDay(key, seasons, today);
+  const from = today > firstDay ? today : firstDay;
   const supabase = await createClient();
   const {
     data: { user },
@@ -73,7 +82,7 @@ export async function loadHolidayPage(
   let failed = false;
   if (open) {
     try {
-      events = await getCachedHolidayEvents(holiday, today, lastDay, audience);
+      events = await getCachedHolidayEvents(holiday, from, lastDay, audience);
     } catch (error) {
       console.error(`[Holiday:${key}] Failed to load events:`, error);
       failed = true;
@@ -92,7 +101,7 @@ export async function loadHolidayPage(
     audience === 'family'
       ? []
       : [...seasonPicks.values()].filter((p) => p.added).map((p) => p.eventId);
-  const pageStart = getDayBoundariesEastern(today).start;
+  const pageStart = getDayBoundariesEastern(from).start;
   const pageEnd = getDayBoundariesEastern(lastDay).end;
   // Kept to the page's dates, so one that has passed or been moved drops off like the rest
   const handAdded = (
@@ -133,6 +142,8 @@ export async function loadHolidayPage(
     isHidden: (id: string) => seasonPicks.get(id)?.hidden === true,
     wallStart,
     wallEnd,
+    // The wall's last day, as YYYY-MM-DD (Halloween itself, on that page)
+    wallLastDay: wall.to,
     picks: byDate ? [...ranked].sort(chronological) : ranked,
     beforeDays: topPerDay(
       shown.filter((e) => e.startDate < wallStart),

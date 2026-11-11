@@ -14,7 +14,7 @@ import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 import { liveEvent } from '../lib/db/liveEvent';
 import { azureChatCompletion, parseJsonFromModel } from '../lib/ai/provider-clients';
-import { HOLIDAYS, holidayLastDay } from '../lib/holidays/config';
+import { HOLIDAYS, holidayFirstDay, holidayLastDay } from '../lib/holidays/config';
 import { loadSeasons } from '../lib/db/queries/seasonSettings';
 import { getDayBoundariesEastern, getTodayStringEastern } from '../lib/utils/timezone';
 
@@ -81,7 +81,11 @@ async function classify(batch: Row[]): Promise<Map<string, boolean>> {
 
 async function main() {
   const today = getTodayStringEastern();
-  const lastDay = holidayLastDay(holiday.key, await loadSeasons(), today);
+  const seasons = await loadSeasons();
+  const lastDay = holidayLastDay(holiday.key, seasons, today);
+  // Only the season's own days: a run that hasn't started yet is judged from its first day
+  const firstDay = holidayFirstDay(holiday.key, seasons, today);
+  const from = today > firstDay ? today : firstDay;
   const rows: Row[] = await db
     .select({
       id: events.id,
@@ -96,12 +100,12 @@ async function main() {
     .where(
       and(
         liveEvent,
-        gte(events.startDate, getDayBoundariesEastern(today).start),
+        gte(events.startDate, getDayBoundariesEastern(from).start),
         lt(events.startDate, getDayBoundariesEastern(lastDay).end)
       )
     )
     .orderBy(events.startDate);
-  console.log(`${rows.length} live events from ${today} through ${lastDay}`);
+  console.log(`${rows.length} live events from ${from} through ${lastDay}`);
 
   const batches: Row[][] = [];
   for (let i = 0; i < rows.length; i += BATCH) batches.push(rows.slice(i, i + BATCH));

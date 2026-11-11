@@ -27,18 +27,41 @@ const readSettings = () =>
     })
     .from(seasonSettings);
 
+type SettingsRow = Awaited<ReturnType<typeof readSettings>>[number];
+
+// A read that never answers counts as failed: the root layout waits on this for every page,
+// and one stuck read timed out page after page in a Vercel build (60s each)
+const READ_TIMEOUT_MS = 3000;
+// After a failed read, pages get the defaults for a minute without asking again
+const RETRY_AFTER_MS = 60_000;
+let failedAt = -Infinity;
+
 // Every page's header reads these, so a failed read means the defaults, never a broken page
-async function orDefaults(read: () => ReturnType<typeof readSettings>): Promise<Season[]> {
+async function orDefaults(read: () => PromiseLike<SettingsRow[]>): Promise<Season[]> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
-    return withSettings(new Map((await read()).map(({ key, ...settings }) => [key, settings])));
+    const rows = await Promise.race([
+      read(),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error(`No answer in ${READ_TIMEOUT_MS}ms`)),
+          READ_TIMEOUT_MS
+        );
+      }),
+    ]);
+    return withSettings(new Map(rows.map(({ key, ...settings }) => [key, settings])));
   } catch (error) {
+    failedAt = Date.now();
     console.error('[Seasons] Could not read the season settings, using the defaults:', error);
     return DEFAULT_SEASONS;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
 /** The seasons as admins set them, cached until one is changed */
 export function getSeasons(): Promise<Season[]> {
+  if (Date.now() - failedAt < RETRY_AFTER_MS) return Promise.resolve(DEFAULT_SEASONS);
   return orDefaults(
     unstable_cache(readSettings, ['season-settings'], { tags: [SEASONS_TAG], revalidate: 3600 })
   );

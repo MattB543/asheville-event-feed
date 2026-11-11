@@ -220,6 +220,7 @@ export default function SeasonAdmin({ seasons, today }: { seasons: Season[]; tod
               setForm(i, toForm(settings, year));
             }}
             year={year}
+            today={today}
           />
         ))}
       </div>
@@ -235,6 +236,7 @@ function SeasonRow({
   onChange,
   onSaved,
   year,
+  today,
 }: {
   season: Season;
   form: Form;
@@ -243,6 +245,7 @@ function SeasonRow({
   onChange: (change: Partial<Form>) => void;
   onSaved: (settings: SeasonSettings) => void;
   year: number;
+  today: string;
 }) {
   const router = useRouter();
   const [sending, setSending] = useState(false);
@@ -254,7 +257,7 @@ function SeasonRow({
   const preview = { ...season, ...toSettings(form) };
   let previewText = form.banner;
   try {
-    previewText = seasonBanner(preview);
+    previewText = seasonBanner(preview, today);
   } catch {
     // A half-typed date can't name the last day yet
   }

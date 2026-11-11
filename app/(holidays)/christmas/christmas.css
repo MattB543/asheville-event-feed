@@ -47,17 +47,6 @@
   animation: xmas-spin 2.4s linear infinite;
 }
 
-/* The event popup opens with a small lift */
-@keyframes xmas-pop {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-}
-.xmas-pop[open] {
-  animation: xmas-pop 0.25s ease-out;
-}
-
 @keyframes xmas-twinkle {
   0%,
   100% {
@@ -80,8 +69,7 @@
   }
   .xmas-lit .xmas-light,
   .xmas-tree:hover svg,
-  .xmas-spin,
-  .xmas-pop[open] {
+  .xmas-spin {
     animation: none;
   }
 }

@@ -9,6 +9,8 @@ interface PosterProps {
   when?: string;
   venue?: string;
   sizes: string;
+  /** Load with the page, quietly: for a popup's poster, so it's there before the popup opens */
+  eager?: boolean;
   /** Title size on the stand-in flyer */
   flyerTextClass: string;
   /** The holiday's look for the stand-in flyer: its title font and colours, and its background */
@@ -26,6 +28,7 @@ export default function Poster({
   when,
   venue,
   sizes,
+  eager = false,
   flyerTextClass,
   flyerTitleClass = 'font-bold text-gray-100',
   flyerBackground = 'linear-gradient(160deg, #374151, #111827)',
@@ -40,6 +43,7 @@ export default function Poster({
         width={480}
         height={640}
         sizes={sizes}
+        {...(eager ? { loading: 'eager', fetchPriority: 'low' } : {})}
         className="block h-auto w-full bg-gray-900"
         onError={() => setFailedSrc(src)}
       />

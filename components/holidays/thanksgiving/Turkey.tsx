@@ -20,7 +20,8 @@ export default function Turkey({
   return (
     <svg
       aria-hidden="true"
-      viewBox="0 0 64 64"
+      // Wider than the body: the outermost feathers reach past it on both sides
+      viewBox="-6 -6 76 76"
       width={size}
       height={size}
       className={`shrink-0 ${className}`}

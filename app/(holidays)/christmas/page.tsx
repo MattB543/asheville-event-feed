@@ -10,7 +10,7 @@ import AdminControls from '@/components/holidays/AdminControls';
 import AdminWallSearch from '@/components/holidays/AdminWallSearch';
 import AdventDoor from '@/components/holidays/christmas/AdventDoor';
 import SnowyFir from '@/components/holidays/christmas/SnowyFir';
-import { EventDialog, PopupLink } from '@/components/holidays/christmas/EventPopup';
+import { EventDialog, PopupLink } from '@/components/holidays/EventPopup';
 import MusicToggle from '@/components/holidays/christmas/MusicToggle';
 import SendSanta from '@/components/holidays/christmas/SendSanta';
 import { bodoni } from '@/components/holidays/christmas/fonts';
@@ -77,7 +77,14 @@ function Details({ event }: { event: HolidayEvent }) {
   const when = time(event);
   const price = event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : null;
   return (
-    <EventDialog eventId={event.id} title={event.title}>
+    <EventDialog
+      eventId={event.id}
+      title={event.title}
+      className="bg-[#f6efe2] text-[#10291f] backdrop:bg-[#0b1f17]/80"
+      // The double gold border of a Christmas card
+      frameClass="border-[3px] border-double border-[#c9a24a]"
+      closeClass="text-[#9f1239] hover:bg-[#9f1239]/10"
+    >
       <div className="grid gap-5 sm:grid-cols-[200px_1fr]">
         <div className="mx-auto w-48 self-start border-[5px] border-[#c9a24a] bg-[#c9a24a] shadow-[0_10px_24px_rgba(0,0,0,.3)] sm:w-full">
           <Poster
@@ -85,6 +92,7 @@ function Details({ event }: { event: HolidayEvent }) {
             title={event.title}
             sizes="200px"
             flyerTextClass="text-lg"
+            eager
             {...FLYER}
           />
         </div>

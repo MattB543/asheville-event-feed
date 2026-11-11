@@ -1,5 +1,5 @@
 import { env } from '@/lib/config/env';
-import { fetchWithRetry, HttpResponseError } from '@/lib/utils/retry';
+import { fetchWithRetry, HttpResponseError, isTransientStatus, withRetry } from '@/lib/utils/retry';
 import { isRateLimited } from '@/lib/utils/rate-limit';
 import { sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
@@ -33,23 +33,33 @@ let blockedUntil = 0;
 // the count is per server instance, so the real ceiling scales with instances
 const SEARCHES_PER_HOUR = 300;
 
+const TOKEN_URL = 'https://accounts.spotify.com/api/token';
+
 async function accessToken(): Promise<string> {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60_000) return cachedToken.value;
 
   const basic = Buffer.from(`${env.SPOTIFY_CLIENT_ID}:${env.SPOTIFY_CLIENT_SECRET}`).toString(
     'base64'
   );
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: env.SPOTIFY_REFRESH_TOKEN ?? '',
-    }),
-    signal: AbortSignal.timeout(15_000),
+  // A dropped connection or a server error is tried again; a refusal (4xx) comes straight
+  // back, since its body says why
+  const response = await withRetry(async () => {
+    const attempt = await fetch(TOKEN_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${basic}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: env.SPOTIFY_REFRESH_TOKEN ?? '',
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (isTransientStatus(attempt.status)) {
+      throw new HttpResponseError(attempt.status, attempt.statusText, TOKEN_URL, attempt.headers);
+    }
+    return attempt;
   });
   if (!response.ok) {
     // Spotify's reason is in the body; a 400 means the saved login itself was refused
@@ -75,18 +85,26 @@ async function accessToken(): Promise<string> {
   return cachedToken.value;
 }
 
-// Sign-ins last 6 months, so this fires twice a year at least; one Slack post a day is enough
+// Sign-ins last 6 months, so this fires twice a year at least; one Slack post a day is enough.
+// Each attempt is a failed `spotify-login` run (cron:health shows it); only one Slack
+// accepted counts as said, and a failed post is tried again at most every 15 minutes
 async function reportLoginRefused(reason: string): Promise<void> {
   try {
-    const [row] = await db.execute<{ id: string }>(sql`
-      INSERT INTO cron_job_runs (job_name, status, completed_at, result)
-      SELECT 'spotify-login', 'failed', now(), ${JSON.stringify({ error: reason })}::jsonb
-      WHERE NOT EXISTS (
-        SELECT 1 FROM cron_job_runs
-        WHERE job_name = 'spotify-login' AND started_at > now() - interval '1 day'
-      )
-      RETURNING id`);
-    if (row) await sendSpotifyLoginNotification(reason);
+    await db.transaction(async (tx) => {
+      // Requests failing at the same moment would otherwise each post
+      await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('spotify-login'))`);
+      const [recent] = await tx.execute<{ id: string }>(sql`
+        SELECT id FROM cron_job_runs
+        WHERE job_name = 'spotify-login'
+          AND (started_at > now() - interval '15 minutes'
+            OR (started_at > now() - interval '1 day' AND (result->>'notified')::boolean))
+        LIMIT 1`);
+      if (recent) return;
+      const notified = await sendSpotifyLoginNotification(reason);
+      await tx.execute(sql`
+        INSERT INTO cron_job_runs (job_name, status, completed_at, result)
+        VALUES ('spotify-login', 'failed', now(), ${JSON.stringify({ error: reason, notified })}::jsonb)`);
+    });
   } catch (error) {
     console.error('[Spotify] Could not report the refused login:', error);
   }

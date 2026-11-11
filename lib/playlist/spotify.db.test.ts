@@ -36,4 +36,27 @@ describe('a refused Spotify login', () => {
     await expect(searchTracks('Alex Bazemore')).rejects.toThrow('invalid_grant');
     expect(notify).toHaveBeenCalledTimes(2);
   });
+
+  it('tries Slack again later when the post fails, instead of going quiet for a day', async () => {
+    notify.mockResolvedValueOnce(false);
+    await expect(searchTracks('Alex Bazemore')).rejects.toThrow('invalid_grant');
+    await expect(searchTracks('Alex Bazemore')).rejects.toThrow('invalid_grant');
+    expect(notify).toHaveBeenCalledTimes(1);
+
+    await db.execute(sql`UPDATE cron_job_runs SET started_at = now() - interval '20 minutes'`);
+    await expect(searchTracks('Alex Bazemore')).rejects.toThrow('invalid_grant');
+    expect(notify).toHaveBeenCalledTimes(2);
+  });
+
+  it('asks Spotify again when its server errors, before giving up', async () => {
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('', { status: 503 }))
+      .mockResolvedValue(
+        Response.json({ error: 'invalid_grant', error_description: 'expired' }, { status: 400 })
+      );
+    vi.stubGlobal('fetch', fetch);
+    await expect(searchTracks('Alex Bazemore')).rejects.toThrow('invalid_grant');
+    expect(fetch).toHaveBeenCalledTimes(2);
+  });
 });

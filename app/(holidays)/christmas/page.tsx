@@ -233,7 +233,7 @@ export default async function ChristmasPage({
     open,
     previewing,
     canPreview,
-    over,
+    opensOn,
     failed,
     admin,
     addedIds,
@@ -299,7 +299,9 @@ export default async function ChristmasPage({
 
           {!open ? (
             <p className="py-14 text-center text-lg">
-              {over ? 'Christmas is over for this year.' : 'The calendar opens on December 1.'}{' '}
+              {opensOn
+                ? `The calendar opens on ${longDay(opensOn)}.`
+                : 'The calendar is closed for now.'}{' '}
               <Link href="/events" className={link}>
                 See what&apos;s on now
               </Link>

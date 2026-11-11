@@ -272,7 +272,7 @@ export default async function ThanksgivingPage({
     open,
     previewing,
     canPreview,
-    over,
+    opensOn,
     failed,
     admin,
     addedIds,
@@ -345,9 +345,9 @@ export default async function ThanksgivingPage({
 
             {!open ? (
               <p className="relative py-12 text-center text-lg">
-                {over
-                  ? 'The kitchen is closed for this year.'
-                  : 'Thanksgiving events go on the menu in November.'}{' '}
+                {opensOn
+                  ? `Thanksgiving goes on the menu on ${longDay(opensOn)}.`
+                  : 'The kitchen is closed for now.'}{' '}
                 <Link href="/events" className={link}>
                   See what&apos;s on now
                 </Link>

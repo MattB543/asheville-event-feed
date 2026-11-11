@@ -216,7 +216,7 @@ export default async function NewYearsPage({
     open,
     previewing,
     canPreview,
-    over,
+    opensOn,
     failed,
     admin,
     addedIds,
@@ -279,9 +279,9 @@ export default async function NewYearsPage({
 
           {!open ? (
             <p className="py-14 text-center text-lg">
-              {over
-                ? "That's a wrap on New Year's for this year."
-                : "New Year's plans go up on December 26."}{' '}
+              {opensOn
+                ? `New Year's plans go up on ${longDay(opensOn)}.`
+                : "New Year's is off for now."}{' '}
               <Link href="/events" className={link}>
                 See what&apos;s on now
               </Link>

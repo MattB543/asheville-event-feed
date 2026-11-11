@@ -133,7 +133,10 @@ export async function loadHolidayPage(
     // A closed page shown anyway, and whether this viewer may ask for that
     previewing,
     canPreview,
-    over: today > lastDay,
+    // When a closed page opens, from the season's own dates; null while an admin has it off
+    opensOn: seasons.find((s) => s.key === key)?.enabled
+      ? getDayBoundariesEastern(firstDay).start
+      : null,
     failed,
     admin,
     addedIds,

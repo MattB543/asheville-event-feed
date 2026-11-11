@@ -299,7 +299,7 @@ export default async function HalloweenPage({
     open,
     previewing,
     canPreview,
-    over,
+    opensOn,
     failed,
     admin,
     addedIds,
@@ -468,11 +468,11 @@ export default async function HalloweenPage({
 
           {!open ? (
             <p className="py-16 text-center text-lg text-gray-300">
-              {over
-                ? 'Halloween is over for this year.'
-                : 'Halloween events show up here on October 1.'}{' '}
+              {opensOn
+                ? `Halloween events show up here on ${longDay(opensOn)}.`
+                : 'Halloween is off for now.'}{' '}
               <Link href="/events" className="text-[#ffb35c] hover:underline">
-                See what&apos;s on {over ? 'next' : 'now'}
+                See what&apos;s on now
               </Link>
               {canPreview && (
                 <PreviewLink

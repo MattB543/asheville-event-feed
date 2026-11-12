@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import WholeImage from './WholeImage';
-import { eventSourceUrl } from '@/lib/utils/sourceUrl';
 import { ShareNote, useShareNote } from './ShareButton';
 import { useDismiss } from '@/lib/hooks/useDismiss';
 import Link from 'next/link';
@@ -412,7 +411,7 @@ export default function EventContent({
 
             {/* View Source */}
             <a
-              href={eventSourceUrl(event)}
+              href={event.url}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"

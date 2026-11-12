@@ -10,7 +10,18 @@ export function FavoritesSync() {
   return null;
 }
 
-export default function HeartButton({ eventId, title }: { eventId: string; title: string }) {
+export default function HeartButton({
+  eventId,
+  title,
+  onClass = 'border-red-800 bg-red-950/60 text-red-400',
+  offClass = 'border-gray-700 text-gray-200 hover:bg-white/5',
+}: {
+  eventId: string;
+  title: string;
+  /** The holiday page's colours, saved and not; the defaults suit a dark page */
+  onClass?: string;
+  offClass?: string;
+}) {
   const { favoriteIds, toggleFavorite } = useFavorites();
   const on = favoriteIds.includes(eventId);
   return (
@@ -23,9 +34,7 @@ export default function HeartButton({ eventId, title }: { eventId: string; title
         toggleFavorite(eventId).catch(() => undefined);
       }}
       className={`inline-flex h-7 w-7 items-center justify-center rounded-md border cursor-pointer ${
-        on
-          ? 'border-red-800 bg-red-950/60 text-red-400'
-          : 'border-gray-700 text-gray-200 hover:bg-white/5'
+        on ? onClass : offClass
       }`}
     >
       <Heart size={14} className={on ? 'fill-current' : ''} />

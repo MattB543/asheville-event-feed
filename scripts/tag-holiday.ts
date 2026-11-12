@@ -1,11 +1,11 @@
 /**
- * Give every Halloween event from today through Oct 31 (Eastern) the "Halloween" tag,
- * and take it off any that aren't, so the /halloween page and its "See all" link
- * (`tagsInclude=Halloween`) cover the same events. The AI reads each event in the
- * window; new events get the tag from the tagging prompt as they're enriched.
+ * Give every event of a holiday's season, from today through its last day (Eastern), the
+ * holiday's tag, and take it off any that aren't, so its page and "See all" link
+ * (`tagsInclude=<tag>`) cover the same events. The AI reads each event in the window, by the
+ * same rule as the tagging prompt; new events get the tag as they're enriched.
  *
- *   npx tsx scripts/tag-halloween.ts            # dry run: prints what would change
- *   npx tsx scripts/tag-halloween.ts --apply    # writes the tags
+ *   npx tsx scripts/tag-holiday.ts thanksgiving            # dry run: prints what would change
+ *   npx tsx scripts/tag-holiday.ts thanksgiving --apply    # writes the tags
  */
 
 import 'dotenv/config';
@@ -14,20 +14,27 @@ import { db } from '../lib/db';
 import { events } from '../lib/db/schema';
 import { liveEvent } from '../lib/db/liveEvent';
 import { azureChatCompletion, parseJsonFromModel } from '../lib/ai/provider-clients';
+import { HOLIDAYS, holidayFirstDay, holidayLastDay } from '../lib/holidays/config';
+import { loadSeasons } from '../lib/db/queries/seasonSettings';
 import { getDayBoundariesEastern, getTodayStringEastern } from '../lib/utils/timezone';
 
-const TAG = 'Halloween';
+function usage(): never {
+  console.error(
+    `Usage: npx tsx scripts/tag-holiday.ts <${HOLIDAYS.map((h) => h.key).join('|')}> [--apply]`
+  );
+  process.exit(1);
+}
+const holiday = HOLIDAYS.find((h) => h.key === process.argv[2]) ?? usage();
+const TAG = holiday.tag;
 const BATCH = 25;
 const CONCURRENCY = 4;
 const apply = process.argv.includes('--apply');
 
-const SYSTEM_PROMPT = `You decide which Asheville, NC events are Halloween events.
+const SYSTEM_PROMPT = `You decide which Asheville, NC events are ${TAG} events.
 
-Say yes when the event itself is themed around Halloween or the spooky season: a Halloween party, costume party or contest, trick-or-treating, trunk-or-treat, haunted house or trail, ghost or haunted tour, Halloween-themed class, craft, workout, market, run, story time or concert, Day of the Dead / Samhain celebrations, a "spooky", "boo", "creepy", "monster mash" or similar themed edition of a regular event. Horror, gothic, monster or witch-themed plays, films, readings and shows running this month count too: they are spooky-season fare (Dracula, Misery, Rocky Horror, Frankenstein, a horror film screening, ghost stories). Read the description: a listing whose description calls the night a Halloween show, party or celebration, or invites costumes for Halloween, is a yes even when the title says nothing.
+Say yes ${holiday.rule} Read the description: a listing whose description calls the event a ${TAG} one is a yes even when the title says nothing. Say no when it only shares a word with the holiday.
 
-Say no when the event only happens to fall in late October, or only shares a word: a masquerade gala or fashion show with no Halloween theme, a band, tour or venue whose name merely contains "ghost", "haunt" or "monster", a fall festival, corn maze or pumpkin patch with no Halloween theme, a regular drag, comedy, trivia or music night with nothing seasonal in its listing, generic networking.
-
-Return JSON: {"results": [{"n": <the event's n>, "halloween": true|false}]} with one entry per event given.`;
+Return JSON: {"results": [{"n": <the event's n>, "yes": true|false}]} with one entry per event given.`;
 
 interface Row {
   id: string;
@@ -57,14 +64,14 @@ async function classify(batch: Row[]): Promise<Map<string, boolean>> {
       reasoningEffort: 'medium',
       maxTokens: 6000,
     });
-    const parsed = parseJsonFromModel<{ results?: { n: number; halloween: boolean }[] }>(
+    const parsed = parseJsonFromModel<{ results?: { n: number; yes: boolean }[] }>(
       response?.content ?? '',
       'object'
     );
     const results = new Map<string, boolean>();
     for (const r of parsed?.results ?? []) {
       const event = typeof r?.n === 'number' ? batch[r.n] : undefined;
-      if (event && typeof r.halloween === 'boolean') results.set(event.id, r.halloween);
+      if (event && typeof r.yes === 'boolean') results.set(event.id, r.yes);
     }
     if (results.size === batch.length) return results;
     console.warn(`\nBatch answered ${results.size}/${batch.length}, retrying (${attempt}/3)`);
@@ -74,6 +81,11 @@ async function classify(batch: Row[]): Promise<Map<string, boolean>> {
 
 async function main() {
   const today = getTodayStringEastern();
+  const seasons = await loadSeasons();
+  const lastDay = holidayLastDay(holiday.key, seasons, today);
+  // Only the season's own days: a run that hasn't started yet is judged from its first day
+  const firstDay = holidayFirstDay(holiday.key, seasons, today);
+  const from = today > firstDay ? today : firstDay;
   const rows: Row[] = await db
     .select({
       id: events.id,
@@ -88,12 +100,12 @@ async function main() {
     .where(
       and(
         liveEvent,
-        gte(events.startDate, getDayBoundariesEastern(today).start),
-        lt(events.startDate, getDayBoundariesEastern(`${today.slice(0, 4)}-10-31`).end)
+        gte(events.startDate, getDayBoundariesEastern(from).start),
+        lt(events.startDate, getDayBoundariesEastern(lastDay).end)
       )
     )
     .orderBy(events.startDate);
-  console.log(`${rows.length} live events from ${today} through Oct 31`);
+  console.log(`${rows.length} live events from ${from} through ${lastDay}`);
 
   const batches: Row[][] = [];
   for (let i = 0; i < rows.length; i += BATCH) batches.push(rows.slice(i, i + BATCH));
@@ -112,14 +124,14 @@ async function main() {
 
   const add = rows.filter((e) => verdicts.get(e.id) && !(e.tags ?? []).includes(TAG));
   const remove = rows.filter((e) => !verdicts.get(e.id) && (e.tags ?? []).includes(TAG));
-  const halloween = rows.filter((e) => verdicts.get(e.id));
+  const tagged = rows.filter((e) => verdicts.get(e.id));
   console.log(
-    `\nHalloween: ${halloween.length}. Adding the tag to ${add.length}, removing it from ${remove.length}.`
+    `\n${TAG}: ${tagged.length}. Adding the tag to ${add.length}, removing it from ${remove.length}.`
   );
-  for (const e of halloween) console.log(`  + ${e.id.slice(0, 8)} ${e.title}`);
-  console.log('\nJudged not Halloween but matching a Halloween word (check these):');
-  const word =
-    /\b(hallowe|spook|haunt|zombie|costume|ghost|witch|monster|vampire|horror|goth|creep|masquerade|muertos|trick.or.treat|boo\b)/i;
+  for (const e of tagged) console.log(`  + ${e.id.slice(0, 8)} ${e.title}`);
+  console.log(`\nJudged not ${TAG} but matching a ${TAG} word (check these):`);
+  // The page's Postgres word pattern, in JavaScript
+  const word = new RegExp(holiday.titleWords.replace(/\\[mM]/g, '\\b'), 'i');
   for (const e of rows.filter(
     (e) => !verdicts.get(e.id) && word.test(`${e.title} ${e.aiSummary ?? ''}`)
   ))

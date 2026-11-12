@@ -5,6 +5,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import Header from '@/components/Header';
+import AdminNav from '@/components/admin/AdminNav';
 import AdminPosterQueue, { type AdminQueueUpload } from '@/components/posters/AdminPosterQueue';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
@@ -112,7 +113,7 @@ export default async function AdminPostersPage({
       <Header />
 
       <div className="flex-grow w-full max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Poster moderation</h1>
+        <AdminNav current="/admin/posters" />
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
           {showAll
             ? 'Every upload, newest first. Approving publishes the image and adds its events; taking one down hides them and deletes the public image.'

@@ -3,7 +3,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 import UserMenu from '@/components/UserMenu';
 import EventTabSwitcher, { type HeaderTab } from '@/components/EventTabSwitcher';
 import CityStatusBadges from '@/components/cityStatus/CityStatusBadges';
-import { SeasonalBadge, SeasonalBanner } from '@/components/seasonal/SeasonalLinks';
+import { SeasonalBadge, SeasonalBanner, SeasonalFlyby } from '@/components/seasonal/SeasonalLinks';
 
 /** "Open-sourced by Matt" (the footers carry a longer FooterCredit) */
 function Attribution({ className }: { className: string }) {
@@ -42,7 +42,8 @@ export default function Header({ activeTab }: HeaderProps) {
   return (
     <>
       <SeasonalBanner />
-      <header className="group/header bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <header className="group/header relative bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <SeasonalFlyby />
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
           {/* Mobile/Tablet layout */}
           <div className="flex flex-col gap-2 lg:hidden">

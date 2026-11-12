@@ -12,7 +12,36 @@ interface Result {
 }
 
 /** Season editors only: find any event on the wall's two nights and add it to the wall */
-export default function AdminWallSearch({ season, onWall }: { season: string; onWall: string[] }) {
+// Dark for Halloween's night sky and Christmas's pine, light for Thanksgiving's paper menu
+const TONES = {
+  dark: {
+    box: 'border-[#7a5426]/70 bg-black/40 text-[#e8cfa8]',
+    input: 'text-gray-100 placeholder:text-gray-500',
+    rows: 'divide-white/10',
+    title: 'text-gray-100',
+    meta: 'text-gray-400',
+    add: 'bg-[#ff8a1f] text-[#1a0a00]',
+  },
+  light: {
+    box: 'border-[#2a1a14]/25 bg-[#2a1a14]/[.03] text-[#8f1d2c]',
+    input: 'text-[#2a1a14] placeholder:text-[#6b5a50]/80',
+    rows: 'divide-[#2a1a14]/10',
+    title: 'text-[#2a1a14]',
+    meta: 'text-[#6b5a50]',
+    add: 'bg-[#8f1d2c] text-[#fffaf0]',
+  },
+};
+
+export default function AdminWallSearch({
+  season,
+  onWall,
+  tone = 'dark',
+}: {
+  season: string;
+  onWall: string[];
+  tone?: keyof typeof TONES;
+}) {
+  const look = TONES[tone];
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Result[]>([]);
@@ -24,7 +53,7 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
     if (q.length < 2) return undefined;
     const controller = new AbortController();
     const timer = setTimeout(() => {
-      fetch(`/api/admin/season-picks/search?q=${encodeURIComponent(q)}`, {
+      fetch(`/api/admin/season-picks/search?season=${season}&q=${encodeURIComponent(q)}`, {
         signal: controller.signal,
       })
         .then((response) =>
@@ -39,7 +68,7 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
       clearTimeout(timer);
       controller.abort();
     };
-  }, [query]);
+  }, [query, season]);
 
   const add = (eventId: string) =>
     startTransition(async () => {
@@ -59,8 +88,8 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
   const shown = query.trim().length < 2 ? [] : results;
 
   return (
-    <div className="mt-6 rounded-xl border border-dashed border-[#7a5426]/70 bg-black/40 p-3">
-      <label className="flex items-center gap-2 text-sm text-[#e8cfa8]">
+    <div className={`mt-6 rounded-xl border border-dashed p-3 ${look.box}`}>
+      <label className="flex items-center gap-2 text-sm">
         <Search size={15} aria-hidden="true" />
         <span className="sr-only">Find an event to add to the wall</span>
         <input
@@ -71,19 +100,21 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
             setQuery(event.target.value);
           }}
           placeholder="Admin: find an event to add to the wall"
-          className="w-full bg-transparent text-base text-gray-100 placeholder:text-gray-500 outline-none sm:text-sm [&::-webkit-search-cancel-button]:cursor-pointer"
+          className={`w-full bg-transparent text-base outline-none sm:text-sm [&::-webkit-search-cancel-button]:cursor-pointer ${look.input}`}
         />
       </label>
       {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
       {shown.length > 0 && (
-        <ul className="mt-2 flex flex-col divide-y divide-white/10">
+        <ul className={`mt-2 flex flex-col divide-y ${look.rows}`}>
           {shown.map((result) => {
             const already = onWall.includes(result.id);
             return (
               <li key={result.id} className="flex items-center justify-between gap-3 py-2">
                 <span className="min-w-0 text-sm">
-                  <span className="block truncate font-semibold text-gray-100">{result.title}</span>
-                  <span className="block truncate text-xs text-gray-400">
+                  <span className={`block truncate font-semibold ${look.title}`}>
+                    {result.title}
+                  </span>
+                  <span className={`block truncate text-xs ${look.meta}`}>
                     {new Date(result.startDate).toLocaleString('en-US', {
                       timeZone: 'America/New_York',
                       weekday: 'short',
@@ -94,13 +125,13 @@ export default function AdminWallSearch({ season, onWall }: { season: string; on
                   </span>
                 </span>
                 {already ? (
-                  <span className="shrink-0 text-xs text-gray-400">On the wall</span>
+                  <span className={`shrink-0 text-xs ${look.meta}`}>On the wall</span>
                 ) : (
                   <button
                     type="button"
                     disabled={pending}
                     onClick={() => add(result.id)}
-                    className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md bg-[#ff8a1f] px-2.5 py-1 text-xs font-bold text-[#1a0a00] disabled:opacity-50"
+                    className={`inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md px-2.5 py-1 text-xs font-bold disabled:opacity-50 ${look.add}`}
                   >
                     <Plus size={13} aria-hidden="true" />
                     Add

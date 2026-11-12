@@ -2,7 +2,8 @@
 
 import { Suspense, useState, useRef, useMemo, useId, type FocusEvent } from 'react';
 import { useAuth } from './AuthProvider';
-import { User, LogOut, ChevronDown, UserCircle } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { User, LogOut, ChevronDown, UserCircle, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useDismiss } from '@/lib/hooks/useDismiss';
@@ -55,6 +56,20 @@ function UserMenuContent({ query }: { query: string }) {
   }, [pathname, query]);
 
   useDismiss(isOpen, () => setIsOpen(false), [menuRef], buttonRef);
+
+  // Asked as soon as someone signs in, so the link is there when the menu opens
+  const { data: admin } = useQuery({
+    queryKey: ['admin-me', user?.id],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/me');
+      // A failed check is an error, not "not an admin", which would be kept for the whole visit
+      if (!response.ok) throw new Error(`Admin check failed (${response.status})`);
+      return ((await response.json()) as { admin: boolean }).admin;
+    },
+    enabled: !!user,
+    staleTime: Infinity,
+    retry: false,
+  });
 
   // A disclosure, not an ARIA menu: Tab moves through the links, so close once focus leaves it.
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
@@ -142,6 +157,12 @@ function UserMenuContent({ query }: { query: string }) {
             <UserCircle className="w-4 h-4" />
             Profile
           </Link>
+          {admin && (
+            <Link href="/admin" onClick={() => setIsOpen(false)} className={MENU_ITEM_CLASS}>
+              <Shield className="w-4 h-4" />
+              Admin
+            </Link>
+          )}
           <button
             type="button"
             onClick={() => void handleSignOut()}

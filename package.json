@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:log": "sh -c 'mkdir -p logs && next dev \"$@\" 2>&1 | tee -a logs/dev.log' --",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -40,6 +41,7 @@
     "db:check": "tsx scripts/maintenance/count-events.ts",
     "db:setup-local": "bash scripts/setup-local-db.sh",
     "playlist:local": "tsx scripts/playlist/run-local.ts",
+    "playlist:login": "tsx scripts/playlist/spotify-login.ts",
     "db:clear": "tsx scripts/maintenance/clear-db.ts",
     "db:count": "tsx scripts/maintenance/count-events.ts",
     "db:tags": "tsx scripts/maintenance/check-tags.ts",

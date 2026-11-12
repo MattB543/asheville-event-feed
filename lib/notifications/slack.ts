@@ -589,6 +589,24 @@ export async function sendPlaylistFailedNotification(error: unknown): Promise<bo
   );
 }
 
+/** Spotify refused the saved login, so new song lookups fail and Sunday's playlist will too */
+export async function sendSpotifyLoginNotification(reason: string): Promise<boolean> {
+  if (!isSlackEnabled()) return false;
+  return postToSlack(
+    [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `:warning: *Spotify refused the site's login* (${reason.slice(0, 200)})
+Sign-ins expire after 6 months. Run \`npm run playlist:login\` as the playlist's owner, put the new token in \`SPOTIFY_REFRESH_TOKEN\` in Vercel, and redeploy.`,
+        },
+      },
+    ],
+    'Spotify login notification'
+  );
+}
+
 /** A public signature on the /plan letter is waiting for the admin's review */
 export async function sendLetterSignatureNotification(signature: {
   name: string;

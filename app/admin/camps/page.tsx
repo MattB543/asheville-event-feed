@@ -7,6 +7,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import Header from '@/components/Header';
+import AdminNav from '@/components/admin/AdminNav';
 import CampAdmin, { type CampAdminData } from '@/components/camps/admin/CampAdmin';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
@@ -65,7 +66,7 @@ export default async function AdminCampsPage({
       <Header />
 
       <div className="flex-grow w-full max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Camp review</h1>
+        <AdminNav current="/admin/camps" />
 
         {data ? (
           <CampAdmin {...data} cardKeys={CAMP_CARD_KEYS} />

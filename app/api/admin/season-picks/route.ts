@@ -1,5 +1,5 @@
 /**
- * Hand edits to a holiday page (admins only): add an event to the weekend wall, hide one,
+ * Hand edits to a holiday page (admins only): add an event to the wall, hide one,
  * or give it a poster. JSON to add/hide; multipart (`season`, `eventId`, `poster` file) for a poster.
  */
 
@@ -7,7 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { revalidateTag } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { isAdmin } from '@/lib/utils/admin';
-import { SEASONS } from '@/lib/seasons';
+import { HOLIDAYS } from '@/lib/holidays/config';
 import { SEASON_PICKS_TAG, setSeasonPick } from '@/lib/db/queries/seasonPicks';
 import { normalizeImage } from '@/lib/posters/processUpload';
 import { uploadEventImage } from '@/lib/supabase/storage';
@@ -17,8 +17,8 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{
 // The host's own request limit is about 4.5 MB; the page shrinks photos before sending
 const MAX_POSTER_BYTES = 4 * 1024 * 1024;
 
-const isSeason = (value: unknown): value is string =>
-  SEASONS.some((season) => season.key === value);
+// Only seasons with a holiday page have picks
+const isSeason = (value: unknown): value is string => HOLIDAYS.some((h) => h.key === value);
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();

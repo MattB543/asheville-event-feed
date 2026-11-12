@@ -139,18 +139,20 @@ function Door({
         {[...list].sort(byTime).map((e) => {
           const when = eventTime(e);
           return (
-            <li key={e.id} className="flex gap-3">
+            // On phones the photo spans the door above the text; a stand-in flyer there only
+            // repeats the title, so it's left out
+            <li key={e.id} className="flex flex-col gap-3 sm:flex-row">
               <Details event={e} />
               <PopupLink
                 eventId={e.id}
                 href={eventHref(e)}
                 hidden
-                className="w-24 shrink-0 self-start border-[3px] border-[#c9a24a] bg-[#c9a24a]"
+                className="w-full shrink-0 self-start border-[3px] border-[#c9a24a] bg-[#c9a24a] max-sm:has-[[data-flyer]]:hidden sm:w-24"
               >
                 <Poster
                   src={hasLoadableEventImage(e.imageUrl) ? e.imageUrl : null}
                   title={e.title}
-                  sizes="96px"
+                  sizes="(min-width: 640px) 96px, 100vw"
                   flyerTextClass="text-xs"
                   {...FLYER}
                 />

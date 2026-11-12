@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import sharp from 'sharp';
+import { EVENT_IMAGES_BUCKET } from '@/lib/utils/eventImages';
 
-const BUCKET_NAME = 'event-images';
+const BUCKET_NAME = EVENT_IMAGES_BUCKET;
 
 // Private ingress bucket for user-uploaded posters. Images land here first and are
 // only copied into the public bucket once they clear the safety gate.

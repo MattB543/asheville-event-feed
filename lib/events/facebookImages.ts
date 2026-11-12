@@ -49,7 +49,12 @@ export async function copyFacebookImages(limit = 100) {
     await Promise.all(
       rows.slice(i, i + BATCH).map(async ({ id, imageUrl }) => {
         try {
-          const response = await fetch(imageUrl!, {
+          // The SQL match is a substring; only Facebook's own servers get fetched
+          const link = new URL(imageUrl!);
+          if (link.protocol !== 'https:' || !link.hostname.endsWith('.fbcdn.net')) {
+            throw new Error('not a Facebook image link');
+          }
+          const response = await fetch(link, {
             signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
           });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);

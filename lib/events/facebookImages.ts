@@ -18,8 +18,12 @@ function timeLimit<T>(work: Promise<T>, ms: number): Promise<T> {
   ]);
 }
 
-// The link's expiry is the hex Unix time in its `oe` parameter; a link without one is tried
-const linkExpired = sql`COALESCE(to_timestamp(('x' || lpad(substring(${events.imageUrl} from 'oe=([0-9A-Fa-f]+)'), 16, '0'))::bit(64)::bigint) < now(), false)`;
+// Real photos are a few hundred KB; this stops a bad link filling memory
+const MAX_BYTES = 10 * 1024 * 1024;
+
+// The link's expiry is the hex Unix time in its `oe` parameter. A link without a well-formed
+// one is tried, and an odd value can't make the whole query fail
+const linkExpired = sql`COALESCE(to_timestamp(('x' || lpad(substring(${events.imageUrl} from '[?&]oe=([0-9A-Fa-f]{1,8})(&|$)'), 8, '0'))::bit(32)::bigint) < now(), false)`;
 
 /**
  * Copies the Facebook images of upcoming live events into our own storage and points the
@@ -54,11 +58,18 @@ export async function copyFacebookImages(limit = 100) {
           if (link.protocol !== 'https:' || !link.hostname.endsWith('.fbcdn.net')) {
             throw new Error('not a Facebook image link');
           }
+          // A redirect could lead off Facebook's servers
           const response = await fetch(link, {
+            redirect: 'error',
             signal: AbortSignal.timeout(DEFAULT_FETCH_TIMEOUT_MS),
           });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const image = await normalizeImage(Buffer.from(await response.arrayBuffer()));
+          if (Number(response.headers.get('content-length')) > MAX_BYTES) {
+            throw new Error('image too large');
+          }
+          const bytes = Buffer.from(await response.arrayBuffer());
+          if (bytes.length > MAX_BYTES) throw new Error('image too large');
+          const image = await normalizeImage(bytes);
           if (!image.ok) throw new Error(image.message);
           const url = await timeLimit(
             uploadEventImage(image.buffer, id, 'image/jpeg', FACEBOOK_COPY_FOLDER),

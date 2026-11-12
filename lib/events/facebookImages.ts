@@ -8,6 +8,15 @@ import { FACEBOOK_CDN_LIKE, FACEBOOK_COPY_FOLDER } from '@/lib/utils/eventImages
 import { DEFAULT_FETCH_TIMEOUT_MS } from '@/lib/utils/retry';
 
 const BATCH = 5;
+// The scrape already runs up to 8 of its 13 minutes; whatever's left waits for the next run
+const BUDGET_MS = 2 * 60_000;
+
+function timeLimit<T>(work: Promise<T>, ms: number): Promise<T> {
+  return Promise.race([
+    work,
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timed out')), ms)),
+  ]);
+}
 
 // The link's expiry is the hex Unix time in its `oe` parameter; a link without one is tried
 const linkExpired = sql`COALESCE(to_timestamp(('x' || lpad(substring(${events.imageUrl} from 'oe=([0-9A-Fa-f]+)'), 16, '0'))::bit(64)::bigint) < now(), false)`;
@@ -35,7 +44,8 @@ export async function copyFacebookImages(limit = 100) {
     .limit(limit);
 
   const stats = { candidates: rows.length, copied: 0, failed: 0 };
-  for (let i = 0; i < rows.length; i += BATCH) {
+  const started = Date.now();
+  for (let i = 0; i < rows.length && Date.now() - started < BUDGET_MS; i += BATCH) {
     await Promise.all(
       rows.slice(i, i + BATCH).map(async ({ id, imageUrl }) => {
         try {
@@ -45,7 +55,10 @@ export async function copyFacebookImages(limit = 100) {
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const image = await normalizeImage(Buffer.from(await response.arrayBuffer()));
           if (!image.ok) throw new Error(image.message);
-          const url = await uploadEventImage(image.buffer, id, 'image/jpeg', FACEBOOK_COPY_FOLDER);
+          const url = await timeLimit(
+            uploadEventImage(image.buffer, id, 'image/jpeg', FACEBOOK_COPY_FOLDER),
+            DEFAULT_FETCH_TIMEOUT_MS
+          );
           // A new event on the URL reuses the path, so the query string keeps caches honest;
           // a row whose image changed meanwhile keeps the newer one
           const updated = await db

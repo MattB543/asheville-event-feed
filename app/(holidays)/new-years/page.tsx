@@ -119,22 +119,23 @@ function Details({ event }: { event: HolidayEvent }) {
   );
 }
 
-/** One event in a day's list: a small poster beside its title, time and place */
+/** One event in a day's list: a small poster beside its title, time and place, or on phones a
+ * full-width one above them (a stand-in flyer there only repeats the title, so it's left out) */
 function Row({ event, controls }: { event: HolidayEvent; controls?: ReactNode }) {
   const when = eventTime(event);
   return (
-    <li className="flex gap-3">
+    <li className="flex flex-col gap-3 sm:flex-row">
       <Details event={event} />
       <PopupLink
         eventId={event.id}
         href={eventHref(event)}
         hidden
-        className="w-20 shrink-0 self-start border-[3px] border-[#e9cf8a]/80 bg-[#e9cf8a]/80"
+        className="w-full shrink-0 self-start border-[3px] border-[#e9cf8a]/80 bg-[#e9cf8a]/80 max-sm:has-[[data-flyer]]:hidden sm:w-20"
       >
         <Poster
           src={hasLoadableEventImage(event.imageUrl) ? event.imageUrl : null}
           title={event.title}
-          sizes="80px"
+          sizes="(min-width: 640px) 80px, 100vw"
           flyerTextClass="text-[10px]"
           {...FLYER}
         />

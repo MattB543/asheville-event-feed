@@ -47,6 +47,7 @@ export default function Poster({
   }
   return (
     <div
+      data-flyer
       className="flex aspect-[3/4] flex-col items-center justify-center gap-2.5 p-4 text-center"
       style={{ background: flyerBackground }}
     >

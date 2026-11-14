@@ -9,6 +9,15 @@
  * blocks a real poster from ever landing.
  */
 
+/** The public Storage bucket holding our own copies of event images */
+export const EVENT_IMAGES_BUCKET = 'event-images';
+
+/** Facebook CDN image links, which stop working a few weeks after they're issued */
+export const FACEBOOK_CDN_LIKE = '%.fbcdn.net/%';
+/** Our own copies of Facebook images, which last */
+export const FACEBOOK_COPY_FOLDER = 'facebook';
+export const FACEBOOK_COPY_LIKE = `%/${EVENT_IMAGES_BUCKET}/${FACEBOOK_COPY_FOLDER}/%`;
+
 /** Static placeholder the AI cron's images pass applies. */
 export const DEFAULT_EVENT_IMAGE = '/asheville-default.jpg';
 

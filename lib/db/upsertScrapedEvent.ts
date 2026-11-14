@@ -4,6 +4,7 @@ import { db } from './index';
 import { events } from './schema';
 import type { ScrapedEvent } from '@/lib/scrapers/types';
 import type { LockedField } from '@/lib/events/edits';
+import { FACEBOOK_CDN_LIKE, FACEBOOK_COPY_LIKE } from '@/lib/utils/eventImages';
 
 /** Saves one scraped event by its URL. `inserted` is false when the URL was already stored. */
 export async function upsertScrapedEvent(event: ScrapedEvent): Promise<{ inserted: boolean }> {
@@ -76,7 +77,8 @@ export async function upsertScrapedEvent(event: ScrapedEvent): Promise<{ inserte
         imageUrl: unlessEdited(
           'imageUrl',
           events.imageUrl,
-          sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`
+          // Our copy of a Facebook image outlasts the fresh Facebook link, which expires in weeks
+          sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') WHEN ${events.imageUrl} LIKE ${FACEBOOK_COPY_LIKE} AND ${event.imageUrl ?? null}::text LIKE ${FACEBOOK_CDN_LIKE} THEN ${events.imageUrl} ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`
         ),
         interestedCount: event.interestedCount,
         goingCount: event.goingCount,

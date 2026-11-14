@@ -137,14 +137,19 @@ function Dish({
     event.price && event.price !== 'Unknown' ? formatPriceDisplay(event.price) : 'Market price';
   const when = eventTime(event);
   return (
-    <li className="flex gap-4 py-5 sm:gap-6">
+    // On phones the photo spans the card above the text, so nothing sits lopsided beside it
+    <li className="flex flex-col gap-4 py-5 sm:flex-row sm:gap-6">
       <Details event={event} />
       <PopupLink
         eventId={event.id}
         href={eventHref(event)}
         hidden
-        className={`relative shrink-0 self-start bg-white p-1.5 shadow-[0_6px_14px_rgba(60,30,20,.25)] ${
-          big ? 'w-24 rotate-[-2deg] sm:w-36' : 'w-20 rotate-[1.5deg] sm:w-24'
+        // A full-width stand-in flyer on a phone only repeats the title, including one swapped in for a
+        // photo that failed to load
+        className={`relative shrink-0 self-start bg-white p-1.5 shadow-[0_6px_14px_rgba(60,30,20,.25)] max-sm:has-[[data-flyer]]:hidden ${
+          big
+            ? 'w-full rotate-[-1deg] sm:w-36 sm:rotate-[-2deg]'
+            : 'w-full rotate-[0.75deg] sm:w-24 sm:rotate-[1.5deg]'
         }`}
       >
         {/* The paper clip holding the photo to the menu */}
@@ -155,8 +160,8 @@ function Dish({
         <Poster
           src={hasLoadableEventImage(event.imageUrl) ? event.imageUrl : null}
           title={event.title}
-          sizes={big ? '(min-width: 640px) 144px, 96px' : '(min-width: 640px) 96px, 80px'}
-          flyerTextClass={big ? 'text-sm sm:text-lg' : 'text-xs sm:text-sm'}
+          sizes={big ? '(min-width: 640px) 144px, 100vw' : '(min-width: 640px) 96px, 100vw'}
+          flyerTextClass={big ? 'text-3xl sm:text-lg' : 'text-3xl sm:text-sm'}
           {...FLYER}
         />
       </PopupLink>

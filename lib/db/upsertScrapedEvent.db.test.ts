@@ -81,6 +81,19 @@ describe('saving a scraped event', () => {
     expect(row.score).toBeNull();
   });
 
+  it('keeps our copy of a Facebook image over the fresh Facebook link', async () => {
+    const fb = 'https://scontent-atl3-2.xx.fbcdn.net/v/poster.jpg?oe=6A000000';
+    const copy = 'https://x.supabase.co/storage/v1/object/public/event-images/facebook/1.jpg?v=1';
+    await upsertScrapedEvent(scraped({ imageUrl: fb }));
+    await db.update(events).set({ imageUrl: copy }).where(eq(events.url, URL));
+
+    await upsertScrapedEvent(scraped({ imageUrl: fb.replace('poster', 'fresh') }));
+    expect((await stored()).imageUrl).toBe(copy);
+    // A new event on the URL brings its own image
+    await upsertScrapedEvent(scraped({ title: 'Open Mic Night', imageUrl: fb }));
+    expect((await stored()).imageUrl).toBe(fb);
+  });
+
   it('lets a rescheduled duplicate be judged again', async () => {
     await upsertScrapedEvent(scraped());
     await db.update(events).set({ dedupedAt: new Date() }).where(eq(events.url, URL));

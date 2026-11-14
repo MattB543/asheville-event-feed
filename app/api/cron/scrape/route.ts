@@ -37,6 +37,7 @@ import { env, isFacebookEnabled, isLocalScrapeRuntime } from '@/lib/config/env';
 import { findDuplicates, getIdsToRemove } from '@/lib/utils/deduplication';
 import { applyDuplicateGroup } from '@/lib/db/dedupWrites';
 import { upsertScrapedEvent } from '@/lib/db/upsertScrapedEvent';
+import { copyFacebookImages } from '@/lib/events/facebookImages';
 import { verifyAuthToken } from '@/lib/utils/auth';
 import { invalidateEventsCache } from '@/lib/cache/invalidation';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
@@ -404,6 +405,19 @@ export async function GET(request: Request) {
       }
     }
 
+    // Facebook's image links expire within weeks, so upcoming events get our own copy
+    let facebookImages: Awaited<ReturnType<typeof copyFacebookImages>> | { error: string };
+    try {
+      facebookImages = await copyFacebookImages();
+      console.log(
+        `[Scrape] Facebook images: ${facebookImages.copied} copied, ${facebookImages.failed} failed of ${facebookImages.candidates}`
+      );
+      if (facebookImages.copied > 0) eventsChanged = true;
+    } catch (error) {
+      facebookImages = { error: error instanceof Error ? error.message : String(error) };
+      console.error(`[Scrape] Facebook images failed: ${facebookImages.error}`);
+    }
+
     // Deduplication
     const dedupStartTime = Date.now();
     console.log('[Scrape] Running deduplication...');
@@ -557,6 +571,7 @@ export async function GET(request: Request) {
       },
       dbEventsBefore: stats.dbEventsBefore,
       dbEventsAfter: stats.dbEventsAfter,
+      facebookImages,
     };
 
     await completeCronJob(runId, result);

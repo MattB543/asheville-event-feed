@@ -97,6 +97,7 @@ async function scrapeDetail() {
       'new'.padEnd(7) +
       'updated'.padEnd(9) +
       'dupes'.padEnd(7) +
+      'photos'.padEnd(9) +
       'dur'
   );
   hr();
@@ -113,6 +114,8 @@ async function scrapeDetail() {
   // Runs each scraper took part in: the nightly ?only=local run has just the local-only ones.
   const appearances = new Map<string, number>();
   let sawNewFields = false;
+  // Facebook photo copies (result.facebookImages): a failed copy never fails the scrape
+  const photos = { runs: 0, copied: 0, failed: 0, threw: 0, error: '' };
 
   for (const run of runs) {
     const r = run.result ?? {};
@@ -126,12 +129,29 @@ async function scrapeDetail() {
       ? `${okCount}/${scrapers.length} ok${r.onlyLocal ? ' (local)' : ''}`
       : '(not recorded)';
 
+    // Runs from before the photo copying shipped have no facebookImages
+    const fb = r.facebookImages as
+      | { copied?: number; failed?: number; candidates?: number; error?: string }
+      | undefined;
+    let photoCell = '-';
+    if (fb?.error) {
+      photos.threw++;
+      photos.error = fb.error;
+      photoCell = 'error';
+    } else if (fb) {
+      photos.runs++;
+      photos.copied += fb.copied ?? 0;
+      photos.failed += fb.failed ?? 0;
+      photoCell = `${fb.copied ?? 0}/${fb.candidates ?? 0}`;
+    }
+
     console.log(
       run.t.padEnd(14) +
         scraperCell.padEnd(16) +
         String(inserted ?? '?').padEnd(7) +
         String(updated ?? '?').padEnd(9) +
         String((r.duplicatesRemoved as number) ?? '?').padEnd(7) +
+        photoCell.padEnd(9) +
         // A run whose process died never records a duration.
         (run.secs == null ? '?' : `${run.secs.toFixed(0)}s`)
     );
@@ -166,6 +186,22 @@ async function scrapeDetail() {
     console.log(
       `  New events on last run by source: ${topSources.map(([s, n]) => `${s}=${n}`).join(', ')}`
     );
+  }
+
+  // Facebook's photo links die about 4 days after they're scraped, so copies that keep
+  // failing lose photos for good. A few failures are normal (formats we don't accept).
+  if (photos.runs || photos.threw) {
+    console.log(
+      `  Facebook photos (copied/candidates above): ${photos.copied} copied, ${photos.failed} failed on ${photos.runs} run(s)`
+    );
+  }
+  if (photos.threw) {
+    problems.push(
+      `Facebook photo copying errored on ${photos.threw} run(s): ${photos.error.slice(0, 60)}`
+    );
+  }
+  if (photos.failed >= 10 && photos.failed > photos.copied) {
+    problems.push(`Facebook photos: ${photos.failed} copies failed vs ${photos.copied} copied.`);
   }
 
   if (failureTally.size) {

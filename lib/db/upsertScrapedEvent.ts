@@ -77,7 +77,7 @@ export async function upsertScrapedEvent(event: ScrapedEvent): Promise<{ inserte
         imageUrl: unlessEdited(
           'imageUrl',
           events.imageUrl,
-          // Our copy of a Facebook image outlasts the fresh Facebook link, which expires in weeks
+          // Our copy of a Facebook image outlasts the fresh Facebook link, which expires in days
           sql`CASE WHEN ${newEvent} THEN NULLIF(trim(${event.imageUrl ?? null}::text), '') WHEN ${events.imageUrl} LIKE ${FACEBOOK_COPY_LIKE} AND ${event.imageUrl ?? null}::text LIKE ${FACEBOOK_CDN_LIKE} THEN ${events.imageUrl} ELSE COALESCE(NULLIF(trim(${event.imageUrl ?? null}::text), ''), ${events.imageUrl}) END`
         ),
         interestedCount: event.interestedCount,

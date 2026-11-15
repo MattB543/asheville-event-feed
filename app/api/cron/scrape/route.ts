@@ -405,7 +405,7 @@ export async function GET(request: Request) {
       }
     }
 
-    // Facebook's image links expire within weeks, so upcoming events get our own copy
+    // Facebook's image links expire within days, so upcoming events get our own copy
     let facebookImages: Awaited<ReturnType<typeof copyFacebookImages>> | { error: string };
     try {
       facebookImages = await copyFacebookImages();

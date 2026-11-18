@@ -43,7 +43,7 @@ export function toDate(value: Date | string): Date {
   return value instanceof Date ? value : new Date(value);
 }
 
-function normalizeTop30KeyPart(value: string | null | undefined): string {
+export function normalizeTop30KeyPart(value: string | null | undefined): string {
   return (value || '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')

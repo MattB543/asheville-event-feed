@@ -1,9 +1,10 @@
 import { unstable_cache } from 'next/cache';
 import { db } from '@/lib/db';
-import { events } from '@/lib/db/schema';
+import { events, top30Ranks } from '@/lib/db/schema';
 import {
   and,
   or,
+  eq,
   gte,
   lte,
   asc,
@@ -792,7 +793,7 @@ const TOP30_SELECT_FIELDS = {
 };
 
 // Scored, live, in-person events in the next 30 days
-function buildTop30BaseWhere() {
+export function buildTop30BaseWhere() {
   const startOfToday = getStartOfTodayEastern();
   const todayStr = getTodayStringEastern();
   const thirtyDaysLaterStr = addDaysToDateString(todayStr, 30);
@@ -817,10 +818,22 @@ function buildTop30BaseWhere() {
   );
 }
 
+/** The lists the daily head-to-head pass orders (lib/top30/headToHead.ts). */
+export type RankedTop30Category = Exclude<Top30Category, 'overall'>;
+
+/** The 1-10 score each of those lists is about. */
+export const TOP30_CATEGORY_SCORE = {
+  weird: events.scoreAshevilleWeird, // "Asheville weird"
+  social: events.scoreSocial, // "Meet people"
+};
+
 /**
- * Top-scored events for one Top 30 category, best first. The ordering ends in
- * the id so it is deterministic: a 50-row and a 200-row query must agree on
- * their common prefix.
+ * Events for one Top 30 category, best first. Overall is by score. Weird and
+ * social list the events the daily head-to-head pass ranked, in its order, then
+ * everything else by that list's score (ties by overall score): the whole order
+ * until the pass has run, and where a newly scored event waits for the next one.
+ * The ordering ends in the id so it is deterministic: a 50-row and a 200-row
+ * query must agree on their common prefix.
  * Callers may ask for far more than 30: the client collapses duplicate
  * multi-day listings and then applies the user's filters, backfilling from
  * deeper in this list to keep 30 cards on screen without renumbering them.
@@ -832,42 +845,39 @@ export async function queryTop30CategoryEvents(
   const categoryLimit = Math.min(Math.max(limit, 1), TOP30_MAX_CANDIDATES);
   const baseWhere = buildTop30BaseWhere();
 
-  switch (category) {
-    case 'weird':
-      // "Asheville Weird" category
-      return db
-        .select(TOP30_SELECT_FIELDS)
-        .from(events)
-        .where(and(baseWhere, isNotNull(events.scoreAshevilleWeird)))
-        .orderBy(
-          desc(events.scoreAshevilleWeird),
-          desc(events.score),
-          asc(events.startDate),
-          asc(events.id)
-        )
-        .limit(categoryLimit);
-    case 'social':
-      // "Meet People" category
-      return db
-        .select(TOP30_SELECT_FIELDS)
-        .from(events)
-        .where(and(baseWhere, isNotNull(events.scoreSocial)))
-        .orderBy(
-          desc(events.scoreSocial),
-          desc(events.score),
-          asc(events.startDate),
-          asc(events.id)
-        )
-        .limit(categoryLimit);
-    default:
-      // "Top Overall" - base score
-      return db
-        .select(TOP30_SELECT_FIELDS)
-        .from(events)
-        .where(baseWhere)
-        .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
-        .limit(categoryLimit);
+  if (category === 'overall') {
+    return db
+      .select(TOP30_SELECT_FIELDS)
+      .from(events)
+      .where(baseWhere)
+      .orderBy(desc(events.score), asc(events.startDate), asc(events.id))
+      .limit(categoryLimit);
   }
+
+  const categoryScore = TOP30_CATEGORY_SCORE[category];
+  return (
+    db
+      .select(TOP30_SELECT_FIELDS)
+      .from(events)
+      // A rank counts only for the title it was given to: a renamed row is a different event
+      .leftJoin(
+        top30Ranks,
+        and(
+          eq(top30Ranks.eventId, events.id),
+          eq(top30Ranks.category, category),
+          eq(top30Ranks.title, events.title)
+        )
+      )
+      .where(and(baseWhere, isNotNull(categoryScore)))
+      .orderBy(
+        asc(top30Ranks.rank), // Postgres sorts NULLs (unranked) last
+        desc(categoryScore),
+        desc(events.score),
+        asc(events.startDate),
+        asc(events.id)
+      )
+      .limit(categoryLimit)
+  );
 }
 
 /**

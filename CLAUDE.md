@@ -315,6 +315,17 @@ per unusual genre tag ("Zydeco": accordion-led dance music from Louisiana), show
 a tooltip on /playlist. A null `note` means the genre is common enough to need none;
 either way the weekly job never asks about it again.
 
+### `top30_ranks` Table
+
+The order of the Top 30 "Meet people" (`social`) and "Asheville weird" (`weird`) lists
+(migration `drizzle/0028_top30_ranks.sql`, applied 2026-11-18; code in
+`lib/top30/headToHead.ts`). One row per ranked event: `category`, `event_id`, `rank`, and
+the `title` that was ranked. `queryTop30CategoryEvents` lists ranked events first, in rank
+order, then everything else by that list's 1-10 score (ties by overall score), which is the
+whole order when the table is empty. A rank counts only while the event still has that
+title (a renamed row is a different event on the same URL). Each daily run replaces a
+list's rows; a run that fails leaves them as they were. See "Top 30 head-to-head ranking".
+
 ### `letter_signatures` Table
 
 Signatures on the open letter at `/plan` (migration `drizzle/0024_letter_signatures.sql`,
@@ -377,6 +388,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `genre_notes`         | —                    | —                                                 |
 | `season_picks`        | —                    | —                                                 |
 | `letter_signatures`   | —                    | —                                                 |
+| `top30_ranks`         | —                    | —                                                 |
 | `camp_providers`      | —                    | —                                                 |
 | `camps`               | —                    | —                                                 |
 | `camp_sites`          | —                    | —                                                 |
@@ -400,6 +412,7 @@ RLS is enabled on all tables. Supabase's "RLS auto-enable trigger" is active, so
 | `/api/cron/dedup`         | Daily 4 AM ET   | AI semantic dedup of Top Events (score ≥15) over next 30 days                        |
 | `/api/cron/email-digest`  | Daily 7 AM ET   | Send daily/weekly email digests to subscribers                                       |
 | `/api/cron/top30-weekly`  | Fri 11 AM ET    | Weekly Top 30 email                                                                  |
+| `/api/cron/top30-rank`    | Daily 08:45 UTC | Rank the Meet people and Asheville weird lists head to head (AI)                     |
 | `/api/cron/playlist`      | Sun 7 AM ET     | Rebuild the weekly Spotify playlist (`?dryRun=1` to preview)                         |
 | `/api/cron/news-scrape`   | Every 3h at :40 | Local news: fetch sources + full text into `news_articles`                           |
 | `/api/cron/news-ai`       | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary                        |
@@ -664,6 +677,28 @@ remaining `getModel()` caller).
 - **Output**: rarity / unique / magnitude (0-10 each, total 0-30) plus Asheville-weird and social (1-10), using 20 similar events as context
 - **Group outings and watch parties** score as the small get-together they are, not as the attraction they visit or show (the prompt's "WHAT IS THIS LISTING ACTUALLY FOR?" section, 2026-11-18). Before that a seniors Meetup's trip to the Gingerbread competition scored 23 and a bar's livestream of an out-of-town concert was #4 overall. The scorer reads the first 1,500 chars of the description (was 300), because such listings describe the attraction first and say "join us" later.
 - The AI cron scores only events with no score, so a prompt change reaches existing rows only through `npx tsx scripts/ai/rescore-events.ts <idPrefix...> [--apply]` (dry run by default, prints old -> new).
+
+### Top 30 head-to-head ranking (`lib/top30/headToHead.ts`)
+
+The overall Top 30 is the score. The "Meet people" and "Asheville weird" lists are ranked
+by a daily pass instead (Matt, 2026-11-18), because each event's 1-10 social or weird
+score is given to it alone and leaves most of a list tied: 90 events sat at social 8, the
+tie was broken by overall score, and the list was mostly the biggest club nights.
+
+- **Candidates**: the 120 best by the list's own score among Top 30 events (next 30 days)
+  with an overall score of 13 or more. The floor keeps out thin listings (a 9/30 dinner
+  meetup); past it, size and fame count for nothing (a 12-player pickleball night is a
+  great social event). A multi-day run is one candidate, and of a weekly event's dates
+  only the soonest is ranked.
+- **One Azure call per list** (`reasoning_effort: 'medium'`, 25-45s) reads the candidates
+  side by side and returns the best 50 in order. They are saved to `top30_ranks`; events
+  it left out, and events scored since the last run, follow in the old score order.
+- **Stability**: the AI sees each candidate's place in the saved list and is told to keep
+  that order unless it has a reason, so a rerun moves events a few places at most.
+  Without that, two runs disagree a good deal (one event went from #3 to #18).
+- `npx tsx scripts/ai/rank-top30.ts [social|weird] [--fresh] [--apply]` runs it by hand
+  (dry run by default). Use `--fresh` after changing the prompt: it ignores the saved order.
+- The list briefs (what "meet people" and "weird" mean) are `LIST_BRIEF` in that file.
 
 ### Images
 
@@ -972,6 +1007,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
     { "path": "/api/cron/ai", "schedule": "20 */3 * * *" },
     { "path": "/api/cron/cleanup", "schedule": "30 1,4,7,10,13,16,19,22 * * *" },
     { "path": "/api/cron/dedup", "schedule": "0 8 * * *" },
+    { "path": "/api/cron/top30-rank", "schedule": "45 8 * * *" },
     { "path": "/api/cron/email-digest", "schedule": "0 12 * * *" },
     { "path": "/api/cron/top30-weekly", "schedule": "0 15 * * 5" },
     { "path": "/api/cron/playlist", "schedule": "0 11 * * 0" }
@@ -998,6 +1034,7 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - `/api/cron/ai`: 800s (13+ minutes, requires Fluid Compute)
 - `/api/cron/cleanup`: 300s (5 minutes)
 - `/api/cron/dedup`: 300s (5 minutes)
+- `/api/cron/top30-rank`: 600s (two AI calls of under a minute each; each may retry once at 180s)
 - `/api/cron/playlist`: 800s (worst-case AI, Spotify and sold-out timeouts exceed 300s)
 
 ### Manual Cron Trigger

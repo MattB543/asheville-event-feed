@@ -2,18 +2,22 @@ import { db } from '@/lib/db';
 import { cronJobRuns } from '@/lib/db/schema';
 import { eq, desc, and } from 'drizzle-orm';
 
-export type CronJobName =
-  | 'scrape'
-  | 'ai'
-  | 'cleanup'
-  | 'dedup'
-  | 'email-digest'
-  | 'verify'
-  | 'top30-weekly'
-  | 'news-scrape'
-  | 'news-ai'
-  | 'playlist'
-  | 'camps-refresh';
+/** Every tracked cron job: the last path segment of its /api/cron/ route */
+export const CRON_JOB_NAMES = [
+  'scrape',
+  'ai',
+  'cleanup',
+  'dedup',
+  'email-digest',
+  'verify',
+  'top30-weekly',
+  'top30-rank',
+  'news-scrape',
+  'news-ai',
+  'playlist',
+  'camps-refresh',
+] as const;
+export type CronJobName = (typeof CRON_JOB_NAMES)[number];
 export type CronJobStatus = 'running' | 'success' | 'failed';
 
 /**
@@ -119,22 +123,8 @@ export async function getLatestJobRuns(): Promise<
     result: Record<string, unknown> | null;
   }>
 > {
-  const jobNames: CronJobName[] = [
-    'scrape',
-    'ai',
-    'cleanup',
-    'dedup',
-    'email-digest',
-    'verify',
-    'top30-weekly',
-    'news-scrape',
-    'news-ai',
-    'playlist',
-    'camps-refresh',
-  ];
-
   const results = await Promise.all(
-    jobNames.map(async (jobName) => {
+    CRON_JOB_NAMES.map(async (jobName) => {
       const [latest] = await db
         .select()
         .from(cronJobRuns)
@@ -162,22 +152,9 @@ export async function getLatestJobRuns(): Promise<
  * Clean up old job runs (keep last 100 per job)
  */
 export async function cleanupOldRuns(): Promise<number> {
-  const jobNames: CronJobName[] = [
-    'scrape',
-    'ai',
-    'cleanup',
-    'dedup',
-    'email-digest',
-    'verify',
-    'top30-weekly',
-    'news-scrape',
-    'news-ai',
-    'playlist',
-    'camps-refresh',
-  ];
   let totalDeleted = 0;
 
-  for (const jobName of jobNames) {
+  for (const jobName of CRON_JOB_NAMES) {
     // Get IDs of runs to keep (latest 100)
     const runsToKeep = await db
       .select({ id: cronJobRuns.id })

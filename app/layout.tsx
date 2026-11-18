@@ -117,6 +117,11 @@ const themeScript = `
   })();
 `;
 
+// Rolls which of the header's three rotating pages gets the tab on this page load (ROTATING in
+// components/EventTabSwitcher.tsx). All three are in the HTML and globals.css hides the two
+// that lost, so this must run before first paint or the tab would visibly swap.
+const navPickScript = `document.documentElement.dataset.navPick = Math.floor(Math.random() * 3);`;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -126,6 +131,7 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: navPickScript }} />
         <JsonLd />
       </head>
       <body className={inter.className}>

@@ -1,7 +1,16 @@
 'use client';
 
 import { Suspense } from 'react';
-import { CalendarDays, Heart, Music, Tent, Trophy, Users } from 'lucide-react';
+import {
+  CalendarDays,
+  Heart,
+  LifeBuoy,
+  Music,
+  Tent,
+  Trophy,
+  Users,
+  type LucideIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import IntentLink from '@/components/IntentLink';
@@ -42,9 +51,32 @@ function TabsWithQuery(props: EventTabSwitcherProps) {
   return <Tabs {...props} query={searchParams.toString()} />;
 }
 
+/**
+ * One of these three, picked at random on each page load, gets the second tab; the other
+ * two sit under More. React can't make the pick: the server's HTML (often cached) is on
+ * screen before any of it runs, so the tab would visibly swap. Instead all three versions
+ * of the tab and of More are in the HTML, a script in the root layout's <head> sets
+ * <html data-nav-pick="0|1|2"> before first paint, and globals.css hides the `nav-pick-N`
+ * versions that lost. Client-side navigation keeps the pick; a full load rolls again.
+ * Adding a fourth page means changing that script and that CSS too.
+ */
+const ROTATING: {
+  tab: HeaderTab;
+  href: string;
+  label: string;
+  /** The tab's label below sm, where the full one doesn't fit */
+  short?: string;
+  icon: LucideIcon;
+}[] = [
+  { tab: 'plan', href: '/plan', label: 'Disaster Plan', icon: LifeBuoy },
+  { tab: 'playlist', href: '/playlist', label: 'Playlist', icon: Music },
+  // "Summer camps" as a tab runs 1px off a 360px phone
+  { tab: 'camps', href: '/camps', label: 'Summer camps', short: 'Camps', icon: Tent },
+];
+
 function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   // Build URL preserving other query params
-  // Disaster Plan and News link to their own plain routes (see below); only the event tabs carry params
+  // The rotating tab and News link to their own plain routes (see below); only the event tabs carry params
   const buildTabUrl = (tab: 'all' | 'top30') => {
     const params = new URLSearchParams(query);
     params.delete('tab'); // No longer using tab query param
@@ -68,18 +100,32 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
   return (
     // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+.
     // Below sm the padding is 6px and the text 13px so five tabs, "Disaster Plan" the
-    // widest, fit a 360px phone without wrapping (~320 of its 336px; at 14px/8px it was ~358)
+    // widest, fit a 360px phone without wrapping (334 of its 336px).
+    // The partner banner (public/embed/banner.js) keeps its own copy of these links
     <nav className="flex items-center sm:gap-1 whitespace-nowrap" aria-label="Event feed tabs">
       <EventsMenu
         activeTab={activeTab}
         allHref={buildTabUrl('all')}
         top30Href={buildTabUrl('top30')}
       />
-      {/* Plain /plan: the feed's filter params mean nothing on the letter.
-          /events, /plan and /news are dynamic, so they prefetch on hover, not on sight */}
-      <IntentLink href="/plan" className={tabClass(activeTab === 'plan')}>
-        Disaster Plan
-      </IntentLink>
+      {/* The rotating page: only the picked one shows. Plain links: the feed's filter params mean
+          nothing there. /events, /plan and /news are dynamic, so they prefetch on hover, not on sight */}
+      {ROTATING.map((page, pick) => (
+        <IntentLink
+          key={page.tab}
+          href={page.href}
+          className={`nav-pick-${pick} ${tabClass(activeTab === page.tab)}`}
+        >
+          {page.short ? (
+            <>
+              <span className="sm:hidden">{page.short}</span>
+              <span className="hidden sm:inline">{page.label}</span>
+            </>
+          ) : (
+            page.label
+          )}
+        </IntentLink>
+      ))}
       {/* News filters are its own, so the link drops the event tabs' params */}
       <IntentLink href="/news" className={tabClass(activeTab === 'news')}>
         News
@@ -88,16 +134,26 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
         Parking
       </Link>
       {/* No page of its own, so the label only opens the menu. Right-aligned: at the end of
-          the row, a left-aligned menu would run off a 360px phone */}
-      <HeaderMenu
-        label="More"
-        className={tabClass(activeTab === 'playlist' || activeTab === 'camps')}
-        align="right"
-        items={[
-          { href: '/playlist', label: 'Playlist', icon: Music, active: activeTab === 'playlist' },
-          { href: '/camps', label: 'Summer camps', icon: Tent, active: activeTab === 'camps' },
-        ]}
-      />
+          the row, a left-aligned menu would run off a 360px phone. One per pick, each holding
+          the two pages that pick leaves out */}
+      {ROTATING.map((picked, pick) => {
+        const underMore = ROTATING.filter((page) => page !== picked);
+        return (
+          <div key={picked.tab} className={`nav-pick-${pick}`}>
+            <HeaderMenu
+              label="More"
+              className={tabClass(underMore.some((page) => page.tab === activeTab))}
+              align="right"
+              items={underMore.map((page) => ({
+                href: page.href,
+                label: page.label,
+                icon: page.icon,
+                active: activeTab === page.tab,
+              }))}
+            />
+          </div>
+        );
+      })}
     </nav>
   );
 }

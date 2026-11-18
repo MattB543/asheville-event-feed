@@ -64,6 +64,21 @@ interface ScoreAIResponse {
 
 const SCORING_SYSTEM_PROMPT = `You are an expert Event Curator for Asheville, NC. Your goal is to rank events so that the "Score" acts as a discovery heat-map for the GENERAL Asheville event-goer — someone looking for fun, memorable, broadly appealing things to do.
 
+## FIRST: WHAT IS THIS LISTING ACTUALLY FOR?
+Score the gathering being listed, NOT the bigger thing it visits or shows. Compare the Organizer with the venue and with whoever produces the attraction, and read the whole description (group listings often open by describing the attraction and only later say "join us", "our meetup", "carpool", "meet me in the lobby").
+A listing is a GROUP OUTING when a social club, Meetup group, singles / seniors / newcomers / alumni group or other third party is only ATTENDING someone else's event or attraction together: a group trip to a festival, competition, exhibit, holiday display, game or concert, or a meal or carpool before one. A listing is a WATCH PARTY when a bar or group screens a livestream or broadcast of a concert, game or show happening somewhere else.
+For a group outing or watch party:
+- Magnitude: 1-3, the group's own turnout, never the attraction's crowd or prestige (a watch party at a bar: up to 4).
+- Unique: 5 at most. The outing is an ordinary get-together even when the attraction is spectacular.
+- Rarity: judge this group's outing, not the attraction (usually 5-7).
+- The TOURING ACT, ASHEVILLE TRADITION, "Asheville weird" bonus and venue rules below do NOT apply. The attraction's own listing carries that score.
+- Asheville Weird: score the get-together, not the attraction.
+- Social: score what the group actually does together. This can still be high.
+These rules exist only to stop a listing borrowing a bigger event's fame. They do NOT apply, and the dimensions below are used as normal, when:
+- the venue, promoter, festival or presenting organization lists its own event;
+- a group runs its own event (a dance collective's dance, a hash run, a club's own show, a volunteer day);
+- a group has an ordinary get-together with no bigger event or attraction involved (dinner, a bar or arcade night, a hike, a walk in a park, a game night).
+
 ## DIMENSION 1 - Rarity & Urgency (0-10)
 How "missable" is this? USE THE SIMILAR EVENTS LIST to determine how often this event recurs. Look at the DATES of high-similarity events (80%+) at the same venue — calculate the gap between dates to determine the real cadence.
 - 1-2: Daily or multiple times per week (Trivia night every Tuesday, daily yoga, recurring open mics 2-3x/week).
@@ -119,7 +134,7 @@ IMPORTANT — SCORE THE MECHANICS, NOT THE MARKETING: Words like "community," "c
 
 ## CALIBRATION LOGIC:
 - If it's a TOURING ACT at a major venue (Orange Peel, Grey Eagle, Rabbit Rabbit), it should automatically start at 18+ total.
-- If it's a massive ASHEVILLE TRADITION (Gingerbread competition, Crankie Fest), it should score 20+.
+- If it's a massive ASHEVILLE TRADITION (Gingerbread competition, Crankie Fest), it should score 20+. This means the tradition's own listing, never a group's outing to it.
 - RECURRING EVENT RULE: A weekly event can still score high on Magnitude/Uniqueness. Don't let a "1" in Rarity crush a "9" in Magnitude.
 - THE TRIVIA/KARAOKE CAP: Standard pub trivia, karaoke, and open mics should NEVER score higher than a 4 in "Unique" and "Magnitude" unless there is a significant, documented "Main Character" twist.
 - THE "ASHEVILLE WEIRD" BONUS: Reward events that are uniquely "Asheville" (e.g., busking festivals, mountain-specific crafts, or "Crankie Fest") with +2 to the "Unique" score.
@@ -162,7 +177,9 @@ export async function generateEventScore(
   // Build event info
   const eventInfo = [
     `Title: ${event.title}`,
-    event.description ? `Description: ${event.description.slice(0, 300)}` : null,
+    // 300 chars was too few: a group's outing to a big attraction opens by
+    // describing the attraction and says "join us" later.
+    event.description ? `Description: ${event.description.slice(0, 1500)}` : null,
     event.location ? `Location: ${event.location}` : null,
     event.organizer ? `Organizer: ${event.organizer}` : null,
     event.tags?.length ? `Tags: ${event.tags.join(', ')}` : null,

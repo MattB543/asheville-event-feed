@@ -101,6 +101,7 @@ function Tabs({ activeTab, query }: EventTabSwitcherProps & { query: string }) {
     // Content-width tabs: 36px tall below lg (touch), the original 32px at lg+.
     // Below sm the padding is 6px and the text 13px so five tabs, "Disaster Plan" the
     // widest, fit a 360px phone without wrapping (334 of its 336px).
+    // The partner banner (public/embed/banner.js) keeps its own copy of these links
     <nav className="flex items-center sm:gap-1 whitespace-nowrap" aria-label="Event feed tabs">
       <EventsMenu
         activeTab={activeTab}

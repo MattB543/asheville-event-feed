@@ -656,11 +656,14 @@ remaining `getModel()` caller).
 - **Input**: Event title, description, location, organizer, date
 - **Output**: 1-4 official tags from `lib/config/tagCategories.ts`, up to 5 custom tags, and a 1-2 sentence summary for semantic search
 - **Categories**: Entertainment, Food & Drink, Activities, Audience/Social, Other
+- **Online-only events are hidden** (Matt, 2026-11-18: AVL GO lists in-person events only). The same call returns `onlineOnly` (Zoom, webinars, virtual classes; not hybrid, not a venue showing a livestream), and the AI cron sets `hidden` on those, listing them in the run's `result.hiddenOnline`. Restore with `hidden = false`. `ONLINE_ALLOWED_SOURCES` (City of Asheville, Buncombe County) are exempt, so remote public meetings stay. `npx tsx scripts/hide-online-events.ts [--apply]` judges already-tagged upcoming events that mention being online (2026-11-18: 42 of 144 hidden). The feed queries' `%online%` / `%virtual%` location filter is still there but no longer the only guard: a Zoom speed-dating Meetup with a map code for a location had reached #5 in the social Top 30.
 
 ### Scoring (`lib/ai/scoring.ts`)
 
 - **Model**: Azure OpenAI
 - **Output**: rarity / unique / magnitude (0-10 each, total 0-30) plus Asheville-weird and social (1-10), using 20 similar events as context
+- **Group outings and watch parties** score as the small get-together they are, not as the attraction they visit or show (the prompt's "WHAT IS THIS LISTING ACTUALLY FOR?" section, 2026-11-18). Before that a seniors Meetup's trip to the Gingerbread competition scored 23 and a bar's livestream of an out-of-town concert was #4 overall. The scorer reads the first 1,500 chars of the description (was 300), because such listings describe the attraction first and say "join us" later.
+- The AI cron scores only events with no score, so a prompt change reaches existing rows only through `npx tsx scripts/ai/rescore-events.ts <idPrefix...> [--apply]` (dry run by default, prints old -> new).
 
 ### Images
 

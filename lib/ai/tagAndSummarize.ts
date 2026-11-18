@@ -20,6 +20,8 @@ export interface EventData {
 export interface TagAndSummaryResult {
   tags: string[];
   summary: string | null;
+  /** The event happens entirely online (Zoom, webinar). AVL GO lists in-person events only. */
+  onlineOnly: boolean;
 }
 
 /**
@@ -43,7 +45,15 @@ export type TagAndSummaryOutcome =
       error: string;
     } & TagAndSummaryResult);
 
-const EMPTY_RESULT: TagAndSummaryResult = { tags: [], summary: null };
+/**
+ * Sources whose online-only events stay listed: remote public meetings are
+ * civic information, and their scrapers already label them "Remote meeting".
+ * Everything else that is online-only is hidden (`hidden`; restore with
+ * hidden = false).
+ */
+export const ONLINE_ALLOWED_SOURCES: readonly string[] = ['CITY_OF_ASHEVILLE', 'BUNCOMBE_COUNTY'];
+
+const EMPTY_RESULT: TagAndSummaryResult = { tags: [], summary: null, onlineOnly: false };
 
 function failure(
   reason: TagAndSummaryFailureReason,
@@ -66,6 +76,7 @@ interface TagAndSummaryAIResponse {
   official?: unknown;
   custom?: unknown;
   summary?: string;
+  onlineOnly?: unknown;
 }
 
 // All allowed official tags - AI must ONLY use tags from this list.
@@ -86,13 +97,15 @@ function buildAllowedTagsSection(): string {
   }).join('\n\n');
 }
 
-const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You will analyze events and provide two things:
+const SYSTEM_PROMPT = `You are an expert event analyzer for Asheville, NC. You will analyze events and provide three things:
 
 1. TAGS - Assign tags in two categories:
    - OFFICIAL TAGS (1-4 tags): Select ONLY from the allowed list below
    - CUSTOM TAGS (1-5 tags): Create descriptive tags for genre, vibe, skill level, venue type, etc.
 
 2. SUMMARY - Generate a 1-2 sentence structured summary for semantic search.
+
+3. ONLINE ONLY - true when the event happens entirely online, with nowhere to attend in person: a Zoom call or video meetup, a webinar, a virtual class, a livestream people watch from home. false for in-person events, for hybrid events (in person with an online option), and for a venue showing a livestream to a crowd in the room. A real street address does not make an online event in-person (Meetup groups often list a placeholder location); go by what the title, description and location say about how people attend. When it is unclear, false.
 
 ## ALLOWED OFFICIAL TAGS (use ONLY these exact tag names):
 
@@ -122,7 +135,7 @@ ${buildAllowedTagsSection()}
 - Good: "Guided silent practice focusing on traditional Buddhist techniques and community empowerment."
 
 Return ONLY valid JSON in this format:
-{"official": ["Tag1", "Tag2"], "custom": ["tag1", "tag2"], "summary": "Your summary here."}`;
+{"official": ["Tag1", "Tag2"], "custom": ["tag1", "tag2"], "summary": "Your summary here.", "onlineOnly": false}`;
 
 /**
  * Generate both tags and summary for an event in a single Azure OpenAI call.
@@ -250,7 +263,7 @@ export async function generateTagsAndSummary(event: EventData): Promise<TagAndSu
       return { ...failure('permanent', 'Model returned no usable tags or summary') };
     }
 
-    return { ok: true, tags, summary };
+    return { ok: true, tags, summary, onlineOnly: parsed.onlineOnly === true };
   } catch (error) {
     const reason = classifyError(error);
     console.error(

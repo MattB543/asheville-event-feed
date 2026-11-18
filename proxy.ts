@@ -1,12 +1,22 @@
-import { type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
 
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+
 export async function proxy(request: NextRequest) {
+  // Sibling subdomains (nathan.avlgo.com) are same-site, so browsers attach our Lax session
+  // cookie to requests they start, and CORS doesn't stop a "simple" POST from taking effect.
+  // Refuse any signed-in write another origin started. No Origin (server-to-server) passes
+  const origin = request.headers.get('origin');
+  if (!SAFE_METHODS.has(request.method) && origin && origin !== request.nextUrl.origin) {
+    return NextResponse.json({ error: 'Cross-origin request refused' }, { status: 403 });
+  }
   return await updateSession(request);
 }
 
 /*
- * The proxy only refreshes an existing Supabase session, so it runs only when the request
+ * The proxy refreshes an existing Supabase session and refuses signed-in writes from other
+ * origins (see above). Both need a session, so it runs only when the request
  * carries a session cookie: `sb-<project ref>-auth-token`, or `.0`, `.1`, ... when Supabase
  * splits the session into chunks. That skips anonymous visitors and crawlers, which were most
  * of its ~375k daily invocations. The cookie is matched on the raw Cookie header because Next
@@ -22,6 +32,8 @@ export async function proxy(request: NextRequest) {
  * Paths it never runs on, signed in or not:
  * - _next/static, _next/image, favicon.ico and public assets (images, fonts, etc.)
  * - avl-data/ (the PostHog proxy rewrite)
+ * - embed/ (the partner banner script nathan.avlgo.com loads; that page is same-site, so
+ *   signed-in visitors' cookies come along on every load)
  * - api/city-status (anonymous, polled every minute by every open tab, CDN-cached:
  *   a session refresh here would cost a Supabase call and a Set-Cookie that defeats the cache)
  * - Public docs, crawler files and the documented exports (developers, openapi.json,
@@ -37,7 +49,7 @@ export const config = {
   matcher: [
     {
       source:
-        '/((?!_next/static|_next/image|favicon.ico|avl-data/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|api/camps/export/(?:json|markdown)/?$|api/camps/calendar/|api/camps/[^/]+/view/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
+        '/((?!_next/static|_next/image|favicon.ico|avl-data/|embed/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|api/camps/export/(?:json|markdown)/?$|api/camps/calendar/|api/camps/[^/]+/view/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
       has: [
         {
           type: 'header',

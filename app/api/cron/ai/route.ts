@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { events, newsletterSettings } from '@/lib/db/schema';
 import { asc, eq, or, like, lte, sql, isNull, and, isNotNull, inArray } from 'drizzle-orm';
-import { generateTagsAndSummary } from '@/lib/ai/tagAndSummarize';
+import { generateTagsAndSummary, ONLINE_ALLOWED_SOURCES } from '@/lib/ai/tagAndSummarize';
 import { generateEmbedding, createEmbeddingText } from '@/lib/ai/embedding';
 import {
   buildMissingScoreUpdate,
@@ -112,6 +112,8 @@ export async function GET(request: Request) {
   // Stats tracking
   const stats = {
     combined: { duration: 0, success: 0, failed: 0, total: 0 },
+    // Online-only events hidden this run: the only record of why they vanished
+    hiddenOnline: [] as { id: string; title: string }[],
     embeddings: { duration: 0, success: 0, failed: 0, total: 0 },
     scoring: { duration: 0, success: 0, failed: 0, total: 0, skippedRecurring: 0 },
     images: { duration: 0, success: 0, failed: 0, total: 0 },
@@ -136,6 +138,7 @@ export async function GET(request: Request) {
     const eventsNeedingProcessing = await db
       .select({
         id: events.id,
+        source: events.source,
         title: events.title,
         description: events.description,
         location: events.location,
@@ -257,16 +260,28 @@ export async function GET(request: Request) {
                 return;
               }
 
+              // AVL GO lists in-person events only. An online-only event is
+              // hidden everywhere (restore with hidden = false; it has tags by
+              // then, so this pass won't judge it again).
+              const hideAsOnline =
+                result.onlineOnly && !ONLINE_ALLOWED_SOURCES.includes(event.source);
+
               await db
                 .update(events)
                 .set({
                   ...updateData,
+                  ...(hideAsOnline ? { hidden: true } : {}),
                   aiAttempts: 0,
                   aiLastAttemptAt: attemptedAt,
                   aiNextAttemptAt: null,
                 })
                 .where(eq(events.id, event.id));
               eventsChanged = true;
+
+              if (hideAsOnline) {
+                stats.hiddenOnline.push({ id: event.id, title: event.title });
+                console.log(`[AI] Hid online-only event ${event.id}: "${event.title}"`);
+              }
 
               stats.combined.success++;
             } catch (err) {
@@ -918,6 +933,7 @@ export async function GET(request: Request) {
         success: stats.combined.success,
         failed: stats.combined.failed,
       },
+      hiddenOnline: stats.hiddenOnline,
       embeddings: {
         total: stats.embeddings.total,
         success: stats.embeddings.success,

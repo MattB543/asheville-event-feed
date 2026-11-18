@@ -861,6 +861,24 @@ export const letterSignatures = pgTable(
   })
 );
 
+// The daily head-to-head order of the Top 30 "Meet people" and "Asheville weird" lists
+// (drizzle/0028, lib/top30/headToHead.ts). `title` is the title that was ranked.
+export const top30Ranks = pgTable(
+  'top30_ranks',
+  {
+    category: text('category').notNull(), // 'social' | 'weird'
+    eventId: uuid('event_id')
+      .notNull()
+      .references(() => events.id, { onDelete: 'cascade' }),
+    rank: integer('rank').notNull(),
+    title: text('title').notNull(),
+    rankedAt: timestamp('ranked_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.category, table.eventId] }),
+  })
+);
+
 // A one-line explanation of an unusual genre tag, for the /playlist tooltip.
 // A null note means the genre is common enough to need none.
 export const genreNotes = pgTable('genre_notes', {

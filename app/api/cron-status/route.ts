@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getLatestJobRuns, type CronJobName, type CronJobStatus } from '@/lib/cron/jobTracker';
+import {
+  CRON_JOB_NAMES,
+  getLatestJobRuns,
+  type CronJobName,
+  type CronJobStatus,
+} from '@/lib/cron/jobTracker';
 import { formatDistanceToNow, intervalToDuration } from 'date-fns';
 import vercelConfig from '@/vercel.json';
 
@@ -33,6 +38,10 @@ const JOB_METADATA: Record<CronJobName, { displayName: string; description: stri
     displayName: 'Top 30 Weekly',
     description: 'Sends weekly Top 30 roundup emails to subscribed users on Fridays.',
   },
+  'top30-rank': {
+    displayName: 'Top 30 Ranking',
+    description: 'Ranks the Meet people and Asheville weird lists head to head with AI.',
+  },
   'news-scrape': {
     displayName: 'News Scrape',
     description: 'Fetches local news sources and their full text.',
@@ -52,24 +61,9 @@ const JOB_METADATA: Record<CronJobName, { displayName: string; description: stri
   },
 };
 
-// Valid cron job names from vercel.json
-const VALID_JOB_NAMES = [
-  'scrape',
-  'verify',
-  'ai',
-  'cleanup',
-  'dedup',
-  'email-digest',
-  'top30-weekly',
-  'news-scrape',
-  'news-ai',
-  'playlist',
-  'camps-refresh',
-] as const;
-
 // Type guard to check if a string is a valid CronJobName
 function isValidJobName(name: string): name is CronJobName {
-  return (VALID_JOB_NAMES as readonly string[]).includes(name);
+  return (CRON_JOB_NAMES as readonly string[]).includes(name);
 }
 
 // Read actual cron schedules from vercel.json (single source of truth)

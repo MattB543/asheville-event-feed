@@ -78,6 +78,16 @@ body {
   font-family: 'DM Sans', system-ui, sans-serif;
 }
 
+/* The header's rotating tab (ROTATING in components/EventTabSwitcher.tsx): a script in the
+   root layout's <head> picks 0-2 on each page load and the versions that lost are hidden.
+   With no pick (scripts off), version 0 shows. */
+html[data-nav-pick='1'] .nav-pick-0,
+html[data-nav-pick='2'] .nav-pick-0,
+html:not([data-nav-pick='1']) .nav-pick-1,
+html:not([data-nav-pick='2']) .nav-pick-2 {
+  display: none;
+}
+
 /* Display font for headlines */
 .font-display {
   font-family: 'Fraunces', Georgia, serif;

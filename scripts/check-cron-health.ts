@@ -523,10 +523,12 @@ async function campsRefresh() {
   }
 
   // The providers the refresh looks after (WebTrac's catalog is refreshed by hand): not the ones
-  // whose camps are all too far away to list, which the newest run names
+  // whose camps are all too far away to list, which the newest full run names (a run of named
+  // providers, `--only`, skips none and lists none)
   const skipped =
-    (runs.find((run) => Array.isArray(run.result?.outOfRange))?.result?.outOfRange as string[]) ??
-    [];
+    runs
+      .map((run) => run.result?.outOfRange)
+      .find((list): list is string[] => Array.isArray(list) && list.length > 0) ?? [];
   const [freshness] = await sql<{ total: number; stale: number; failing: number }[]>`
     select count(*)::int as total,
            count(*) filter (where greatest(checked_at, extracted_at)

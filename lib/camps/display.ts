@@ -8,7 +8,7 @@
  * every date and time in them is well-formed.
  */
 
-import { parseAsEastern } from '@/lib/utils/timezone';
+import { getDateStringEastern, parseAsEastern } from '@/lib/utils/timezone';
 import type {
   AgeRange,
   Audience,
@@ -24,6 +24,7 @@ import type {
   CampListCard,
   CampListItem,
   CampListMilestone,
+  CampListSession,
   CampSiteInfo,
 } from '@/lib/db/queries/camps';
 
@@ -541,9 +542,10 @@ const MAX_DETAILS = 3;
  * order, say where registration stands today (each opening starts a window, a close ends it, a
  * deadline ends it unless a later end is ahead, and only an opening reopens it); lottery results,
  * and dates for members or returning campers, are only details. What the camp says about the whole
- * camp now (open, waitlist, full, closed) wins over the dates. "Open now" needs the camp saying
- * it's open: an opening that has passed, with nothing said since, is history ("Registration opened
- * Jan 10").
+ * camp now (open, waitlist, full, closed) wins over the dates, except that "open" doesn't outlast
+ * a public close or final deadline that has passed, and nothing outlasts the end of camp. "Open
+ * now" needs the camp saying it's open, for all of it or a part: an opening that has passed, with
+ * nothing said since, is history ("Registration opened Jan 10").
  *
  * `earliestOpening` (the directory's cards, Matt's call): the opening that leads is the earliest
  * still ahead for anyone, members, returning campers and 'other' families (staff, scholarship ...)
@@ -594,10 +596,25 @@ export function registrationLine(
   // A card still on 2026 describes 2026's availability, which says nothing about 2027.
   const availability = card.season.year === TARGET_SEASON ? card.availability : null;
   const campWide = availability && coversCamp(availability.scope) ? availability : null;
+  // Availability for part of the camp ("Session One", "New campers")
+  const partial = availability && !campWide ? availability : null;
   const scoped =
     availability?.scope && !coversCamp(availability.scope) && !SYSTEM_SCOPE.test(availability.scope)
       ? availability
       : null;
+  // Camp's last day: once it has gone, so has 2027's registration, whatever the camp said before
+  const seasonEnd =
+    card.season.year === TARGET_SEASON
+      ? [
+          card.season.end,
+          ...card.sessions
+            .filter((session) => session.year === TARGET_SEASON)
+            .map((session) => session.end),
+        ]
+          .filter((date): date is string => !!date)
+          .sort()
+          .at(-1)
+      : undefined;
 
   /** "Member registration opens Jan 10, 2027, 9 AM"; a past date without its time. */
   const say = (milestone: CampListMilestone): RegistrationNote => {
@@ -620,10 +637,26 @@ export function registrationLine(
     [
       ...first,
       ...ahead.filter((milestone) => !leads.includes(milestone)).map(say),
-      scoped && plain(`${AVAILABILITY_LABELS[scoped.status] ?? scoped.status}: ${scoped.scope}`),
+      // "Partly full", not "Some sessions full": the part can be grades or an audience
+      scoped &&
+        plain(
+          `${scoped.status === 'mixed' ? 'Partly full' : (AVAILABILITY_LABELS[scoped.status] ?? scoped.status)}: ${scoped.scope}`
+        ),
     ]
       .filter((note): note is RegistrationNote => !!note)
       .slice(0, MAX_DETAILS);
+
+  // The summer's camp is over: nothing the camp said about registration before still holds
+  if (seasonEnd && now >= upcomingUntil({ date: seasonEnd, time: null, precision: 'date' })) {
+    return {
+      tone: 'closed',
+      text: `${TARGET_SEASON} camp ended ${formatDate(seasonEnd, true)}`,
+      unconfirmed: false,
+      details: [],
+      sortDate: null,
+      status: 'full',
+    };
+  }
 
   // The camp says it's full or waitlisted, or closed with no opening ahead (closed before an
   // opening is just "not open yet", and the opening leads below)
@@ -643,11 +676,9 @@ export function registrationLine(
     };
   }
 
-  // Open: the camp says so. A deadline still ahead leads, being what a parent acts on.
-  if (campWide && (campWide.status === 'available' || campWide.status === 'mixed')) {
-    const status = plain(
-      campWide.status === 'mixed' ? '2027: open, some sessions full' : '2027 registration open'
-    );
+  /** Open: the camp says so. A deadline still ahead leads, being what a parent acts on. */
+  const open = (text: string): RegistrationLine => {
+    const status = plain(text);
     const lead = nextEnd ? say(nextEnd) : status;
     return {
       tone: 'open',
@@ -656,12 +687,25 @@ export function registrationLine(
       sortDate: nextEnd?.date ?? null,
       status: 'open',
     };
+  };
+
+  // The camp says it's open, unless a public close or final deadline has passed since (closedBy):
+  // an "available" read before the deadline doesn't outlast it
+  if (campWide && (campWide.status === 'available' || campWide.status === 'mixed') && !closedBy) {
+    return open(
+      campWide.status === 'mixed' ? '2027: open, some sessions full' : '2027 registration open'
+    );
   }
 
   // A public opening still ahead (or a reopening) leads; members-first, deadline and lottery dates
   // go underneath.
   if (nextOpen) {
-    const days = (upcomingUntil(nextOpen).getTime() - now.getTime()) / 86400000;
+    // In Eastern calendar days, so a Jan 11 opening is 14 days off all day on Dec 28 (to the end
+    // of Jan 11 it was 14.5 at noon); a month ("in January") counts from its 1st
+    const days =
+      (Date.parse(`${nextOpen.date}T00:00:00Z`) -
+        Date.parse(`${getDateStringEastern(now)}T00:00:00Z`)) /
+      86400000;
     // A members' or returning campers' date named as plain registration (lottery keeps its name)
     const lead: CampListMilestone = isPublic(nextOpen)
       ? nextOpen
@@ -682,6 +726,30 @@ export function registrationLine(
       text: `2027 registration ${closedBy.kind === 'closes' ? 'closed' : 'deadline passed'} ${formatDate(closedBy.date, true)}`,
       unconfirmed: isUnconfirmed(closedBy, confirmed),
       details: details([]),
+      sortDate: null,
+      status: 'full',
+    };
+  }
+
+  // Part of the camp open, or open and partly full (Rockmont: mixed, "June Camp, Two Week 1 and
+  // Two Week 3 have waitlisted grades"): registration is open, for some of it at least. The part
+  // can be sessions, grades or an audience, so the headline doesn't say which: the camp's own
+  // words go underneath.
+  if (partial && (partial.status === 'available' || partial.status === 'mixed')) {
+    return open(partial.status === 'mixed' ? '2027: open, partly full' : '2027: open in part');
+  }
+
+  // A waitlist for part of the camp (Greystone: new campers start on one) says nothing about places
+  // in the rest, so it is never "open"; the part goes underneath in the camp's words. It's a
+  // waitlist, so the "Waitlist, full or closed" filter takes it. Ahead of a past opening, which
+  // the Open filter counts (Falling Creek's FLINT: opened Aug 26, Main Camp now on a waitlist);
+  // that opening goes underneath.
+  if (partial?.status === 'waitlist') {
+    return {
+      tone: 'tentative',
+      text: '2027: waitlist in part',
+      unconfirmed: false,
+      details: details(lastOpened ? [lastOpened] : []),
       sortDate: null,
       status: 'full',
     };
@@ -732,9 +800,10 @@ export function registrationLine(
   }
 
   // No public date. Dates for members or returning campers still show, the last one as history;
-  // with nothing for 2027 at all, last year's opening leads (01 §4.3).
+  // with nothing for 2027 at all, last year's opening leads (01 §4.3), with its year ("Opened Feb 9
+  // last year" read as 2025 in November 2026)
   const lastYear = card.last_year_registration_opened
-    ? `Opened ${formatDate(card.last_year_registration_opened.date)} last year`
+    ? `${TARGET_SEASON - 1} registration opened ${formatDate(card.last_year_registration_opened.date, true)}`
     : null;
   const history = ahead.length === 0 ? announced.at(-1) : undefined;
   const posted = card.season.year === TARGET_SEASON && card.season.status === 'posted';
@@ -796,34 +865,71 @@ export function reminderMilestones<M extends CampListMilestone>(
 }
 
 /**
- * A date in a reminder's calendar menu: its own Google Calendar link names it by kind, date and
- * time (the menu's audience is the fourth part).
+ * A date in a reminder's calendar menu: its own Google Calendar link names it by audience, kind,
+ * date and time.
  */
 export interface ReminderDate {
+  audience: Audience;
   kind: MilestoneKind;
   date: string;
   time: string | null;
-  /** "Registration opens Jan 10", with its time when another date in the menu shares the day */
+  /**
+   * "Registration opens Jan 10", "Returning-camper registration opens Jan 5" (with "Public" before
+   * a public date when the menu holds another audience's), with its time when another date in the
+   * menu shares the day
+   */
   label: string;
 }
 
-/** reminderMilestones, as the calendar menu lists them. */
+/** reminderMilestones for these audiences, as the calendar menu lists them, in date order. */
 export function reminderDates(
   card: { registration: CampListMilestone[] },
   now: Date,
-  audience: Audience = 'public'
+  audiences: Audience[] = ['public']
 ): ReminderDate[] {
-  const milestones = reminderMilestones(card, now, audience);
+  const milestones = audiences
+    .flatMap((audience) => reminderMilestones(card, now, audience))
+    .sort(byMilestoneDate);
+  const mixed = new Set(milestones.map((milestone) => milestone.audience)).size > 1;
   return milestones.map((milestone) => {
     const time = milestone.precision === 'datetime' ? formatTime(milestone.time) : null;
     const shared = milestones.filter((other) => other.date === milestone.date).length > 1;
+    const what =
+      mixed && milestone.audience === 'public'
+        ? `Public ${milestoneLabel(milestone).toLowerCase()}`
+        : milestoneLabel(milestone);
+    const when = `${formatDate(milestone.date)}${shared && time ? `, ${time}` : ''}`;
     return {
+      audience: milestone.audience,
       kind: milestone.kind,
       date: milestone.date,
       time: milestone.time,
-      label: `${milestoneLabel(milestone)} ${formatDate(milestone.date)}${shared && time ? `, ${time}` : ''}`,
+      // An 'other' date is the camp's own words ("Scholarship applications due ..."), which say who
+      // it is for; its date follows in brackets
+      label:
+        milestone.audience === 'other' && milestone.text ? `${what} (${when})` : `${what} ${when}`,
     };
   });
+}
+
+/**
+ * The directory card's "Add reminder" dates. Its headline leads with the earliest opening for
+ * anyone (registrationLine's earliestOpening), so when that is another audience's date, the menu
+ * offers that audience's dates beside the public ones, each named: Camp Celo's card says Jan 5
+ * (returning families), and its reminder used to add Jan 15 (everyone) without saying so.
+ */
+function cardReminders(card: CampListCard, now: Date): ReminderDate[] {
+  const first = card.registration
+    .filter(
+      (milestone) =>
+        milestone.kind === 'opens' && isRemindable(milestone) && now < upcomingUntil(milestone)
+    )
+    .sort(byMilestoneDate)[0];
+  return reminderDates(
+    card,
+    now,
+    first && first.audience !== 'public' ? [first.audience, 'public'] : ['public']
+  );
 }
 
 /** The reminder buttons: "Add reminder" for the public dates, one per other audience. */
@@ -897,18 +1003,44 @@ export function kidFit(
     : 'may_fit';
 }
 
+/** Ages and grades: a card's, or one of its rows'. */
+export interface Eligibility {
+  ages: AgeRange | null;
+  grades: GradeRange | null;
+}
+
+/**
+ * How a kid fits one of a camp's rows (a week, session or age band). A row's own ages or grades
+ * narrow who the camp takes, never widen it: a kid the camp's own ages or grades rule out directly
+ * doesn't fit a row that only states the other (Rockbrook takes ages 6–16; its First Session states
+ * grades only, and a 17-year-old fit it). Only a direct conflict counts: within the camp's own
+ * bounds, the row's ages and grades decide, conversions included.
+ */
+export function rowKidFit(
+  camp: Eligibility,
+  row: Eligibility,
+  kid: { age: number | null; grade: number | null }
+): KidFit {
+  const outside =
+    (kid.age !== null && fitsAge(camp.ages, kid.age) === false) ||
+    (kid.grade !== null && fitsGrade(camp.grades, kid.grade) === 'no');
+  return outside ? 'no' : kidFit(row, kid);
+}
+
 // ---------------------------------------------------------------------------
 // Prices, weeks and hours for the filters
 // ---------------------------------------------------------------------------
 
 /**
  * A price as dollars a week, where its unit allows: a day is a 5-day week, a session or program
- * is spread over its weeks (when its dates are known). Null when it can't be said.
+ * is spread over its weeks (when its dates are known). Null when it can't be said. Free is $0 a
+ * week in any unit, so a free program with no dates still passes the Free filter.
  */
 export function weeklyPrice(
   price: { amount: number; unit: PriceUnit },
   days: number | null
 ): number | null {
+  if (price.amount === 0) return 0;
   switch (price.unit) {
     case 'week':
       return price.amount;
@@ -1065,6 +1197,12 @@ export interface CampRow {
   sites: number[];
   length: 'full' | 'half' | null;
   workday: boolean | null;
+  /**
+   * A session the "Open" registration filter can't match on (unavailableSessions): a 2027 one the
+   * camp marks full, waitlisted or closed (another week having space doesn't make this one open),
+   * or last summer's same program on that week. Left out otherwise, to keep the rows small.
+   */
+  unavailable?: true;
 }
 
 /** What the directory needs per camp: small enough to send to the browser. */
@@ -1084,6 +1222,9 @@ export interface CampCardData {
    */
   search: string;
   who: string | null;
+  /** The card's own ages and grades, which every row stays within (rowKidFit). */
+  ages: AgeRange | null;
+  grades: GradeRange | null;
   /** "Asheville, Hendersonville · 2 sites" */
   location: string | null;
   /** "~10–30 min drive" */
@@ -1114,8 +1255,30 @@ export interface CampCardData {
   rowNoun: 'week' | 'session';
   views: number;
   websiteUrl: string | null;
-  /** The remindable public 2027 dates still ahead, for "Add reminder" (none: no button). */
+  /**
+   * The remindable 2027 dates still ahead for "Add reminder" (none: no button): the public ones,
+   * and the audience's whose opening the headline names (cardReminders).
+   */
   reminders: ReminderDate[];
+  /** Nothing to go on but a name and a link (isBare); left out otherwise. */
+  bare?: true;
+}
+
+/**
+ * A listing that states no dates (no session, neither end of a season), no price, no ages or
+ * grades and no registration date, not even last year's: 112 of them in November 2026. The
+ * directory lists them after the rest, never hides them.
+ */
+function isBare(card: CampListCard): boolean {
+  return (
+    card.sessions.length === 0 &&
+    !card.season.start &&
+    !card.season.end &&
+    allPrices(card).length === 0 &&
+    !formatWho(card.ages, card.grades) &&
+    card.registration.length === 0 &&
+    !card.last_year_registration_opened
+  );
 }
 
 /** Words a search can leave out: every listing is a summer camp. */
@@ -1132,8 +1295,8 @@ function searchForm(text: string): string {
 }
 
 /**
- * The search box's words, each of which a camp's text must contain. A plural is searched as its
- * singular ("camps", "theatres"), so it matches both.
+ * The search box's words, each of which must start a word of a camp's text. A plural is searched
+ * as its singular ("camps", "theatres"), so it matches both.
  */
 export function searchTerms(query: string): string[] {
   return searchForm(query)
@@ -1142,21 +1305,43 @@ export function searchTerms(query: string): string[] {
     .filter((word) => word && !SEARCH_FILLER.has(word));
 }
 
-/** Everything the search box matches for a camp, in `searchForm`. */
+/** Text in `searchForm` as its words, each after a space, for matchesTerms. */
+function searchWords(parts: Array<string | null | undefined>): string {
+  const words = searchForm(parts.filter(Boolean).join(' '))
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean);
+  return ` ${words.join(' ')}`;
+}
+
+/**
+ * Does every term start a word of the text (campSearchText, campNameText)? "art" finds "Art",
+ * "arts" and "artist", not "start" or "party": inside a word, it matched half the directory.
+ */
+export function matchesTerms(text: string, terms: string[]): boolean {
+  return terms.every((term) => text.includes(` ${term}`));
+}
+
+/** How many terms start a word of the text: the directory ranks name matches first. */
+export function countTerms(text: string, terms: string[]): number {
+  return terms.filter((term) => text.includes(` ${term}`)).length;
+}
+
+/** Everything the search box matches for a camp, as searchWords. */
 export function campSearchText(camp: CampCardData): string {
-  return searchForm(
-    [
-      camp.name,
-      camp.providerName,
-      TYPE_LABELS[camp.type],
-      ...camp.categories.map((category) => CATEGORY_LABELS[category]),
-      ...camp.sites.map((site) => site.town),
-      camp.summary,
-      camp.search,
-    ]
-      .filter(Boolean)
-      .join(' ')
-  );
+  return searchWords([
+    camp.name,
+    camp.providerName,
+    TYPE_LABELS[camp.type],
+    ...camp.categories.map((category) => CATEGORY_LABELS[category]),
+    ...camp.sites.map((site) => site.town),
+    camp.summary,
+    camp.search,
+  ]);
+}
+
+/** The camp's and provider's names, as searchWords. */
+export function campNameText(camp: CampCardData): string {
+  return searchWords([camp.name, camp.providerName]);
 }
 
 export function supportKeys(card: CampListCard): SupportKey[] {
@@ -1166,6 +1351,49 @@ export function supportKeys(card: CampListCard): SupportKey[] {
   ).filter((key) => has(card[key]));
   if (card.extended_care) keys.push('extended_care');
   return keys;
+}
+
+type SessionFacts = Pick<
+  CampListSession,
+  'start' | 'end' | 'year' | 'site' | 'ages' | 'grades' | 'status'
+>;
+
+function sameRange(
+  a: { min: number | null; max: number | null; basis?: string } | null,
+  b: { min: number | null; max: number | null; basis?: string } | null
+): boolean {
+  return a === b || (!!a && !!b && a.min === b.min && a.max === b.max && a.basis === b.basis);
+}
+
+/**
+ * The sessions the "Open" registration filter can't match on: a 2027 one the camp marks full,
+ * waitlisted or closed, and an earlier summer's that the week filter moves onto that same week
+ * (inTargetSeason) for the same program, by site and ages or grades. Last summer's schedule only
+ * stands in for this one's; where this one says the week is full, it is. A different site or age
+ * group keeps its own verdict.
+ */
+export function unavailableSessions<S extends SessionFacts>(sessions: S[]): Set<S> {
+  const full = sessions.filter(
+    (session) =>
+      session.year === TARGET_SEASON &&
+      (session.status === 'full' || session.status === 'waitlist' || session.status === 'closed')
+  );
+  return new Set(
+    sessions.filter((session) => {
+      if (full.includes(session)) return true;
+      if (session.year >= TARGET_SEASON) return false;
+      const start = inTargetSeason(session.start);
+      const end = inTargetSeason(session.end);
+      return full.some(
+        (current) =>
+          current.site === session.site &&
+          sameRange(current.ages, session.ages) &&
+          sameRange(current.grades, session.grades) &&
+          current.start <= end &&
+          current.end >= start
+      );
+    })
+  );
 }
 
 /** Rows for the filters. */
@@ -1199,11 +1427,14 @@ function campRows(card: CampListCard, sites: CampSiteInfo[]): CampRow[] {
   const seasonDays =
     card.season.start && card.season.end ? daySpan(card.season.start, card.season.end) : null;
 
+  const unavailableRows = unavailableSessions(card.sessions);
   const rows: CampRow[] =
     card.sessions.length > 0
       ? card.sessions.map((session) => {
-          // A row states its own eligibility only when it differs from the card's
+          // A row states its own eligibility only when it differs from the card's (and stays
+          // within the card's: rowKidFit)
           const own = !!session.ages || !!session.grades;
+          const unavailable = unavailableRows.has(session);
           return {
             start: session.start,
             end: session.end,
@@ -1212,6 +1443,7 @@ function campRows(card: CampListCard, sites: CampSiteInfo[]): CampRow[] {
             weekly: prices(daySpan(session.start, session.end), session.price),
             sites: rowSites(session.site),
             ...withHours(session.hours),
+            ...(unavailable && { unavailable: true as const }),
           };
         })
       : [
@@ -1404,6 +1636,9 @@ export function toCardData(camp: CampListItem, now: Date): CampCardData {
       .join(' ')
       .toLowerCase(),
     who: formatWho(card.ages, card.grades),
+    // Own objects, as for the rows (campRows): the RSC payload would write a path back to these
+    ages: card.ages && { ...card.ages },
+    grades: card.grades && { ...card.grades },
     location: locationText(camp.sites),
     drive: driveText(camp.sites),
     // Whole minutes for the drive filter, which reads them exactly (the card rounds to 5)
@@ -1427,6 +1662,7 @@ export function toCardData(camp: CampListItem, now: Date): CampCardData {
     rowNoun,
     views: camp.views,
     websiteUrl: card.camp_page_url ?? camp.providerUrl,
-    reminders: reminderDates(card, now),
+    reminders: cardReminders(card, now),
+    ...(isBare(card) && { bare: true as const }),
   };
 }

@@ -5,6 +5,7 @@ import { verifyAuthToken } from '@/lib/utils/auth';
 import { startCronJob, completeCronJob, failCronJob } from '@/lib/cron/jobTracker';
 import { CAMPS_TAG } from '@/lib/db/queries/camps';
 import { refreshCamps, type RefreshOutcome } from '@/lib/camps/refresh';
+import { campsModelConfigured } from '@/lib/camps/responses';
 
 export const maxDuration = 800; // ~13 minutes max (Fluid Compute)
 
@@ -22,6 +23,11 @@ const FINISH_MS = 120_000;
  * Runs daily. Each provider's outcome is in the run's cron_job_runs.result.outcomes. Pages only a
  * browser can read fail here (no browser on Vercel) and keep their facts; the nightly local task
  * (scripts/run-local-events.ts -> scripts/camps/refresh.ts) refreshes them, and the WebTrac catalog.
+ *
+ * Matt keeps re-extraction on his PC (2026-11-19), and Vercel has no key for the camps model, so
+ * here the run only reads and compares: unchanged providers are marked checked, changed ones are
+ * 'deferred' and stay due for the local task. Before that it tried to re-extract them, failed each
+ * with "AZURE_OPENAI_API_KEY is not set" and still reported success.
  */
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
@@ -48,6 +54,7 @@ export async function GET(request: Request) {
       apply: true,
       endBy: startTime + maxDuration * 1000 - FINISH_MS,
       browser: isLocalScrapeRuntime(),
+      extract: isLocalScrapeRuntime() && campsModelConfigured(),
       onOutcome: (outcome) => outcomes.push(outcome),
     });
     // An unchanged check moves the pages' "last checked" too

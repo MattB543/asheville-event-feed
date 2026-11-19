@@ -52,7 +52,7 @@ const CAMP_CACHE_OPTIONS = { tags: [CAMPS_TAG], revalidate: 3600 };
  * the wrapper's source text plus these parts, so entries written by the old code would keep being
  * served until they expire (Vercel's data cache survives deploys).
  */
-const CAMP_CACHE_SHAPE = 'v6';
+const CAMP_CACHE_SHAPE = 'v8';
 
 /** Popularity window: views in the last 14 Eastern days, today included. */
 const VIEW_WINDOW_DAYS = 14;
@@ -94,11 +94,13 @@ export function stableJson(value: unknown): string {
 /**
  * What Matt's confirmation is tied to: the card's facts. Its confidence (the card's and each
  * registration date's), review notes and sources change from one extraction to the next when the
- * facts don't, and would otherwise send a confirmed camp back to his queue.
+ * facts don't, and would otherwise send a confirmed camp back to his queue. So does the
+ * description: the AI rewords it on most re-extractions, and it states nothing a parent acts on
+ * that isn't in the other fields.
  */
 export function cardHash(card: CampCard): string {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- left out of the hash
-  const { confidence, review_notes, sources, ...facts } = card;
+  const { confidence, review_notes, sources, description, ...facts } = card;
   const registration = facts.registration.map(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- left out of the hash
     ({ confidence: _confidence, ...milestone }) => milestone
@@ -206,16 +208,21 @@ export interface CampListing {
 }
 
 /**
- * A session as the directory reads it: dates, site, eligibility, hours and price. Its label and
- * status are left to the detail page, so rows differing only in those are one row.
+ * A session as the directory reads it: dates, summer, site, eligibility, hours, price and status
+ * (a full week can't pass the "Open" filter). Its label is left to the detail page, so rows
+ * differing only in that are one row.
  */
 export type CampListSession = Pick<
   Session,
-  'start' | 'end' | 'site' | 'ages' | 'grades' | 'hours' | 'price'
+  'start' | 'end' | 'year' | 'site' | 'ages' | 'grades' | 'hours' | 'price' | 'status'
 >;
 
-/** A registration date without the camp's wording and link (the detail page shows those). */
-export type CampListMilestone = Omit<Milestone, 'text' | 'url'>;
+/**
+ * A registration date without its link and, but for a date for 'other' families, the camp's
+ * wording (the detail page shows those). An 'other' date keeps its wording: only it says who the
+ * date is for (scholarship applicants, staff families ...), which the reminder menu names.
+ */
+export type CampListMilestone = Omit<Milestone, 'text' | 'url'> & { text?: string };
 
 /**
  * The card trimmed to what the directory's cards and filters read. Every CampCard fits this
@@ -260,6 +267,8 @@ export interface CampListItem {
   sites: CampSiteInfo[];
   views: number;
   confirmed: boolean;
+  /** When this camp's provider pages were last read (CampListing.checkedAt). */
+  checkedAt: string | null;
   updatedAt: string;
 }
 
@@ -270,11 +279,13 @@ export function toListCard(card: CampCard): CampListCard {
     const row = {
       start: session.start,
       end: session.end,
+      year: session.year,
       site: session.site,
       ages: session.ages,
       grades: session.grades,
       hours: session.hours,
       price: session.price,
+      status: session.status,
     };
     sessions.set(stableJson(row), row);
   }
@@ -300,6 +311,7 @@ export function toListCard(card: CampCard): CampListCard {
       certainty: milestone.certainty,
       year: milestone.year,
       confidence: milestone.confidence,
+      ...(milestone.audience === 'other' && { text: milestone.text }),
     })),
     last_year_registration_opened: card.last_year_registration_opened && {
       date: card.last_year_registration_opened.date,
@@ -327,15 +339,23 @@ function toListItem(camp: CampListing): CampListItem {
     sites: camp.sites,
     views: camp.views,
     confirmed: camp.confirmed,
+    checkedAt: camp.checkedAt,
     updatedAt: camp.updatedAt,
   };
 }
 
 /**
  * Live camps (optionally narrowed by `where`) with their sites and recent views, by name.
- * Uncached: the reader for scripts and crons, where unstable_cache can't run.
+ * Uncached: the reader for scripts and crons, where unstable_cache can't run. `radiusSlackMinutes`
+ * widens the drive limit and `keepDuplicates` leaves in the camps dropped as duplicates: the
+ * refresh job keeps checking a provider whose camps are a little past the limit, in case it moves,
+ * or are all listed under another provider (lib/camps/refresh.ts).
  */
-export async function queryCamps(where?: SQL): Promise<CampListing[]> {
+export async function queryCamps(
+  where?: SQL,
+  radiusSlackMinutes = 0,
+  keepDuplicates = false
+): Promise<CampListing[]> {
   const rows = await db
     .select({
       id: camps.id,
@@ -436,7 +456,10 @@ export async function queryCamps(where?: SQL): Promise<CampListing[]> {
       updatedAt: row.updatedAt.toISOString(),
     };
   });
-  return listings.filter((camp) => withinRadius(camp) && !DUPLICATE_OF.has(camp.campKey));
+  return listings.filter(
+    (camp) =>
+      withinRadius(camp, radiusSlackMinutes) && (keepDuplicates || !DUPLICATE_OF.has(camp.campKey))
+  );
 }
 
 /** data/camps/town-points.json (scripts/camps/town-points.ts) by lower-cased townKey. */
@@ -491,9 +514,10 @@ function siteMayBeNear(site: CampSiteInfo): boolean {
   return !site.state || NEARBY_STATES.has(site.state.trim().toUpperCase());
 }
 
-function withinRadius(camp: CampListing): boolean {
+function withinRadius(camp: CampListing, slackMinutes = 0): boolean {
   const limit =
-    camp.card.type === 'overnight' ? DRIVE_LIMIT_MINUTES.overnight : DRIVE_LIMIT_MINUTES.day;
+    (camp.card.type === 'overnight' ? DRIVE_LIMIT_MINUTES.overnight : DRIVE_LIMIT_MINUTES.day) +
+    slackMinutes;
   if (camp.sites.length === 0) return true;
   // No route (unplaced with no known town, or ORS found none): out only when plainly far away
   return camp.sites.some((site) =>
@@ -625,31 +649,6 @@ export async function relatedCamps(camp: CampListItem, limit = 4): Promise<CampL
     .sort((a, b) => a.km - b.km || b.other.views - a.other.views)
     .slice(0, limit)
     .map(({ other }) => other);
-}
-
-/**
- * When camps' own pages were last read: the newest extraction or successful refresh check among
- * live camps' providers (ISO). Not an admin edit, which changes a card without checking the
- * camp's site.
- */
-export function campsLastChecked(): Promise<string | null> {
-  return unstable_cache(
-    async () => {
-      const [row] = await db
-        .select({
-          // greatest() skips a null: a provider never checked since its extraction
-          at: sql<Date | null>`max(greatest(${campProviders.checkedAt}, ${campProviders.extractedAt}))`.mapWith(
-            campProviders.extractedAt
-          ),
-        })
-        .from(camps)
-        .innerJoin(campProviders, eq(camps.providerKey, campProviders.key))
-        .where(liveCamp);
-      return row?.at ? row.at.toISOString() : null;
-    },
-    ['camps-last-checked', CAMP_CACHE_SHAPE],
-    CAMP_CACHE_OPTIONS
-  )();
 }
 
 // ---------------------------------------------------------------------------

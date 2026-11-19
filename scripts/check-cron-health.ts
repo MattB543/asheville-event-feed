@@ -14,7 +14,7 @@ import postgres from 'postgres';
 import { NEWS_SOURCES } from '../lib/news/registry';
 
 const DAYS = Number(process.argv[2]) || 3;
-const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require', max: 1 });
+const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require', max: 1, prepare: false });
 
 type ScraperStat = { name: string; ok: boolean; events: number; ms: number; error?: string };
 
@@ -460,6 +460,9 @@ const CAMPS_FAIL_MAX_RATE = 0.5;
 const CAMPS_FAIL_MIN_CHECKED = 20;
 const CAMPS_STALE_DAYS = 14;
 const CAMPS_STALE_MAX_SHARE = 0.2;
+// The local run is nightly, and skips the camps when its hour is nearly up
+const CAMPS_LOCAL_MAX_AGE_HOURS = 54;
+const CAMPS_STUCK_DAYS = 14;
 
 async function campsRefresh() {
   console.log(`\nCAMPS REFRESH — last ${DAYS} days`);
@@ -490,8 +493,16 @@ async function campsRefresh() {
   const failed = total('failed');
   console.log(`Runs:           ${runs.length}`);
   console.log(
-    `Providers:      ${checked} checked, ${total('unchanged')} unchanged, ${total('reExtracted')} re-extracted, ${failed} failed`
+    `Providers:      ${checked} checked, ${total('unchanged')} unchanged, ${total('reExtracted')} re-extracted, ${total('deferred')} deferred, ${failed} failed`
   );
+  // Only the local run re-extracts (Vercel has no model key and defers what changed)
+  const lastLocal = runs.find((run) => run.result?.local && run.status === 'success');
+  if (!lastLocal || lastLocal.age_hours > CAMPS_LOCAL_MAX_AGE_HOURS) {
+    const last = lastLocal ? `${fmtAge(lastLocal.age_hours)} ago` : `not in ${DAYS} days`;
+    problems.push(
+      `camps-refresh: last successful local run ${last}; changed camp pages are only re-read by it (the nightly task on Matt's PC).`
+    );
+  }
 
   // Newest-first streak of runs that had providers due but checked none. A run
   // with nothing due ends the streak.
@@ -511,7 +522,11 @@ async function campsRefresh() {
     );
   }
 
-  // The providers the refresh looks after (WebTrac's catalog is refreshed by hand)
+  // The providers the refresh looks after (WebTrac's catalog is refreshed by hand): not the ones
+  // whose camps are all too far away to list, which the newest run names
+  const skipped =
+    (runs.find((run) => Array.isArray(run.result?.outOfRange))?.result?.outOfRange as string[]) ??
+    [];
   const [freshness] = await sql<{ total: number; stale: number; failing: number }[]>`
     select count(*)::int as total,
            count(*) filter (where greatest(checked_at, extracted_at)
@@ -519,10 +534,24 @@ async function campsRefresh() {
            count(*) filter (where check_error is not null)::int as failing
     from camp_providers
     where not hidden and extraction_fingerprint is not null
-      and extraction_fingerprint not like 'webtrac:%' and cardinality(urls) > 0`;
+      and extraction_fingerprint not like 'webtrac:%' and cardinality(urls) > 0
+      and key <> all(${skipped})`;
   console.log(
     `Freshness:      ${freshness.stale} of ${freshness.total} providers unchecked for ${CAMPS_STALE_DAYS}+ days; ${freshness.failing} failing now`
   );
+  // A provider none of whose own pages has been readable for two weeks: its site is probably gone
+  const stuck = await sql<{ key: string; days: number; check_error: string }[]>`
+    select key, check_error,
+           (extract(epoch from (now() - greatest(checked_at, extracted_at))) / 86400)::int as days
+    from camp_providers
+    where not hidden and check_error is not null and key <> all(${skipped})
+      and greatest(checked_at, extracted_at) < now() - make_interval(days => ${CAMPS_STUCK_DAYS})
+    order by 3 desc`;
+  if (stuck.length > 0) {
+    console.log(`Unreadable for ${CAMPS_STUCK_DAYS}+ days (find a new page for it, or hide it):`);
+    for (const row of stuck)
+      console.log(`  ${row.key} (${row.days}d): ${row.check_error.slice(0, 110)}`);
+  }
   if (freshness.total > 0 && freshness.stale / freshness.total > CAMPS_STALE_MAX_SHARE) {
     problems.push(
       `camps-refresh: ${freshness.stale} of ${freshness.total} camp providers unchecked for ${CAMPS_STALE_DAYS}+ days (pages unreadable from Vercel? try npx tsx scripts/camps/refresh.ts --apply).`

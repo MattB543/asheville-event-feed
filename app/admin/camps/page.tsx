@@ -14,7 +14,7 @@ import { isAdmin } from '@/lib/utils/admin';
 import { sitesWithoutPin } from '@/lib/db/queries/camps';
 import {
   CAMP_CARD_KEYS,
-  adminReviewQueue,
+  adminReviewLists,
   hiddenCamps,
   liveCampCount,
   orsPinnedSites,
@@ -32,7 +32,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminCampsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string | string[] }>;
+  searchParams: Promise<{ q?: string | string[]; view?: string | string[] }>;
 }) {
   const supabase = await createClient();
   const {
@@ -43,20 +43,32 @@ export default async function AdminCampsPage({
     redirect('/');
   }
 
-  const q = (await searchParams).q;
+  const params = await searchParams;
+  const q = params.q;
   const query = (Array.isArray(q) ? q[0] : q)?.trim() ?? '';
+  // The queue opens on the camps with a registration date soon; ?view=all is the whole queue
+  const view = [params.view].flat()[0] === 'all' ? 'all' : 'soon';
 
   let data: CampAdminData | null = null;
   try {
-    const [queue, unpinned, orsPins, hidden, liveCount, results] = await Promise.all([
-      adminReviewQueue(),
+    const [{ queue, soon }, unpinned, orsPins, hidden, liveCount, results] = await Promise.all([
+      adminReviewLists(new Date()),
       sitesWithoutPin(),
       orsPinnedSites(),
       hiddenCamps(),
       liveCampCount(),
       query ? searchCamps(query) : Promise.resolve([]),
     ]);
-    data = { queue, unpinned, orsPins, hidden, liveCount, search: { query, results } };
+    data = {
+      queue,
+      soon,
+      view,
+      unpinned,
+      orsPins,
+      hidden,
+      liveCount,
+      search: { query, results },
+    };
   } catch (error) {
     console.error('[Camps] Failed to load the admin page:', error);
   }

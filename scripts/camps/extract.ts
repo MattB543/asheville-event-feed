@@ -29,6 +29,7 @@ import {
   type SavedExtraction,
 } from '../../lib/camps/extract';
 import { createPageTextFetcher } from '../../lib/camps/fetchPageText';
+import { hashLines } from '../../lib/camps/sourceLines';
 import { webTracExtraction, type WebTracCatalog } from '../../lib/camps/webtrac';
 import { getTodayStringEastern } from '../../lib/utils/timezone';
 
@@ -132,7 +133,8 @@ async function main() {
             provider,
             extractedAt: new Date().toISOString(),
             fingerprint: EXTRACTION_FINGERPRINT,
-            sourceHash: run.sourceHash,
+            sourceHash: hashLines(run.sourceLines),
+            sourceLines: run.sourceLines,
             response: run.response,
             bundle: run.bundle,
             extraction: run.extraction,

@@ -92,21 +92,24 @@ function Fact({ label, children }: { label: string; children: ReactNode }) {
 }
 
 /**
- * The key facts of one camp, with Hide and Fix, and Confirm while it's short of high confidence
- * and not confirmed as it stands.
+ * The key facts of one camp, with Hide and Fix, and Confirm while it's not confirmed as it stands
+ * and short of high confidence, or at any confidence with `confirmAnyConfidence` (the "Opening soon"
+ * list, where a high-confidence date is still only the AI's reading).
  */
 export default function ReviewItem({
   item,
   cardKeys,
+  confirmAnyConfidence = false,
 }: {
   item: AdminCamp;
   cardKeys: Array<keyof CampCard>;
+  confirmAnyConfidence?: boolean;
 }) {
   const { card } = item;
   const fixed = Object.keys(item.override ?? {});
   const ages = formatRange(card.ages);
   const grades = formatRange(card.grades, gradeLabel);
-  const toConfirm = needsReview(card) && !item.confirmed;
+  const toConfirm = !item.confirmed && (confirmAnyConfidence || needsReview(card));
 
   return (
     <li className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">

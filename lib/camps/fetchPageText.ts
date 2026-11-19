@@ -20,6 +20,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Browser } from 'patchright';
 import type { Dispatcher } from 'undici';
+import { platformOf } from './platforms';
 import {
   CHALLENGE_TITLE,
   HTML_ACCEPT,
@@ -58,6 +59,22 @@ export class FetchPageError extends Error {
   }
 }
 
+/** Only web pages are read: a `webcal:` calendar link froze five providers' refresh (2026-11). */
+export function isHttpUrl(url: string): boolean {
+  return /^https?:\/\//i.test(url);
+}
+
+/**
+ * Whether a failed read says the page isn't there for anyone: the last rung that looked got a 404
+ * or 410, a "not found" page, or a login wall (401). The last rung is the most capable one that
+ * ran, so "fetch: thin page; browser: soft 404" is gone and "fetch: HTTP 404; browser: timeout"
+ * isn't. Anything else (a timeout, a block, a DNS or certificate error) may read fine next time.
+ */
+export function isGone(attempts: string[]): boolean {
+  const last = attempts[attempts.length - 1] ?? '';
+  return /^[a-z-]+: (?:HTTP (?:401|404|410)\b|soft 404|not a web page)/.test(last);
+}
+
 // A current desktop Chrome. fetchAsChrome's own constant is pinned to Chrome 122 for MountainX.
 const MODERN_CHROME_UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
@@ -65,6 +82,9 @@ const FETCH_TIMEOUT_MS = 20000;
 const BROWSER_NAV_TIMEOUT_MS = 45000;
 const BROWSER_SETTLE_MS = 8000;
 const BROWSER_CHALLENGE_WAIT_MS = 6000;
+// Node's words for a certificate or TLS setup it won't accept (expired, wrong host, self-signed,
+// no chain, a handshake the server aborts)
+const CERTIFICATE_ERROR = /certificate|altnames|self[- ]signed|SSL routines/i;
 // Below this a page is probably a JS shell; let the browser render it.
 const THIN_TEXT_CHARS = 300;
 const CACHE_DIR = join(tmpdir(), 'avlgo-camps-pages');
@@ -118,6 +138,7 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
 
   async function read(url: string): Promise<PageText> {
     signal?.throwIfAborted();
+    if (!isHttpUrl(url)) throw new FetchPageError(url, ['fetch: not a web page (not http)']);
     const cached = cacheTtlMs > 0 ? await readCache(url, cacheTtlMs) : null;
     if (cached) return cached;
 
@@ -148,6 +169,25 @@ export function createPageTextFetcher(options: PageTextFetcherOptions = {}): Pag
       skipChromeTls = raw.status === 404 || raw.status === 410 || content.startsWith('thin');
     } catch (error) {
       attempts.push(`fetch: ${describe(error)}`);
+      // A site whose certificate is broken (expired, or its host's shared one) usually still
+      // answers over plain http: 11 of 13 such camp providers did (2026-11-19), and no later rung
+      // gets past a bad certificate. We only read public text, so nothing rides on the encryption.
+      // Not a registration system's page or a link with a query: those can carry a token.
+      if (
+        CERTIFICATE_ERROR.test(describe(error)) &&
+        /^https:/i.test(url) &&
+        !url.includes('?') &&
+        !platformOf(url)
+      ) {
+        try {
+          const raw = await plainFetch(url.replace(/^https:/i, 'http:'), signal);
+          const content = await readContent(raw);
+          if (typeof content !== 'string') return await finish(raw, content, 'fetch');
+          attempts.push(`http: ${content}`);
+        } catch (httpError) {
+          attempts.push(`http: ${describe(httpError)}`);
+        }
+      }
     }
 
     // 2. Chrome TLS fingerprint
@@ -327,6 +367,8 @@ async function browserFetch(url: string, browser: Browser): Promise<RawPage> {
       const file = await started?.path();
       if (!started || !file) return await download();
       const bytes = new Uint8Array(await readFile(file));
+      // A calendar file or a spreadsheet downloads too ("?format=ical" read as a broken PDF)
+      if (!isPdfBytes(bytes)) throw new Error('not a web page (a file download)');
       // Where the download really came from, so a redirect to another site is judged as such.
       return { status: 200, finalUrl: started.url(), contentType: 'application/pdf', bytes };
     }
@@ -405,18 +447,29 @@ function htmlToText(
     $('meta[property="og:description"]').attr('content') ??
     '';
 
+  // Relative links resolve against <base href> when the page has one: without it Johnson City
+  // Parks & Rec's ~85 links all 404'd and its refresh timed out every night (2026-11).
+  let linkBase = baseUrl;
+  try {
+    const declared = $('base[href]').first().attr('href');
+    if (declared) linkBase = new URL(declared, baseUrl).toString();
+  } catch {
+    // A malformed <base>: the page's own URL stands
+  }
+
   const links: PageLink[] = [];
   const seen = new Set<string>();
   $('a[href]').each((_, element) => {
     const raw = $(element).attr('href') ?? '';
-    if (/^(mailto|tel|javascript):|^#/i.test(raw)) return;
+    if (/^#/.test(raw)) return;
     let href: string;
     try {
-      href = new URL(raw, baseUrl).toString();
+      href = new URL(raw, linkBase).toString();
     } catch {
       return;
     }
-    if (seen.has(href)) return;
+    // mailto:, tel:, javascript:, webcal: and the like are not pages
+    if (!isHttpUrl(href) || seen.has(href)) return;
     seen.add(href);
     links.push({ href, text: $(element).text().replace(/\s+/g, ' ').trim().slice(0, 120) });
   });
@@ -446,13 +499,17 @@ function tidyText(text: string): string {
 }
 
 function isPdf(raw: RawPage): boolean {
-  if (/application\/pdf/i.test(raw.contentType)) return true;
+  return /application\/pdf/i.test(raw.contentType) || isPdfBytes(raw.bytes);
+}
+
+/** Starts with "%PDF". */
+function isPdfBytes(bytes: Uint8Array): boolean {
   return (
-    raw.bytes.length > 4 &&
-    raw.bytes[0] === 0x25 &&
-    raw.bytes[1] === 0x50 &&
-    raw.bytes[2] === 0x44 &&
-    raw.bytes[3] === 0x46
+    bytes.length > 4 &&
+    bytes[0] === 0x25 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x44 &&
+    bytes[3] === 0x46
   );
 }
 

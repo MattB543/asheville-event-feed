@@ -28,7 +28,10 @@ export interface Token {
   end: number;
 }
 
-/** "Kids’ Café & Arts!" -> kids, cafe, and, arts (with their offsets). */
+/**
+ * "Kids’ Café & Arts!" -> kids, cafe, and, arts (with their offsets). "Theatre" is "theater", as in
+ * the directory's search (display.ts searchForm), so the words it hands the chat match the same.
+ */
 export function tokenize(text: string): Token[] {
   const tokens: Token[] = [];
   for (const match of text.matchAll(WORD)) {
@@ -39,7 +42,8 @@ export function tokenize(text: string): Token[] {
             .toLowerCase()
             .normalize('NFKD')
             .replace(/\p{M}/gu, '')
-            .replace(/['’‘ʼ]/g, '');
+            .replace(/['’‘ʼ]/g, '')
+            .replace(/([a-z])tre(s?)$/, '$1ter$2');
     if (word) tokens.push({ word, start: match.index, end: match.index + match[0].length });
   }
   return tokens;

@@ -12,13 +12,16 @@ import {
   SUPPORT_LABELS,
   TARGET_SEASON,
   TYPE_LABELS,
+  campNameText,
   campSearchText,
+  countTerms,
   searchTerms,
   formatDate,
   gradeLabel,
   inTargetSeason,
-  kidFit,
   matchesRegistration,
+  matchesTerms,
+  rowKidFit,
   type CampCardData,
   type CampRow,
   type CampSiteData,
@@ -98,6 +101,8 @@ interface RowFilters {
   drive: number | null;
   town: string | null;
   hours: HoursFilter | null;
+  /** The registration filter is "Open": a week the camp marks full can't be the one that matches. */
+  open: boolean;
 }
 
 /**
@@ -116,6 +121,7 @@ function inWeek(row: CampRow, week: { start: string; end: string }): Test {
  */
 function rowWays(row: CampRow, camp: CampCardData, filters: RowFilters): UnknownKind[][] {
   const { week, band, drive, town, hours } = filters;
+  if (filters.open && row.unavailable) return [];
   const tests: Array<[UnknownKind, Test]> = [];
   if (week) tests.push(['week', inWeek(row, week)]);
   if (band) tests.push(['price', row.weekly.length === 0 ? null : row.weekly.some(band.test)]);
@@ -166,7 +172,7 @@ function judgeRows(
   filters: RowFilters
 ): JudgedRow[] {
   return camp.rows.map((row) => {
-    const fits = kids.map((kid) => kidFit(row, kid));
+    const fits = kids.map((kid) => rowKidFit(camp, row, kid));
     const fit = fits.length === 0 ? 'fits' : mode === 'same' ? worstFit(fits) : bestFit(fits);
     return {
       fits,
@@ -305,18 +311,34 @@ function nameRanks(camps: CampCardData[]): Map<string, number> {
   return new Map(sorted.map((camp, index) => [camp.id, index]));
 }
 
-function compare(sort: Sort, ranks: Map<string, number>) {
+/**
+ * The order for a sort. A bare listing (CampCardData.bare: nothing but a name and a link) goes last
+ * in the default order, and after the rest of a tie in the others, which it'd otherwise contradict
+ * (by name, never). `nameMatches` (with a search) is how many search words a camp's or provider's
+ * name has: the default order puts more first, before the bare rule, so "art" lists the art camps
+ * before camps that only mention art.
+ */
+function compare(sort: Sort, ranks: Map<string, number>, nameMatches: Map<string, number> | null) {
   const byName = (a: CampCardData, b: CampCardData) => ranks.get(a.id)! - ranks.get(b.id)!;
   const nullsLast = (a: number | string | null, b: number | string | null) =>
     a === b ? 0 : a === null ? 1 : b === null ? -1 : a < b ? -1 : 1;
+  const bareLast = (a: CampCardData, b: CampCardData) => Number(!!a.bare) - Number(!!b.bare);
+  const byNameMatch = (a: CampCardData, b: CampCardData) =>
+    nameMatches ? nameMatches.get(b.id)! - nameMatches.get(a.id)! : 0;
 
   return (a: CampCardData, b: CampCardData) => {
-    if (sort === 'popular') return b.views - a.views || byName(a, b);
-    if (sort === 'drive') return nullsLast(a.driveMinutes, b.driveMinutes) || byName(a, b);
-    if (sort === 'price') return nullsLast(a.priceSort, b.priceSort) || byName(a, b);
+    if (sort === 'popular') return b.views - a.views || bareLast(a, b) || byName(a, b);
+    if (sort === 'drive') {
+      return nullsLast(a.driveMinutes, b.driveMinutes) || bareLast(a, b) || byName(a, b);
+    }
+    if (sort === 'price') {
+      return nullsLast(a.priceSort, b.priceSort) || bareLast(a, b) || byName(a, b);
+    }
     if (sort === 'registration') {
       // Openings still ahead first (soonest first), then open now, expected, unannounced, closed
       return (
+        byNameMatch(a, b) ||
+        bareLast(a, b) ||
         TONE_RANK[a.registration.tone] - TONE_RANK[b.registration.tone] ||
         nullsLast(a.registration.sortDate, b.registration.sortDate) ||
         byName(a, b)
@@ -515,6 +537,10 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     () => new Map(camps.map((camp) => [camp.id, campSearchText(camp)])),
     [camps]
   );
+  const nameTexts = useMemo(
+    () => new Map(camps.map((camp) => [camp.id, campNameText(camp)])),
+    [camps]
+  );
 
   const ranks = useMemo(() => nameRanks(camps), [camps]);
 
@@ -527,10 +553,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     () =>
       terms.length === 0
         ? 0
-        : camps.filter((camp) => {
-            const text = searchTexts.get(camp.id)!;
-            return terms.every((term) => text.includes(term));
-          }).length,
+        : camps.filter((camp) => matchesTerms(searchTexts.get(camp.id)!, terms)).length,
     [camps, searchTexts, terms]
   );
   const filters = useMemo(() => {
@@ -547,9 +570,10 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         // A town from an old link that no camp is in any more is ignored, not an empty list
         town: towns.includes(town) ? town : null,
         hours: hours || null,
+        open: registration === 'open',
       } satisfies RowFilters,
     };
-  }, [kids, kidsMode, week, price, drive, town, towns, hours]);
+  }, [kids, kidsMode, week, price, drive, town, towns, hours, registration]);
 
   const types = useMemo(() => [...new Set(camps.map((camp) => camp.type))].sort(), [camps]);
   const categories = useMemo(
@@ -577,8 +601,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       if (category !== 'all' && !camp.categories.includes(category)) return [];
       if (registration && !matchesRegistration(camp.registration.status, registration)) return [];
       if (!needs.every((need) => camp.support.includes(need))) return [];
-      const text = searchTexts.get(camp.id)!;
-      if (!terms.every((term) => text.includes(term))) return [];
+      if (!matchesTerms(searchTexts.get(camp.id)!, terms)) return [];
       const rows = rowsById.get(camp.id)!;
       return isListed(rows, filters.kids.length, filters.kidsMode, EVERY_UNKNOWN)
         ? [{ camp, rows }]
@@ -601,11 +624,16 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   const shownKinds = useMemo(() => new Set(showUnknown), [showUnknown]);
 
   const shown = useMemo(() => {
-    const order = compare(sort, ranks);
-    return judged
-      .filter((entry) => isListed(entry.rows, filters.kids.length, filters.kidsMode, shownKinds))
-      .sort((a, b) => order(a.camp, b.camp));
-  }, [judged, filters, shownKinds, sort, ranks]);
+    const listed = judged.filter((entry) =>
+      isListed(entry.rows, filters.kids.length, filters.kidsMode, shownKinds)
+    );
+    const nameMatches =
+      terms.length > 0
+        ? new Map(listed.map(({ camp }) => [camp.id, countTerms(nameTexts.get(camp.id)!, terms)]))
+        : null;
+    const order = compare(sort, ranks, nameMatches);
+    return listed.sort((a, b) => order(a.camp, b.camp));
+  }, [judged, filters, shownKinds, sort, ranks, terms, nameTexts]);
 
   // Per filter that's on: how many camps its "hide them" takes away, or how many hidden camps lack
   // its fact on a row that passes the rest. A camp another unknown hides too still counts, or a camp

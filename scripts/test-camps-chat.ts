@@ -368,6 +368,10 @@ function contextTests() {
   assert(invalid.notes.length >= 8, 'Each ignored value gets a note.');
   assert.deepEqual(directoryContext(''), { lines: [], args: {}, notes: [] });
 
+  // The words the directory searched for: "theatre" as "theater", the filler "camps" dropped
+  assert.deepEqual(directoryContext('q=Theatre+camps').args.keywords, ['theater']);
+  assert.equal(directoryContext('q=summer+camp').args.keywords, undefined);
+
   const long = directoryContext(`q=${Array.from({ length: 12 }, (_, i) => `w${i}`).join('+')}`);
   assert.equal(long.args.keywords?.length, 10);
   assert(long.notes.some((note) => note.includes('only partly applied')));

@@ -72,6 +72,11 @@ interface RawResponse {
   error?: { message?: string } | null;
 }
 
+/** Whether this process can call the camps model: a run that can't leaves re-extraction to one that can. */
+export function campsModelConfigured(): boolean {
+  return !!process.env.AZURE_OPENAI_API_KEY;
+}
+
 export async function createResponse(request: ResponsesRequest): Promise<ResponsesResult> {
   const apiKey = process.env.AZURE_OPENAI_API_KEY;
   if (!apiKey) throw new Error('AZURE_OPENAI_API_KEY is not set');

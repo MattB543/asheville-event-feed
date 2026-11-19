@@ -33,7 +33,9 @@ import {
   matchesRegistration,
   providerLabel,
   registrationLine,
+  rowKidFit,
   siteTown,
+  unavailableSessions,
   supportKeys,
   toCardData,
   weeklyPrice,
@@ -112,7 +114,10 @@ interface IndexedRow {
   year: number | null;
   /** Inclusive days for weekly prices; a season counts only when it is two weeks or less. */
   days: number | null;
-  /** A session stating either ages or grades replaces both of the card's (§2). */
+  /**
+   * A session stating either ages or grades replaces both of the card's (§2), within the card's
+   * own: a kid those rule out directly fits no session (rowKidFit).
+   */
   eligibility: { ages: AgeRange | null; grades: GradeRange | null };
   /** Session times over the card's, each end on its own; reversed times are unknown. */
   hours: Hours;
@@ -121,6 +126,8 @@ interface IndexedRow {
   /** The session's own price, or else the card's tiers: never both. */
   tiers: IndexedTier[];
   status: AvailabilityStatus | null;
+  /** Can't stand for "Open" (unavailableSessions): full in 2027, or last summer's on a full week. */
+  unavailable: boolean;
   text: TextField[];
 }
 
@@ -128,6 +135,8 @@ export interface IndexedCamp {
   /** Private: read for the display helpers only, never sent anywhere. */
   listing: CampListing;
   card: PublicCampCard;
+  /** The card's own ages and grades, which every row stays within. */
+  eligibility: { ages: AgeRange | null; grades: GradeRange | null };
   /** Camp-wide text: holds for every row. */
   text: TextField[];
   sites: IndexedSite[];
@@ -320,6 +329,7 @@ function indexCamp(listing: CampListing): IndexedCamp {
   };
   const season = interval(card.season.start, card.season.end);
   const seasonDays = season ? daySpan(season.start, season.end) : null;
+  const unavailable = unavailableSessions(card.sessions);
 
   const rows: IndexedRow[] =
     card.sessions.length > 0
@@ -344,6 +354,7 @@ function indexCamp(listing: CampListing): IndexedCamp {
                 : []
               : cardTiers,
             status: session.status,
+            unavailable: unavailable.has(session),
             text: textField('sessions[].label', 2, session.label),
           };
         })
@@ -360,6 +371,7 @@ function indexCamp(listing: CampListing): IndexedCamp {
             sites: everySite,
             tiers: cardTiers,
             status: null,
+            unavailable: false,
             text: [],
           },
         ];
@@ -370,6 +382,7 @@ function indexCamp(listing: CampListing): IndexedCamp {
   return {
     listing,
     card: publicCard,
+    eligibility: { ages: range(card.ages), grades: range(card.grades) },
     text: [
       ...textField('name', 3, card.name),
       ...textField('provider', 3, publicCard.provider),
@@ -791,7 +804,8 @@ function comparedPrice(
   per: 'week' | 'session'
 ) {
   if (per === 'week') return weeklyPrice(tier.tier, row.days);
-  if (tier.tier.unit === 'session') return tier.tier.amount;
+  // Free is free per session too, in any unit (weeklyPrice says the same per week)
+  if (tier.tier.unit === 'session' || tier.tier.amount === 0) return tier.tier.amount;
   return tier.tier.unit === 'program' && camp.seasonOnly ? tier.tier.amount : null;
 }
 
@@ -905,7 +919,10 @@ function witnessesOf(
     if (dates.verdict === 'fail') continue;
     const hours = judgeHours(row, camp, prep);
     if (hours.verdict === 'fail') continue;
-    const rowFits = kids.map((kid) => kidFit(row.eligibility, kid));
+    // "Open": a 2027 session the camp marks full, waitlisted or closed isn't one, whatever
+    // another session or the camp as a whole says, nor is last summer's on that week
+    if (prep.filters.registration === 'open' && row.unavailable) continue;
+    const rowFits = kids.map((kid) => rowKidFit(camp.eligibility, row.eligibility, kid));
     if (!takesKids(rowFits, prep)) continue;
     if (
       prep.where.sessions.length > 0 &&

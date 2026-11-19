@@ -904,7 +904,11 @@ export const campProviders = pgTable('camp_providers', {
   hidden: boolean('hidden').default(false).notNull(), // Hides every camp it runs; the import never writes it
   notes: text('notes'), // The extraction's notes on the provider
   extractedAt: timestamp('extracted_at', { withTimezone: true }),
-  sourceHash: text('source_hash'), // Hash of the fetched source text, so a refresh re-extracts only changes
+  sourceHash: text('source_hash'), // One hash of source_lines, for the logs
+  // The fact-line hashes of the pages the newest extraction read (lib/camps/sourceLines.ts,
+  // drizzle/0030): a refresh re-extracts when lines were added or removed. Null until the first
+  // check that stores them.
+  sourceLines: text('source_lines').array(),
   // The extraction's fingerprint (prompt + schema, or 'webtrac:...'): a new prompt re-extracts on refresh
   extractionFingerprint: text('extraction_fingerprint'),
   // Refresh bookkeeping (lib/camps/refresh.ts, drizzle/0026); the import never writes these.
@@ -948,6 +952,9 @@ export const camps = pgTable(
     // The provider extraction this camp was last in (drizzle/0027). Live only while it equals the
     // provider's extracted_at: a program the newest extraction drops is retired, never deleted.
     lastExtractedAt: timestamp('last_extracted_at', { withTimezone: true }),
+    // Set when the camp was first missing from its provider's new extraction (drizzle/0030): it
+    // stays live for that one, and is retired when the next extraction lacks it too.
+    missedAt: timestamp('missed_at', { withTimezone: true }),
     firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).defaultNow().notNull(),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(), // Card or override changed

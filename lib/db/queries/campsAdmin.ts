@@ -2,8 +2,10 @@ import { revalidateTag } from 'next/cache';
 import { and, asc, eq, ilike, isNotNull, or, sql, type SQL } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { campProviders, camps, campSites } from '@/lib/db/schema';
-import { needsReview, type CampCard, type Site } from '@/lib/camps/contract';
+import { needsReview, type CampCard, type Milestone, type Site } from '@/lib/camps/contract';
+import { byMilestoneDate, cleanCard, upcomingUntil } from '@/lib/camps/display';
 import { EXTRACTION_SCHEMA } from '@/lib/camps/extractionSchema';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 import { isRecord } from '@/lib/utils/validation';
 import {
   CAMPS_TAG,
@@ -250,15 +252,56 @@ export function reviewTier(card: CampCard): number {
   return card.season.year >= 2027 ? 2 : 3;
 }
 
+/** How far ahead the "Opening soon" view looks. */
+export const OPENING_SOON_DAYS = 60;
+
+export interface OpeningSoonCamp {
+  camp: AdminCamp;
+  /** Its soonest registration date still ahead. */
+  date: Milestone;
+}
+
 /**
- * Unconfirmed camps short of high confidence that parents can see (queryCamps: in the D3 radius,
- * not dropped as a duplicate), by tier.
+ * The camps parents can see (queryCamps: in the D3 radius, not dropped as a duplicate) that Matt
+ * hasn't confirmed as they stand, as two lists: `queue`, those short of high confidence, by tier;
+ * and `soon` (openingSoon), those with a registration date in the next OPENING_SOON_DAYS, whatever
+ * the AI's confidence: a high-confidence date is still the AI's reading until he confirms it.
  */
-export async function adminReviewQueue(): Promise<AdminCamp[]> {
+export async function adminReviewLists(
+  now: Date
+): Promise<{ queue: AdminCamp[]; soon: OpeningSoonCamp[] }> {
   const shown = new Set((await queryCamps()).map((camp) => camp.id));
-  return (await adminCamps(liveCamp))
-    .filter((camp) => shown.has(camp.id) && needsReview(camp.card) && !camp.confirmed)
-    .sort((a, b) => reviewTier(a.card) - reviewTier(b.card));
+  const unconfirmed = (await adminCamps(liveCamp)).filter(
+    (camp) => shown.has(camp.id) && !camp.confirmed
+  );
+  return {
+    queue: unconfirmed
+      .filter((camp) => needsReview(camp.card))
+      .sort((a, b) => reviewTier(a.card) - reviewTier(b.card)),
+    soon: openingSoon(unconfirmed, now),
+  };
+}
+
+/**
+ * The camps with a registration date (any audience, any kind) still ahead and within
+ * OPENING_SOON_DAYS, soonest first: the whole queue is ~970 cards, and these are the ones where a
+ * wrong date costs a parent first. A date given as a month counts until the month is over.
+ */
+function openingSoon(camps: AdminCamp[], now: Date): OpeningSoonCamp[] {
+  const [year, month, day] = getDateStringEastern(now).split('-').map(Number);
+  const horizon = new Date(Date.UTC(year, month - 1, day + OPENING_SOON_DAYS))
+    .toISOString()
+    .slice(0, 10);
+  return camps
+    .flatMap((camp) => {
+      const [date] = cleanCard(camp.card)
+        .registration.filter(
+          (milestone) => now < upcomingUntil(milestone) && milestone.date <= horizon
+        )
+        .sort(byMilestoneDate);
+      return date ? [{ camp, date }] : [];
+    })
+    .sort((a, b) => byMilestoneDate(a.date, b.date));
 }
 
 /** The most camps a search shows; a broader one is asked to narrow down. */

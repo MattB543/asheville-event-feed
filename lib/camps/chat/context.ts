@@ -23,6 +23,7 @@ import {
   TYPE_LABELS,
   formatDate,
   gradeLabel,
+  searchTerms,
   type SupportKey,
 } from '@/lib/camps/display';
 import type { CampSearchFilters, DirectoryContext, UnknownFact } from './types';
@@ -83,11 +84,12 @@ export function directoryContext(query: string): DirectoryContext {
   const lines: string[] = [];
   const notes: string[] = [];
 
-  const words = get('q').split(/\s+/).filter(Boolean);
+  // The words the directory itself searched for (searchTerms: "theatre camps" is "theater", the
+  // filler "camps" dropped), each required at the start of a word, as there
+  const search = get('q');
+  const words = searchTerms(search);
   if (words.length > 0) {
-    const terms = words.filter(
-      (word) => word.length <= MAX_KEYWORD_LENGTH && /[\p{L}\p{N}]/u.test(word)
-    );
+    const terms = words.filter((word) => word.length <= MAX_KEYWORD_LENGTH);
     const applied = terms.slice(0, MAX_KEYWORDS);
     if (applied.length > 0) {
       args.keywords = applied;
@@ -96,7 +98,7 @@ export function directoryContext(query: string): DirectoryContext {
     }
     if (applied.length < words.length) {
       notes.push(
-        `The directory search "${words.join(' ').slice(0, 120)}" was only partly applied: AI keywords take up to ${MAX_KEYWORDS} words of ${MAX_KEYWORD_LENGTH} characters or fewer.`
+        `The directory search "${search.slice(0, 120)}" was only partly applied: AI keywords take up to ${MAX_KEYWORDS} words of ${MAX_KEYWORD_LENGTH} characters or fewer.`
       );
     }
   }

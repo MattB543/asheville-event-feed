@@ -1,11 +1,14 @@
 import type { CampCard } from '@/lib/camps/contract';
+import { milestoneWhen } from '@/lib/camps/display';
 import type { UnpinnedSite } from '@/lib/db/queries/camps';
 import {
   CAMP_SEARCH_LIMIT,
+  OPENING_SOON_DAYS,
   REVIEW_TIERS,
   reviewTier,
   type AdminCamp,
   type HiddenCamp,
+  type OpeningSoonCamp,
   type OrsPinnedSite,
 } from '@/lib/db/queries/campsAdmin';
 import ActionButton from './ActionButton';
@@ -14,6 +17,13 @@ import ReviewItem from './ReviewItem';
 
 export interface CampAdminData {
   queue: AdminCamp[];
+  /**
+   * Unconfirmed camps, whatever their confidence, with a registration date in the next
+   * OPENING_SOON_DAYS, soonest first.
+   */
+  soon: OpeningSoonCamp[];
+  /** Which list "To review" shows: those opening soon (the default) or the whole queue. */
+  view: 'soon' | 'all';
   unpinned: UnpinnedSite[];
   orsPins: OrsPinnedSite[];
   hidden: HiddenCamp[];
@@ -45,6 +55,8 @@ function Count({ href, value, label }: { href: string; value: number; label: str
 /** The review queue, the sites that need a pin, the hidden camps, and a search of every camp. */
 export default function CampAdmin({
   queue,
+  soon,
+  view,
   unpinned,
   orsPins,
   hidden,
@@ -53,10 +65,13 @@ export default function CampAdmin({
   cardKeys,
 }: CampAdminData & { cardKeys: Array<keyof CampCard> }) {
   const shown = search.results.slice(0, CAMP_SEARCH_LIMIT);
+  // The review list's two views (the search form's GET leaves `view` out: back to the default)
+  const viewHref = (target: 'soon' | 'all') => (target === 'all' ? '?view=all#review' : '?#review');
   return (
     <>
       <div className="mt-4 flex flex-wrap gap-2">
-        <Count href="#review" value={queue.length} label="to review" />
+        <Count href={viewHref('soon')} value={soon.length} label="opening soon" />
+        <Count href={viewHref('all')} value={queue.length} label="to review" />
         <Count href="#pins" value={unpinned.length} label="pins needed" />
         <Count href="#ors-pins" value={orsPins.length} label="ORS pins to check" />
         <Count href="#hidden" value={hidden.length} label="hidden" />
@@ -64,13 +79,51 @@ export default function CampAdmin({
       </div>
 
       <h2 id="review" className={sectionTitle}>
-        To review
+        {view === 'soon' ? 'Opening soon' : 'To review'}
       </h2>
       <p className={`${emptyText} mb-3`}>
-        Camps or registration dates short of high confidence, most important first. Confirm marks
-        this exact card as checked; a re-extraction that changes its facts brings it back.
+        {view === 'soon'
+          ? `Camps you haven't confirmed with a registration date (anyone's) in the next ${OPENING_SOON_DAYS} days, soonest first, high confidence included: a wrong date there costs a parent first. `
+          : 'Camps or registration dates short of high confidence, most important first. '}
+        Confirm marks this exact card as checked; a re-extraction that changes its facts brings it
+        back.{' '}
+        <a
+          href={viewHref(view === 'soon' ? 'all' : 'soon')}
+          className="text-brand-600 hover:underline dark:text-brand-400"
+        >
+          {view === 'soon'
+            ? `See the whole queue (${queue.length})`
+            : `See opening soon (${soon.length})`}
+        </a>
       </p>
-      {queue.length === 0 ? (
+      {view === 'soon' ? (
+        soon.length === 0 ? (
+          <p className={emptyText}>
+            No unconfirmed camp has a registration date in the next {OPENING_SOON_DAYS} days.
+          </p>
+        ) : (
+          <>
+            <ul className="space-y-4">
+              {soon.slice(0, REVIEW_PAGE_SIZE).map(({ camp, date }) => (
+                <li key={camp.id} className="list-none">
+                  <h3 className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    {date.audience} {date.kind.replace('_', ' ')} {milestoneWhen(date)}
+                  </h3>
+                  <ul>
+                    <ReviewItem item={camp} cardKeys={cardKeys} confirmAnyConfidence />
+                  </ul>
+                </li>
+              ))}
+            </ul>
+            {soon.length > REVIEW_PAGE_SIZE && (
+              <p className={`${emptyText} mt-3`}>
+                {soon.length - REVIEW_PAGE_SIZE} more after these; reload after confirming or hiding
+                to bring them up.
+              </p>
+            )}
+          </>
+        )
+      ) : queue.length === 0 ? (
         <p className={emptyText}>Nothing to review.</p>
       ) : (
         <>

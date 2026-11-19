@@ -44,12 +44,14 @@ export async function proxy(request: NextRequest) {
  * - api/camps/calendar/<token> (the saved-camps feed calendar apps poll, CDN-cached) and
  *   api/camps/<id>/view (the anonymous popularity beacon): no session to refresh, and a
  *   Set-Cookie would defeat the feed's cache
+ * - api/camps/cards (every camp's card, anonymous, fetched by each /camps visit right after the
+ *   page, whose own request already refreshed the session)
  */
 export const config = {
   matcher: [
     {
       source:
-        '/((?!_next/static|_next/image|favicon.ico|avl-data/|embed/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|api/camps/export/(?:json|markdown)/?$|api/camps/calendar/|api/camps/[^/]+/view/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
+        '/((?!_next/static|_next/image|favicon.ico|avl-data/|embed/|api/city-status|developers/?$|openapi\\.json/?$|llms\\.txt/?$|sitemap\\.xml/?$|robots\\.txt/?$|api/export/(?:json|markdown)/?$|api/camps/export/(?:json|markdown)/?$|api/camps/calendar/|api/camps/cards/?$|api/camps/[^/]+/view/?$|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|txt|webmanifest)$).*)',
       has: [
         {
           type: 'header',

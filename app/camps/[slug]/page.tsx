@@ -84,18 +84,39 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `${card.name} · ${provider}`;
   const towns = [...new Set(camp.sites.map(siteTown).filter(Boolean))].slice(0, 2).join(' and ');
   const who = formatWho(card.ages, card.grades);
-  // "Overnight camp in Cleveland, SC for rising 5th–12th grade. <first sentence>. Dates, ..."
+  // "Overnight camp in Cleveland, SC for rising 5th–12th grade. Dates, ... <first sentence>."
+  // The camp's own sentence goes last: search results cut a description near 160 characters,
+  // and most of these run longer
   const description = [
     `${META_TYPES[card.type] ?? 'Summer camp'}${towns ? ` in ${towns}` : ' near Asheville'}${who ? ` for ${who.toLowerCase()}` : ''}.`,
-    firstSentence(card.description),
     'Dates, prices and when 2027 registration opens.',
-  ].join(' ');
+    firstSentence(card.description),
+  ]
+    .filter(Boolean)
+    .join(' ');
   const url = `${SITE_URL}/camps/${camp.slug}`;
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { type: 'website', url, title, description, siteName: 'AVL GO', locale: 'en_US' },
+    // Both spelled out: a page's openGraph replaces the root layout's whole (its image too), and
+    // without its own twitter block a shared camp showed the site's title and description
+    openGraph: {
+      type: 'website',
+      url,
+      title,
+      description,
+      siteName: 'AVL GO',
+      locale: 'en_US',
+      images: [{ url: '/avlgo-og.png', width: 1200, height: 630, alt: 'AVL GO' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/avlgo-og.png'],
+      creator: '@mattbrooksxyz',
+    },
   };
 }
 
@@ -326,8 +347,23 @@ export default async function CampPage({ params }: PageProps) {
     ? formatDate(getDateStringEastern(new Date(camp.checkedAt)), true)
     : null;
 
+  // Search results show "AVL GO › Summer camps" above the camp in place of the URL
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'AVL GO', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Summer camps', item: `${SITE_URL}/camps` },
+      { '@type': 'ListItem', position: 3, name: campWithProvider(card.name, camp.providerName) },
+    ],
+  };
+
   return (
     <main className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs).replace(/</g, '\\u003c') }}
+      />
       <Header activeTab="camps" />
       <CampViewBeacon campId={camp.id} />
 

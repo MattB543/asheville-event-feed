@@ -1,6 +1,12 @@
 import type { NextConfig } from 'next';
+import { HTML_LIMITED_BOT_UA_RE } from 'next/dist/shared/lib/router/utils/html-bots';
 
 const nextConfig: NextConfig = {
+  // Googlebot gets a page's title, description and canonical inside <head>, like the crawlers
+  // on Next's own list. Without this, pages with generateMetadata (events, camps, groups) stream
+  // those tags into <body> for it, where they count only once Google has run the page's scripts.
+  // Setting the option replaces Next's list, so this starts from it.
+  htmlLimitedBots: new RegExp(`${HTML_LIMITED_BOT_UA_RE.source}|Googlebot`, 'i'),
   async rewrites() {
     return [
       {

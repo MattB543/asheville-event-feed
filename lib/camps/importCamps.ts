@@ -7,8 +7,18 @@
  *   once and it never changes. The import writes the card and the columns copied from the effective
  *   card; it never writes override, hidden or reviewed_*, and never deletes anything.
  * - Every camp in a provider's extraction, changed or not, gets last_extracted_at = that
- *   extraction's extractedAt. A camp missing from it keeps its old stamp, so it no longer matches
- *   the provider's extracted_at and is retired (liveCamp: not shown, not queued, no feed event).
+ *   extraction's extractedAt. A camp that stays behind on an older stamp no longer matches the
+ *   provider's extracted_at and is retired (liveCamp: not shown, not queued, no feed event).
+ * - A live camp missing from the new extraction for the first time is kept one more round: it gets
+ *   the new stamp and missed_at, and is retired when the next extraction lacks it too (Matt,
+ *   2026-11-19: one extraction that left a program out, or misspelled it, retired a real camp).
+ *   The refresh re-extracts a provider with such a camp at its next check, changed pages or not,
+ *   so the second look comes within a week. Importing the same extraction again changes nothing.
+ * - A new card whose name is one typo away from a program the extraction otherwise lacks
+ *   ("Brevvard Distance Runners Camp") takes that program's name, and so its key, slug and saves:
+ *   only when one word differs by one letter, both cards have the same camp page and type, and
+ *   no other new or missing program is as close ("Junior High Camp" and "Senior High Camp" are
+ *   two camps).
  * - An extraction older than the one the database already has (the refresh job re-extracted that
  *   provider since the file was written) is skipped, so a file import never undoes a refresh.
  * - Sites are keyed by (provider_key, name), from the effective cards. New, changed and unplaced
@@ -75,8 +85,20 @@ export interface ImportOptions {
 
 export interface ImportSummary {
   providers: { new: number; changed: number; unchanged: number };
-  /** `missing`: in the database but not in their provider's new extraction, so retired. */
-  camps: { new: number; changed: number; unchanged: number; missing: number; duplicates: number };
+  /**
+   * `retired`: live until now, missing from their provider's new extraction a second time;
+   * `kept`: missing for the first time, so still live; `renamed`: new cards given
+   * the name of the program they misspell.
+   */
+  camps: {
+    new: number;
+    changed: number;
+    unchanged: number;
+    retired: number;
+    kept: number;
+    renamed: number;
+    duplicates: number;
+  };
   sites: { new: number; updated: number; unchanged: number; unplaced: number; lookups: number };
   /** Extractions skipped because the database has a newer one. */
   staleFiles: string[];
@@ -98,17 +120,23 @@ async function readExisting(): Promise<{
   tablesExist: boolean;
 }> {
   try {
-    const [providerRows, campRows, siteRows] = await Promise.all([
-      db.select().from(campProviders),
-      db.select().from(camps),
-      db.select().from(campSites),
-    ]);
+    // One snapshot: a camp row read before another import commits and its provider read after
+    // would look retired, and be skipped by the first-miss rule
+    const [providerRows, campRows, siteRows] = await db.transaction(
+      async (tx) =>
+        [
+          await tx.select().from(campProviders),
+          await tx.select().from(camps),
+          await tx.select().from(campSites),
+        ] as const,
+      { isolationLevel: 'repeatable read', accessMode: 'read only' }
+    );
     return { providers: providerRows, camps: campRows, sites: siteRows, tablesExist: true };
   } catch (error) {
     // undefined_column: the schema is ahead of the live table
     if (errorCode(error) === '42703')
       throw new Error(
-        'A camps table is missing a column: apply drizzle/0026_camps_refresh.sql and 0027_camps_last_extracted.sql',
+        'A camps table is missing a column: apply drizzle/0026_camps_refresh.sql, 0027_camps_last_extracted.sql and 0030_camps_refresh_lines.sql',
         { cause: error }
       );
     if (errorCode(error) !== '42P01') throw error;
@@ -155,6 +183,40 @@ type CampAfter = Pick<
   CampRow,
   'providerKey' | 'card' | 'override' | 'reviewedHash' | 'hidden' | 'lastExtractedAt'
 >;
+
+/** One letter added, dropped or replaced. */
+function oneLetterApart(a: string, b: string): boolean {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  const [short, long] = a.length <= b.length ? [a, b] : [b, a];
+  let start = 0;
+  while (start < short.length && short[start] === long[start]) start++;
+  // Past the first difference the rest must line up: after the extra letter, or after the swap
+  const rest = short.length === long.length ? start + 1 : start;
+  return short.slice(rest) === long.slice(start + 1);
+}
+
+/** Words that tell two real programs apart even one letter from each other ("Camp I", "Camp II"). */
+const TYPO_WORD_MIN = 6;
+
+/**
+ * The same program name but for a typo: the same words, except that one long word differs by a
+ * single letter ("Brevard" / "Brevvard"), or the same letters with different spacing or
+ * punctuation. Anything looser merges real programs: "Junior High Camp" and "Senior High Camp" are
+ * two letters apart, "Men's" and "Women's" two, "Camp I" and "Camp II" one.
+ */
+export function nearlySameName(a: string, b: string): boolean {
+  const [x, y] = [slugPart(a).split('-'), slugPart(b).split('-')];
+  if (x.join('') === y.join('')) return true;
+  if (x.length !== y.length) return false;
+  const differing = x.flatMap((word, index) => (word === y[index] ? [] : [[word, y[index]]]));
+  if (differing.length !== 1) return false;
+  const [one, other] = differing[0];
+  return (
+    Math.min(one.length, other.length) >= TYPO_WORD_MIN &&
+    !/\d/.test(one + other) &&
+    oneLetterApart(one, other)
+  );
+}
 
 /** In its provider's newest extraction (liveCamp's rule), as the rows will stand. */
 function inLatestExtraction(camp: CampAfter, providerExtractedAt: Date | null): boolean {
@@ -237,6 +299,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       notes: file ? file.extraction.notes : (current?.notes ?? null),
       extractedAt: file ? new Date(file.extractedAt) : (current?.extractedAt ?? null),
       sourceHash: file ? file.sourceHash : (current?.sourceHash ?? null),
+      sourceLines: file ? (file.sourceLines ?? null) : (current?.sourceLines ?? null),
       extractionFingerprint: file ? file.fingerprint : (current?.extractionFingerprint ?? null),
     };
     plannedExtractedAt.set(provider.key, values.extractedAt ?? null);
@@ -261,7 +324,11 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     /** Unchanged camps that only need this extraction's last_extracted_at. */
     restamp: [] as Array<{ campKey: string; providerKey: string; at: Date }>,
     duplicates: [] as string[],
-    missing: [] as CampRow[],
+    renamed: [] as string[],
+    /** Live until now and missing a second time, or excluded by the extraction: retired. */
+    retired: [] as CampRow[],
+    /** Live and missing for the first time: stamped with this extraction and missed_at. */
+    kept: [] as Array<{ campKey: string; providerKey: string; at: Date }>,
   };
   /** Every camp as it will stand after the import, for sites and the review count. */
   const after = new Map<string, CampAfter>(existing.camps.map((row) => [row.campKey, row]));
@@ -270,7 +337,36 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     const provider = providerByKey.get(file.provider.key)!;
     const extractedAt = new Date(file.extractedAt);
     const seen = new Set<string>();
-    for (const card of file.extraction.cards) {
+    const ownCamps = existing.camps.filter((row) => row.providerKey === provider.key);
+    const cardKeys = new Set(
+      file.extraction.cards.map((card) => campKeyFor(provider.key, card.name))
+    );
+    // Programs this extraction lacks, and cards it has under a name the provider never had
+    const lacking = ownCamps.filter((row) => !cardKeys.has(row.campKey));
+    const unknown = file.extraction.cards.filter(
+      (card) => !existingCamp.has(campKeyFor(provider.key, card.name))
+    );
+    for (const extracted of file.extraction.cards) {
+      // A new name one typo away from a program this extraction otherwise lacks is that program,
+      // when they are each other's only near match and share a camp page and type ("Baking Camp"
+      // and "Biking Camp" are one letter apart too, on different pages)
+      let card = extracted;
+      if (unknown.includes(card)) {
+        const near = lacking.filter(
+          (row) =>
+            nearlySameName(row.card.name, card.name) &&
+            row.card.type === card.type &&
+            !!card.camp_page_url &&
+            row.card.camp_page_url === card.camp_page_url
+        );
+        const rivals = unknown.filter(
+          (other) => near.length === 1 && nearlySameName(near[0].card.name, other.name)
+        );
+        if (near.length === 1 && rivals.length === 1) {
+          campPlan.renamed.push(`${provider.key}: "${card.name}" is "${near[0].card.name}"`);
+          card = { ...card, name: near[0].card.name };
+        }
+      }
       const campKey = campKeyFor(provider.key, card.name);
       if (seen.has(campKey)) {
         campPlan.duplicates.push(`${campKey} ("${card.name}")`);
@@ -288,6 +384,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         card,
         ...columns,
         lastExtractedAt: extractedAt,
+        missedAt: null,
       };
       after.set(campKey, {
         providerKey: provider.key,
@@ -311,12 +408,22 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
         campPlan.changed.push({ values, fields });
       else {
         campPlan.unchanged += 1;
-        if (current.lastExtractedAt?.getTime() !== extractedAt.getTime())
+        if (current.lastExtractedAt?.getTime() !== extractedAt.getTime() || current.missedAt)
           campPlan.restamp.push({ campKey, providerKey: provider.key, at: extractedAt });
       }
     }
-    for (const row of existing.camps) {
-      if (row.providerKey === provider.key && !seen.has(row.campKey)) campPlan.missing.push(row);
+    // Live camps this extraction lacks: kept for one more round, retired when an earlier
+    // extraction lacked them too. The same extraction imported twice is one miss, not two.
+    const wasExtractedAt = existingProvider.get(provider.key)?.extractedAt ?? null;
+    for (const row of ownCamps) {
+      if (seen.has(row.campKey) || !inLatestExtraction(row, wasExtractedAt)) continue;
+      if (row.missedAt && row.missedAt.getTime() !== extractedAt.getTime()) {
+        campPlan.retired.push(row);
+        continue;
+      }
+      if (!row.missedAt)
+        campPlan.kept.push({ campKey: row.campKey, providerKey: provider.key, at: extractedAt });
+      after.set(row.campKey, { ...row, lastExtractedAt: extractedAt });
     }
   }
 
@@ -473,14 +580,19 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
     console.log(`  ~ ${c.values.campKey}: ${c.fields.join(', ') || 'derived columns'}`);
   if (campPlan.changed.length > SHOW)
     console.log(`  ~ ... and ${campPlan.changed.length - SHOW} more`);
-  if (campPlan.missing.length) {
-    const wasLive = campPlan.missing.filter((row) =>
-      inLatestExtraction(row, existingProvider.get(row.providerKey)?.extractedAt ?? null)
-    );
+  for (const line of campPlan.renamed) console.log(`  = ${line} (a near-identical name)`);
+  if (campPlan.kept.length) {
     console.log(
-      `  ${campPlan.missing.length} missing from their provider's new extraction, so retired (kept, not shown); ${wasLive.length} of them were live until now:`
+      `  ${campPlan.kept.length} live camps missing from their provider's new extraction for the first time: still shown, retired if the next one lacks them too:`
     );
-    for (const row of wasLive) console.log(`  - ${row.campKey}${row.hidden ? ' (hidden)' : ''}`);
+    for (const row of campPlan.kept) console.log(`  ? ${row.campKey}`);
+  }
+  if (campPlan.retired.length) {
+    console.log(
+      `  ${campPlan.retired.length} retired (kept, not shown): missing from two extractions in a row:`
+    );
+    for (const row of campPlan.retired)
+      console.log(`  - ${row.campKey}${row.hidden ? ' (hidden)' : ''}`);
   }
   if (campPlan.duplicates.length) {
     console.log(
@@ -511,6 +623,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
   let campRows = [...campPlan.new, ...campPlan.changed.map((c) => c.values)];
   let siteRows = sitePlan.write.map((w) => w.values);
   let restamp = campPlan.restamp;
+  let kept = campPlan.kept;
   const summary: ImportSummary = {
     providers: {
       new: providerPlan.new.length,
@@ -521,7 +634,9 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       new: campPlan.new.length,
       changed: campPlan.changed.length,
       unchanged: campPlan.unchanged,
-      missing: campPlan.missing.length,
+      retired: campPlan.retired.length,
+      kept: campPlan.kept.length,
+      renamed: campPlan.renamed.length,
       duplicates: campPlan.duplicates.length,
     },
     sites: {
@@ -582,6 +697,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       ...new Set([
         ...[...providerRows, ...campRows, ...siteRows].map((row) => providerKeyOf(row)),
         ...restamp.map((row) => row.providerKey),
+        ...kept.map((row) => row.providerKey),
       ]),
     ];
     const stored = keys.length
@@ -591,12 +707,13 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
           .where(inArray(campProviders.key, keys))
           .for('update')
       : [];
+    // Any other extraction than the one this import was planned against: what's new, changed,
+    // missing for the first time or the second was all judged against that one
     const newer = new Set(
       stored
         .filter(
           (row) =>
-            row.extractedAt &&
-            row.extractedAt.getTime() > (plannedExtractedAt.get(row.key)?.getTime() ?? -Infinity)
+            row.extractedAt?.getTime() !== existingProvider.get(row.key)?.extractedAt?.getTime()
         )
         .map((row) => row.key)
     );
@@ -611,6 +728,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
       campRows = fresh(campRows);
       siteRows = fresh(siteRows);
       restamp = restamp.filter((row) => !newer.has(row.providerKey));
+      kept = kept.filter((row) => !newer.has(row.providerKey));
     }
 
     if (providerRows.length)
@@ -628,6 +746,7 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
             notes: excluded('notes'),
             extractedAt: excluded('extracted_at'),
             sourceHash: excluded('source_hash'),
+            sourceLines: excluded('source_lines'),
             extractionFingerprint: excluded('extraction_fingerprint'),
             updatedAt: sql`now()`,
           },
@@ -672,24 +791,30 @@ export async function importCamps(options: ImportOptions): Promise<ImportSummary
             seasonStart: excluded('season_start'),
             seasonEnd: excluded('season_end'),
             lastExtractedAt: excluded('last_extracted_at'),
+            missedAt: excluded('missed_at'),
             updatedAt: sql`now()`,
           },
         });
-    // Unchanged camps: only the stamp that keeps them live (their card and updated_at stand)
-    const restampByAt = new Map<number, string[]>();
-    for (const { campKey, at } of restamp)
-      restampByAt.set(at.getTime(), [...(restampByAt.get(at.getTime()) ?? []), campKey]);
-    for (const [at, campKeys] of restampByAt)
-      await tx
-        .update(camps)
-        .set({ lastExtractedAt: new Date(at) })
-        .where(inArray(camps.campKey, campKeys));
+    // Unchanged camps: only the stamp that keeps them live (their card and updated_at stand).
+    // Camps missing for the first time get the stamp too, and missed_at.
+    const stamp = async (rows: typeof restamp, missed: boolean) => {
+      const byAt = new Map<number, string[]>();
+      for (const { campKey, at } of rows)
+        byAt.set(at.getTime(), [...(byAt.get(at.getTime()) ?? []), campKey]);
+      for (const [at, campKeys] of byAt)
+        await tx
+          .update(camps)
+          .set({ lastExtractedAt: new Date(at), missedAt: missed ? new Date(at) : null })
+          .where(inArray(camps.campKey, campKeys));
+    };
+    await stamp(restamp, false);
+    await stamp(kept, true);
   });
 
   summary.wrote = {
     providers: providerRows.length,
     sites: siteRows.length,
-    camps: campRows.length + restamp.length,
+    camps: campRows.length + restamp.length + kept.length,
   };
   return summary;
 }

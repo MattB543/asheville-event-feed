@@ -22,6 +22,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { completeCronJob, failCronJob, startCronJob } from '../../lib/cron/jobTracker';
 import { refreshCamps, type RefreshOutcome } from '../../lib/camps/refresh';
+import { campsModelConfigured } from '../../lib/camps/responses';
 
 const CAMPS_DIR = join(process.cwd(), 'data', 'camps');
 const OUT_DIR = join(CAMPS_DIR, 'extractions');
@@ -49,6 +50,9 @@ async function main() {
   const minutes = Number(arg('--minutes') ?? DEFAULT_MINUTES);
 
   console.log(`${apply ? 'APPLY' : 'DRY RUN (no model calls, no writes)'}`);
+  // This run is the one that re-extracts (Vercel only reads and compares), so it must be able to
+  if (apply && !campsModelConfigured())
+    throw new Error('AZURE_OPENAI_API_KEY is not set: this run could not re-extract anything');
   const started = Date.now();
   let runId: string | null = null;
   if (apply) {
@@ -90,7 +94,7 @@ async function main() {
     });
 
     console.log(
-      `\n${result.eligible} providers refreshable, ${result.due} due; checked ${result.checked}: ` +
+      `\n${result.eligible} providers refreshable (${result.outOfRange.length} more left alone: too far away to list), ${result.due} due; checked ${result.checked}: ` +
         `${result.unchanged} unchanged, ${apply ? `${result.reExtracted} re-extracted` : `${result.changed} changed`}, ` +
         `${result.deferred} deferred, ${result.failed} failed; ${result.notStarted} not started`
     );

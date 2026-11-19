@@ -172,8 +172,14 @@ function whoText(ages: CampCard['ages'], grades: GradeRange | null): string | nu
   return [formatAges(ages), gradesText(grades)].filter(Boolean).join(' · ') || null;
 }
 
-/** "Jun 8–12", "Jun 29 – Jul 3"; the year only when it isn't the summer the camp describes. */
+/**
+ * "Jun 8–12", "Jun 29 – Jul 3"; the year only when it isn't the summer the camp describes. A range
+ * across two summers (a group of 2026 and 2027 sessions) gives each end its own year.
+ */
 function dateRange(start: string, end: string, summer: number): string {
+  if (start.slice(0, 4) !== end.slice(0, 4)) {
+    return `${formatDate(start, true)} – ${formatDate(end, true)}`;
+  }
   const year = start.startsWith(`${summer}-`) ? '' : `, ${start.slice(0, 4)}`;
   if (end === start) return `${formatDate(start)}${year}`;
   if (start.slice(0, 7) === end.slice(0, 7)) {
@@ -201,6 +207,22 @@ function spanOf(sessions: Session[]): { start: string; end: string } | null {
   };
 }
 
+/**
+ * "8 weekly sessions", with their summer when it isn't the one the camp's line leads with: LEAF's
+ * themed weeks are 2026's under its posted 2027 season ("8 weekly sessions (2026)").
+ */
+function sessionCount(sessions: Session[], noun: string, summer: number): string {
+  const byYear = new Map<number, number>();
+  for (const session of sessions) byYear.set(session.year, (byYear.get(session.year) ?? 0) + 1);
+  return [...byYear]
+    .sort(([a], [b]) => a - b)
+    .map(
+      ([year, count]) =>
+        `${count} ${count === 1 ? noun.replace(/s$/, '') : noun}${year !== summer ? ` (${year})` : ''}`
+    )
+    .join(', ');
+}
+
 /** A session of 4 to 7 days is a week. */
 function isWeekLong(session: Session): boolean {
   const days =
@@ -209,8 +231,13 @@ function isWeekLong(session: Session): boolean {
   return days >= 4 && days <= 7;
 }
 
-function priceText(price: PriceTier, summer: number): string {
-  const notes = [clean(price.label), price.year !== summer && String(price.year)].filter(Boolean);
+/**
+ * "$300/week (half day; 2026)": its year when it isn't the summer the camp describes, or the
+ * summer of the session it is on (`rowYear`: a 2027 price on a 2026 session).
+ */
+function priceText(price: PriceTier, summer: number, rowYear = summer): string {
+  const otherYear = price.year !== summer || price.year !== rowYear;
+  const notes = [clean(price.label), otherYear && String(price.year)].filter(Boolean);
   return `${formatPriceTier(price)}${notes.length > 0 ? ` (${notes.join('; ')})` : ''}`;
 }
 
@@ -278,9 +305,19 @@ function sessionSummary(sessions: Session[], card: CampCard, multiSite: boolean)
       },
     },
     {
-      valueOf: (session) => (session.price ? priceText(session.price, summer) : null),
-      many: (group) =>
-        `${formatPriceRange(group.flatMap((session) => session.price ?? []))} (varies)`,
+      valueOf: (session) => (session.price ? priceText(session.price, summer, session.year) : null),
+      // A range per summer, each but the camp's own marked with its year, so 2026 prices never
+      // read as 2027's
+      many: (group) => {
+        const prices = group.flatMap((session) => session.price ?? []);
+        const years = [...new Set(prices.map((price) => price.year))].sort((a, b) => b - a);
+        return `${years
+          .map(
+            (year) =>
+              `${formatPriceRange(prices.filter((price) => price.year === year))}${year !== summer ? ` (${year})` : ''}`
+          )
+          .join('; ')} (varies)`;
+      },
     },
     { valueOf: (session) => shortHours(session.hours), many: () => 'hours vary' },
   ];
@@ -296,7 +333,7 @@ function sessionSummary(sessions: Session[], card: CampCard, multiSite: boolean)
       return `${value}: ${group.length}, ${dateRange(span.start, span.end, summer)}`;
     });
   });
-  return [`${sessions.length} ${noun}`, ...entries].join('; ');
+  return [sessionCount(sessions, noun, summer), ...entries].join('; ');
 }
 
 /** A short schedule, each session as "Jun 8–12 (Ages 6–8, $300/week, Full)": no theme labels. */
@@ -316,7 +353,7 @@ function sessionFacts(session: Session, card: CampCard, multiSite: boolean): str
     multiSite ? session.site : null,
     whoText(range(session.ages), range(session.grades)),
     shortHours(session.hours),
-    session.price && priceText(session.price, card.season.year),
+    session.price && priceText(session.price, card.season.year, session.year),
     // Last summer's "Full" says nothing about this one
     session.status &&
       session.year === TARGET_SEASON &&
@@ -416,16 +453,24 @@ function campSection(camp: CampListing, now: Date): CampSection {
     : season.start
       ? `from ${formatDate(season.start)}`
       : null;
+  // `status` is whether the camp has posted TARGET_SEASON: a TARGET_SEASON card that hasn't (often
+  // just a registration date so far) says so
   const pending =
-    season.year !== TARGET_SEASON && season.status === 'coming_soon'
-      ? ` (${TARGET_SEASON} coming soon)`
-      : '';
+    season.year !== TARGET_SEASON
+      ? season.status === 'coming_soon'
+        ? ` (${TARGET_SEASON} coming soon)`
+        : ''
+      : season.status === 'coming_soon'
+        ? ' (coming soon, not posted yet)'
+        : season.status === 'not_posted'
+          ? ' (not posted yet)'
+          : '';
   const long = sessions.length > MAX_LISTED_SESSIONS;
   const weeks = !long && plainWeeks(sessions, card, multiSite);
   const sessionSpan = spanOf(sessions);
   const weeksText =
     weeks &&
-    `${sessions.length} weekly sessions${
+    `${sessionCount(sessions, 'weekly sessions', season.year)}${
       sessionSpan && (sessionSpan.start !== span?.start || sessionSpan.end !== span?.end)
         ? `, ${dateRange(sessionSpan.start, sessionSpan.end, season.year)}`
         : ''
@@ -552,7 +597,7 @@ Every kids' summer camp in AVL GO's directory (${SITE_URL}/camps), sorted by pro
 Info pulled from each camp's website by AI; double-check with the camp before booking.
 
 How to read it:
-- Each camp's first bullet starts with the summer its facts describe. ${TARGET_SEASON} means the camp has posted ${TARGET_SEASON}; ${TARGET_SEASON - 1} means it hasn't yet, so its dates, sessions and prices are ${TARGET_SEASON - 1}'s: a guide, not the ${TARGET_SEASON} schedule.
+- Each camp's first bullet starts with the summer its facts describe. ${TARGET_SEASON - 1} means the camp hasn't posted ${TARGET_SEASON} yet, so its dates, sessions and prices are ${TARGET_SEASON - 1}'s: a guide, not the ${TARGET_SEASON} schedule. ${TARGET_SEASON} means the camp has posted ${TARGET_SEASON}, unless "(not posted yet)" follows: then it has said something about ${TARGET_SEASON} (often only a registration date) but not posted the summer. A session, price or date from another summer than the bullet's is marked with its year.
 - Camps are day camps unless the line under the name says otherwise (Half-day, Overnight, Vacation Bible School ...). A provider with several camps has its own heading; the bullets right under it apply to all of its camps.
 - A camp with more than ${MAX_LISTED_SESSIONS} sessions gives a count, then each site, age group, price or hours its sessions state, with how many sessions and their date range. "Extended care 7:30 AM–5:30 PM" means drop-off from 7:30, pickup until 5:30.
 - Registration dates marked "expected" are the camp's estimate; "unconfirmed" means AVL GO hasn't verified the date.

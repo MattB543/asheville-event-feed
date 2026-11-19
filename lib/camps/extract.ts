@@ -9,9 +9,17 @@
 import { createHash } from 'node:crypto';
 import type { CampCard, Provider, ProviderExtraction } from './contract';
 import { EXTRACTION_SCHEMA } from './extractionSchema';
-import { FetchPageError, type PageTextFetcher } from './fetchPageText';
+import { getTodayStringEastern } from '@/lib/utils/timezone';
+import { FetchPageError, isGone, isHttpUrl, type PageTextFetcher } from './fetchPageText';
 import { isSocialUrl, platformOf, registrableDomain } from './platforms';
 import { createResponse, type ResponsesResult } from './responses';
+import { factLines, isHomePage, pageId, writeBaseline, type FactLine } from './sourceLines';
+
+/**
+ * Why a page is in the bundle: one of the provider's own pages (`seed`), a link followed from
+ * one (`link`), or a page the caller asked for, e.g. a registration page a card cites (`evidence`).
+ */
+export type PageRole = 'seed' | 'link' | 'evidence';
 
 export interface BundlePage {
   url: string;
@@ -23,20 +31,28 @@ export interface BundleLogEntry {
   chars: number;
   method?: string;
   error?: string;
+  /** Absent in extraction files saved before 2026-11-19. */
+  role?: PageRole;
+  /** The failed read says the page isn't there for anyone (isGone): left out, not a failure. */
+  gone?: boolean;
 }
+
+/** A fact line and the page it was read on (pageId of the requested URL). */
+export type PageLine = FactLine & { page: string };
 
 export interface SourceBundle {
   pages: BundlePage[];
   log: BundleLogEntry[];
-  /** sha256 of the fetched text, so a refresh can tell when a provider's pages changed. */
-  sourceHash: string | null;
+  /** The pages' fact lines (lib/camps/sourceLines.ts): what a refresh compares. */
+  lines: PageLine[];
 }
 
 export interface ExtractionRun {
   extraction: ProviderExtraction;
   response: Omit<ResponsesResult, 'text' | 'citations'> & { attempts: number };
   bundle: BundleLogEntry[];
-  sourceHash: string | null;
+  /** The bundle's lines as a baseline (writeBaseline), for a first extraction to store. */
+  sourceLines: string[];
 }
 
 /** One provider's file in data/camps/extractions/<key>.json. */
@@ -46,6 +62,8 @@ export interface SavedExtraction {
   /** `EXTRACTION_FINGERPRINT` when it was made; "webtrac:<catalog readAt>" for the catalog path. */
   fingerprint: string;
   sourceHash: string | null;
+  /** The fact-line hashes the next refresh compares with; absent in files saved before 2026-11-19. */
+  sourceLines?: string[] | null;
   /** Null for the WebTrac catalog path, which makes no model call. */
   response: ExtractionRun['response'] | null;
   bundle: BundleLogEntry[] | null;
@@ -55,20 +73,32 @@ export interface SavedExtraction {
 // YMCA's four program pages are its seeds; with three, Explorer Camp was seen only via search.
 const BUNDLE_SEEDS = 4;
 const BUNDLE_MAX_PAGES = 8;
+// Reads tried while crawling, failures included. The page limit alone counts successes: Johnson
+// City Parks & Rec's bundle logged 95 attempts and 89 failures before its refresh timed out.
+const BUNDLE_MAX_ATTEMPTS = 20;
 // Seed pages run to ~27k characters (Lutheridge's brochure, the Arboretum's camp page; 2026-10-28).
 const BUNDLE_PAGE_CHARS = 30000;
 const BUNDLE_TOTAL_CHARS = 80000;
 // Pages the caller adds (a refresh: the registration pages its cards cite) are fetched this many
 // at a time; there's no limit on how many, only the caller's time.
 const EVIDENCE_BATCH = 4;
+// Tested on a link's path and text, not its host: on "campus.example.edu" or a site whose name has
+// "camp" in it every link looked relevant, and "campus" isn't camp.
 const RELEVANT_LINK =
-  /camp|summer|dates|rates|tuition|fees|register|registration|enroll|faq|schedule|\.pdf(?:$|\?)/i;
+  /camp(?!us)|summer|dates|rates|tuition|fees|register|registration|enroll|\.pdf(?:$|\?)/i;
+// An FAQ or a schedule is worth reading only in the provider's own corner of a site: on a city's
+// site every department has one (Johnson City's bundle filled up with the fire and police FAQs).
+const GENERAL_LINK = /faq|schedule/i;
 const PREFERRED_LINK = /dates|rates|tuition|fees|register|registration|2027/i;
 const PDF_LINK = /\.pdf(?:$|\?)/i;
 // Pages that never hold camp facts: accounts, carts, legal and contact pages, site-wide alerts,
 // staff hiring (Rockmont's "Camp Jobs" page took a bundle slot, 2026-10-28).
 const SKIP_LINK =
   /\b(?:log[- ]?in|sign[- ]?in|my[- ]?account|cart|checkout|privacy|terms|cookies?|contact|alerts?|jobs?|careers?|employment|staff)\b/i;
+// Links that act instead of leading to a page: share buttons, calendar exports, feeds, comment
+// replies ("?share=twitter" and "?format=ical" each froze a provider's refresh, 2026-11).
+const ACTION_LINK =
+  /[?&](?:share|ical|outlook-ical|replytocom|add-to-cart)=|[?&]format=(?:ical|ics)\b|\/(?:feed|ical)\/?(?:$|\?)|\.ics(?:$|\?)/i;
 
 /**
  * A bounded source bundle: the seed pages, then the most promising same-site (or registration
@@ -78,27 +108,42 @@ const SKIP_LINK =
  *
  * `evidence` pages the crawl didn't reach are all read after it, beyond its limits, without
  * following their links. Pass them sorted, so the same list reads the same pages in the same order.
+ *
+ * Past `softDeadline` (epoch ms) no more links are followed and the evidence pages not yet read
+ * are logged as failed, so a caller with a time limit gets the pages read so far instead of
+ * nothing (a slow optional link used to cost a refresh the pages it had already read).
  */
 export async function buildSourceBundle(
   provider: Provider,
   fetcher: PageTextFetcher,
-  evidence: string[] = []
+  evidence: string[] = [],
+  softDeadline = Infinity
 ): Promise<SourceBundle> {
   const pages: BundlePage[] = [];
   const log: BundleLogEntry[] = [];
   const seen = new Set<string>();
   const seedDomains = new Set(provider.urls.map((url) => registrableDomain(url)).filter(Boolean));
   const queue: Array<{ url: string; hop: number; score: number }> = [];
+  const today = getTodayStringEastern();
+  const lines = new Map<string, PageLine>();
+  // Each seed's directory on its site ("/parks/camps/" for "/parks/camps/summer"; "/" for a page
+  // at the top), where a GENERAL_LINK counts
+  const seedDirs = seedUrls(provider).map(
+    (url) => `${registrableDomain(url)}${pathOf(url).replace(/[^/]*$/, '')}`
+  );
   let total = 0;
+  let attempts = 0;
 
-  const read = async (url: string, hop: number, extra = false) => {
+  const read = async (url: string, hop: number, role: PageRole) => {
+    const extra = role === 'evidence';
     if (seen.has(url)) return;
     if (!extra && (pages.length >= BUNDLE_MAX_PAGES || total >= BUNDLE_TOTAL_CHARS)) return;
     seen.add(url);
     if (isSocialUrl(url)) {
-      log.push({ url, chars: 0, error: 'social page: not fetched (login wall)' });
+      log.push({ url, chars: 0, role, error: 'social page: not fetched (login wall)' });
       return;
     }
+    if (!extra) attempts += 1;
     try {
       const page = await fetcher.get(url);
       // An evidence link that redirects to a page the crawl already has adds nothing
@@ -110,7 +155,13 @@ export async function buildSourceBundle(
       const text = page.text.slice(0, room);
       pages.push({ url: page.finalUrl, text });
       total += text.length;
-      log.push({ url, chars: text.length, method: page.method });
+      log.push({ url, chars: text.length, method: page.method, role });
+      // The lines of the text the model is given. The requested URL decides what kind of page it
+      // is: a registration link that redirects to a login page with a token is still that link.
+      const id = pageId(url);
+      for (const line of factLines(text, { today, homePage: isHomePage(url) })) {
+        lines.set(`${id}:${line.hash}`, { ...line, page: id });
+      }
       if (hop >= 2) return;
       for (const link of page.links) {
         const href = link.href.split('#')[0];
@@ -119,8 +170,11 @@ export async function buildSourceBundle(
           domain !== null &&
           (seedDomains.has(domain) || domain === registrableDomain(page.finalUrl));
         if (seen.has(href) || (!sameSite && !platformOf(href))) continue;
-        const label = `${href} ${link.text}`;
-        if (SKIP_LINK.test(label) || !RELEVANT_LINK.test(label)) continue;
+        if (!isHttpUrl(href) || ACTION_LINK.test(href)) continue;
+        const label = `${pathOf(href)} ${link.text}`;
+        if (SKIP_LINK.test(label)) continue;
+        const nearSeed = seedDirs.some((dir) => `${domain}${pathOf(href)}`.startsWith(dir));
+        if (!RELEVANT_LINK.test(label) && !(nearSeed && GENERAL_LINK.test(label))) continue;
         const pdf = PDF_LINK.test(href);
         if (hop === 1 && !pdf) continue;
         queue.push({
@@ -130,38 +184,77 @@ export async function buildSourceBundle(
         });
       }
     } catch (error) {
-      log.push({
-        url,
-        chars: 0,
-        error: error instanceof FetchPageError ? error.attempts.join('; ') : String(error),
-      });
+      const failed = error instanceof FetchPageError ? error.attempts : [String(error)];
+      log.push({ url, chars: 0, role, error: failed.join('; '), gone: isGone(failed) });
     }
   };
 
-  const seeds = provider.urls.slice(0, BUNDLE_SEEDS);
-  for (const url of seeds) await read(url, 0);
+  const seeds = seedUrls(provider);
+  for (const url of seeds) await read(url, 0, 'seed');
   // The home page often carries next summer's headline dates (LEAF's "June 14 - August 13", 2027),
   // so it gets the last slot when nothing better is left.
   for (const url of seeds) {
     if (!registrableDomain(url) || platformOf(url) || isSocialUrl(url)) continue;
     queue.push({ url: `${new URL(url).origin}/`, hop: 1, score: 0 });
   }
-  while (queue.length > 0 && pages.length < BUNDLE_MAX_PAGES && total < BUNDLE_TOTAL_CHARS) {
+  while (
+    queue.length > 0 &&
+    pages.length < BUNDLE_MAX_PAGES &&
+    total < BUNDLE_TOTAL_CHARS &&
+    attempts < BUNDLE_MAX_ATTEMPTS &&
+    Date.now() < softDeadline
+  ) {
     // Best first; the sort is stable, so ties keep page order.
     queue.sort((a, b) => b.score - a.score);
     const next = queue.shift()!;
-    await read(next.url, next.hop);
+    await read(next.url, next.hop, 'link');
   }
-  const extra = evidence.filter((url) => !seen.has(url));
+  // Out of time with links still to follow: logged as an unread page, so the caller knows this
+  // read is incomplete (a run without a browser then doesn't count it as a full check)
+  if (
+    queue.length > 0 &&
+    Date.now() >= softDeadline &&
+    pages.length < BUNDLE_MAX_PAGES &&
+    total < BUNDLE_TOTAL_CHARS &&
+    attempts < BUNDLE_MAX_ATTEMPTS
+  ) {
+    queue.sort((a, b) => b.score - a.score);
+    log.push({ url: queue[0].url, chars: 0, role: 'link', error: 'not read: out of time' });
+  }
+  const extra = evidence.filter((url) => !seen.has(url) && isHttpUrl(url));
   for (let start = 0; start < extra.length; start += EVIDENCE_BATCH) {
     const batch = extra.slice(start, start + EVIDENCE_BATCH);
+    if (Date.now() >= softDeadline) {
+      for (const url of batch)
+        if (!isSocialUrl(url))
+          log.push({ url, chars: 0, role: 'evidence', error: 'not read: out of time' });
+      continue;
+    }
     // Fetched together (the fetcher remembers each result), then added in order
     await Promise.all(
       batch.filter((url) => !isSocialUrl(url)).map((url) => fetcher.get(url).catch(() => null))
     );
-    for (const url of batch) await read(url, 2, true);
+    for (const url of batch) await read(url, 2, 'evidence');
   }
-  return { pages, log, sourceHash: hashPages(pages) };
+  return { pages, log, lines: [...lines.values()] };
+}
+
+/** The pages a bundle starts from: the provider's first few, ones we can read before social ones. */
+function seedUrls(provider: Provider): string[] {
+  return [
+    ...provider.urls.filter((url) => !isSocialUrl(url)),
+    ...provider.urls.filter((url) => isSocialUrl(url)),
+  ].slice(0, BUNDLE_SEEDS);
+}
+
+/** A link's path and query, without the host. */
+function pathOf(url: string): string {
+  try {
+    const { pathname, search } = new URL(url);
+    return `${pathname}${search}`;
+  } catch {
+    return url;
+  }
 }
 
 /**
@@ -183,20 +276,6 @@ export function modelPages(pages: BundlePage[]): BundlePage[] {
   return pages.map((page) => ({ url: page.url, text: page.text.slice(0, keep.get(page)) }));
 }
 
-/**
- * Every page's full text, banners and menus included: a site-wide change re-extracts the provider,
- * but the confirmation hash (cardHash) ignores confidence, notes and sources, so a confirmed camp
- * goes back to review only when its facts change.
- */
-function hashPages(pages: BundlePage[]): string | null {
-  if (pages.length === 0) return null;
-  const hash = createHash('sha256');
-  for (const page of [...pages].sort((a, b) => a.url.localeCompare(b.url))) {
-    hash.update(`${page.url}\n${page.text}\n`);
-  }
-  return hash.digest('hex');
-}
-
 /** The camp rule, card rule, year and registration rules and the confidence scale, for every call. */
 export function extractionInstructions(today: string): string {
   return `You research kids' summer camps near Asheville, NC for AVLGO, a free local directory. Parents use it to compare camps and not miss registration dates, so a wrong fact is worse than a missing one. Today is ${today}.
@@ -208,7 +287,10 @@ WHAT COUNTS AS A CAMP. Include finite, supervised youth programs in summer: day 
 - year-round or school-year childcare (after-school care, preschool) and year-round classes;
 - sports leagues or team seasons;
 - mission trips, and youth-group outings or trips;
-- a single evening or a social event (a dance, a movie night, a lock-in);
+- online-only or virtual programs;
+- a single evening, a social event (a dance, a movie night, a lock-in) or a one-off drop-in program that isn't a camp or clinic (a library craft hour, a story time);
+- programs for adults or college students, and childcare offered only to people attending a conference or event;
+- camps a family can't sign a child up for on its own (a scout troop's own week at camp);
 - summer school or learning programs only for a school district's own enrolled students;
 - conferences and conventions (4-H Congress, a youth conference);
 - fairs, festivals and seasonal attractions;
@@ -228,7 +310,7 @@ YEARS. AVLGO wants summer 2027. Use 2027 facts wherever the provider has posted 
 
 SEASON. "season.year" is the summer the card's dates describe; "start" and "end" span its rows. "season.status" says whether this program's 2027 information is out: "posted" (2027 dates are on the official pages), "coming_soon" (the provider says 2027 information is coming; put its words in "season.text", e.g. "2027 dates will be posted in January"), "not_posted" (nothing about 2027 yet).
 
-REGISTRATION. Only when the provider's own website, its registration platform, or (for a church's Vacation Bible School only) the church's own Facebook or Instagram states the date; an official page you saw only through search results counts. Never from a third-party listing, and never inferred from last year, a recurring pattern or a copyright year. Separate audiences: public, member, returning families, lottery, residents, early bird. Give "time" only when the page states a time. Use precision "month" when only a month is stated (date = the 1st of that month). certainty is "expected" for a date the provider hasn't committed to ("registration expected mid-December", "tentatively January 10"), otherwise "announced". "text" is the sentence as the page states it and "url" the page. Use audience "other" only for a group the list doesn't name (staff families, church members, scholarship applicants), and then its "text" must say who the date is for. A milestone's "year" is the summer (2027) while its "date" is the calendar date, which may fall in 2026. The 2026 season's opening (e.g. "registration opened January 12, 2026") goes in last_year_registration_opened, not in "registration".
+REGISTRATION. Only when the provider's own website, its registration platform, or (for a church's Vacation Bible School only) the church's own Facebook or Instagram states the date; an official page you saw only through search results counts. Never from a third-party listing, and never inferred from last year, a recurring pattern or a copyright year. Separate audiences: public, member, returning families, lottery, residents, early bird. Give "time" only when the page states a time. Use precision "month" when only a month is stated (date = the 1st of that month). certainty is "expected" for a date the provider hasn't committed to ("registration expected mid-December", "tentatively January 10"), otherwise "announced". A loose time is never a day: "by Thanksgiving", "mid-December" or "early spring" is precision "month" and certainty "expected". A date for paying a deposit or a balance, or for turning in a form, is not a registration date: leave it out. "text" is the sentence as the page states it and "url" the page. Use audience "other" only for a group the list doesn't name (staff families, church members, scholarship applicants), and then its "text" must say who the date is for. A milestone's "year" is the summer (2027) while its "date" is the calendar date, which may fall in 2026. The 2026 season's opening (e.g. "registration opened January 12, 2026") goes in last_year_registration_opened, not in "registration".
 
 TIMES. Every time is Eastern. A time stated in another zone ("11:59pm CST", "noon Central") is converted to Eastern, and the date moves with it when that crosses midnight (11:59 p.m. Central on March 1 is 00:59 Eastern on March 2); say so in review_notes. A time before 05:00 is almost always a misreading: leave "time" null unless the page plainly states that time.
 
@@ -258,7 +340,8 @@ export const EXTRACTION_FINGERPRINT = createHash('sha256')
 export function extractionInput(
   provider: Provider,
   bundle: BundlePage[],
-  existingPrograms: string[]
+  existingPrograms: string[],
+  changed: string[] = []
 ): string {
   const lines = [`Provider: ${provider.name}`];
   if (provider.urls.length > 0)
@@ -277,6 +360,12 @@ export function extractionInput(
     for (const page of bundle) lines.push(`----- ${page.url}\n${page.text}`);
     lines.push('----- end of fetched pages');
   }
+  if (changed.length > 0) {
+    // Why this provider is being read again; a line may sit past where a long page was cut
+    lines.push(
+      `NEW ON THESE PAGES since our last extraction (lower-cased lines; make sure the cards reflect them):\n${changed.map((line) => `- ${line}`).join('\n')}`
+    );
+  }
   return lines.join('\n');
 }
 
@@ -288,12 +377,22 @@ export async function extractProvider(
     existingPrograms?: string[];
     /** Extra pages for the bundle (buildSourceBundle). */
     evidence?: string[];
+    /** The bundle, when the caller has already read it (a refresh has, to compare it). */
+    bundle?: SourceBundle;
+    /** Lines new on the pages since the last extraction, pointed out to the model. */
+    changed?: string[];
     /** Stops the model calls and their retries (the fetcher takes its own). */
     signal?: AbortSignal;
   }
 ): Promise<ExtractionRun> {
-  const bundle = await buildSourceBundle(provider, options.fetcher, options.evidence);
-  const input = extractionInput(provider, modelPages(bundle.pages), options.existingPrograms ?? []);
+  const bundle =
+    options.bundle ?? (await buildSourceBundle(provider, options.fetcher, options.evidence));
+  const input = extractionInput(
+    provider,
+    modelPages(bundle.pages),
+    options.existingPrograms ?? [],
+    options.changed
+  );
 
   let lastError: unknown;
   for (let attempt = 1; attempt <= 2; attempt++) {
@@ -316,7 +415,7 @@ export async function extractProvider(
         extraction: checkExtraction(cleanExtraction(parsed)),
         response: { ...response, attempts: attempt },
         bundle: bundle.log,
-        sourceHash: bundle.sourceHash,
+        sourceLines: writeBaseline(bundle.lines, new Set()),
       };
     } catch (error) {
       lastError = new Error(

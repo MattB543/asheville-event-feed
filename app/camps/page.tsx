@@ -6,10 +6,11 @@ import FooterCredit from '@/components/FooterCredit';
 import AiNotice from '@/components/camps/AiNotice';
 import CampDirectory from '@/components/camps/CampDirectory';
 import CampExportLinks from '@/components/camps/CampExportLinks';
-import { toCardData, type CampCardData } from '@/lib/camps/display';
+import { formatDate, toCardData, type CampCardData } from '@/lib/camps/display';
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
-import { campsLastChecked, listLiveCamps } from '@/lib/db/queries/camps';
+import { listLiveCamps } from '@/lib/db/queries/camps';
 import { SITE_URL } from '@/lib/seo/site';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 
 const pageUrl = `${SITE_URL}/camps`;
 const title = 'Summer camps near Asheville, 2027';
@@ -48,18 +49,22 @@ export default async function CampsPage() {
   let checked: string | null = null;
   let failed = false;
   try {
-    const [camps, lastChecked] = await Promise.all([listLiveCamps(), campsLastChecked()]);
+    const camps = await listLiveCamps();
     const now = new Date();
     cards = camps.map((camp) => toCardData(camp, now));
     providers = new Set(camps.map((camp) => camp.providerKey)).size;
-    checked =
-      lastChecked &&
-      new Date(lastChecked).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        timeZone: 'America/New_York',
-      });
+    // The span of the listed camps' own checks, in Eastern days: the newest check alone made a
+    // camp last read weeks ago look current
+    const days = camps
+      .flatMap((camp) => (camp.checkedAt ? [getDateStringEastern(new Date(camp.checkedAt))] : []))
+      .sort();
+    if (days.length > 0) {
+      const [oldest, newest] = [days[0], days[days.length - 1]];
+      checked =
+        oldest === newest
+          ? `websites checked ${formatDate(newest, true)}`
+          : `websites checked between ${formatDate(oldest, oldest.slice(0, 4) !== newest.slice(0, 4))} and ${formatDate(newest, true)}`;
+    }
   } catch (error) {
     console.error('[Camps] Failed to load the camp directory:', error);
     failed = true;
@@ -87,7 +92,7 @@ export default async function CampsPage() {
             <div className="mt-1 flex flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-gray-500 dark:text-gray-400">
               <p>
                 {cards.length} camps from {providers} {providers === 1 ? 'provider' : 'providers'}
-                {checked && ` · last checked ${checked}`}
+                {checked && ` · ${checked}`}
               </p>
               <span aria-hidden="true" className="hidden sm:inline">
                 ·

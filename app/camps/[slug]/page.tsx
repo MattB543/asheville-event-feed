@@ -233,6 +233,7 @@ function RelatedCamp({ camp, now }: { camp: CampListItem; now: Date }) {
       </p>
       <p className="mt-1 text-sm font-medium text-gray-800 dark:text-gray-200">
         {data.registration.text}
+        {data.registration.unconfirmed && <UnconfirmedTag />}
       </p>
     </li>
   );
@@ -272,6 +273,12 @@ export default async function CampPage({ params }: PageProps) {
   const sessions = [...card.sessions].sort(
     (a, b) => a.start.localeCompare(b.start) || (a.site ?? '').localeCompare(b.site ?? '')
   );
+  // The table's summer: its sessions' own when they share one (LEAF posted 2027's season, but its
+  // themed weeks are 2026's), else none, and then each row from an earlier summer says so; a price
+  // from another summer than its row's says so too, either way (Camp Celo's 2027 sessions with a
+  // 2026 price; a 2027 price on a 2026 row)
+  const sessionYears = new Set(sessions.map((session) => session.year));
+  const sessionsYear = sessionYears.size === 1 ? [...sessionYears][0] : TARGET_SEASON;
   const columns = {
     site: camp.sites.length > 1 && sessions.some((session) => session.site),
     who: sessions.some((session) => session.ages || session.grades),
@@ -377,9 +384,8 @@ export default async function CampPage({ params }: PageProps) {
               <ReminderMenu
                 key={audience}
                 campId={camp.id}
-                audience={audience}
                 label={reminderLabel(card.registration, audience, now)}
-                dates={reminderDates(card, now, audience)}
+                dates={reminderDates(card, now, [audience])}
                 className={buttonClasses}
               />
             ))}
@@ -451,6 +457,13 @@ export default async function CampPage({ params }: PageProps) {
               )}
 
               {offerCalendar && <CampReminderOffer campId={camp.id} campName={card.name} />}
+
+              {/* This camp's own check, beside the facts that go stale */}
+              {checked && (
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Camp’s site last checked {checked}.
+                </p>
+              )}
             </div>
           </section>
 
@@ -470,7 +483,10 @@ export default async function CampPage({ params }: PageProps) {
                     </dt>
                     <dd className="text-sm text-gray-900 dark:text-gray-100">
                       {fact.value}
-                      {fact.year ? <YearTag year={fact.year} /> : null}
+                      {/* A price from another summer than the season's says so, 2027 included */}
+                      {fact.year ? (
+                        <YearTag year={fact.year} always={fact.year !== card.season.year} />
+                      ) : null}
                     </dd>
                   </div>
                 ))}
@@ -493,7 +509,7 @@ export default async function CampPage({ params }: PageProps) {
             <section aria-labelledby="sessions-heading" className="mt-8">
               <h2 id="sessions-heading" className={sectionHeading}>
                 Weeks and sessions
-                <YearTag year={card.season.year} />
+                <YearTag year={sessionsYear} />
               </h2>
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                 As the camp lists them. A blank means the camp’s general details apply.
@@ -550,6 +566,9 @@ export default async function CampPage({ params }: PageProps) {
                           </SessionCell>
                           <SessionCell className="sm:whitespace-nowrap">
                             {formatDateRange(session.start, session.end)}
+                            {session.year !== sessionsYear && (
+                              <YearTag year={session.year} always />
+                            )}
                           </SessionCell>
                           {columns.site && (
                             <SessionCell label="Site" className="sm:min-w-40">
@@ -582,6 +601,9 @@ export default async function CampPage({ params }: PageProps) {
                                 <>
                                   <span className="whitespace-nowrap">
                                     {formatPriceTier(session.price)}
+                                    {session.price.year !== session.year && (
+                                      <YearTag year={session.price.year} always />
+                                    )}
                                   </span>
                                   {session.price.label && (
                                     <span className="sm:block text-xs text-gray-500 dark:text-gray-400">
@@ -690,9 +712,6 @@ export default async function CampPage({ params }: PageProps) {
                   </li>
                 ))}
               </ul>
-              {checked && (
-                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Checked {checked}.</p>
-              )}
             </section>
           )}
 

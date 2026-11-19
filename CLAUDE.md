@@ -345,7 +345,7 @@ and review panel carry `ph-no-capture` so PostHog never records names.
 
 ### Camps tables (`camp_providers`, `camps`, `camp_sites`, `camp_views`, `camp_calendars`)
 
-The `/camps` summer-camp directory (migrations `drizzle/0025_camps.sql`, `0026_camps_refresh.sql` and `0027_camps_last_extracted.sql`,
+The `/camps` summer-camp directory (migrations `drizzle/0025_camps.sql`, `0026_camps_refresh.sql`, `0027_camps_last_extracted.sql` and `0030_camps_refresh_lines.sql`,
 applied by hand; plan and decisions in `docs/camps/04-v2-plan.md`, build log in `05-v2-report.md`).
 `camp_providers` is one row per provider from discovery (`data/camps/providers.json`; keys never
 change). `camps` is one card per program: `card` is the `CampCard` Sol extracted
@@ -353,11 +353,12 @@ change). `camps` is one card per program: `card` is the `CampCard` Sol extracted
 extracted ones), and the effective card is `{...card, ...override}`. Nothing checks the AI's facts
 in code: Sol rates `confidence` per card and per registration date, and anything short of `high`
 goes to Matt's queue at `/admin/camps`. `reviewed_hash` is `cardHash` of the card he confirmed
-(confidence, notes and sources excluded), so only a change of facts puts a camp back in the queue.
+(description, confidence, notes and sources excluded: the AI rewords descriptions on most
+re-extractions), so only a change of facts puts a camp back in the queue.
 `camp_sites` are drop-off sites (Census geocoder; ORS only with a street address; `geocode_source
 = 'hand'` is a pin Matt pasted, which imports never overwrite). The D3 radius (55 min day, 75
 overnight from Pack Square) is applied in `queryCamps`; unplaced sites stay in unless their state is
-far away. A site without a point takes its town's drive time from `data/camps/town-points.json` (`scripts/camps/town-points.ts`; shown as "~N min", `driveFromTown`), and a camp with no sites takes its provider's area town. Imports (`scripts/camps/import.ts` → `lib/camps/importCamps.ts`) never delete a camp, never change a slug, and skip extraction files older than the stored one. A camp is live only while its `last_extracted_at` equals its provider's `extracted_at`: a card the newest extraction no longer contains is retired (kept, not shown), never deleted. Cross-provider duplicates (the same camp listed by two providers) are dropped by `data/camps/duplicates.json`, reviewed decisions from `scripts/camps/find-duplicates.ts` candidates (fuzzy score >= 4, each pair reviewed by an Opus agent); `queryCamps` excludes them and a dropped camp's page redirects to the kept one.
+far away. A site without a point takes its town's drive time from `data/camps/town-points.json` (`scripts/camps/town-points.ts`; shown as "~N min", `driveFromTown`), and a camp with no sites takes its provider's area town. Imports (`scripts/camps/import.ts` → `lib/camps/importCamps.ts`) never delete a camp, never change a slug, and skip extraction files older than the stored one. A camp is live only while its `last_extracted_at` equals its provider's `extracted_at`: a card the newest extraction no longer contains is retired (kept, not shown), never deleted. Since 2026-11-19 that takes two misses in a row (`missed_at` marks the first, and the camp stays live for that round), unless the extraction lists the program as excluded; and a new card whose name is a typo away from a program the extraction otherwise lacks takes that program's name and key (a model typo, "Brevvard Distance Runners Camp", had retired the real camp). Cross-provider duplicates (the same camp listed by two providers) are dropped by `data/camps/duplicates.json`, reviewed decisions from `scripts/camps/find-duplicates.ts` candidates (fuzzy score >= 4, each pair reviewed by an Opus agent); `queryCamps` excludes them and a dropped camp's page redirects to the kept one.
 
 ### Row Level Security (RLS)
 
@@ -922,9 +923,20 @@ A directory of kids' summer camps within the D3 radius, for summer 2027 (plan:
 `docs/camps/01-context-and-plan.md`, as changed by `04-v2-plan.md`). Pipeline: discovery
 (`scripts/camps/discover.ts` → `data/camps/providers.json`) → extraction (`scripts/camps/extract.ts`:
 Sol + web search over our own fetched page text, one card per program, rows inside; Parks & Rec from
-its WebTrac catalog) → import → pages. The daily `camps-refresh` cron re-reads due providers and
-re-extracts only when their pages or the prompt changed; browser-only sites and the WebTrac catalog
-are refreshed by the nightly local task. `/camps` filters client-side on rows (kid ages/grades, week,
+its WebTrac catalog) → import → pages. The refresh (`lib/camps/refresh.ts`) re-reads due providers
+and re-extracts only when their pages or the prompt changed. **Only the nightly local task
+re-extracts** (Matt, 2026-11-19: updates stay on his PC; it has the model key and the browser). The
+daily Vercel `camps-refresh` cron has neither: it reads and compares, marks unchanged providers
+checked, and leaves the changed ones due (`deferred`). "Changed" means the pages' fact lines
+(`lib/camps/sourceLines.ts`: lines with a date, price, time, age or grade, or naming camp or
+registration; stored as hashes in `camp_providers.source_lines`) gained or lost a line on two reads
+in a row; each run's outcome quotes the new lines. Before that it hashed whole pages and four in
+five "changes" were noise (login tokens in URLs, captchas, today's date). A provider's check fails
+only when none of its own pages can be read; any other unreadable link is skipped (one calendar or
+share link used to freeze the whole provider), a site with a broken certificate is read over plain
+http, and `npm run cron:health` lists providers unreadable for 14+ days. Providers whose live camps
+are all more than 10 minutes past the drive limit aren't refreshed. The refresh also watches each
+card's registration link (up to 6 per provider, beyond the pages its registration dates cite), where an opening date appears first. Lines that differ between two back-to-back reads (a rotating list) are remembered as unstable and never counted as a change. `/camps` filters client-side on rows (kid ages/grades, week,
 drive, price, town, hours, registration, support), keeps filters in the URL, and shows an AI notice;
 the list is cached in 4 parts (Next refuses a cache entry over 2MB). Uncertain registration dates
 read "unconfirmed" until Matt confirms the camp. Camp events join the main feed as source `CAMPS`

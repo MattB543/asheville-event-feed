@@ -6,6 +6,7 @@
  */
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 import type { ChatModel } from '@/lib/ai/chat/runner';
+import { getDateStringEastern } from '@/lib/utils/timezone';
 import { isRecord } from '@/lib/utils/validation';
 import { parseCampSearchFilters } from './validation';
 import {
@@ -35,7 +36,10 @@ function forModel(key: string, value: unknown): unknown {
   if (MODEL_OMITS.has(key)) return undefined;
   if (value === null || (Array.isArray(value) && value.length === 0)) return undefined;
   if (value === false && key !== 'hasMore') return undefined;
-  return key === 'checkedAt' && typeof value === 'string' ? value.slice(0, 10) : value;
+  // The Eastern day it was checked: the UTC one moves an evening check to the next day
+  return key === 'checkedAt' && typeof value === 'string' && !Number.isNaN(Date.parse(value))
+    ? getDateStringEastern(new Date(value))
+    : value;
 }
 
 /** The request body, or null when it isn't one. A stale or invalid lastSearch is dropped. */

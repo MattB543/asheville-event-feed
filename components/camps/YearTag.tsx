@@ -1,11 +1,19 @@
 import { TARGET_SEASON, type RegistrationNote } from '@/lib/camps/display';
 
-/** "2026" beside a value from last summer, when the camp hasn't posted 2027 yet (D12). */
-export function YearTag({ year }: { year: number }) {
-  if (year >= TARGET_SEASON) return null;
+/**
+ * "2026" beside a value from last summer, when the camp hasn't posted 2027 yet (D12). `always`
+ * shows it for any summer: a value whose year differs from its row's or heading's (a 2027 price on
+ * a 2026 session) says so, 2027 included.
+ */
+export function YearTag({ year, always = false }: { year: number; always?: boolean }) {
+  if (year >= TARGET_SEASON && !always) return null;
   return (
     <span
-      title={`From summer ${year}; ${TARGET_SEASON} not posted yet`}
+      title={
+        year >= TARGET_SEASON
+          ? `For summer ${year}`
+          : `From summer ${year}; ${TARGET_SEASON} not posted yet`
+      }
       className="ml-1.5 inline-block rounded px-1 text-[11px] font-medium leading-4 bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
     >
       {year}

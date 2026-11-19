@@ -12,9 +12,14 @@ import assert from 'node:assert/strict';
 import type { CampCard, Milestone, PriceTier, Session } from '../lib/camps/contract';
 import {
   SUMMER_WEEKS,
+  campNameText,
+  campSearchText,
+  countTerms,
   inTargetSeason,
-  kidFit,
+  matchesTerms,
   registrationLine,
+  rowKidFit,
+  searchTerms,
   toCardData,
   type CampCardData,
 } from '../lib/camps/display';
@@ -189,7 +194,11 @@ function keywordTests() {
       ],
     }),
     camp('secret', { name: 'Plain Camp', camp_page_url: 'https://secretword.example/' }),
+    camp('theatre', { name: 'Youth Theatre Workshop' }),
   ]);
+  // "Theatre" is "theater", as in the directory's search, which hands the chat "theater"
+  assert.deepEqual(found(index, { keywords: ['theater'] }), ['theatre']);
+  assert.deepEqual(found(index, { keywords: ['theatre'] }), ['theatre']);
 
   // Word starts, not substrings; the whole description, not the first sentence
   assert.deepEqual(found(index, { keywords: ['art'] }), ['artists']);
@@ -262,6 +271,14 @@ function keywordTests() {
 // Eligibility and kids modes
 // ---------------------------------------------------------------------------
 
+/** Ages 6-16 for the camp; its one session states only grades (either reading of them). */
+const ROCKBROOK = camp('rockbrook', {
+  ages: { min: 6, max: 16 },
+  sessions: [
+    session(JUNE, { label: 'First Session', grades: { min: 2, max: 10, basis: 'unspecified' } }),
+  ],
+});
+
 function eligibilityTests() {
   const index = buildCampIndex([
     camp('grades-session', {
@@ -288,7 +305,14 @@ function eligibilityTests() {
       sites: [{ name: 'North' }, { name: 'South' }],
       sessions: [session(JUNE, { label: 'Everyone' })],
     }),
+    ROCKBROOK,
   ]);
+
+  // A session's grades narrow the camp's ages, never widen them: Rockbrook takes ages 6-16
+  assert(!found(index, { kids: [{ age: 17, grade: null }] }).includes('rockbrook'));
+  assert(!found(index, { kids: [{ age: 17, grade: 10 }] }).includes('rockbrook'));
+  assert(found(index, { kids: [{ age: 10, grade: null }] }).includes('rockbrook'));
+  assert(found(index, { kids: [{ age: null, grade: 10 }] }).includes('rockbrook'));
 
   // A session's grades replace the card's ages too: age 7 fits only the session without its own
   const seven = hitOf(index, { kids: [{ age: 7, grade: null }] }, 'grades-session');
@@ -565,6 +589,9 @@ function hoursTests() {
 // Prices
 // ---------------------------------------------------------------------------
 
+/** "Free" for the summer-long program, no sessions: no duration to spread the price over. */
+const FREE_PROGRAM = camp('free-program', { prices: [tier(0, 'program', 'Free')] });
+
 function priceTests() {
   const index = buildCampIndex([
     camp('weekly-250', { sessions: [session(JUNE)], prices: [tier(250)] }),
@@ -611,6 +638,7 @@ function priceTests() {
         tier(1925, 'session', 'rising grades 10–12'),
       ],
     }),
+    FREE_PROGRAM,
   ]);
   const week = (min: number | null, max: number | null) => ({ price: { min, max, per: 'week' } });
   const perSession = (min: number | null, max: number | null) => ({
@@ -634,6 +662,9 @@ function priceTests() {
   const free = found(index, week(0, 0));
   assert(free.includes('all-free'));
   assert(!free.includes('no-price') && !free.includes('zero-beside-paid'));
+  // Free in a unit that needs a duration, with none stated, is still free
+  assert(free.includes('free-program'));
+  assert(found(index, perSession(0, 0)).includes('free-program'));
   assert((search(index, week(0, 0)).unknownCounts.price ?? 0) >= 1);
   const unknownPrice = hitOf(index, { ...week(0, 0), includeUnknown: ['price'] }, 'no-price');
   assert.deepEqual(unknownPrice.matches[0].unknown, ['price']);
@@ -775,6 +806,40 @@ function locationTests() {
 // Registration
 // ---------------------------------------------------------------------------
 
+/** Open with some weeks full: June is, July isn't. */
+const JUNE_FULL = camp('june-full', {
+  availability: { status: 'mixed', scope: null, text: 'Some weeks are full' },
+  sessions: [session(JUNE, { status: 'full' }), session(JULY, { status: 'available' })],
+});
+
+/** The same June week of 2026 (moved onto JUNE by inTargetSeason), at one site or the other. */
+const JUNE_2026 = { start: '2026-06-15', end: '2026-06-19' };
+
+/** Full in June 2027; last summer's same week, same program, says nothing either way. */
+const FULL_OVER_HISTORY = camp('full-over-history', {
+  availability: { status: 'mixed', scope: null, text: 'Some weeks are full' },
+  sessions: [session(JUNE, { status: 'full' }), session(JUNE_2026)],
+});
+
+/** Full in June 2027 at North; last summer's June at South is another place. */
+const FULL_ELSEWHERE = camp('full-elsewhere', {
+  availability: { status: 'mixed', scope: null, text: 'Some weeks are full' },
+  sites: [{ name: 'North' }, { name: 'South' }],
+  sessions: [
+    session(JUNE, { status: 'full', site: 'North' }),
+    session(JUNE_2026, { site: 'South' }),
+  ],
+});
+
+/** Camp Greystone: returning campers' window has passed; new campers start on a waitlist. */
+const GREYSTONE = camp('greystone', {
+  availability: { status: 'waitlist', scope: 'New campers', text: 'New campers join a waitlist' },
+  registration: [
+    opening('2026-09-09', { audience: 'returning' }),
+    opening('2026-09-16', { audience: 'returning', kind: 'closes' }),
+  ],
+});
+
 function registrationTests() {
   const index = buildCampIndex([
     camp('members-first', {
@@ -803,10 +868,30 @@ function registrationTests() {
     camp('returning-soon', {
       registration: [opening('2026-11-05', { audience: 'returning' }), opening('2027-01-10')],
     }),
+    JUNE_FULL,
+    FULL_OVER_HISTORY,
+    FULL_ELSEWHERE,
+    GREYSTONE,
   ]);
   const before = (to: string, audience = 'public', from: string | null = null) => ({
     registrationOpens: { from, to, audience },
   });
+
+  // "Open" never matches on a week the camp marks full, whatever its other weeks say
+  const openIn = (dates: typeof JUNE) => ({
+    registration: 'open',
+    dates: { ...dates, match: 'overlaps' },
+  });
+  assert(!found(index, openIn(JUNE)).includes('june-full'));
+  assert(found(index, openIn(JULY)).includes('june-full'));
+  assert(found(index, { dates: { ...JUNE, match: 'overlaps' } }).includes('june-full'));
+  // ... nor on last summer's same program moved onto that week; another site's keeps its own
+  assert(!found(index, openIn(JUNE)).includes('full-over-history'));
+  assert(found(index, { dates: { ...JUNE, match: 'overlaps' } }).includes('full-over-history'));
+  assert(found(index, openIn(JUNE)).includes('full-elsewhere'));
+  // A waitlist for part of the camp is not "open"; it is a waitlist
+  assert(!found(index, { registration: 'open' }).includes('greystone'));
+  assert(found(index, { registration: 'full' }).includes('greystone'));
 
   // The public window ignores a members' date; "any" takes it, named
   assert(!found(index, before('2027-01-14')).includes('members-first'));
@@ -1441,6 +1526,210 @@ async function memoTests() {
 }
 
 // ---------------------------------------------------------------------------
+// The directory's own helpers (lib/camps/display.ts): its search, rows, headline and reminders
+// ---------------------------------------------------------------------------
+
+function directoryTests() {
+  // The search box matches the start of words, every word, and ranks name matches first
+  const cards = [
+    camp('young-artists', { name: 'Young Artists Studio' }),
+    camp('smart-start', { name: 'Smart Start', description: 'A summer party with painting.' }),
+    camp('nature-art', { name: 'Nature Explorers', description: 'Hiking, with art after lunch.' }),
+  ].map((listing) => toCardData(listing, NOW));
+  const matching = (query: string) =>
+    cards
+      .filter((data) => matchesTerms(campSearchText(data), searchTerms(query)))
+      .map((data) => data.slug);
+  assert.deepEqual(matching('art'), ['young-artists', 'nature-art']);
+  assert.deepEqual(matching('Arts'), ['young-artists', 'nature-art']);
+  assert.deepEqual(matching('art hiking'), ['nature-art']);
+  assert.deepEqual(matching('start'), ['smart-start']);
+  assert.deepEqual(
+    cards.map((data) => countTerms(campNameText(data), searchTerms('art'))),
+    [1, 0, 0]
+  );
+
+  // A row's grades never widen the card's ages (ROCKBROOK: ages 6-16, a session of grades only)
+  const rockbrook = toCardData(ROCKBROOK, NOW);
+  assert(!directoryListed(rockbrook, { kid: { age: 17, grade: null } }));
+  assert(!directoryListed(rockbrook, { kid: { age: 17, grade: 10 } }));
+  assert(directoryListed(rockbrook, { kid: { age: 10, grade: null } }));
+
+  // A 2027 week the camp marks full is flagged for the "Open" filter; 2026's statuses aren't
+  assert.deepEqual(
+    toCardData(JUNE_FULL, NOW).rows.map((row) => row.unavailable ?? false),
+    [true, false]
+  );
+  assert.equal(
+    toCardData(camp('full-2026', { sessions: [session(JUNE_2026, { status: 'full' })] }), NOW)
+      .rows[0].unavailable,
+    undefined
+  );
+  // Last summer's same program on a full 2027 week is flagged too; at another site it isn't
+  assert.deepEqual(
+    toCardData(FULL_OVER_HISTORY, NOW).rows.map((row) => row.unavailable ?? false),
+    [true, true]
+  );
+  assert.deepEqual(
+    toCardData(FULL_ELSEWHERE, NOW).rows.map((row) => row.unavailable ?? false),
+    [true, false]
+  );
+
+  // A bare listing has no dates (either season end), price, ages or registration date at all
+  const noSeason = {
+    year: 2026,
+    status: 'not_posted' as const,
+    start: null,
+    end: null,
+    text: null,
+  };
+  assert.equal(toCardData(camp('bare', { season: noSeason }), NOW).bare, true);
+  // Camp Living Water: a Dec 1 opening and nothing else
+  assert.equal(
+    toCardData(
+      camp('living-water', { season: noSeason, registration: [opening('2026-12-01')] }),
+      NOW
+    ).bare,
+    undefined
+  );
+  assert.equal(
+    toCardData(camp('end-only', { season: { ...noSeason, end: '2026-08-14' } }), NOW).bare,
+    undefined
+  );
+  assert.equal(toCardData(camp('dated'), NOW).bare, undefined);
+
+  // Free with no duration is still $0 a week
+  assert.deepEqual(toCardData(FREE_PROGRAM, NOW).rows[0].weekly, [0]);
+
+  const line = (input: CardInput, now = NOW) =>
+    registrationLine(camp('line', input).card, false, now);
+  const notPosted = {
+    year: 2026,
+    status: 'not_posted' as const,
+    start: '2026-06-08',
+    end: '2026-08-14',
+    text: null,
+  };
+  // Last year's opening names its year: "Feb 9 last year" read as 2025 in November 2026
+  const lastYear = line({
+    season: notPosted,
+    last_year_registration_opened: {
+      date: '2026-02-09',
+      time: null,
+      text: 'Registration opened February 9',
+      url: 'https://camp.example/register',
+    },
+  });
+  assert.equal(lastYear.text, '2026 registration opened Feb 9, 2026');
+
+  // "Opens within 14 days" counts calendar days: Jan 11 is 14 days off all day on Dec 28
+  const dec28 = new Date('2026-12-28T17:00:00Z');
+  assert.equal(line({ registration: [opening('2027-01-11')] }, dec28).status, 'soon');
+  assert.equal(line({ registration: [opening('2027-01-12')] }, dec28).status, 'later');
+
+  // Availability for part of the camp (Rockmont) says registration is open, without naming sessions
+  const partly = line({
+    season: {
+      year: 2027,
+      status: 'posted',
+      start: '2027-06-07',
+      end: '2027-08-13',
+      text: 'Registration for the 2027 Summer is OPEN!',
+    },
+    availability: {
+      status: 'mixed',
+      scope: 'June Camp, Two Week 1 and Two Week 3 have waitlisted grades.',
+      text: 'Waitlisted grades',
+    },
+  });
+  assert.deepEqual([partly.status, partly.text], ['open', '2027: open, partly full']);
+  assert.deepEqual(
+    partly.details.map((note) => note.text),
+    ['Partly full: June Camp, Two Week 1 and Two Week 3 have waitlisted grades.']
+  );
+  assert.equal(
+    line({ availability: { status: 'available', scope: 'Mini Session II', text: 'Register' } })
+      .text,
+    '2027: open in part'
+  );
+  // A waitlist for part of it (Greystone's new campers) is a waitlist, never "open"
+  const greystone = registrationLine(GREYSTONE.card, false, NOW);
+  assert.deepEqual(
+    [greystone.status, greystone.text, greystone.details.map((note) => note.text)],
+    ['full', '2027: waitlist in part', ['Waitlist: New campers']]
+  );
+  // Also when a public opening has passed (Falling Creek's FLINT): "opened" counts as open in the
+  // Open filter, and part of this camp is on a waitlist
+  const flint = line({
+    registration: [opening('2026-08-26')],
+    availability: { status: 'waitlist', scope: 'Main Camp', text: 'Waitlist' },
+  });
+  assert.deepEqual([flint.status, flint.text], ['full', '2027: waitlist in part']);
+
+  // A passed final deadline, or the end of camp, beats an old "open"
+  const registerNow = {
+    status: 'available' as const,
+    scope: null,
+    text: 'Register for this event!',
+  };
+  const deadline = line(
+    {
+      availability: registerNow,
+      registration: [
+        opening('2027-06-21', { kind: 'deadline', time: '00:59', precision: 'datetime' }),
+      ],
+    },
+    new Date('2027-06-22T16:00:00Z')
+  );
+  assert.deepEqual(
+    [deadline.status, deadline.text],
+    ['full', '2027 registration deadline passed Jun 21, 2027']
+  );
+  assert.equal(
+    line({ availability: registerNow }, new Date('2027-06-22T16:00:00Z')).status,
+    'open'
+  );
+  const over = line({ availability: registerNow }, new Date('2027-08-20T16:00:00Z'));
+  assert.deepEqual([over.status, over.text], ['full', '2027 camp ended Aug 13, 2027']);
+
+  // "Add reminder" offers the date the headline names, named with its audience, and the public one
+  const celo = toCardData(
+    camp('celo', {
+      registration: [opening('2027-01-05', { audience: 'returning' }), opening('2027-01-15')],
+    }),
+    NOW
+  );
+  assert.equal(celo.registration.text, 'Registration opens Jan 5, 2027');
+  assert.deepEqual(
+    celo.reminders.map((date) => [date.audience, date.label]),
+    [
+      ['returning', 'Returning-camper registration opens Jan 5'],
+      ['public', 'Public registration opens Jan 15'],
+    ]
+  );
+  assert.deepEqual(
+    toCardData(camp('public-only', { registration: [opening('2027-01-15')] }), NOW).reminders.map(
+      (date) => date.label
+    ),
+    ['Registration opens Jan 15']
+  );
+  // A date for 'other' families is named in the camp's words, which say who it is for
+  const scholarship = toCardData(
+    camp('scholarship', {
+      registration: [
+        opening('2027-01-03', { audience: 'other', text: 'Scholarship applications open' }),
+        opening('2027-01-15'),
+      ],
+    }),
+    NOW
+  );
+  assert.deepEqual(
+    scholarship.reminders.map((date) => date.label),
+    ['Scholarship applications open (Jan 3)', 'Public registration opens Jan 15']
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Live: read-only checks against the real camps (--live)
 // ---------------------------------------------------------------------------
 
@@ -1456,7 +1745,7 @@ function directoryListed(
   }
 ): boolean {
   return data.rows.some((row) => {
-    if (probe.kid && kidFit(row, probe.kid) === 'no') return false;
+    if (probe.kid && rowKidFit(data, row, probe.kid) === 'no') return false;
     const tests: Array<boolean | null> = [];
     if (probe.week) {
       tests.push(
@@ -1698,6 +1987,7 @@ export async function runCampSearchTests({ live = false }: { live?: boolean } = 
   registrationTests();
   whereTests();
   resultTests();
+  directoryTests();
   await toolTests();
   await memoTests();
   console.log('Camps search offline tests passed.');

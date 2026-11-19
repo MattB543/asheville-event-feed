@@ -15,18 +15,18 @@ const itemClasses =
 
 /**
  * "Add reminder" as a calendar picker, like an event's: Google Calendar opens a date as a new
- * event (a link holds one, so several dates get a link each), Apple / Outlook downloads them all
- * as one .ics. Both go through /api/camps/[id]/reminder, which reads the camp's full card.
+ * event (a link holds one, so several dates get a link each), Apple / Outlook downloads an
+ * audience's dates as one .ics. Every item names the date it adds and whose it is (a card's
+ * headline can name another audience's date than the public one). Both go through
+ * /api/camps/[id]/reminder, which reads the camp's full card.
  */
 export default function ReminderMenu({
   campId,
-  audience = 'public',
   label,
   dates,
   className,
 }: {
   campId: string;
-  audience?: Audience;
   label: string;
   dates: ReminderDate[];
   className: string;
@@ -40,13 +40,20 @@ export default function ReminderMenu({
   useDismiss(open, () => setOpen(false), [rootRef], triggerRef);
 
   const base = `/api/camps/${campId}/reminder`;
-  const who = audience === 'public' ? '' : `audience=${audience}&`;
-  const ics = audience === 'public' ? base : `${base}?audience=${audience}`;
-  // The date exactly: kind, day and time (the audience is `who`)
+  const ics = (audience: Audience) =>
+    audience === 'public' ? base : `${base}?audience=${audience}`;
+  // The date exactly: audience, kind, day and time
   const google = (date: ReminderDate) =>
-    `${base}?${who}calendar=google&kind=${date.kind}&date=${date.date}${
+    `${base}?${date.audience === 'public' ? '' : `audience=${date.audience}&`}calendar=google&kind=${date.kind}&date=${date.date}${
       date.time ? `&time=${date.time}` : ''
     }`;
+  // One .ics per audience, in the order their first dates come, naming the dates it holds
+  const audiences = [...new Set(dates.map((date) => date.audience))];
+  const icsNote = (audience: Audience) => {
+    const own = dates.filter((date) => date.audience === audience);
+    const what = own.map((date) => date.label).join('; ');
+    return own.length === 1 ? `${what}, as an .ics file` : `${what}: one .ics file`;
+  };
 
   return (
     <div ref={rootRef} className="relative">
@@ -80,7 +87,7 @@ export default function ReminderMenu({
         >
           {dates.map((date) => (
             <a
-              key={`${date.kind}-${date.date}-${date.time ?? ''}`}
+              key={`${date.audience}-${date.kind}-${date.date}-${date.time ?? ''}`}
               href={google(date)}
               target="_blank"
               rel="noopener noreferrer nofollow"
@@ -96,31 +103,35 @@ export default function ReminderMenu({
               />
               <span className="min-w-0">
                 Google Calendar
-                {dates.length > 1 && (
-                  <span className="block text-xs text-gray-500 dark:text-gray-400">
-                    {date.label}
-                  </span>
-                )}
+                <span className="block text-xs text-gray-500 dark:text-gray-400">{date.label}</span>
               </span>
             </a>
           ))}
-          <a href={ics} rel="nofollow" onClick={() => setOpen(false)} className={itemClasses}>
-            <svg
-              aria-hidden="true"
-              className="mt-0.5 h-4 w-4 shrink-0"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
+          {audiences.map((audience) => (
+            <a
+              key={audience}
+              href={ics(audience)}
+              rel="nofollow"
+              onClick={() => setOpen(false)}
+              className={itemClasses}
             >
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-            </svg>
-            <span className="min-w-0">
-              Apple / Outlook
-              <span className="block text-xs text-gray-500 dark:text-gray-400">
-                {dates.length > 1 ? `All ${dates.length} dates, as an .ics file` : 'An .ics file'}
+              <svg
+                aria-hidden="true"
+                className="mt-0.5 h-4 w-4 shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+              <span className="min-w-0">
+                Apple / Outlook
+                <span className="block text-xs text-gray-500 dark:text-gray-400">
+                  {icsNote(audience)}
+                </span>
               </span>
-            </span>
-          </a>
+            </a>
+          ))}
         </div>
       )}
     </div>

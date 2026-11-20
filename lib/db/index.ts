@@ -62,9 +62,9 @@ export function onePerConnection<T extends Sql | TransactionSql>(client: T): T {
         };
       }
       if (prop === 'savepoint') {
-        return () => {
-          throw new Error('Nested transactions are not supported: see onePerConnection');
-        };
+        // Rejects, as a failed savepoint would, so a caller's .catch() still works
+        return () =>
+          Promise.reject(new Error('Nested transactions are not supported: see onePerConnection'));
       }
       return value;
     },

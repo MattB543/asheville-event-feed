@@ -416,12 +416,12 @@ On a warm pool of 5, 5 to 9 of 12 simultaneous queries were answered; with `oneP
 answer a later one can go to the wrong query: in one trace a query got the next query's rows.
 The burst tests never showed that, only unanswered queries.
 
-- `npx tsx scripts/db/pooler-saturation.ts` repeats the measurement (read-only, about 125
-  small reads, at most 8 seconds a scenario); `--plain` shows the old behaviour.
+- `npx tsx scripts/db/pooler-saturation.ts` repeats the measurement (read-only, about 120
+  one-row reads, at most 8 seconds a scenario); `--plain` shows the old behaviour.
 - The wrapper relies on `onexecute`, a postgres.js query option that isn't in its docs or
   types. `lib/db/onePerConnection.db.test.ts` fails if an upgrade changes it.
 - It covers what Drizzle calls, `unsafe` and `begin`, and nothing else. **A nested
-  transaction (`tx.transaction(...)` inside `db.transaction`) throws**: postgres.js sends
+  transaction (`tx.transaction(...)` inside `db.transaction`) is refused with an error**: postgres.js sends
   the `SAVEPOINT` itself, where the wrapper can't hold it back, and nothing in the app nests.
   Tagged-template queries, `reserve()` and cancelling a queued query aren't handled either.
 - Don't reach for `max_pipeline`: 1 still lets one query in behind another, and 0 breaks

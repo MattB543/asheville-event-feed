@@ -1,6 +1,8 @@
 import net from 'node:net';
 import postgres from 'postgres';
-import { describe, expect, it } from 'vitest';
+import { sql } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import { describe, expect, it, vi } from 'vitest';
 import { onePerConnection, POOL_OPTIONS } from '@/lib/db';
 import { TEST_DATABASE_URL } from '@/test/database';
 
@@ -9,20 +11,29 @@ const PARSE = 'P'.charCodeAt(0);
 const READY = 'Z'.charCodeAt(0);
 
 /**
- * Runs `run` with a pool on the test database that counts, per connection, the queries begun
- * and not yet answered. `most()` is the highest that count ever got: 1 unless a query was sent
- * to a connection still waiting for an answer. The counting reads plain TCP, which is what the
- * test database speaks.
+ * What a watched pool saw on the wire. `most()` is the most queries any connection had begun
+ * and not yet answered: 1 unless a query was sent to a connection still waiting for an answer.
+ * `log` has a line per query sent ("2 begin": connection 2, the query's first word) and per
+ * answer finished ("2 ready I": I for idle, T for inside a transaction).
+ */
+type Watch = { most: () => number; log: string[] };
+
+/**
+ * Runs `run` with a pool on the test database and what it saw on the wire. The watching reads
+ * plain TCP, which is what the test database speaks.
  */
 async function withWatchedPool<T>(
-  run: (client: postgres.Sql, most: () => number) => Promise<T>
+  run: (client: postgres.Sql, watch: Watch) => Promise<T>
 ): Promise<T> {
   const url = new URL(TEST_DATABASE_URL);
+  const log: string[] = [];
   let most = 0;
+  let connections = 0;
 
   const socket = () =>
     new Promise<net.Socket>((resolve, reject) => {
       const s = new net.Socket();
+      const id = ++connections;
       let ready = false; // the handshake's messages aren't queries
       let waiting = 0;
       let unread = Buffer.alloc(0);
@@ -32,7 +43,10 @@ async function withWatchedPool<T>(
         // Each message is a type byte, then a length that counts itself but not the type
         while (unread.length >= 5 && unread.length > unread.readUInt32BE(1)) {
           if (unread[0] === READY) {
-            if (ready) waiting--;
+            if (ready) {
+              waiting--;
+              log.push(`${id} ready ${String.fromCharCode(unread[5])}`);
+            }
             ready = true;
           }
           unread = unread.subarray(unread.readUInt32BE(1) + 1);
@@ -46,7 +60,10 @@ async function withWatchedPool<T>(
           // A query begins with a Query message, or with a Parse when it has parameters
           // (its Bind and Sync may follow in a later write)
           for (let at = 0; ready && at < chunk.length; at += chunk.readUInt32BE(at + 1) + 1) {
-            if (chunk[at] === QUERY || chunk[at] === PARSE) most = Math.max(most, ++waiting);
+            if (chunk[at] !== QUERY && chunk[at] !== PARSE) continue;
+            most = Math.max(most, ++waiting);
+            const text = chunk.toString('utf8', at + 5, at + 1 + chunk.readUInt32BE(at + 1));
+            log.push(`${id} ${/[a-z]+/i.exec(text)?.[0].toLowerCase()}`);
           }
           return write(chunk, ...rest);
         }) as typeof s.write;
@@ -57,7 +74,7 @@ async function withWatchedPool<T>(
   // `socket` is a postgres.js option its types leave out
   const client = postgres(TEST_DATABASE_URL, { ...POOL_OPTIONS, socket } as typeof POOL_OPTIONS);
   try {
-    return await run(client, () => most);
+    return await run(client, { most: () => most, log });
   } finally {
     await client.end({ timeout: 2 });
   }
@@ -79,14 +96,14 @@ async function burst(client: postgres.Sql): Promise<number[]> {
 
 describe('onePerConnection', () => {
   it('is needed: postgres.js sends a query to a connection that is still waiting', async () => {
-    await withWatchedPool(async (client, most) => {
+    await withWatchedPool(async (client, { most }) => {
       expect(await burst(client)).toEqual(range(BURST));
       expect(most()).toBeGreaterThan(1);
     });
   });
 
   it('gives each connection one query at a time, inside transactions too', async () => {
-    await withWatchedPool(async (client, most) => {
+    await withWatchedPool(async (client, { most }) => {
       const pool = onePerConnection(client);
       const transactions = range(3).map((i) =>
         pool.begin('read only', async (tx) => {
@@ -98,8 +115,9 @@ describe('onePerConnection', () => {
           return [a.i, b.i, b.ro] as [number, number, string];
         })
       );
-      expect(await burst(pool)).toEqual(range(BURST));
-      expect(await Promise.all(transactions)).toEqual(range(3).map((i) => [i, i, 'on']));
+      const [answers, inTransactions] = await Promise.all([burst(pool), Promise.all(transactions)]);
+      expect(answers).toEqual(range(BURST));
+      expect(inTransactions).toEqual(range(3).map((i) => [i, i, 'on']));
       expect(most()).toBe(1);
     });
   });
@@ -121,12 +139,26 @@ describe('onePerConnection', () => {
   });
 
   it('refuses a nested transaction, whose SAVEPOINT it could not hold back', async () => {
-    await withWatchedPool(async (client) => {
-      const pool = onePerConnection(client);
-      const nested = pool.begin((tx) => tx.savepoint((inner) => inner.unsafe('select 1')));
+    await withWatchedPool(async (client, { log }) => {
+      const db = drizzle(onePerConnection(client));
+      const nothing = () => Promise.resolve();
+
+      const nested = db.transaction(async (tx) => {
+        await tx.execute(sql`select 1`);
+        await tx.transaction(nothing);
+      });
       await expect(nested).rejects.toThrow(/Nested transactions are not supported/);
-      // The outer transaction was rolled back and its connection given back
-      expect(await pool.unsafe('select 1 as one')).toEqual([{ one: 1 }]);
+      // The connection that ran BEGIN ended on ROLLBACK and then idle, so it is free again
+      await vi.waitFor(() => {
+        const connection = log.find((line) => line.endsWith(' begin'))?.split(' ')[0];
+        const onIt = log.filter((line) => line.startsWith(`${connection} `));
+        expect(onIt.slice(-2)).toEqual([`${connection} rollback`, `${connection} ready I`]);
+      });
+
+      // A caller may catch the refusal and carry on with the outer transaction
+      const caught = db.transaction((tx) => tx.transaction(nothing).catch(() => 'refused'));
+      expect(await caught).toBe('refused');
+      expect(log.filter((line) => line.endsWith(' savepoint'))).toEqual([]);
     });
   });
 });

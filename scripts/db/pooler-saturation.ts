@@ -1,12 +1,11 @@
 /**
  * Asks the database for more at once than the pool has connections, and checks that every
- * query finishes with its own answer. Read-only and small: a full run makes about 125 reads,
- * each of one row or of season_settings (a row per season at most), plus 4 read-only
- * transactions. Every scenario ends after 8 seconds at most and then closes its connections.
+ * query finishes with its own answer. Read-only and small: a full run makes about 120 one-row
+ * reads plus 4 read-only transactions. Every scenario ends after 8 seconds at most and then
+ * closes its connections.
  *
- *   npx tsx scripts/db/pooler-saturation.ts                   # the app's client
- *   npx tsx scripts/db/pooler-saturation.ts --plain           # postgres.js as it was before the fix
- *   npx tsx scripts/db/pooler-saturation.ts --max-pipeline 1  # plain, with that option (0 or 1)
+ *   npx tsx scripts/db/pooler-saturation.ts           # the app's client
+ *   npx tsx scripts/db/pooler-saturation.ts --plain   # postgres.js as it was before the fix
  *
  * Through Supabase's transaction pooler (port 6543) the plain client's queries go unanswered:
  * see onePerConnection in lib/db/index.ts. Exits 1 when a query is unanswered, fails or gets
@@ -23,30 +22,20 @@ const BURST = 12; // POOL_OPTIONS.max is 5
 const TRANSACTIONS = 4;
 const WAIT_MS = 8000;
 
-const args = process.argv.slice(2);
-const maxPipeline = args.includes('--max-pipeline')
-  ? Number(args[args.indexOf('--max-pipeline') + 1])
-  : null;
-const plain = args.includes('--plain') || maxPipeline !== null;
-const label = !plain
-  ? "the app's client (one query per connection)"
-  : maxPipeline === null
-    ? 'plain postgres.js'
-    : `plain postgres.js, max_pipeline ${maxPipeline}`;
+// There is no max_pipeline mode: with 0, postgres.js sends BEGIN and then refuses the
+// transaction, which leaves it open on the live database until the connection closes
+const plain = process.argv.includes('--plain');
+const label = plain ? 'plain postgres.js' : "the app's client (one query per connection)";
 
 function open() {
-  const raw = postgres(process.env.DATABASE_URL!, {
-    ...POOL_OPTIONS,
-    ...(maxPipeline === null ? {} : { max_pipeline: maxPipeline }),
-  });
+  const raw = postgres(process.env.DATABASE_URL!, POOL_OPTIONS);
   const client = plain ? raw : onePerConnection(raw);
   return { client, db: drizzle(client, { schema }), close: () => raw.end({ timeout: 1 }) };
 }
-/** `seasons` is what the season_settings read returns when run alone, before the burst */
-type Pool = ReturnType<typeof open> & { seasons: unknown };
+type Pool = ReturnType<typeof open>;
 
-/** One query and the answer it should get */
-type Ask = { run: Promise<unknown>; expected: unknown };
+/** One query and the number it should answer with */
+type Ask = { run: Promise<unknown>; expected: number };
 
 const firstValue = (rows: unknown): unknown => Object.values((rows as object[])[0] ?? {})[0];
 
@@ -62,10 +51,15 @@ const drizzleExecute = ({ db }: Pool, i: number): Ask => ({
   run: db.execute(sql.raw(`select ${i} as i`)).then(firstValue),
   expected: i,
 });
-// The root layout's read: a select with no where clause, so no parameters (a limit would add one)
-const seasonRead = ({ db }: Pick<Pool, 'db'>) =>
-  db.select({ key: schema.seasonSettings.key }).from(schema.seasonSettings);
-const drizzleSelect = (pool: Pool): Ask => ({ run: seasonRead(pool), expected: pool.seasons });
+// Like the root layout's read: a Drizzle select on season_settings with no where clause, so no
+// parameters. The count makes it one row whatever the table holds; `i` is this query's own.
+const drizzleSelect = ({ db }: Pool, i: number): Ask => ({
+  run: db
+    .select({ i: sql<number>`${sql.raw(String(i))}`, seasons: sql<number>`count(*)::int` })
+    .from(schema.seasonSettings)
+    .then(firstValue),
+  expected: i,
+});
 const mixed = (pool: Pool, i: number): Ask =>
   [noParams, withParams, drizzleExecute, drizzleSelect][i % 4](pool, i);
 
@@ -97,7 +91,7 @@ const SCENARIOS: [string, (pool: Pool) => Ask[]][] = [
   ['postgres.js, no parameters', (p) => range(BURST).map((i) => noParams(p, i))],
   ['postgres.js, with parameters', (p) => range(BURST).map((i) => withParams(p, i))],
   ['Drizzle db.execute, no parameters', (p) => range(BURST).map((i) => drizzleExecute(p, i))],
-  ['Drizzle select with no where', (p) => range(BURST).map(() => drizzleSelect(p))],
+  ['Drizzle select with no where', (p) => range(BURST).map((i) => drizzleSelect(p, i))],
   ['all four kinds mixed', (p) => range(BURST).map((i) => mixed(p, i))],
   [
     'transactions while the pool is saturated',
@@ -127,12 +121,11 @@ async function runScenario(name: string, asks: (pool: Pool) => Ask[]): Promise<b
   const work = async () => {
     // Open every connection first, as on a warm server: the burst then finds them all idle
     await Promise.all(range(POOL_OPTIONS.max).map(() => opened.client.unsafe('select 1')));
-    const pool = { ...opened, seasons: await seasonRead(opened) };
-    const all = asks(pool).map(({ run, expected }) =>
+    const all = asks(opened).map(({ run, expected }) =>
       run.then(
         (value) => {
           if (over) return;
-          if (JSON.stringify(value) === JSON.stringify(expected)) counts.ok++;
+          if (value === expected) counts.ok++;
           else counts.wrong++;
         },
         (error: unknown) => {

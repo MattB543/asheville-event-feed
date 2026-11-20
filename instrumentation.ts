@@ -29,6 +29,10 @@ export const onRequestError: Instrumentation.onRequestError = (error, request, c
   // Next waits for this hook before it sends a failed route handler's response,
   // but not when a page fails while rendering, and Vercel can pause the
   // function as soon as the response is out.
-  keepAliveFor(reported);
+  try {
+    keepAliveFor(reported);
+  } catch {
+    // Without it the report is still attempted, as it was before
+  }
   return reported;
 };

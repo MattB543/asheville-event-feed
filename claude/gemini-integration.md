@@ -198,10 +198,10 @@ if (data.length > 10_000_000) {
 
 **Table:** `events`
 **Column:** `embedding` (vector(1536))
-**Index:** none. The HNSW index was dropped on 2026-11-20 (`drizzle/0031_drop_events_embedding_idx.sql`): no query could use it.
+**Index:** none. The HNSW index was dropped on 2026-11-20 (`drizzle/0031_drop_events_embedding_idx.sql`): no application query used it.
 
 **Similarity Search:** `lib/db/similaritySearch.ts`
-- An exact pgvector comparison against upcoming events (see CLAUDE.md, "Embeddings")
+- An exact pgvector comparison, for similar events against upcoming ones (see CLAUDE.md, "Semantic Search")
 - Enables "similar events" features
 - AI chat does not use it: chat search is keywords and filters
 

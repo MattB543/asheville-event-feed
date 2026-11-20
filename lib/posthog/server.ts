@@ -15,30 +15,76 @@ function getPostHogServer(): PostHog | null {
   return client;
 }
 
-/**
- * A failed query's error without the values it was run with. Drizzle puts the
- * bound parameters in the message ("Failed query: ... params: ..."), and the
- * database's own error underneath can quote them too ("invalid input syntax
- * for type uuid: ..."). Those can be a signed-in visitor's id or what someone
- * typed into a form, so PostHog gets the SQL with its $1 placeholders, the
- * database error's name and code, and where it was thrown. Told apart by shape,
- * not `instanceof`: Drizzle's class can be bundled twice. Any other error is
- * sent as it is.
- */
-export function withoutQueryValues(error: unknown): unknown {
-  if (!(error instanceof Error) || !('query' in error) || !('params' in error)) return error;
-  if (typeof error.query !== 'string') return error;
+/** An error with only a name and a message: no stack that points at this file. */
+function bareError(name: string, message: string, cause?: unknown): Error {
+  const error = new Error(message, { cause });
+  error.name = name;
+  error.stack = `${name}: ${message}`;
+  return error;
+}
 
-  const cause = error.cause as { name?: unknown; code?: unknown } | undefined;
-  const causeLabel = [cause?.name, cause?.code].filter((part) => typeof part === 'string');
-  const safe = new Error(`Failed query: ${error.query}`, {
-    cause: causeLabel.length > 0 ? new Error(causeLabel.join(' ')) : undefined,
-  });
-  safe.name = error.name;
-  // The stack's first lines repeat the message, values included
-  const frames = (error.stack ?? '').split('\n').filter((line) => /^\s+at /.test(line));
-  safe.stack = [`${safe.name}: ${safe.message}`, ...frames].join('\n');
-  return safe;
+/** A failed Drizzle query. Told by shape: its class is bundled more than once. */
+function failedQuery(error: Error): string | undefined {
+  return 'params' in error && 'query' in error && typeof error.query === 'string'
+    ? error.query
+    : undefined;
+}
+
+/**
+ * The error with every failed query in it stripped of the values it was run
+ * with. Drizzle puts the bound parameters in the message ("Failed query: ...
+ * params: ..."), and the database's own error underneath can quote them too
+ * ("invalid input syntax for type uuid: ..."). Those can be a signed-in
+ * visitor's id or what someone typed into a form, so PostHog gets the SQL with
+ * its $1 placeholders, the database error's name and code, and where it was
+ * thrown. A failed query can also sit under another error (`cause`, or an
+ * AggregateError's `errors`), and PostHog reads those too. An error with no
+ * failed query in it comes back as the same object.
+ */
+export function withoutQueryValues(error: unknown, seen = new Set<unknown>()): unknown {
+  if (!(error instanceof Error)) return error;
+  // An error that is its own cause, or listed twice: once is enough
+  if (seen.has(error)) return undefined;
+  seen.add(error);
+
+  const query = failedQuery(error);
+  if (query !== undefined) {
+    const database = error.cause as { name?: unknown; code?: unknown } | undefined;
+    const label = [database?.name, database?.code].filter((part) => typeof part === 'string');
+    const message = `Failed query: ${query}`;
+    const safe = bareError(
+      error.name,
+      message,
+      label.length > 0 ? bareError('Error', label.join(' ')) : undefined
+    );
+    // The stack opens with the name and the whole message, and a typed value
+    // can run over several lines, one of which could read like a frame. So the
+    // frames are taken only from what follows that opening, or not at all.
+    const opening = `${error.name}: ${error.message}\n`;
+    if (error.stack?.startsWith(opening)) {
+      const frames = error.stack
+        .slice(opening.length)
+        .split('\n')
+        .filter((line) => /^\s+at /.test(line));
+      safe.stack = [safe.stack, ...frames].join('\n');
+    }
+    return safe;
+  }
+
+  const cause = withoutQueryValues(error.cause, seen);
+  const members = error instanceof AggregateError ? (error.errors as unknown[]) : [];
+  const safeMembers = members.map((member) => withoutQueryValues(member, seen));
+  if (cause === error.cause && safeMembers.every((member, i) => member === members[i])) {
+    return error;
+  }
+
+  const copy =
+    error instanceof AggregateError
+      ? new AggregateError(safeMembers, error.message, { cause })
+      : new Error(error.message, { cause });
+  copy.name = error.name;
+  copy.stack = error.stack;
+  return copy;
 }
 
 /**

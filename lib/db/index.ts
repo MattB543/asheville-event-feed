@@ -32,6 +32,9 @@ type Callback = (tx: TransactionSql) => unknown;
  * only the first query of two that reach it together and drops the other without an error:
  * that query never finishes, and each later query on the connection gets the answer meant
  * for the one after it (measured 2026-11-20, scripts/db/pooler-saturation.ts).
+ *
+ * Covers what Drizzle calls: `unsafe`, `begin` and `savepoint`. A tagged-template query
+ * (client`select 1`) or `reserve()` on the wrapped client is not covered.
  */
 export function onePerConnection<T extends Sql | TransactionSql>(client: T): T {
   return new Proxy(client, {

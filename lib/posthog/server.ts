@@ -16,55 +16,43 @@ function getPostHogServer(): PostHog | null {
 }
 
 /**
- * The visitor's PostHog id, read from the cookie posthog-js keeps, so a server
- * error shows up beside what the same visitor did in the browser.
- */
-function distinctIdFromCookie(cookie: string | string[] | undefined): string | undefined {
-  const header = Array.isArray(cookie) ? cookie.join('; ') : cookie;
-  const match = header?.match(/ph_phc_[^=;]*_posthog=([^;]+)/);
-  if (!match) return undefined;
-  try {
-    const id: unknown = (JSON.parse(decodeURIComponent(match[1])) as { distinct_id?: unknown })
-      .distinct_id;
-    return typeof id === 'string' ? id : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-/**
- * Send a server error (a failed page render, route handler, server action or
- * proxy run) to PostHog error tracking. Never throws: reporting an error must
- * not turn into a second one.
+ * Send a server error (a failed page render, route handler or server action)
+ * to PostHog error tracking. Never throws: reporting an error must not turn
+ * into a second one.
  */
 export const reportServerError: Instrumentation.onRequestError = async (
   error,
   request,
   context
 ) => {
+  const posthog = getPostHogServer();
+  if (!posthog) return;
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
-    const posthog = getPostHogServer();
-    if (!posthog) return;
+    // The route pattern (/events/[slug]) and never the path that was asked for:
+    // /api/camps/calendar/<token>.ics has a private token in it. No visitor id
+    // either, so the report is tied to no person.
     posthog.captureException(error, {
-      distinctId: distinctIdFromCookie(request.headers.cookie),
       properties: {
-        // No query string: some routes carry a private token there
-        path: request.path.split('?')[0],
         method: request.method,
         route: context.routePath,
         route_type: context.routeType,
         render_source: context.renderSource,
-        // 'stale' is a background refresh of a cached page: no visitor saw it fail
         revalidate_reason: context.revalidateReason,
       },
     });
-    // Vercel can pause the function once this returns, so the event has to be
-    // sent first. flush() has no time limit of its own.
+    // Vercel can pause the function once this returns, so try to send first.
+    // flush() has no time limit of its own, and Next holds a failed route's
+    // response until this resolves.
     await Promise.race([
       posthog.flush(),
-      new Promise((resolve) => setTimeout(resolve, FLUSH_LIMIT_MS)),
+      new Promise((resolve) => {
+        timer = setTimeout(resolve, FLUSH_LIMIT_MS);
+      }),
     ]);
   } catch (reportingError) {
     console.error('[PostHog] Could not report a server error:', reportingError);
+  } finally {
+    clearTimeout(timer);
   }
 };

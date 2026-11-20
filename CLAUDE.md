@@ -1002,9 +1002,11 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 Errors go to PostHog error tracking (project "AVL Go"), from two places:
 
 - **Browser**: `capture_exceptions: true` in `instrumentation-client.ts` sends uncaught errors and unhandled promise rejections. A page crash counts: Next reports an error caught only by its built-in error page as uncaught. Adding an `app/global-error.tsx` would end that (the error becomes "caught"), so one would have to call `posthog.captureException` itself, as `components/ErrorBoundary.tsx` does.
-- **Server**: `instrumentation.ts` (`onRequestError`) passes every failed page render, route handler, server action and proxy run to `reportServerError` (`lib/posthog/server.ts`, `posthog-node`), with the route, the path without its query string, and `revalidate_reason` (`stale` is a background refresh of a cached page, which no visitor saw fail). It flushes before returning, because Vercel can pause the function right after. Errors a route catches itself (the crons return a 500 and record the failure in `cron_job_runs`) never reach it.
+- **Server**: `instrumentation.ts` (`onRequestError`) passes failed page renders, route handlers and server actions to `reportServerError` (`lib/posthog/server.ts`, `posthog-node`), with the route pattern (`/events/[slug]`), the method, and Next's `revalidate_reason` (`stale` covers any cached-page render that wasn't asked for on demand, a first visit included, so it doesn't mean no visitor saw the failure). It never sends the path that was requested (`/api/camps/calendar/<token>.ics` has a private token in it) or a visitor id. It tries to send before returning, waiting 3 seconds at most, because Vercel can pause the function right after; Next holds a failed route's response for that wait. Errors a route catches itself (the crons return a 500 and record the failure in `cron_job_runs`) never reach it.
 
-Both need `NEXT_PUBLIC_POSTHOG_KEY` and do nothing without it (local setups). No source maps are uploaded, so stack traces show built file names (`.next/server/chunks/...`); `@posthog/nextjs-config` would fix that and needs a PostHog personal API key in Vercel.
+The error's message goes to PostHog as it is, and a failed Drizzle query's message includes its SQL and parameter values. So a route that handles private input must catch its own database errors, as `/api/plan/sign` does (`ph-no-capture` only keeps names out of what PostHog records from the page).
+
+Both need `NEXT_PUBLIC_POSTHOG_KEY` and do nothing without it (local setups). No source maps are uploaded, so stack traces show built file names (`.next/server/chunks/...`).
 
 ### Dark Mode
 

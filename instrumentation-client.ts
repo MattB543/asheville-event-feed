@@ -8,5 +8,8 @@ if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
     person_profiles: 'identified_only',
     capture_pageview: true,
     capture_pageleave: true,
+    // Uncaught browser errors and unhandled promise rejections, for PostHog
+    // error tracking. Set here so it doesn't depend on the project's toggle.
+    capture_exceptions: true,
   });
 }

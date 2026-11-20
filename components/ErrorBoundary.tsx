@@ -2,6 +2,7 @@
 
 import { Component, type ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
+import posthog from 'posthog-js';
 
 interface Props {
   children: ReactNode;
@@ -22,6 +23,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('[ErrorBoundary] Caught error:', error, errorInfo);
+    // A caught error never reaches the browser's own error event, which is all
+    // PostHog's automatic capture listens for
+    if (posthog.__loaded) posthog.captureException(error);
   }
 
   handleRetry = () => {

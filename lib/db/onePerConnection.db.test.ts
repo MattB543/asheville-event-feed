@@ -5,15 +5,18 @@ import { onePerConnection, POOL_OPTIONS } from '@/lib/db';
 import { TEST_DATABASE_URL } from '@/test/database';
 
 const QUERY = 'Q'.charCodeAt(0);
-const SYNC = 'S'.charCodeAt(0);
+const PARSE = 'P'.charCodeAt(0);
 const READY = 'Z'.charCodeAt(0);
 
 /**
- * A pool on the test database that counts, per connection, the queries sent and not yet
- * answered. `most()` is the highest that count ever got: 1 unless a query was sent to a
- * connection still waiting for an answer.
+ * Runs `run` with a pool on the test database that counts, per connection, the queries begun
+ * and not yet answered. `most()` is the highest that count ever got: 1 unless a query was sent
+ * to a connection still waiting for an answer. The counting reads plain TCP, which is what the
+ * test database speaks.
  */
-function watchedPool() {
+async function withWatchedPool<T>(
+  run: (client: postgres.Sql, most: () => number) => Promise<T>
+): Promise<T> {
   const url = new URL(TEST_DATABASE_URL);
   let most = 0;
 
@@ -40,9 +43,10 @@ function watchedPool() {
         // Only now: connect() puts the socket's own write back
         const write = s.write.bind(s) as (...args: unknown[]) => boolean;
         s.write = ((chunk: Buffer, ...rest: unknown[]) => {
-          // A simple query is one Query message; any other ends with one Sync
+          // A query begins with a Query message, or with a Parse when it has parameters
+          // (its Bind and Sync may follow in a later write)
           for (let at = 0; ready && at < chunk.length; at += chunk.readUInt32BE(at + 1) + 1) {
-            if (chunk[at] === QUERY || chunk[at] === SYNC) most = Math.max(most, ++waiting);
+            if (chunk[at] === QUERY || chunk[at] === PARSE) most = Math.max(most, ++waiting);
           }
           return write(chunk, ...rest);
         }) as typeof s.write;
@@ -51,9 +55,12 @@ function watchedPool() {
     });
 
   // `socket` is a postgres.js option its types leave out
-  const options = { ...POOL_OPTIONS, socket } as typeof POOL_OPTIONS;
-  const client = postgres(TEST_DATABASE_URL, options);
-  return { client, most: () => most };
+  const client = postgres(TEST_DATABASE_URL, { ...POOL_OPTIONS, socket } as typeof POOL_OPTIONS);
+  try {
+    return await run(client, () => most);
+  } finally {
+    await client.end({ timeout: 2 });
+  }
 }
 
 const BURST = 12; // more than POOL_OPTIONS.max
@@ -64,9 +71,7 @@ async function burst(client: postgres.Sql): Promise<number[]> {
   await Promise.all(range(POOL_OPTIONS.max).map(() => client.unsafe('select 1')));
   const rows = await Promise.all(
     range(BURST).map((i) =>
-      i % 2
-        ? client.unsafe('select $1::int as i', [i] as never[])
-        : client.unsafe(`select ${i} as i`)
+      i % 2 ? client.unsafe('select $1::int as i', [i]) : client.unsafe(`select ${i} as i`)
     )
   );
   return rows.map(([row]) => row.i as number);
@@ -74,39 +79,54 @@ async function burst(client: postgres.Sql): Promise<number[]> {
 
 describe('onePerConnection', () => {
   it('is needed: postgres.js sends a query to a connection that is still waiting', async () => {
-    const { client, most } = watchedPool();
-    expect(await burst(client)).toEqual(range(BURST));
-    expect(most()).toBeGreaterThan(1);
-    await client.end();
+    await withWatchedPool(async (client, most) => {
+      expect(await burst(client)).toEqual(range(BURST));
+      expect(most()).toBeGreaterThan(1);
+    });
   });
 
   it('gives each connection one query at a time, inside transactions too', async () => {
-    const { client, most } = watchedPool();
-    const pool = onePerConnection(client);
-    const transactions = range(3).map((i) =>
-      pool.begin('read only', async (tx) => {
-        const [[a], [b]] = await Promise.all([
-          tx.unsafe(`select ${i} as i`),
-          tx.unsafe('select txid_current_if_assigned() is null as unassigned'),
-        ]);
-        return [a.i, b.unassigned] as [number, boolean];
-      })
-    );
-    expect(await burst(pool)).toEqual(range(BURST));
-    expect(await Promise.all(transactions)).toEqual(range(3).map((i) => [i, true]));
-    expect(most()).toBe(1);
-    await client.end();
+    await withWatchedPool(async (client, most) => {
+      const pool = onePerConnection(client);
+      const transactions = range(3).map((i) =>
+        pool.begin('read only', async (tx) => {
+          // Two at once, one of each kind; `ro` is 'on' only inside this transaction
+          const [[a], [b]] = await Promise.all([
+            tx.unsafe(`select ${i} as i`),
+            tx.unsafe("select current_setting('transaction_read_only') as ro, $1::int as i", [i]),
+          ]);
+          return [a.i, b.i, b.ro] as [number, number, string];
+        })
+      );
+      expect(await burst(pool)).toEqual(range(BURST));
+      expect(await Promise.all(transactions)).toEqual(range(3).map((i) => [i, i, 'on']));
+      expect(most()).toBe(1);
+    });
   });
 
   it("keeps a caller's own query options", async () => {
-    const client = postgres(TEST_DATABASE_URL, POOL_OPTIONS);
-    const pool = onePerConnection(client);
-    // Two statements in one query only work with the simple protocol, which is the default
-    // for a query without parameters, so this fails only if `simple: false` gets through
-    const twoStatements = 'select 1 as a; select 2 as b';
-    const options = { simple: false } as object;
-    expect(await pool.unsafe(twoStatements)).toHaveLength(2);
-    await expect(pool.unsafe(twoStatements, [], options)).rejects.toThrow(/multiple commands/);
-    await client.end();
+    await withWatchedPool(async (client) => {
+      const pool = onePerConnection(client);
+      // Two statements in one query only work with the simple protocol, which is the default
+      // for a query without parameters, so these fail only if `simple: false` gets through
+      const twoStatements = 'select 1 as a; select 2 as b';
+      const options = { simple: false } as object;
+      // postgres.js also takes the options second; its types don't say so
+      const twoArguments = (query: string, second: object) =>
+        (pool.unsafe as (query: string, second: object) => Promise<unknown>)(query, second);
+      expect(await pool.unsafe(twoStatements)).toHaveLength(2);
+      await expect(pool.unsafe(twoStatements, [], options)).rejects.toThrow(/multiple commands/);
+      await expect(twoArguments(twoStatements, options)).rejects.toThrow(/multiple commands/);
+    });
+  });
+
+  it('refuses a nested transaction, whose SAVEPOINT it could not hold back', async () => {
+    await withWatchedPool(async (client) => {
+      const pool = onePerConnection(client);
+      const nested = pool.begin((tx) => tx.savepoint((inner) => inner.unsafe('select 1')));
+      await expect(nested).rejects.toThrow(/Nested transactions are not supported/);
+      // The outer transaction was rolled back and its connection given back
+      expect(await pool.unsafe('select 1 as one')).toEqual([{ one: 1 }]);
+    });
   });
 });

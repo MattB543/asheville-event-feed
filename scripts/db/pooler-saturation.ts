@@ -1,14 +1,16 @@
 /**
  * Asks the database for more at once than the pool has connections, and checks that every
- * query finishes with its own answer. Read-only and small (about 80 one-row queries), so it
- * is safe against the live database in .env.
+ * query finishes with its own answer. Read-only and small: a full run makes about 125 reads,
+ * each of one row or of season_settings (a row per season at most), plus 4 read-only
+ * transactions. Every scenario ends after 8 seconds at most and then closes its connections.
  *
  *   npx tsx scripts/db/pooler-saturation.ts                   # the app's client
  *   npx tsx scripts/db/pooler-saturation.ts --plain           # postgres.js as it was before the fix
  *   npx tsx scripts/db/pooler-saturation.ts --max-pipeline 1  # plain, with that option (0 or 1)
  *
- * Against Supabase's transaction pooler (port 6543) the plain client loses queries: see
- * onePerConnection in lib/db/index.ts. Exits 1 when a query hangs, fails or gets another's answer.
+ * Through Supabase's transaction pooler (port 6543) the plain client's queries go unanswered:
+ * see onePerConnection in lib/db/index.ts. Exits 1 when a query is unanswered, fails or gets
+ * another's answer.
  */
 import '../../lib/config/env';
 import postgres from 'postgres';
@@ -40,10 +42,11 @@ function open() {
   const client = plain ? raw : onePerConnection(raw);
   return { client, db: drizzle(client, { schema }), close: () => raw.end({ timeout: 1 }) };
 }
-type Pool = ReturnType<typeof open>;
+/** `seasons` is what the season_settings read returns when run alone, before the burst */
+type Pool = ReturnType<typeof open> & { seasons: unknown };
 
-/** One query that should answer with `expected`; a null `expected` only has to finish. */
-type Ask = { run: Promise<unknown>; expected: number | null };
+/** One query and the answer it should get */
+type Ask = { run: Promise<unknown>; expected: unknown };
 
 const firstValue = (rows: unknown): unknown => Object.values((rows as object[])[0] ?? {})[0];
 
@@ -52,18 +55,17 @@ const noParams = ({ client }: Pool, i: number): Ask => ({
   expected: i,
 });
 const withParams = ({ client }: Pool, i: number): Ask => ({
-  run: client.unsafe('select $1::int as i', [i] as never[]).then(firstValue),
+  run: client.unsafe('select $1::int as i', [i]).then(firstValue),
   expected: i,
 });
 const drizzleExecute = ({ db }: Pool, i: number): Ask => ({
   run: db.execute(sql.raw(`select ${i} as i`)).then(firstValue),
   expected: i,
 });
-// The root layout's read: a select with no where clause, so no parameters
-const drizzleSelect = ({ db }: Pool): Ask => ({
-  run: db.select({ key: schema.seasonSettings.key }).from(schema.seasonSettings),
-  expected: null,
-});
+// The root layout's read: a select with no where clause, so no parameters (a limit would add one)
+const seasonRead = ({ db }: Pick<Pool, 'db'>) =>
+  db.select({ key: schema.seasonSettings.key }).from(schema.seasonSettings);
+const drizzleSelect = (pool: Pool): Ask => ({ run: seasonRead(pool), expected: pool.seasons });
 const mixed = (pool: Pool, i: number): Ask =>
   [noParams, withParams, drizzleExecute, drizzleSelect][i % 4](pool, i);
 
@@ -111,37 +113,70 @@ function range(n: number): number[] {
 }
 
 async function runScenario(name: string, asks: (pool: Pool) => Ask[]): Promise<boolean> {
-  const pool = open();
-  // Open every connection first, as on a warm server: the burst then finds them all idle
-  await Promise.all(range(POOL_OPTIONS.max).map(() => pool.client.unsafe('select 1')));
+  const opened = open();
   const counts = { ok: 0, wrong: 0, failed: 0 };
   const errors = new Set<string>();
-  const all = asks(pool).map(({ run, expected }) =>
-    run.then(
-      (value) => {
-        if (expected === null || value === expected) counts.ok++;
-        else counts.wrong++;
-      },
-      (error: unknown) => {
-        counts.failed++;
-        errors.add(error instanceof Error ? error.message : String(error));
-      }
-    )
-  );
-  await Promise.race([Promise.all(all), new Promise((done) => setTimeout(done, WAIT_MS))]);
-  const hung = all.length - counts.ok - counts.wrong - counts.failed;
-  // Closing the pool rejects whatever is still waiting; those were already counted as hung
-  const settled = { ...counts };
-  await pool.close();
+  const note = (error: unknown) =>
+    errors.add(error instanceof Error ? error.message : String(error));
+  let total = 0;
+  let started = true;
+  // Set when the scenario ends: closing the pool rejects whatever is still waiting, and those
+  // count as unanswered, not failed
+  let over = false;
 
-  const passed = settled.ok === all.length;
+  const work = async () => {
+    // Open every connection first, as on a warm server: the burst then finds them all idle
+    await Promise.all(range(POOL_OPTIONS.max).map(() => opened.client.unsafe('select 1')));
+    const pool = { ...opened, seasons: await seasonRead(opened) };
+    const all = asks(pool).map(({ run, expected }) =>
+      run.then(
+        (value) => {
+          if (over) return;
+          if (JSON.stringify(value) === JSON.stringify(expected)) counts.ok++;
+          else counts.wrong++;
+        },
+        (error: unknown) => {
+          if (over) return;
+          counts.failed++;
+          note(error);
+        }
+      )
+    );
+    total = all.length;
+    await Promise.all(all);
+  };
+
+  // The time limit covers the warm-up too: a connection that opens and then never answers
+  // must not keep the script, or its connections to the database, open
+  let timer: NodeJS.Timeout | undefined;
+  const limit = new Promise((done) => (timer = setTimeout(done, WAIT_MS)));
+  try {
+    await Promise.race([
+      work().catch((error: unknown) => {
+        if (over) return;
+        started = false;
+        note(error);
+      }),
+      limit,
+    ]);
+  } finally {
+    over = true;
+    clearTimeout(timer);
+    await opened.close();
+  }
+
+  const unanswered = total - counts.ok - counts.wrong - counts.failed;
+  const failures = [...errors].join('; ').slice(0, 160);
+  const passed = total > 0 && counts.ok === total;
   const problems = [
-    hung && `${hung} never finished`,
-    settled.wrong && `${settled.wrong} got another query's answer`,
-    settled.failed && `${settled.failed} failed (${[...errors].join('; ').slice(0, 160)})`,
+    !started && `could not start (${failures})`,
+    started && !total && `warm-up unanswered after ${WAIT_MS / 1000} seconds`,
+    unanswered && `${unanswered} unanswered after ${WAIT_MS / 1000} seconds`,
+    counts.wrong && `${counts.wrong} got another query's answer`,
+    counts.failed && `${counts.failed} failed (${failures})`,
   ].filter(Boolean);
   console.log(
-    `${passed ? 'ok  ' : 'FAIL'}  ${name.padEnd(42)} ${settled.ok}/${all.length} finished` +
+    `${passed ? 'ok  ' : 'FAIL'}  ${name.padEnd(42)} ${counts.ok}/${total} answered` +
       (problems.length ? `  -  ${problems.join(', ')}` : '')
   );
   return passed;

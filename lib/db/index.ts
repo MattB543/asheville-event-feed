@@ -16,42 +16,57 @@ export const POOL_OPTIONS = {
   connect_timeout: 30, // 30s connection timeout (matches URL param)
 };
 
-// Makes postgres.js report a connection as full once it has a query, so the next query waits
-// for a free connection. It is the hook sql.begin() uses to keep a transaction's connection;
-// it isn't in the library's types or docs, so lib/db/onePerConnection.db.test.ts checks that
-// it still works. max_pipeline can't do this: 1 still lets a second query in, and 0 skips
-// this same hook for begin(), which breaks every transaction.
-const NO_SECOND_QUERY = { onexecute: () => false } as object;
+type Params = postgres.ParameterOrJSON<never>[];
+// postgres.js's query options plus `onexecute`, the hook sql.begin() uses to keep a
+// transaction's connection. It isn't in the library's types or docs, so
+// lib/db/onePerConnection.db.test.ts checks that it still works.
+type QueryOptions = postgres.UnsafeQueryOptions & { onexecute?: () => boolean };
 
-type Callback = (tx: TransactionSql) => unknown;
+// Returning false makes postgres.js count the connection as full once it has this query, so
+// the next one waits for a free connection. max_pipeline can't do this: 1 still lets a second
+// query in, and 0 skips this same hook for begin(), which breaks every transaction.
+const NO_SECOND_QUERY: QueryOptions = { onexecute: () => false };
 
 /**
- * Gives each connection one query at a time. When every connection is busy, postgres.js
- * writes the next query to one that is still waiting for an answer (a query with bind
- * parameters refuses that, one with none accepts it). Supabase's transaction pooler answers
- * only the first query of two that reach it together and drops the other without an error:
- * that query never finishes, and each later query on the connection gets the answer meant
- * for the one after it (measured 2026-11-20, scripts/db/pooler-saturation.ts).
+ * Gives each connection one query at a time, for the calls Drizzle makes: `unsafe` and
+ * `begin`. When every connection is busy, postgres.js writes the next query to one that is
+ * still waiting for an answer (a query with bind parameters refuses that, one with none
+ * accepts it). Through Supabase's transaction pooler, two queries written together got one
+ * answer: the other was still unanswered when the test gave up, and because postgres.js
+ * matches answers to queries in order, a later query's answer can then go to the wrong one
+ * (measured 2026-11-20, scripts/db/pooler-saturation.ts).
  *
- * Covers what Drizzle calls: `unsafe`, `begin` and `savepoint`. A tagged-template query
- * (client`select 1`) or `reserve()` on the wrapped client is not covered.
+ * Not a general postgres.js wrapper. A tagged-template query (client`select 1`), `reserve()`
+ * and cancelling a query that is waiting inside a transaction are not handled, and a nested
+ * transaction is refused: postgres.js sends SAVEPOINT itself, where this can't reach it.
+ * Nothing in the app does any of these.
  */
 export function onePerConnection<T extends Sql | TransactionSql>(client: T): T {
   return new Proxy(client, {
     get(target, prop) {
+      const value: unknown = Reflect.get(target, prop);
+      if (typeof value !== 'function') return value;
       if (prop === 'unsafe') {
-        return (query: string, params: never[] = [], options: object = {}) =>
-          target.unsafe(query, params, { ...options, ...NO_SECOND_QUERY });
+        // As in postgres.js, the second argument may be the options
+        return (query: string, params: Params | QueryOptions = [], options: QueryOptions = {}) =>
+          Array.isArray(params)
+            ? target.unsafe(query, params, { ...options, ...NO_SECOND_QUERY })
+            : target.unsafe(query, [], { ...params, ...NO_SECOND_QUERY });
       }
       // A transaction's queries go through the client its callback is given
-      if (prop === 'begin' || prop === 'savepoint') {
-        const start = Reflect.get(target, prop) as (...args: unknown[]) => unknown;
+      if (prop === 'begin') {
+        const begin = value as (...args: unknown[]) => unknown;
         return (...args: unknown[]) => {
-          const callback = args.pop() as Callback;
-          return start(...args, (tx: TransactionSql) => callback(onePerConnection(tx)));
+          const callback = args.pop() as (tx: TransactionSql) => unknown;
+          return begin(...args, (tx: TransactionSql) => callback(onePerConnection(tx)));
         };
       }
-      return Reflect.get(target, prop) as unknown;
+      if (prop === 'savepoint') {
+        return () => {
+          throw new Error('Nested transactions are not supported: see onePerConnection');
+        };
+      }
+      return value;
     },
   });
 }

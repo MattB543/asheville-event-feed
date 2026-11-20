@@ -998,6 +998,17 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - **`/camps` weight**: Googlebot reads only the first 2 MB of a page, uncompressed. Until 2026-11-19 every camp's card data (~1.5 MB) was inlined for the client-side filters and came first in the stream, so the page was 2.0 MB with its heading and cards in the last 320 KB. Now the directory fetches that data (see Summer Camps) and the page is about 0.6 MB. Don't pass the whole camp list to a client component there again. Only the first 30 camps are links in its HTML; the rest reach Google through the sitemap
 - **`useSearchParams()` needs its own `<Suspense>`** (see `UserMenu`, `EventTabSwitcher`): without one, every statically rendered page bails out to client rendering at the root `app/loading.tsx` boundary and ships no HTML content to crawlers
 
+### Error tracking (PostHog)
+
+Errors go to PostHog error tracking (project "AVL Go"), from two places:
+
+- **Browser**: `capture_exceptions: true` in `instrumentation-client.ts` sends uncaught errors and unhandled promise rejections. A page crash counts: Next reports an error caught only by its built-in error page as uncaught. Adding an `app/global-error.tsx` would end that (the error becomes "caught"), so one would have to call `posthog.captureException` itself, as `components/ErrorBoundary.tsx` does.
+- **Server**: `instrumentation.ts` (`onRequestError`) passes failed page renders, route handlers and server actions to `reportServerError` (`lib/posthog/server.ts`, `posthog-node`), with the route pattern (`/events/[slug]`), the method, and Next's `revalidate_reason` (`stale` covers any cached-page render that wasn't asked for on demand, a first visit included, so it doesn't mean no visitor saw the failure). It never sends the path that was requested (`/api/camps/calendar/<token>.ics` has a private token in it) or a visitor id. It tries to send before returning, waiting 3 seconds at most, because Vercel can pause the function right after; Next holds a failed route's response for that wait. Errors a route catches itself (the crons return a 500 and record the failure in `cron_job_runs`) never reach it.
+
+The error's message goes to PostHog as it is, and a failed Drizzle query's message includes its SQL and parameter values. So a route that handles private input must catch its own database errors, as `/api/plan/sign` does (`ph-no-capture` only keeps names out of what PostHog records from the page).
+
+Both need `NEXT_PUBLIC_POSTHOG_KEY` and do nothing without it (local setups). No source maps are uploaded, so stack traces show built file names (`.next/server/chunks/...`).
+
 ### Dark Mode
 
 - `next-themes` for theme management

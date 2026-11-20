@@ -563,6 +563,7 @@ missing data. Policy, as of 2026-10-14:
 | `/api/camps/calendar`        | POST/GET | Saved-camps calendar: create/update token, `.ics` feed                     |
 | `/api/camps/export/markdown` | GET      | Every listed camp as compact Markdown for a parent's own AI (~106k tokens) |
 | `/api/camps/export/json`     | GET      | Every listed camp as minified JSON (full detail)                           |
+| `/api/camps/cards`           | GET      | Every camp's directory card, fetched by `/camps` (never cached)            |
 
 `/api/events/[id]/favorite` is intentionally anonymous — favoriting is
 localStorage-driven with no sign-in required, so the endpoint only takes
@@ -938,7 +939,10 @@ http, and `npm run cron:health` lists providers unreadable for 14+ days. Provide
 are all more than 10 minutes past the drive limit aren't refreshed. The refresh also watches each
 card's registration link (up to 6 per provider, beyond the pages its registration dates cite), where an opening date appears first. Lines that differ between two back-to-back reads (a rotating list) are remembered as unstable and never counted as a change. `/camps` filters client-side on rows (kid ages/grades, week,
 drive, price, town, hours, registration, support), keeps filters in the URL, and shows an AI notice;
-the list is cached in 4 parts (Next refuses a cache entry over 2MB). Uncertain registration dates
+the list is cached in 4 parts (Next refuses a cache entry over 2MB). The page's HTML holds only the
+plain view's first 30 cards (`firstCampPage` in `lib/camps/directory.ts`, which also has the sort the
+browser uses); `CampDirectory` fetches every camp from `/api/camps/cards` once it's up, and until
+then any other view (a filter, a search, another sort, saved kids) shows placeholder cards. Uncertain registration dates
 read "unconfirmed" until Matt confirms the camp. Camp events join the main feed as source `CAMPS`
 (`lib/camps/feedEvents.ts`, one per camp with a 2027 date, removed via `deadAt`, never `hidden`):
 hidden from All events, exports, digests and chat unless the "Summer Camp" tag is selected, never
@@ -988,6 +992,9 @@ Built to `docs/news/05-v1-plan.md`; Matt's decisions are in `docs/news/decisions
 - Rows with no physical address (no location, a bare venue name, online/hybrid) get **no** Event schema: Google requires `location.address` and rejects online-only events, so a partial Event is a critical Search Console error, not a weaker result (~5% of live rows on 2026-10-03)
 - Event URLs end in the first 6 hex chars of the UUID, which is **not unique** (58 shared prefixes on 2026-10-03). `getEventBySlug` reads every row with the prefix and picks by the full slug; never look an event up by the short ID alone
 - The sitemap lists live upcoming events with `lastmod = updatedAt ?? createdAt` (the crons don't advance `updatedAt` yet) and revalidates every 300s
+- **Googlebot gets its metadata in `<head>`**: `htmlLimitedBots` in `next.config.ts` adds Googlebot to Next's own list (setting the option replaces that list, so it is built from Next's regex). Without it, pages with `generateMetadata` stream the title, description and canonical into `<body>` for Googlebot
+- **A missing event, camp or group answers 200, not 404** (a URL no route matches is a real 404): the root `loading.tsx` wraps every route, so its skeleton is sent before the page's `notFound()` or `permanentRedirect()` runs; they arrive as a `noindex` tag and a meta refresh. Calling them from `generateMetadata` doesn't change the status and adds a second robots tag (tried 2026-11-19)
+- **`/camps` weight**: Googlebot reads only the first 2 MB of a page, uncompressed. Until 2026-11-19 every camp's card data (~1.5 MB) was inlined for the client-side filters and came first in the stream, so the page was 2.0 MB with its heading and cards in the last 320 KB. Now the directory fetches that data (see Summer Camps) and the page is about 0.6 MB. Don't pass the whole camp list to a client component there again. Only the first 30 camps are links in its HTML; the rest reach Google through the sitemap
 - **`useSearchParams()` needs its own `<Suspense>`** (see `UserMenu`, `EventTabSwitcher`): without one, every statically rendered page bails out to client rendering at the root `app/loading.tsx` boundary and ships no HTML content to crawlers
 
 ### Dark Mode

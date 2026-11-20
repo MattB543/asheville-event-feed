@@ -1,9 +1,5 @@
 import Header from '@/components/Header';
-
-/** A placeholder line or box. */
-function Bar({ className }: { className: string }) {
-  return <div className={`animate-pulse rounded bg-gray-200 dark:bg-gray-800 ${className}`} />;
-}
+import CampCardSkeleton, { Bar } from '@/components/camps/CampCardSkeleton';
 
 /**
  * The camps pages' shape while they load (the root loading.tsx is the event feed's): a title,
@@ -23,17 +19,7 @@ export default function CampsLoading() {
 
           <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {[0, 1, 2].map((card) => (
-              <div
-                key={card}
-                className="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-3 flex flex-col gap-2"
-              >
-                <Bar className="h-3 w-1/2" />
-                <Bar className="h-5 w-3/4" />
-                <Bar className="h-4 w-1/3" />
-                <Bar className="mt-2 h-4 w-full" />
-                <Bar className="h-4 w-5/6" />
-                <Bar className="h-4 w-2/3" />
-              </div>
+              <CampCardSkeleton key={card} />
             ))}
           </div>
         </div>

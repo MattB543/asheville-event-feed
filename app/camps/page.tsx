@@ -6,6 +6,7 @@ import FooterCredit from '@/components/FooterCredit';
 import AiNotice from '@/components/camps/AiNotice';
 import CampDirectory from '@/components/camps/CampDirectory';
 import CampExportLinks from '@/components/camps/CampExportLinks';
+import { campFacets, firstCampPage, type CampFacets } from '@/lib/camps/directory';
 import { formatDate, toCardData, type CampCardData } from '@/lib/camps/display';
 import { ORS_ATTRIBUTION } from '@/lib/camps/geo';
 import { listLiveCamps } from '@/lib/db/queries/camps';
@@ -44,27 +45,25 @@ export default async function CampsPage() {
   // the camp list is cached per Eastern date under the `camps` tag.
   await connection();
 
-  let cards: CampCardData[] = [];
-  let providers = 0;
+  // Only the first page of cards goes into the HTML; the directory fetches every camp once it's
+  // up (lib/camps/directory.ts)
+  let firstPage: CampCardData[] = [];
+  let total = 0;
+  let facets: CampFacets = { towns: [], types: [], categories: [] };
   let checked: string | null = null;
   let failed = false;
   try {
     const camps = await listLiveCamps();
     const now = new Date();
-    cards = camps.map((camp) => toCardData(camp, now));
-    providers = new Set(camps.map((camp) => camp.providerKey)).size;
-    // The span of the listed camps' own checks, in Eastern days: the newest check alone made a
-    // camp last read weeks ago look current
-    const days = camps
-      .flatMap((camp) => (camp.checkedAt ? [getDateStringEastern(new Date(camp.checkedAt))] : []))
-      .sort();
-    if (days.length > 0) {
-      const [oldest, newest] = [days[0], days[days.length - 1]];
-      checked =
-        oldest === newest
-          ? `websites checked ${formatDate(newest, true)}`
-          : `websites checked between ${formatDate(oldest, oldest.slice(0, 4) !== newest.slice(0, 4))} and ${formatDate(newest, true)}`;
-    }
+    const cards = camps.map((camp) => toCardData(camp, now));
+    firstPage = firstCampPage(cards);
+    total = cards.length;
+    facets = campFacets(cards);
+    // The newest of the listed camps' checks (ISO strings, so the greatest), as an Eastern day
+    const newest = camps
+      .flatMap((camp) => (camp.checkedAt ? [camp.checkedAt] : []))
+      .reduce((a, b) => (a > b ? a : b), '');
+    if (newest) checked = `last checked ${formatDate(getDateStringEastern(new Date(newest)))}`;
   } catch (error) {
     console.error('[Camps] Failed to load the camp directory:', error);
     failed = true;
@@ -82,29 +81,16 @@ export default async function CampsPage() {
           {/* Shorter on a phone, so the first camps show on the first screen */}
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             <span className="hidden sm:inline">
-              When registration opens, plus ages, weeks, prices and drive times, read from each
-              camp’s own site.{' '}
+              Registration dates, plus ages, weeks, prices, and drive times, for summer camps near
+              Asheville.{' '}
             </span>
-            Where a camp hasn’t posted 2027 yet, you’ll see its 2026 details, labeled 2026.
+            2026 details shown where 2027 details are unknown.
           </p>
-          {/* One line from sm; on a phone the export links wrap under the counts */}
-          {cards.length > 0 && (
-            <div className="mt-1 flex flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-gray-500 dark:text-gray-400">
-              <p>
-                {cards.length} camps from {providers} {providers === 1 ? 'provider' : 'providers'}
-                {checked && ` · ${checked}`}
-              </p>
-              <span aria-hidden="true" className="hidden sm:inline">
-                ·
-              </span>
-              <CampExportLinks />
-            </div>
-          )}
 
           <AiNotice className="mt-4" />
 
           <div className="mt-6">
-            {cards.length === 0 ? (
+            {total === 0 ? (
               <div className="p-8 text-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
                 <p className="text-gray-600 dark:text-gray-400">
                   {failed
@@ -114,7 +100,28 @@ export default async function CampsPage() {
               </div>
             ) : (
               <Suspense fallback={null}>
-                <CampDirectory camps={cards} />
+                <CampDirectory
+                  firstPage={firstPage}
+                  total={total}
+                  facets={facets}
+                  meta={
+                    // One line with the count from sm; on a phone the export links go under it
+                    <>
+                      {checked && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <span aria-hidden="true">· </span>
+                          {checked}
+                        </p>
+                      )}
+                      <div className="flex basis-full items-center gap-x-1.5 text-xs text-gray-500 dark:text-gray-400 sm:basis-auto">
+                        <span aria-hidden="true" className="hidden sm:inline">
+                          ·
+                        </span>
+                        <CampExportLinks />
+                      </div>
+                    </>
+                  }
+                />
               </Suspense>
             )}
           </div>

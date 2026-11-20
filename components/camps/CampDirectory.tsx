@@ -1,7 +1,8 @@
 'use client';
 
-import { useDeferredValue, useEffect, useId, useMemo, useState } from 'react';
+import { useDeferredValue, useEffect, useId, useMemo, useState, type ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import { Search, SlidersHorizontal, Star, X } from 'lucide-react';
 import {
   CATEGORY_LABELS,
@@ -31,14 +32,24 @@ import {
   type RegistrationStatus,
   type SupportKey,
 } from '@/lib/camps/display';
+import {
+  CAMP_CARDS_PATH,
+  CAMPS_PAGE_SIZE as PAGE_SIZE,
+  DEFAULT_CAMP_SORT,
+  campFacets,
+  compareCamps,
+  nameRanks,
+  type CampFacets,
+  type CampSort as Sort,
+} from '@/lib/camps/directory';
 import { kidName, parseKid, type Kid } from '@/lib/camps/chat/context';
 import { CAMPS_LIST_KEY } from './BackToCamps';
 import CampCard from './CampCard';
+import CampCardSkeleton from './CampCardSkeleton';
 import CampChatButton from './CampChatButton';
 import SavedCalendar from './SavedCalendar';
 import { useSavedCamps } from './savedCamps';
 
-type Sort = 'registration' | 'popular' | 'drive' | 'price' | 'name';
 const SORTS: Array<{ value: Sort; label: string }> = [
   { value: 'registration', label: 'Registration' },
   { value: 'popular', label: 'Most viewed' },
@@ -52,8 +63,6 @@ const SUPPORT_KEYS = Object.keys(SUPPORT_LABELS) as SupportKey[];
 /** The kids' ages and grades, kept on this device only (01 §4.1, "My kids"). */
 const KIDS_STORAGE_KEY = 'avlgo:camps:kids';
 const MAX_KIDS = 4;
-/** Cards shown at first and per "Show more": all of them is ~1,000 cards and a slow page. */
-const PAGE_SIZE = 30;
 
 /** The valid kid tokens ("7" is age 7, "g3" a rising 3rd grader: see parseKid), up to four. */
 function validKids(tokens: unknown): string[] {
@@ -295,59 +304,6 @@ function matchNote(
   return counts.mayFit > 0 ? sentence(counts.mayFit, true) : runsThatWeek;
 }
 
-const TONE_RANK: Record<string, number> = {
-  upcoming: 0,
-  open: 1,
-  tentative: 2,
-  unknown: 3,
-  closed: 4,
-};
-
-/** Each camp's place in name order, worked out once: localeCompare is slow inside every sort. */
-function nameRanks(camps: CampCardData[]): Map<string, number> {
-  const sorted = [...camps].sort((a, b) =>
-    `${a.name} ${a.providerName}`.localeCompare(`${b.name} ${b.providerName}`)
-  );
-  return new Map(sorted.map((camp, index) => [camp.id, index]));
-}
-
-/**
- * The order for a sort. A bare listing (CampCardData.bare: nothing but a name and a link) goes last
- * in the default order, and after the rest of a tie in the others, which it'd otherwise contradict
- * (by name, never). `nameMatches` (with a search) is how many search words a camp's or provider's
- * name has: the default order puts more first, before the bare rule, so "art" lists the art camps
- * before camps that only mention art.
- */
-function compare(sort: Sort, ranks: Map<string, number>, nameMatches: Map<string, number> | null) {
-  const byName = (a: CampCardData, b: CampCardData) => ranks.get(a.id)! - ranks.get(b.id)!;
-  const nullsLast = (a: number | string | null, b: number | string | null) =>
-    a === b ? 0 : a === null ? 1 : b === null ? -1 : a < b ? -1 : 1;
-  const bareLast = (a: CampCardData, b: CampCardData) => Number(!!a.bare) - Number(!!b.bare);
-  const byNameMatch = (a: CampCardData, b: CampCardData) =>
-    nameMatches ? nameMatches.get(b.id)! - nameMatches.get(a.id)! : 0;
-
-  return (a: CampCardData, b: CampCardData) => {
-    if (sort === 'popular') return b.views - a.views || bareLast(a, b) || byName(a, b);
-    if (sort === 'drive') {
-      return nullsLast(a.driveMinutes, b.driveMinutes) || bareLast(a, b) || byName(a, b);
-    }
-    if (sort === 'price') {
-      return nullsLast(a.priceSort, b.priceSort) || bareLast(a, b) || byName(a, b);
-    }
-    if (sort === 'registration') {
-      // Openings still ahead first (soonest first), then open now, expected, unannounced, closed
-      return (
-        byNameMatch(a, b) ||
-        bareLast(a, b) ||
-        TONE_RANK[a.registration.tone] - TONE_RANK[b.registration.tone] ||
-        nullsLast(a.registration.sortDate, b.registration.sortDate) ||
-        byName(a, b)
-      );
-    }
-    return byName(a, b);
-  };
-}
-
 /** The URL keys this page owns (others in the URL are left alone). */
 const URL_KEYS = [
   'q',
@@ -382,10 +338,50 @@ function chipClasses(active: boolean): string {
   }`;
 }
 
-export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
+export default function CampDirectory({
+  firstPage,
+  total,
+  facets,
+  meta,
+}: {
+  /** The plain view's first cards (firstCampPage), which the server rendered */
+  firstPage: CampCardData[];
+  /** How many camps are listed */
+  total: number;
+  /** The filter choices until every camp is here */
+  facets: CampFacets;
+  /** Shown beside the count above the cards (on /camps: last checked, and the export links) */
+  meta?: ReactNode;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { ids: savedIds } = useSavedCamps();
+
+  // Every camp, fetched once the page is up (lib/camps/directory.ts says why). Until it arrives
+  // the browser holds only the first page.
+  const cards = useQuery({
+    queryKey: ['camp-cards'],
+    queryFn: async () => {
+      const response = await fetch(CAMP_CARDS_PATH);
+      if (!response.ok) throw new Error(`Camp cards: HTTP ${response.status}`);
+      const body = (await response.json()) as { camps?: CampCardData[] };
+      if (!Array.isArray(body.camps)) throw new Error('Camp cards: unexpected response');
+      return body.camps;
+    },
+    // Coming back to the page, the list from before shows at once and a fresh one replaces it:
+    // a card says "opens" or "opened" by the clock
+    staleTime: 0,
+    enabled: firstPage.length < total,
+  });
+  // Every camp: the fetched list, or the first page when that's all of them
+  const all = cards.data ?? (firstPage.length < total ? undefined : firstPage);
+  const camps = all ?? firstPage;
+  const campCount = all?.length ?? total;
+  // From the cards on screen once they're here, so a town they name is always a choice
+  const { towns, types, categories } = useMemo(
+    () => (cards.data ? campFacets(cards.data) : facets),
+    [cards.data, facets]
+  );
 
   // The filters live in the URL so a filtered view can be shared and Back from a camp restores it
   // (as on /groups). The URL is only read on mount; after that local state leads and the URL follows.
@@ -440,7 +436,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
     oneOf(
       param('sort'),
       SORTS.map((option) => option.value),
-      'registration'
+      DEFAULT_CAMP_SORT
     )
   );
   const [savedOnly, setSavedOnly] = useState(() => param('saved') === '1');
@@ -469,7 +465,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         ['price', price],
         ['reg', registration],
         ['need', needs.join(',')],
-        ['sort', sort === 'registration' ? '' : sort],
+        ['sort', sort === DEFAULT_CAMP_SORT ? '' : sort],
         ['saved', savedOnly ? '1' : ''],
         ['group', grouped ? '1' : ''],
         ['unknown', showUnknown.join(',')],
@@ -522,17 +518,6 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   const [more, setMore] = useState({ view: listKey, count: PAGE_SIZE });
   const limit = more.view === listKey ? more.count : PAGE_SIZE;
 
-  const towns = useMemo(
-    () =>
-      [
-        ...new Set(
-          camps.flatMap((camp) =>
-            camp.sites.map((site) => site.town).filter((name): name is string => !!name)
-          )
-        ),
-      ].sort((a, b) => a.localeCompare(b)),
-    [camps]
-  );
   const searchTexts = useMemo(
     () => new Map(camps.map((camp) => [camp.id, campSearchText(camp)])),
     [camps]
@@ -548,6 +533,10 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   // only re-runs the text match (the rows are judged when the other filters change).
   const searchQuery = useDeferredValue(query);
   const terms = useMemo(() => searchTerms(searchQuery), [searchQuery]);
+  // The first page is the plain view's. Any other view (a filter, a search, another sort) waits
+  // for every camp, with placeholders, rather than list what matches among 30 of them. `terms`
+  // too: it trails the search box, so a search just cleared is still being applied.
+  const waiting = !all && (listKey !== '' || terms.length > 0);
   // Camps the search alone matches, so an empty list can say the other filters hide them
   const searchMatches = useMemo(
     () =>
@@ -574,12 +563,6 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       } satisfies RowFilters,
     };
   }, [kids, kidsMode, week, price, drive, town, towns, hours, registration]);
-
-  const types = useMemo(() => [...new Set(camps.map((camp) => camp.type))].sort(), [camps]);
-  const categories = useMemo(
-    () => [...new Set(camps.flatMap((camp) => camp.categories))].sort(),
-    [camps]
-  );
 
   const rowsById = useMemo(
     () =>
@@ -631,7 +614,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
       terms.length > 0
         ? new Map(listed.map(({ camp }) => [camp.id, countTerms(nameTexts.get(camp.id)!, terms)]))
         : null;
-    const order = compare(sort, ranks, nameMatches);
+    const order = compareCamps(sort, ranks, nameMatches);
     return listed.sort((a, b) => order(a.camp, b.camp));
   }, [judged, filters, shownKinds, sort, ranks, terms, nameTexts]);
 
@@ -733,13 +716,25 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
   };
 
   const field = 'flex flex-col gap-1';
+  // How many camps the view lists: before every camp is here it's the plain view, so all of them
+  const matches = all ? shown.length : campCount;
+  // The fetch for every camp failed, after its retries
+  const loadFailed = !all && cards.isError;
+  const loadError = (
+    <>
+      Couldn’t load {waiting ? 'the camps' : 'the rest of the camps'}.{' '}
+      <button type="button" onClick={() => void cards.refetch()} className={textButtonClasses}>
+        Try again
+      </button>
+    </>
+  );
   // "12 of 889 camps · Clear filters": above the cards and again below them
   const countLine = (
     <>
       <span className="font-semibold text-gray-900 dark:text-gray-100">
-        {shown.length.toLocaleString('en-US')}
+        {matches.toLocaleString('en-US')}
       </span>{' '}
-      of {camps.length.toLocaleString('en-US')} camps
+      of {campCount.toLocaleString('en-US')} camps
       {filtered && (
         <>
           {' · '}
@@ -855,7 +850,7 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
                 <SlidersHorizontal size={15} aria-hidden="true" />
                 Filters{filterCount > 0 && ` (${filterCount})`}
               </button>
-              <CampChatButton directory={listKey} totalCount={camps.length} />
+              <CampChatButton directory={listKey} totalCount={campCount} />
             </div>
           </div>
         </div>
@@ -1033,11 +1028,20 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
         <div aria-live="polite" className="space-y-0.5">
-          <p>{countLine}</p>
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+            <p>
+              {!waiting
+                ? countLine
+                : loadFailed
+                  ? `${campCount.toLocaleString('en-US')} camps`
+                  : 'Loading camps…'}
+            </p>
+            {meta}
+          </div>
           {kids.length > 0 && (
             <p className="text-xs">Camps that state no ages or grades are included.</p>
           )}
-          {unknownNotes.map((note) => (
+          {(waiting ? [] : unknownNotes).map((note) => (
             <p key={note.kind}>
               {note.count} without {note.without} {note.included ? 'included' : 'hidden'}
               {' · '}
@@ -1078,7 +1082,27 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         </div>
       </div>
 
-      {shown.length === 0 ? (
+      {waiting && loadFailed ? (
+        <p
+          role="alert"
+          className="mt-4 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400"
+        >
+          {loadError}
+          {/* The way back to the first page: "show them" for an unknown has no control of its own */}
+          {' · '}
+          <button type="button" onClick={() => clearFilters()} className={textButtonClasses}>
+            Clear filters
+          </button>
+        </p>
+      ) : waiting ? (
+        <ul aria-busy="true" className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {Array.from({ length: 6 }, (_, index) => (
+            <li key={index}>
+              <CampCardSkeleton />
+            </li>
+          ))}
+        </ul>
+      ) : shown.length === 0 ? (
         <p className="mt-4 p-8 text-center rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400">
           {searchMatches > 0 ? (
             <>
@@ -1124,22 +1148,29 @@ export default function CampDirectory({ camps }: { camps: CampCardData[] }) {
         </ul>
       )}
 
-      {shown.length > limit && (
+      {!waiting && loadFailed && (
+        <p role="alert" className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+          {loadError}
+        </p>
+      )}
+
+      {!waiting && !loadFailed && matches > limit && (
         <div className="mt-6 flex flex-col items-center gap-1.5">
+          {/* Pressed before every camp is here, it takes effect when they arrive */}
           <button
             type="button"
             onClick={() => setMore({ view: listKey, count: limit + PAGE_SIZE })}
             className="min-h-11 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-5 text-sm font-medium cursor-pointer text-gray-800 dark:text-gray-200 hover:border-brand-400 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           >
-            Show {Math.min(PAGE_SIZE, shown.length - limit)} more
+            Show {Math.min(PAGE_SIZE, matches - limit)} more
           </button>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Showing {limit} of {shown.length.toLocaleString('en-US')}
+            Showing {Math.min(limit, shown.length)} of {matches.toLocaleString('en-US')}
           </p>
         </div>
       )}
 
-      {shown.length > 0 && (
+      {!waiting && shown.length > 0 && (
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">{countLine}</p>
       )}
     </div>

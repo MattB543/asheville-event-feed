@@ -1,0 +1,44 @@
+-- Drop the HNSW index on events.embedding. No query uses it, and it costs more to keep than
+-- anything else in the database.
+--
+-- Measured on the live database on 2026-11-20 (index and table statistics since 2025-11-21,
+-- pg_stat_statements since 2025-12-12):
+--
+--   * It is 366 MB of a 1,006 MB database, on an instance with shared_buffers = 256 MB, so it
+--     never stays in memory. 54.0M of the 104.0M blocks the whole database has read from disk
+--     were this index (97% of all index reads on events).
+--   * idx_scan = 254, and pg_stat_statements holds exactly 254 calls that order by a bare
+--     distance: all hand-run tests (252 of them the 2026-11-20 experiment below). The app's own
+--     similarity queries (lib/db/similaritySearch.ts) order by `1 - (embedding <=> $1) DESC` with
+--     a similarity floor, which an HNSW index cannot serve. They read the ~4,700 upcoming rows
+--     through events_start_date_idx and compare every one: an exact answer in 60-65 ms with no
+--     disk reads.
+--   * Using the index for "similar events" was tried on 2026-11-20 and dropped. It needs
+--     pgvector's iterative scan to get past the 9 in 10 rows that are past events, and across 100
+--     different events it then ran a median of about 600 ms with about 1,500 disk reads each.
+--   * Every embedding write maintains it: `update events set embedding = $1 where id = $2`
+--     (114,512 calls) averages 48 ms, 65 block reads and 100 kB of WAL per call, for a 6 kB
+--     vector. So does every non-HOT update of a row that has an embedding (1.56M of the table's
+--     4.47M updates were non-HOT), and autovacuum reads the whole index on each pass.
+--
+-- Run it by hand (DATABASE_URL is prod), as one statement on its own: DROP INDEX CONCURRENTLY
+-- cannot run inside a transaction block (Postgres refuses and changes nothing). It does not
+-- block reads or writes; it waits for the transactions open when it starts. If it is cancelled
+-- (the postgres role's statement_timeout is 2 min) the index is left invalid and still takes
+-- its space: run the same statement again.
+--
+-- No code reads the index, so this is safe before or after the deploy. The space comes back at
+-- once; no VACUUM is needed.
+--
+-- To put it back (the same definition: pgvector's defaults, m = 16 and ef_construction = 64):
+--
+--   CREATE INDEX CONCURRENTLY IF NOT EXISTS events_embedding_idx
+--     ON public.events USING hnsw (embedding vector_cosine_ops);
+--
+-- and restore `embeddingIdx` in lib/db/schema.ts. The build time was not measured. With
+-- maintenance_work_mem = 64 MB the graph does not fit in memory, so expect it to run well past
+-- the 2 min statement_timeout: run it on a direct connection (port 5432) with the timeout raised
+-- for that session, never through the pooler in DATABASE_URL. A cancelled build leaves an
+-- invalid index that must be dropped before trying again.
+
+DROP INDEX CONCURRENTLY IF EXISTS "public"."events_embedding_idx";

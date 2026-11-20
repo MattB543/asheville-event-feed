@@ -80,11 +80,9 @@ export const events = pgTable(
     sourceIdx: index('events_source_idx').on(table.source),
     // GIN index for efficient tag array queries (e.g., filtering by tags)
     tagsIdx: index('events_tags_idx').using('gin', table.tags),
-    // HNSW index for fast cosine similarity vector search
-    embeddingIdx: index('events_embedding_idx').using(
-      'hnsw',
-      table.embedding.op('vector_cosine_ops')
-    ),
+    // No vector index on `embedding`, on purpose: similarity search compares every upcoming
+    // row (lib/db/similaritySearch.ts), and the HNSW index that was here was unused, 366 MB,
+    // and slower than that scan. See drizzle/0031_drop_events_embedding_idx.sql before adding one.
   })
 );
 

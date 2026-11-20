@@ -226,7 +226,7 @@ PostgreSQL database hosted on Supabase with pgvector extension.
 }
 ```
 
-**Indexes**: `startDate`, `source`, `tags` (GIN), `embedding` (HNSW for cosine similarity)
+**Indexes**: `startDate`, `source`, `tags` (GIN). `embedding` has no index, on purpose (see Semantic Search).
 
 ### `submittedEvents` Table
 
@@ -884,8 +884,9 @@ FB_XS=
 ### Semantic Search
 
 - Events get AI summaries and embeddings
-- pgvector HNSW index for fast similarity search
-- Used by AI chat for intelligent recommendations
+- Similarity search (`lib/db/similaritySearch.ts`) is an exact scan, not an index lookup: it reads the upcoming rows (about 4,700 with embeddings) through the `startDate` index, compares every one, keeps those above a similarity floor and sorts them. About 60-65 ms with no disk reads
+- Used by the "similar events" on event pages, the scorer's 20 similar events, personalization and poster-to-event matching (`findSimilarByEmbedding` scans the date window its caller passes, and every embedded row when given none). The AI chat does not use it: its search is keywords and filters
+- **There is no vector index, and adding one back needs measuring first.** `events_embedding_idx` (HNSW) was dropped by `drizzle/0031_drop_events_embedding_idx.sql`: 366 MB of a 1 GB database on an instance with 256 MB of `shared_buffers`, scanned only by hand-run tests, and maintained on every embedding write (48 ms and 100 kB of WAL each). Using it for similar events was measured on 2026-11-20: it needs pgvector's iterative scan to get past the 9 in 10 rows that are past events, and across 100 different events ran a median of about 600 ms with about 1,500 disk reads each, because the index doesn't fit in memory. The migration has the statement that recreates it
 
 ### Event Submission
 

@@ -447,7 +447,7 @@ simultaneous queries finished; with `onePerConnection`, 12 of 12.
 | `/api/cron/news-ai`       | Every 3h at :55 | Local news: enrich, cluster into stories, Top + daily summary                        |
 | `/api/cron/camps-refresh` | Daily 08:15 UTC | Camps: re-read due providers, re-extract changed ones, import, sync camp feed events |
 
-Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats). This is the only durable record — Vercel keeps runtime logs for only ~1 hour, so console output is useless for after-the-fact auditing.
+Every cron run (prod and local) is recorded in the `cron_job_runs` table (`job_name`, `status`, `duration_ms`, `result` stats). This is the only durable record — Vercel keeps runtime logs for only a day on this plan (Pro; an hour on Hobby), so console output is useless for after-the-fact auditing.
 
 **Routine health check** (run every few days): `npm run cron:health` (or `npm run cron:health -- 7` for a 7-day window). It reports per-job run counts and cadence gaps (flagging missed runs), per-scrape inserted/updated counts, scraper failures with error text, "silent" scrapers returning 0 events on every run, stale sources, and AI enrichment coverage — ending in a `VERDICT` line. Exits non-zero when something needs attention.
 

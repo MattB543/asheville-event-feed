@@ -37,8 +37,8 @@ export function onePerConnection<T extends Sql | TransactionSql>(client: T): T {
   return new Proxy(client, {
     get(target, prop) {
       if (prop === 'unsafe') {
-        return (query: string, params: never[] = []) =>
-          target.unsafe(query, params, NO_SECOND_QUERY);
+        return (query: string, params: never[] = [], options: object = {}) =>
+          target.unsafe(query, params, { ...options, ...NO_SECOND_QUERY });
       }
       // A transaction's queries go through the client its callback is given
       if (prop === 'begin' || prop === 'savepoint') {

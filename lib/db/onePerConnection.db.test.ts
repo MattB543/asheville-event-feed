@@ -97,4 +97,16 @@ describe('onePerConnection', () => {
     expect(most()).toBe(1);
     await client.end();
   });
+
+  it("keeps a caller's own query options", async () => {
+    const client = postgres(TEST_DATABASE_URL, POOL_OPTIONS);
+    const pool = onePerConnection(client);
+    // Two statements in one query only work with the simple protocol, which is the default
+    // for a query without parameters, so this fails only if `simple: false` gets through
+    const twoStatements = 'select 1 as a; select 2 as b';
+    const options = { simple: false } as object;
+    expect(await pool.unsafe(twoStatements)).toHaveLength(2);
+    await expect(pool.unsafe(twoStatements, [], options)).rejects.toThrow(/multiple commands/);
+    await client.end();
+  });
 });
